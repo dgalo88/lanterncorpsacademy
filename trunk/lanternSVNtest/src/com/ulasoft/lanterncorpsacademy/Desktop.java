@@ -111,62 +111,63 @@ public class Desktop extends ContentPane {
   private Component initMenu() {
     Row row = new Row();
 
-    Button btnItem1 = new Button("Item 1");
-    btnItem1.setStyle(GUIStyles.DEFAULT_STYLE);
-    btnItem1.addActionListener(new ActionListener() {
+    Button btnRanking = new Button("Ver Clasificacion");
+    btnRanking.setStyle(GUIStyles.DEFAULT_STYLE);
+    btnRanking.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent evt) {
-        btnItem1Clicked();
+    	  btnRankingClicked();
       }
     });
-    row.add(btnItem1);
+    row.add(btnRanking);
 
-    Button btnItem2 = new Button("Item 2");
-    btnItem2.setStyle(GUIStyles.DEFAULT_STYLE);
-    btnItem2.addActionListener(new ActionListener() {
+    Button btnAboutGame = new Button("Acerca del Juego");
+    btnAboutGame.setStyle(GUIStyles.DEFAULT_STYLE);
+    btnAboutGame.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent evt) {
-        btnItem2Clicked();
+    	  btnAboutGameClicked();
       }
     });
-    row.add(btnItem2);
+    row.add(btnAboutGame);
 
-    Button btnItem3 = new Button("Item 3");
-    btnItem3.setStyle(GUIStyles.DEFAULT_STYLE);
-    btnItem3.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent evt) {
-        btnItem3Clicked();
-      }
+    Button btnRing = new Button("HOME anillo aqui");
+    btnRing.setStyle(GUIStyles.DEFAULT_STYLE);
+    btnRing.addActionListener(new ActionListener() {
+    	@Override
+    	public void actionPerformed(ActionEvent evt) {
+    		btnRingClicked();
+    	}
     });
-    row.add(btnItem3);
+    row.add(btnRing);
 
-    Button btnItem4 = new Button("Item 4");
-    btnItem4.setStyle(GUIStyles.DEFAULT_STYLE);
-    btnItem4.addActionListener(new ActionListener() {
+    Button btnForo = new Button("Foro");
+    btnForo.setStyle(GUIStyles.DEFAULT_STYLE);
+    btnForo.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent evt) {
-        btnItem4Clicked();
+    	  btnForoClicked();
       }
     });
-    row.add(btnItem4);
+    row.add(btnForo);
 
-    Button btnExit = new Button("Exit");
-    btnExit.setStyle(GUIStyles.DEFAULT_STYLE);
-    btnExit.addActionListener(new ActionListener() {
+    Button btnMedia = new Button("Multimedia");
+    btnMedia.setStyle(GUIStyles.DEFAULT_STYLE);
+    btnMedia.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent evt) {
-        btnExitClicked();
+    	  btnMediaClicked();
       }
     });
-    row.add(btnExit);
+    row.add(btnMedia);
+
 
     return row;
   }
 
   // --------------------------------------------------------------------------------
 
-  private void btnItem1Clicked() {
+  private void btnRankingClicked() {
     HtmlLayoutData hld = new HtmlLayoutData("main");
     PanelItem1 pnlMain = new PanelItem1();
     pnlMain.setId("main");
@@ -179,7 +180,7 @@ public class Desktop extends ContentPane {
 
   // --------------------------------------------------------------------------------
 
-  private void btnItem2Clicked() {
+  private void btnAboutGameClicked() {
     HtmlLayoutData hld = new HtmlLayoutData("main");
     PanelItem2 pnlMain = new PanelItem2();
     pnlMain.setId("main");
@@ -192,7 +193,7 @@ public class Desktop extends ContentPane {
 
   // --------------------------------------------------------------------------------
 
-  private void btnItem3Clicked() {
+  private void btnForoClicked() {
     HtmlLayoutData hld = new HtmlLayoutData("main");
     PanelItem3 pnlMain = new PanelItem3();
     pnlMain.setId("main");
@@ -205,7 +206,7 @@ public class Desktop extends ContentPane {
 
   // --------------------------------------------------------------------------------
 
-  private void btnItem4Clicked() {
+  private void btnMediaClicked() {
     HtmlLayoutData hld = new HtmlLayoutData("main");
     PanelItem4 pnlMain = new PanelItem4();
     pnlMain.setId("main");
@@ -218,7 +219,7 @@ public class Desktop extends ContentPane {
 
   // --------------------------------------------------------------------------------
 
-  private void btnExitClicked() {
+  private void btnRingClicked() {
     removeAll();
     add(initTemplate1());
   }

@@ -6,7 +6,7 @@ import nextapp.echo.app.Panel;
 public class PanelItem3 extends Panel {
 
   public PanelItem3() {
-    Label lblMain = new Label("Item 3...");
+    Label lblMain = new Label("Foro");
     add(lblMain);
   }
 }
