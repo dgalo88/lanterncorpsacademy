@@ -6,7 +6,7 @@ import nextapp.echo.app.Panel;
 public class PanelItem2 extends Panel {
 
   public PanelItem2() {
-    Label lblMain = new Label("Item 2...");
+    Label lblMain = new Label("ACerca de LCA...");
     add(lblMain);
   }
 }
