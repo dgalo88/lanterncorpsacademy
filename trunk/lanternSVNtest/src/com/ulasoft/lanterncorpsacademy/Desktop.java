@@ -25,8 +25,10 @@ import nextapp.echo.app.Grid;
 import nextapp.echo.app.ImageReference;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
+import nextapp.echo.app.PasswordField;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
+import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
@@ -69,7 +71,50 @@ public class Desktop extends ContentPane {
 	    htmlLayout.add(menuHead);
 	    
 	    hld = new HtmlLayoutData("main");
-	    Button btnClickToEnter = new Button("Click me to enter!!!");
+	    Component login = initLogin();
+	    login.setId("main");
+	    login.setLayoutData(hld);
+	    htmlLayout.add(login);
+	    htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
+	   // htmlLayout.setBackground(new Color(0x00, 0xFF, 0x00));
+	    return htmlLayout;
+	  }
+	  private Component initLogin() {
+		
+		Row row1 = new Row();
+		row1.setCellSpacing(new Extent(400));
+		
+		Label lbl = new Label("");
+		row1.add(lbl);
+		
+		Column col = new Column();
+		col.setInsets(new Insets(5,5,5,5));
+		col.setCellSpacing(new Extent(10));
+		col.setBackground(Color.WHITE);
+		
+		Label lblTitle = new Label("Ingresar al Sistema");
+	    col.add(lblTitle);
+	    
+		Grid grid = new Grid();
+		grid.setStyle(GUIStyles.DEFAULT_STYLE);
+		Label lblCorreo = new Label("Correo");
+	    grid.add(lblCorreo);
+	    
+	    TextField txtCorreo = new TextField();
+	    txtCorreo.setWidth(new Extent(300));
+	    txtCorreo.setText("HalHordan@greenlantern.corp");
+	    grid.add(txtCorreo);
+	    
+	    Label lblPass = new Label("Contraseña");
+	    grid.add(lblPass);
+	    
+	    PasswordField fldPass = new PasswordField();
+	    fldPass.setWidth(new Extent(300));
+	    grid.add(fldPass);
+		col.add(grid);
+		
+		Row row = new Row();
+		Button btnClickToEnter = new Button("Entrar");
 	    btnClickToEnter.setStyle(GUIStyles.STYLE);
 	    btnClickToEnter.addActionListener(new ActionListener() {
 	      @Override
@@ -77,17 +122,34 @@ public class Desktop extends ContentPane {
 	        btnClickToEnterClicked();
 	      }
 	    });
-	    btnClickToEnter.setId("main"); // Para poder removerlo luego
-	    btnClickToEnter.setLayoutData(hld);
-	    htmlLayout.add(btnClickToEnter);
-	    htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
-	   // htmlLayout.setBackground(new Color(0x00, 0xFF, 0x00));
-	    return htmlLayout;
-	  }
-	  // --------------------------------------------------------------------------------
+	    row.add(btnClickToEnter);
+
+	    Button btnClickToRegister = new Button("Registrar");
+	    btnClickToRegister.setStyle(GUIStyles.STYLE);
+	    btnClickToRegister.addActionListener(new ActionListener() {
+	      @Override
+	      public void actionPerformed(ActionEvent arg0) {
+	    	  btnClickToRegisterClicked();
+	      }
+	    });
+	    row.add(btnClickToRegister);
+	    row.setCellSpacing(new Extent(10));
+		col.add(row);
+		row1.add(col);
+		
+		//row1.add(lbl);
+		return row1;
+	}
+
+	protected void btnClickToRegisterClicked() {
+		
+	}
+
+	// --------------------------------------------------------------------------------
 	  private Component initMenuHead() {
 		    Row row = new Row();
 		    row.setInsets(new Insets(125,1,1,1));
+		    
 		    Button btnRanking = new Button("Ver Clasificacion");
 		    btnRanking.setStyle(GUIStyles.DEFAULT_STYLE);
 		    btnRanking.addActionListener(new ActionListener() {
