@@ -5,12 +5,20 @@ package com.ulasoft.lanterncorpsacademy;
 
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
+import nextapp.echo.app.Alignment;
+import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
+import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
+import nextapp.echo.app.Extent;
+import nextapp.echo.app.FillImage;
 import nextapp.echo.app.Grid;
+import nextapp.echo.app.ImageReference;
+import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
+import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
@@ -39,6 +47,7 @@ public class Desktop extends ContentPane {
 
 	  private Component initTemplate1() {
 	    try {
+	      setInsets(new Insets(2, 2, 2, 2));
 	      htmlLayout = new HtmlLayout( //
 	          getClass().getResourceAsStream("template1.html"), "UTF-8");
 	    } catch (Exception e) {
@@ -46,7 +55,7 @@ public class Desktop extends ContentPane {
 	    }
 
 	    HtmlLayoutData hld;
-
+		
 	    hld = new HtmlLayoutData("head");
 	    Component menuHead = initMenuHead();;
 	    menuHead.setLayoutData(hld);
@@ -54,7 +63,7 @@ public class Desktop extends ContentPane {
 	    
 	    hld = new HtmlLayoutData("main");
 	    Button btnClickToEnter = new Button("Click me to enter!!!");
-	    btnClickToEnter.setStyle(GUIStyles.DEFAULT_STYLE);
+	    btnClickToEnter.setStyle(GUIStyles.STYLE);
 	    btnClickToEnter.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
@@ -64,13 +73,14 @@ public class Desktop extends ContentPane {
 	    btnClickToEnter.setId("main"); // Para poder removerlo luego
 	    btnClickToEnter.setLayoutData(hld);
 	    htmlLayout.add(btnClickToEnter);
-
+	    htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
+	   // htmlLayout.setBackground(new Color(0x00, 0xFF, 0x00));
 	    return htmlLayout;
 	  }
 	  // --------------------------------------------------------------------------------
 	  private Component initMenuHead() {
 		    Row row = new Row();
-
+		    row.setInsets(new Insets(125,1,1,1));
 		    Button btnRanking = new Button("Ver Clasificacion");
 		    btnRanking.setStyle(GUIStyles.DEFAULT_STYLE);
 		    btnRanking.addActionListener(new ActionListener() {
@@ -91,8 +101,11 @@ public class Desktop extends ContentPane {
 		    });
 		    row.add(btnAboutGame);
 
-		    Button btnRing = new Button("HOME anillo aqui");
-		    btnRing.setStyle(GUIStyles.DEFAULT_STYLE);
+		    Button btnRing = new Button();
+		    //btnRing.setDisabledBackgroundImage(new FillImage(new ResourceImageReference("com/ulasoft/lanterncorpsacademy/linterna.png")));
+		    //btnRing.setAlignment(Alignment.ALIGN_CENTER);
+		    btnRing.setIcon(new ResourceImageReference("com/ulasoft/lanterncorpsacademy/linterna.png"));
+		    //btnRing.setStyle(GUIStyles.DEFAULT_STYLE);
 		    btnRing.addActionListener(new ActionListener() {
 		    	@Override
 		    	public void actionPerformed(ActionEvent evt) {
@@ -208,7 +221,8 @@ public class Desktop extends ContentPane {
 	    Component menuHead = initMenuHead2();;
 	    menuHead.setLayoutData(hld);
 	    htmlLayout.add(menuHead);
-
+	    htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
+	    
 	    hld = new HtmlLayoutData("menui");
 	    Component menui = initMenui();
 	    menui.setLayoutData(hld);
@@ -224,15 +238,18 @@ public class Desktop extends ContentPane {
 	    Component menud = initMenud();
 	    menud.setLayoutData(hld);
 	    htmlLayout.add(menud);
-
+	    
+	    htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
 	    return htmlLayout;
 	  }
 	  
 	  private Component initMenuHead2() {
 		    Row row = new Row();
+		    row.setInsets(new Insets(30,1,1,1));
 		    
 		    Button btnMisiones = new Button("Misiones");
-		    btnMisiones.setStyle(GUIStyles.DEFAULT_STYLE);
+		    btnMisiones.setStyle(GUIStyles.STYLE2);
+		    btnMisiones.setWidth(new Extent(100));
 		    btnMisiones.addActionListener(new ActionListener() {
 		      @Override
 		      public void actionPerformed(ActionEvent evt) {
@@ -240,19 +257,10 @@ public class Desktop extends ContentPane {
 		      }
 		    });
 		    row.add(btnMisiones);
-
-		    Button btnRecargarAnillo = new Button("Recargar Anillo");
-		    btnRecargarAnillo.setStyle(GUIStyles.DEFAULT_STYLE);
-		    btnRecargarAnillo.addActionListener(new ActionListener() {
-		      @Override
-		      public void actionPerformed(ActionEvent evt) {
-		    	  btnRecargarAnilloClicked();
-		      }
-		    });
-		    row.add(btnRecargarAnillo);
-
+		    
 		    Button btnAtacar = new Button("Atacar");
-		    btnAtacar.setStyle(GUIStyles.DEFAULT_STYLE);
+		    btnAtacar.setStyle(GUIStyles.STYLE2);
+		    btnAtacar.setWidth(new Extent(100));
 		    btnAtacar.addActionListener(new ActionListener() {
 		      @Override
 		      public void actionPerformed(ActionEvent evt) {
@@ -261,8 +269,18 @@ public class Desktop extends ContentPane {
 		    });
 		    row.add(btnAtacar);
 
+		    Button btnRecargarAnillo = new Button("Recargar Anillo");
+		    btnRecargarAnillo.setStyle(GUIStyles.STYLE2);
+		    btnRecargarAnillo.addActionListener(new ActionListener() {
+		      @Override
+		      public void actionPerformed(ActionEvent evt) {
+		    	  btnRecargarAnilloClicked();
+		      }
+		    });
+		    row.add(btnRecargarAnillo);
+
 		    Button btnViajarPlaneta = new Button("Viajar a Otro Planeta");
-		    btnViajarPlaneta.setStyle(GUIStyles.DEFAULT_STYLE);
+		    btnViajarPlaneta.setStyle(GUIStyles.STYLE2);
 		    btnViajarPlaneta.addActionListener(new ActionListener() {
 		      @Override
 		      public void actionPerformed(ActionEvent evt) {
@@ -271,8 +289,12 @@ public class Desktop extends ContentPane {
 		    });
 		    row.add(btnViajarPlaneta);
 
-		    Button btnRing = new Button("HOME anillo aqui");
-		    btnRing.setStyle(GUIStyles.DEFAULT_STYLE);
+		    Button btnRing = new Button("");
+		    //btnRing.setBorder(new Border(new Extent(1), Color.BLACK, Border.STYLE_SOLID));
+		    //btnRing.setBackground(Color.GREEN);
+		    //btnRing.setDisabledIcon(new ResourceImageReference("com/ulasoft/lanterncorpsacademy/linterna.png"));
+		    btnRing.setIcon(new ResourceImageReference("com/ulasoft/lanterncorpsacademy/linterna.png"));
+		    //btnRing.setStyle(GUIStyles.STYLE);
 		    btnRing.addActionListener(new ActionListener() {
 		    	@Override
 		    	public void actionPerformed(ActionEvent evt) {
@@ -282,7 +304,7 @@ public class Desktop extends ContentPane {
 		    row.add(btnRing);
 		    
 		    Button btnRanking = new Button("Ver Clasificacion");
-		    btnRanking.setStyle(GUIStyles.DEFAULT_STYLE);
+		    btnRanking.setStyle(GUIStyles.STYLE2);
 		    btnRanking.addActionListener(new ActionListener() {
 		      @Override
 		      public void actionPerformed(ActionEvent evt) {
@@ -292,7 +314,7 @@ public class Desktop extends ContentPane {
 		    row.add(btnRanking);
 
 		    Button btnAboutGame = new Button("Acerca del Juego");
-		    btnAboutGame.setStyle(GUIStyles.DEFAULT_STYLE);
+		    btnAboutGame.setStyle(GUIStyles.STYLE2);
 		    btnAboutGame.addActionListener(new ActionListener() {
 		      @Override
 		      public void actionPerformed(ActionEvent evt) {
@@ -302,7 +324,8 @@ public class Desktop extends ContentPane {
 		    row.add(btnAboutGame);
 
 		    Button btnForo = new Button("Foro");
-		    btnForo.setStyle(GUIStyles.DEFAULT_STYLE);
+		    btnForo.setStyle(GUIStyles.STYLE2);
+		    btnForo.setWidth(new Extent(100));
 		    btnForo.addActionListener(new ActionListener() {
 		      @Override
 		      public void actionPerformed(ActionEvent evt) {
@@ -312,7 +335,8 @@ public class Desktop extends ContentPane {
 		    row.add(btnForo);
 
 		    Button btnMedia = new Button("Multimedia");
-		    btnMedia.setStyle(GUIStyles.DEFAULT_STYLE);
+		    btnMedia.setStyle(GUIStyles.STYLE2);
+		    btnMedia.setWidth(new Extent(100));
 		    btnMedia.addActionListener(new ActionListener() {
 		      @Override
 		      public void actionPerformed(ActionEvent evt) {
