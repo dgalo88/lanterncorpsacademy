@@ -22,18 +22,83 @@ public class GUIStyles {
 	    style.set(Button.PROPERTY_BORDER, new Border(1, new Color(0xD6, 0xD3, 0xCE), Border.STYLE_SOLID));
 
 	    style.set(Button.PROPERTY_ROLLOVER_ENABLED, true);
-	    style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(0xDE, 0xF3, 0xFF));
-	    style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, new Color(0x31, 0x69, 0xC6), Border.STYLE_SOLID));
+	    style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(0x32, 0xCD, 0x32));
+	    style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.GREEN, Border.STYLE_SOLID));
 
-	    style.set(Button.PROPERTY_INSETS, new Insets(2));
+	    style.set(Button.PROPERTY_INSETS, new Insets(2,2,2,2));
 	    //style.set(Button.PROPERTY_OUTSETS, new Insets(1));
-
-	    style.set(Button.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.DEFAULT));
+	    
+	    style.set(Button.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+	    style.set(Button.PROPERTY_HEIGHT, new Extent(40));
+	    style.set(Button.PROPERTY_WIDTH, new Extent(200));
+	    style.set(Button.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 	    style.set(Button.PROPERTY_ICON_TEXT_MARGIN, new Extent(3));
 	    //style.set(Button.PROPERTY_MOUSE_CURSOR, CURSOR_POINTER);
 
 	    style.set(Button.PROPERTY_DISABLED_FOREGROUND, Color.LIGHTGRAY);
+	    style.set(Button.PROPERTY_TEXT_POSITION, new Alignment(Alignment.CENTER, Alignment.CENTER));
 
 	    DEFAULT_STYLE = style;
 	  }
+	  
+	  public static final Style STYLE;
+
+	  static {
+	    MutableStyle style = new MutableStyle();
+
+	    style.set(Button.PROPERTY_LINE_WRAP, false);
+
+	    style.set(Button.PROPERTY_BACKGROUND, new Color(0xF2, 0xF2, 0xED));
+	    style.set(Button.PROPERTY_BORDER, new Border(1, new Color(0xD6, 0xD3, 0xCE), Border.STYLE_SOLID));
+
+	    style.set(Button.PROPERTY_ROLLOVER_ENABLED, true);
+	    style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(0x32, 0xCD, 0x32));
+	    style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.GREEN, Border.STYLE_SOLID));
+
+	    style.set(Button.PROPERTY_INSETS, new Insets(3));
+	    //style.set(Button.PROPERTY_OUTSETS, new Insets(1));
+	    
+	    style.set(Button.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+	    style.set(Button.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+	    style.set(Button.PROPERTY_ICON_TEXT_MARGIN, new Extent(3));
+	    //style.set(Button.PROPERTY_MOUSE_CURSOR, CURSOR_POINTER);
+
+	    style.set(Button.PROPERTY_DISABLED_FOREGROUND, Color.LIGHTGRAY);
+	    style.set(Button.PROPERTY_TEXT_POSITION, new Alignment(Alignment.CENTER, Alignment.CENTER));
+
+
+	    STYLE = style;
+	  }
+	  public static final Style STYLE2;
+
+	  static {
+		  MutableStyle style = new MutableStyle();
+
+		    style.set(Button.PROPERTY_LINE_WRAP, false);
+
+		    style.set(Button.PROPERTY_BACKGROUND, new Color(0xF2, 0xF2, 0xED));
+		    style.set(Button.PROPERTY_BORDER, new Border(1, new Color(0xD6, 0xD3, 0xCE), Border.STYLE_SOLID));
+
+		    style.set(Button.PROPERTY_ROLLOVER_ENABLED, true);
+		    style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(0x32, 0xCD, 0x32));
+		    style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.GREEN, Border.STYLE_SOLID));
+
+		    style.set(Button.PROPERTY_INSETS, new Insets(2,2,2,2));
+		    //style.set(Button.PROPERTY_OUTSETS, new Insets(1));
+		    
+		    style.set(Button.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+		    style.set(Button.PROPERTY_HEIGHT, new Extent(40));
+		    style.set(Button.PROPERTY_WIDTH, new Extent(150));
+		    style.set(Button.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+		    style.set(Button.PROPERTY_ICON_TEXT_MARGIN, new Extent(3));
+		    //style.set(Button.PROPERTY_MOUSE_CURSOR, CURSOR_POINTER);
+
+		    style.set(Button.PROPERTY_DISABLED_FOREGROUND, Color.LIGHTGRAY);
+		    style.set(Button.PROPERTY_TEXT_POSITION, new Alignment(Alignment.CENTER, Alignment.CENTER));
+		    style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, Color.GREEN, Border.STYLE_SOLID));
+
+
+	    STYLE2 = style;
+	  }
+
 }
