@@ -101,6 +101,7 @@ public class Desktop extends ContentPane {
 	    
 	    TextField txtCorreo = new TextField();
 	    txtCorreo.setWidth(new Extent(300));
+	    //txtCorreo.validate();
 	    txtCorreo.setText("HalJordan@greenlantern.corp");
 	    grid.add(txtCorreo);
 	    
@@ -287,7 +288,7 @@ public class Desktop extends ContentPane {
 	    HtmlLayoutData hld;
 
 	    hld = new HtmlLayoutData("head");
-	    Component menuHead = initMenuHead2();;
+	    Component menuHead = initMenuHead2();
 	    menuHead.setLayoutData(hld);
 	    htmlLayout.add(menuHead);
 	    htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
@@ -384,7 +385,7 @@ public class Desktop extends ContentPane {
 		    });
 		    row.add(btnViajarPlaneta);
 
-		    Button btnRing = new Button("");
+		    Button btnRing = new Button();
 		    //btnRing.setBorder(new Border(new Extent(1), Color.BLACK, Border.STYLE_SOLID));
 		    //btnRing.setBackground(Color.GREEN);
 		    //btnRing.setDisabledIcon(new ResourceImageReference("com/ulasoft/lanterncorpsacademy/linterna.png"));
