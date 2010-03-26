@@ -8,7 +8,7 @@ import nextapp.echo.app.ApplicationInstance;
 import nextapp.echo.app.Window;
 
 /**
- * @author typson
+ * @author typson, julian
  *
  */
 public class LanternCorpsAcademyApp extends ApplicationInstance {
@@ -18,7 +18,7 @@ public class LanternCorpsAcademyApp extends ApplicationInstance {
 	 */
 	public Window init() {
 	    Window window = new Window();
-	    window.setTitle("Panel Change");
+	    window.setTitle("Lantern Corps Academy RPG");
 
 	    Desktop desktop = new Desktop();
 	    window.setContent(desktop);
