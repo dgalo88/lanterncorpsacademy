@@ -4,9 +4,12 @@ import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
+import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.MutableStyle;
+import nextapp.echo.app.Row;
 import nextapp.echo.app.Style;
 
 public class GUIStyles {
@@ -15,7 +18,7 @@ public class GUIStyles {
 
 	  static {
 	    MutableStyle style = new MutableStyle();
-
+	    style.set(Grid.PROPERTY_WIDTH, new Extent(500));
 	    style.set(Button.PROPERTY_LINE_WRAP, false);
 
 	    style.set(Button.PROPERTY_BACKGROUND, new Color(0xF2, 0xF2, 0xED));
@@ -25,9 +28,7 @@ public class GUIStyles {
 	    style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(0x32, 0xCD, 0x32));
 	    style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.GREEN, Border.STYLE_SOLID));
 
-	    style.set(Button.PROPERTY_INSETS, new Insets(2,2,2,2));
-	    //style.set(Button.PROPERTY_OUTSETS, new Insets(1));
-	    
+	    style.set(Button.PROPERTY_INSETS, new Insets(2,2,2,2));	    
 	    style.set(Button.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 	    style.set(Button.PROPERTY_HEIGHT, new Extent(40));
 	    style.set(Button.PROPERTY_WIDTH, new Extent(200));
