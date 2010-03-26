@@ -6,7 +6,7 @@ import nextapp.echo.app.Panel;
 public class PanelAboutGame extends Panel{
 
 	public  PanelAboutGame() {
-		Label lblMain = new Label("Acerca de el Juego");
+		Label lblMain = new Label("Acerca del Juego");
 	    add(lblMain);
 	}
 }

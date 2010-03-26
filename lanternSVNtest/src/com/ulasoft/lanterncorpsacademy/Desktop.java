@@ -3,10 +3,17 @@
  */
 package com.ulasoft.lanterncorpsacademy;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.informagen.echo.app.CapacityBar;
+
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
+
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
+
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
@@ -404,7 +411,73 @@ public class Desktop extends ContentPane {
 
 	private Component initMenud() {
 		Grid grid = new Grid(2);
-		return grid;
+		
+		Label lblSalud = new Label("Salud");
+	    grid.add(lblSalud);
+		
+	    //PROGRESS BAR AQUI
+		CapacityBar salud= new CapacityBar(17,250);
+		salud.setReflectivity(0.1);
+		List<Color> colors= new ArrayList<Color>(2);
+		colors.add(Color.RED);
+		colors.add(Color.LIGHTGRAY);
+	    salud.setColors(colors);
+	    List<Number> values= new ArrayList<Number>(2);
+	    values.add(95);
+	    values.add(5);
+	    salud.setValues(values);
+	    salud.setTickSpacing(20);
+	    grid.add(salud);
+	    
+	    Label lblEnergia = new Label("Energia del Anillo");
+	    grid.add(lblEnergia);
+		
+	    //PROGRESS BAR AQUI
+	    CapacityBar energia= new CapacityBar(17,250);
+	    energia.setReflectivity(0.3);
+	    colors.clear();
+	    colors.add(Color.GREEN);
+	    colors.add(Color.LIGHTGRAY);
+	    energia.setColors(colors);
+	    values.clear();
+	    values.add(90);
+	    values.add(10);
+	    energia.setValues(values);
+	    energia.setTickSpacing(20);
+	    grid.add(energia);
+	    
+	    Label lblExperiencia = new Label("Experiencia");
+	    grid.add(lblExperiencia);
+		
+	    CapacityBar experiencia= new CapacityBar(17, 250);
+	    experiencia.setReflectivity(0.2);
+		colors.clear();
+		colors.add(Color.DARKGRAY);
+		colors.add(Color.LIGHTGRAY);
+	    experiencia.setColors(colors);
+	    values.clear();
+	    values.add(20);
+	    values.add(80);
+	    experiencia.setValues(values);
+	    experiencia.setTickSpacing(20);
+	    grid.add(experiencia);
+	    //PROGRESS BAR AQUI
+	    
+	    Label lblTrains = new Label("Puntos de Entrenamiento:");
+	    grid.add(lblTrains);
+	    
+	    Label lblTrainsValue = new Label("XXXXX");
+	    grid.add(lblTrainsValue);
+	    
+	    Label lblNivel = new Label("NIvel");
+	    grid.add(lblNivel);
+	    
+	    Label lblNiveLabel = new Label("XXXXX");
+	    grid.add(lblNiveLabel);
+		
+	    grid.setBorder(new Border(3, Color.LIGHTGRAY, Border.STYLE_RIDGE));
+	    
+	    return grid;
 	}
 
 	private Component initMenui() {
@@ -483,6 +556,8 @@ public class Desktop extends ContentPane {
 	    return col;		
 	}
 
+	
+	
 	// --------------------------------------------------------------------------------
 
 
