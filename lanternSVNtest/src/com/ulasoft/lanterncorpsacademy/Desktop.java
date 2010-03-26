@@ -20,7 +20,6 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.FillImage;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.ImageReference;
 import nextapp.echo.app.Insets;
@@ -102,7 +101,7 @@ public class Desktop extends ContentPane {
 	    
 	    TextField txtCorreo = new TextField();
 	    txtCorreo.setWidth(new Extent(300));
-	    txtCorreo.setText("HalHordan@greenlantern.corp");
+	    txtCorreo.setText("HalJordan@greenlantern.corp");
 	    grid.add(txtCorreo);
 	    
 	    Label lblPass = new Label("Contraseña");
@@ -135,6 +134,7 @@ public class Desktop extends ContentPane {
 	    row.add(btnClickToRegister);
 	    row.setCellSpacing(new Extent(10));
 		col.add(row);
+		col.setBorder(new Border(3, new Color(0x00, 0x00, 0x00), Border.STYLE_SOLID));
 		row1.add(col);
 		
 		//row1.add(lbl);
@@ -298,10 +298,11 @@ public class Desktop extends ContentPane {
 	    htmlLayout.add(menui);
 
   	    hld = new HtmlLayoutData("main");
-	    Label lblMain = new Label("¡...main...!");
-	    lblMain.setId("main"); // Para poder removerlo luego
-	    lblMain.setLayoutData(hld);
-	    htmlLayout.add(lblMain);
+  	    Component main = main();
+	    main.setLayoutData(hld);
+	    main.setId("main"); // Para poder removerlo luego
+	    main.setLayoutData(hld);
+	    htmlLayout.add(main);
 
 	    hld = new HtmlLayoutData("menud");
 	    Component menud = initMenud();
@@ -312,7 +313,32 @@ public class Desktop extends ContentPane {
 	    return htmlLayout;
 	  }
 	  
-	  private Component initMenuHead2() {
+	  private Component main() {
+		Row row = new Row();
+		row.setCellSpacing(new Extent(250));
+		row.add(new Label(""));
+		Grid grid = new Grid(2);
+		grid.setBackground(Color.WHITE);
+		Label lblImagen = new Label(); 
+		lblImagen.setIcon(new ResourceImageReference("com/ulasoft/lanterncorpsacademy/GreenLanternRebirthHC1.jpg",new Extent(152), new Extent(232)));
+		grid.add(lblImagen);
+		Column col = new Column();
+		col.add(new Label("Ubicación"));
+		col.add(new Label("Planeta:"));
+		col.add(new Label("Sector:"));
+		col.add(new Label("Estadísticas"));
+		col.add(new Label("Combates Ganados:"));
+		col.add(new Label("Combates Perdidos:"));
+		col.add(new Label("Misiones Realizadas:"));
+		col.add(new Label("Ultimo Ingreso"));
+		col.add(new Label("Fecha:"));
+		col.add(new Label("Hora:"));
+		grid.add(col);
+		row.add(grid);
+		return row;
+	}
+
+	private Component initMenuHead2() {
 		    Row row = new Row();
 		    row.setInsets(new Insets(30,1,1,1));
 		    
@@ -537,7 +563,8 @@ public class Desktop extends ContentPane {
 	    Label lblNiveLabel = new Label("XXXXX");
 	    grid.add(lblNiveLabel);
 		
-	    grid.setBorder(new Border(3, Color.LIGHTGRAY, Border.STYLE_RIDGE));
+	    grid.setStyle(GUIStyles.DEFAULT_STYLE);
+	    grid.setHeight(new Extent(315));
 	    
 	    return grid;
 	}
