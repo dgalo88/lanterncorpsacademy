@@ -435,14 +435,14 @@ public class Desktop extends ContentPane {
 	    //PROGRESS BAR AQUI
 	    CapacityBar energia= new CapacityBar(17,250);
 	    energia.setReflectivity(0.3);
-	    colors.clear();
-	    colors.add(Color.GREEN);
-	    colors.add(Color.LIGHTGRAY);
-	    energia.setColors(colors);
-	    values.clear();
-	    values.add(90);
-	    values.add(10);
-	    energia.setValues(values);
+	    List<Color> colors2= new ArrayList<Color>(2);
+	    colors2.add(Color.GREEN);
+	    colors2.add(Color.LIGHTGRAY);
+	    energia.setColors(colors2);
+	    List<Number> values2= new ArrayList<Number>(2);
+	    values2.add(90);
+	    values2.add(10);
+	    energia.setValues(values2);
 	    energia.setTickSpacing(20);
 	    grid.add(energia);
 	    
@@ -451,14 +451,14 @@ public class Desktop extends ContentPane {
 		
 	    CapacityBar experiencia= new CapacityBar(17, 250);
 	    experiencia.setReflectivity(0.2);
-		colors.clear();
-		colors.add(Color.DARKGRAY);
-		colors.add(Color.LIGHTGRAY);
-	    experiencia.setColors(colors);
-	    values.clear();
-	    values.add(20);
-	    values.add(80);
-	    experiencia.setValues(values);
+	    List<Color> colors3= new ArrayList<Color>(2);
+		colors3.add(Color.DARKGRAY);
+		colors3.add(Color.LIGHTGRAY);
+	    experiencia.setColors(colors3);
+	    List<Number> values3= new ArrayList<Number>(2);
+	    values3.add(20);
+	    values3.add(80);
+	    experiencia.setValues(values3);
 	    experiencia.setTickSpacing(20);
 	    grid.add(experiencia);
 	    //PROGRESS BAR AQUI
