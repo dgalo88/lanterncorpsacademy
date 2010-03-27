@@ -20,6 +20,7 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.FillImage;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.ImageReference;
 import nextapp.echo.app.Insets;
@@ -101,7 +102,6 @@ public class Desktop extends ContentPane {
 	    
 	    TextField txtCorreo = new TextField();
 	    txtCorreo.setWidth(new Extent(300));
-	    //txtCorreo.validate();
 	    txtCorreo.setText("HalJordan@greenlantern.corp");
 	    grid.add(txtCorreo);
 	    
@@ -124,7 +124,7 @@ public class Desktop extends ContentPane {
 	    });
 	    row.add(btnClickToEnter);
 
-	    Button btnClickToRegister = new Button("Registrar");
+	    Button btnClickToRegister = new Button("Eres Nuevo? Regístrate");
 	    btnClickToRegister.setStyle(GUIStyles.STYLE);
 	    btnClickToRegister.addActionListener(new ActionListener() {
 	      @Override
@@ -135,7 +135,6 @@ public class Desktop extends ContentPane {
 	    row.add(btnClickToRegister);
 	    row.setCellSpacing(new Extent(10));
 		col.add(row);
-		col.setBorder(new Border(3, new Color(0x00, 0x00, 0x00), Border.STYLE_SOLID));
 		row1.add(col);
 		
 		//row1.add(lbl);
@@ -143,7 +142,14 @@ public class Desktop extends ContentPane {
 	}
 
 	protected void btnClickToRegisterClicked() {
-		
+		 HtmlLayoutData hld = new HtmlLayoutData("main");
+		    PanelRegistro1 pnlMain = new PanelRegistro1();
+		    pnlMain.setId("main");
+		    pnlMain.setLayoutData(hld);
+
+		    // Remueve componente anterior del htmlLayout 
+		    htmlLayout.remove(htmlLayout.getComponent("main"));
+		    htmlLayout.add(pnlMain);	
 	}
 
 	// --------------------------------------------------------------------------------
@@ -288,7 +294,7 @@ public class Desktop extends ContentPane {
 	    HtmlLayoutData hld;
 
 	    hld = new HtmlLayoutData("head");
-	    Component menuHead = initMenuHead2();
+	    Component menuHead = initMenuHead2();;
 	    menuHead.setLayoutData(hld);
 	    htmlLayout.add(menuHead);
 	    htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
@@ -506,10 +512,10 @@ public class Desktop extends ContentPane {
 		
 	    //PROGRESS BAR AQUI
 		CapacityBar salud= new CapacityBar(17,250);
-		salud.setReflectivity(0.1);
+		salud.setReflectivity(0.01);
 		List<Color> colors= new ArrayList<Color>(2);
 		colors.add(Color.RED);
-		colors.add(Color.LIGHTGRAY);
+		colors.add(Color.WHITE);
 	    salud.setColors(colors);
 	    List<Number> values= new ArrayList<Number>(2);
 	    values.add(95);
@@ -523,10 +529,10 @@ public class Desktop extends ContentPane {
 		
 	    //PROGRESS BAR AQUI
 	    CapacityBar energia= new CapacityBar(17,250);
-	    energia.setReflectivity(0.3);
+	    energia.setReflectivity(0.02);
 	    List<Color> colors2= new ArrayList<Color>(2);
 	    colors2.add(Color.GREEN);
-	    colors2.add(Color.LIGHTGRAY);
+	    colors2.add(Color.WHITE);
 	    energia.setColors(colors2);
 	    List<Number> values2= new ArrayList<Number>(2);
 	    values2.add(90);
@@ -539,10 +545,10 @@ public class Desktop extends ContentPane {
 	    grid.add(lblExperiencia);
 		
 	    CapacityBar experiencia= new CapacityBar(17, 250);
-	    experiencia.setReflectivity(0.2);
+	    experiencia.setReflectivity(0.03);
 	    List<Color> colors3= new ArrayList<Color>(2);
 		colors3.add(Color.DARKGRAY);
-		colors3.add(Color.LIGHTGRAY);
+		colors3.add(Color.WHITE);
 	    experiencia.setColors(colors3);
 	    List<Number> values3= new ArrayList<Number>(2);
 	    values3.add(20);
@@ -567,6 +573,7 @@ public class Desktop extends ContentPane {
 	    grid.setStyle(GUIStyles.DEFAULT_STYLE);
 	    grid.setHeight(new Extent(315));
 	    
+	    	    
 	    return grid;
 	}
 
