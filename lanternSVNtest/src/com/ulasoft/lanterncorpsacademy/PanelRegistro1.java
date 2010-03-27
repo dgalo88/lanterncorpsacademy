@@ -21,8 +21,9 @@ public class PanelRegistro1 extends Panel {
 
 	HtmlLayoutData hld = new HtmlLayoutData("main");
 	
-	public PanelRegistro1() {
 	
+	public PanelRegistro1() {
+		
 	Row row1 = new Row();
 	
 	row1.setCellSpacing(new Extent(400));
@@ -89,31 +90,36 @@ public class PanelRegistro1 extends Panel {
     col.add(grid);
 	
 	Row row = new Row();
-	
+	row.setCellSpacing(new Extent(10));
     Button btnNext = new Button("Siguiente");
     btnNext.setStyle(GUIStyles.STYLE);
+    row.add(btnNext);
+    col.add(row);
     btnNext.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent arg0) {
     	  btnNextClicked();
       }
 
-	private void btnNextClicked() {
-	    PanelRegistro2 pnlMain = new PanelRegistro2();
-	    add(pnlMain);
-		
-	}
+	
     });  
 	    
     
     //btnNext.setAlignment(new Alignment(Alignment.ALIGN_RIGHT, Alignment.BOTTOM));
-    row.add(btnNext);
-    row.setCellSpacing(new Extent(10));
-	col.add(row);
+   
+    
+	
 	row1.add(col);
 	
 	add(row1);
 	
+	}
+
+	private void btnNextClicked() {
+	    removeAll();
+	    PanelRegistro2 pnlMain = new PanelRegistro2();
+	    add(pnlMain);
+		
 	}
 
 

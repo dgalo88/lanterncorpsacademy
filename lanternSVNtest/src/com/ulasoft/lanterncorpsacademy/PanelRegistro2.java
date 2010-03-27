@@ -79,7 +79,8 @@ public class PanelRegistro2 extends Panel {
 
 		private void btnBackClicked() {
 			removeAll();
-			
+			PanelRegistro1 pnlMain = new PanelRegistro1();
+		    add(pnlMain);
 		}
 	    });
 	    
