@@ -143,13 +143,13 @@ public class Desktop extends ContentPane {
 
 	protected void btnClickToRegisterClicked() {
 		 HtmlLayoutData hld = new HtmlLayoutData("main");
-		    PanelRegistro1 pnlMain = new PanelRegistro1();
-		    pnlMain.setId("main");
-		    pnlMain.setLayoutData(hld);
+		 PanelRegistro1 pnlMain = new PanelRegistro1();
+		 pnlMain.setId("main");
+		 pnlMain.setLayoutData(hld);
 
-		    // Remueve componente anterior del htmlLayout 
-		    htmlLayout.remove(htmlLayout.getComponent("main"));
-		    htmlLayout.add(pnlMain);	
+	    // Remueve componente anterior del htmlLayout 
+	    htmlLayout.remove(htmlLayout.getComponent("main"));
+	    htmlLayout.add(pnlMain);	
 	}
 
 	// --------------------------------------------------------------------------------
