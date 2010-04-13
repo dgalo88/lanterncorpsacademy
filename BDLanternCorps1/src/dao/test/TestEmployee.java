@@ -7,8 +7,8 @@ import dao.api.DataObject;
 import dao.api.FactoryDAO;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
-import dao.example.EmployeeDAO;
-import dao.example.EmployeeDO;
+import dao.lantern.EmployeeDAO;
+import dao.lantern.EmployeeDO;
 
 /**
  * @author Demián Gutierrez
