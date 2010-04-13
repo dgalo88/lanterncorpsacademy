@@ -1,29 +1,27 @@
-package dao.example;
+package dao.lantern;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dao.api.DataObject;
 
-public class OrdenDO implements DataObject {
+public class HabilidadActivaDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
 	private int id;
+	private int nivel_habilidad;
+	// --------------------------------------------------------------------------------
 
-	private int prioridad;
+	private List<PersonajeDO> personajeList = //
+	new ArrayList<PersonajeDO>();
+
+	private List<HabilidadDO> habilidadList = //
+		new ArrayList<HabilidadDO>();
 	
 	// --------------------------------------------------------------------------------
 
-	private List<ObjetivoDO> objetivoList = //
-	new ArrayList<ObjetivoDO>();
-
-	private List<MisionDO> misionList = //
-		new ArrayList<MisionDO>();
-	
-	// --------------------------------------------------------------------------------
-
-	public OrdenDO() {
+	public HabilidadActivaDO() {
 		// Empty
 	}
 
@@ -37,36 +35,35 @@ public class OrdenDO implements DataObject {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	// --------------------------------------------------------------------------------
+	
+	public int getNivel_habilidad() {
+		return nivel_habilidad;
+	}
+
+	public void setNivel_habilidad(int nivelHabilidad) {
+		nivel_habilidad = nivelHabilidad;
+	}
+	
+	// --------------------------------------------------------------------------------
+
+	public List<PersonajeDO> getPersonajeList() {
+		return personajeList;
+	}
+
+	public void setPersonajeList(List<PersonajeDO> personajeList) {
+		this.personajeList = personajeList;
+	}
 
 	// --------------------------------------------------------------------------------
 
-	public int getPrioridad() {
-		return prioridad;
+	public List<HabilidadDO> getHabilidadList() {
+		return habilidadList;
 	}
 
-	public void setPrioridad(int prioridad) {
-		this.prioridad = prioridad;
-	}
-		
-	// --------------------------------------------------------------------------------
-
-
-	public List<ObjetivoDO> getObjetivoList() {
-		return objetivoList;
-	}
-
-	public void setObjetivoList(List<ObjetivoDO> objetivoList) {
-		this.objetivoList = objetivoList;
-	}
-
-	// --------------------------------------------------------------------------------
-
-	public List<MisionDO> getMisionList() {
-		return misionList;
-	}
-
-	public void setMisionList(List<MisionDO> MisionList) {
-		this.misionList = misionList;
+	public void setHabilidadList(List<HabilidadDO> habilidadList) {
+		this.habilidadList = habilidadList;
 	}
 
 }

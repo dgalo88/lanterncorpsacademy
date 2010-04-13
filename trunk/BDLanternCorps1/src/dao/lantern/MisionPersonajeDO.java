@@ -1,11 +1,11 @@
-package dao.example;
+package dao.lantern;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dao.api.DataObject;
 
-public class HabilidadClaseLinternaDO implements DataObject {
+public class MisionPersonajeDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
@@ -13,15 +13,15 @@ public class HabilidadClaseLinternaDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<HabilidadDO> habilidadList = //
-	new ArrayList<HabilidadDO>();
+	private List<PersonajeDO> personajeList = //
+	new ArrayList<PersonajeDO>();
 
-	private List<ClaseLinternaDO> claseLinternaList = //
-		new ArrayList<ClaseLinternaDO>();
+	private List<MisionDO> misionList = //
+		new ArrayList<MisionDO>();
 	
 	// --------------------------------------------------------------------------------
 
-	public HabilidadClaseLinternaDO() {
+	public MisionPersonajeDO() {
 		// Empty
 	}
 
@@ -38,22 +38,22 @@ public class HabilidadClaseLinternaDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public List<HabilidadDO> getHabilidadList() {
-		return habilidadList;
+	public List<PersonajeDO> getPersonajeList() {
+		return personajeList;
 	}
 
-	public void setHabilidadList(List<HabilidadDO> habilidadList) {
-		this.habilidadList = habilidadList;
+	public void setPersonajeList(List<PersonajeDO> personajeList) {
+		this.personajeList = personajeList;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public List<ClaseLinternaDO> getClaseLinternaList() {
-		return claseLinternaList;
+	public List<MisionDO> getMisionList() {
+		return misionList;
 	}
 
-	public void setClaseLinternaList(List<ClaseLinternaDO> ClaseLinternaList) {
-		this.claseLinternaList = claseLinternaList;
+	public void setMisionList(List<MisionDO> MisionList) {
+		this.misionList = misionList;
 	}
 
 }
