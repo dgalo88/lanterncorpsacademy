@@ -65,6 +65,7 @@ public class GUIStyles {
 	    style.set(Button.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 	    style.set(Button.PROPERTY_ICON_TEXT_MARGIN, new Extent(3));
 	    //style.set(Button.PROPERTY_MOUSE_CURSOR, CURSOR_POINTER);
+	    
 
 	    style.set(Button.PROPERTY_DISABLED_FOREGROUND, Color.LIGHTGRAY);
 	    style.set(Button.PROPERTY_TEXT_POSITION, new Alignment(Alignment.CENTER, Alignment.CENTER));
@@ -95,6 +96,7 @@ public class GUIStyles {
 		    style.set(Button.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 		    style.set(Button.PROPERTY_ICON_TEXT_MARGIN, new Extent(3));
 		    //style.set(Button.PROPERTY_MOUSE_CURSOR, CURSOR_POINTER);
+		    style.set(Button.PROPERTY_PRESSED_ENABLED, Color.RED);
 
 		    style.set(Button.PROPERTY_DISABLED_FOREGROUND, Color.LIGHTGRAY);
 		    style.set(Button.PROPERTY_TEXT_POSITION, new Alignment(Alignment.CENTER, Alignment.CENTER));
