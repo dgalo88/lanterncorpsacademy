@@ -510,53 +510,26 @@ public class Desktop extends ContentPane {
 		Label lblSalud = new Label("Salud");
 	    grid.add(lblSalud);
 		
-	    //PROGRESS BAR AQUI
-		CapacityBar salud= new CapacityBar(17,250);
-		salud.setReflectivity(0.01);
-		List<Color> colors= new ArrayList<Color>(2);
-		colors.add(Color.RED);
-		colors.add(Color.WHITE);
-	    salud.setColors(colors);
-	    List<Number> values= new ArrayList<Number>(2);
-	    values.add(95);
-	    values.add(5);
-	    salud.setValues(values);
-	    salud.setTickSpacing(20);
+	    //PROGRESS BAR AQUI HEALTH
+		ProgressBar salud= new ProgressBar(17,180, 0, null);
+	    salud.setCurrValue(95);
 	    grid.add(salud);
 	    
 	    Label lblEnergia = new Label("Energia del Anillo");
 	    grid.add(lblEnergia);
 		
-	    //PROGRESS BAR AQUI
-	    CapacityBar energia= new CapacityBar(17,250);
-	    energia.setReflectivity(0.02);
-	    List<Color> colors2= new ArrayList<Color>(2);
-	    colors2.add(Color.GREEN);
-	    colors2.add(Color.WHITE);
-	    energia.setColors(colors2);
-	    List<Number> values2= new ArrayList<Number>(2);
-	    values2.add(90);
-	    values2.add(10);
-	    energia.setValues(values2);
-	    energia.setTickSpacing(20);
+	    //PROGRESS BAR AQUI ENERGIA
+	    ProgressBar energia= new ProgressBar(17,180,1 ,Color.GREEN);
+	    energia.setCurrValue(90);
 	    grid.add(energia);
 	    
 	    Label lblExperiencia = new Label("Experiencia");
 	    grid.add(lblExperiencia);
 		
-	    CapacityBar experiencia= new CapacityBar(17, 250);
-	    experiencia.setReflectivity(0.03);
-	    List<Color> colors3= new ArrayList<Color>(2);
-		colors3.add(Color.DARKGRAY);
-		colors3.add(Color.WHITE);
-	    experiencia.setColors(colors3);
-	    List<Number> values3= new ArrayList<Number>(2);
-	    values3.add(20);
-	    values3.add(80);
-	    experiencia.setValues(values3);
-	    experiencia.setTickSpacing(20);
+	    //PROGRESS BAR EXP
+	    ProgressBar experiencia= new ProgressBar(17,180, 2, null);
+	    experiencia.setCurrValue(80);
 	    grid.add(experiencia);
-	    //PROGRESS BAR AQUI
 	    
 	    Label lblTrains = new Label("Puntos de Entrenamiento:");
 	    grid.add(lblTrains);
