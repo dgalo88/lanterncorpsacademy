@@ -20,7 +20,7 @@ public class PanelRecargarAnillo extends Panel{
 		Column col = new Column();
 		col.setInsets(new Insets(2,2,2,2));
 		
-		col.add(new Label("Lista de Contrincantes"));
+		col.add(new Label("Recarga de Anillo"));
 		
 		Label lblImagen = new Label(); 
 		lblImagen.setIcon(new ResourceImageReference("com/ulasoft/lanterncorpsacademy/jim-lee-green-lantern.jpg",new Extent(152), new Extent(232)));
