@@ -1,4 +1,4 @@
-package dao.example;
+package dao.lantern;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,24 +6,25 @@ import java.util.List;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-public class NpcDO implements DataObject {
+public class UsuarioDO implements DataObject {
 
 	public static final String NOMBRE = "nombre";
+	public static final String CORREO = "correo";
+	public static final String CLAVE  = "clave";
 
 	// --------------------------------------------------------------------------------
 
 	private int id;
 
 	private String nombre;
-	private int nivel;
-	private int salud;
-	private int dano;
-	private String color;
+	private String correo;
+	private String clave;
 
+	private Reference<PersonajeDO> personajeRef = new Reference<PersonajeDO>();
 
 	// --------------------------------------------------------------------------------
 
-	public NpcDO() {
+	public UsuarioDO() {
 		// Empty
 	}
 
@@ -50,42 +51,32 @@ public class NpcDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
+	public String getCorreo() {
+		return correo;
 	}
 
-	public int getNivel() {
-		return nivel;
-	}
-
-	// --------------------------------------------------------------------------------
-	
-	public void setSalud(int salud) {
-		this.salud = salud;
-	}
-
-	public int getSalud() {
-		return salud;
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
 	// --------------------------------------------------------------------------------
-	
-	public void setDano(int dano) {
-		this.dano = dano;
+
+	public String getClave() {
+		return clave;
 	}
 
-	public int getDano() {
-		return dano;
+	public void setClave(String clave) {
+		this.clave = clave;
 	}
 
 	// --------------------------------------------------------------------------------
-	
-	public void setColor(String color) {
-		this.color = color;
+
+	public Reference<PersonajeDO> getPersonajeRef() {
+		return personajeRef;
 	}
 
-	public String getColor() {
-		return color;
+	public void setPersonajeRef(Reference<PersonajeDO> personajeRef) {
+		this.personajeRef = personajeRef;
 	}
 
 }

@@ -1,27 +1,29 @@
-package dao.example;
+package dao.lantern;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dao.api.DataObject;
 
-public class MisionPersonajeDO implements DataObject {
+public class OrdenDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
 	private int id;
+
+	private int prioridad;
 	
 	// --------------------------------------------------------------------------------
 
-	private List<PersonajeDO> personajeList = //
-	new ArrayList<PersonajeDO>();
+	private List<ObjetivoDO> objetivoList = //
+	new ArrayList<ObjetivoDO>();
 
 	private List<MisionDO> misionList = //
 		new ArrayList<MisionDO>();
 	
 	// --------------------------------------------------------------------------------
 
-	public MisionPersonajeDO() {
+	public OrdenDO() {
 		// Empty
 	}
 
@@ -38,12 +40,23 @@ public class MisionPersonajeDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public List<PersonajeDO> getPersonajeList() {
-		return personajeList;
+	public int getPrioridad() {
+		return prioridad;
 	}
 
-	public void setPersonajeList(List<PersonajeDO> personajeList) {
-		this.personajeList = personajeList;
+	public void setPrioridad(int prioridad) {
+		this.prioridad = prioridad;
+	}
+		
+	// --------------------------------------------------------------------------------
+
+
+	public List<ObjetivoDO> getObjetivoList() {
+		return objetivoList;
+	}
+
+	public void setObjetivoList(List<ObjetivoDO> objetivoList) {
+		this.objetivoList = objetivoList;
 	}
 
 	// --------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-package dao.example;
+package dao.lantern;
 
 import java.util.ArrayList;
 import java.util.List;

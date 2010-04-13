@@ -1,4 +1,4 @@
-package dao.example;
+package dao.lantern;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,25 +6,24 @@ import java.util.List;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-public class UsuarioDO implements DataObject {
+public class NpcDO implements DataObject {
 
 	public static final String NOMBRE = "nombre";
-	public static final String CORREO = "correo";
-	public static final String CLAVE  = "clave";
 
 	// --------------------------------------------------------------------------------
 
 	private int id;
 
 	private String nombre;
-	private String correo;
-	private String clave;
+	private int nivel;
+	private int salud;
+	private int dano;
+	private String color;
 
-	private Reference<PersonajeDO> personajeRef = new Reference<PersonajeDO>();
 
 	// --------------------------------------------------------------------------------
 
-	public UsuarioDO() {
+	public NpcDO() {
 		// Empty
 	}
 
@@ -51,32 +50,42 @@ public class UsuarioDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public String getCorreo() {
-		return correo;
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
 	}
 
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
-	// --------------------------------------------------------------------------------
-
-	public String getClave() {
-		return clave;
-	}
-
-	public void setClave(String clave) {
-		this.clave = clave;
+	public int getNivel() {
+		return nivel;
 	}
 
 	// --------------------------------------------------------------------------------
-
-	public Reference<PersonajeDO> getPersonajeRef() {
-		return personajeRef;
+	
+	public void setSalud(int salud) {
+		this.salud = salud;
 	}
 
-	public void setPersonajeRef(Reference<PersonajeDO> personajeRef) {
-		this.personajeRef = personajeRef;
+	public int getSalud() {
+		return salud;
+	}
+
+	// --------------------------------------------------------------------------------
+	
+	public void setDano(int dano) {
+		this.dano = dano;
+	}
+
+	public int getDano() {
+		return dano;
+	}
+
+	// --------------------------------------------------------------------------------
+	
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getColor() {
+		return color;
 	}
 
 }
