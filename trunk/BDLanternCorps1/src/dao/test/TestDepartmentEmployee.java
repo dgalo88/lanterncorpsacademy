@@ -7,10 +7,10 @@ import dao.api.FactoryDAO;
 import dao.api.Reference;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
-import dao.example.DepartmentDAO;
-import dao.example.DepartmentDO;
-import dao.example.EmployeeDAO;
-import dao.example.EmployeeDO;
+import dao.lantern.DepartmentDAO;
+import dao.lantern.DepartmentDO;
+import dao.lantern.EmployeeDAO;
+import dao.lantern.EmployeeDO;
 
 /**
  * @author Demián Gutierrez
