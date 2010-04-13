@@ -3,8 +3,6 @@
  */
 package com.ulasoft.lanterncorpsacademy;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.informagen.echo.app.CapacityBar;
 

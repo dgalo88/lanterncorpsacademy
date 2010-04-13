@@ -1,5 +1,6 @@
 package com.ulasoft.lanterncorpsacademy;
 
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -28,12 +29,14 @@ public class PanelEditarDatosUsuario extends Panel{
 	    
 		Grid grid = new Grid();
 		grid.setStyle(GUIStyles.DEFAULT_STYLE);
-		Label lblCorreo = new Label("Nombre");
-	    grid.add(lblCorreo);
+		Label lblNombre = new Label("Nombre");
+		
+	    grid.add(lblNombre);
 	    
-	    TextField txtCorreo = new TextField();
-	    txtCorreo.setWidth(new Extent(300));
-	    grid.add(txtCorreo);
+	    TextField txtNombre = new TextField();
+	    txtNombre.setWidth(new Extent(300));
+	    
+	    grid.add(txtNombre);
 	
 	    Label lblApellido = new Label("Apellido");
 	    grid.add(lblApellido);
@@ -55,7 +58,7 @@ public class PanelEditarDatosUsuario extends Panel{
 	    PasswordField fldConfirPass = new PasswordField();
 	    fldConfirPass.setWidth(new Extent(300));
 	    grid.add(fldConfirPass);
-	    
+ 
 		col.add(grid);
 		
 		Row row = new Row();
