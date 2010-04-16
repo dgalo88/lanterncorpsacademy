@@ -51,11 +51,11 @@ public class ObjetivoDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
-	public int getNumero_de_npc() {
+	public int getNumeroDeNpc() {
 		return numero_de_npc;
 	}
 
-	public void setNumero_de_npc(int numeroDeNpc) {
+	public void setNumeroDeNpc(int numeroDeNpc) {
 		numero_de_npc = numeroDeNpc;
 	}
 

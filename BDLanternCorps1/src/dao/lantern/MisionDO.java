@@ -68,31 +68,31 @@ public class MisionDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
-	public int getExperiencia_ganada() {
+	public int getExperienciaGanada() {
 		return experiencia_ganada;
 	}
 
-	public void setExperiencia_ganada(int experienciaGanada) {
+	public void setExperienciaGanada(int experienciaGanada) {
 		experiencia_ganada = experienciaGanada;
 	}
 
 	// --------------------------------------------------------------------------------
 	
-	public int getPuntos_de_entrenamiento_ganados() {
+	public int getPuntosDeEntrenamientoGanados() {
 		return puntos_de_entrenamiento_ganados;
 	}
 
-	public void setPuntos_de_entrenamiento_ganados(int puntosDeEntrenamientoGanados) {
+	public void setPuntosDeEntrenamientoGanados(int puntosDeEntrenamientoGanados) {
 		puntos_de_entrenamiento_ganados = puntosDeEntrenamientoGanados;
 	}
 	
 	// --------------------------------------------------------------------------------
 	
-	public int getNivel_necesario() {
+	public int getNivelNecesario() {
 		return nivel_necesario;
 	}
 
-	public void setNivel_necesario(int nivelNecesario) {
+	public void setNivelNecesario(int nivelNecesario) {
 		nivel_necesario = nivelNecesario;
 	}
 
