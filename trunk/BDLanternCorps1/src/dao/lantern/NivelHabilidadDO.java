@@ -9,6 +9,10 @@ import dao.api.Reference;
 public class NivelHabilidadDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
+	
+	public static final String HABILIDAD_ID = "habilidadId";
+	
+	// --------------------------------------------------------------------------------
 
 	private int id;
 	private int nivel_de_habilidad;

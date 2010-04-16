@@ -9,6 +9,8 @@ import dao.api.Reference;
 public class ObjetivoDO implements DataObject {
 
 	public static final String DESCRIPCION = "descripcion";
+	public static final String PLANETA_ID = "planetaId";
+	public static final String ORDEN_ID = "ordenId";
 	
 	// --------------------------------------------------------------------------------
 

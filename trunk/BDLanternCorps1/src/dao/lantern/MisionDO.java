@@ -10,6 +10,11 @@ public class MisionDO implements DataObject {
 
 	public static final String NOMBRE = "nombre";
 	public static final String DESCRIPCION = "descripcion";
+	public static final String EXPERIENCIA_GANADA = "experiencia_ganada";
+	public static final String PUNTOS_DE_ENTRENAMIENTO_GANADOS = "puntos_de_entrenamiento_ganados";
+	public static final String NIVEL_NECESARIO = "nivel_necesario";
+	public static final String ORDEN_ID = "ordenId";
+	public static final String MISION_PERSONAJE_ID = "misionPersonajeId";
 	
 	// --------------------------------------------------------------------------------
 
