@@ -10,6 +10,8 @@ public class ClaseLinternaDO implements DataObject {
 
 	public static final String COLOR = "color";
 	public static final String NOMBRE_DE_CUERPO_LINTERNA = "nombre_de_cuerpo_linterna";
+	public static final String HABILIDAD_CLASE_LINTERNA_ID = "habilidadClaseLinternaId";
+	public static final String PLANETA_ID = "planetaId";
 
 	// --------------------------------------------------------------------------------
 

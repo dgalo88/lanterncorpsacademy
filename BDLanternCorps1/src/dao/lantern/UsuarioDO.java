@@ -11,6 +11,7 @@ public class UsuarioDO implements DataObject {
 	public static final String NOMBRE = "nombre";
 	public static final String CORREO = "correo";
 	public static final String CLAVE  = "clave";
+	public static final String PERSONAJE_ID = "personajeId";
 
 	// --------------------------------------------------------------------------------
 

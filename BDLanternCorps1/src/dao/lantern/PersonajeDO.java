@@ -1,5 +1,6 @@
 package dao.lantern;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,12 @@ import dao.api.Reference;
 public class PersonajeDO implements DataObject {
 
 	public static final String ALIAS = "alias";
+	public static final String USUARIO_ID = "usuarioId";
+	public static final String PLANETA_ID = "planetaId";
+	public static final String HABILIDAD_ACTIVA_ID = "habilidadActivaId";
+	public static final String MISION_PERSONAJE_ID = "misionPersonajeId";
+	public static final String GRUPO_ID = "grupoId";
+	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
 	
 	// --------------------------------------------------------------------------------
 
@@ -20,7 +27,7 @@ public class PersonajeDO implements DataObject {
 	private int salud;
 	private int energia_del_anillo;
 	private int nivel;
-	private String ultima_fecha_ingreso;
+	private Date ultima_fecha_ingreso;
 
 	private Reference<UsuarioDO> usuarioRef = new Reference<UsuarioDO>();
 	private Reference<PlanetaDO> planetaRef = new Reference<PlanetaDO>();
@@ -108,12 +115,12 @@ public class PersonajeDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
-	public String getUltimaFechaIngreso() {
+	public Date getUltima_fecha_ingreso() {
 		return ultima_fecha_ingreso;
 	}
 
-	public void setUltimaFechaIngreso(int ultima_fecha_ingreso) {
-		this.ultima_fecha_ingreso = "ultima_fecha_ingreso";
+	public void setUltima_fecha_ingreso(Date ultimaFechaIngreso) {
+		ultima_fecha_ingreso = ultimaFechaIngreso;
 	}
 
 	// --------------------------------------------------------------------------------
