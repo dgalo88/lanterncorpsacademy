@@ -8,8 +8,13 @@ import dao.api.Reference;
 
 public class HabilidadDO implements DataObject {
 
+	public static final String ID = "id";
 	public static final String NOMBRE = "nombre";
-	
+	public static final String COST = "costo_aprendizaje";
+	public static final String TIPO = "tipo";
+	public static final String NIVEL_ID = "nivel";
+	public static final String CLASE_ID = "clase_linterna";
+    	
 	// --------------------------------------------------------------------------------
 
 	private int id;
@@ -30,7 +35,7 @@ public class HabilidadDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
+	//@Override
 	public int getId() {
 		return id;
 	}
