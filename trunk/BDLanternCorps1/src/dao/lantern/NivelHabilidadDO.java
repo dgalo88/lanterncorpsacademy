@@ -41,11 +41,11 @@ public class NivelHabilidadDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
-	public int getNivel_de_habilidad() {
+	public int getNivelDeHabilidad() {
 		return nivel_de_habilidad;
 	}
 
-	public void setNivel_de_habilidad(int nivelDeHabilidad) {
+	public void setNivelDeHabilidad(int nivelDeHabilidad) {
 		nivel_de_habilidad = nivelDeHabilidad;
 	}
 
@@ -62,11 +62,11 @@ public class NivelHabilidadDO implements DataObject {
 	// --------------------------------------------------------------------------------
 	
 
-	public int getCosto_de_energia() {
+	public int getCostoDeEnergia() {
 		return costo_de_energia;
 	}
 
-	public void setCosto_de_energia(int costoDeEnergia) {
+	public void setCostoDeEnergia(int costoDeEnergia) {
 		costo_de_energia = costoDeEnergia;
 	}
 	

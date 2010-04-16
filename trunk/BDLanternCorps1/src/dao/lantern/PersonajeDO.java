@@ -115,11 +115,11 @@ public class PersonajeDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
-	public Date getUltima_fecha_ingreso() {
+	public Date getUltimaFechaIngreso() {
 		return ultima_fecha_ingreso;
 	}
 
-	public void setUltima_fecha_ingreso(Date ultimaFechaIngreso) {
+	public void setUltimaFechaIngreso(Date ultimaFechaIngreso) {
 		ultima_fecha_ingreso = ultimaFechaIngreso;
 	}
 

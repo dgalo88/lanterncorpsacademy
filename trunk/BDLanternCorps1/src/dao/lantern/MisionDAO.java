@@ -107,11 +107,11 @@ public class MisionDAO extends BaseDAO {
     strbuf.append(", ");
     strbuf.append(singleQuotes(misionDO.getDescripcion()));
     strbuf.append(", ");
-    strbuf.append(misionDO.getExperiencia_ganada());
+    strbuf.append(misionDO.getExperienciaGanada());
     strbuf.append(", ");
-    strbuf.append(misionDO.getNivel_necesario());
+    strbuf.append(misionDO.getNivelNecesario());
     strbuf.append(", ");
-    strbuf.append(misionDO.getPuntos_de_entrenamiento_ganados());
+    strbuf.append(misionDO.getPuntosDeEntrenamientoGanados());
     strbuf.append(", ");
    
     Reference<OrdenDO> refO = misionDO.getOrdenRef();

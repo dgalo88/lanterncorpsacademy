@@ -38,11 +38,11 @@ public class HabilidadActivaDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 	
-	public int getNivel_habilidad() {
+	public int getNivelHabilidad() {
 		return nivel_habilidad;
 	}
 
-	public void setNivel_habilidad(int nivelHabilidad) {
+	public void setNivelHabilidad(int nivelHabilidad) {
 		nivel_habilidad = nivelHabilidad;
 	}
 	

@@ -56,11 +56,11 @@ public class HabilidadDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 	
-	public int getCosto_de_aprendizaje() {
+	public int getCostoDeAprendizaje() {
 		return costo_de_aprendizaje;
 	}
 
-	public void setCosto_de_aprendizaje(int costoDeAprendizaje) {
+	public void setCostoDeAprendizaje(int costoDeAprendizaje) {
 		costo_de_aprendizaje = costoDeAprendizaje;
 	}
 

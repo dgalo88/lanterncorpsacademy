@@ -124,7 +124,7 @@ public class HabilidadDAO extends BaseDAO {
 	    strbuf.append(", ");
 	    strbuf.append(singleQuotes(habilidadDO.getNombre()));
 	    strbuf.append(", ");
-	    strbuf.append(habilidadDO.getCosto_de_aprendizaje());
+	    strbuf.append(habilidadDO.getCostoDeAprendizaje());
 	    strbuf.append(", ");
 	    strbuf.append(habilidadDO.getTipo());
 	    strbuf.append(", ");
