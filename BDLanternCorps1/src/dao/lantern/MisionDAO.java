@@ -154,7 +154,7 @@ public class MisionDAO extends BaseDAO {
 
     strbuf.append(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA);
     strbuf.append(" = ");
-    strbuf.append(singleQuotes(claseLinternaDO.getNombre_de_cuerpo_linterna()));
+    strbuf.append(singleQuotes(claseLinternaDO.getNombreDeCuerpoLinterna()));
 
     strbuf.append(", ");
 
@@ -380,7 +380,7 @@ public class MisionDAO extends BaseDAO {
 
     ret.setId/*     					*/(rs.getInt(ClaseLinternaDO.ID));
     ret.setColor/*						*/(rs.getString(ClaseLinternaDO.COLOR));
-    ret.setNombre_de_cuerpo_linterna/*	*/(rs.getString(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA));
+    ret.setNombreDeCuerpoLinterna/*	*/(rs.getString(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA));
 
     Reference<HabilidadClaseLinternaDO> refH = new Reference<HabilidadClaseLinternaDO>();
     refH.setRefIdent(rs.getInt(ClaseLinternaDO.HABILIDAD_CLASE_LINTERNA_ID));

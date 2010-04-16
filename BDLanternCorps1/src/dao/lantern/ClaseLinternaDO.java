@@ -60,11 +60,11 @@ public class ClaseLinternaDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
-	public String getNombre_de_cuerpo_linterna() {
+	public String getNombreDeCuerpoLinterna() {
 		return nombre_de_cuerpo_linterna;
 	}
 
-	public void setNombre_de_cuerpo_linterna(String nombreDeCuerpoLinterna) {
+	public void setNombreDeCuerpoLinterna(String nombreDeCuerpoLinterna) {
 		nombre_de_cuerpo_linterna = nombreDeCuerpoLinterna;
 	}
 	
