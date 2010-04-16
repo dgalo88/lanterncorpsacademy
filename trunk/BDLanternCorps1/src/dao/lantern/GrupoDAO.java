@@ -7,7 +7,7 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-import dao.api.FactoryDAO;
+//import dao.api.FactoryDAO;
 import dao.api.Reference;
 
 public class GrupoDAO extends BaseDAO {
@@ -324,12 +324,20 @@ public class GrupoDAO extends BaseDAO {
     ret.setId/*     */(rs.getInt(GrupoDO.ID));
     ret.setNombre/*   */(rs.getString(GrupoDO.NOMBRE));
     ret.setEstado(rs.getBoolean(GrupoDO.ESTADO));
-
+/*    
+    Reference<HabilidadClaseLinternaDO> refH = new Reference<HabilidadClaseLinternaDO>();
+    refH.setRefIdent(rs.getInt(ClaseLinternaDO.HABILIDAD_CLASE_LINTERNA_ID));
+    ret.setHabilidadClaseLinternaRef(refH);
+    
+    Reference<PlanetaDO> refPl = new Reference<PlanetaDO>();
+    refPl.setRefIdent(rs.getInt(ClaseLinternaDO.PLANETA_ID));
+    ret.setPlanetaRef(refP
+*/
     return (GrupoDO) dtaSession.add(ret);
   }
 
   // --------------------------------------------------------------------------------
-
+/*
   public void loadClaseLinternaRef(GrupoDO grupoDO) throws SQLException {
 	    // XXX: Check this method's semantic
 	    checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
@@ -343,6 +351,6 @@ public class GrupoDAO extends BaseDAO {
 	      return;
 	    }
   }
-  
+  */
   
 }
