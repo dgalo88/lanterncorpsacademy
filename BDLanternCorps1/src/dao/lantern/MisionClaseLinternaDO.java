@@ -3,25 +3,21 @@ package dao.lantern;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-public class OrdenDO implements DataObject {
-
-	public static final String PRIORIDAD = "prioridad";
+public class MisionClaseLinternaDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
-	
+
 	private int id;
 
-	private int prioridad;
-	
 	// --------------------------------------------------------------------------------
 
-	private Reference<ObjetivoDO> objetivoRef = new Reference<ObjetivoDO>();
-	
+	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
+
 	private Reference<MisionDO> misionRef = new Reference<MisionDO>();
 		
 	// --------------------------------------------------------------------------------
 
-	public OrdenDO() {
+	public MisionClaseLinternaDO() {
 		// Empty
 	}
 
@@ -38,22 +34,12 @@ public class OrdenDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public int getPrioridad() {
-		return prioridad;
+	public Reference<ClaseLinternaDO> getClaseLinternaRef() {
+		return claseLinternaRef;
 	}
 
-	public void setPrioridad(int prioridad) {
-		this.prioridad = prioridad;
-	}
-		
-	// --------------------------------------------------------------------------------
-
-	public void setObjetivoRef(Reference<ObjetivoDO> objetivoRef) {
-		this.objetivoRef = objetivoRef;
-	}
-
-	public Reference<ObjetivoDO> getObjetivoRef() {
-		return objetivoRef;
+	public void setClaseLinternaRef(Reference<ClaseLinternaDO> claseLinternaRef) {
+		this.claseLinternaRef = claseLinternaRef;
 	}
 
 	// --------------------------------------------------------------------------------
@@ -65,5 +51,5 @@ public class OrdenDO implements DataObject {
 	public Reference<MisionDO> getMisionRef() {
 		return misionRef;
 	}
-
+	
 }

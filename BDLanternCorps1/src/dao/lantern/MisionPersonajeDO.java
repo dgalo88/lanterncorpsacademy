@@ -1,9 +1,7 @@
 package dao.lantern;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dao.api.DataObject;
+import dao.api.Reference;
 
 public class MisionPersonajeDO implements DataObject {
 
@@ -13,11 +11,9 @@ public class MisionPersonajeDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<PersonajeDO> personajeList = //
-	new ArrayList<PersonajeDO>();
-
-	private List<MisionDO> misionList = //
-		new ArrayList<MisionDO>();
+	private Reference<PersonajeDO> personajeRef = new Reference<PersonajeDO>();
+	
+	private Reference<MisionDO> misionRef = new Reference<MisionDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -38,22 +34,22 @@ public class MisionPersonajeDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public List<PersonajeDO> getPersonajeList() {
-		return personajeList;
+	public void setPersonajeRef(Reference<PersonajeDO> personajeRef) {
+		this.personajeRef = personajeRef;
 	}
 
-	public void setPersonajeList(List<PersonajeDO> personajeList) {
-		this.personajeList = personajeList;
+	public Reference<PersonajeDO> getPersonajeRef() {
+		return personajeRef;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public List<MisionDO> getMisionList() {
-		return misionList;
+	public void setMisionRef(Reference<MisionDO> misionRef) {
+		this.misionRef = misionRef;
 	}
 
-	public void setMisionList(List<MisionDO> MisionList) {
-		this.misionList = misionList;
+	public Reference<MisionDO> getMisionRef() {
+		return misionRef;
 	}
-
+	
 }

@@ -1,8 +1,5 @@
 package dao.lantern;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dao.api.DataObject;
 import dao.api.Reference;
 
@@ -10,11 +7,17 @@ public class NivelHabilidadDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
+	public static final String NIVEL_DE_HABILIDAD 	= "nivel_de_habilidad";
+	public static final String EFECTIVIDAD 			= "efectividad";
+	public static final String COSTO_DE_ENERGIA 	= "costo_de_energia";
+	public static final String PROBABILIDAD 		= "probabilidad";
+
 	public static final String HABILIDAD_ID = "habilidadId";
 	
 	// --------------------------------------------------------------------------------
 
 	private int id;
+	
 	private int nivel_de_habilidad;
 	private int efectividad;
 	private int costo_de_energia;

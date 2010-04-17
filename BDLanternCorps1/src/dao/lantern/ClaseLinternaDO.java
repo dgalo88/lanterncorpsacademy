@@ -9,13 +9,14 @@ import dao.api.Reference;
 public class ClaseLinternaDO implements DataObject {
 
 	public static final String COLOR = "color";
-	public static final String NOMBRE_DE_CUERPO_LINTERNA = "nombre_de_cuerpo_linterna";
-	public static final String HABILIDAD_CLASE_LINTERNA_ID = "habilidadClaseLinternaId";
+	public static final String NOMBRE_DE_CUERPO_LINTERNA   = "nombre_de_cuerpo_linterna";
+	
 	public static final String PLANETA_ID = "planetaId";
 
 	// --------------------------------------------------------------------------------
 
 	private int id;
+	
 	private String color;
 	private String nombre_de_cuerpo_linterna;
 	
@@ -27,7 +28,11 @@ public class ClaseLinternaDO implements DataObject {
 	private List<PersonajeDO> personajeList = //
 		new ArrayList<PersonajeDO>();
 	
-	private Reference<HabilidadClaseLinternaDO> habilidadClaseLinternaRef = new Reference<HabilidadClaseLinternaDO>();
+	private List<HabilidadClaseLinternaDO> habilidadClaseLinternaList = //
+		new ArrayList<HabilidadClaseLinternaDO>();
+	
+	private List<MisionClaseLinternaDO> misionClaseLinternaList = //
+		new ArrayList<MisionClaseLinternaDO>();	
 	
 	private Reference<PlanetaDO> planetaRef = new Reference<PlanetaDO>();
 	
@@ -90,15 +95,6 @@ public class ClaseLinternaDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<HabilidadClaseLinternaDO> getHabilidadClaseLinternaRef() {
-		return habilidadClaseLinternaRef;
-	}
-
-	public void setHabilidadClaseLinternaRef(Reference<HabilidadClaseLinternaDO> habilidadClaseLinternaRef) {
-		this.habilidadClaseLinternaRef = habilidadClaseLinternaRef;
-	}
-	// --------------------------------------------------------------------------------
-
 	public Reference<PlanetaDO> getPlanetaRef() {
 		return planetaRef;
 	}
@@ -106,5 +102,28 @@ public class ClaseLinternaDO implements DataObject {
 	public void setPlanetaRef(Reference<PlanetaDO> planetaRef) {
 		this.planetaRef = planetaRef;
 	}
+
+	// --------------------------------------------------------------------------------
+	
+	public void setHabilidadClaseLinternaList(
+			List<HabilidadClaseLinternaDO> habilidadClaseLinternaList) {
+		this.habilidadClaseLinternaList = habilidadClaseLinternaList;
+	}
+
+	public List<HabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
+		return habilidadClaseLinternaList;
+	}
+
+	// --------------------------------------------------------------------------------
+	
+	public void setMisionClaseLinternaList(List<MisionClaseLinternaDO> misionClaseLinternaList) {
+		this.misionClaseLinternaList = misionClaseLinternaList;
+	}
+
+	public List<MisionClaseLinternaDO> getMisionClaseLinternaList() {
+		return misionClaseLinternaList;
+	}
+
+	// --------------------------------------------------------------------------------
 
 }

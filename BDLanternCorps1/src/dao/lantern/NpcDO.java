@@ -1,14 +1,15 @@
 package dao.lantern;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dao.api.DataObject;
-import dao.api.Reference;
 
 public class NpcDO implements DataObject {
 
-	public static final String NOMBRE = "nombre";
+	public static final String NOMBRE 	= "nombre";
+	public static final String NIVEL 	= "nivel";
+	public static final String SALUD 	= "salud";
+	public static final String DANO 	= "dano";
+	public static final String COLOR 	= "color";
+
 
 	// --------------------------------------------------------------------------------
 

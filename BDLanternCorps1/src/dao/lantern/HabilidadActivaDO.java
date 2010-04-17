@@ -1,24 +1,24 @@
 package dao.lantern;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dao.api.DataObject;
+import dao.api.Reference;
 
 public class HabilidadActivaDO implements DataObject {
 
+	public static final String NIVEL_HABILIDAD = "nivel_habilidad";
+	
 	// --------------------------------------------------------------------------------
 
 	private int id;
+	
 	private int nivel_habilidad;
+	
 	// --------------------------------------------------------------------------------
 
-	private List<PersonajeDO> personajeList = //
-	new ArrayList<PersonajeDO>();
-
-	private List<HabilidadDO> habilidadList = //
-		new ArrayList<HabilidadDO>();
+	private Reference<PersonajeDO> personajeRef = new Reference<PersonajeDO>();
 	
+	private Reference<HabilidadDO> habilidadRef = new Reference<HabilidadDO>();
+		
 	// --------------------------------------------------------------------------------
 
 	public HabilidadActivaDO() {
@@ -45,25 +45,25 @@ public class HabilidadActivaDO implements DataObject {
 	public void setNivelHabilidad(int nivelHabilidad) {
 		nivel_habilidad = nivelHabilidad;
 	}
+
+	// --------------------------------------------------------------------------------
+
+	public void setPersonajeRef(Reference<PersonajeDO> personajeRef) {
+		this.personajeRef = personajeRef;
+	}
+
+	public Reference<PersonajeDO> getPersonajeRef() {
+		return personajeRef;
+	}
 	
 	// --------------------------------------------------------------------------------
 
-	public List<PersonajeDO> getPersonajeList() {
-		return personajeList;
+	public void setHabilidadRef(Reference<HabilidadDO> habilidadRef) {
+		this.habilidadRef = habilidadRef;
 	}
 
-	public void setPersonajeList(List<PersonajeDO> personajeList) {
-		this.personajeList = personajeList;
+	public Reference<HabilidadDO> getHabilidadRef() {
+		return habilidadRef;
 	}
-
-	// --------------------------------------------------------------------------------
-
-	public List<HabilidadDO> getHabilidadList() {
-		return habilidadList;
-	}
-
-	public void setHabilidadList(List<HabilidadDO> habilidadList) {
-		this.habilidadList = habilidadList;
-	}
-
+	
 }

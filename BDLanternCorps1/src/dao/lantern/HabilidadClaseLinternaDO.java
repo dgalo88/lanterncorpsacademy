@@ -1,9 +1,7 @@
 package dao.lantern;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dao.api.DataObject;
+import dao.api.Reference;
 
 public class HabilidadClaseLinternaDO implements DataObject {
 
@@ -13,11 +11,9 @@ public class HabilidadClaseLinternaDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<HabilidadDO> habilidadList = //
-	new ArrayList<HabilidadDO>();
-
-	private List<ClaseLinternaDO> claseLinternaList = //
-		new ArrayList<ClaseLinternaDO>();
+	private Reference<HabilidadDO> habilidadRef = new Reference<HabilidadDO>();
+	
+	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -38,22 +34,22 @@ public class HabilidadClaseLinternaDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public List<HabilidadDO> getHabilidadList() {
-		return habilidadList;
+	public void setHabilidadRef(Reference<HabilidadDO> habilidadRef) {
+		this.habilidadRef = habilidadRef;
 	}
 
-	public void setHabilidadList(List<HabilidadDO> habilidadList) {
-		this.habilidadList = habilidadList;
+	public Reference<HabilidadDO> getHabilidadRef() {
+		return habilidadRef;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public List<ClaseLinternaDO> getClaseLinternaList() {
-		return claseLinternaList;
+	public void setClaseLinternaRef(Reference<ClaseLinternaDO> claseLinternaRef) {
+		this.claseLinternaRef = claseLinternaRef;
 	}
 
-	public void setClaseLinternaList(List<ClaseLinternaDO> ClaseLinternaList) {
-		this.claseLinternaList = claseLinternaList;
+	public Reference<ClaseLinternaDO> getClaseLinternaRef() {
+		return claseLinternaRef;
 	}
-
+	
 }

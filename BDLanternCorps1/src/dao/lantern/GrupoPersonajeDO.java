@@ -1,9 +1,7 @@
 package dao.lantern;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dao.api.DataObject;
+import dao.api.Reference;
 
 public class GrupoPersonajeDO implements DataObject {
 
@@ -13,11 +11,9 @@ public class GrupoPersonajeDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<PersonajeDO> personajeList = //
-	new ArrayList<PersonajeDO>();
-
-	private List<GrupoDO> grupoList = //
-		new ArrayList<GrupoDO>();
+	private Reference<PersonajeDO> personajeRef = new Reference<PersonajeDO>();
+	
+	private Reference<GrupoDO> grupoRef = new Reference<GrupoDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -38,22 +34,22 @@ public class GrupoPersonajeDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public List<PersonajeDO> getPersonajeList() {
-		return personajeList;
+	public void setPersonajeRef(Reference<PersonajeDO> personajeRef) {
+		this.personajeRef = personajeRef;
 	}
 
-	public void setPersonajeList(List<PersonajeDO> personajeList) {
-		this.personajeList = personajeList;
+	public Reference<PersonajeDO> getPersonajeRef() {
+		return personajeRef;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public List<GrupoDO> getGrupoList() {
-		return grupoList;
+	public void setGrupoRef(Reference<GrupoDO> grupoRef) {
+		this.grupoRef = grupoRef;
 	}
 
-	public void setGrupoList(List<GrupoDO> grupoList) {
-		this.grupoList = grupoList;
+	public Reference<GrupoDO> getGrupoRef() {
+		return grupoRef;
 	}
 
 }
