@@ -9,7 +9,7 @@ import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-public class ClaseLinternaDAO extends BaseDAO {
+public class PlanetaDAO extends BaseDAO {
 
   public void createTable() throws SQLException {
     StringBuffer strbuf;
@@ -40,7 +40,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 
     // ----------------------------------------
 
-    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO(); // Used to make the FK
+    PlanetaDAO claseLinternaDAO = new PlanetaDAO(); // Used to make the FK
     claseLinternaDAO.init(connectionBean);
 
     strbuf = new StringBuffer();
@@ -54,6 +54,9 @@ public class ClaseLinternaDAO extends BaseDAO {
     strbuf.append(" VARCHAR(15),    ");
     strbuf.append(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA);
     strbuf.append(" VARCHAR(50),    ");
+    strbuf.append(ClaseLinternaDO.HABILIDAD_CLASE_LINTERNA_ID);
+    strbuf.append(" INT REFERENCES   ");
+    strbuf.append(habilidadClaseLinternaDAO.getTableName());
     strbuf.append(ClaseLinternaDO.PLANETA_ID);
     strbuf.append(" INT REFERENCES   ");
     strbuf.append(planetaDAO.getTableName());
@@ -94,7 +97,7 @@ public class ClaseLinternaDAO extends BaseDAO {
     strbuf.append(" VALUES (");
     strbuf.append(claseLinternaDO.getId());
     strbuf.append(", ");
-    strbuf.append(singleQuotes(claseLinternaDO.getNombreDeCuerpoLinterna()));
+    strbuf.append(singleQuotes(claseLinternaDO.getNombre_de_cuerpo_linterna()));
     strbuf.append(", ");
     strbuf.append(singleQuotes(claseLinternaDO.getColor()));
     strbuf.append(", ");
@@ -139,7 +142,15 @@ public class ClaseLinternaDAO extends BaseDAO {
 
     strbuf.append(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA);
     strbuf.append(" = ");
-    strbuf.append(singleQuotes(claseLinternaDO.getNombreDeCuerpoLinterna()));
+    strbuf.append(singleQuotes(claseLinternaDO.getNombre_de_cuerpo_linterna()));
+
+    strbuf.append(", ");
+
+    strbuf.append(ClaseLinternaDO.HABILIDAD_CLASE_LINTERNA_ID);
+    strbuf.append(" = ");
+    Reference<HabilidadClaseLinternaDO> refH = claseLinternaDO.getHabilidadClaseLinternaRef();
+    refH.checkUpdate();
+    strbuf.append(refH.getIdAsString());
     
     strbuf.append(", ");
     
@@ -269,6 +280,33 @@ public class ClaseLinternaDAO extends BaseDAO {
 
   // --------------------------------------------------------------------------------
 
+  public List<ClaseLinternaDO> listByIdHabilidadClaseLinternaId(int habilidadClaseLinternaId) throws SQLException {
+    StringBuffer strbuf = new StringBuffer();
+
+    strbuf.append("SELECT * FROM ");
+    strbuf.append(getTableName());
+
+    strbuf.append(" WHERE ");
+    strbuf.append(ClaseLinternaDO.HABILIDAD_CLASE_LINTERNA_ID);
+    strbuf.append(" = ");
+    strbuf.append(habilidadClaseLinternaId);
+
+    System.err.println(strbuf.toString());
+
+    ResultSet rs = //
+    connection.createStatement().executeQuery(strbuf.toString());
+
+    List<ClaseLinternaDO> ret = new ArrayList<ClaseLinternaDO>();
+
+    while (rs.next()) {
+      ret.add(resultSetToDO(rs));
+    }
+
+    return ret;
+  }
+
+  // --------------------------------------------------------------------------------
+
   public List<ClaseLinternaDO> listByIdPlanetaId(int planetaId) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
 
@@ -330,7 +368,11 @@ public class ClaseLinternaDAO extends BaseDAO {
 
     ret.setId/*     					*/(rs.getInt(ClaseLinternaDO.ID));
     ret.setColor/*						*/(rs.getString(ClaseLinternaDO.COLOR));
-    ret.setNombreDeCuerpoLinterna/*	*/(rs.getString(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA));
+    ret.setNombre_de_cuerpo_linterna/*	*/(rs.getString(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA));
+
+    Reference<HabilidadClaseLinternaDO> refH = new Reference<HabilidadClaseLinternaDO>();
+    refH.setRefIdent(rs.getInt(ClaseLinternaDO.HABILIDAD_CLASE_LINTERNA_ID));
+    ret.setHabilidadClaseLinternaRef(refH);
 
     Reference<PlanetaDO> refPl = new Reference<PlanetaDO>();
     refPl.setRefIdent(rs.getInt(ClaseLinternaDO.PLANETA_ID));
@@ -339,6 +381,27 @@ public class ClaseLinternaDAO extends BaseDAO {
     return (ClaseLinternaDO) dtaSession.add(ret);
   }
 
+  // --------------------------------------------------------------------------------
+
+  public void loadHabilidadClaseLinternaRef(ClaseLinternaDO claseLinternaDO) throws SQLException {
+    // XXX: Check this method's semantic
+    checkClass(claseLinternaDO, ClaseLinternaDO.class, CHECK_UPDATE);
+
+    HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = new HabilidadClaseLinternaDAO();
+    habilidadClaseLinternaDAO.init(connectionBean);
+
+    Reference<HabilidadClaseLinternaDO> ref = claseLinternaDO.getHabilidadClaseLinternaRef();
+
+    if (ref.getRefIdent() == 0) {
+      return;
+    }
+
+    HabilidadClaseLinternaDO habilidadClaseLinternaDO = //
+    (HabilidadClaseLinternaDO) habilidadClaseLinternaDAO.loadById(ref.getRefIdent());
+
+    ref.setRefValue(habilidadClaseLinternaDO);
+  }
+  
   // --------------------------------------------------------------------------------
 
   public void loadPlanetaRef(ClaseLinternaDO claseLinternaDO) throws SQLException {

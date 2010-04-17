@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.api.DataObject;
-import dao.api.Reference;
 
 public class MisionDO implements DataObject {
 
-	public static final String NOMBRE = "nombre";
-	public static final String DESCRIPCION = "descripcion";
-	public static final String EXPERIENCIA_GANADA = "experiencia_ganada";
-	public static final String PUNTOS_DE_ENTRENAMIENTO_GANADOS = "puntos_de_entrenamiento_ganados";
-	public static final String NIVEL_NECESARIO = "nivel_necesario";
-	public static final String ORDEN_ID = "ordenId";
-	public static final String MISION_PERSONAJE_ID = "misionPersonajeId";
+	public static final String NOMBRE 							= "nombre";
+	public static final String DESCRIPCION 						= "descripcion";
+	public static final String EXPERIENCIA_GANADA 				= "experiencia_ganada";
+	public static final String PUNTOS_DE_ENTRENAMIENTO_GANADOS 	= "puntos_de_entrenamiento_ganados";
+	public static final String NIVEL_NECESARIO 					= "nivel_necesario";
+	
+	public static final String ORDEN_ID 						= "ordenId";
+	public static final String MISION_PERSONAJE_ID 				= "misionPersonajeId";
 	
 	// --------------------------------------------------------------------------------
 
@@ -26,8 +26,12 @@ public class MisionDO implements DataObject {
 	private int puntos_de_entrenamiento_ganados;
 	private int nivel_necesario;
 
-	private Reference<OrdenDO> ordenRef = new Reference<OrdenDO>();
-	private Reference<MisionPersonajeDO> misionPersonajeRef = new Reference<MisionPersonajeDO>();
+
+	private List<OrdenDO> OrdenList = //
+		new ArrayList<OrdenDO>();
+	
+	private List<MisionPersonajeDO> MisionPersonajeList = //
+		new ArrayList<MisionPersonajeDO>();
 		
 	// --------------------------------------------------------------------------------
 
@@ -98,22 +102,22 @@ public class MisionDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<OrdenDO> getOrdenRef() {
-		return ordenRef;
+	public void setOrdenList(List<OrdenDO> ordenList) {
+		OrdenList = ordenList;
 	}
 
-	public void setOrdenRef(Reference<OrdenDO> ordenRef) {
-		this.ordenRef = ordenRef;
+	public List<OrdenDO> getOrdenList() {
+		return OrdenList;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<MisionPersonajeDO> getMisionPersonajeRef() {
-		return  misionPersonajeRef;
+	public void setMisionPersonajeList(List<MisionPersonajeDO> misionPersonajeList) {
+		MisionPersonajeList = misionPersonajeList;
 	}
 
-	public void setMisionPersonajeRef(Reference<MisionPersonajeDO> misionPersonajeRef) {
-		this.misionPersonajeRef = misionPersonajeRef;
+	public List<MisionPersonajeDO> getMisionPersonajeList() {
+		return MisionPersonajeList;
 	}
 
 }

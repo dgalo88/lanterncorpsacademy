@@ -9,7 +9,10 @@ public class PlanetaDO implements DataObject {
 
 	public static final String NOMBRE = "nombre";
 	public static final String SECTOR = "sector";
+	public static final String COORDENADA_EN_X = "coordenada_en_x";
+	public static final String COORDENADA_EN_Y = "coordenada_en_y";
 
+	
 	// --------------------------------------------------------------------------------
 
 	private int id;

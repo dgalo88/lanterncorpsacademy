@@ -11,19 +11,21 @@ public class GrupoDO implements DataObject {
 	// --------------------------------------------------------------------------------
 	
 	public static final String NOMBRE = "nombre";
-	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
 	public static final String ESTADO = "estado";
+	
+	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
 	
 	// --------------------------------------------------------------------------------
 	
 	private int id;
+	
 	private String nombre;
 	private boolean estado;
 	
 	// --------------------------------------------------------------------------------
 
 	private List<GrupoPersonajeDO> grupoPersonajeList = //
-	new ArrayList<GrupoPersonajeDO>();
+		new ArrayList<GrupoPersonajeDO>();
 
 	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
 	

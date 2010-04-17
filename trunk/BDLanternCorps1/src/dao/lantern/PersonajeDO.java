@@ -9,7 +9,14 @@ import dao.api.Reference;
 
 public class PersonajeDO implements DataObject {
 
-	public static final String ALIAS = "alias";
+	public static final String ALIAS 					= "alias";
+	public static final String EXPERIENCIA 				= "experiencia";
+	public static final String PUNTOS_DE_ENTRENAMIENTO 	= "puntos_de_entrenamiento";
+	public static final String SALUD 					= "salud";
+	public static final String ENERGIA_DEL_ANILLO 		= "energia_del_anillo";
+	public static final String NIVEL 					= "nivel";
+	public static final String ULTIMA_FECHA_INGRESO 	= "ultima_fecha_ingreso";
+	
 	public static final String USUARIO_ID = "usuarioId";
 	public static final String PLANETA_ID = "planetaId";
 	public static final String HABILIDAD_ACTIVA_ID = "habilidadActivaId";
@@ -30,11 +37,20 @@ public class PersonajeDO implements DataObject {
 	private Date ultima_fecha_ingreso;
 
 	private Reference<UsuarioDO> usuarioRef = new Reference<UsuarioDO>();
+
 	private Reference<PlanetaDO> planetaRef = new Reference<PlanetaDO>();
-	private Reference<HabilidadActivaDO> habilidadActivaRef = new Reference<HabilidadActivaDO>();
-	private Reference<MisionPersonajeDO> misionPersonajeRef = new Reference<MisionPersonajeDO>();
-	private Reference<GrupoDO> grupoRef = new Reference<GrupoDO>();
-	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
+	
+	private List<HabilidadActivaDO> habilidadActivaList = //
+		new ArrayList<HabilidadActivaDO>();
+
+	private List<MisionPersonajeDO> misionPersonajeList = //
+		new ArrayList<MisionPersonajeDO>();
+
+	private List<GrupoPersonajeDO> grupoPersonajeList = //
+		new ArrayList<GrupoPersonajeDO>();
+
+	private List<ClaseLinternaDO> claseLinternaList = //
+		new ArrayList<ClaseLinternaDO>();
 	
 		// --------------------------------------------------------------------------------
 
@@ -145,42 +161,42 @@ public class PersonajeDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<HabilidadActivaDO> getHabilidadActivaRef() {
-		return  habilidadActivaRef;
+	public void setHabilidadActivaList(List<HabilidadActivaDO> habilidadActivaList) {
+		this.habilidadActivaList = habilidadActivaList;
 	}
 
-	public void setHabilidadActivaRef(Reference<HabilidadActivaDO> habilidadActivaRef) {
-		this.habilidadActivaRef = habilidadActivaRef;
-	}
-	
-	// --------------------------------------------------------------------------------
-
-	public Reference<MisionPersonajeDO> getMisionPersonajeRef() {
-		return  misionPersonajeRef;
-	}
-
-	public void setMisionPersonajeRef(Reference<MisionPersonajeDO> misionPersonajeRef) {
-		this.misionPersonajeRef = misionPersonajeRef;
+	public List<HabilidadActivaDO> getHabilidadActivaList() {
+		return habilidadActivaList;
 	}
 	
 	// --------------------------------------------------------------------------------
 
-	public Reference<GrupoDO> getGrupoRef() {
-		return  grupoRef;
+	public void setMisionPersonajeList(List<MisionPersonajeDO> misionPersonajeList) {
+		this.misionPersonajeList = misionPersonajeList;
 	}
 
-	public void setGrupoRef(Reference<GrupoDO> grupoRef) {
-		this.grupoRef = grupoRef;
+	public List<MisionPersonajeDO> getMisionPersonajeList() {
+		return misionPersonajeList;
+	}
+	
+	// --------------------------------------------------------------------------------
+
+	public void setGrupoPersonajeList(List<GrupoPersonajeDO> grupoPersonajeList) {
+		this.grupoPersonajeList = grupoPersonajeList;
+	}
+
+	public List<GrupoPersonajeDO> getGrupoPersonajeList() {
+		return grupoPersonajeList;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<ClaseLinternaDO> getClaseLinternaRef() {
-		return claseLinternaRef;
+	public void setClaseLinternaList(List<ClaseLinternaDO> claseLinternaList) {
+		this.claseLinternaList = claseLinternaList;
 	}
 
-	public void setClaseLinternaRef(Reference<ClaseLinternaDO> claseLinternaRef) {
-		this.claseLinternaRef = claseLinternaRef;
+	public List<ClaseLinternaDO> getClaseLinternaList() {
+		return claseLinternaList;
 	}
 	
 }

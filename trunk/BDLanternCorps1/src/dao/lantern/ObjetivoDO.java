@@ -9,6 +9,8 @@ import dao.api.Reference;
 public class ObjetivoDO implements DataObject {
 
 	public static final String DESCRIPCION = "descripcion";
+	public static final String NUMERO_DE_NPC = "numero_de_npc";
+	
 	public static final String PLANETA_ID = "planetaId";
 	public static final String ORDEN_ID = "ordenId";
 	
@@ -19,8 +21,12 @@ public class ObjetivoDO implements DataObject {
 	private String descripcion;
 	private int numero_de_npc;
 	
+	// --------------------------------------------------------------------------------
+	
 	private Reference<PlanetaDO> planetaRef = new Reference<PlanetaDO>();
-	private Reference<OrdenDO> ordenRef = new Reference<OrdenDO>();
+	
+	private List<OrdenDO> OrdenList = //
+		new ArrayList<OrdenDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -68,15 +74,15 @@ public class ObjetivoDO implements DataObject {
 	public void setPlanetaRef(Reference<PlanetaDO> planetaRef) {
 		this.planetaRef = planetaRef;
 	}
-
+	
 	// --------------------------------------------------------------------------------
 
-	public Reference<OrdenDO> getOrdenRef() {
-		return ordenRef;
+	public void setOrdenList(List<OrdenDO> ordenList) {
+		OrdenList = ordenList;
 	}
 
-	public void setOrdenRef(Reference<OrdenDO> ordenRef) {
-		this.ordenRef = ordenRef;
+	public List<OrdenDO> getOrdenList() {
+		return OrdenList;
 	}
-	
+		
 }
