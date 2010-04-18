@@ -7,12 +7,8 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-import dao.api.Reference;
-import dao.lantern.HabilidadDO;
 
-
-
-public class HabilidadDAO extends BaseDAO {
+public class NpcDAO extends BaseDAO {
 
 	@Override
 	public int countAll() throws SQLException {
@@ -61,37 +57,24 @@ public class HabilidadDAO extends BaseDAO {
 
 	    // ----------------------------------------
 
-	    HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = new HabilidadClaseLinternaDAO(); // Used to make the FK
-	    habilidadClaseLinternaDAO.init(connectionBean);
-	    
-	    NivelHabilidadDAO nivelHabilidadDAO = new NivelHabilidadDAO(); // Used to make the FK
-	    nivelHabilidadDAO.init(connectionBean);
-	    //TODO these DAOs
-	    HabilidadActivaDAO habilidadActivaDAO = new HabilidadActivaDAO(); // Used to make the FK
-	    habilidadActivaDAO.init(connectionBean);
-
 	    strbuf = new StringBuffer();
 
 	    strbuf.append("CREATE TABLE ");
 	    strbuf.append(getTableName());
 	    strbuf.append(" (");
-	    strbuf.append(HabilidadDO.ID);
+	    strbuf.append(NpcDO.ID);
 	    strbuf.append(" INT PRIMARY KEY, ");
-	    strbuf.append(HabilidadDO.NOMBRE); //AQUI VA EL NOMBRE DE LA COLUMNA STATIC FINAL
+	    strbuf.append(NpcDO.NOMBRE); 
 	    strbuf.append(" VARCHAR(100),    ");
-	    strbuf.append(HabilidadDO.COST);
-	    strbuf.append(" INT CHECK (costo_aprendizaje>=0),    ");
-	    strbuf.append(HabilidadDO.TIPO);
+	    strbuf.append(NpcDO.NIVEL);
 	    strbuf.append(" INT,    ");
-	    strbuf.append(HabilidadDO.CLASE_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(habilidadClaseLinternaDAO.getTableName()+", ");
-	    strbuf.append(HabilidadDO.NIVEL_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(nivelHabilidadDAO.getTableName()+", ");
-	    strbuf.append(HabilidadDO.HAB_ACTIVA_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(habilidadActivaDAO.getTableName());
+	    strbuf.append(NpcDO.SALUD);
+	    strbuf.append(" INT,    ");
+	    strbuf.append(NpcDO.DANO);
+	    strbuf.append(" INT,    ");
+	    strbuf.append(NpcDO.COLOR);
+	    strbuf.append(" INT    ");
+	    
 	    strbuf.append(")");
 
 	    System.err.println(strbuf.toString());
@@ -110,6 +93,7 @@ public class HabilidadDAO extends BaseDAO {
 
 	    connection.createStatement().execute(strbuf.toString());
 
+
 	}
 
 	@Override
@@ -117,7 +101,7 @@ public class HabilidadDAO extends BaseDAO {
 	    checkCache(dataObject, CHECK_DELETE);
 	    checkClass(dataObject, HabilidadDO.class, CHECK_DELETE);
 
-	    HabilidadDO habilidadDO = (HabilidadDO) dataObject;
+	    NpcDO npcDO = (NpcDO) dataObject;
 
 	    StringBuffer strbuf = new StringBuffer();
 
@@ -125,45 +109,44 @@ public class HabilidadDAO extends BaseDAO {
 	    strbuf.append(getTableName());
 
 	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadDO.ID);
+	    strbuf.append(NpcDO.ID);
 	    strbuf.append(" = ");
-	    strbuf.append(habilidadDO.getId());
+	    strbuf.append(npcDO.getId());
 
 	    System.err.println(strbuf.toString());
 
 	    connection.createStatement().execute(strbuf.toString());
 
 	    dtaSession.del(dataObject);
-	  }
 
-	
+	}
 
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, HabilidadDO.class, CHECK_INSERT);
+		checkCache(dataObject, CHECK_INSERT);
+	    checkClass(dataObject, NpcDO.class, CHECK_INSERT);
 
-	    HabilidadDO habilidadDO = (HabilidadDO) dataObject;
+	    NpcDO npcDO = (NpcDO) dataObject;
 
-	    habilidadDO.setId(getNextId());
+	    npcDO.setId(getNextId());
 
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("INSERT INTO ");
 	    strbuf.append(getTableName());
 	    strbuf.append(" VALUES (");
-	    strbuf.append(habilidadDO.getId()); // INSTANCIA
+	    strbuf.append(npcDO.getId()); // INSTANCIA
 	    strbuf.append(", ");
-	    strbuf.append(singleQuotes(habilidadDO.getNombre()));
+	    strbuf.append(singleQuotes(npcDO.getNombre()));
 	    strbuf.append(", ");
-	    strbuf.append(habilidadDO.getCostoDeAprendizaje());
+	    strbuf.append(npcDO.getNivel());
 	    strbuf.append(", ");
-	    strbuf.append(habilidadDO.getTipo());
+	    strbuf.append(npcDO.getSalud());
 	    strbuf.append(", ");
-//	    Reference<HabilidadClaseLinternaDO> ref = habilidadDO.getHabilidadClaseLinternaList();
-//	    ref.checkInsert();
-//	    strbuf.append(ref.getIdAsString()); //TODO 
-
+	    strbuf.append(npcDO.getDano());
+	    strbuf.append(", ");
+	    strbuf.append(npcDO.getColor());
+	    
 	    strbuf.append(")");
 
 	    System.err.println(strbuf.toString());
@@ -172,6 +155,25 @@ public class HabilidadDAO extends BaseDAO {
 
 	    dtaSession.add(dataObject);
 
+	}
+
+	private int getNextId() throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT nextval(");
+	    strbuf.append(singleQuotes("seq_" + getTableName()));
+	    strbuf.append(")");
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (!rs.next()) {
+		    throw new IllegalStateException("!rs.next()");
+		   }
+
+		return rs.getInt("nextval");
 	}
 
 	@Override
@@ -200,7 +202,27 @@ public class HabilidadDAO extends BaseDAO {
 	      }
 
 	      return ret;
-		//return null;
+	}
+
+	private NpcDO resultSetToDO(ResultSet rs) throws SQLException {
+	  	  NpcDO ret = //
+	  	      (NpcDO) dtaSession.getDtaByKey( //
+	  	      		NpcDO.class, rs.getInt(NpcDO.ID));
+
+	  	      if (ret != null) {
+	  	        return ret;
+	  	      }
+
+	  	      ret = new NpcDO();
+
+	  	      ret.setId/*     */(rs.getInt(HabilidadDO.ID));
+	  	      ret.setNombre/*   */(rs.getString(HabilidadDO.NOMBRE));
+	  	      ret.setNivel((rs.getInt(NpcDO.NIVEL)));
+	  	      ret.setSalud((rs.getInt(NpcDO.SALUD)));
+	  	      ret.setDano((rs.getInt(NpcDO.DANO)));
+	  	      ret.setColor((rs.getString(NpcDO.COLOR)));
+	  	      
+	  	      return (NpcDO) dtaSession.add(ret);	
 	}
 
 	@Override
@@ -236,10 +258,10 @@ public class HabilidadDAO extends BaseDAO {
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_UPDATE);
+		checkCache(dataObject, CHECK_UPDATE);
 	    checkClass(dataObject, HabilidadDO.class, CHECK_UPDATE);
 
-	    HabilidadDO habilidadDO = (HabilidadDO) dataObject;
+	    NpcDO npcDO = (NpcDO) dataObject;
 
 	    StringBuffer strbuf = new StringBuffer();
 
@@ -247,30 +269,40 @@ public class HabilidadDAO extends BaseDAO {
 	    strbuf.append(getTableName());
 	    strbuf.append(" SET ");
 
-	    strbuf.append(HabilidadDO.NOMBRE);
+	    strbuf.append(NpcDO.NOMBRE);
 	    strbuf.append(" = ");
-	    strbuf.append(singleQuotes(habilidadDO.getNombre()));
+	    strbuf.append(singleQuotes(npcDO.getNombre()));
 
 	    strbuf.append(", ");
 
-	    strbuf.append(HabilidadDO.COST);
+	    strbuf.append(NpcDO.NIVEL);
 	    strbuf.append(" = ");
-	    strbuf.append(habilidadDO.getCostoDeAprendizaje());
+	    strbuf.append(npcDO.getNivel());
 	    
 	    strbuf.append(", ");
-
-	    strbuf.append(HabilidadDO.TIPO);
-	    strbuf.append(" = ");
-	    strbuf.append(habilidadDO.getTipo());
 	    
-//	    Reference<HabilidadClaseLinternaDO> refcl = habilidadDO.getClaseLinternaRef();
-//	    refcl.checkUpdate(); //TODO REFERENCES
-//	    strbuf.append(refcl.getIdAsString());
-
+	    strbuf.append(NpcDO.SALUD);
+	    strbuf.append(" = ");
+	    strbuf.append(npcDO.getSalud());
+	    
+	    strbuf.append(", ");
+	    
+	    strbuf.append(NpcDO.DANO);
+	    strbuf.append(" = ");
+	    strbuf.append(npcDO.getDano());
+	    
+	    strbuf.append(", ");
+	    
+	    strbuf.append(NpcDO.COLOR);
+	    strbuf.append(" = ");
+	    strbuf.append(singleQuotes(npcDO.getColor()));
+	    
+	    strbuf.append(", ");
+	    
 	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadDO.ID);
+	    strbuf.append(NpcDO.ID);
 	    strbuf.append(" = ");
-	    strbuf.append(habilidadDO.getId());
+	    strbuf.append(npcDO.getId());
 
 	    System.err.println(strbuf.toString());
 
@@ -278,48 +310,4 @@ public class HabilidadDAO extends BaseDAO {
 
 	}
 
-    private int getNextId() throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
-
-	    strbuf.append("SELECT nextval(");
-	    strbuf.append(singleQuotes("seq_" + getTableName()));
-	    strbuf.append(")");
-
-	    System.err.println(strbuf.toString());
-
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
-
-	    if (!rs.next()) {
-		    throw new IllegalStateException("!rs.next()");
-		   }
-
-		return rs.getInt("nextval");
-     }
-
-    private HabilidadDO resultSetToDO(ResultSet rs) throws SQLException {
-  	  HabilidadDO ret = //
-      (HabilidadDO) dtaSession.getDtaByKey( //
-      		HabilidadDO.class, rs.getInt(HabilidadDO.ID));
-
-      if (ret != null) {
-        return ret;
-      }
-
-      ret = new HabilidadDO();
-
-      ret.setId/*     */(rs.getInt(HabilidadDO.ID));
-      ret.setNombre/*   */(rs.getString(HabilidadDO.NOMBRE));
-      ret.setCostoDeAprendizaje((rs.getInt(HabilidadDO.COST)));
-      ret.setTipo(rs.getInt(HabilidadDO.TIPO));
-    //TODO: REFERENCES OOOOOOJJJJJJJJJJJJJOOOOOOOOO!!!!!
-//      
-//      Reference<HabilidadClaseLinternaDO> refH = new Reference<HabilidadClaseLinternaDO>();
-//      refH.setRefIdent(rs.getInt(ClaseLinternaDO.HABILIDAD_ID));
-//      ret.setHabilidadClaseLinternaRef(refH);
-      //TODO: REFERENCES OOOOOOJJJJJJJJJJJJJOOOOOOOOO!!!!!
-
-  
-      return (HabilidadDO) dtaSession.add(ret);	
-    }
 }
