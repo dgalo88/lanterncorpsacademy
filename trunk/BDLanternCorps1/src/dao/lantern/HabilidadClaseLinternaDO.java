@@ -5,6 +5,10 @@ import dao.api.Reference;
 
 public class HabilidadClaseLinternaDO implements DataObject {
 
+	public static final String ID="id";
+	public static final String  HAB_REF= "habilidad_ref";
+	public static final String  CLASE_REF= "clase_ref";
+	
 	// --------------------------------------------------------------------------------
 
 	private int id;

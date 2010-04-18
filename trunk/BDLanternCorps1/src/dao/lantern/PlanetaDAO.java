@@ -56,7 +56,7 @@ public class PlanetaDAO extends BaseDAO {
     strbuf.append(" VARCHAR(50),    ");
     strbuf.append(ClaseLinternaDO.HABILIDAD_CLASE_LINTERNA_ID);
     strbuf.append(" INT REFERENCES   ");
-    strbuf.append(habilidadClaseLinternaDAO.getTableName());
+    strbuf.append(HabilidadClaseLinternaDAO.getTableName());
     strbuf.append(ClaseLinternaDO.PLANETA_ID);
     strbuf.append(" INT REFERENCES   ");
     strbuf.append(planetaDAO.getTableName());

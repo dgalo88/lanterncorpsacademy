@@ -42,6 +42,9 @@ public class ClaseLinternaDAO extends BaseDAO {
 
     ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO(); // Used to make the FK
     claseLinternaDAO.init(connectionBean);
+    
+    PlanetaDAO planetaDAO = new PlanetaDAO(); // Used to make the FK
+    planetaDAO.init(connectionBean);
 
     strbuf = new StringBuffer();
 
