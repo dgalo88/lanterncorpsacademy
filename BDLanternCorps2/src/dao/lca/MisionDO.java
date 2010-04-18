@@ -8,6 +8,9 @@ public class MisionDO implements DataObject {
 
 	public static final String NOMBRE = "nombre";
 	public static final String DESCRIPCION = "descripcion";
+	public static final String EXPERIENCIA = "experiencia_ganada";
+	public static final String PUNTOS = "puntos_de_entrenamiento_ganados";
+	public static final String NIVEL = "nivel_necesario";
 	
 	// --------------------------------------------------------------------------------
 
