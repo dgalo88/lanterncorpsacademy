@@ -56,12 +56,12 @@ public class GrupoDAO extends BaseDAO {
     strbuf.append(" INT PRIMARY KEY, ");
     strbuf.append(GrupoDO.NOMBRE);
     strbuf.append(" VARCHAR(50),    ");
-    strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
-    strbuf.append(" STRING REFERENCES   ");
     strbuf.append(GrupoDO.ESTADO);
     strbuf.append(" BOOLEAN");
+    strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
+    strbuf.append(" STRING REFERENCES   ");
     strbuf.append(")");
-
+    
     System.err.println(strbuf.toString());
 
     connection.createStatement().execute(strbuf.toString());
@@ -130,17 +130,17 @@ public class GrupoDAO extends BaseDAO {
 
     strbuf.append(", ");
 
+    strbuf.append(GrupoDO.ESTADO);
+    strbuf.append(" = ");
+    strbuf.append(grupoDO.isEstado());
+
+    strbuf.append(", ");
+
     strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
     strbuf.append(" = ");
     Reference<ClaseLinternaDO> refcl = grupoDO.getClaseLinternaRef();
     refcl.checkUpdate();
     strbuf.append(refcl.getIdAsString());
-    
-    strbuf.append(", ");
-
-    strbuf.append(GrupoDO.ESTADO);
-    strbuf.append(" = ");
-    strbuf.append(grupoDO.isEstado());
 
     strbuf.append(" WHERE ");
     strbuf.append(GrupoDO.ID);
@@ -261,24 +261,24 @@ public class GrupoDAO extends BaseDAO {
   }
 
   // --------------------------------------------------------------------------------
-  /*
-  public List<ClaseLinternaDO> listByIdHabilidadClaseLinternaId(int habilidadClaseLinternaId) throws SQLException {
+  
+  public List<GrupoDO> listByClaseLinternaId(int claseLinternaId) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("SELECT * FROM ");
 	    strbuf.append(getTableName());
 
 	    strbuf.append(" WHERE ");
-	    strbuf.append(ClaseLinternaDO.HABILIDAD_CLASE_LINTERNA_ID);
+	    strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
 	    strbuf.append(" = ");
-	    strbuf.append(habilidadClaseLinternaId);
+	    strbuf.append(claseLinternaId);
 
 	    System.err.println(strbuf.toString());
 
 	    ResultSet rs = //
 	    connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<ClaseLinternaDO> ret = new ArrayList<ClaseLinternaDO>();
+	    List<GrupoDO> ret = new ArrayList<GrupoDO>();
 
 	    while (rs.next()) {
 	      ret.add(resultSetToDO(rs));
@@ -286,7 +286,7 @@ public class GrupoDAO extends BaseDAO {
 
 	    return ret;
 	  }
-  */
+  
   //--------------------------------------------------------------------------------
   
   private int getNextId() throws SQLException {
@@ -321,23 +321,19 @@ public class GrupoDAO extends BaseDAO {
 
     ret = new GrupoDO();
 
-    ret.setId/*     */(rs.getInt(GrupoDO.ID));
-    ret.setNombre/*   */(rs.getString(GrupoDO.NOMBRE));
+    ret.setId(rs.getInt(GrupoDO.ID));
+    ret.setNombre(rs.getString(GrupoDO.NOMBRE));
     ret.setEstado(rs.getBoolean(GrupoDO.ESTADO));
-/*    
-    Reference<HabilidadClaseLinternaDO> refH = new Reference<HabilidadClaseLinternaDO>();
-    refH.setRefIdent(rs.getInt(ClaseLinternaDO.HABILIDAD_CLASE_LINTERNA_ID));
-    ret.setHabilidadClaseLinternaRef(refH);
+ 
+    Reference<ClaseLinternaDO> refCl = new Reference<ClaseLinternaDO>();
+    refCl.setRefIdent(rs.getInt(GrupoDO.CLASE_LINTERNA_ID));
+    ret.setClaseLinternaRef(refCl);
     
-    Reference<PlanetaDO> refPl = new Reference<PlanetaDO>();
-    refPl.setRefIdent(rs.getInt(ClaseLinternaDO.PLANETA_ID));
-    ret.setPlanetaRef(refP
-*/
     return (GrupoDO) dtaSession.add(ret);
   }
 
   // --------------------------------------------------------------------------------
-/*
+
   public void loadClaseLinternaRef(GrupoDO grupoDO) throws SQLException {
 	    // XXX: Check this method's semantic
 	    checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
@@ -350,7 +346,11 @@ public class GrupoDAO extends BaseDAO {
 	    if (ref.getRefIdent() == 0) {
 	      return;
 	    }
+
+	    ClaseLinternaDO claseLinternaDO = //
+	    	(ClaseLinternaDO) claseLinternaDAO.loadById(ref.getRefIdent());
+
+	        ref.setRefValue(claseLinternaDO);
   }
-  */
   
 }

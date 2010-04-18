@@ -5,6 +5,9 @@ import dao.api.Reference;
 
 public class GrupoPersonajeDO implements DataObject {
 
+	public static final String PERSONAJE_ID = "personajeId";
+	public static final String GRUPO_ID 	= "grupoId";
+	
 	// --------------------------------------------------------------------------------
 
 	private int id;
