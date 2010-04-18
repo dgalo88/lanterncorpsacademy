@@ -102,10 +102,6 @@ public class ClaseLinternaDAO extends BaseDAO {
     strbuf.append(singleQuotes(claseLinternaDO.getColor()));
     strbuf.append(", ");
 
-    Reference<HabilidadClaseLinternaDO> refH = claseLinternaDO.getHabilidadClaseLinternaRef();
-    refH.checkInsert();
-    strbuf.append(refH.getIdAsString());
-    
     Reference<PlanetaDO> refPl = claseLinternaDO.getPlanetaRef();
     refPl.checkInsert();
     strbuf.append(refPl.getIdAsString());
@@ -272,7 +268,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 
   // --------------------------------------------------------------------------------
 
-  public List<ClaseLinternaDO> listByIdPlanetaId(int planetaId) throws SQLException {
+  public List<ClaseLinternaDO> listByPlanetaId(int planetaId) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("SELECT * FROM ");
@@ -357,7 +353,7 @@ public class ClaseLinternaDAO extends BaseDAO {
       return;
     }
 
-    PlanetaDO planetaDO = //
+   PlanetaDO planetaDO = //
     (PlanetaDO) planetaDAO.loadById(ref.getRefIdent());
 
     ref.setRefValue(planetaDO);

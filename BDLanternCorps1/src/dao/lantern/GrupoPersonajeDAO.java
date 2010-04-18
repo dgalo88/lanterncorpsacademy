@@ -7,9 +7,16 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+//import dao.api.FactoryDAO;
 import dao.api.Reference;
 
 public class GrupoPersonajeDAO extends BaseDAO {
+
+  public GrupoPersonajeDAO() {
+    // Empty
+  }
+
+  // --------------------------------------------------------------------------------
 
   public void createTable() throws SQLException {
     StringBuffer strbuf;
@@ -40,9 +47,6 @@ public class GrupoPersonajeDAO extends BaseDAO {
 
     // ----------------------------------------
 
-    GrupoPersonajeDAO grupoPersonajeDAO = new GrupoPersonajeDAO(); // Used to make the FK
-    grupoPersonajeDAO.init(connectionBean);
-
     strbuf = new StringBuffer();
 
     strbuf.append("CREATE TABLE ");
@@ -50,8 +54,12 @@ public class GrupoPersonajeDAO extends BaseDAO {
     strbuf.append(" (");
     strbuf.append(GrupoPersonajeDO.ID);
     strbuf.append(" INT PRIMARY KEY, ");
+    strbuf.append(GrupoPersonajeDO.PERSONAJE_ID);
+    strbuf.append(" STRING REFERENCES   ");
+    strbuf.append(GrupoPersonajeDO.GRUPO_ID);
+    strbuf.append(" STRING REFERENCES   ");
     strbuf.append(")");
-
+    
     System.err.println(strbuf.toString());
 
     connection.createStatement().execute(strbuf.toString());
@@ -74,7 +82,7 @@ public class GrupoPersonajeDAO extends BaseDAO {
   @Override
   public void insert(DataObject dataObject) throws SQLException {
     checkCache(dataObject, CHECK_INSERT);
-    checkClass(dataObject, GrupoPersonajeDO.class, CHECK_INSERT);
+    checkClass(dataObject, GrupoDO.class, CHECK_INSERT);
 
     GrupoPersonajeDO grupoPersonajeDO = (GrupoPersonajeDO) dataObject;
 
@@ -86,12 +94,6 @@ public class GrupoPersonajeDAO extends BaseDAO {
     strbuf.append(getTableName());
     strbuf.append(" VALUES (");
     strbuf.append(grupoPersonajeDO.getId());
-    
-    /*Reference <GrupoDO> refG = grupoDO.getGrupoRef();
-    ref.checkInsert();
-    
-    Reference <PersonajeDO> refP = personajeDO.getPersonajeRef();*/s
-
     strbuf.append(")");
 
     System.err.println(strbuf.toString());
@@ -108,6 +110,36 @@ public class GrupoPersonajeDAO extends BaseDAO {
     checkCache(dataObject, CHECK_UPDATE);
     checkClass(dataObject, GrupoPersonajeDO.class, CHECK_UPDATE);
 
+    GrupoPersonajeDO grupoPersonajeDO = (GrupoPersonajeDO) dataObject;
+
+    StringBuffer strbuf = new StringBuffer();
+
+    strbuf.append("UPDATE ");
+    strbuf.append(getTableName());
+    strbuf.append(" SET ");
+    
+    strbuf.append(GrupoPersonajeDO.PERSONAJE_ID);
+    strbuf.append(" = ");
+    Reference<PersonajeDO> refp = grupoPersonajeDO.getPersonajeRef();
+    refp.checkUpdate();
+    strbuf.append(refp.getIdAsString());
+    
+    strbuf.append(", ");
+    
+    strbuf.append(GrupoPersonajeDO.GRUPO_ID);
+    strbuf.append(" = ");
+    Reference<GrupoDO> refg = grupoPersonajeDO.getGrupoRef();
+    refg.checkUpdate();
+    strbuf.append(refg.getIdAsString());
+
+    strbuf.append(" WHERE ");
+    strbuf.append(GrupoPersonajeDO.ID);
+    strbuf.append(" = ");
+    strbuf.append(grupoPersonajeDO.getId());
+
+    System.err.println(strbuf.toString());
+
+    connection.createStatement().execute(strbuf.toString());
   }
 
   // --------------------------------------------------------------------------------
@@ -115,7 +147,23 @@ public class GrupoPersonajeDAO extends BaseDAO {
   @Override
   public void delete(DataObject dataObject) throws SQLException {
     checkCache(dataObject, CHECK_DELETE);
-    checkClass(dataObject, ClaseLinternaDO.class, CHECK_DELETE);
+    checkClass(dataObject, GrupoPersonajeDO.class, CHECK_DELETE);
+
+    GrupoPersonajeDO grupoPersonajeDO = (GrupoPersonajeDO) dataObject;
+
+    StringBuffer strbuf = new StringBuffer();
+
+    strbuf.append("DELETE FROM ");
+    strbuf.append(getTableName());
+
+    strbuf.append(" WHERE ");
+    strbuf.append(GrupoPersonajeDO.ID);
+    strbuf.append(" = ");
+    strbuf.append(grupoPersonajeDO.getId());
+
+    System.err.println(strbuf.toString());
+
+    connection.createStatement().execute(strbuf.toString());
 
     dtaSession.del(dataObject);
   }
@@ -203,34 +251,61 @@ public class GrupoPersonajeDAO extends BaseDAO {
   }
 
   // --------------------------------------------------------------------------------
+  
+  public List<GrupoPersonajeDO> listByPersonajeId(int personajeId) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
 
-  /*public List<ClaseLinternaDO> listByIdHabilidadClaseLinternaId(int habilidadClaseLinternaId) throws SQLException {
-    StringBuffer strbuf = new StringBuffer();
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
 
-    strbuf.append("SELECT * FROM ");
-    strbuf.append(getTableName());
+	    strbuf.append(" WHERE ");
+	    strbuf.append(GrupoPersonajeDO.PERSONAJE_ID);
+	    strbuf.append(" = ");
+	    strbuf.append(personajeId);
 
-    strbuf.append(" WHERE ");
-    strbuf.append(ClaseLinternaDO.HABILIDAD_CLASE_LINTERNA_ID);
-    strbuf.append(" = ");
-    strbuf.append(habilidadClaseLinternaId);
+	    System.err.println(strbuf.toString());
 
-    System.err.println(strbuf.toString());
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
 
-    ResultSet rs = //
-    connection.createStatement().executeQuery(strbuf.toString());
+	    List<GrupoPersonajeDO> ret = new ArrayList<GrupoPersonajeDO>();
 
-    List<ClaseLinternaDO> ret = new ArrayList<ClaseLinternaDO>();
+	    while (rs.next()) {
+	      ret.add(resultSetToDO(rs));
+	    }
 
-    while (rs.next()) {
-      ret.add(resultSetToDO(rs));
-    }
+	    return ret;
+	  }
+  
+// --------------------------------------------------------------------------------
+  
+  public List<GrupoPersonajeDO> listByGrupoId(int grupoId) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
 
-    return ret;
-  }
-*/
-  // --------------------------------------------------------------------------------
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
 
+	    strbuf.append(" WHERE ");
+	    strbuf.append(GrupoPersonajeDO.GRUPO_ID);
+	    strbuf.append(" = ");
+	    strbuf.append(grupoId);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    List<GrupoPersonajeDO> ret = new ArrayList<GrupoPersonajeDO>();
+
+	    while (rs.next()) {
+	      ret.add(resultSetToDO(rs));
+	    }
+
+	    return ret;
+	  }
+  
+  //--------------------------------------------------------------------------------
+  
   private int getNextId() throws SQLException {
     StringBuffer strbuf = new StringBuffer();
 
@@ -253,86 +328,69 @@ public class GrupoPersonajeDAO extends BaseDAO {
   // --------------------------------------------------------------------------------
 
   private GrupoPersonajeDO resultSetToDO(ResultSet rs) throws SQLException {
-    GrupoPersonajeDO retGP = //
+	  GrupoPersonajeDO ret = //
     (GrupoPersonajeDO) dtaSession.getDtaByKey( //
-        GrupoPersonajeDO.class, rs.getInt(GrupoPersonajeDO.ID));
+    		GrupoPersonajeDO.class, rs.getInt(GrupoPersonajeDO.ID));
 
-    if (retGP != null) {
-      return retGP;
+    if (ret != null) {
+      return ret;
     }
 
-    retGP = new GrupoPersonajeDO();
+    ret = new GrupoPersonajeDO();
 
-    retGP.setId/*     */(rs.getInt(GrupoPersonajeDO.ID));
-        
-    return (GrupoPersonajeDO) dtaSession.add(retGP);
+    ret.setId/*     */(rs.getInt(GrupoPersonajeDO.ID));
+     
+    Reference<PersonajeDO> refP = new Reference<PersonajeDO>();
+    refP.setRefIdent(rs.getInt(GrupoPersonajeDO.PERSONAJE_ID));
+    ret.setPersonajeRef(refP);
+    
+    Reference<GrupoDO> refG = new Reference<GrupoDO>();
+    refG.setRefIdent(rs.getInt(GrupoPersonajeDO.GRUPO_ID));
+    ret.setGrupoRef(refG);
+    
+    return (GrupoPersonajeDO) dtaSession.add(ret);
   }
 
   // --------------------------------------------------------------------------------
 
-  /*public void loadHabilidadClaseLinternaRef(ClaseLinternaDO claseLinternaDO) throws SQLException {
-    // XXX: Check this method's semantic
-    checkClass(claseLinternaDO, ClaseLinternaDO.class, CHECK_UPDATE);
-
-    HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = new HabilidadClaseLinternaDAO();
-    habilidadClaseLinternaDAO.init(connectionBean);
-
-    Reference<HabilidadClaseLinternaDO> ref = claseLinternaDO.getHabilidadClaseLinternaRef();
-
-    if (ref.getRefIdent() == 0) {
-      return;
-    }
-
-    HabilidadClaseLinternaDO habilidadClaseLinternaDO = //
-    (HabilidadClaseLinternaDO) habilidadClaseLinternaDAO.loadById(ref.getRefIdent());
-
-    ref.setRefValue(habilidadClaseLinternaDO);
-  }
-  */
-  // --------------------------------------------------------------------------------
-
-/*  public void loadPlanetaRef(ClaseLinternaDO claseLinternaDO) throws SQLException {
-    // XXX: Check this method's semantic
-    checkClass(claseLinternaDO, ClaseLinternaDO.class, CHECK_UPDATE);
-
-    PlanetaDAO planetaDAO = new PlanetaDAO();
-    planetaDAO.init(connectionBean);
-
-    Reference<PlanetaDO> ref = claseLinternaDO.getPlanetaRef();
-
-    if (ref.getRefIdent() == 0) {
-      return;
-    }
-
-    PlanetaDO planetaDO = //
-    (PlanetaDO) planetaDAO.loadById(ref.getRefIdent());
-
-    ref.setRefValue(planetaDO);
-  }
-  */
-
-  // --------------------------------------------------------------------------------
-
-  public void loadGrupoList(GrupoPersonajeDO grupoPersonajeDO) throws Exception {
-	    checkCache(grupoPersonajeDO, CHECK_UPDATE);
+  public void loadPersonajeRef(GrupoPersonajeDO grupoPersonajeDO) throws SQLException {
+	    // XXX: Check this method's semantic
 	    checkClass(grupoPersonajeDO, GrupoPersonajeDO.class, CHECK_UPDATE);
 
-	    GrupoDAO grupoDAO = (GrupoDAO) FactoryDAO.getDAO( //
-	        GrupoDAO.class, connectionBean);
+	    PersonajeDAO personajeDAO = new PersonajeDAO();
+	    personajeDAO.init(connectionBean);
 
-	    GrupoPersonajeDO.setGrupoList(grupoDAO.listByIdGrupoPersonajeId(grupoPersonajeDO.getId()));
-	  }
+	    Reference<PersonajeDO> ref = grupoPersonajeDO.getPersonajeRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    PersonajeDO personajeDO = //
+	    	(PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
+
+	        ref.setRefValue(personajeDO);
+  }
   
 //--------------------------------------------------------------------------------
 
-  public void loadPersonajeList(GrupoPersonajeDO grupoPersonajeDO) throws Exception {
-	    checkCache(grupoPersonajeDO, CHECK_UPDATE);
+  public void loadGrupoRef(GrupoPersonajeDO grupoPersonajeDO) throws SQLException {
+	    // XXX: Check this method's semantic
 	    checkClass(grupoPersonajeDO, GrupoPersonajeDO.class, CHECK_UPDATE);
 
-	    PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
-	        PersonajeDAO.class, connectionBean);
+	    GrupoDAO grupoDAO = new GrupoDAO();
+	    grupoDAO.init(connectionBean);
 
-	    GrupoPersonajeDO.setPersonajeList(personajeDAO.listByIdGrupoPersonajeId(grupoPersonajeDO.getId()));
-	  }
+	    Reference<GrupoDO> ref = grupoPersonajeDO.getGrupoRef();
 
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    GrupoDO grupoDO = //
+	    	(GrupoDO) grupoDAO.loadById(ref.getRefIdent());
+
+	        ref.setRefValue(grupoDO);
+  }
+  
 }

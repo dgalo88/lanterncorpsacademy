@@ -13,9 +13,6 @@ public class MisionDO implements DataObject {
 	public static final String PUNTOS_DE_ENTRENAMIENTO_GANADOS 	= "puntos_de_entrenamiento_ganados";
 	public static final String NIVEL_NECESARIO 					= "nivel_necesario";
 	
-	public static final String ORDEN_ID 						= "ordenId";
-	public static final String MISION_PERSONAJE_ID 				= "misionPersonajeId";
-	
 	// --------------------------------------------------------------------------------
 
 	private int id;
@@ -26,13 +23,15 @@ public class MisionDO implements DataObject {
 	private int puntos_de_entrenamiento_ganados;
 	private int nivel_necesario;
 
-
 	private List<OrdenDO> OrdenList = //
 		new ArrayList<OrdenDO>();
 	
 	private List<MisionPersonajeDO> MisionPersonajeList = //
 		new ArrayList<MisionPersonajeDO>();
 		
+	private List<MisionClaseLinternaDO> MisionClaselinternaList = //
+		new ArrayList<MisionClaseLinternaDO>();
+	
 	// --------------------------------------------------------------------------------
 
 	public MisionDO() {
@@ -118,6 +117,16 @@ public class MisionDO implements DataObject {
 
 	public List<MisionPersonajeDO> getMisionPersonajeList() {
 		return MisionPersonajeList;
+	}
+
+	// --------------------------------------------------------------------------------
+
+	public void setMisionClaselinternaList(List<MisionClaseLinternaDO> misionClaselinternaList) {
+		MisionClaselinternaList = misionClaselinternaList;
+	}
+
+	public List<MisionClaseLinternaDO> getMisionClaselinternaList() {
+		return MisionClaselinternaList;
 	}
 
 }
