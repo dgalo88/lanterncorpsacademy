@@ -5,6 +5,10 @@ import dao.api.Reference;
 
 public class OrdenDO implements DataObject {
 
+	public static final String PRIORIDAD = "prioridad";
+	public static final String OBJETIVO = "objetivo_id";
+	public static final String MISION = "mision_id";
+	
 	// --------------------------------------------------------------------------------
 
 	private int id;
