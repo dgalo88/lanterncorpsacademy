@@ -75,10 +75,10 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(MisionClaseLinternaDO.MISION_ID);
 		strbuf.append(" INT REFERENCES ,    ");
-		strbuf.append(singleQuotes(MisionDO.ID));
+		strbuf.append(misionDAO.getTableName());
 		strbuf.append(MisionClaseLinternaDO.CLASE_LINTERNA_ID);
 		strbuf.append(" INT REFERENCES ");
-		strbuf.append(singleQuotes(ClaseLinternaDO.ID));
+		strbuf.append(claseLinternaDAO.getTableName());
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
