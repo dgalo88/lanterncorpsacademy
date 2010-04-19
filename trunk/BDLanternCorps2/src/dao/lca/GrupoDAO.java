@@ -2,6 +2,7 @@ package dao.lca;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
@@ -173,26 +174,115 @@ public class GrupoDAO extends BaseDAO{
 
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		   StringBuffer strbuf = new StringBuffer();
+
+		    strbuf.append("SELECT * FROM ");
+		    strbuf.append(getTableName());
+
+		    if (lim >= 0 && off >= 0) {
+		      strbuf.append(" LIMIT  ");
+		      strbuf.append(lim);
+		      strbuf.append(" OFFSET ");
+		      strbuf.append(off);
+		    }
+
+		    System.err.println(strbuf.toString());
+
+		    ResultSet rs = //
+		    connection.createStatement().executeQuery(strbuf.toString());
+
+		    List<DataObject> ret = new ArrayList<DataObject>();
+
+		    while (rs.next()) {
+		      ret.add(resultSetToDO(rs));
+		    }
+
+		    return ret;
 	}
 
 	@Override
 	public List<DataObject> listAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	    return listAll(-1, -1);
 	}
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(GrupoDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(id);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
+	    }
+
+	    return null;
 	}
 
 	@Override
-	public void update(DataObject bean) throws SQLException {
-		// TODO Auto-generated method stub
+	public void update(DataObject dataObject) throws SQLException {
+	    checkCache(dataObject, CHECK_UPDATE);
+	    checkClass(dataObject, GrupoDO.class, CHECK_UPDATE);
+	    
+	    GrupoDO grupoDO = (GrupoDO) dataObject;
+	    
+	    StringBuffer strbuf = new StringBuffer();
+	    
+	    strbuf.append("UPDATE ");
+	    strbuf.append(getTableName());
+	    strbuf.append(" SET ");
+	    
+	    strbuf.append(GrupoDO.NOMBRE);
+	    strbuf.append(" = ");
+	    strbuf.append(singleQuotes(grupoDO.getNombre()));
+
+	    strbuf.append(", ");
+	    
+	    strbuf.append(GrupoDO.ESTADO);
+	    strbuf.append(" = ");
+	    strbuf.append(grupoDO.isEstado());
 		
+	    strbuf.append(" WHERE ");
+	    strbuf.append(GrupoDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(grupoDO.getId());
+
+	    System.err.println(strbuf.toString());
+
+	    connection.createStatement().execute(strbuf.toString());
 	}
 
+	
+	private GrupoDO resultSetToDO(ResultSet rs) throws SQLException {
+		GrupoDO ret = //
+		(GrupoDO) dtaSession.getDtaByKey( //
+				GrupoDO.class, rs.getInt(GrupoDO.ID));
+
+		if (ret != null) {
+			return ret;
+		}
+
+		ret = new GrupoDO();
+
+		ret.setId/*      */(rs.getInt(GrupoDO.ID));
+		ret.setNombre/*  */(rs.getString(GrupoDO.NOMBRE));
+		ret.setEstado/*  */(rs.getBoolean(GrupoDO.ESTADO));
+
+		Reference<ClaseLinternaDO> ref = new Reference<ClaseLinternaDO>();
+		ref.setRefIdent(rs.getInt(GrupoDO.CLASE_LINTERNA_ID));
+
+		ret.setClaseLinternaRef(ref);
+
+		return (GrupoDO) dtaSession.add(ret);
+	}
 }
