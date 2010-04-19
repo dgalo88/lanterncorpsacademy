@@ -5,11 +5,12 @@ import java.sql.SQLException;
 import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+import dao.api.Reference;
 
-public class PlanetaDAO extends BaseDAO {
+public class MisionClaseLinternaDAO extends BaseDAO{
 
-	public PlanetaDAO(){
-		// Empty
+	public MisionClaseLinternaDAO(){
+		// Empty		
 	}
 	
 	@Override
@@ -59,21 +60,22 @@ public class PlanetaDAO extends BaseDAO {
 
 		// ----------------------------------------
 		
+	    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
+	    claseLinternaDAO.init(connectionBean);
+	    MisionDAO misionDAO = new MisionDAO();
+	    misionDAO.init(connectionBean);
+		
 		strbuf = new StringBuffer();
 		
 		strbuf.append("CREATE TABLE ");
 		strbuf.append(getTableName());
 		strbuf.append(" (");
-		strbuf.append(PlanetaDO.ID);
+		strbuf.append(MisionClaseLinternaDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
-		strbuf.append(PlanetaDO.NOMBRE);
-		strbuf.append(" VARCHAR(100),    ");
-		strbuf.append(PlanetaDO.SECTOR);
-		strbuf.append(" VARCHAR(100),    ");
-		strbuf.append(PlanetaDO.COORDENADA_EN_X);
-		strbuf.append(" FLOAT,     ");
-		strbuf.append(PlanetaDO.COORDENADA_EN_Y);
-		strbuf.append(" FLOAT     ");
+		strbuf.append(MisionClaseLinternaDO.MISION_ID);
+		strbuf.append(" INT REFERENCES,    ");
+		strbuf.append(MisionClaseLinternaDO.CLASE_LINTERNA_ID);
+		strbuf.append("INT REFERENCES    ");
 		strbuf.append(")");
 		
 		System.err.println(strbuf.toString());
@@ -92,6 +94,7 @@ public class PlanetaDAO extends BaseDAO {
 
 		connection.createStatement().execute(strbuf.toString());
 		
+		
 	}
 
 	@Override
@@ -99,7 +102,7 @@ public class PlanetaDAO extends BaseDAO {
 	    checkCache(dataObject, CHECK_DELETE);
 	    checkClass(dataObject, PlanetaDO.class, CHECK_DELETE);
 
-	    PlanetaDO planetaDO = (PlanetaDO) dataObject;
+	    MisionClaseLinternaDO misionClaseLinternaDO = (MisionClaseLinternaDO) dataObject;
 
 	    StringBuffer strbuf = new StringBuffer();
 
@@ -107,9 +110,9 @@ public class PlanetaDAO extends BaseDAO {
 	    strbuf.append(getTableName());
 
 	    strbuf.append(" WHERE ");
-	    strbuf.append(PlanetaDO.ID);
+	    strbuf.append(MisionClaseLinternaDO.ID);
 	    strbuf.append(" = ");
-	    strbuf.append(planetaDO.getId());
+	    strbuf.append(misionClaseLinternaDO.getId());
 
 	    System.err.println(strbuf.toString());
 
@@ -117,35 +120,40 @@ public class PlanetaDAO extends BaseDAO {
 
 	    dtaSession.del(dataObject);
 		
+		
 	}
 
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, PlanetaDO.class, CHECK_INSERT);
-	    
-	    PlanetaDO planetaDO = (PlanetaDO) dataObject;
-	    planetaDO.setId(getNextId());
+		checkCache(dataObject, CHECK_INSERT);
+		checkClass(dataObject, MisionClaseLinternaDO.class, CHECK_INSERT);
 
-	    StringBuffer strbuf = new StringBuffer();
+		MisionClaseLinternaDO misionClaseLinternaDO = (MisionClaseLinternaDO) dataObject;
 
-	    strbuf.append("INSERT INTO ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" VALUES (");
-	    strbuf.append(planetaDO.getId());
+		misionClaseLinternaDO.setId(getNextId());
+
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("INSERT INTO ");
+		strbuf.append(getTableName());
+		strbuf.append(" VALUES (");
+		strbuf.append(misionClaseLinternaDO.getId());
+		strbuf.append(", ");
+		Reference<MisionDO> ref = misionClaseLinternaDO.getMisionRef();
+	    ref.checkInsert();
+	    strbuf.append(ref.getIdAsString());
 	    strbuf.append(", ");
-	    strbuf.append(singleQuotes(planetaDO.getNombre()));
-	    strbuf.append(", ");
-	    strbuf.append(singleQuotes(planetaDO.getSector()));
-	    strbuf.append(", ");
-	    strbuf.append(planetaDO.getCoordenadaEnX());
-	    strbuf.append(", ");
-	    strbuf.append(planetaDO.getCoordenadaEnY());
+	    Reference<ClaseLinternaDO> ref1 = misionClaseLinternaDO.getClaseLinternaRef();
+	    ref1.checkInsert();
+	    strbuf.append(ref1.getIdAsString());
 	    strbuf.append(", ");
 	    strbuf.append(")");
-	    System.err.println(strbuf.toString());
-	    connection.createStatement().execute(strbuf.toString());
-	    dtaSession.add(dataObject);
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
+		dtaSession.add(dataObject);
 		
 	}
 
