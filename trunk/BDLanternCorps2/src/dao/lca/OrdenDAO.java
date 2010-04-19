@@ -9,10 +9,6 @@ import dao.api.BaseDAO;
 import dao.api.DataObject; //import dao.api.FactoryDAO;
 import dao.api.Reference;
 
-
-/**
- * @author Demián Gutierrez
- */
 public class OrdenDAO extends BaseDAO {
 
 	public OrdenDAO() {
@@ -50,9 +46,11 @@ public class OrdenDAO extends BaseDAO {
 
 		// ----------------------------------------
 
-		MisionDAO m = new MisionDAO();
+		MisionDAO misionDAO = new MisionDAO();
+		misionDAO.init(connectionBean);
 
-		ObjetivoDAO o = new ObjetivoDAO();
+		ObjetivoDAO objetivoDAO = new ObjetivoDAO();
+		objetivoDAO.init(connectionBean);
 
 		strbuf = new StringBuffer();
 
@@ -63,17 +61,13 @@ public class OrdenDAO extends BaseDAO {
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(OrdenDO.PRIORIDAD);
 		strbuf.append("INT,    ");
-		strbuf.append(OrdenDO.MISION_ID);
-		strbuf.append("INT  REFERENCES    ");
-		strbuf.append(m.getTableName());
-		strbuf.append(" ");
-		strbuf.append(MisionDO.ID);
-		strbuf.append(", ");
 		strbuf.append(OrdenDO.OBJETIVO_ID);
 		strbuf.append("INT  REFERENCES    ");
-		strbuf.append(o.getTableName());
-		strbuf.append(" ");
-		strbuf.append(ObjetivoDO.ID);
+		strbuf.append(objetivoDAO.getTableName());
+		strbuf.append(", ");
+		strbuf.append(OrdenDO.MISION_ID);
+		strbuf.append("INT  REFERENCES    ");
+		strbuf.append(misionDAO.getTableName());
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
@@ -113,9 +107,9 @@ public class OrdenDAO extends BaseDAO {
 		strbuf.append(", ");
 		strbuf.append(ordenDO.getPrioridad());
 		strbuf.append(", ");
-		strbuf.append(ordenDO.getMisionRef().getRefIdent());
-		strbuf.append(", ");
 		strbuf.append(ordenDO.getObjetivoRef().getRefIdent());
+		strbuf.append(", ");
+		strbuf.append(ordenDO.getMisionRef().getRefIdent());
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
@@ -196,26 +190,35 @@ public class OrdenDAO extends BaseDAO {
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
-		StringBuffer strbuf = new StringBuffer();
+		OrdenDO ordenDO;
 
-		strbuf.append("SELECT * FROM ");
-		strbuf.append(getTableName());
+		ordenDO = (OrdenDO) dtaSession.getDtaByKey(OrdenDO.class, id);
 
-		strbuf.append(" WHERE ");
-		strbuf.append(OrdenDO.ID);
-		strbuf.append(" = ");
-		strbuf.append(id);
+		if (ordenDO != null) {
+			return ordenDO;
+		} else {
+			StringBuffer strbuf = new StringBuffer();
 
-		System.err.println(strbuf.toString());
+			strbuf.append("SELECT * FROM ");
+			strbuf.append(getTableName());
 
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			strbuf.append(" WHERE ");
+			strbuf.append(OrdenDO.ID);
+			strbuf.append(" = ");
+			strbuf.append(id);
 
-		if (rs.next()) {
-			return resultSetToDO(rs);
+			System.err.println(strbuf.toString());
+
+			ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
+
+			if (rs.next()) {
+				ordenDO = resultSetToDO(rs);
+				return (UsuarioDO) dtaSession.add(ordenDO);
+			}
+
+			return null;
 		}
-
-		return null;
 	}
 
 	// --------------------------------------------------------------------------------
@@ -240,9 +243,18 @@ public class OrdenDAO extends BaseDAO {
 		connection.createStatement().executeQuery(strbuf.toString());
 
 		List<DataObject> ret = new ArrayList<DataObject>();
+		OrdenDO orden;
 
 		while (rs.next()) {
-			ret.add(resultSetToDO(rs));
+
+			orden = (OrdenDO) dtaSession.getDtaByKey( //
+					OrdenDO.class, rs.getInt(OrdenDO.ID));
+
+			if (orden == null) {
+				orden = (OrdenDO) dtaSession.add(resultSetToDO(rs));
+			}
+
+			ret.add(orden);
 		}
 
 		return ret;
@@ -298,15 +310,7 @@ public class OrdenDAO extends BaseDAO {
 	// --------------------------------------------------------------------------------
 
 	private OrdenDO resultSetToDO(ResultSet rs) throws SQLException {
-		OrdenDO ret = //
-		(OrdenDO) dtaSession.getDtaByKey( //
-				OrdenDO.class, rs.getInt(OrdenDO.ID));
-
-		if (ret != null) {
-			return ret;
-		}
-
-		ret = new OrdenDO();
+		OrdenDO ret = new OrdenDO();
 
 		ret.setId/*     */(rs.getInt(OrdenDO.ID));
 		ret.setPrioridad/*   */(rs.getInt(OrdenDO.PRIORIDAD));
@@ -319,60 +323,78 @@ public class OrdenDAO extends BaseDAO {
 		refo.setRefIdent(rs.getInt(OrdenDO.OBJETIVO_ID));
 		ret.setObjetivoRef(refo);
 
-		return (OrdenDO) dtaSession.add(ret);
+		return ret;
 	}
 
 	// --------------------------------------------------------------------------------
 
 	public List<OrdenDO> listByIdMisionId(int misionId) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(OrdenDO.MISION_ID);
-	    strbuf.append(" = ");
-	    strbuf.append(misionId);
+		strbuf.append(" WHERE ");
+		strbuf.append(OrdenDO.MISION_ID);
+		strbuf.append(" = ");
+		strbuf.append(misionId);
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<OrdenDO> ret = new ArrayList<OrdenDO>();
+		List<OrdenDO> ret = new ArrayList<OrdenDO>();
+		OrdenDO orden;
 
-	    while (rs.next()) {
-	      ret.add(resultSetToDO(rs));
-	    }
+		while (rs.next()) {
 
-	    return ret;
-	  }
-	
+			orden = (OrdenDO) dtaSession.getDtaByKey( //
+					OrdenDO.class, rs.getInt(OrdenDO.ID));
+
+			if (orden == null) {
+				orden = (OrdenDO) dtaSession.add(resultSetToDO(rs));
+			}
+
+			ret.add(orden);
+		}
+
+		return ret;
+	}
+
 	// --------------------------------------------------------------------------------
 
-	public List<OrdenDO> listByIdObjetivoId(int objetivoId) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+	public List<OrdenDO> listByIdObjetivoId(int objetivoId) throws SQLException {//NECESARIO?
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(OrdenDO.OBJETIVO_ID);
-	    strbuf.append(" = ");
-	    strbuf.append(objetivoId);
+		strbuf.append(" WHERE ");
+		strbuf.append(OrdenDO.OBJETIVO_ID);
+		strbuf.append(" = ");
+		strbuf.append(objetivoId);
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<OrdenDO> ret = new ArrayList<OrdenDO>();
+		List<OrdenDO> ret = new ArrayList<OrdenDO>();
+		OrdenDO orden;
 
-	    while (rs.next()) {
-	      ret.add(resultSetToDO(rs));
-	    }
+		while (rs.next()) {
 
-	    return ret;
-	  }
+			orden = (OrdenDO) dtaSession.getDtaByKey( //
+					OrdenDO.class, rs.getInt(OrdenDO.ID));
+
+			if (orden == null) {
+				orden = (OrdenDO) dtaSession.add(resultSetToDO(rs));
+			}
+
+			ret.add(orden);
+		}
+
+		return ret;
+	}
 }
