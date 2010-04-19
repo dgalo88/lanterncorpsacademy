@@ -7,16 +7,9 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-//import dao.api.FactoryDAO;
 import dao.api.Reference;
 
-public class GrupoDAO extends BaseDAO {
-
-  public GrupoDAO() {
-    // Empty
-  }
-
-  // --------------------------------------------------------------------------------
+public class MisionPersonajeDAO extends BaseDAO {
 
   public void createTable() throws SQLException {
     StringBuffer strbuf;
@@ -46,29 +39,38 @@ public class GrupoDAO extends BaseDAO {
     connection.createStatement().execute(strbuf.toString());
 
     // ----------------------------------------
-    
-    GrupoDAO grupoDAO = new GrupoDAO(); // Used to make the FK
-    grupoDAO.init(connectionBean);
-    
-    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
-    claseLinternaDAO.init(connectionBean);
-    
+
+    PersonajeDAO personajeDAO = new PersonajeDAO(); // Used to make the FK
+    personajeDAO.init(connectionBean);
+
+    MisionDAO misionDAO = new MisionDAO(); // Used to make the FK
+    misionDAO.init(connectionBean);
+
     strbuf = new StringBuffer();
 
     strbuf.append("CREATE TABLE ");
     strbuf.append(getTableName());
     strbuf.append(" (");
-    strbuf.append(GrupoDO.ID);
+    strbuf.append(MisionDO.ID);
     strbuf.append(" INT PRIMARY KEY, ");
-    strbuf.append(GrupoDO.NOMBRE);
+    strbuf.append(MisionDO.NOMBRE);
     strbuf.append(" VARCHAR(50),    ");
-    strbuf.append(GrupoDO.ESTADO);
-    strbuf.append(" BOOLEAN,");
-    strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
+    strbuf.append(MisionDO.DESCRIPCION);
+    strbuf.append(" VARCHAR(250),    ");
+    strbuf.append(MisionDO.EXPERIENCIA_GANADA);
+    strbuf.append(" INT,    ");
+    strbuf.append(MisionDO.PUNTOS_DE_ENTRENAMIENTO_GANADOS);
+    strbuf.append(" INT,    ");
+    strbuf.append(MisionDO.NIVEL_NECESARIO);
+    strbuf.append(" INT,    ");
+    strbuf.append(MisionPersonajeDO.PERSONAJE_ID);
     strbuf.append(" INT REFERENCES   ");
-    strbuf.append(claseLinternaDAO.getTableName());
+    strbuf.append(PersonajeDAO.getTableName());
+    strbuf.append(MisionPersonajeDO.MISION_ID);
+    strbuf.append(" INT REFERENCES   ");
+    strbuf.append(MisionDAO.getTableName());
     strbuf.append(")");
-    
+
     System.err.println(strbuf.toString());
 
     connection.createStatement().execute(strbuf.toString());
@@ -91,28 +93,28 @@ public class GrupoDAO extends BaseDAO {
   @Override
   public void insert(DataObject dataObject) throws SQLException {
     checkCache(dataObject, CHECK_INSERT);
-    checkClass(dataObject, GrupoDO.class, CHECK_INSERT);
+    checkClass(dataObject, MisionPersonajeDO.class, CHECK_INSERT);
 
-    GrupoDO grupoDO = (GrupoDO) dataObject;
+    MisionPersonajeDO misionPersonajeDO = (MisionPersonajeDO) dataObject;
 
-    grupoDO.setId(getNextId());
+    misionPersonajeDO.setId(getNextId());
 
     StringBuffer strbuf = new StringBuffer();
 
     strbuf.append("INSERT INTO ");
     strbuf.append(getTableName());
     strbuf.append(" VALUES (");
-    strbuf.append(grupoDO.getId());
-    strbuf.append(", ");
-    strbuf.append(singleQuotes(grupoDO.getNombre()));
-    strbuf.append(", ");
-    strbuf.append(grupoDO.isEstado());
-    strbuf.append(", ");
-    
-    Reference<ClaseLinternaDO> refCl = grupoDO.getClaseLinternaRef();
-    refCl.checkInsert();
-    strbuf.append(refCl.getIdAsString());
+    strbuf.append(misionPersonajeDO.getId());
 
+    Reference<PersonajeDO> refP = misionPersonajeDO.getPersonajeRef();
+    refP.checkInsert();
+    strbuf.append(refP.getIdAsString());
+    strbuf.append(", ");
+
+    Reference<MisionDO> refM = misionPersonajeDO.getMisionRef();
+    refM.checkInsert();
+    strbuf.append(refM.getIdAsString());
+    
     strbuf.append(")");
 
     System.err.println(strbuf.toString());
@@ -127,9 +129,9 @@ public class GrupoDAO extends BaseDAO {
   @Override
   public void update(DataObject dataObject) throws SQLException {
     checkCache(dataObject, CHECK_UPDATE);
-    checkClass(dataObject, GrupoDO.class, CHECK_UPDATE);
+    checkClass(dataObject, MisionPersonajeDO.class, CHECK_UPDATE);
 
-    GrupoDO grupoDO = (GrupoDO) dataObject;
+    MisionPersonajeDO misionPersonajeDO = (MisionPersonajeDO) dataObject;
 
     StringBuffer strbuf = new StringBuffer();
 
@@ -137,28 +139,23 @@ public class GrupoDAO extends BaseDAO {
     strbuf.append(getTableName());
     strbuf.append(" SET ");
 
-    strbuf.append(GrupoDO.NOMBRE);
+    strbuf.append(MisionPersonajeDO.PERSONAJE_ID);
     strbuf.append(" = ");
-    strbuf.append(singleQuotes(grupoDO.getNombre()));
-
+    Reference<PersonajeDO> refP = misionPersonajeDO.getPersonajeRef();
+    refP.checkUpdate();
+    strbuf.append(refP.getIdAsString());
     strbuf.append(", ");
 
-    strbuf.append(GrupoDO.ESTADO);
+    strbuf.append(MisionPersonajeDO.MISION_ID);
     strbuf.append(" = ");
-    strbuf.append(grupoDO.isEstado());
-
-    strbuf.append(", ");
-
-    strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
-    strbuf.append(" = ");
-    Reference<ClaseLinternaDO> refcl = grupoDO.getClaseLinternaRef();
-    refcl.checkUpdate();
-    strbuf.append(refcl.getIdAsString());
-
+    Reference<MisionDO> refM = misionPersonajeDO.getMisionRef();
+    refM.checkUpdate();
+    strbuf.append(refM.getIdAsString())
+    
     strbuf.append(" WHERE ");
-    strbuf.append(GrupoDO.ID);
+    strbuf.append(MisionPersonajeDO.ID);
     strbuf.append(" = ");
-    strbuf.append(grupoDO.getId());
+    strbuf.append(misionPersonajeDO.getId());
 
     System.err.println(strbuf.toString());
 
@@ -170,9 +167,9 @@ public class GrupoDAO extends BaseDAO {
   @Override
   public void delete(DataObject dataObject) throws SQLException {
     checkCache(dataObject, CHECK_DELETE);
-    checkClass(dataObject, GrupoDO.class, CHECK_DELETE);
+    checkClass(dataObject, MisionPersonajeDO.class, CHECK_DELETE);
 
-    GrupoDO grupoDO = (GrupoDO) dataObject;
+    MisionPersonajeDO misionPersonajeDO = (MisionPersonajeDO) dataObject;
 
     StringBuffer strbuf = new StringBuffer();
 
@@ -180,9 +177,9 @@ public class GrupoDAO extends BaseDAO {
     strbuf.append(getTableName());
 
     strbuf.append(" WHERE ");
-    strbuf.append(GrupoDO.ID);
+    strbuf.append(MisionPersonajeDO.ID);
     strbuf.append(" = ");
-    strbuf.append(grupoDO.getId());
+    strbuf.append(misionPersonajeDO.getId());
 
     System.err.println(strbuf.toString());
 
@@ -201,7 +198,7 @@ public class GrupoDAO extends BaseDAO {
     strbuf.append(getTableName());
 
     strbuf.append(" WHERE ");
-    strbuf.append(GrupoDO.ID);
+    strbuf.append(MisionPersonajeDO.ID);
     strbuf.append(" = ");
     strbuf.append(id);
 
@@ -273,35 +270,62 @@ public class GrupoDAO extends BaseDAO {
     return rs.getInt("count");
   }
 
+//--------------------------------------------------------------------------------
+
+  public List<MisionPersonajeDO> listByMisionId(int misionId) throws SQLException {
+    StringBuffer strbuf = new StringBuffer();
+
+    strbuf.append("SELECT * FROM ");
+    strbuf.append(getTableName());
+
+    strbuf.append(" WHERE ");
+    strbuf.append(MisionPersonajeDO.MISION_ID);
+    strbuf.append(" = ");
+    strbuf.append(misionId);
+
+    System.err.println(strbuf.toString());
+
+    ResultSet rs = //
+    connection.createStatement().executeQuery(strbuf.toString());
+
+    List<MisionPersonajeDO> ret = new ArrayList<MisionPersonajeDO>();
+
+    while (rs.next()) {
+      ret.add(resultSetToDO(rs));
+    }
+
+    return ret;
+  }
+
+//--------------------------------------------------------------------------------
+
+  public List<MisionPersonajeDO> listByPersonajeId(int personajeId) throws SQLException {
+    StringBuffer strbuf = new StringBuffer();
+
+    strbuf.append("SELECT * FROM ");
+    strbuf.append(getTableName());
+
+    strbuf.append(" WHERE ");
+    strbuf.append(MisionPersonajeDO.PERSONAJE_ID);
+    strbuf.append(" = ");
+    strbuf.append(personajeId);
+
+    System.err.println(strbuf.toString());
+
+    ResultSet rs = //
+    connection.createStatement().executeQuery(strbuf.toString());
+
+    List<MisionPersonajeDO> ret = new ArrayList<MisionPersonajeDO>();
+
+    while (rs.next()) {
+      ret.add(resultSetToDO(rs));
+    }
+
+    return ret;
+  }
+  
   // --------------------------------------------------------------------------------
-  
-  public List<GrupoDO> listByClaseLinternaId(int claseLinternaId) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
-
-	    strbuf.append(" WHERE ");
-	    strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
-	    strbuf.append(" = ");
-	    strbuf.append(claseLinternaId);
-
-	    System.err.println(strbuf.toString());
-
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
-
-	    List<GrupoDO> ret = new ArrayList<GrupoDO>();
-
-	    while (rs.next()) {
-	      ret.add(resultSetToDO(rs));
-	    }
-
-	    return ret;
-	  }
-  
-  //--------------------------------------------------------------------------------
-  
   private int getNextId() throws SQLException {
     StringBuffer strbuf = new StringBuffer();
 
@@ -323,59 +347,70 @@ public class GrupoDAO extends BaseDAO {
 
   // --------------------------------------------------------------------------------
 
-  private GrupoDO resultSetToDO(ResultSet rs) throws SQLException {
-	  GrupoDO ret = //
-    (GrupoDO) dtaSession.getDtaByKey( //
-    		GrupoDO.class, rs.getInt(GrupoDO.ID));
+  private MisionPersonajeDO resultSetToDO(ResultSet rs) throws SQLException {
+    MisionPersonajeDO ret = //
+    (MisionPersonajeDO) dtaSession.getDtaByKey( //
+    		MisionPersonajeDO.class, rs.getInt(MisionPersonajeDO.ID));
 
     if (ret != null) {
       return ret;
     }
 
-    ret = new GrupoDO();
+    ret = new MisionPersonajeDO();
 
-    ret.setId(rs.getInt(GrupoDO.ID));
-    ret.setNombre(rs.getString(GrupoDO.NOMBRE));
-    ret.setEstado(rs.getBoolean(GrupoDO.ESTADO));
- 
-    Reference<ClaseLinternaDO> refCl = new Reference<ClaseLinternaDO>();
-    refCl.setRefIdent(rs.getInt(GrupoDO.CLASE_LINTERNA_ID));
-    ret.setClaseLinternaRef(refCl);
-    
-    return (GrupoDO) dtaSession.add(ret);
+    ret.setId(rs.getInt(MisionDO.ID));
+
+    Reference<PersonajeDO> refP = new Reference<PersonajeDO>();
+    refP.setRefIdent(rs.getInt(MisionPersonajeDO.PERSONAJE_ID));
+    ret.setPersonajeRef(refP);
+
+    Reference<MisionDO> refM = new Reference<MisionDO>();
+    refM.setRefIdent(rs.getInt(MisionPersonajeDO.MISION_ID));
+    ret.setMisionRef(refM);
+
+    return (MisionPersonajeDO) dtaSession.add(ret);
   }
+  
+//--------------------------------------------------------------------------------
 
-  // --------------------------------------------------------------------------------
-
-  public void loadClaseLinternaRef(GrupoDO grupoDO) throws SQLException {
+  public void loadPersonajeRef(MisionPersonajeDO misionPersonajeDO) throws SQLException {
 	    // XXX: Check this method's semantic
-	    checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
+	    checkClass(misionPersonajeDO, MisionPersonajeDO.class, CHECK_UPDATE);
 
-	    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
-	    claseLinternaDAO.init(connectionBean);
+	    PersonajeDAO personajeDAO = new PersonajeDAO();
+	    personajeDAO.init(connectionBean);
 
-	    Reference<ClaseLinternaDO> ref = grupoDO.getClaseLinternaRef();
+	    Reference<PersonajeDO> ref = misionPersonajeDO.getPersonajeRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;
 	    }
 
-	    ClaseLinternaDO claseLinternaDO = //
-	    	(ClaseLinternaDO) claseLinternaDAO.loadById(ref.getRefIdent());
+	    PersonajeDO personajeDO = //
+	    (PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
 
-	        ref.setRefValue(claseLinternaDO);
+	    ref.setRefValue(personajeDO);
+  }
+
+//--------------------------------------------------------------------------------
+
+  public void loadMisionRef(MisionPersonajeDO misionPersonajeDO) throws SQLException {
+	    // XXX: Check this method's semantic
+	    checkClass(misionPersonajeDO, MisionPersonajeDO.class, CHECK_UPDATE);
+
+	    MisionDAO misionDAO = new MisionDAO();
+	    misionDAO.init(connectionBean);
+
+	    Reference<MisionDO> ref = misionPersonajeDO.getMisionRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    MisionDO misionDO = //
+	    (MisionDO) misionDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(misionDO);
   }
   
-  // --------------------------------------------------------------------------------
-
-  public void loadGrupoPersonajeList(GrupoDO grupoDO) throws Exception {
-	    checkCache(grupoDO, CHECK_UPDATE);
-	    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
-
-	    GrupoPersonajeDAO grupoPersonajeDAO = (GrupoPersonajeDAO) FactoryDAO.getDAO( //
-	        GrupoPersonajeDAO.class, connectionBean);
-
-	    grupoDO.setGrupoPersonajeList(grupoPersonajeDAO.listByGrupoId(grupoDO.getId()));
-	  }
-
 }
