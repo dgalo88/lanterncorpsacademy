@@ -7,304 +7,388 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-//import dao.api.FactoryDAO;
+import dao.api.Reference;
 
-/**
- * @author Demián Gutierrez
- */
 public class MisionPersonajeDAO extends BaseDAO {
 
-  public MisionPersonajeDAO() {
-    // Empty
-  }
+	public MisionPersonajeDAO() {
+		// Empty
+	}
 
-  // --------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------
 
+	public void createTable() throws SQLException {
+		StringBuffer strbuf;
 
-  public void createTable() throws SQLException {
-    StringBuffer strbuf;
+		// ----------------------------------------
 
-    // ----------------------------------------
+		strbuf = new StringBuffer();
 
-    strbuf = new StringBuffer();
+		strbuf.append("DROP TABLE IF EXISTS ");
+		strbuf.append(getTableName());
+		strbuf.append(" CASCADE");
 
-    strbuf.append("DROP TABLE IF EXISTS ");
-    strbuf.append(getTableName());
-    strbuf.append(" CASCADE");
+		System.err.println(strbuf.toString());
 
-    System.err.println(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-    connection.createStatement().execute(strbuf.toString());
+		// ----------------------------------------
 
-    // ----------------------------------------
+		strbuf = new StringBuffer();
 
-    strbuf = new StringBuffer();
+		strbuf.append("DROP SEQUENCE IF EXISTS ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
 
-    strbuf.append("DROP SEQUENCE IF EXISTS ");
-    strbuf.append("seq_");
-    strbuf.append(getTableName());
+		System.err.println(strbuf.toString());
 
-    System.err.println(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-    connection.createStatement().execute(strbuf.toString());
+		// ----------------------------------------
 
-    // ----------------------------------------
+		PersonajeDAO personajeDAO = new PersonajeDAO();
+		personajeDAO.init(connectionBean);
 
-    strbuf = new StringBuffer();
+		MisionDAO misionDAO = new MisionDAO();
+		misionDAO.init(connectionBean);
 
-    strbuf.append("CREATE TABLE ");
-    strbuf.append(getTableName());
-    strbuf.append(" (");
-    strbuf.append(MisionPersonajeDO.ID);
-    strbuf.append(" INT PRIMARY KEY, ");
-    strbuf.append(MisionPersonajeDO.PERSONAJE_ID);
-    strbuf.append(" VARCHAR(100),    ");
-    strbuf.append(MisionPersonajeDO.MISION_ID);
-    strbuf.append(" VARCHAR(100)     ");
-    strbuf.append(")");
+		strbuf = new StringBuffer();
 
-    ///FALTAAAAA
-    System.err.println(strbuf.toString());
+		strbuf.append("CREATE TABLE ");
+		strbuf.append(getTableName());
+		strbuf.append(" (");
+		strbuf.append(MisionPersonajeDO.ID);
+		strbuf.append(" INT PRIMARY KEY, ");
+		strbuf.append(MisionPersonajeDO.PERSONAJE_ID);
+		strbuf.append(" INT  REFERENCES    ");
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append(",    ");
+		strbuf.append(MisionPersonajeDO.MISION_ID);
+		strbuf.append(" INT  REFERENCES    ");
+		strbuf.append(misionDAO.getTableName());
+		strbuf.append(")");
 
-    connection.createStatement().execute(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-    // ----------------------------------------
+		connection.createStatement().execute(strbuf.toString());
 
-    strbuf = new StringBuffer();
+		// ----------------------------------------
 
-    strbuf.append("CREATE SEQUENCE ");
-    strbuf.append("seq_");
-    strbuf.append(getTableName());
+		strbuf = new StringBuffer();
 
-    System.err.println(strbuf.toString());
+		strbuf.append("CREATE SEQUENCE ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
 
-    connection.createStatement().execute(strbuf.toString());
-  }
+		System.err.println(strbuf.toString());
 
-  // --------------------------------------------------------------------------------
+		connection.createStatement().execute(strbuf.toString());
+	}
 
-  @Override
-  public void insert(DataObject dataObject) throws SQLException {
-    checkCache(dataObject, CHECK_INSERT);
-    checkClass(dataObject, MisionPersonajeDO.class, CHECK_INSERT);
+	// --------------------------------------------------------------------------------
 
-    MisionPersonajeDO misionPersonajeDO = (MisionPersonajeDO) dataObject;
+	@Override
+	public void insert(DataObject dataObject) throws SQLException {
+		checkCache(dataObject, CHECK_INSERT);
+		checkClass(dataObject, MisionPersonajeDO.class, CHECK_INSERT);
 
-    misionPersonajeDO.setId(getNextId());
+		MisionPersonajeDO misionPersonajeDO = (MisionPersonajeDO) dataObject;
 
-    StringBuffer strbuf = new StringBuffer();
+		misionPersonajeDO.setId(getNextId());
 
-    strbuf.append("INSERT INTO ");
-    strbuf.append(getTableName());
-    strbuf.append(" VALUES (");
-    strbuf.append(misionPersonajeDO.getId());
-    /*strbuf.append(", ");
-    strbuf.append(singleQuotes(MisionPersonajeDO.getName()));
-    strbuf.append(", ");
-    strbuf.append(singleQuotes(MisionPersonajeDO.getDescription()));*/
-    strbuf.append(")");
+		StringBuffer strbuf = new StringBuffer();
 
-    System.err.println(strbuf.toString());
+		strbuf.append("INSERT INTO ");
+		strbuf.append(getTableName());
+		strbuf.append(" VALUES (");
+		strbuf.append(misionPersonajeDO.getId());
+		strbuf.append(", ");
+		strbuf.append(misionPersonajeDO.getPersonajeRef().getRefIdent());
+		strbuf.append(", ");
+		strbuf.append(misionPersonajeDO.getMisionRef().getRefIdent());
+		strbuf.append(")");
 
-    connection.createStatement().execute(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-    dtaSession.add(dataObject);
-  }
+		connection.createStatement().execute(strbuf.toString());
 
-  // --------------------------------------------------------------------------------
+		dtaSession.add(dataObject);
+	}
+
+	// --------------------------------------------------------------------------------
+
+	@Override
+	public void update(DataObject dataObject) throws SQLException {
+		// esta
+		// informacion
+		// no se
+		// actualiza
+		/*
+		 * checkCache(dataObject, CHECK_UPDATE); checkClass(dataObject,
+		 * MisionPersonajeDO.class, CHECK_UPDATE);
+		 * 
+		 * MisionPersonajeDO MisionPersonajeDO = (MisionPersonajeDO) dataObject;
+		 * 
+		 * StringBuffer strbuf = new StringBuffer();
+		 * 
+		 * strbuf.append("UPDATE "); strbuf.append(getTableName());
+		 * strbuf.append(" SET ");
+		 * 
+		 * strbuf.append(MisionPersonajeDO.NAME); strbuf.append(" = ");
+		 * strbuf.append(singleQuotes(MisionPersonajeDO.getName()));
+		 * 
+		 * strbuf.append(", ");
+		 * 
+		 * strbuf.append(MisionPersonajeDO.DESCRIPTION); strbuf.append(" = ");
+		 * strbuf.append(singleQuotes(MisionPersonajeDO.getDescription()));
+		 * 
+		 * strbuf.append(" WHERE "); strbuf.append(MisionPersonajeDO.ID);
+		 * strbuf.append(" = "); strbuf.append(MisionPersonajeDO.getId());
+		 * 
+		 * System.err.println(strbuf.toString());
+		 * 
+		 * connection.createStatement().execute(strbuf.toString());
+		 */
+	}
 
-  @Override
-  public void update(DataObject dataObject) throws SQLException {
-    /*checkCache(dataObject, CHECK_UPDATE);
-    checkClass(dataObject, MisionPersonajeDO.class, CHECK_UPDATE);
+	// --------------------------------------------------------------------------------
+
+	@Override
+	public void delete(DataObject dataObject) throws SQLException {
+		checkCache(dataObject, CHECK_DELETE);
+		checkClass(dataObject, MisionPersonajeDO.class, CHECK_DELETE);
 
-    MisionPersonajeDO MisionPersonajeDO = (MisionPersonajeDO) dataObject;
+		MisionPersonajeDO misionPersonajeDO = (MisionPersonajeDO) dataObject;
 
-    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-    strbuf.append("UPDATE ");
-    strbuf.append(getTableName());
-    strbuf.append(" SET ");
+		strbuf.append("DELETE FROM ");
+		strbuf.append(getTableName());
 
-    strbuf.append(MisionPersonajeDO.NAME);
-    strbuf.append(" = ");
-    strbuf.append(singleQuotes(MisionPersonajeDO.getName()));
+		strbuf.append(" WHERE ");
+		strbuf.append(MisionPersonajeDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(misionPersonajeDO.getId());
 
-    strbuf.append(", ");
+		System.err.println(strbuf.toString());
 
-    strbuf.append(MisionPersonajeDO.DESCRIPTION);
-    strbuf.append(" = ");
-    strbuf.append(singleQuotes(MisionPersonajeDO.getDescription()));
+		connection.createStatement().execute(strbuf.toString());
 
-    strbuf.append(" WHERE ");
-    strbuf.append(MisionPersonajeDO.ID);
-    strbuf.append(" = ");
-    strbuf.append(MisionPersonajeDO.getId());
+		dtaSession.del(dataObject);
+	}
 
-    System.err.println(strbuf.toString());
+	// --------------------------------------------------------------------------------
 
-    connection.createStatement().execute(strbuf.toString());*/
-  }
+	@Override
+	public DataObject loadById(int id) throws SQLException {
+		MisionPersonajeDO mp;
 
-  // --------------------------------------------------------------------------------
+		mp = (MisionPersonajeDO) dtaSession.getDtaByKey( //
+				MisionPersonajeDO.class, id);
 
-  @Override
-  public void delete(DataObject dataObject) throws SQLException {
-    checkCache(dataObject, CHECK_DELETE);
-    checkClass(dataObject, MisionPersonajeDO.class, CHECK_DELETE);
+		if (mp != null) {
+			return mp;
+		} else {
+			StringBuffer strbuf = new StringBuffer();
 
-    MisionPersonajeDO misionPersonajeDO = (MisionPersonajeDO) dataObject;
+			strbuf.append("SELECT * FROM ");
+			strbuf.append(getTableName());
 
-    StringBuffer strbuf = new StringBuffer();
+			strbuf.append(" WHERE ");
+			strbuf.append(MisionPersonajeDO.ID);
+			strbuf.append(" = ");
+			strbuf.append(id);
 
-    strbuf.append("DELETE FROM ");
-    strbuf.append(getTableName());
+			System.err.println(strbuf.toString());
 
-    strbuf.append(" WHERE ");
-    strbuf.append(MisionPersonajeDO.ID);
-    strbuf.append(" = ");
-    strbuf.append(misionPersonajeDO.getId());
+			ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-    System.err.println(strbuf.toString());
+			if (rs.next()) {
+				mp = resultSetToDO(rs);
+				return (MisionPersonajeDO) dtaSession.add(mp);
+			}
 
-    connection.createStatement().execute(strbuf.toString());
+			return null;
+		}
+	}
 
-    dtaSession.del(dataObject);
-  }
+	// --------------------------------------------------------------------------------
 
-  // --------------------------------------------------------------------------------
+	@Override
+	public List<DataObject> listAll(int lim, int off) throws SQLException {// NECESARIA??
 
-  @Override
-  public DataObject loadById(int id) throws SQLException {
-    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-    strbuf.append("SELECT * FROM ");
-    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-    strbuf.append(" WHERE ");
-    strbuf.append(MisionPersonajeDO.ID);
-    strbuf.append(" = ");
-    strbuf.append(id);
+		if (lim >= 0 && off >= 0) {
+			strbuf.append(" LIMIT  ");
+			strbuf.append(lim);
+			strbuf.append(" OFFSET ");
+			strbuf.append(off);
+		}
 
-    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-    ResultSet rs = //
-    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-    if (rs.next()) {
-      return resultSetToDO(rs);
-    }
+		List<DataObject> ret = new ArrayList<DataObject>();
+		MisionPersonajeDO mp;
 
-    return null;
-  }
+		while (rs.next()) {
 
-  // --------------------------------------------------------------------------------
+			mp = (MisionPersonajeDO) dtaSession.getDtaByKey( //
+					MisionPersonajeDO.class, rs.getInt(MisionPersonajeDO.ID));
 
-  @Override
-  public List<DataObject> listAll(int lim, int off) throws SQLException {/////??????????????
-    StringBuffer strbuf = new StringBuffer();
+			if (mp == null) {
+				mp = (MisionPersonajeDO) dtaSession.add(resultSetToDO(rs));
+			}
 
-    strbuf.append("SELECT * FROM ");
-    strbuf.append(getTableName());
+			ret.add(mp);
+		}
 
-    if (lim >= 0 && off >= 0) {
-      strbuf.append(" LIMIT  ");
-      strbuf.append(lim);
-      strbuf.append(" OFFSET ");
-      strbuf.append(off);
-    }
+		return ret;
+	}
 
-    System.err.println(strbuf.toString());
+	// --------------------------------------------------------------------------------
 
-    ResultSet rs = //
-    connection.createStatement().executeQuery(strbuf.toString());
+	@Override
+	public List<DataObject> listAll() throws SQLException {// NECESARIA??
+		return listAll(-1, -1);
+	}
 
-    List<DataObject> ret = new ArrayList<DataObject>();
+	// --------------------------------------------------------------------------------
 
-    while (rs.next()) {
-      ret.add(resultSetToDO(rs));
-    }
+	@Override
+	public int countAll() throws SQLException {// NECESARIA??
+		StringBuffer strbuf = new StringBuffer();
 
-    return ret;
-  }
+		strbuf.append("SELECT COUNT(*) FROM ");
+		strbuf.append(getTableName());
 
-  // --------------------------------------------------------------------------------
+		System.err.println(strbuf.toString());
 
-  @Override
-  public List<DataObject> listAll() throws SQLException {
-    return listAll(-1, -1);
-  }
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-  // --------------------------------------------------------------------------------
+		rs.next();
 
-  @Override
-  public int countAll() throws SQLException {
-    StringBuffer strbuf = new StringBuffer();
+		return rs.getInt("count");
+	}
 
-    strbuf.append("SELECT COUNT(*) FROM ");
-    strbuf.append(getTableName());
+	// --------------------------------------------------------------------------------
 
-    System.err.println(strbuf.toString());
+	private int getNextId() throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
 
-    ResultSet rs = //
-    connection.createStatement().executeQuery(strbuf.toString());
+		strbuf.append("SELECT nextval(");
+		strbuf.append(singleQuotes("seq_" + getTableName()));
+		strbuf.append(")");
 
-    rs.next();
+		System.err.println(strbuf.toString());
 
-    return rs.getInt("count");
-  }
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-  // --------------------------------------------------------------------------------
+		if (!rs.next()) {
+			throw new IllegalStateException("!rs.next()");
+		}
 
-  private int getNextId() throws SQLException {
-    StringBuffer strbuf = new StringBuffer();
+		return rs.getInt("nextval");
+	}
 
-    strbuf.append("SELECT nextval(");
-    strbuf.append(singleQuotes("seq_" + getTableName()));
-    strbuf.append(")");
+	// --------------------------------------------------------------------------------
 
-    System.err.println(strbuf.toString());
+	private MisionPersonajeDO resultSetToDO(ResultSet rs) throws SQLException {
+		MisionPersonajeDO ret = new MisionPersonajeDO();
 
-    ResultSet rs = //
-    connection.createStatement().executeQuery(strbuf.toString());
+		ret.setId(rs.getInt(MisionPersonajeDO.ID));
 
-    if (!rs.next()) {
-      throw new IllegalStateException("!rs.next()");
-    }
+		Reference<PersonajeDO> p = new Reference<PersonajeDO>();
+		p.setRefIdent(rs.getInt(MisionPersonajeDO.PERSONAJE_ID));
+		ret.setPersonajeRef(p);
 
-    return rs.getInt("nextval");
-  }
+		Reference<MisionDO> m = new Reference<MisionDO>();
+		m.setRefIdent(rs.getInt(MisionPersonajeDO.MISION_ID));
+		ret.setMisionRef(m);
 
-  // --------------------------------------------------------------------------------
+		return ret;
+	}
 
-  private MisionPersonajeDO resultSetToDO(ResultSet rs) throws SQLException {
-    MisionPersonajeDO ret = //
-    (MisionPersonajeDO) dtaSession.getDtaByKey( //
-        MisionPersonajeDO.class, rs.getInt(MisionPersonajeDO.ID));
+	// --------------------------------------------------------------------------------
 
-    if (ret != null) {
-      return ret;
-    }
+	public List<MisionPersonajeDO> listByIdMisionId(int misionId)
+			throws SQLException {
 
-    ret = new MisionPersonajeDO();
+		StringBuffer strbuf = new StringBuffer();
 
-    ret.setId/*     */(rs.getInt(MisionPersonajeDO.ID));
-    /*ret.setName/*   /(rs.getString(MisionPersonajeDO.NAME));
-    ret.setDescription(rs.getString(MisionPersonajeDO.DESCRIPTION));*/
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-    return (MisionPersonajeDO) dtaSession.add(ret);
-  }
+		strbuf.append(" WHERE ");
+		strbuf.append(MisionPersonajeDO.MISION_ID);
+		strbuf.append(" = ");
+		strbuf.append(misionId);
 
-  // --------------------------------------------------------------------------------
+		System.err.println(strbuf.toString());
 
- /* public void loadEmployeeList(MisionPersonajeDO MisionPersonajeDO) throws Exception {
-    checkCache(MisionPersonajeDO, CHECK_UPDATE);
-    checkClass(MisionPersonajeDO, MisionPersonajeDO.class, CHECK_UPDATE);
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-    EmployeeDAO employeeDAO = (EmployeeDAO) FactoryDAO.getDAO( //
-        EmployeeDAO.class, connectionBean);
+		List<MisionPersonajeDO> ret = new ArrayList<MisionPersonajeDO>();
+		MisionPersonajeDO mp;
 
-    MisionPersonajeDO.setEmployeeList(employeeDAO.listByIdMisionPersonajeId(MisionPersonajeDO.getId()));
-  }
-  */
+		while (rs.next()) {
+			mp = (MisionPersonajeDO) dtaSession.getDtaByKey( //
+					MisionPersonajeDO.class, rs.getInt(MisionPersonajeDO.ID));
+
+			if (mp == null) {
+				mp = (MisionPersonajeDO) dtaSession.add(resultSetToDO(rs));
+			}
+
+			ret.add(mp);
+		}
+
+		return ret;
+	}
+
+	// --------------------------------------------------------------------------------
+
+	public List<MisionPersonajeDO> listByIdPersonajeId(int personajeId)
+			throws SQLException {
+
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(MisionPersonajeDO.PERSONAJE_ID);
+		strbuf.append(" = ");
+		strbuf.append(personajeId);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<MisionPersonajeDO> ret = new ArrayList<MisionPersonajeDO>();
+		MisionPersonajeDO mp;
+
+		while (rs.next()) {
+			mp = (MisionPersonajeDO) dtaSession.getDtaByKey( //
+					MisionPersonajeDO.class, rs.getInt(MisionPersonajeDO.ID));
+
+			if (mp == null) {
+				mp = (MisionPersonajeDO) dtaSession.add(resultSetToDO(rs));
+			}
+
+			ret.add(mp);
+		}
+
+		return ret;
+	}
 }

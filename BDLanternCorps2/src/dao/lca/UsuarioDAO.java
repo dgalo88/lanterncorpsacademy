@@ -47,8 +47,8 @@ public class UsuarioDAO extends BaseDAO {
 
 		// ----------------------------------------
 
-		PersonajeDAO m = new PersonajeDAO();
-		m.init(connectionBean);
+		PersonajeDAO personajeDAO = new PersonajeDAO();
+		personajeDAO.init(connectionBean);
 
 		strbuf = new StringBuffer();
 
@@ -65,10 +65,7 @@ public class UsuarioDAO extends BaseDAO {
 		strbuf.append(" VARCHAR(20),     ");
 		strbuf.append(UsuarioDO.PERSONAJE_ID);
 		strbuf.append(" INT  REFERENCES   ");
-		strbuf.append(m.getTableName());
-		strbuf.append(" ");
-		strbuf.append(PersonajeDO.ID);
-
+		strbuf.append(personajeDAO.getTableName());
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
@@ -137,21 +134,23 @@ public class UsuarioDAO extends BaseDAO {
 		strbuf.append(getTableName());
 		strbuf.append(" SET ");
 
+		strbuf.append(UsuarioDO.NOMBRE);
+		strbuf.append(" = ");
+		strbuf.append(singleQuotes(usuarioDO.getNombre()));
+
+		strbuf.append(", ");
+		
 		strbuf.append(UsuarioDO.CORREO);
 		strbuf.append(" = ");
 		strbuf.append(singleQuotes(usuarioDO.getCorreo()));
 
 		strbuf.append(", ");
 
-		strbuf.append(UsuarioDO.NOMBRE);
-		strbuf.append(" = ");
-		strbuf.append(singleQuotes(usuarioDO.getNombre()));
-
-		strbuf.append(", ");
-
 		strbuf.append(UsuarioDO.CLAVE);
 		strbuf.append(" = ");
 		strbuf.append(singleQuotes(usuarioDO.getClave()));
+
+		// NO SE DEBE CAMBIAR LA FK DEL PERSONAJE
 
 		strbuf.append(" WHERE ");
 		strbuf.append(UsuarioDO.ID);
@@ -196,15 +195,13 @@ public class UsuarioDAO extends BaseDAO {
 	@Override
 	public DataObject loadById(int id) throws SQLException {
 
-		UsuarioDO us;
+		UsuarioDO usuarioDO;
 
-		us = (UsuarioDO) dtaSession.getDtaByKey( //
-				UsuarioDO.class, id);
+		usuarioDO = (UsuarioDO) dtaSession.getDtaByKey(UsuarioDO.class, id);// VERIFICA SI ESTE ID ESTA EN CACHE
 
-		if (us != null) {
-			return us;
-		} 
-		else {
+		if (usuarioDO != null) {
+			return usuarioDO;
+		} else {
 
 			StringBuffer strbuf = new StringBuffer();
 
@@ -222,8 +219,8 @@ public class UsuarioDAO extends BaseDAO {
 			connection.createStatement().executeQuery(strbuf.toString());
 
 			if (rs.next()) {
-				us = resultSetToDO(rs);
-				return (UsuarioDO) dtaSession.add(us);
+				usuarioDO = resultSetToDO(rs);
+				return (UsuarioDO) dtaSession.add(usuarioDO);
 			}
 
 			return null;
@@ -234,7 +231,7 @@ public class UsuarioDAO extends BaseDAO {
 
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
-		UsuarioDO us;
+
 		StringBuffer strbuf = new StringBuffer();
 
 		strbuf.append("SELECT * FROM ");
@@ -253,17 +250,18 @@ public class UsuarioDAO extends BaseDAO {
 		connection.createStatement().executeQuery(strbuf.toString());
 
 		List<DataObject> ret = new ArrayList<DataObject>();
+		UsuarioDO usuarioDO;
 
 		while (rs.next()) {
 
-			us = (UsuarioDO) dtaSession.getDtaByKey( //
+			usuarioDO = (UsuarioDO) dtaSession.getDtaByKey( //
 					UsuarioDO.class, rs.getInt(UsuarioDO.ID));
 
-			if (us == null) {
-				us = (UsuarioDO) dtaSession.add(resultSetToDO(rs));
+			if (usuarioDO == null) {
+				usuarioDO = (UsuarioDO) dtaSession.add(resultSetToDO(rs));
 			}
 
-			ret.add(us);
+			ret.add(usuarioDO);
 		}
 
 		return ret;
@@ -327,11 +325,11 @@ public class UsuarioDAO extends BaseDAO {
 		//
 		// } else {
 
-		ret.setId/*     */(rs.getInt(UsuarioDO.ID));
-		ret.setNombre/*   */(rs.getString(UsuarioDO.NOMBRE));
+		ret.setId(rs.getInt(UsuarioDO.ID));
+		ret.setNombre(rs.getString(UsuarioDO.NOMBRE));
 		ret.setCorreo(rs.getString(UsuarioDO.CORREO));
 		ret.setClave(rs.getString(UsuarioDO.CLAVE));
-		Reference<PersonajeDO> refp = new Reference<PersonajeDO>();//Revisar Reference
+		Reference<PersonajeDO> refp = new Reference<PersonajeDO>();// Revisar Reference
 		refp.setRefIdent(rs.getInt(UsuarioDO.PERSONAJE_ID));
 		ret.setPersonajeRef(refp);
 
