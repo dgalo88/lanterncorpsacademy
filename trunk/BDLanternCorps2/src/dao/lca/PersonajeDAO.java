@@ -9,13 +9,15 @@ import dao.api.DataObject;
 import dao.api.Reference;
 
 
-
 public class PersonajeDAO extends BaseDAO {
 
   public PersonajeDAO() {
     // Empty
   }
 
+  // --------------------------------------------------------------------------------
+  
+  @Override
   public void createTable() throws SQLException {
     StringBuffer strbuf;
 
@@ -142,7 +144,7 @@ public class PersonajeDAO extends BaseDAO {
     Reference<ClaseLinternaDO> ref3 = personajeDO.getClaseLinternaRef();
     ref3.checkInsert();
     strbuf.append(ref3.getIdAsString());
-    strbuf.append(", ");
+    
     strbuf.append(")");
     System.err.println(strbuf.toString());
     connection.createStatement().execute(strbuf.toString());
@@ -163,11 +165,6 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(getTableName());
     strbuf.append(" SET ");
     
-    strbuf.append(PersonajeDO.ALIAS);
-    strbuf.append(" = ");
-    strbuf.append(singleQuotes(personajeDO.getAlias()));
-    strbuf.append(", ");
-
     strbuf.append(PersonajeDO.EXPERIENCIA);
     strbuf.append(" = ");
     strbuf.append(personajeDO.getExperiencia());
@@ -197,14 +194,7 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(" = ");
     strbuf.append(personajeDO.getUltimaFechaIngreso());
     strbuf.append(", ");
-    
-    strbuf.append(PersonajeDO.USUARIO_ID);
-    strbuf.append(" = ");
-    Reference<UsuarioDO> ref = personajeDO.getUsuarioRef();
-    ref.checkUpdate();
-    strbuf.append(ref.getIdAsString());
-    strbuf.append(", ");
-    
+   
     strbuf.append(PersonajeDO.PLANETA_ID);
     strbuf.append(" = ");
     Reference<PlanetaDO> ref1 = personajeDO.getPlanetaRef();
@@ -218,12 +208,6 @@ public class PersonajeDAO extends BaseDAO {
     ref2.checkUpdate();
     strbuf.append(ref2.getIdAsString());
     strbuf.append(", ");
-    
-    strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
-    strbuf.append(" = ");
-    Reference<ClaseLinternaDO> ref3 = personajeDO.getClaseLinternaRef();
-    ref3.checkUpdate();
-    strbuf.append(ref3.getIdAsString());
     
     strbuf.append(" WHERE ");
     strbuf.append(PersonajeDO.ID);
