@@ -16,7 +16,7 @@ public class GrupoDO implements DataObject {
 	// --------------------------------------------------------------------------------
 	
 	private int id;
-	private int nombre;
+	private String nombre;
 	private boolean estado;
 	
 	// --------------------------------------------------------------------------------
@@ -43,11 +43,11 @@ public class GrupoDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 	
-	public int getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(int nombre) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 	
