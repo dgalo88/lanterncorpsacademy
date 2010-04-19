@@ -139,18 +139,10 @@ public class UsuarioDAO extends BaseDAO {
 		strbuf.append(singleQuotes(usuarioDO.getNombre()));
 
 		strbuf.append(", ");
-		
-		strbuf.append(UsuarioDO.CORREO);
-		strbuf.append(" = ");
-		strbuf.append(singleQuotes(usuarioDO.getCorreo()));
-
-		strbuf.append(", ");
 
 		strbuf.append(UsuarioDO.CLAVE);
 		strbuf.append(" = ");
 		strbuf.append(singleQuotes(usuarioDO.getClave()));
-
-		// NO SE DEBE CAMBIAR LA FK DEL PERSONAJE
 
 		strbuf.append(" WHERE ");
 		strbuf.append(UsuarioDO.ID);
@@ -181,8 +173,6 @@ public class UsuarioDAO extends BaseDAO {
 		strbuf.append(" = ");
 		strbuf.append(usuarioDO.getId());
 
-		// FALTA BORRAR EL RESTO DE INFORMACION DEL USUARIO ( PERSONAJE)
-
 		System.err.println(strbuf.toString());
 
 		connection.createStatement().execute(strbuf.toString());
@@ -197,7 +187,13 @@ public class UsuarioDAO extends BaseDAO {
 
 		UsuarioDO usuarioDO;
 
-		usuarioDO = (UsuarioDO) dtaSession.getDtaByKey(UsuarioDO.class, id);// VERIFICA SI ESTE ID ESTA EN CACHE
+		usuarioDO = (UsuarioDO) dtaSession.getDtaByKey(UsuarioDO.class, id);// VERIFICA
+																			// SI
+																			// ESTE
+																			// ID
+																			// ESTA
+																			// EN
+																			// CACHE
 
 		if (usuarioDO != null) {
 			return usuarioDO;
@@ -329,7 +325,7 @@ public class UsuarioDAO extends BaseDAO {
 		ret.setNombre(rs.getString(UsuarioDO.NOMBRE));
 		ret.setCorreo(rs.getString(UsuarioDO.CORREO));
 		ret.setClave(rs.getString(UsuarioDO.CLAVE));
-		Reference<PersonajeDO> refp = new Reference<PersonajeDO>();// Revisar Reference
+		Reference<PersonajeDO> refp = new Reference<PersonajeDO>();
 		refp.setRefIdent(rs.getInt(UsuarioDO.PERSONAJE_ID));
 		ret.setPersonajeRef(refp);
 
@@ -340,4 +336,23 @@ public class UsuarioDAO extends BaseDAO {
 
 	}
 
+	// --------------------------------------------------------------------------------
+
+	public void loadPersonajeRef(UsuarioDO usuarioDO) throws SQLException {
+
+		checkClass(usuarioDO, UsuarioDO.class, CHECK_UPDATE);
+
+		PersonajeDAO personajeDAO = new PersonajeDAO();
+		personajeDAO.init(connectionBean);
+
+		Reference<PersonajeDO> ref = usuarioDO.getPersonajeRef();
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
+
+		PersonajeDO personajeDO = //
+		(PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(personajeDO);
+	}
 }
