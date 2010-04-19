@@ -64,6 +64,9 @@ public class PersonajeDAO extends BaseDAO {
 	    PlanetaDAO planetaDAO = new PlanetaDAO(); 
 	    planetaDAO.init(connectionBean);
 	    
+	    GrupoDAO grupoDAO = new GrupoDAO(); 
+	    grupoDAO.init(connectionBean);
+	    
 	    strbuf = new StringBuffer();
 
 	    strbuf.append("CREATE TABLE ");
@@ -91,6 +94,9 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(PersonajeDO.PLANETA_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(planetaDAO.getTableName());
+	    strbuf.append(PersonajeDO.GRUPO_ID);
+	    strbuf.append(" INT REFERENCES   ");
+	    strbuf.append(grupoDAO.getTableName());
 	    
 	    strbuf.append(")");
 
@@ -170,10 +176,15 @@ public class PersonajeDAO extends BaseDAO {
 	    Reference<UsuarioDO> refU = personajeDO.getUsuarioRef();
 	    refU.checkInsert();
 	    strbuf.append(refU.getIdAsString());
-	    //TODO REFERENCES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+	    //Done...
 	    Reference<PlanetaDO> refPl = personajeDO.getPlanetaRef();
 	    refPl.checkUpdate();
 	    strbuf.append(refPl.getIdAsString());
+	    
+	    Reference<GrupoDO> refGr = personajeDO.getGrupoRef();
+	    refGr.checkUpdate();
+	    strbuf.append(refGr.getIdAsString());
 	    
 	    strbuf.append(")");
 
@@ -255,10 +266,14 @@ public class PersonajeDAO extends BaseDAO {
 	        Reference<UsuarioDO> refU = new Reference<UsuarioDO>();
 	        refU.setRefIdent(rs.getInt(PersonajeDO.USUARIO_ID));
 	        ret.setUsuarioRef(refU);
-	        //TODO REFERENCES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	        //Done...
 	        Reference<PlanetaDO> refPl = new Reference<PlanetaDO>();
 	        refPl.setRefIdent(rs.getInt(PersonajeDO.PLANETA_ID));
 	        ret.setPlanetaRef(refPl);
+	        
+	        Reference<GrupoDO> refGr = new Reference<GrupoDO>();
+	        refGr.setRefIdent(rs.getInt(PersonajeDO.GRUPO_ID));
+	        ret.setGrupoRef(refGr);
 	        
 	        
 	        return (PersonajeDO) dtaSession.add(ret);
@@ -297,7 +312,7 @@ public class PersonajeDAO extends BaseDAO {
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
-	    checkClass(dataObject, HabilidadDO.class, CHECK_UPDATE);
+	    checkClass(dataObject, PersonajeDO.class, CHECK_UPDATE);
 
 	    PersonajeDO personajeDO = (PersonajeDO) dataObject;
 
@@ -362,6 +377,14 @@ public class PersonajeDAO extends BaseDAO {
 	    Reference<PlanetaDO> refPl = personajeDO.getPlanetaRef();
 	    refPl.checkUpdate();
 	    strbuf.append(refPl.getIdAsString());
+ 
+	    strbuf.append(", ");
+	    
+	    strbuf.append(PersonajeDO.GRUPO_ID);
+	    strbuf.append(" = ");
+	    Reference<GrupoDO> refGr = personajeDO.getGrupoRef();
+	    refGr.checkUpdate();
+	    strbuf.append(refGr.getIdAsString());
 	    
 	    strbuf.append(" WHERE ");
 	    strbuf.append(PersonajeDO.ID);

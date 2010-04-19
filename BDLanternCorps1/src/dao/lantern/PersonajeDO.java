@@ -40,14 +40,14 @@ public class PersonajeDO implements DataObject {
 
 	private Reference<PlanetaDO> planetaRef = new Reference<PlanetaDO>();
 	
+	private Reference<GrupoDO> grupoRef = new Reference<GrupoDO>();
+	
 	private List<HabilidadActivaDO> habilidadActivaList = //
 		new ArrayList<HabilidadActivaDO>();
 
 	private List<MisionPersonajeDO> misionPersonajeList = //
 		new ArrayList<MisionPersonajeDO>();
 
-	private List<GrupoPersonajeDO> grupoPersonajeList = //
-		new ArrayList<GrupoPersonajeDO>();
 
 	private List<ClaseLinternaDO> claseLinternaList = //
 		new ArrayList<ClaseLinternaDO>();
@@ -161,6 +161,14 @@ public class PersonajeDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
+	public Reference<GrupoDO> getGrupoRef() {
+		return grupoRef;
+	}
+
+	public void setGrupoRef(Reference<GrupoDO> grupoRef) {
+		this.grupoRef = grupoRef;
+	}
+	//----------------------------------------------------------------------------------
 	public void setHabilidadActivaList(List<HabilidadActivaDO> habilidadActivaList) {
 		this.habilidadActivaList = habilidadActivaList;
 	}
@@ -181,13 +189,6 @@ public class PersonajeDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	public void setGrupoPersonajeList(List<GrupoPersonajeDO> grupoPersonajeList) {
-		this.grupoPersonajeList = grupoPersonajeList;
-	}
-
-	public List<GrupoPersonajeDO> getGrupoPersonajeList() {
-		return grupoPersonajeList;
-	}
 
 	// --------------------------------------------------------------------------------
 

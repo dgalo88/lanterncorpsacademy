@@ -24,9 +24,11 @@ public class GrupoDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<GrupoPersonajeDO> grupoPersonajeList = //
-		new ArrayList<GrupoPersonajeDO>();
+	private List<PersonajeDO> PersonajeList = //
+		new ArrayList<PersonajeDO>();
 
+	
+		
 	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
 	
 	// --------------------------------------------------------------------------------
@@ -68,12 +70,12 @@ public class GrupoDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	public List<GrupoPersonajeDO> getGrupoPersonajeList() {
-		return grupoPersonajeList;
+	public List<PersonajeDO> getPersonajeList() {
+		return PersonajeList;
 	}
 
-	public void setGrupoPersonajeList(List<GrupoPersonajeDO> grupoPersonajeList) {
-		this.grupoPersonajeList = grupoPersonajeList;
+	public void setPersonajeList(List<PersonajeDO> personajeList) {
+		PersonajeList = personajeList;
 	}
 
 	// --------------------------------------------------------------------------------
@@ -82,8 +84,11 @@ public class GrupoDO implements DataObject {
 		return claseLinternaRef;
 	}
 
+
+
 	public void setClaseLinternaRef(Reference<ClaseLinternaDO> claseLinternaRef) {
 		this.claseLinternaRef = claseLinternaRef;
 	}
+
 
 }

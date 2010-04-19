@@ -6,6 +6,8 @@ import dao.api.Reference;
 public class HabilidadActivaDO implements DataObject {
 
 	public static final String NIVEL_HABILIDAD = "nivel_habilidad";
+	public static final String PERSONAJE_REF = "personaje_ref";
+	public static final String HABILIDAD_REF = "habilidad_ref";
 	
 	// --------------------------------------------------------------------------------
 

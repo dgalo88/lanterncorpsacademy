@@ -7,7 +7,10 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+import dao.api.FactoryDAO;
 import dao.api.Reference;
+import dao.example.DepartmentDO;
+import dao.example.EmployeeDAO;
 import dao.lantern.HabilidadDO;
 
 
@@ -159,10 +162,6 @@ public class HabilidadDAO extends BaseDAO {
 	    strbuf.append(habilidadDO.getCostoDeAprendizaje());
 	    strbuf.append(", ");
 	    strbuf.append(habilidadDO.getTipo());
-	    strbuf.append(", ");
-//	    Reference<HabilidadClaseLinternaDO> ref = habilidadDO.getHabilidadClaseLinternaList();
-//	    ref.checkInsert();
-//	    strbuf.append(ref.getIdAsString()); //TODO 
 
 	    strbuf.append(")");
 
@@ -262,10 +261,6 @@ public class HabilidadDAO extends BaseDAO {
 	    strbuf.append(HabilidadDO.TIPO);
 	    strbuf.append(" = ");
 	    strbuf.append(habilidadDO.getTipo());
-	    
-//	    Reference<HabilidadClaseLinternaDO> refcl = habilidadDO.getClaseLinternaRef();
-//	    refcl.checkUpdate(); //TODO REFERENCES
-//	    strbuf.append(refcl.getIdAsString());
 
 	    strbuf.append(" WHERE ");
 	    strbuf.append(HabilidadDO.ID);
@@ -312,14 +307,34 @@ public class HabilidadDAO extends BaseDAO {
       ret.setNombre/*   */(rs.getString(HabilidadDO.NOMBRE));
       ret.setCostoDeAprendizaje((rs.getInt(HabilidadDO.COST)));
       ret.setTipo(rs.getInt(HabilidadDO.TIPO));
-    //TODO: REFERENCES OOOOOOJJJJJJJJJJJJJOOOOOOOOO!!!!!
-//      
-//      Reference<HabilidadClaseLinternaDO> refH = new Reference<HabilidadClaseLinternaDO>();
-//      refH.setRefIdent(rs.getInt(ClaseLinternaDO.HABILIDAD_ID));
-//      ret.setHabilidadClaseLinternaRef(refH);
-      //TODO: REFERENCES OOOOOOJJJJJJJJJJJJJOOOOOOOOO!!!!!
-
-  
+ 
       return (HabilidadDO) dtaSession.add(ret);	
     }
+    
+    public void loadNivelList(HabilidadDO habilidadDO) throws Exception {
+        checkCache(habilidadDO, CHECK_UPDATE);
+
+        NivelHabilidadDAO nivelHabilidadDAO = (NivelHabilidadDAO) FactoryDAO.getDAO( //
+        NivelHabilidadDAO.class, connectionBean);
+        // TODO NEEDS listByHabilidadId on NivelHabilidadDAO
+        habilidadDO.setNivelHabilidadList(nivelHabilidadDAO.listByHabilidadId(habilidadDO.getId()));
+      }
+    
+    public void loadClaseLinternaList(HabilidadDO habilidadDO) throws Exception {
+        checkCache(habilidadDO, CHECK_UPDATE);
+
+        HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO.getDAO( //
+        HabilidadClaseLinternaDAO.class, connectionBean);
+        // TODO NEEDS listByClaseLinternaId on HabilidadClaseLinternaDAO
+        habilidadDO.setHabilidadClaseLinternaListList(habilidadClaseLinternaDAO.listByClaseLinternaId(habilidadDO.getId()));
+      }
+    
+    public void loadHabActivaList(HabilidadDO habilidadDO) throws Exception {
+        checkCache(habilidadDO, CHECK_UPDATE);
+
+        HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO.getDAO( //
+        HabilidadActivaDAO.class, connectionBean);
+        // TODO NEEDS listByHabilidadId on HabilidadActivaDAO
+        habilidadDO.setHabilidadActivaList(habilidadActivaDAO.listByHabilidadId(habilidadDO.getId()));
+      }
 }
