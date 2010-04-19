@@ -9,7 +9,10 @@ public class HabilidadActivaDO implements DataObject {
 	public static final String PERSONAJE_REF = "personaje_ref";
 	public static final String HABILIDAD_REF = "habilidad_ref";
 	
-	// --------------------------------------------------------------------------------
+	public static final String PERSONAJE_ID = "personajeId";
+	public static final String HABILIDAD_ID = "habilidadId";
+	
+// --------------------------------------------------------------------------------
 
 	private int id;
 	

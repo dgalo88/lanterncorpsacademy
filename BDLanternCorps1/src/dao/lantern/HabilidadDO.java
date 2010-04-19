@@ -9,13 +9,9 @@ public class HabilidadDO implements DataObject {
 
 	public static final String ID     	= "id";
 	public static final String NOMBRE 	= "nombre";
-	public static final String COST   	= "costo_aprendizaje";
+	public static final String COSTO_DE_APRENDIZAJE   	= "costo_aprendizaje";
 	public static final String TIPO     = "tipo";
 	
-	public static final String NIVEL_ID = "nivel";
-	public static final String CLASE_ID = "clase_linterna";
-	public static final String HAB_ACTIVA_ID = "habilidad_activa";
-    	
 	// --------------------------------------------------------------------------------
 
 	private int id;
@@ -24,7 +20,7 @@ public class HabilidadDO implements DataObject {
 	private int costo_de_aprendizaje;
 	private int tipo;
 	
-	private List<HabilidadClaseLinternaDO> HabilidadClaseLinternaList = //
+	private List<HabilidadClaseLinternaDO> habilidadClaseLinternaList = //
 		new ArrayList<HabilidadClaseLinternaDO>();
 	
 	private List<NivelHabilidadDO> nivelHabilidadList = //
@@ -83,13 +79,12 @@ public class HabilidadDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	public void setHabilidadClaseLinternaList(
-			List<HabilidadClaseLinternaDO> habilidadClaseLinternaList) {
-		HabilidadClaseLinternaList = habilidadClaseLinternaList;
+	public void setHabilidadClaseLinternaList(List<HabilidadClaseLinternaDO> habilidadClaseLinternaList) {
+		this.habilidadClaseLinternaList = habilidadClaseLinternaList;
 	}
 
 	public List<HabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
-		return HabilidadClaseLinternaList;
+		return habilidadClaseLinternaList;
 	}
 	
 	// --------------------------------------------------------------------------------
@@ -110,6 +105,7 @@ public class HabilidadDO implements DataObject {
 
 	public List<HabilidadActivaDO> getHabilidadActivaList() {
 		return habilidadActivaList;
-	}	
+	}
+
 	
 }

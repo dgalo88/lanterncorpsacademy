@@ -320,4 +320,40 @@ public class MisionDAO extends BaseDAO {
     return (MisionDO) dtaSession.add(ret);
   }
   
+//--------------------------------------------------------------------------------
+
+  public void loadOrdenList(MisionDO misionDO) throws Exception {
+    checkCache(misionDO, CHECK_UPDATE);
+    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
+
+    OrdenDAO ordenDAO = (OrdenDAO) FactoryDAO.getDAO( //
+        OrdenDAO.class, connectionBean);
+
+    misionDO.setOrdenList(ordenDAO.listByMisionId(misionDO.getId()));
+  }
+
+//--------------------------------------------------------------------------------
+
+  public void loadMisionPersonajeList(MisionDO misionDO) throws Exception {
+    checkCache(misionDO, CHECK_UPDATE);
+    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
+
+    MisionPersonajeDAO misionPersonajeDAO = (MisionPersonajeDAO) FactoryDAO.getDAO( //
+        MisionPersonajeDAO.class, connectionBean);
+
+    misionDO.setMisionPersonajeList(misionPersonajeDAO.listByMisionId(misionDO.getId()));
+  }
+  
+//--------------------------------------------------------------------------------
+
+  public void loadMisionCLaseLinternaList(MisionDO misionDO) throws Exception {
+    checkCache(misionDO, CHECK_UPDATE);
+    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
+
+    MisionCLaseLinternaDAO misionCLaseLinternaDAO = (MisionCLaseLinternaDAO) FactoryDAO.getDAO( //
+    		MisionCLaseLinternaAO.class, connectionBean);
+
+    misionDO.setMisionCLaseLinternaList(misionCLaseLinternaDAO.listByMisionId(misionDO.getId()));
+  }
+
 }
