@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-//import dao.api.FactoryDAO;
 import dao.api.Reference;
 
 
@@ -40,7 +39,6 @@ public class PersonajeDAO extends BaseDAO {
 
     // ----------------------------------------
 
-    HabilidadDAO habilidadDAO = new HabilidadDAO();
     UsuarioDAO usuarioDAO = new UsuarioDAO();
     usuarioDAO.init(connectionBean);
     PlanetaDAO planetaDAO = new PlanetaDAO();
@@ -168,50 +166,58 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(PersonajeDO.ALIAS);
     strbuf.append(" = ");
     strbuf.append(singleQuotes(personajeDO.getAlias()));
-
     strbuf.append(", ");
 
     strbuf.append(PersonajeDO.EXPERIENCIA);
     strbuf.append(" = ");
     strbuf.append(personajeDO.getExperiencia());
-
+    strbuf.append(", ");
+    
     strbuf.append(PersonajeDO.PUNTOS_DE_ENTRENAMIENTO);
     strbuf.append(" = ");
     strbuf.append(personajeDO.getPuntosDeEntrenamiento());
+    strbuf.append(", ");
     
     strbuf.append(PersonajeDO.SALUD);
     strbuf.append(" = ");
     strbuf.append(personajeDO.getSalud());
+    strbuf.append(", ");
     
     strbuf.append(PersonajeDO.ENERGIA_DEL_ANILLO);
     strbuf.append(" = ");
     strbuf.append(personajeDO.getEnergiaDelAnillo());
+    strbuf.append(", ");
     
     strbuf.append(PersonajeDO.NIVEL);
     strbuf.append(" = ");
     strbuf.append(personajeDO.getNivel());
+    strbuf.append(", ");
     
     strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO);
     strbuf.append(" = ");
     strbuf.append(personajeDO.getUltimaFechaIngreso());
+    strbuf.append(", ");
     
     strbuf.append(PersonajeDO.USUARIO_ID);
     strbuf.append(" = ");
     Reference<UsuarioDO> ref = personajeDO.getUsuarioRef();
     ref.checkUpdate();
     strbuf.append(ref.getIdAsString());
+    strbuf.append(", ");
     
     strbuf.append(PersonajeDO.PLANETA_ID);
     strbuf.append(" = ");
     Reference<PlanetaDO> ref1 = personajeDO.getPlanetaRef();
     ref1.checkUpdate();
     strbuf.append(ref1.getIdAsString());
+    strbuf.append(", ");
     
     strbuf.append(PersonajeDO.GRUPO_ID);
     strbuf.append(" = ");
     Reference<GrupoDO> ref2 = personajeDO.getGrupoRef();
     ref2.checkUpdate();
     strbuf.append(ref2.getIdAsString());
+    strbuf.append(", ");
     
     strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
     strbuf.append(" = ");
@@ -450,7 +456,8 @@ public class PersonajeDAO extends BaseDAO {
   
   // --------------------------------------------------------------------------------
 
-  public List<PersonajeDO> listRankin() throws SQLException {
+  //
+  /*public List<PersonajeDO> listRankin() throws SQLException {
     
 	StringBuffer strbuf = new StringBuffer();
     strbuf.append("SELECT" + PersonajeDO.ALIAS + "," + PersonajeDO.NIVEL);
@@ -471,5 +478,7 @@ public class PersonajeDAO extends BaseDAO {
     }
     
     return ret;
-  }
+  }*/
+  
+  
 }
