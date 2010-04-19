@@ -48,7 +48,7 @@ public class HabilidadDAO extends BaseDAO{
 	    strbuf.append(HabilidadDO.ID);
 	    strbuf.append(" INT PRIMARY KEY,	");
 	    strbuf.append(HabilidadDO.NOMBRE);
-	    strbuf.append(" VARCHAR(20), UNIQUE,	");
+	    strbuf.append(" VARCHAR(20) UNIQUE,	");
 	    strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
 	    strbuf.append(" INT,	");
 	    strbuf.append(HabilidadDO.TIPO);
@@ -174,6 +174,7 @@ public class HabilidadDAO extends BaseDAO{
     // --------------------------------------------------------------------------------
 
 	private DataObject resultSetToDO(ResultSet rs) {
+
 		HabilidadDO ret = (HabilidadDO) dtaSession.getDtaByKey( //
 				HabilidadDO.class, rs.getInt(HabilidadDO.ID));
 		
@@ -181,25 +182,25 @@ public class HabilidadDAO extends BaseDAO{
 			return ret;
 		}
 		
-		ret = new PersonajeDO();
-		ret.setId(rs.getInt(PersonajeDO.ID));
-		ret.setExperiencia(rs.getInt(PersonajeDO.EXPERIENCIA));
+		ret = new HabilidadDO();
+		ret.setId(rs.getInt(HabilidadDO.ID));
+		ret.setExperiencia(rs.getInt(HabilidadDO.EXPERIENCIA));
 		ret.setPuntosDeEntrenamiento(rs
-				.getInt(PersonajeDO.PUNTOS_DE_ENTRENAMIENTO));
-		ret.setSalud(rs.getInt(PersonajeDO.SALUD));
-		ret.setEnergiaDelAnillo(rs.getInt(PersonajeDO.ENERGIA_DEL_ANILLO));
-		ret.setNivel(rs.getInt(PersonajeDO.NIVEL));
-		ret.setUltimaFechaIngreso(rs.getDate(PersonajeDO.ULTIMA_FECHA_INGRESO));
+				.getInt(HabilidadDO.PUNTOS_DE_ENTRENAMIENTO));
+		ret.setSalud(rs.getInt(HabilidadDO.SALUD));
+		ret.setEnergiaDelAnillo(rs.getInt(HabilidadDO.ENERGIA_DEL_ANILLO));
+		ret.setNivel(rs.getInt(HabilidadDO.NIVEL));
+		ret.setUltimaFechaIngreso(rs.getDate(HabilidadDO.ULTIMA_FECHA_INGRESO));
 		Reference<PlanetaDO> ref = new Reference<PlanetaDO>();
-		ref.setRefIdent(rs.getInt(PersonajeDO.USUARIO_ID));
+		ref.setRefIdent(rs.getInt(HabilidadDO.USUARIO_ID));
 		Reference<PlanetaDO> ref1 = new Reference<PlanetaDO>();
-		ref1.setRefIdent(rs.getInt(PersonajeDO.PLANETA_ID));
+		ref1.setRefIdent(rs.getInt(HabilidadDO.PLANETA_ID));
 		Reference<GrupoDO> ref2 = new Reference<GrupoDO>();
-		ref2.setRefIdent(rs.getInt(PersonajeDO.GRUPO_ID));
+		ref2.setRefIdent(rs.getInt(HabilidadDO.GRUPO_ID));
 		Reference<ClaseLinternaDO> ref3 = new Reference<ClaseLinternaDO>();
-		ref3.setRefIdent(rs.getInt(PersonajeDO.CLASE_LINTERNA_ID));
+		ref3.setRefIdent(rs.getInt(HabilidadDO.CLASE_LINTERNA_ID));
 		
-		return (PersonajeDO) dtaSession.add(ret);
+		return (HabilidadDO) dtaSession.add(ret);
 	}
 
 	@Override
