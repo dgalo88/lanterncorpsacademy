@@ -77,7 +77,7 @@ public class GrupoDAO extends BaseDAO{
 		strbuf.append(GrupoDO.ESTADO);
 		strbuf.append(" BOOLEAN,     ");
 		strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
-		strbuf.append("INT REFERENCES    ");
+		strbuf.append(" INT REFERENCES ClaseLinternaDO.ID ");
 		strbuf.append(")");
 		
 		System.err.println(strbuf.toString());
