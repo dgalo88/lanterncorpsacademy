@@ -2,6 +2,7 @@ package dao.lca;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.api.BaseDAO;
@@ -155,26 +156,131 @@ public class NpcDAO extends BaseDAO{
 
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    if (lim >= 0 && off >= 0) {
+	      strbuf.append(" LIMIT  ");
+	      strbuf.append(lim);
+	      strbuf.append(" OFFSET ");
+	      strbuf.append(off);
+	    }
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    List<DataObject> ret = new ArrayList<DataObject>();
+
+	    while (rs.next()) {
+	      ret.add(resultSetToDO(rs));
+	    }
+
+	    return ret;
 	}
 
 	@Override
 	public List<DataObject> listAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		  return listAll(-1, -1);
 	}
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(NpcDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(id);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
+	    }
+
+	    return null;
 	}
 
 	@Override
-	public void update(DataObject bean) throws SQLException {
-		// TODO Auto-generated method stub
+	public void update(DataObject dataObject) throws SQLException {
+		checkCache(dataObject, CHECK_UPDATE);
+	    checkClass(dataObject, NpcDO.class, CHECK_UPDATE);
+	    
+	    NpcDO npcDO = (NpcDO) dataObject;
+	    
+	    StringBuffer strbuf = new StringBuffer();
+	    
+	    strbuf.append("UPDATE ");
+	    strbuf.append(getTableName());
+	    strbuf.append(" SET ");
+	    
+	    strbuf.append(NpcDO.NOMBRE);
+	    strbuf.append(" = ");
+	    strbuf.append(singleQuotes(npcDO.getNombre()));
+
+	    strbuf.append(", ");
+	    
+	    strbuf.append(NpcDO.NIVEL);
+	    strbuf.append(" = ");
+	    strbuf.append(npcDO.getNivel());
+		
+	    strbuf.append(", ");
+	    
+	    strbuf.append(NpcDO.SALUD);
+	    strbuf.append(" = ");
+	    strbuf.append(npcDO.getSalud());
+		
+	    strbuf.append(", ");
+	    
+	    strbuf.append(NpcDO.DANO);
+	    strbuf.append(" = ");
+	    strbuf.append(npcDO.getDano());
+		
+	    strbuf.append(", ");
+	   
+	    strbuf.append(NpcDO.COLOR);
+	    strbuf.append(" = ");
+	    strbuf.append(singleQuotes(npcDO.getColor()));
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(NpcDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(npcDO.getId());
+
+	    System.err.println(strbuf.toString());
+
+	    connection.createStatement().execute(strbuf.toString());
 		
 	}
 
+	private NpcDO resultSetToDO(ResultSet rs) throws SQLException {
+		NpcDO ret = //
+		(NpcDO) dtaSession.getDtaByKey( //
+				NpcDO.class, rs.getInt(NpcDO.ID));
+
+		if (ret != null) {
+			return ret;
+		}
+
+		ret = new NpcDO();
+
+		ret.setId/*      */(rs.getInt(NpcDO.ID));
+		ret.setNombre/*  */(rs.getString(NpcDO.NOMBRE));
+		ret.setNivel/*   */(rs.getInt(NpcDO.NIVEL));
+		ret.setSalud/*   */(rs.getInt(NpcDO.SALUD));
+		ret.setDano/*    */(rs.getInt(NpcDO.DANO));
+		ret.setColor/*   */(rs.getString(NpcDO.COLOR));
+		
+		return (NpcDO) dtaSession.add(ret);
+	}
 }
