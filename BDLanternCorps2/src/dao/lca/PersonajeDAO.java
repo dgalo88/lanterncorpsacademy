@@ -256,7 +256,7 @@ public class PersonajeDAO extends BaseDAO {
 
   // --------------------------------------------------------------------------------
 
-  @Override
+  @Override	
   public DataObject loadById(int id) throws SQLException {
     StringBuffer strbuf = new StringBuffer();
 
@@ -432,6 +432,8 @@ public class PersonajeDAO extends BaseDAO {
       ref.setRefValue(planetaDO);
   }
   
+  //--------------------------------------------------------------------------------
+  
   public void loadGrupoRef(PersonajeDO personajeDO) throws SQLException {
 		
 	  checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
@@ -451,18 +453,10 @@ public class PersonajeDAO extends BaseDAO {
     
 	StringBuffer strbuf = new StringBuffer();
 	
-    strbuf.append("SELECT * FROM ");
+    strbuf.append("SELECT" + PersonajeDO.ALIAS + "," + PersonajeDO.NIVEL);
+    strbuf.append(","+ PersonajeDO.CLASE_LINTERNA_ID + "FROM ");
     strbuf.append(getTableName());
-    strbuf.append(" WHERE ");
-    /*
-    strbuf.append(PersonajeDO.NAME);
-    strbuf.append(" = ");
-    strbuf.append(singleQuotes(name));
-    strbuf.append(" AND ");
-    strbuf.append(PersonajeDO.DESCRIPTION);
-    strbuf.append(" LIKE ");
-    strbuf.append(singleQuotes("%" + description + "%"));
-    */
+    strbuf.append("ODERBY BY");
     System.err.println(strbuf.toString());
 
     ResultSet rs = //
@@ -473,7 +467,6 @@ public class PersonajeDAO extends BaseDAO {
     while (rs.next()) {
       ret.add(resultSetToDO(rs));
     }
-
     return ret;
   }
 }
