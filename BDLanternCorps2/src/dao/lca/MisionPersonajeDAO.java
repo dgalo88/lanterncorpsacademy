@@ -119,36 +119,7 @@ public class MisionPersonajeDAO extends BaseDAO {
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
-		// esta
-		// informacion
-		// no se
-		// actualiza
-		/*
-		 * checkCache(dataObject, CHECK_UPDATE); checkClass(dataObject,
-		 * MisionPersonajeDO.class, CHECK_UPDATE);
-		 * 
-		 * MisionPersonajeDO MisionPersonajeDO = (MisionPersonajeDO) dataObject;
-		 * 
-		 * StringBuffer strbuf = new StringBuffer();
-		 * 
-		 * strbuf.append("UPDATE "); strbuf.append(getTableName());
-		 * strbuf.append(" SET ");
-		 * 
-		 * strbuf.append(MisionPersonajeDO.NAME); strbuf.append(" = ");
-		 * strbuf.append(singleQuotes(MisionPersonajeDO.getName()));
-		 * 
-		 * strbuf.append(", ");
-		 * 
-		 * strbuf.append(MisionPersonajeDO.DESCRIPTION); strbuf.append(" = ");
-		 * strbuf.append(singleQuotes(MisionPersonajeDO.getDescription()));
-		 * 
-		 * strbuf.append(" WHERE "); strbuf.append(MisionPersonajeDO.ID);
-		 * strbuf.append(" = "); strbuf.append(MisionPersonajeDO.getId());
-		 * 
-		 * System.err.println(strbuf.toString());
-		 * 
-		 * connection.createStatement().execute(strbuf.toString());
-		 */
+		//empty
 	}
 
 	// --------------------------------------------------------------------------------
@@ -390,5 +361,45 @@ public class MisionPersonajeDAO extends BaseDAO {
 		}
 
 		return ret;
+	}
+	
+	// --------------------------------------------------------------------------------
+
+	public void loadPersonajeRef(MisionPersonajeDO misionpersonajeDO) throws SQLException {
+
+		checkClass(misionpersonajeDO, MisionPersonajeDO.class, CHECK_UPDATE);
+
+		PersonajeDAO personajeDAO = new PersonajeDAO();
+		personajeDAO.init(connectionBean);
+
+		Reference<PersonajeDO> ref = misionpersonajeDO.getPersonajeRef();
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
+
+		PersonajeDO personajeDO = //
+		(PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(personajeDO);
+	}
+	
+	// --------------------------------------------------------------------------------
+
+	public void loadMisionRef(MisionPersonajeDO misionpersonajeDO) throws SQLException {
+
+		checkClass(misionpersonajeDO, MisionPersonajeDO.class, CHECK_UPDATE);
+
+		MisionDAO misionDAO = new MisionDAO();
+		misionDAO.init(connectionBean);
+
+		Reference<MisionDO> ref = misionpersonajeDO.getMisionRef();
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
+
+		MisionDO misionDO = //
+		(MisionDO) misionDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(misionDO);
 	}
 }

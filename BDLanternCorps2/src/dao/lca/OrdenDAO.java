@@ -312,8 +312,8 @@ public class OrdenDAO extends BaseDAO {
 	private OrdenDO resultSetToDO(ResultSet rs) throws SQLException {
 		OrdenDO ret = new OrdenDO();
 
-		ret.setId/*     */(rs.getInt(OrdenDO.ID));
-		ret.setPrioridad/*   */(rs.getInt(OrdenDO.PRIORIDAD));
+		ret.setId(rs.getInt(OrdenDO.ID));
+		ret.setPrioridad(rs.getInt(OrdenDO.PRIORIDAD));
 
 		Reference<MisionDO> refm = new Reference<MisionDO>();
 		refm.setRefIdent(rs.getInt(OrdenDO.MISION_ID));
@@ -364,37 +364,80 @@ public class OrdenDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public List<OrdenDO> listByIdObjetivoId(int objetivoId) throws SQLException {//NECESARIO?
-		StringBuffer strbuf = new StringBuffer();
+	{
+		// public List<OrdenDO> listByIdObjetivoId(int objetivoId) throws
+		// SQLException {//NECESARIO?
+		// StringBuffer strbuf = new StringBuffer();
+		//
+		// strbuf.append("SELECT * FROM ");
+		// strbuf.append(getTableName());
+		//
+		// strbuf.append(" WHERE ");
+		// strbuf.append(OrdenDO.OBJETIVO_ID);
+		// strbuf.append(" = ");
+		// strbuf.append(objetivoId);
+		//
+		// System.err.println(strbuf.toString());
+		//
+		// ResultSet rs = //
+		// connection.createStatement().executeQuery(strbuf.toString());
+		//
+		// List<OrdenDO> ret = new ArrayList<OrdenDO>();
+		// OrdenDO orden;
+		//
+		// while (rs.next()) {
+		//
+		// orden = (OrdenDO) dtaSession.getDtaByKey( //
+		// OrdenDO.class, rs.getInt(OrdenDO.ID));
+		//
+		// if (orden == null) {
+		// orden = (OrdenDO) dtaSession.add(resultSetToDO(rs));
+		// }
+		//
+		// ret.add(orden);
+		// }
+		//
+		// return ret;
+		// }
+	}
 
-		strbuf.append("SELECT * FROM ");
-		strbuf.append(getTableName());
+	// --------------------------------------------------------------------------------
 
-		strbuf.append(" WHERE ");
-		strbuf.append(OrdenDO.OBJETIVO_ID);
-		strbuf.append(" = ");
-		strbuf.append(objetivoId);
+	public void loadMisionRef(OrdenDO ordenDO) throws SQLException {
 
-		System.err.println(strbuf.toString());
+		checkClass(ordenDO, OrdenDO.class, CHECK_UPDATE);
 
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+		MisionDAO misionDAO = new MisionDAO();
+		misionDAO.init(connectionBean);
 
-		List<OrdenDO> ret = new ArrayList<OrdenDO>();
-		OrdenDO orden;
-
-		while (rs.next()) {
-
-			orden = (OrdenDO) dtaSession.getDtaByKey( //
-					OrdenDO.class, rs.getInt(OrdenDO.ID));
-
-			if (orden == null) {
-				orden = (OrdenDO) dtaSession.add(resultSetToDO(rs));
-			}
-
-			ret.add(orden);
+		Reference<MisionDO> ref = ordenDO.getMisionRef();
+		if (ref.getRefIdent() == 0) {
+			return;
 		}
 
-		return ret;
+		MisionDO misionDO = //
+		(MisionDO) misionDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(misionDO);
+	}
+
+	// --------------------------------------------------------------------------------
+
+	public void loadObjetivoRef(OrdenDO ordenDO) throws SQLException {
+
+		checkClass(ordenDO, OrdenDO.class, CHECK_UPDATE);
+
+		ObjetivoDAO personajeDAO = new ObjetivoDAO();
+		personajeDAO.init(connectionBean);
+
+		Reference<ObjetivoDO> ref = ordenDO.getObjetivoRef();
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
+
+		ObjetivoDO personajeDO = //
+		(ObjetivoDO) personajeDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(personajeDO);
 	}
 }

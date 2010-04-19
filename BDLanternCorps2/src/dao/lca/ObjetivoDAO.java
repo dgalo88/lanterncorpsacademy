@@ -7,7 +7,6 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-import dao.api.FactoryDAO;
 import dao.api.Reference;
 
 public class ObjetivoDAO extends BaseDAO {
@@ -320,14 +319,37 @@ public class ObjetivoDAO extends BaseDAO {
 	}
 
 	// --------------------------------------------------------------------------------
+	
+	{
+//	public void loadOrdenList(ObjetivoDO objetivoDO) throws Exception {
+//		checkCache(objetivoDO, CHECK_UPDATE);
+//		checkClass(objetivoDO, ObjetivoDO.class, CHECK_UPDATE);
+//
+//		OrdenDAO ordenDAO = (OrdenDAO) FactoryDAO.getDAO( //
+//				OrdenDAO.class, connectionBean);
+//
+//		objetivoDO.setOrdenList(ordenDAO.listByIdObjetivoId(objetivoDO.getId()));
+//	}
+	}
 
-	public void loadOrdenList(ObjetivoDO objetivoDO) throws Exception {
-		checkCache(objetivoDO, CHECK_UPDATE);
+	// --------------------------------------------------------------------------------
+	
+	public void loadPlanetaRef(ObjetivoDO objetivoDO) throws SQLException {
+
 		checkClass(objetivoDO, ObjetivoDO.class, CHECK_UPDATE);
 
-		OrdenDAO ordenDAO = (OrdenDAO) FactoryDAO.getDAO( //
-				OrdenDAO.class, connectionBean);
+		PlanetaDAO misionDAO = new PlanetaDAO();
+		misionDAO.init(connectionBean);
 
-		objetivoDO.setOrdenList(ordenDAO.listByIdObjetivoId(objetivoDO.getId()));
+		Reference<PlanetaDO> ref = objetivoDO.getPlanetaRef();
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
+
+		PlanetaDO misionDO = //
+		(PlanetaDO) misionDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(misionDO);
 	}
+
 }
