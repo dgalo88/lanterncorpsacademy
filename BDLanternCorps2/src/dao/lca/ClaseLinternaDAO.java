@@ -76,7 +76,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 		strbuf.append(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA);
 		strbuf.append(" VARCHAR(100),     ");
 		strbuf.append(ClaseLinternaDO.PLANETA_ID);
-		strbuf.append("INT REFERENCES    ");
+		strbuf.append(" INT REFERENCES PlanetaDO.ID ");
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
