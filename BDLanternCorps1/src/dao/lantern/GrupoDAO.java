@@ -56,8 +56,6 @@ public class GrupoDAO extends BaseDAO {
     strbuf.append(" INT PRIMARY KEY, ");
     strbuf.append(GrupoDO.NOMBRE);
     strbuf.append(" VARCHAR(50),    ");
-    strbuf.append(GrupoDO.ESTADO);
-    strbuf.append(" BOOLEAN");
     strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
     strbuf.append(" STRING REFERENCES   ");
     strbuf.append(")");
