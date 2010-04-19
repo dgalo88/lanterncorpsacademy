@@ -5,6 +5,7 @@ import dao.api.Reference;
 
 public class UsuarioDO implements DataObject {
 
+	public static final String ID = "id";
 	public static final String NOMBRE = "nombre";
 	public static final String CORREO = "correo";
 	public static final String CLAVE  = "clave";
