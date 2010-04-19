@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.api.DataObject;
+import dao.api.Reference;
 
 public class PlanetaDO implements DataObject {
 
@@ -27,8 +28,8 @@ public class PlanetaDO implements DataObject {
 	private List<PersonajeDO> personajeList = //
 	new ArrayList<PersonajeDO>();
 
-	private List<ClaseLinternaDO> claseLinternaList = //
-		new ArrayList<ClaseLinternaDO>();
+	//private List<ClaseLinternaDO> claseLinternaList = //
+		//new ArrayList<ClaseLinternaDO>();
 	
 	private List<ObjetivoDO> objetivoList = //
 		new ArrayList<ObjetivoDO>();
@@ -101,7 +102,7 @@ public class PlanetaDO implements DataObject {
 	}
 
 	// --------------------------------------------------------------------------------
-
+/*
 	public List<ClaseLinternaDO> getClaseLinternaList() {
 		return claseLinternaList;
 	}
@@ -109,7 +110,7 @@ public class PlanetaDO implements DataObject {
 	public void setClaseLinternaList(List<ClaseLinternaDO> claseLinternaList) {
 		this.claseLinternaList = claseLinternaList;
 	}
-
+*/
 	// --------------------------------------------------------------------------------
 
 	public List<ObjetivoDO> getObjetivoList() {
@@ -118,6 +119,11 @@ public class PlanetaDO implements DataObject {
 
 	public void setObjetivoList(List<ObjetivoDO> objetivoList) {
 		this.objetivoList = objetivoList;
+	}
+
+	public Reference<ClaseLinternaDO> getClaseLinternaRef() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

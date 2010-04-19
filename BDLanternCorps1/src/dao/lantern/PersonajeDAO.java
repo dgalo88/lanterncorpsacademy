@@ -308,7 +308,7 @@ public class PersonajeDAO extends BaseDAO {
 
 	    return null;
 	}
-
+	
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
