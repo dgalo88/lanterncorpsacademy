@@ -7,14 +7,13 @@ import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
-import dao.example.DepartmentDAO;
+import dao.api.Reference;
 
 public class PersonajeDAO extends BaseDAO {
 
   public PersonajeDAO() {
     // Empty
   }
-
 
   public void createTable() throws SQLException {
     StringBuffer strbuf;
@@ -43,10 +42,10 @@ public class PersonajeDAO extends BaseDAO {
     usuarioDAO.init(connectionBean);
     PlanetaDAO planetaDAO = new PlanetaDAO();
     planetaDAO.init(connectionBean);
+    GrupoDAO grupoDAO = new GrupoDAO();
+    grupoDAO.init(connectionBean);
     ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
     claseLinternaDAO.init(connectionBean);
-    DepartmentDAO departmentDAO = new DepartmentDAO();
-    departmentDAO.init(connectionBean);
 
     // ----------------------------------------
     
@@ -71,17 +70,17 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO);
     strbuf.append(" DATE,	");
     strbuf.append(PersonajeDO.USUARIO_ID);
-    strbuf.append(" INT,	");
-    strbuf.append(departmentDAO.getTableName());
+    strbuf.append(" REFERENCES,	");
+    strbuf.append(usuarioDAO.getTableName());
     strbuf.append(PersonajeDO.PLANETA_ID);
-    strbuf.append(" INT,	");
-    strbuf.append(departmentDAO.getTableName());
+    strbuf.append(" REFERENCES,	");
+    strbuf.append(planetaDAO.getTableName());
     strbuf.append(PersonajeDO.GRUPO_ID);
-    strbuf.append(" INT,	");
-    strbuf.append(departmentDAO.getTableName());
+    strbuf.append(" REFERENCES,	");
+    strbuf.append(grupoDAO.getTableName());
     strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
-    strbuf.append(" INT,	");
-    strbuf.append(departmentDAO.getTableName());
+    strbuf.append(" REFERENCES,	");
+    strbuf.append(claseLinternaDAO.getTableName());
     strbuf.append(")");
     System.err.println(strbuf.toString());
     connection.createStatement().execute(strbuf.toString());
@@ -99,24 +98,50 @@ public class PersonajeDAO extends BaseDAO {
   // --------------------------------------------------------------------------------
 
   @Override
-  public void insert(DataObject dataObject) throws SQLException {
+  public void insert(DataObject dataObject) throws SQLException {	  
     checkCache(dataObject, CHECK_INSERT);
     checkClass(dataObject, PersonajeDO.class, CHECK_INSERT);
-
-    PersonajeDO departmentDO = (PersonajeDO) dataObject;
-
-    departmentDO.setId(getNextId());
+    
+    PersonajeDO personajeDO = (PersonajeDO) dataObject;
+    personajeDO.setId(getNextId());
 
     StringBuffer strbuf = new StringBuffer();
 
     strbuf.append("INSERT INTO ");
     strbuf.append(getTableName());
     strbuf.append(" VALUES (");
-    strbuf.append(departmentDO.getId());
+    strbuf.append(personajeDO.getId());
     strbuf.append(", ");
-    strbuf.append(singleQuotes(departmentDO.getName()));
+    strbuf.append(singleQuotes(personajeDO.getAlias()));
     strbuf.append(", ");
-    strbuf.append(singleQuotes(departmentDO.getDescription()));
+    strbuf.append(personajeDO.getExperiencia());
+    strbuf.append(", ");
+    strbuf.append(personajeDO.getPuntosDeEntrenamiento());
+    strbuf.append(", ");
+    strbuf.append(personajeDO.getSalud());
+    strbuf.append(", ");
+    strbuf.append(personajeDO.getEnergiaDelAnillo());
+    strbuf.append(", ");
+    strbuf.append(personajeDO.getNivel());
+    strbuf.append(", ");
+    strbuf.append(personajeDO.getUltimaFechaIngreso());
+    strbuf.append(", ");
+    Reference<UsuarioDO> ref = personajeDO.getUsuarioRef();
+    ref.checkInsert();
+    strbuf.append(ref.getIdAsString());
+    strbuf.append(", ");
+    Reference<PlanetaDO> ref1 = personajeDO.getPlanetaRef();
+    ref1.checkInsert();
+    strbuf.append(ref1.getIdAsString());
+    strbuf.append(", ");
+    Reference<GrupoDO> ref2 = personajeDO.getGrupoRef();
+    ref2.checkInsert();
+    strbuf.append(ref2.getIdAsString());
+    strbuf.append(", ");
+    Reference<ClaseLinternaDO> ref3 = personajeDO.getClaseLinternaRef();
+    ref3.checkInsert();
+    strbuf.append(ref3.getIdAsString());
+    strbuf.append(", ");
     strbuf.append(")");
     System.err.println(strbuf.toString());
     connection.createStatement().execute(strbuf.toString());
@@ -290,8 +315,8 @@ public class PersonajeDAO extends BaseDAO {
   // --------------------------------------------------------------------------------
 
   private PersonajeDO resultSetToDO(ResultSet rs) throws SQLException {
-    PersonajeDO ret = //
-    (PersonajeDO) dtaSession.getDtaByKey( //
+    
+	  PersonajeDO ret = (PersonajeDO) dtaSession.getDtaByKey( //
         PersonajeDO.class, rs.getInt(PersonajeDO.ID));
 
     if (ret != null) {
