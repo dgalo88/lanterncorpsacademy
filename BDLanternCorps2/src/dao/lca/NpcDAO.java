@@ -3,13 +3,14 @@ package dao.lca;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 
-public class PlanetaDAO extends BaseDAO {
+public class NpcDAO extends BaseDAO{
 
-	public PlanetaDAO(){
-		// Empty
+	public NpcDAO(){
+		//Empty
 	}
 	
 	@Override
@@ -49,57 +50,39 @@ public class PlanetaDAO extends BaseDAO {
 
 		strbuf = new StringBuffer();
 
-		strbuf.append("DROP SEQUENCE IF EXISTS ");
-		strbuf.append("seq_");
-		strbuf.append(getTableName());
-
-		System.err.println(strbuf.toString());
-
-		connection.createStatement().execute(strbuf.toString());
-
-		// ----------------------------------------
-		
-		strbuf = new StringBuffer();
-		
 		strbuf.append("CREATE TABLE ");
 		strbuf.append(getTableName());
 		strbuf.append(" (");
-		strbuf.append(PlanetaDO.ID);
+		strbuf.append(NpcDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
-		strbuf.append(PlanetaDO.NOMBRE);
+		strbuf.append(NpcDO.NOMBRE);
 		strbuf.append(" VARCHAR(100),    ");
-		strbuf.append(PlanetaDO.SECTOR);
-		strbuf.append(" VARCHAR(100),    ");
-		strbuf.append(PlanetaDO.COORDENADA_EN_X);
-		strbuf.append(" FLOAT,     ");
-		strbuf.append(PlanetaDO.COORDENADA_EN_Y);
-		strbuf.append(" FLOAT     ");
+		strbuf.append(NpcDO.NIVEL);
+		strbuf.append(" INT,     ");
+		strbuf.append(NpcDO.SALUD);
+		strbuf.append(" INT, CHECK (NpcDO.SALUD >= 0)    ");
+		strbuf.append(NpcDO.DANO);
+		strbuf.append(" INT,     ");
+		strbuf.append(NpcDO.COLOR);
+		strbuf.append(" VARCHAR(100)     ");
 		strbuf.append(")");
-		
-		System.err.println(strbuf.toString());
-
-		connection.createStatement().execute(strbuf.toString());
-
-		// ----------------------------------------
-
-		strbuf = new StringBuffer();
-
-		strbuf.append("CREATE SEQUENCE ");
-		strbuf.append("seq_");
-		strbuf.append(getTableName());
 
 		System.err.println(strbuf.toString());
 
 		connection.createStatement().execute(strbuf.toString());
-		
+
 	}
+
+	// --------------------------------------------------------------------------------
+
+		
 
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
 	    checkCache(dataObject, CHECK_DELETE);
 	    checkClass(dataObject, PlanetaDO.class, CHECK_DELETE);
 
-	    PlanetaDO planetaDO = (PlanetaDO) dataObject;
+	    NpcDO npcDO = (NpcDO) dataObject;
 
 	    StringBuffer strbuf = new StringBuffer();
 
@@ -107,9 +90,9 @@ public class PlanetaDAO extends BaseDAO {
 	    strbuf.append(getTableName());
 
 	    strbuf.append(" WHERE ");
-	    strbuf.append(PlanetaDO.ID);
+	    strbuf.append(NpcDO.ID);
 	    strbuf.append(" = ");
-	    strbuf.append(planetaDO.getId());
+	    strbuf.append(npcDO.getId());
 
 	    System.err.println(strbuf.toString());
 
@@ -117,36 +100,39 @@ public class PlanetaDAO extends BaseDAO {
 
 	    dtaSession.del(dataObject);
 		
+		
 	}
 
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, PlanetaDO.class, CHECK_INSERT);
+		checkCache(dataObject, CHECK_INSERT);
+	    checkClass(dataObject, NpcDO.class, CHECK_INSERT);
 	    
-	    PlanetaDO planetaDO = (PlanetaDO) dataObject;
-	    planetaDO.setId(getNextId());
+	    NpcDO npcDO = (NpcDO) dataObject;
+	    npcDO.setId(getNextId());
 
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("INSERT INTO ");
 	    strbuf.append(getTableName());
 	    strbuf.append(" VALUES (");
-	    strbuf.append(planetaDO.getId());
+	    strbuf.append(npcDO.getId());
 	    strbuf.append(", ");
-	    strbuf.append(singleQuotes(planetaDO.getNombre()));
+	    strbuf.append(singleQuotes(npcDO.getNombre()));
 	    strbuf.append(", ");
-	    strbuf.append(singleQuotes(planetaDO.getSector()));
+	    strbuf.append(npcDO.getNivel());
 	    strbuf.append(", ");
-	    strbuf.append(planetaDO.getCoordenadaEnX());
+	    strbuf.append(npcDO.getSalud());
 	    strbuf.append(", ");
-	    strbuf.append(planetaDO.getCoordenadaEnY());
+	    strbuf.append(npcDO.getDano());
+	    strbuf.append(", ");
+	    strbuf.append(singleQuotes(npcDO.getColor()));
 	    strbuf.append(", ");
 	    strbuf.append(")");
 	    System.err.println(strbuf.toString());
 	    connection.createStatement().execute(strbuf.toString());
 	    dtaSession.add(dataObject);
-		
+	    
 	}
 
 	private int getNextId() throws SQLException {
