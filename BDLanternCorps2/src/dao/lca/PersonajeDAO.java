@@ -40,6 +40,7 @@ public class PersonajeDAO extends BaseDAO {
 
     // ----------------------------------------
 
+    HabilidadDAO habilidadDAO = new HabilidadDAO();
     UsuarioDAO usuarioDAO = new UsuarioDAO();
     usuarioDAO.init(connectionBean);
     PlanetaDAO planetaDAO = new PlanetaDAO();
@@ -452,21 +453,23 @@ public class PersonajeDAO extends BaseDAO {
   public List<PersonajeDO> listRankin() throws SQLException {
     
 	StringBuffer strbuf = new StringBuffer();
-	
     strbuf.append("SELECT" + PersonajeDO.ALIAS + "," + PersonajeDO.NIVEL);
     strbuf.append(","+ PersonajeDO.CLASE_LINTERNA_ID + "FROM ");
     strbuf.append(getTableName());
-    strbuf.append("ODERBY BY");
+    strbuf.append("ODERBY BY nivel, experiencia");
     System.err.println(strbuf.toString());
-
     ResultSet rs = //
     connection.createStatement().executeQuery(strbuf.toString());
 
     List<PersonajeDO> ret = new ArrayList<PersonajeDO>();
-
-    while (rs.next()) {
-      ret.add(resultSetToDO(rs));
+    PersonajeDO per;
+    
+    while (rs.next()){
+    	per=resultSetToDO(rs);
+    	loadUsuarioRef(per);
+    	ret.add(per);
     }
+    
     return ret;
   }
 }
