@@ -47,8 +47,8 @@ public class UsuarioDAO extends BaseDAO {
 
 		// ----------------------------------------
 
-		MisionDAO m = new MisionDAO();// //////////PersonajeDAO m = new
-		// PersonajeDAO();
+		PersonajeDAO m = new PersonajeDAO();
+		m.init(connectionBean);
 
 		strbuf = new StringBuffer();
 
@@ -196,24 +196,15 @@ public class UsuarioDAO extends BaseDAO {
 	@Override
 	public DataObject loadById(int id) throws SQLException {
 
-		UsuarioDO us = new UsuarioDO();
-
+		UsuarioDO us;
 
 		us = (UsuarioDO) dtaSession.getDtaByKey( //
 				UsuarioDO.class, id);
 
 		if (us != null) {
 			return us;
-
-		} else {
-
-			// UsuarioDO us = //
-			// (UsuarioDO) dtaSession.getDtaByKey( //
-			// UsuarioDO.class, id);
-			//
-			// if (us != null) {
-			// return us;
-			// }
+		} 
+		else {
 
 			StringBuffer strbuf = new StringBuffer();
 
@@ -268,13 +259,10 @@ public class UsuarioDAO extends BaseDAO {
 			us = (UsuarioDO) dtaSession.getDtaByKey( //
 					UsuarioDO.class, rs.getInt(UsuarioDO.ID));
 
-			if (us != null) {
-
-			}
-
-			else {
+			if (us == null) {
 				us = (UsuarioDO) dtaSession.add(resultSetToDO(rs));
 			}
+
 			ret.add(us);
 		}
 
@@ -343,7 +331,7 @@ public class UsuarioDAO extends BaseDAO {
 		ret.setNombre/*   */(rs.getString(UsuarioDO.NOMBRE));
 		ret.setCorreo(rs.getString(UsuarioDO.CORREO));
 		ret.setClave(rs.getString(UsuarioDO.CLAVE));
-		Reference<PersonajeDO> refp = new Reference<PersonajeDO>();
+		Reference<PersonajeDO> refp = new Reference<PersonajeDO>();//Revisar Reference
 		refp.setRefIdent(rs.getInt(UsuarioDO.PERSONAJE_ID));
 		ret.setPersonajeRef(refp);
 
