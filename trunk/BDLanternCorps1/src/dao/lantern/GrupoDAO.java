@@ -47,6 +47,9 @@ public class GrupoDAO extends BaseDAO {
 
     // ----------------------------------------
 
+    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
+    claseLinternaDAO.init(connectionBean);
+    
     strbuf = new StringBuffer();
 
     strbuf.append("CREATE TABLE ");
@@ -56,8 +59,11 @@ public class GrupoDAO extends BaseDAO {
     strbuf.append(" INT PRIMARY KEY, ");
     strbuf.append(GrupoDO.NOMBRE);
     strbuf.append(" VARCHAR(50),    ");
+    strbuf.append(GrupoDO.ESTADO);
+    strbuf.append(" BOOLEAN");
     strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
-    strbuf.append(" STRING REFERENCES   ");
+    strbuf.append(" INT REFERENCES   ");
+    strbuf.append(claseLinternaDAO.getTableName());
     strbuf.append(")");
     
     System.err.println(strbuf.toString());
