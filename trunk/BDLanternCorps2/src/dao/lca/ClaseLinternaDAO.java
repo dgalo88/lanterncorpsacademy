@@ -126,7 +126,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_INSERT);
-		checkClass(dataObject, PersonajeDO.class, CHECK_INSERT);
+		checkClass(dataObject, ClaseLinternaDO.class, CHECK_INSERT);
 
 		ClaseLinternaDO claseLinternaDO = (ClaseLinternaDO) dataObject;
 		claseLinternaDO.setId(getNextId());
