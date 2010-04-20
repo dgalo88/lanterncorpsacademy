@@ -61,7 +61,7 @@ public class NpcDAO extends BaseDAO{
 		strbuf.append(NpcDO.NIVEL);
 		strbuf.append(" INT,     ");
 		strbuf.append(NpcDO.SALUD);
-		strbuf.append(" INT, CHECK (NpcDO.SALUD >= 0)    ");
+		strbuf.append(" INT CHECK (" + NpcDO.SALUD + " >= 0 ),    ");
 		strbuf.append(NpcDO.DANO);
 		strbuf.append(" INT,     ");
 		strbuf.append(NpcDO.COLOR);
