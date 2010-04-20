@@ -7,376 +7,309 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-//import dao.api.FactoryDAO;
 import dao.api.Reference;
 
 public class OrdenDAO extends BaseDAO {
 
-  public GrupoDAO() {
-    // Empty
-  }
-
-  // --------------------------------------------------------------------------------
-
-  public void createTable() throws SQLException {
-    StringBuffer strbuf;
-
-    // ----------------------------------------
-
-    strbuf = new StringBuffer();
-
-    strbuf.append("DROP TABLE IF EXISTS ");
-    strbuf.append(getTableName());
-    strbuf.append(" CASCADE");
-
-    System.err.println(strbuf.toString());
-
-    connection.createStatement().execute(strbuf.toString());
-
-    // ----------------------------------------
-
-    strbuf = new StringBuffer();
-
-    strbuf.append("DROP SEQUENCE IF EXISTS ");
-    strbuf.append("seq_");
-    strbuf.append(getTableName());
-
-    System.err.println(strbuf.toString());
-
-    connection.createStatement().execute(strbuf.toString());
-
-    // ----------------------------------------
-    
-    GrupoDAO grupoDAO = new GrupoDAO(); // Used to make the FK
-    grupoDAO.init(connectionBean);
-    
-    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
-    claseLinternaDAO.init(connectionBean);
-    
-    strbuf = new StringBuffer();
-
-    strbuf.append("CREATE TABLE ");
-    strbuf.append(getTableName());
-    strbuf.append(" (");
-    strbuf.append(GrupoDO.ID);
-    strbuf.append(" INT PRIMARY KEY, ");
-    strbuf.append(GrupoDO.NOMBRE);
-    strbuf.append(" VARCHAR(50),    ");
-    strbuf.append(GrupoDO.ESTADO);
-    strbuf.append(" BOOLEAN,");
-    strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
-    strbuf.append(" INT REFERENCES   ");
-    strbuf.append(claseLinternaDAO.getTableName());
-    strbuf.append(")");
-    
-    System.err.println(strbuf.toString());
-
-    connection.createStatement().execute(strbuf.toString());
-
-    // ----------------------------------------
-
-    strbuf = new StringBuffer();
-
-    strbuf.append("CREATE SEQUENCE ");
-    strbuf.append("seq_");
-    strbuf.append(getTableName());
-
-    System.err.println(strbuf.toString());
-
-    connection.createStatement().execute(strbuf.toString());
-  }
-
-  // --------------------------------------------------------------------------------
-
-  @Override
-  public void insert(DataObject dataObject) throws SQLException {
-    checkCache(dataObject, CHECK_INSERT);
-    checkClass(dataObject, GrupoDO.class, CHECK_INSERT);
-
-    GrupoDO grupoDO = (GrupoDO) dataObject;
-
-    grupoDO.setId(getNextId());
-
-    StringBuffer strbuf = new StringBuffer();
-
-    strbuf.append("INSERT INTO ");
-    strbuf.append(getTableName());
-    strbuf.append(" VALUES (");
-    strbuf.append(grupoDO.getId());
-    strbuf.append(", ");
-    strbuf.append(singleQuotes(grupoDO.getNombre()));
-    strbuf.append(", ");
-    strbuf.append(grupoDO.isEstado());
-    strbuf.append(", ");
-    
-    Reference<ClaseLinternaDO> refCl = grupoDO.getClaseLinternaRef();
-    refCl.checkInsert();
-    strbuf.append(refCl.getIdAsString());
-
-    strbuf.append(")");
-
-    System.err.println(strbuf.toString());
-
-    connection.createStatement().execute(strbuf.toString());
-
-    dtaSession.add(dataObject);
-  }
-
-  // --------------------------------------------------------------------------------
-
-  @Override
-  public void update(DataObject dataObject) throws SQLException {
-    checkCache(dataObject, CHECK_UPDATE);
-    checkClass(dataObject, GrupoDO.class, CHECK_UPDATE);
-
-    GrupoDO grupoDO = (GrupoDO) dataObject;
-
-    StringBuffer strbuf = new StringBuffer();
-
-    strbuf.append("UPDATE ");
-    strbuf.append(getTableName());
-    strbuf.append(" SET ");
-
-    strbuf.append(GrupoDO.NOMBRE);
-    strbuf.append(" = ");
-    strbuf.append(singleQuotes(grupoDO.getNombre()));
-
-    strbuf.append(", ");
-
-    strbuf.append(GrupoDO.ESTADO);
-    strbuf.append(" = ");
-    strbuf.append(grupoDO.isEstado());
-
-    strbuf.append(", ");
-
-    strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
-    strbuf.append(" = ");
-    Reference<ClaseLinternaDO> refcl = grupoDO.getClaseLinternaRef();
-    refcl.checkUpdate();
-    strbuf.append(refcl.getIdAsString());
-
-    strbuf.append(" WHERE ");
-    strbuf.append(GrupoDO.ID);
-    strbuf.append(" = ");
-    strbuf.append(grupoDO.getId());
-
-    System.err.println(strbuf.toString());
-
-    connection.createStatement().execute(strbuf.toString());
-  }
-
-  // --------------------------------------------------------------------------------
-
-  @Override
-  public void delete(DataObject dataObject) throws SQLException {
-    checkCache(dataObject, CHECK_DELETE);
-    checkClass(dataObject, GrupoDO.class, CHECK_DELETE);
-
-    GrupoDO grupoDO = (GrupoDO) dataObject;
-
-    StringBuffer strbuf = new StringBuffer();
-
-    strbuf.append("DELETE FROM ");
-    strbuf.append(getTableName());
-
-    strbuf.append(" WHERE ");
-    strbuf.append(GrupoDO.ID);
-    strbuf.append(" = ");
-    strbuf.append(grupoDO.getId());
-
-    System.err.println(strbuf.toString());
-
-    connection.createStatement().execute(strbuf.toString());
-
-    dtaSession.del(dataObject);
-  }
-
-  // --------------------------------------------------------------------------------
-
-  @Override
-  public DataObject loadById(int id) throws SQLException {
-    StringBuffer strbuf = new StringBuffer();
-
-    strbuf.append("SELECT * FROM ");
-    strbuf.append(getTableName());
-
-    strbuf.append(" WHERE ");
-    strbuf.append(GrupoDO.ID);
-    strbuf.append(" = ");
-    strbuf.append(id);
-
-    System.err.println(strbuf.toString());
-
-    ResultSet rs = //
-    connection.createStatement().executeQuery(strbuf.toString());
-
-    if (rs.next()) {
-      return resultSetToDO(rs);
-    }
-
-    return null;
-  }
-
-  // --------------------------------------------------------------------------------
-
-  @Override
-  public List<DataObject> listAll(int lim, int off) throws SQLException {
-    StringBuffer strbuf = new StringBuffer();
-
-    strbuf.append("SELECT * FROM ");
-    strbuf.append(getTableName());
-
-    if (lim >= 0 && off >= 0) {
-      strbuf.append(" LIMIT  ");
-      strbuf.append(lim);
-      strbuf.append(" OFFSET ");
-      strbuf.append(off);
-    }
-
-    System.err.println(strbuf.toString());
-
-    ResultSet rs = //
-    connection.createStatement().executeQuery(strbuf.toString());
-
-    List<DataObject> ret = new ArrayList<DataObject>();
-
-    while (rs.next()) {
-      ret.add(resultSetToDO(rs));
-    }
-
-    return ret;
-  }
-
-  // --------------------------------------------------------------------------------
-
-  @Override
-  public List<DataObject> listAll() throws SQLException {
-    return listAll(-1, -1);
-  }
-
-  // --------------------------------------------------------------------------------
-
-  @Override
-  public int countAll() throws SQLException {
-    StringBuffer strbuf = new StringBuffer();
-
-    strbuf.append("SELECT COUNT(*) FROM ");
-    strbuf.append(getTableName());
-
-    System.err.println(strbuf.toString());
-
-    ResultSet rs = //
-    connection.createStatement().executeQuery(strbuf.toString());
-
-    rs.next();
-
-    return rs.getInt("count");
-  }
-
-  // --------------------------------------------------------------------------------
-  
-  public List<GrupoDO> listByClaseLinternaId(int claseLinternaId) throws SQLException {
+	@Override
+	public int countAll() throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
+	    strbuf.append("SELECT COUNT(*) FROM ");
 	    strbuf.append(getTableName());
-
-	    strbuf.append(" WHERE ");
-	    strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
-	    strbuf.append(" = ");
-	    strbuf.append(claseLinternaId);
 
 	    System.err.println(strbuf.toString());
 
 	    ResultSet rs = //
 	    connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<GrupoDO> ret = new ArrayList<GrupoDO>();
+	    rs.next();
 
-	    while (rs.next()) {
-	      ret.add(resultSetToDO(rs));
-	    }
+	    return rs.getInt("count");
 
-	    return ret;
-	  }
-  
-  //--------------------------------------------------------------------------------
-  
-  private int getNextId() throws SQLException {
-    StringBuffer strbuf = new StringBuffer();
+	}
 
-    strbuf.append("SELECT nextval(");
-    strbuf.append(singleQuotes("seq_" + getTableName()));
-    strbuf.append(")");
+	@Override
+	public void createTable() throws SQLException {
+		StringBuffer strbuf;
 
-    System.err.println(strbuf.toString());
+		// ----------------------------------------
 
-    ResultSet rs = //
-    connection.createStatement().executeQuery(strbuf.toString());
+		strbuf = new StringBuffer();
 
-    if (!rs.next()) {
-      throw new IllegalStateException("!rs.next()");
-    }
+		strbuf.append("DROP TABLE IF EXISTS ");
+		strbuf.append(getTableName());
+		strbuf.append(" CASCADE");
 
-    return rs.getInt("nextval");
-  }
+		System.err.println(strbuf.toString());
 
-  // --------------------------------------------------------------------------------
+		connection.createStatement().execute(strbuf.toString());
 
-  private GrupoDO resultSetToDO(ResultSet rs) throws SQLException {
-	  GrupoDO ret = //
-    (GrupoDO) dtaSession.getDtaByKey( //
-    		GrupoDO.class, rs.getInt(GrupoDO.ID));
+		// ----------------------------------------
 
-    if (ret != null) {
-      return ret;
-    }
+		strbuf = new StringBuffer();
 
-    ret = new GrupoDO();
+		strbuf.append("DROP SEQUENCE IF EXISTS ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
 
-    ret.setId(rs.getInt(GrupoDO.ID));
-    ret.setNombre(rs.getString(GrupoDO.NOMBRE));
-    ret.setEstado(rs.getBoolean(GrupoDO.ESTADO));
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
+		// ----------------------------------------
+
+		ObjetivoDAO objetivoDAO = new ObjetivoDAO();
+		objetivoDAO.init(connectionBean);
+		
+		MisionDAO misionDAO = new MisionDAO(); 
+		misionDAO.init(connectionBean);
+
+		strbuf = new StringBuffer();
+
+		strbuf.append("CREATE TABLE ");
+		strbuf.append(getTableName());
+		strbuf.append(" (");
+		strbuf.append(OrdenDO.ID);
+		strbuf.append(" INT PRIMARY KEY, ");
+		strbuf.append(OrdenDO.PRIORIDAD);
+		strbuf.append(" INT,    ");
+		strbuf.append(OrdenDO.OBJETIVO_ID);
+		strbuf.append(" INT REFERENCES    ");
+		strbuf.append(objetivoDAO.getTableName());
+		strbuf.append(",");
+		strbuf.append(OrdenDO.MISION_ID);
+		strbuf.append(" INT REFERENCES    ");
+		strbuf.append(misionDAO.getTableName());
+		strbuf.append(")");
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
+		// ----------------------------------------
+
+		strbuf = new StringBuffer();
+
+		strbuf.append("CREATE SEQUENCE ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
+
+
+	}
+
+	@Override
+	public void insert(DataObject dataObject) throws SQLException {
+		checkCache(dataObject, CHECK_INSERT);
+		checkClass(dataObject, ObjetivoDO.class, CHECK_INSERT);
+
+		OrdenDO orden = (OrdenDO) dataObject;
+
+		orden.setId(getNextId());
+
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("INSERT INTO ");
+		strbuf.append(getTableName());
+		strbuf.append(" VALUES (");
+		strbuf.append(orden.getId());
+		strbuf.append(", ");
+		strbuf.append(orden.getPrioridad());
+		strbuf.append(", ");
+		Reference<ObjetivoDO> refOb = orden.getObjetivoRef();
+		refOb.checkInsert();
+		strbuf.append(refOb.getIdAsString());
+		strbuf.append(", ");
+		Reference<MisionDO> refM = orden.getMisionRef();
+		refM.checkInsert();
+		strbuf.append(refM.getIdAsString());
+		strbuf.append(")");
+		
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
+		dtaSession.add(dataObject);
+
+		
+	}
+
+	@Override
+	public void update(DataObject dataObject) throws SQLException {
+	    checkCache(dataObject, CHECK_UPDATE);
+	    checkClass(dataObject, OrdenDO.class, CHECK_UPDATE);
+
+	    OrdenDO orden = (OrdenDO) dataObject;
+
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("UPDATE ");
+	    strbuf.append(getTableName());
+	    strbuf.append(" SET ");
+
+	    strbuf.append(OrdenDO.PRIORIDAD);
+	    strbuf.append(" = ");
+	    strbuf.append(orden.getPrioridad());
+
+	    strbuf.append(", ");
+
+	    strbuf.append(OrdenDO.OBJETIVO_ID);
+	    strbuf.append(" = ");
+	    Reference<ObjetivoDO> refOb = orden.getObjetivoRef();
+	    refOb.checkUpdate();
+	    strbuf.append(refOb.getIdAsString());
+	    
+	    strbuf.append(", ");
+	    
+	    strbuf.append(OrdenDO.MISION_ID);
+	    strbuf.append(" = ");
+	    Reference<MisionDO> refM = orden.getMisionRef();
+	    refM.checkUpdate();
+	    strbuf.append(refM.getIdAsString());
  
-    Reference<ClaseLinternaDO> refCl = new Reference<ClaseLinternaDO>();
-    refCl.setRefIdent(rs.getInt(GrupoDO.CLASE_LINTERNA_ID));
-    ret.setClaseLinternaRef(refCl);
-    
-    return (GrupoDO) dtaSession.add(ret);
-  }
+	    strbuf.append(" WHERE ");
+	    strbuf.append(OrdenDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(orden.getId());
 
-  // --------------------------------------------------------------------------------
+	    System.err.println(strbuf.toString());
 
-  public void loadClaseLinternaRef(GrupoDO grupoDO) throws SQLException {
-	    // XXX: Check this method's semantic
-	    checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
+	    connection.createStatement().execute(strbuf.toString());
 
-	    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
-	    claseLinternaDAO.init(connectionBean);
+		
+	}
+	@Override
+	public void delete(DataObject dataObject) throws SQLException {
+	    checkCache(dataObject, CHECK_DELETE);
+	    checkClass(dataObject, ObjetivoDO.class, CHECK_DELETE);
 
-	    Reference<ClaseLinternaDO> ref = grupoDO.getClaseLinternaRef();
+	    OrdenDO ordenDO = (OrdenDO) dataObject;
 
-	    if (ref.getRefIdent() == 0) {
-	      return;
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("DELETE FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(OrdenDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(ordenDO.getId());
+
+	    System.err.println(strbuf.toString());
+
+	    connection.createStatement().execute(strbuf.toString());
+
+	    dtaSession.del(dataObject);
+
+	}
+	
+	@Override
+	public DataObject loadById(int id) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(OrdenDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(id);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
 	    }
 
-	    ClaseLinternaDO claseLinternaDO = //
-	    	(ClaseLinternaDO) claseLinternaDAO.loadById(ref.getRefIdent());
+	    return null;
+	}
 
-	        ref.setRefValue(claseLinternaDO);
-  }
-  
-  // --------------------------------------------------------------------------------
+	private int getNextId() throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
 
-  public void loadGrupoPersonajeList(GrupoDO grupoDO) throws Exception {
-	    checkCache(grupoDO, CHECK_UPDATE);
-	    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
-/*
-	    GrupoPersonajeDAO grupoPersonajeDAO = (GrupoPersonajeDAO) FactoryDAO.getDAO( //
-	        GrupoPersonajeDAO.class, connectionBean);
+	    strbuf.append("SELECT nextval(");
+	    strbuf.append(singleQuotes("seq_" + getTableName()));
+	    strbuf.append(")");
 
-	    grupoDO.setGrupoPersonajeList(grupoPersonajeDAO.listByGrupoId(grupoDO.getId()));
-*/
-	  }
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (!rs.next()) {
+	      throw new IllegalStateException("!rs.next()");
+	    }
+
+	    return rs.getInt("nextval");
+	}
+
+	@Override
+	public List<DataObject> listAll(int lim, int off) throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		if (lim >= 0 && off >= 0) {
+			strbuf.append(" LIMIT  ");
+			strbuf.append(lim);
+			strbuf.append(" OFFSET ");
+			strbuf.append(off);
+		}
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<DataObject> ret = new ArrayList<DataObject>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+
+		return ret;
+
+	}
+
+	private OrdenDO resultSetToDO(ResultSet rs) throws SQLException {
+		OrdenDO ret = //
+		(OrdenDO) dtaSession.getDtaByKey( //
+				OrdenDO.class, rs.getInt(OrdenDO.ID));
+
+		if (ret != null) {
+			return ret;
+		}
+
+		ret = new OrdenDO();
+
+		ret.setId/*     				*/(rs.getInt(OrdenDO.ID));
+		ret.setPrioridad/*	            */(rs.getInt(OrdenDO.PRIORIDAD));
+
+		Reference<ObjetivoDO> refOb = new Reference<ObjetivoDO>();
+		refOb.setRefIdent(rs.getInt(OrdenDO.OBJETIVO_ID));
+		ret.setObjetivoRef(refOb);
+
+		Reference<MisionDO> refM = new Reference<MisionDO>();
+		refM.setRefIdent(rs.getInt(OrdenDO.MISION_ID));
+		ret.setMisionRef(refM);
+
+		return (OrdenDO) dtaSession.add(ret);
+	}
+
+	@Override
+	public List<DataObject> listAll() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
