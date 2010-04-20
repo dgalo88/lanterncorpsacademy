@@ -71,40 +71,36 @@ public class HabilidadDAO extends BaseDAO {
 
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
+		
 		checkCache(dataObject, CHECK_DELETE);
 		checkClass(dataObject, HabilidadDO.class, CHECK_DELETE);
 
 		HabilidadDO habilidadDO = (HabilidadDO) dataObject;
 
 		StringBuffer strbuf = new StringBuffer();
-
 		strbuf.append("DELETE FROM ");
 		strbuf.append(getTableName());
-
 		strbuf.append(" WHERE ");
 		strbuf.append(HabilidadDO.ID);
 		strbuf.append(" = ");
 		strbuf.append(habilidadDO.getId());
 
 		System.err.println(strbuf.toString());
-
 		connection.createStatement().execute(strbuf.toString());
-
 		dtaSession.del(dataObject);
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private int getNextId() throws SQLException {
+		
 		StringBuffer strbuf = new StringBuffer();
 		strbuf.append("SELECT nextval(");
 		strbuf.append(singleQuotes("seq_" + getTableName()));
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
-
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
 
 		if (!rs.next()) {
 			throw new IllegalStateException("!rs.next()");
@@ -116,6 +112,7 @@ public class HabilidadDAO extends BaseDAO {
 
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
+		
 		checkCache(dataObject, CHECK_INSERT);
 		checkClass(dataObject, HabilidadDO.class, CHECK_INSERT);
 
@@ -123,7 +120,6 @@ public class HabilidadDAO extends BaseDAO {
 		habilidadDO.setId(getNextId());
 
 		StringBuffer strbuf = new StringBuffer();
-
 		strbuf.append("INSERT INTO ");
 		strbuf.append(getTableName());
 		strbuf.append(" VALUES (");
@@ -134,8 +130,8 @@ public class HabilidadDAO extends BaseDAO {
 		strbuf.append(habilidadDO.getCosto_de_aprendizaje());
 		strbuf.append(", ");
 		strbuf.append(habilidadDO.getTipo());
-
 		strbuf.append(")");
+		
 		System.err.println(strbuf.toString());
 		connection.createStatement().execute(strbuf.toString());
 		dtaSession.add(dataObject);
@@ -145,8 +141,8 @@ public class HabilidadDAO extends BaseDAO {
 
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
+		
 		StringBuffer strbuf = new StringBuffer();
-
 		strbuf.append("SELECT * FROM ");
 		strbuf.append(getTableName());
 
@@ -158,10 +154,7 @@ public class HabilidadDAO extends BaseDAO {
 		}
 
 		System.err.println(strbuf.toString());
-
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
-
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
 		List<DataObject> ret = new ArrayList<DataObject>();
 
 		while (rs.next()) {
@@ -185,9 +178,7 @@ public class HabilidadDAO extends BaseDAO {
 		ret = new HabilidadDO();
 		ret.setId(rs.getInt(HabilidadDO.ID));
 		ret.setNombre(rs.getNString(HabilidadDO.NOMBRE));
-		ret
-				.setCosto_de_aprendizaje(rs
-						.getInt(HabilidadDO.COSTO_DE_APRENDIZAJE));
+		ret.setCosto_de_aprendizaje(rs.getInt(HabilidadDO.COSTO_DE_APRENDIZAJE));
 
 		return (HabilidadDO) dtaSession.add(ret);
 	}
@@ -201,18 +192,16 @@ public class HabilidadDAO extends BaseDAO {
 
 	@Override
 	public int countAll() throws SQLException {
+		
 		StringBuffer strbuf = new StringBuffer();
-
 		strbuf.append("SELECT COUNT(*) FROM ");
 		strbuf.append(getTableName());
 
 		System.err.println(strbuf.toString());
 
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
-
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
 		rs.next();
-
+		
 		return rs.getInt("count");
 	}
 
@@ -220,25 +209,21 @@ public class HabilidadDAO extends BaseDAO {
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
+		
 		StringBuffer strbuf = new StringBuffer();
-
 		strbuf.append("SELECT * FROM ");
 		strbuf.append(getTableName());
-
 		strbuf.append(" WHERE ");
-		strbuf.append(PersonajeDO.ID);
+		strbuf.append(HabilidadDO.ID);
 		strbuf.append(" = ");
 		strbuf.append(id);
 
 		System.err.println(strbuf.toString());
-
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
 
 		if (rs.next()) {
 			return resultSetToDO(rs);
 		}
-
 		return null;
 	}
 
@@ -246,6 +231,7 @@ public class HabilidadDAO extends BaseDAO {
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
+		
 		checkCache(dataObject, CHECK_UPDATE);
 		checkClass(dataObject, HabilidadDO.class, CHECK_UPDATE);
 
@@ -255,54 +241,62 @@ public class HabilidadDAO extends BaseDAO {
 		strbuf.append("UPDATE ");
 		strbuf.append(getTableName());
 		strbuf.append(" SET ");
-
 		strbuf.append(HabilidadDO.NOMBRE);
 		strbuf.append(" = ");
 		strbuf.append(singleQuotes(habilidadDO.getNombre()));
 		strbuf.append(", ");
-
 		strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
 		strbuf.append(" = ");
 		strbuf.append(habilidadDO.getCosto_de_aprendizaje());
 		strbuf.append(", ");
-
 		strbuf.append(HabilidadDO.TIPO);
 		strbuf.append(" = ");
 		strbuf.append(habilidadDO.getTipo());
 		strbuf.append(", ");
-
 		strbuf.append(" WHERE ");
 		strbuf.append(HabilidadDO.ID);
 		strbuf.append(" = ");
 		strbuf.append(habilidadDO.getId());
 
 		System.err.println(strbuf.toString());
-
 		connection.createStatement().execute(strbuf.toString());
 	}
 
+	// --------------------------------------------------------------------------------
+
 	public void loadHabilidadClaseLinternaList(HabilidadDO habilidadDO) throws Exception {
+		
 		checkCache(habilidadDO, CHECK_UPDATE);
-		HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO.getDAO( //
-				HabilidadClaseLinternaDAO.class, connectionBean);
+		HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO
+				.getDAO(HabilidadClaseLinternaDAO.class, connectionBean);
 
-		habilidadDO.setHabilidadClaseLinternaList(habilidadClaseLinternaDAO.listByHabilidadId(habilidadDO.getId()));
+		habilidadDO.setHabilidadClaseLinternaList(habilidadClaseLinternaDAO
+				.listByHabilidadId(habilidadDO.getId()));
+
 	}
 	
+	// --------------------------------------------------------------------------------
+
 	public void loadNivelHabilidadList(HabilidadDO habilidadDO) throws Exception {
+	
 		checkCache(habilidadDO, CHECK_UPDATE);
-		NivelHabilidadDAO nivelHabilidadDAO = (NivelHabilidadDAO) FactoryDAO.getDAO( //
-				NivelHabilidadDAO.class, connectionBean);
+		NivelHabilidadDAO nivelHabilidadDAO = (NivelHabilidadDAO) FactoryDAO
+				.getDAO(NivelHabilidadDAO.class, connectionBean);
 
-		habilidadDO.setNivelHabilidadList(nivelHabilidadDAO.listByHabilidadId(habilidadDO.getId()));
+		habilidadDO.setNivelHabilidadList(nivelHabilidadDAO
+				.listByHabilidadId(habilidadDO.getId()));
+	
 	}
 	
+	// --------------------------------------------------------------------------------
+
 	public void loadHabilidadActivaList(HabilidadDO habilidadDO) throws Exception {
 		checkCache(habilidadDO, CHECK_UPDATE);
-		HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO.getDAO( //
-				HabilidadActivaDAO.class, connectionBean);
+		HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO
+				.getDAO(HabilidadActivaDAO.class, connectionBean);
 
-		habilidadDO.setHabilidadActivaList(habilidadActivaDAO.listByHabilidadId(habilidadDO.getId()));
+		habilidadDO.setHabilidadActivaList(habilidadActivaDAO
+				.listByHabilidadId(habilidadDO.getId()));
 	}
 
 }
