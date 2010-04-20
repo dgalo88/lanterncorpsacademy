@@ -65,10 +65,10 @@ public class MisionPersonajeDAO extends BaseDAO {
     strbuf.append(" INT,    ");
     strbuf.append(MisionPersonajeDO.PERSONAJE_ID);
     strbuf.append(" INT REFERENCES   ");
-    strbuf.append(PersonajeDAO.getTableName());
+    strbuf.append(personajeDAO.getTableName());
     strbuf.append(MisionPersonajeDO.MISION_ID);
     strbuf.append(" INT REFERENCES   ");
-    strbuf.append(MisionDAO.getTableName());
+    strbuf.append(misionDAO.getTableName());
     strbuf.append(")");
 
     System.err.println(strbuf.toString());
