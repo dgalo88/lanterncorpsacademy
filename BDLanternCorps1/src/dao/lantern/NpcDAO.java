@@ -239,7 +239,7 @@ public class NpcDAO extends BaseDAO {
 	    strbuf.append(getTableName());
 
 	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadDO.ID);
+	    strbuf.append(NpcDO.ID);
 	    strbuf.append(" = ");
 	    strbuf.append(id);
 

@@ -210,29 +210,30 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 	}
 
 	private HabilidadClaseLinternaDO resultSetToDO(ResultSet rs) throws SQLException {
-	  	  HabilidadClaseLinternaDO ret = //
-	  	      (HabilidadClaseLinternaDO) dtaSession.getDtaByKey( //
-	  	      		HabilidadClaseLinternaDO.class, rs.getInt(HabilidadClaseLinternaDO.ID));
+		HabilidadClaseLinternaDO ret = //
+		(HabilidadClaseLinternaDO) dtaSession.getDtaByKey( //
+				HabilidadClaseLinternaDO.class, rs
+						.getInt(HabilidadClaseLinternaDO.ID));
 
-	  	      if (ret != null) {
-	  	        return ret;
-	  	      }
+		if (ret != null) {
+			return ret;
+		}
 
-	  	      ret = new HabilidadClaseLinternaDO();
+		ret = new HabilidadClaseLinternaDO();
 
-	  	      ret.setId/*     */(rs.getInt(HabilidadClaseLinternaDO.ID));
-	  	     
-	  	      
-	  	      Reference<ClaseLinternaDO> refCl = new Reference<ClaseLinternaDO>();
-	  	      refCl.setRefIdent(rs.getInt(HabilidadDO.CLASE_ID));
-	  	      ret.setClaseLinternaRef(refCl);
-	  	      //TODO: REFERENCES OOOOOOJJJJJJJOOOOOOOOOOOOOOOO!!!!!!!!  CHECK!!!
-	  	  //TODO: REFERENCES OOOOOOJJJJJJJOOOOOOOOOOOOOOOO!!!!!!!!! confirmar correctitud
-	  	      Reference<HabilidadDO> refH = new Reference<HabilidadDO>();
-	  	      refH.setRefIdent(rs.getInt(ClaseLinternaDO.HABILIDAD_ID));
-	  	      ret.setHabilidadRef(refH);
-	  	  
-	  	      return (HabilidadClaseLinternaDO) dtaSession.add(ret);	
+		ret.setId/*     */(rs.getInt(HabilidadClaseLinternaDO.ID));
+
+		Reference<ClaseLinternaDO> refCl = new Reference<ClaseLinternaDO>();
+		refCl.setRefIdent(rs.getInt(HabilidadDO.CLASE_ID));
+		ret.setClaseLinternaRef(refCl);
+		// TODO: REFERENCES OOOOOOJJJJJJJOOOOOOOOOOOOOOOO!!!!!!!! CHECK!!!
+		// TODO: REFERENCES OOOOOOJJJJJJJOOOOOOOOOOOOOOOO!!!!!!!!! confirmar
+		// correctitud
+		Reference<HabilidadDO> refH = new Reference<HabilidadDO>();
+		refH.setRefIdent(rs.getInt(ClaseLinternaDO.HABILIDAD_ID));
+		ret.setHabilidadRef(refH);
+
+		return (HabilidadClaseLinternaDO) dtaSession.add(ret);
 	}
 
 
@@ -250,7 +251,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 	    strbuf.append(getTableName());
 
 	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadDO.ID);
+	    strbuf.append(HabilidadClaseLinternaDO.ID);
 	    strbuf.append(" = ");
 	    strbuf.append(id);
 
@@ -304,4 +305,29 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 
 	}
 
+	public List<HabilidadClaseLinternaDO> listByClaseLinternaId(int habilidadId)
+			throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(HabilidadClaseLinternaDO.HAB_REF);
+		strbuf.append(" = ");
+		strbuf.append(habilidadId);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<HabilidadClaseLinternaDO> ret = new ArrayList<HabilidadClaseLinternaDO>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+
+		return ret;
+	}
 }

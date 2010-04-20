@@ -9,8 +9,6 @@ import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 import dao.api.Reference;
-import dao.example.DepartmentDO;
-import dao.example.EmployeeDAO;
 import dao.lantern.HabilidadDO;
 
 
@@ -316,7 +314,7 @@ public class HabilidadDAO extends BaseDAO {
 
         NivelHabilidadDAO nivelHabilidadDAO = (NivelHabilidadDAO) FactoryDAO.getDAO( //
         NivelHabilidadDAO.class, connectionBean);
-        // TODO NEEDS listByHabilidadId on NivelHabilidadDAO
+        // Done...
         habilidadDO.setNivelHabilidadList(nivelHabilidadDAO.listByHabilidadId(habilidadDO.getId()));
       }
     
@@ -325,8 +323,8 @@ public class HabilidadDAO extends BaseDAO {
 
         HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO.getDAO( //
         HabilidadClaseLinternaDAO.class, connectionBean);
-        // TODO NEEDS listByClaseLinternaId on HabilidadClaseLinternaDAO
-        habilidadDO.setHabilidadClaseLinternaListList(habilidadClaseLinternaDAO.listByClaseLinternaId(habilidadDO.getId()));
+        // Done...
+        habilidadDO.setHabilidadClaseLinternaList(habilidadClaseLinternaDAO.listByClaseLinternaId(habilidadDO.getId()));
       }
     
     public void loadHabActivaList(HabilidadDO habilidadDO) throws Exception {
@@ -334,7 +332,7 @@ public class HabilidadDAO extends BaseDAO {
 
         HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO.getDAO( //
         HabilidadActivaDAO.class, connectionBean);
-        // TODO NEEDS listByHabilidadId on HabilidadActivaDAO
+        // Done...
         habilidadDO.setHabilidadActivaList(habilidadActivaDAO.listByHabilidadId(habilidadDO.getId()));
       }
 }
