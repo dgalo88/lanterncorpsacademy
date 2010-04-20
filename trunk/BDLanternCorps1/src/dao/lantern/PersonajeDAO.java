@@ -293,7 +293,7 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(getTableName());
 
 	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadDO.ID);
+	    strbuf.append(PersonajeDO.ID);
 	    strbuf.append(" = ");
 	    strbuf.append(id);
 
@@ -308,7 +308,7 @@ public class PersonajeDAO extends BaseDAO {
 
 	    return null;
 	}
-	
+
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
