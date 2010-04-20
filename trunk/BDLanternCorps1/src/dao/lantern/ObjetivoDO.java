@@ -28,6 +28,7 @@ public class ObjetivoDO implements DataObject {
 	private List<OrdenDO> OrdenList = //
 		new ArrayList<OrdenDO>();
 	
+	private Reference<OrdenDO> ordenRef = new Reference<OrdenDO>();
 	// --------------------------------------------------------------------------------
 
 	public ObjetivoDO() {
@@ -84,5 +85,14 @@ public class ObjetivoDO implements DataObject {
 	public List<OrdenDO> getOrdenList() {
 		return OrdenList;
 	}
-		
+	
+	// --------------------------------------------------------------------------------
+
+	public Reference<OrdenDO> getOrdenRef() {
+		return ordenRef;
+	}
+
+	public void setOrdenRef(Reference<OrdenDO> ordenRef) {
+		this.ordenRef = ordenRef;
+	}
 }

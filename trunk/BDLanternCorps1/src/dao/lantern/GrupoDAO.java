@@ -371,11 +371,12 @@ public class GrupoDAO extends BaseDAO {
   public void loadGrupoPersonajeList(GrupoDO grupoDO) throws Exception {
 	    checkCache(grupoDO, CHECK_UPDATE);
 	    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
-
+/*
 	    GrupoPersonajeDAO grupoPersonajeDAO = (GrupoPersonajeDAO) FactoryDAO.getDAO( //
 	        GrupoPersonajeDAO.class, connectionBean);
 
 	    grupoDO.setGrupoPersonajeList(grupoPersonajeDAO.listByGrupoId(grupoDO.getId()));
+*/
 	  }
 
 }
