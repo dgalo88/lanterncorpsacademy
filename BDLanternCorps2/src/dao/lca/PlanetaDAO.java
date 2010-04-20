@@ -142,7 +142,6 @@ public class PlanetaDAO extends BaseDAO {
 		strbuf.append(planetaDO.getCoordenadaEnX());
 		strbuf.append(", ");
 		strbuf.append(planetaDO.getCoordenadaEnY());
-		strbuf.append(", ");
 		strbuf.append(")");
 		System.err.println(strbuf.toString());
 		connection.createStatement().execute(strbuf.toString());
