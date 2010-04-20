@@ -71,7 +71,7 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(PersonajeDO.NIVEL);
     strbuf.append(" INT DEFAULT 1,	");
     strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO);
-    strbuf.append(" DATE DEFAULT = current_date ,	");
+    strbuf.append(" DATE DEFAULT current_date ,	");
     strbuf.append(PersonajeDO.PLANETA_ID);
     strbuf.append(" INT REFERENCES	");
     strbuf.append(planetaDAO.getTableName());
