@@ -59,7 +59,7 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(PersonajeDO.ID);
     strbuf.append(" INT PRIMARY KEY,	");
     strbuf.append(PersonajeDO.ALIAS);
-    strbuf.append(" VARCHAR(20) UNIQUE,	");
+    strbuf.append(" VARCHAR(20) UNIQUE NOT NULL,	");
     strbuf.append(PersonajeDO.EXPERIENCIA);
     strbuf.append(" INT DEFAULT 0,	");
     strbuf.append(PersonajeDO.PUNTOS_DE_ENTRENAMIENTO);
@@ -71,7 +71,7 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(PersonajeDO.NIVEL);
     strbuf.append(" INT DEFAULT 1,	");
     strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO);
-    strbuf.append(" DATE,	");
+    strbuf.append(" DATE DEFAULT = current_date ,	");
     strbuf.append(PersonajeDO.PLANETA_ID);
     strbuf.append(" INT REFERENCES	");
     strbuf.append(planetaDAO.getTableName());

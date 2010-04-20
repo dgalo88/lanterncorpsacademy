@@ -48,11 +48,11 @@ public class HabilidadDAO extends BaseDAO {
 		strbuf.append(HabilidadDO.ID);
 		strbuf.append(" INT PRIMARY KEY,	");
 		strbuf.append(HabilidadDO.NOMBRE);
-		strbuf.append(" VARCHAR(20) UNIQUE,	");
+		strbuf.append(" VARCHAR(20) UNIQUE NOT NULL,	");
 		strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
-		strbuf.append(" INT,	");
+		strbuf.append(" INT CHECK (" + HabilidadDO.COSTO_DE_APRENDIZAJE + " >= 0 ) DEFAULT=0,	");
 		strbuf.append(HabilidadDO.TIPO);
-		strbuf.append(" INT");
+		strbuf.append(" INT NOT NULL");
 		strbuf.append(")");
 		System.err.println(strbuf.toString());
 		connection.createStatement().execute(strbuf.toString());
