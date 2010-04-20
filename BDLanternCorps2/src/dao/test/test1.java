@@ -1,9 +1,5 @@
 package dao.test;
 
-//import java.sql.SQLException;
-
-import java.sql.Date;
-
 import dao.api.FactoryDAO;
 import dao.api.InterfaceDAO;
 import dao.api.Reference;
@@ -13,7 +9,6 @@ import dao.lca.ClaseLinternaDAO;
 import dao.lca.ClaseLinternaDO;
 import dao.lca.GrupoDAO;
 import dao.lca.HabilidadDAO;
-import dao.lca.HabilidadDO;
 import dao.lca.MisionClaseLinternaDAO;
 import dao.lca.MisionDAO;
 import dao.lca.MisionDO;
@@ -238,28 +233,27 @@ public class test1 {
 				obdo[i].setPlanetaRef(refpl);
 				obDAO.insert(obdo[i]);
 			}
-			
-			//CREATE AND INSERT ORDEN
+
+			// CREATE AND INSERT ORDEN
 			OrdenDO odo[] = new OrdenDO[14];
 			Reference<ObjetivoDO> refob;
 			for (int j = 0; j < 7; j++) {
 
 				for (int i = 0; i < 2; i++) {
 					odo[i] = new OrdenDO();
-					odo[i].setPrioridad(i+1);
-					
-					refm=new Reference<MisionDO>();
+					odo[i].setPrioridad(i + 1);
+
+					refm = new Reference<MisionDO>();
 					refm.setRefIdent(mdo[j].getId());
 					odo[i].setMisionRef(refm);
-					
-					refob=new Reference<ObjetivoDO>();
-					refob.setRefIdent(obdo[j*2+i].getId());
+
+					refob = new Reference<ObjetivoDO>();
+					refob.setRefIdent(obdo[j * 2 + i].getId());
 					odo[i].setObjetivoRef(refob);
-					
+
 					oDAO.insert(odo[i]);
 				}
 			}
-			
 
 		} finally {
 			// Cerrar Conexion
