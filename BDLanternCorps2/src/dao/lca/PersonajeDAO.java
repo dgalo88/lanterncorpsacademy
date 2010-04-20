@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+import dao.api.FactoryDAO;
 import dao.api.Reference;
 
 public class PersonajeDAO extends BaseDAO {
@@ -391,6 +392,29 @@ public class PersonajeDAO extends BaseDAO {
 	  GrupoDO grupoDO = (GrupoDO) grupoDAO.loadById(ref.getRefIdent());
       ref.setRefValue(grupoDO);
   }
+  
+  
+  public void loadMisionPersonajeList(PersonajeDO personajeDO) throws Exception {
+	  checkCache(personajeDO, CHECK_UPDATE);
+	  MisionPersonajeDAO misionPersonaDAO = (MisionPersonajeDAO) FactoryDAO
+				.getDAO(MisionPersonajeDAO.class, connectionBean);
+
+	  personajeDO.setMisionPersonajelist(misionPersonaDAO
+				.listByIdPersonajeId(personajeDO.getId()));
+
+	}
+  	
+  // --------------------------------------------------------------------------------
+
+  public void loadHabilidadActivaList(PersonajeDO personajeDO) throws Exception {
+	  checkCache(personajeDO, CHECK_UPDATE);
+	  HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO
+				.getDAO(HabilidadActivaDAO.class, connectionBean);
+
+	  personajeDO.setHabilidadActivaList(habilidadActivaDAO
+				.listByPersonajeId(personajeDO.getId()));
+
+	}
   
   // --------------------------------------------------------------------------------
 

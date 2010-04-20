@@ -271,6 +271,28 @@ public class HabilidadActivaDAO extends BaseDAO{
 
 	// --------------------------------------------------------------------------------
 
+	public List<HabilidadActivaDO> listByPersonajeId(int PersonajeId) throws SQLException {
+		
+		StringBuffer strbuf = new StringBuffer();
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+		strbuf.append(" WHERE ");
+		strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
+		strbuf.append(" = ");
+		strbuf.append(PersonajeId);
+
+		System.err.println(strbuf.toString());
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
+		List<HabilidadActivaDO> ret = new ArrayList<HabilidadActivaDO>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+		return ret;
+	}
+	
+	// --------------------------------------------------------------------------------
+
 	private HabilidadActivaDO resultSetToDO(ResultSet rs) throws SQLException {
 		HabilidadActivaDO ret = (HabilidadActivaDO) dtaSession.getDtaByKey( //
 				HabilidadActivaDO.class, rs.getInt(HabilidadActivaDO.ID));
