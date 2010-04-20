@@ -142,57 +142,120 @@ public class NivelHabilidadDAO extends BaseDAO{
 	    dtaSession.add(dataObject);				
 	}
 
-	private int getNextId() {
-		// TODO Auto-generated method stub
-		return 0;
+	private int getNextId() throws SQLException {
+
+		StringBuffer strbuf = new StringBuffer();
+		strbuf.append("SELECT nextval(");
+		strbuf.append(singleQuotes("seq_" + getTableName()));
+		strbuf.append(")");
+
+		System.err.println(strbuf.toString());
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
+
+		if (!rs.next()) {
+			throw new IllegalStateException("!rs.next()");
+		}
+		return rs.getInt("nextval");
 	}
 
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+
+		StringBuffer strbuf = new StringBuffer();
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		if (lim >= 0 && off >= 0) {
+			strbuf.append(" LIMIT  ");
+			strbuf.append(lim);
+			strbuf.append(" OFFSET ");
+			strbuf.append(off);
+		}
+
+		System.err.println(strbuf.toString());
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
+		List<DataObject> ret = new ArrayList<DataObject>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+		return ret;
 	}
 
 	@Override
 	public List<DataObject> listAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return listAll(-1, -1);
 	}
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
-		// TODO Auto-generated method stub
+		
+		StringBuffer strbuf = new StringBuffer();
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+		strbuf.append(" WHERE ");
+		strbuf.append(NivelHabilidadDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(id);
+
+		System.err.println(strbuf.toString());
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
+
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
 		return null;
 	}
 
 	@Override
-	public void update(DataObject bean) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void update(DataObject dataObject) throws SQLException {
+		 
+		checkCache(dataObject, CHECK_UPDATE);
+	    checkClass(dataObject, NivelHabilidadDO.class, CHECK_UPDATE);
+
+	    NivelHabilidadDO nivelHabilidadDO = (NivelHabilidadDO) dataObject;
+
+	    StringBuffer strbuf = new StringBuffer();
+	    strbuf.append("UPDATE ");
+	    strbuf.append(getTableName());
+	    strbuf.append(" SET ");
+	    strbuf.append(NivelHabilidadDO.EFECTIVIDAD);
+	    strbuf.append(" = ");
+	    strbuf.append(nivelHabilidadDO.getEfectividad());
+	    strbuf.append(", ");
+	    strbuf.append(NivelHabilidadDO.COSTO_DE_ENERGIA);
+	    strbuf.append(" = ");
+	    strbuf.append(nivelHabilidadDO.getCosto_de_energia());
+	    strbuf.append(", ");
+	    strbuf.append(NivelHabilidadDO.PROBABILIDAD);
+	    strbuf.append(" = ");
+	    strbuf.append(nivelHabilidadDO.getProbabilidad());
+	    strbuf.append(" WHERE ");
+	    strbuf.append(NivelHabilidadDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(nivelHabilidadDO.getId());
+
+	    System.err.println(strbuf.toString());
+	    connection.createStatement().execute(strbuf.toString());		
 	}
 	
 	public List<NivelHabilidadDO> listByHabilidadId(int HabilidadId) throws SQLException {
+		
 		StringBuffer strbuf = new StringBuffer();
-
 		strbuf.append("SELECT * FROM ");
 		strbuf.append(getTableName());
-
 		strbuf.append(" WHERE ");
 		strbuf.append(NivelHabilidadDO.HABILIDAD_ID);
 		strbuf.append(" = ");
 		strbuf.append(HabilidadId);
 
 		System.err.println(strbuf.toString());
-
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
-
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
 		List<NivelHabilidadDO> ret = new ArrayList<NivelHabilidadDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
 		}
-
 		return ret;
 	}
 
@@ -206,7 +269,6 @@ public class NivelHabilidadDAO extends BaseDAO{
 
 		ret = new NivelHabilidadDO();
 		ret.setId(rs.getInt(NivelHabilidadDO.ID));
-		
 		ret.setNivel_de_habilidad(rs.getInt(NivelHabilidadDO.NIVEL_DE_HABILIDAD));
 		ret.setEfectividad(rs.getInt(NivelHabilidadDO.EFECTIVIDAD));
 		ret.setCosto_de_energia(rs.getInt(NivelHabilidadDO.COSTO_DE_ENERGIA));
