@@ -146,7 +146,6 @@ public class ClaseLinternaDAO extends BaseDAO {
 		Reference<PlanetaDO> ref = claseLinternaDO.getPlanetaRef();
 		ref.checkInsert();
 		strbuf.append(ref.getIdAsString());
-		strbuf.append(", ");
 		strbuf.append(")");
 		System.err.println(strbuf.toString());
 		connection.createStatement().execute(strbuf.toString());
