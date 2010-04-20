@@ -28,6 +28,9 @@ public class PlanetaDAO extends BaseDAO {
 
     // ----------------------------------------
 
+    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO(); 
+    claseLinternaDAO.init(connectionBean);
+    
     strbuf = new StringBuffer();
 
     strbuf.append("DROP SEQUENCE IF EXISTS ");
@@ -61,7 +64,11 @@ public class PlanetaDAO extends BaseDAO {
     strbuf.append(" FLOAT,    ");
     strbuf.append(PlanetaDO.COORDENADA_EN_Y);
     strbuf.append(" FLOAT,    ");
+    strbuf.append(PlanetaDO.CLASE_LINTERNA_ID);
+    strbuf.append(" INT REFERENCES   ");
+    strbuf.append(claseLinternaDAO.getTableName());
 
+    
     System.err.println(strbuf.toString());
 
     connection.createStatement().execute(strbuf.toString());
@@ -105,10 +112,9 @@ public class PlanetaDAO extends BaseDAO {
     strbuf.append(", ");
     strbuf.append(planetaDO.getCoordenadaEnY());
     strbuf.append(", ");
-
-    Reference<ClaseLinternaDO> refH = claseLinternaDO.getClaseLinternaRef();
-    refH.checkInsert();
-    strbuf.append(refH.getIdAsString());
+    Reference<ClaseLinternaDO> refU = planetaDO.getClaseLinternaRef();
+    refU.checkInsert();
+    strbuf.append(refU.getIdAsString());
     
     strbuf.append(")");
 
@@ -151,7 +157,7 @@ public class PlanetaDAO extends BaseDAO {
     strbuf.append(planetaDO.getCoordenadaEnY());
     strbuf.append(", ");
     
-    Reference<ClaseLinternaDO> refH = claseLinternaDO.getClaseLinternaRef();
+    Reference<ClaseLinternaDO> refH = planetaDO.getClaseLinternaRef();
     refH.checkUpdate();
     strbuf.append(refH.getIdAsString());
     
@@ -312,9 +318,9 @@ public class PlanetaDAO extends BaseDAO {
     ret.setCoordenadaEnX/*  	*/(rs.getFloat(PlanetaDO.COORDENADA_EN_X));
     ret.setCoordenadaEnY/*  	*/(rs.getFloat(PlanetaDO.COORDENADA_EN_Y));
     
-    Reference<ClaseLinternaDO> refH = new Reference<ClaseLinternaDO>();
-    refH.setRefIdent(rs.getInt(ClaseLinternaDO.HABILIDAD_ID));
-    ret.setClaseLinternaRef(refH);
+    Reference<ClaseLinternaDO> refU = new Reference<ClaseLinternaDO>();
+    refU.setRefIdent(rs.getInt(PlanetaDO.CLASE_LINTERNA_ID));
+    ret.setClaseLinternaRef(refU);
 
     
     return (PlanetaDO) dtaSession.add(ret);

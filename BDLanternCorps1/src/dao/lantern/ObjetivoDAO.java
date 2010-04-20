@@ -50,6 +50,9 @@ public class ObjetivoDAO extends BaseDAO {
     PlanetaDAO planetaDAO = new PlanetaDAO(); // Used to make the FK
     planetaDAO.init(connectionBean);
     
+    OrdenDAO ordenDAO = new OrdenDAO();
+    ordenDAO.init(connectionBean);
+    
     strbuf = new StringBuffer();
 
     strbuf.append("CREATE TABLE ");
@@ -63,7 +66,9 @@ public class ObjetivoDAO extends BaseDAO {
     strbuf.append(" INT,");
     strbuf.append(ObjetivoDO.PLANETA_ID);
     strbuf.append(" INT REFERENCES   ");
-    strbuf.append(planetaDAO.getTableName());
+    strbuf.append(ObjetivoDO.ORDEN_ID);
+    strbuf.append(" INT REFERENCES   ");
+    strbuf.append(ordenDAO.getTableName());
     strbuf.append(")");
     
     System.err.println(strbuf.toString());
@@ -109,6 +114,10 @@ public class ObjetivoDAO extends BaseDAO {
     Reference<PlanetaDO> refP = objetivoDO.getPlanetaRef();
     refP.checkInsert();
     strbuf.append(refP.getIdAsString());
+    
+    Reference<OrdenDO> refCl = objetivoDO.getOrdenRef();
+    refCl.checkInsert();
+    strbuf.append(refCl.getIdAsString());
 
     strbuf.append(")");
 
