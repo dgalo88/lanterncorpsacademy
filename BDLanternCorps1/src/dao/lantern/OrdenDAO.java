@@ -10,7 +10,7 @@ import dao.api.DataObject;
 //import dao.api.FactoryDAO;
 import dao.api.Reference;
 
-public class GrupoDAO extends BaseDAO {
+public class OrdenDAO extends BaseDAO {
 
   public GrupoDAO() {
     // Empty
