@@ -8,7 +8,6 @@ import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-
 public class PersonajeDAO extends BaseDAO {
 
   public PersonajeDAO() {
@@ -331,7 +330,7 @@ public class PersonajeDAO extends BaseDAO {
     
     ret = new PersonajeDO();
     ret.setId(rs.getInt(PersonajeDO.ID));
-    ret.setAlias(rs.getNString(PersonajeDO.ALIAS));
+    ret.setAlias(rs.getString(PersonajeDO.ALIAS));
     ret.setExperiencia(rs.getInt(PersonajeDO.EXPERIENCIA));
     ret.setPuntosDeEntrenamiento(rs.getInt(PersonajeDO.PUNTOS_DE_ENTRENAMIENTO));
     ret.setSalud(rs.getInt(PersonajeDO.SALUD));
