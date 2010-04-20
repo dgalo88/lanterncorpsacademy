@@ -10,6 +10,7 @@ import dao.lca.HabilidadDAO;
 import dao.lca.MisionClaseLinternaDAO;
 import dao.lca.MisionDAO;
 import dao.lca.MisionPersonajeDAO;
+import dao.lca.MisionPersonajeDO;
 import dao.lca.NpcDAO;
 import dao.lca.ObjetivoDAO;
 import dao.lca.OrdenDAO;
@@ -52,7 +53,8 @@ public class test2 {
 		System.out.print(usuarioDO.getPersonajeRef().getRefValue().getAlias()+" "+usuarioDO.getPersonajeRef().getRefValue().getEnergiaDelAnillo());
 		
 		PersonajeDO personajeDO = usuarioDO.getPersonajeRef().getRefValue();
-		pDAO.
+		pDAO.loadMisionPersonajeList(personajeDO);
+		//for(MisionPersonajeDO mision:personajeDO.getMisionPersonajeList().iterator())
 		
 		
 		
