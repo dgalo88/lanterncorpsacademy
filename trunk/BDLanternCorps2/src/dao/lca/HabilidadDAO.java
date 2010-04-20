@@ -7,8 +7,6 @@ import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 
-
-
 public class HabilidadDAO extends BaseDAO{
 
 	public HabilidadDAO(){
@@ -199,16 +197,45 @@ public class HabilidadDAO extends BaseDAO{
 
 	@Override
 	public int countAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT COUNT(*) FROM ");
+	    strbuf.append(getTableName());
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    rs.next();
+
+	    return rs.getInt("count");
 	}
 
     // --------------------------------------------------------------------------------
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(PersonajeDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(id);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
+	    }
+
+	    return null;
 	}
 
     // --------------------------------------------------------------------------------
