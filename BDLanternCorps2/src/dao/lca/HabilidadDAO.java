@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-//import dao.api.FactoryDAO;
+import dao.api.FactoryDAO;
 
 
 public class HabilidadDAO extends BaseDAO {
@@ -281,15 +281,28 @@ public class HabilidadDAO extends BaseDAO {
 		connection.createStatement().execute(strbuf.toString());
 	}
 
-	/*public void loadEmployeeList(DepartmentDO departmentDO) throws Exception {
-		checkCache(departmentDO, CHECK_UPDATE);
-		// checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
+	public void loadHabilidadClaseLinternaList(HabilidadDO habilidadDO) throws Exception {
+		checkCache(habilidadDO, CHECK_UPDATE);
+		HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO.getDAO( //
+				HabilidadClaseLinternaDAO.class, connectionBean);
 
-		EmployeeDAO employeeDAO = (EmployeeDAO) FactoryDAO.getDAO( //
-				EmployeeDAO.class, connectionBean);
+		habilidadDO.setHabilidadClaseLinternaList(habilidadClaseLinternaDAO.listByHabilidadId(habilidadDO.getId()));
+	}
+	
+	public void loadNivelHabilidadList(HabilidadDO habilidadDO) throws Exception {
+		checkCache(habilidadDO, CHECK_UPDATE);
+		NivelHabilidadDAO nivelHabilidadDAO = (NivelHabilidadDAO) FactoryDAO.getDAO( //
+				NivelHabilidadDAO.class, connectionBean);
 
-		departmentDO.setEmployeeList(employeeDAO
-				.listByDepartmentId(departmentDO.getId()));
-	}*/
+		habilidadDO.setNivelHabilidadList(nivelHabilidadDAO.listByHabilidadId(habilidadDO.getId()));
+	}
+	
+	public void loadHabilidadActivaList(HabilidadDO habilidadDO) throws Exception {
+		checkCache(habilidadDO, CHECK_UPDATE);
+		HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO.getDAO( //
+				HabilidadActivaDAO.class, connectionBean);
+
+		habilidadDO.setHabilidadActivaList(habilidadActivaDAO.listByHabilidadId(habilidadDO.getId()));
+	}
 
 }
