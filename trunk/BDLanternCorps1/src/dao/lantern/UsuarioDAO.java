@@ -245,7 +245,7 @@ public class UsuarioDAO extends BaseDAO {
 	    strbuf.append(getTableName());
 
 	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadDO.ID);
+	    strbuf.append(UsuarioDO.ID);
 	    strbuf.append(" = ");
 	    strbuf.append(id);
 

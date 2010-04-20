@@ -6,6 +6,8 @@ import dao.api.Reference;
 public class OrdenDO implements DataObject {
 
 	public static final String PRIORIDAD = "prioridad";
+	public static final String OBJETIVO_ID = "objetivoId";
+	public static final String MISION_ID = "misionId";
 
 	// --------------------------------------------------------------------------------
 	

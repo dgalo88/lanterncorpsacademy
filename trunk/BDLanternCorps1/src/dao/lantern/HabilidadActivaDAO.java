@@ -8,7 +8,7 @@ import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
-import dao.example.EmployeeDO;
+
 
 public class HabilidadActivaDAO extends BaseDAO {
 
@@ -60,10 +60,10 @@ public class HabilidadActivaDAO extends BaseDAO {
 
 	    // ----------------------------------------
 
-	    HabilidadDAO habilidadDAO = new HabilidadDAO(); // Used to make the FK
+	    HabilidadDAO habilidadDAO = new HabilidadDAO();
 	    habilidadDAO.init(connectionBean);
 	    
-	    PersonajeDAO personajeDAO = new PersonajeDAO(); // Used to make the FK
+	    PersonajeDAO personajeDAO = new PersonajeDAO();
 	    personajeDAO.init(connectionBean);
 
 	    strbuf = new StringBuffer();
@@ -224,7 +224,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 	    strbuf.append(getTableName());
 
 	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadDO.ID);
+	    strbuf.append(HabilidadActivaDO.ID);
 	    strbuf.append(" = ");
 	    strbuf.append(id);
 
@@ -309,29 +309,29 @@ public class HabilidadActivaDAO extends BaseDAO {
 
 	}
 
-	public List<HabilidadActivaDO> listByHabilidadId(int habilidadId) {
-		        StringBuffer strbuf = new StringBuffer();
+	public List<HabilidadActivaDO> listByHabilidadId(int habilidadId) throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
 
-			    strbuf.append("SELECT * FROM ");
-			    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-			    strbuf.append(" WHERE ");
-			    strbuf.append(HabilidadActivaDO.HABILIDAD_REF);
-			    strbuf.append(" = ");
-			    strbuf.append(habilidadId);
+		strbuf.append(" WHERE ");
+		strbuf.append(HabilidadActivaDO.HABILIDAD_REF);
+		strbuf.append(" = ");
+		strbuf.append(habilidadId);
 
-			    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-			    ResultSet rs = //
-			    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-			    List<HabilidadActivaDO> ret = new ArrayList<HabilidadActivaDO>();
+		List<HabilidadActivaDO> ret = new ArrayList<HabilidadActivaDO>();
 
-			    while (rs.next()) {
-			      ret.add(resultSetToDO(rs));
-			    }
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
 
-			    return ret;
+		return ret;
 	}
 	
 	
