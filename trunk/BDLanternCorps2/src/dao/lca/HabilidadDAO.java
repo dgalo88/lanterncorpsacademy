@@ -50,7 +50,7 @@ public class HabilidadDAO extends BaseDAO {
 		strbuf.append(HabilidadDO.NOMBRE);
 		strbuf.append(" VARCHAR(20) UNIQUE NOT NULL,	");
 		strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
-		strbuf.append(" INT CHECK (" + HabilidadDO.COSTO_DE_APRENDIZAJE + " >= 0 ) DEFAULT=0,	");
+		strbuf.append(" INT CHECK (" + HabilidadDO.COSTO_DE_APRENDIZAJE + " >= 0 ) DEFAULT 0,	");
 		strbuf.append(HabilidadDO.TIPO);
 		strbuf.append(" INT NOT NULL");
 		strbuf.append(")");
