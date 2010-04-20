@@ -60,13 +60,13 @@ public class OrdenDAO extends BaseDAO {
 		strbuf.append(OrdenDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(OrdenDO.PRIORIDAD);
-		strbuf.append("INT,    ");
+		strbuf.append(" INT,    ");
 		strbuf.append(OrdenDO.OBJETIVO_ID);
-		strbuf.append("INT  REFERENCES    ");
+		strbuf.append(" INT  REFERENCES    ");
 		strbuf.append(objetivoDAO.getTableName());
 		strbuf.append(", ");
 		strbuf.append(OrdenDO.MISION_ID);
-		strbuf.append("INT  REFERENCES    ");
+		strbuf.append(" INT  REFERENCES    ");
 		strbuf.append(misionDAO.getTableName());
 		strbuf.append(")");
 

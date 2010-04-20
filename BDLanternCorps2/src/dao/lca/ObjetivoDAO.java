@@ -46,8 +46,8 @@ public class ObjetivoDAO extends BaseDAO {
 
 		// ----------------------------------------
 
-		// PlanetaDAO p = new PlanetaDAO();
-		// p.init(connectionBean);
+		PlanetaDAO p = new PlanetaDAO();
+		p.init(connectionBean);
 
 		strbuf = new StringBuffer();
 
@@ -61,8 +61,8 @@ public class ObjetivoDAO extends BaseDAO {
 		strbuf.append(ObjetivoDO.NUMERO_DE_NPC);
 		strbuf.append(" INT,     ");
 		strbuf.append(ObjetivoDO.PLANETA_ID);
-		strbuf.append("INT  REFERENCES    ");
-		// strbuf.append(p.getTableName());
+		strbuf.append(" INT  REFERENCES    ");
+		strbuf.append(p.getTableName());
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());

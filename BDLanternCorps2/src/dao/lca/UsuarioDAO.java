@@ -7,6 +7,7 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+//import dao.api.FactoryDAO;
 import dao.api.Reference;
 import dao.lca.UsuarioDO;
 
@@ -355,4 +356,48 @@ public class UsuarioDAO extends BaseDAO {
 
 		ref.setRefValue(personajeDO);
 	}
+
+	// --------------------------------------------------------------------------------
+
+//	public PersonajeDO Login(UsuarioDO usuarioDO) throws SQLException{
+//		checkCache(usuarioDO, CHECK_INSERT);
+//		checkClass(usuarioDO, UsuarioDO.class, CHECK_INSERT);
+//	
+//		StringBuffer strbuf = new StringBuffer();
+//
+//		strbuf.append("SELECT * FROM ");
+//		strbuf.append(getTableName());
+//
+//		strbuf.append(" WHERE ");
+//		strbuf.append(UsuarioDO.CORREO);
+//		strbuf.append(" = ");
+//		strbuf.append(usuarioDO.getCorreo());
+//		
+//		strbuf.append(" AND ");
+//		
+//		strbuf.append(UsuarioDO.CLAVE);
+//		strbuf.append(" = ");
+//		strbuf.append(usuarioDO.getClave());
+//		
+//
+//		System.err.println(strbuf.toString());
+//
+//		ResultSet rs = //
+//		connection.createStatement().executeQuery(strbuf.toString());
+//		
+//		if(rs.next()){
+//
+//			PersonajeDAO personajeDAO;
+//			try {
+//				personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
+//						PersonajeDAO.class, connectionBean);
+//				usuarioDO = (UsuarioDO) dtaSession.add(resultSetToDO(rs));
+//				
+//				return (PersonajeDO) personajeDAO.loadById(usuarioDO.getId());
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 }
