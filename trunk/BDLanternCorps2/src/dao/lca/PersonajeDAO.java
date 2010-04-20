@@ -116,29 +116,15 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(", ");
     strbuf.append(singleQuotes(personajeDO.getAlias()));
     strbuf.append(", ");
-    strbuf.append(personajeDO.getExperiencia());
-    strbuf.append(", ");
-    strbuf.append(personajeDO.getPuntosDeEntrenamiento());
-    strbuf.append(", ");
-    strbuf.append(personajeDO.getSalud());
-    strbuf.append(", ");
-    strbuf.append(personajeDO.getEnergiaDelAnillo());
-    strbuf.append(", ");
-    strbuf.append(personajeDO.getNivel());
-    strbuf.append(", ");
     strbuf.append(personajeDO.getUltimaFechaIngreso());
     strbuf.append(", ");
-    Reference<PlanetaDO> ref1 = personajeDO.getPlanetaRef();
+    Reference<PlanetaDO> ref = personajeDO.getPlanetaRef();
+    ref.checkInsert();
+    strbuf.append(ref.getIdAsString());
+    strbuf.append(", ");
+    Reference<ClaseLinternaDO> ref1 = personajeDO.getClaseLinternaRef();
     ref1.checkInsert();
     strbuf.append(ref1.getIdAsString());
-    strbuf.append(", ");
-    Reference<GrupoDO> ref2 = personajeDO.getGrupoRef();
-    ref2.checkInsert();
-    strbuf.append(ref2.getIdAsString());
-    strbuf.append(", ");
-    Reference<ClaseLinternaDO> ref3 = personajeDO.getClaseLinternaRef();
-    ref3.checkInsert();
-    strbuf.append(ref3.getIdAsString());
     
     strbuf.append(")");
     System.err.println(strbuf.toString());
@@ -419,7 +405,6 @@ public class PersonajeDAO extends BaseDAO {
   
   // --------------------------------------------------------------------------------
 
-  //
   /*public List<PersonajeDO> listRankin() throws SQLException {
     
 	StringBuffer strbuf = new StringBuffer();

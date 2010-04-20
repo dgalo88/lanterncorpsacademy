@@ -6,184 +6,188 @@ import java.util.ArrayList;
 import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+//import dao.api.FactoryDAO;
 
-public class HabilidadDAO extends BaseDAO{
 
-	public HabilidadDAO(){
-		//Empty
+public class HabilidadDAO extends BaseDAO {
+
+	public HabilidadDAO() {
+		// Empty
 	}
-	
-    // --------------------------------------------------------------------------------
-	
+
+	// --------------------------------------------------------------------------------
+
 	@Override
 	public void createTable() throws SQLException {
 		StringBuffer strbuf;
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
-	    strbuf.append("DROP TABLE IF EXISTS ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" CASCADE");
-	    System.err.println(strbuf.toString());
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf = new StringBuffer();
+		strbuf.append("DROP TABLE IF EXISTS ");
+		strbuf.append(getTableName());
+		strbuf.append(" CASCADE");
+		System.err.println(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
-	    strbuf.append("DROP SEQUENCE IF EXISTS ");
-	    strbuf.append("seq_");
-	    strbuf.append(getTableName());
-	    System.err.println(strbuf.toString());
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf = new StringBuffer();
+		strbuf.append("DROP SEQUENCE IF EXISTS ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
+		System.err.println(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
-	    strbuf.append("CREATE TABLE ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" (");
-	    strbuf.append(HabilidadDO.ID);
-	    strbuf.append(" INT PRIMARY KEY,	");
-	    strbuf.append(HabilidadDO.NOMBRE);
-	    strbuf.append(" VARCHAR(20) UNIQUE,	");
-	    strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
-	    strbuf.append(" INT,	");
-	    strbuf.append(HabilidadDO.TIPO);
-	    strbuf.append(" INT");
-	    strbuf.append(")");
-	    System.err.println(strbuf.toString());
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf = new StringBuffer();
+		strbuf.append("CREATE TABLE ");
+		strbuf.append(getTableName());
+		strbuf.append(" (");
+		strbuf.append(HabilidadDO.ID);
+		strbuf.append(" INT PRIMARY KEY,	");
+		strbuf.append(HabilidadDO.NOMBRE);
+		strbuf.append(" VARCHAR(20) UNIQUE,	");
+		strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
+		strbuf.append(" INT,	");
+		strbuf.append(HabilidadDO.TIPO);
+		strbuf.append(" INT");
+		strbuf.append(")");
+		System.err.println(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
-	    strbuf.append("CREATE SEQUENCE ");
-	    strbuf.append("seq_");
-	    strbuf.append(getTableName());
-	    System.err.println(strbuf.toString());
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf = new StringBuffer();
+		strbuf.append("CREATE SEQUENCE ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
+		System.err.println(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 	}
 
-    // --------------------------------------------------------------------------------
-	
+	// --------------------------------------------------------------------------------
+
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_DELETE);
-	    checkClass(dataObject, HabilidadDO.class, CHECK_DELETE);
+		checkClass(dataObject, HabilidadDO.class, CHECK_DELETE);
 
-	    HabilidadDO habilidadDO = (HabilidadDO) dataObject;
+		HabilidadDO habilidadDO = (HabilidadDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("DELETE FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("DELETE FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(habilidadDO.getId());
+		strbuf.append(" WHERE ");
+		strbuf.append(HabilidadDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(habilidadDO.getId());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    dtaSession.del(dataObject);
+		dtaSession.del(dataObject);
 	}
 
-    // --------------------------------------------------------------------------------
-	
+	// --------------------------------------------------------------------------------
+
 	private int getNextId() throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
-	    strbuf.append("SELECT nextval(");
-	    strbuf.append(singleQuotes("seq_" + getTableName()));
-	    strbuf.append(")");
+		strbuf.append("SELECT nextval(");
+		strbuf.append(singleQuotes("seq_" + getTableName()));
+		strbuf.append(")");
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (!rs.next()) {
-	      throw new IllegalStateException("!rs.next()");
-	    }
-	    return rs.getInt("nextval");
+		if (!rs.next()) {
+			throw new IllegalStateException("!rs.next()");
+		}
+		return rs.getInt("nextval");
 	}
 
-    // --------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------
 
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, HabilidadDO.class, CHECK_INSERT);
-	    
-	    HabilidadDO habilidadDO = (HabilidadDO) dataObject;
-	    habilidadDO.setId(getNextId());
+		checkClass(dataObject, HabilidadDO.class, CHECK_INSERT);
 
-	    StringBuffer strbuf = new StringBuffer();
+		HabilidadDO habilidadDO = (HabilidadDO) dataObject;
+		habilidadDO.setId(getNextId());
 
-	    strbuf.append("INSERT INTO ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" VALUES (");
-	    strbuf.append(habilidadDO.getId());
-	    strbuf.append(", ");
-	    strbuf.append(singleQuotes(habilidadDO.getNombre()));
-	    strbuf.append(", ");
-	    strbuf.append(habilidadDO.getCosto_de_aprendizaje());
-	    strbuf.append(", ");
-	    strbuf.append(habilidadDO.getTipo());
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append(")");
-	    System.err.println(strbuf.toString());
-	    connection.createStatement().execute(strbuf.toString());
-	    dtaSession.add(dataObject);
+		strbuf.append("INSERT INTO ");
+		strbuf.append(getTableName());
+		strbuf.append(" VALUES (");
+		strbuf.append(habilidadDO.getId());
+		strbuf.append(", ");
+		strbuf.append(singleQuotes(habilidadDO.getNombre()));
+		strbuf.append(", ");
+		strbuf.append(habilidadDO.getCosto_de_aprendizaje());
+		strbuf.append(", ");
+		strbuf.append(habilidadDO.getTipo());
+
+		strbuf.append(")");
+		System.err.println(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
+		dtaSession.add(dataObject);
 	}
 
-    // --------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------
 
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    if (lim >= 0 && off >= 0) {
-	      strbuf.append(" LIMIT  ");
-	      strbuf.append(lim);
-	      strbuf.append(" OFFSET ");
-	      strbuf.append(off);
-	    }
+		if (lim >= 0 && off >= 0) {
+			strbuf.append(" LIMIT  ");
+			strbuf.append(lim);
+			strbuf.append(" OFFSET ");
+			strbuf.append(off);
+		}
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<DataObject> ret = new ArrayList<DataObject>();
+		List<DataObject> ret = new ArrayList<DataObject>();
 
-	    while (rs.next()) {
-	      ret.add(resultSetToDO(rs));
-	    }
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
 
-	    return ret;
+		return ret;
 	}
-	
-    // --------------------------------------------------------------------------------
+
+	// --------------------------------------------------------------------------------
 
 	private HabilidadDO resultSetToDO(ResultSet rs) throws SQLException {
 
 		HabilidadDO ret = (HabilidadDO) dtaSession.getDtaByKey( //
 				HabilidadDO.class, rs.getInt(HabilidadDO.ID));
-		
+
 		if (ret != null) {
 			return ret;
 		}
-		
+
 		ret = new HabilidadDO();
 		ret.setId(rs.getInt(HabilidadDO.ID));
 		ret.setNombre(rs.getNString(HabilidadDO.NOMBRE));
-		ret.setCosto_de_aprendizaje(rs.getInt(HabilidadDO.COSTO_DE_APRENDIZAJE));
+		ret
+				.setCosto_de_aprendizaje(rs
+						.getInt(HabilidadDO.COSTO_DE_APRENDIZAJE));
 
 		return (HabilidadDO) dtaSession.add(ret);
 	}
@@ -193,89 +197,99 @@ public class HabilidadDAO extends BaseDAO{
 		return listAll(-1, -1);
 	}
 
-    // --------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------
 
 	@Override
 	public int countAll() throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT COUNT(*) FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT COUNT(*) FROM ");
+		strbuf.append(getTableName());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-	    rs.next();
+		rs.next();
 
-	    return rs.getInt("count");
+		return rs.getInt("count");
 	}
 
-    // --------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(PersonajeDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(id);
+		strbuf.append(" WHERE ");
+		strbuf.append(PersonajeDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(id);
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (rs.next()) {
-	      return resultSetToDO(rs);
-	    }
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
 
-	    return null;
+		return null;
 	}
 
-    // --------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
-	    checkClass(dataObject, HabilidadDO.class, CHECK_UPDATE);
+		checkClass(dataObject, HabilidadDO.class, CHECK_UPDATE);
 
-	    HabilidadDO habilidadDO = (HabilidadDO) dataObject;
+		HabilidadDO habilidadDO = (HabilidadDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
-	    strbuf.append("UPDATE ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" SET ");
-	    
-	    strbuf.append(HabilidadDO.NOMBRE);
-	    strbuf.append(" = ");
-	    strbuf.append(singleQuotes(habilidadDO.getNombre()));
-	    strbuf.append(", ");
-	    
-	    strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
-	    strbuf.append(" = ");
-	    strbuf.append(habilidadDO.getCosto_de_aprendizaje());
-	    strbuf.append(", ");
-	    
-	    strbuf.append(HabilidadDO.TIPO);
-	    strbuf.append(" = ");
-	    strbuf.append(habilidadDO.getTipo());
-	    strbuf.append(", ");
-	    
-	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(habilidadDO.getId());
+		StringBuffer strbuf = new StringBuffer();
+		strbuf.append("UPDATE ");
+		strbuf.append(getTableName());
+		strbuf.append(" SET ");
 
-	    System.err.println(strbuf.toString());
+		strbuf.append(HabilidadDO.NOMBRE);
+		strbuf.append(" = ");
+		strbuf.append(singleQuotes(habilidadDO.getNombre()));
+		strbuf.append(", ");
 
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
+		strbuf.append(" = ");
+		strbuf.append(habilidadDO.getCosto_de_aprendizaje());
+		strbuf.append(", ");
+
+		strbuf.append(HabilidadDO.TIPO);
+		strbuf.append(" = ");
+		strbuf.append(habilidadDO.getTipo());
+		strbuf.append(", ");
+
+		strbuf.append(" WHERE ");
+		strbuf.append(HabilidadDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(habilidadDO.getId());
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
 	}
 
+	/*public void loadEmployeeList(DepartmentDO departmentDO) throws Exception {
+		checkCache(departmentDO, CHECK_UPDATE);
+		// checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
+
+		EmployeeDAO employeeDAO = (EmployeeDAO) FactoryDAO.getDAO( //
+				EmployeeDAO.class, connectionBean);
+
+		departmentDO.setEmployeeList(employeeDAO
+				.listByDepartmentId(departmentDO.getId()));
+	}*/
 
 }
