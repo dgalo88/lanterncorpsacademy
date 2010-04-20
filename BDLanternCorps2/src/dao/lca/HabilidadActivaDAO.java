@@ -120,7 +120,7 @@ public class HabilidadActivaDAO extends BaseDAO{
 	public void insert(DataObject dataObject) throws SQLException {
 		
 		checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, PersonajeDO.class, CHECK_INSERT);
+	    checkClass(dataObject,	HabilidadActivaDO.class, CHECK_INSERT);
 	    
 	    HabilidadActivaDO habilidadActivaDO = (HabilidadActivaDO) dataObject;
 	    habilidadActivaDO.setId(getNextId());
@@ -130,6 +130,8 @@ public class HabilidadActivaDAO extends BaseDAO{
 	    strbuf.append(getTableName());
 	    strbuf.append(" VALUES (");
 	    strbuf.append(habilidadActivaDO.getId());
+	    strbuf.append(", ");
+	    strbuf.append(habilidadActivaDO.getNivel_habilidad());
 	    strbuf.append(", ");
 	    Reference<PersonajeDO> ref = habilidadActivaDO.getPersonajeRef();
 	    ref.checkInsert();
