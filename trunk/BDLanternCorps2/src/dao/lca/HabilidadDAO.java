@@ -173,7 +173,7 @@ public class HabilidadDAO extends BaseDAO{
 	
     // --------------------------------------------------------------------------------
 
-	private HabilidadDO resultSetToDO(ResultSet rs) {
+	private HabilidadDO resultSetToDO(ResultSet rs) throws SQLException {
 
 		HabilidadDO ret = (HabilidadDO) dtaSession.getDtaByKey( //
 				HabilidadDO.class, rs.getInt(HabilidadDO.ID));
@@ -184,7 +184,7 @@ public class HabilidadDAO extends BaseDAO{
 		
 		ret = new HabilidadDO();
 		ret.setId(rs.getInt(HabilidadDO.ID));
-		ret.setNombre(rs.getString(HabilidadDO.NOMBRE));
+		ret.setNombre(rs.getNString(HabilidadDO.NOMBRE));
 		ret.setCosto_de_aprendizaje(rs.getInt(HabilidadDO.COSTO_DE_APRENDIZAJE));
 
 		return (HabilidadDO) dtaSession.add(ret);
