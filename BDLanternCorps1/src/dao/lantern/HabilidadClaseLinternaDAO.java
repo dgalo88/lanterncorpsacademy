@@ -113,7 +113,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 	    strbuf.append(getTableName());
 
 	    strbuf.append(" WHERE ");
-	    strbuf.append(habilidadClaseLinternaDO.ID);
+	    strbuf.append(HabilidadClaseLinternaDO.ID);
 	    strbuf.append(" = ");
 	    strbuf.append(habilidadClaseLinternaDO.getId());
 

@@ -80,7 +80,7 @@ public class HabilidadDAO extends BaseDAO {
 	    strbuf.append(" INT PRIMARY KEY, ");
 	    strbuf.append(HabilidadDO.NOMBRE); //AQUI VA EL NOMBRE DE LA COLUMNA STATIC FINAL
 	    strbuf.append(" VARCHAR(100),    ");
-	    strbuf.append(HabilidadDO.COST);
+	    strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
 	    strbuf.append(" INT CHECK (costo_aprendizaje>=0),    ");
 	    strbuf.append(HabilidadDO.TIPO);
 	    strbuf.append(" INT,    ");
@@ -250,7 +250,7 @@ public class HabilidadDAO extends BaseDAO {
 
 	    strbuf.append(", ");
 
-	    strbuf.append(HabilidadDO.COST);
+	    strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
 	    strbuf.append(" = ");
 	    strbuf.append(habilidadDO.getCostoDeAprendizaje());
 	    
@@ -303,7 +303,7 @@ public class HabilidadDAO extends BaseDAO {
 
       ret.setId/*     */(rs.getInt(HabilidadDO.ID));
       ret.setNombre/*   */(rs.getString(HabilidadDO.NOMBRE));
-      ret.setCostoDeAprendizaje((rs.getInt(HabilidadDO.COST)));
+      ret.setCostoDeAprendizaje((rs.getInt(HabilidadDO.COSTO_DE_APRENDIZAJE)));
       ret.setTipo(rs.getInt(HabilidadDO.TIPO));
  
       return (HabilidadDO) dtaSession.add(ret);	
