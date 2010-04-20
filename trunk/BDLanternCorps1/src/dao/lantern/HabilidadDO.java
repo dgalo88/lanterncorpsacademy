@@ -11,6 +11,9 @@ public class HabilidadDO implements DataObject {
 	public static final String NOMBRE 	= "nombre";
 	public static final String COSTO_DE_APRENDIZAJE   	= "costo_aprendizaje";
 	public static final String TIPO     = "tipo";
+	public static final String CLASE_ID= "claseId";
+	public static final String NIVEL_ID= "nivelId";
+	public static final String HAB_ACTIVA_ID= "hab_activa_id";
 	
 	// --------------------------------------------------------------------------------
 

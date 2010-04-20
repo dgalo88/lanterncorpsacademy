@@ -150,7 +150,7 @@ public class MisionPersonajeDAO extends BaseDAO {
     strbuf.append(" = ");
     Reference<MisionDO> refM = misionPersonajeDO.getMisionRef();
     refM.checkUpdate();
-    strbuf.append(refM.getIdAsString())
+    strbuf.append(refM.getIdAsString());
     
     strbuf.append(" WHERE ");
     strbuf.append(MisionPersonajeDO.ID);
