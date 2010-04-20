@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-import dao.api.Reference;
+
 
 
 public class HabilidadDAO extends BaseDAO{
@@ -173,7 +173,7 @@ public class HabilidadDAO extends BaseDAO{
 	
     // --------------------------------------------------------------------------------
 
-	private DataObject resultSetToDO(ResultSet rs) {
+	private HabilidadDO resultSetToDO(ResultSet rs) {
 
 		HabilidadDO ret = (HabilidadDO) dtaSession.getDtaByKey( //
 				HabilidadDO.class, rs.getInt(HabilidadDO.ID));
@@ -184,22 +184,9 @@ public class HabilidadDAO extends BaseDAO{
 		
 		ret = new HabilidadDO();
 		ret.setId(rs.getInt(HabilidadDO.ID));
-		ret.setExperiencia(rs.getInt(HabilidadDO.EXPERIENCIA));
-		ret.setPuntosDeEntrenamiento(rs
-				.getInt(HabilidadDO.PUNTOS_DE_ENTRENAMIENTO));
-		ret.setSalud(rs.getInt(HabilidadDO.SALUD));
-		ret.setEnergiaDelAnillo(rs.getInt(HabilidadDO.ENERGIA_DEL_ANILLO));
-		ret.setNivel(rs.getInt(HabilidadDO.NIVEL));
-		ret.setUltimaFechaIngreso(rs.getDate(HabilidadDO.ULTIMA_FECHA_INGRESO));
-		Reference<PlanetaDO> ref = new Reference<PlanetaDO>();
-		ref.setRefIdent(rs.getInt(HabilidadDO.USUARIO_ID));
-		Reference<PlanetaDO> ref1 = new Reference<PlanetaDO>();
-		ref1.setRefIdent(rs.getInt(HabilidadDO.PLANETA_ID));
-		Reference<GrupoDO> ref2 = new Reference<GrupoDO>();
-		ref2.setRefIdent(rs.getInt(HabilidadDO.GRUPO_ID));
-		Reference<ClaseLinternaDO> ref3 = new Reference<ClaseLinternaDO>();
-		ref3.setRefIdent(rs.getInt(HabilidadDO.CLASE_LINTERNA_ID));
-		
+		ret.setNombre(rs.getString(HabilidadDO.NOMBRE));
+		ret.setCosto_de_aprendizaje(rs.getInt(HabilidadDO.COSTO_DE_APRENDIZAJE));
+
 		return (HabilidadDO) dtaSession.add(ret);
 	}
 
