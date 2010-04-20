@@ -72,10 +72,6 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(" INT DEFAULT 1,	");
     strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO);
     strbuf.append(" DATE,	");
-    strbuf.append(PersonajeDO.USUARIO_ID);
-    strbuf.append(" INT REFERENCES	");
-    strbuf.append(usuarioDAO.getTableName());
-    strbuf.append(",");
     strbuf.append(PersonajeDO.PLANETA_ID);
     strbuf.append(" INT REFERENCES	");
     strbuf.append(planetaDAO.getTableName());
@@ -131,10 +127,6 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(personajeDO.getNivel());
     strbuf.append(", ");
     strbuf.append(personajeDO.getUltimaFechaIngreso());
-    strbuf.append(", ");
-    Reference<UsuarioDO> ref = personajeDO.getUsuarioRef();
-    ref.checkInsert();
-    strbuf.append(ref.getIdAsString());
     strbuf.append(", ");
     Reference<PlanetaDO> ref1 = personajeDO.getPlanetaRef();
     ref1.checkInsert();
@@ -363,14 +355,13 @@ public class PersonajeDAO extends BaseDAO {
     
     ret = new PersonajeDO();
     ret.setId(rs.getInt(PersonajeDO.ID));
+    ret.setAlias(rs.getNString(PersonajeDO.ALIAS));
     ret.setExperiencia(rs.getInt(PersonajeDO.EXPERIENCIA));
     ret.setPuntosDeEntrenamiento(rs.getInt(PersonajeDO.PUNTOS_DE_ENTRENAMIENTO));
     ret.setSalud(rs.getInt(PersonajeDO.SALUD));
     ret.setEnergiaDelAnillo(rs.getInt(PersonajeDO.ENERGIA_DEL_ANILLO));
     ret.setNivel(rs.getInt(PersonajeDO.NIVEL));
     ret.setUltimaFechaIngreso(rs.getDate(PersonajeDO.ULTIMA_FECHA_INGRESO));
-    Reference<PlanetaDO> ref = new Reference<PlanetaDO>();
-    ref.setRefIdent(rs.getInt(PersonajeDO.USUARIO_ID));
     Reference<PlanetaDO> ref1 = new Reference<PlanetaDO>();
     ref1.setRefIdent(rs.getInt(PersonajeDO.PLANETA_ID));
     Reference<GrupoDO> ref2 = new Reference<GrupoDO>();
@@ -379,21 +370,6 @@ public class PersonajeDAO extends BaseDAO {
     ref3.setRefIdent(rs.getInt(PersonajeDO.CLASE_LINTERNA_ID));
         
     return (PersonajeDO) dtaSession.add(ret);
-  }
-
-  // --------------------------------------------------------------------------------
-
-  public void loadUsuarioRef(PersonajeDO personajeDO) throws SQLException {
-
-	  checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
-	  UsuarioDAO usuarioDAO = new UsuarioDAO();
-	  usuarioDAO.init(connectionBean);
-	  Reference<UsuarioDO> ref = personajeDO.getUsuarioRef();
-	  if (ref.getRefIdent() == 0) {
-		  return;
-	  }
-	  UsuarioDO usuarioDO = (UsuarioDO) usuarioDAO.loadById(ref.getRefIdent());
-      ref.setRefValue(usuarioDO);
   }
 
   // --------------------------------------------------------------------------------
@@ -460,7 +436,7 @@ public class PersonajeDAO extends BaseDAO {
     
     while (rs.next()){
     	per=resultSetToDO(rs);
-    	loadUsuarioRef(per);
+    	loadClaseLinternaRef(per);
     	ret.add(per);
     }
     
