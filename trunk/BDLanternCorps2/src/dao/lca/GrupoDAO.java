@@ -146,7 +146,6 @@ public class GrupoDAO extends BaseDAO{
 	    Reference<ClaseLinternaDO> ref = grupoDO.getClaseLinternaRef();
 	    ref.checkInsert();
 	    strbuf.append(ref.getIdAsString());
-	    strbuf.append(", ");
 	    strbuf.append(")");
 	    System.err.println(strbuf.toString());
 	    connection.createStatement().execute(strbuf.toString());

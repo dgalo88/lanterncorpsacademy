@@ -149,7 +149,6 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 				.getClaseLinternaRef();
 		ref1.checkInsert();
 		strbuf.append(ref1.getIdAsString());
-		strbuf.append(", ");
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
