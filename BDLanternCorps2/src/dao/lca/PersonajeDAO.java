@@ -116,8 +116,6 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(", ");
     strbuf.append(singleQuotes(personajeDO.getAlias()));
     strbuf.append(", ");
-    strbuf.append(personajeDO.getUltimaFechaIngreso());
-    strbuf.append(", ");
     Reference<PlanetaDO> ref = personajeDO.getPlanetaRef();
     ref.checkInsert();
     strbuf.append(ref.getIdAsString());
@@ -145,7 +143,6 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append("UPDATE ");
     strbuf.append(getTableName());
     strbuf.append(" SET ");
-    
     strbuf.append(PersonajeDO.EXPERIENCIA);
     strbuf.append(" = ");
     strbuf.append(personajeDO.getExperiencia());
@@ -172,9 +169,7 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(", ");
     
     strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO);
-    strbuf.append(" = ");
-    strbuf.append(personajeDO.getUltimaFechaIngreso());
-    strbuf.append(", ");
+    strbuf.append(" = current_date,	");
    
     strbuf.append(PersonajeDO.PLANETA_ID);
     strbuf.append(" = ");
