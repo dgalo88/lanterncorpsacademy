@@ -53,15 +53,15 @@ public class MisionDAO extends BaseDAO {
 		strbuf.append(MisionDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(MisionDO.NOMBRE);
-		strbuf.append(" VARCHAR(100),    ");
+		strbuf.append(" VARCHAR(100) UNIQUE NOT NULL,    ");
 		strbuf.append(MisionDO.DESCRIPCION);
-		strbuf.append(" VARCHAR(100),     ");
+		strbuf.append(" VARCHAR(100) NOT NULL,     ");
 		strbuf.append(MisionDO.EXPERIENCIA_GANADA);
-		strbuf.append(" INT,     ");
+		strbuf.append(" INT CHECK(" + MisionDO.EXPERIENCIA_GANADA +" > 0 ),     ");
 		strbuf.append(MisionDO.PUNTOS_DE_ENTRENAMIENTO_GANADOS);
-		strbuf.append(" INT,     ");
+		strbuf.append(" INT CHECK(" + MisionDO.PUNTOS_DE_ENTRENAMIENTO_GANADOS +" > 0 ),     ");
 		strbuf.append(MisionDO.NIVEL_NECESARIO);
-		strbuf.append(" INT     ");
+		strbuf.append(" INT CHECK(" + MisionDO.NIVEL_NECESARIO +" > 0 )   ");
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());

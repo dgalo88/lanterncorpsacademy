@@ -60,11 +60,11 @@ public class MisionPersonajeDAO extends BaseDAO {
 		strbuf.append(MisionPersonajeDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(MisionPersonajeDO.PERSONAJE_ID);
-		strbuf.append(" INT  REFERENCES    ");
+		strbuf.append(" INT NOT NULL REFERENCES    ");
 		strbuf.append(personajeDAO.getTableName());
 		strbuf.append(",    ");
 		strbuf.append(MisionPersonajeDO.MISION_ID);
-		strbuf.append(" INT  REFERENCES    ");
+		strbuf.append(" INT NOT NULL REFERENCES    ");
 		strbuf.append(misionDAO.getTableName());
 		strbuf.append(")");
 

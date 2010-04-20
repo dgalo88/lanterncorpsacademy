@@ -59,13 +59,13 @@ public class UsuarioDAO extends BaseDAO {
 		strbuf.append(UsuarioDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(UsuarioDO.NOMBRE);
-		strbuf.append(" VARCHAR(50),    ");
+		strbuf.append(" VARCHAR(50) NOT NULL,    ");
 		strbuf.append(UsuarioDO.CORREO);
-		strbuf.append(" VARCHAR(50),     ");
+		strbuf.append(" VARCHAR(50) UNIQUE NOT NULL,     ");
 		strbuf.append(UsuarioDO.CLAVE);
-		strbuf.append(" VARCHAR(20),     ");
+		strbuf.append(" VARCHAR(20) NOT NULL,     ");
 		strbuf.append(UsuarioDO.PERSONAJE_ID);
-		strbuf.append(" INT  REFERENCES   ");
+		strbuf.append(" INT NOT NULL REFERENCES   ");
 		strbuf.append(personajeDAO.getTableName());
 		strbuf.append(")");
 

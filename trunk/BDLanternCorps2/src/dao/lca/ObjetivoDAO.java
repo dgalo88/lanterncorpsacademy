@@ -59,9 +59,9 @@ public class ObjetivoDAO extends BaseDAO {
 		strbuf.append(ObjetivoDO.DESCRIPCION);
 		strbuf.append(" VARCHAR(100),    ");
 		strbuf.append(ObjetivoDO.NUMERO_DE_NPC);
-		strbuf.append(" INT,     ");
+		strbuf.append(" INT CHECK("+ ObjetivoDO.NUMERO_DE_NPC + " > 0 ) ,     ");
 		strbuf.append(ObjetivoDO.PLANETA_ID);
-		strbuf.append(" INT  REFERENCES    ");
+		strbuf.append(" INT NOT NULL REFERENCES    ");
 		strbuf.append(p.getTableName());
 		strbuf.append(")");
 
