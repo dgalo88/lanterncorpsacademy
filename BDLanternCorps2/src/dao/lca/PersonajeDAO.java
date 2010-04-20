@@ -134,7 +134,8 @@ public class PersonajeDAO extends BaseDAO {
 
   @Override
   public void update(DataObject dataObject) throws SQLException {
-    checkCache(dataObject, CHECK_UPDATE);
+    
+	checkCache(dataObject, CHECK_UPDATE);
     checkClass(dataObject, PersonajeDO.class, CHECK_UPDATE);
 
     PersonajeDO personajeDO = (PersonajeDO) dataObject;
@@ -147,7 +148,7 @@ public class PersonajeDAO extends BaseDAO {
     strbuf.append(" = ");
     strbuf.append(personajeDO.getExperiencia());
     strbuf.append(", ");
-    
+
     strbuf.append(PersonajeDO.PUNTOS_DE_ENTRENAMIENTO);
     strbuf.append(" = ");
     strbuf.append(personajeDO.getPuntosDeEntrenamiento());
@@ -225,25 +226,21 @@ public class PersonajeDAO extends BaseDAO {
 
   @Override	
   public DataObject loadById(int id) throws SQLException {
-    StringBuffer strbuf = new StringBuffer();
-
+    
+	StringBuffer strbuf = new StringBuffer();
     strbuf.append("SELECT * FROM ");
     strbuf.append(getTableName());
-
     strbuf.append(" WHERE ");
     strbuf.append(PersonajeDO.ID);
     strbuf.append(" = ");
     strbuf.append(id);
 
     System.err.println(strbuf.toString());
-
-    ResultSet rs = //
-    connection.createStatement().executeQuery(strbuf.toString());
+    ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
 
     if (rs.next()) {
       return resultSetToDO(rs);
     }
-
     return null;
   }
 
@@ -251,8 +248,8 @@ public class PersonajeDAO extends BaseDAO {
 
   @Override
   public List<DataObject> listAll(int lim, int off) throws SQLException {
-    StringBuffer strbuf = new StringBuffer();
-
+    
+	StringBuffer strbuf = new StringBuffer();
     strbuf.append("SELECT * FROM ");
     strbuf.append(getTableName());
 
@@ -264,16 +261,14 @@ public class PersonajeDAO extends BaseDAO {
     }
 
     System.err.println(strbuf.toString());
-
-    ResultSet rs = //
-    connection.createStatement().executeQuery(strbuf.toString());
-
+    ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
+    
     List<DataObject> ret = new ArrayList<DataObject>();
 
     while (rs.next()) {
       ret.add(resultSetToDO(rs));
     }
-
+    
     return ret;
   }
 
