@@ -128,7 +128,6 @@ public class NpcDAO extends BaseDAO{
 	    strbuf.append(npcDO.getDano());
 	    strbuf.append(", ");
 	    strbuf.append(singleQuotes(npcDO.getColor()));
-	    strbuf.append(", ");
 	    strbuf.append(")");
 	    System.err.println(strbuf.toString());
 	    connection.createStatement().execute(strbuf.toString());
