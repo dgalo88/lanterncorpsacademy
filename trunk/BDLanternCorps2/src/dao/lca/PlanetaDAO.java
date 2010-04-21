@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+import dao.api.FactoryDAO;
 
 public class PlanetaDAO extends BaseDAO {
 
@@ -169,59 +170,59 @@ public class PlanetaDAO extends BaseDAO {
 
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    if (lim >= 0 && off >= 0) {
-	      strbuf.append(" LIMIT  ");
-	      strbuf.append(lim);
-	      strbuf.append(" OFFSET ");
-	      strbuf.append(off);
-	    }
+		if (lim >= 0 && off >= 0) {
+			strbuf.append(" LIMIT  ");
+			strbuf.append(lim);
+			strbuf.append(" OFFSET ");
+			strbuf.append(off);
+		}
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<DataObject> ret = new ArrayList<DataObject>();
+		List<DataObject> ret = new ArrayList<DataObject>();
 
-	    while (rs.next()) {
-	      ret.add(resultSetToDO(rs));
-	    }
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
 
-	    return ret;
+		return ret;
 	}
 
 	@Override
 	public List<DataObject> listAll() throws SQLException {
-		  return listAll(-1, -1);
+		return listAll(-1, -1);
 	}
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(PlanetaDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(id);
+		strbuf.append(" WHERE ");
+		strbuf.append(PlanetaDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(id);
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (rs.next()) {
-	      return resultSetToDO(rs);
-	    }
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
 
-	    return null;
+		return null;
 	}
 
 	@Override
@@ -286,8 +287,20 @@ public class PlanetaDAO extends BaseDAO {
 		ret.setSector/*       */(rs.getString(PlanetaDO.SECTOR));
 		ret.setCoordenadaEnX/**/(rs.getFloat(PlanetaDO.COORDENADA_EN_X));
 		ret.setCoordenadaEnY/**/(rs.getFloat(PlanetaDO.COORDENADA_EN_Y));
-		
+
 		return (PlanetaDO) dtaSession.add(ret);
 	}
 
+	public void loadPersonajeList(PlanetaDO planetaDO)
+			throws Exception {
+		checkCache(planetaDO, CHECK_UPDATE);
+		checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
+
+		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
+				PersonajeDAO.class, connectionBean);
+
+		planetaDO.setPersonajeList(personajeDAO
+				.listByPersonajeId(planetaDO.getId()));
+
+	}
 }
