@@ -314,7 +314,7 @@ public class HabilidadDAO extends BaseDAO {
 
         NivelHabilidadDAO nivelHabilidadDAO = (NivelHabilidadDAO) FactoryDAO.getDAO( //
         NivelHabilidadDAO.class, connectionBean);
-        // Done...
+
         habilidadDO.setNivelHabilidadList(nivelHabilidadDAO.listByHabilidadId(habilidadDO.getId()));
       }
     
@@ -323,7 +323,7 @@ public class HabilidadDAO extends BaseDAO {
 
         HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO.getDAO( //
         HabilidadClaseLinternaDAO.class, connectionBean);
-        // Done...
+
         habilidadDO.setHabilidadClaseLinternaList(habilidadClaseLinternaDAO.listByClaseLinternaId(habilidadDO.getId()));
       }
     
@@ -332,7 +332,7 @@ public class HabilidadDAO extends BaseDAO {
 
         HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO.getDAO( //
         HabilidadActivaDAO.class, connectionBean);
-        // Done...
+
         habilidadDO.setHabilidadActivaList(habilidadActivaDAO.listByHabilidadId(habilidadDO.getId()));
       }
 }
