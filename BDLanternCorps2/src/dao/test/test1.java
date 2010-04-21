@@ -8,6 +8,7 @@ import dao.connection.ConnectionFactory;
 import dao.lca.ClaseLinternaDAO;
 import dao.lca.ClaseLinternaDO;
 import dao.lca.GrupoDAO;
+import dao.lca.HabilidadClaseLinternaDAO;
 import dao.lca.HabilidadDAO;
 import dao.lca.MisionClaseLinternaDAO;
 import dao.lca.MisionDAO;
@@ -52,7 +53,9 @@ public class test1 {
 		InterfaceDAO mcDAO = FactoryDAO.getDAO(MisionClaseLinternaDAO.class,
 				conn);
 		InterfaceDAO hDAO = FactoryDAO.getDAO(HabilidadDAO.class, conn);
+		InterfaceDAO hcDAO = FactoryDAO.getDAO(HabilidadClaseLinternaDAO.class, conn);
 
+		
 		// CREATE TABLE
 		plDAO.createTable();
 		mDAO.createTable();
@@ -67,6 +70,7 @@ public class test1 {
 		npcDAO.createTable();
 		mcDAO.createTable();
 		hDAO.createTable();
+		hcDAO.createTable();
 
 		try {
 
@@ -150,6 +154,7 @@ public class test1 {
 			Reference<ClaseLinternaDO> refc;
 			for (int i = 0; i < 4; i++) {
 				refc = new Reference<ClaseLinternaDO>();
+				//refc.setRefValue(cdo[i]);
 				refc.setRefIdent(cdo[i].getId());
 				pdo[i].setClaseLinternaRef(refc);
 				/* pdo[i].setUltimaFechaIngreso(new Date(i)); */
