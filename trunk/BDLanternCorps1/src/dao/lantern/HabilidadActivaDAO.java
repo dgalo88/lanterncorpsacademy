@@ -240,6 +240,50 @@ public class HabilidadActivaDAO extends BaseDAO {
 	    return null;
 	}
 
+	 // --------------------------------------------------------------------------------
+
+	  public void loadPersonajeRef(HabilidadActivaDO habilidadActivaDO) throws SQLException {
+	    // XXX: Check this method's semantic
+	    checkClass(habilidadActivaDO, HabilidadActivaDO.class, CHECK_UPDATE);
+
+	    PersonajeDAO personajeDAO = new PersonajeDAO();
+	    personajeDAO.init(connectionBean);
+
+	    Reference<PersonajeDO> ref = habilidadActivaDO.getPersonajeRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    PersonajeDO personajeDO = //
+	    (PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(personajeDO);
+	  }
+
+		 // --------------------------------------------------------------------------------
+
+	  public void loadHabilidadRef(HabilidadActivaDO habilidadActivaDO) throws SQLException {
+	    // XXX: Check this method's semantic
+	    checkClass(habilidadActivaDO, HabilidadActivaDO.class, CHECK_UPDATE);
+
+	    HabilidadDAO habilidadDAO = new HabilidadDAO();
+	    habilidadDAO.init(connectionBean);
+
+	    Reference<HabilidadDO> ref = habilidadActivaDO.getHabilidadRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    HabilidadDO habilidadDO = //
+	    (HabilidadDO) habilidadDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(habilidadDO);
+	  }
+	  
+	  // --------------------------------------------------------------------------------
+	  
 	private HabilidadActivaDO resultSetToDO(ResultSet rs) throws SQLException {
 		HabilidadActivaDO ret = //
 		(HabilidadActivaDO) dtaSession.getDtaByKey( //
