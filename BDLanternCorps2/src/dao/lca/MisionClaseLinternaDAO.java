@@ -286,7 +286,44 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 
 		while (rs.next()) {
 			mcl = (MisionClaseLinternaDO) dtaSession.getDtaByKey( //
-					MisionClaseLinternaDO.class, rs.getInt(MisionClaseLinternaDO.ID));
+					MisionClaseLinternaDO.class, rs
+							.getInt(MisionClaseLinternaDO.ID));
+
+			if (mcl == null) {
+				mcl = (MisionClaseLinternaDO) dtaSession.add(resultSetToDO(rs));
+			}
+
+			ret.add(mcl);
+		}
+
+		return ret;
+	}
+
+	public List<MisionClaseLinternaDO> listByClaseLinternaId(int claseLinternaId)
+			throws SQLException {
+
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(MisionClaseLinternaDO.CLASE_LINTERNA_ID);
+		strbuf.append(" = ");
+		strbuf.append(claseLinternaId);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<MisionClaseLinternaDO> ret = new ArrayList<MisionClaseLinternaDO>();
+		MisionClaseLinternaDO mcl;
+
+		while (rs.next()) {
+			mcl = (MisionClaseLinternaDO) dtaSession.getDtaByKey( //
+					MisionClaseLinternaDO.class, rs
+							.getInt(MisionClaseLinternaDO.ID));
 
 			if (mcl == null) {
 				mcl = (MisionClaseLinternaDO) dtaSession.add(resultSetToDO(rs));
