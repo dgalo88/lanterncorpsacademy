@@ -317,7 +317,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 						HabilidadClaseLinternaDAO.class, connectionBean);
 
 		claseLinternaDO.setHabilidadClaseLinternaList(habilidadClaseLinternaDAO
-				.listByHabilidadId(claseLinternaDO.getId()));
+				.listByClaseId(claseLinternaDO.getId()));
 
 	}
 
