@@ -340,6 +340,9 @@ public class UsuarioDAO extends BaseDAO {
 	// --------------------------------------------------------------------------------
 
 	public void loadPersonajeRef(UsuarioDO usuarioDO) throws SQLException {
+		if(usuarioDO==null){
+			return;
+		}
 
 		checkClass(usuarioDO, UsuarioDO.class, CHECK_UPDATE);
 

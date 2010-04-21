@@ -225,7 +225,7 @@ public class MisionDAO extends BaseDAO {
 
 			if (rs.next()) {
 				misionDO = resultSetToDO(rs);
-				return (UsuarioDO) dtaSession.add(misionDO);
+				return (MisionDO) dtaSession.add(misionDO);
 			}
 
 			return null;
