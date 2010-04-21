@@ -17,6 +17,7 @@ public class PersonajeDO implements DataObject {
 	public static final String NIVEL 					= "nivel";
 	public static final String ULTIMA_FECHA_INGRESO 	= "ultima_fecha_ingreso";
 	
+	public static final String USUARIO_ID = "usuarioId";
 	public static final String PLANETA_ID = "planetaId";
 	public static final String GRUPO_ID = "grupoId";
 	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
@@ -33,6 +34,8 @@ public class PersonajeDO implements DataObject {
 	private int energia_del_anillo;
 	private int nivel;
 	private Date ultima_fecha_ingreso;
+
+	private Reference<UsuarioDO> usuarioRef = new Reference<UsuarioDO>();
 
 	private Reference<PlanetaDO> planetaRef = new Reference<PlanetaDO>();
 	
@@ -180,6 +183,16 @@ public class PersonajeDO implements DataObject {
 
 	public Reference<ClaseLinternaDO> getClaseLinternaRef() {
 		return claseLinternaRef;
+	}
+
+	// --------------------------------------------------------------------------------
+
+	public void setUsuarioRef(Reference<UsuarioDO> usuarioRef) {
+		this.usuarioRef = usuarioRef;
+	}
+
+	public Reference<UsuarioDO> getUsuarioRef() {
+		return usuarioRef;
 	}
 	
 }

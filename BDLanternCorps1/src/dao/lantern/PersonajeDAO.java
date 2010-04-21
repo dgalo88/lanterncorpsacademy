@@ -59,6 +59,9 @@ public class PersonajeDAO extends BaseDAO {
 
 	    // ----------------------------------------
 	    
+	    UsuarioDAO usuarioDAO = new UsuarioDAO(); 
+	    usuarioDAO.init(connectionBean);
+	    
 	    PlanetaDAO planetaDAO = new PlanetaDAO(); 
 	    planetaDAO.init(connectionBean);
 	    
@@ -89,6 +92,10 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(" INT,   ");
 	    strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO); 
 	    strbuf.append(" DATE,   ");
+	    strbuf.append(PersonajeDO.USUARIO_ID);
+	    strbuf.append(" INT REFERENCES   ");
+	    strbuf.append(usuarioDAO.getTableName());
+	    strbuf.append(", ");
 	    strbuf.append(PersonajeDO.PLANETA_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(planetaDAO.getTableName());
@@ -177,6 +184,11 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(personajeDO.getUltimaFechaIngreso());
 	    strbuf.append(", ");
 
+	    Reference<UsuarioDO> refU = personajeDO.getUsuarioRef();
+	    refU.checkUpdate();
+	    strbuf.append(refU.getIdAsString());
+	    strbuf.append(", ");
+	    
 	    Reference<PlanetaDO> refPl = personajeDO.getPlanetaRef();
 	    refPl.checkUpdate();
 	    strbuf.append(refPl.getIdAsString());
@@ -268,6 +280,10 @@ public class PersonajeDAO extends BaseDAO {
 	        ret.setNivel/*						*/(rs.getInt(PersonajeDO.NIVEL));
 	        ret.setUltimaFechaIngreso/*     	*/(rs.getDate(PersonajeDO.ULTIMA_FECHA_INGRESO));
 
+	        Reference<UsuarioDO> refU = new Reference<UsuarioDO>();
+	        refU.setRefIdent(rs.getInt(PersonajeDO.USUARIO_ID));
+	        ret.setUsuarioRef(refU);
+	        
 	        Reference<PlanetaDO> refPl = new Reference<PlanetaDO>();
 	        refPl.setRefIdent(rs.getInt(PersonajeDO.PLANETA_ID));
 	        ret.setPlanetaRef(refPl);
@@ -289,6 +305,33 @@ public class PersonajeDAO extends BaseDAO {
 		return null;
 	}
 
+	  // --------------------------------------------------------------------------------
+
+	  public List<PersonajeDO> listByUsuarioId(int usuarioId) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(PersonajeDO.USUARIO_ID);
+	    strbuf.append(" = ");
+	    strbuf.append(usuarioId);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    List<PersonajeDO> ret = new ArrayList<PersonajeDO>();
+
+	    while (rs.next()) {
+	      ret.add(resultSetToDO(rs));
+	    }
+
+	    return ret;
+	  }
+	  
 	  // --------------------------------------------------------------------------------
 
 	  public List<PersonajeDO> listByPlanetaId(int planetaId) throws SQLException {
@@ -345,7 +388,7 @@ public class PersonajeDAO extends BaseDAO {
 
 	  // --------------------------------------------------------------------------------
 
-	  public List<PersonajeDO> listByClaseLinternaId(int claseLinternaId) throws SQLException {
+	public List<PersonajeDO> listByClaseLinternaId(int claseLinternaId) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("SELECT * FROM ");
@@ -369,6 +412,7 @@ public class PersonajeDAO extends BaseDAO {
 
 	    return ret;
 	  }
+	
 	@Override
 	public DataObject loadById(int id) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
@@ -448,6 +492,14 @@ public class PersonajeDAO extends BaseDAO {
 	       
 	    strbuf.append(", ");
 	    
+	    strbuf.append(PersonajeDO.USUARIO_ID);
+	    strbuf.append(" = ");
+	    Reference<UsuarioDO> refU = personajeDO.getUsuarioRef();
+	    refU.checkUpdate();
+	    strbuf.append(refU.getIdAsString());
+	    
+	    strbuf.append(", ");
+	    
 	    strbuf.append(PersonajeDO.PLANETA_ID);
 	    strbuf.append(" = ");
 	    Reference<PlanetaDO> refPl = personajeDO.getPlanetaRef();
@@ -480,11 +532,31 @@ public class PersonajeDAO extends BaseDAO {
 	    connection.createStatement().execute(strbuf.toString());
 
 	}
+	
+	// --------------------------------------------------------------------------------
+
+	  public void loadUsuarioRef(PersonajeDO personajeDO) throws SQLException {
+	    // XXX: Check this method's semantic
+	    checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
+
+	    UsuarioDAO usuarioDAO = new UsuarioDAO();
+	    usuarioDAO.init(connectionBean);
+
+	    Reference<UsuarioDO> ref = personajeDO.getUsuarioRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    UsuarioDO usuarioDO = //
+	    (UsuarioDO) usuarioDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(usuarioDO);
+	  }
 
 	  // --------------------------------------------------------------------------------
 
 	  public void loadPlanetaRef(PersonajeDO personajeDO) throws SQLException {
-	    // XXX: Check this method's semantic
 	    checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
 
 	    PlanetaDAO planetaDAO = new PlanetaDAO();
