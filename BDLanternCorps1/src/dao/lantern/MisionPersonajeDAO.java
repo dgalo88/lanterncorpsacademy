@@ -40,10 +40,10 @@ public class MisionPersonajeDAO extends BaseDAO {
 
     // ----------------------------------------
 
-    PersonajeDAO personajeDAO = new PersonajeDAO(); // Used to make the FK
+    PersonajeDAO personajeDAO = new PersonajeDAO(); // Used to make the F·$%"K
     personajeDAO.init(connectionBean);
 
-    MisionDAO misionDAO = new MisionDAO(); // Used to make the FK
+    MisionDAO misionDAO = new MisionDAO();
     misionDAO.init(connectionBean);
 
     strbuf = new StringBuffer();
@@ -66,6 +66,7 @@ public class MisionPersonajeDAO extends BaseDAO {
     strbuf.append(MisionPersonajeDO.PERSONAJE_ID);
     strbuf.append(" INT REFERENCES   ");
     strbuf.append(personajeDAO.getTableName());
+    strbuf.append(", ");
     strbuf.append(MisionPersonajeDO.MISION_ID);
     strbuf.append(" INT REFERENCES   ");
     strbuf.append(misionDAO.getTableName());
@@ -358,7 +359,7 @@ public class MisionPersonajeDAO extends BaseDAO {
 
     ret = new MisionPersonajeDO();
 
-    ret.setId(rs.getInt(MisionDO.ID));
+    ret.setId(rs.getInt(MisionPersonajeDO.ID));
 
     Reference<PersonajeDO> refP = new Reference<PersonajeDO>();
     refP.setRefIdent(rs.getInt(MisionPersonajeDO.PERSONAJE_ID));

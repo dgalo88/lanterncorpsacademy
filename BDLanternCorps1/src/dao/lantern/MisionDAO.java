@@ -7,7 +7,7 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-import dao.api.Reference;
+import dao.api.FactoryDAO;
 
 public class MisionDAO extends BaseDAO {
 
@@ -39,9 +39,6 @@ public class MisionDAO extends BaseDAO {
     connection.createStatement().execute(strbuf.toString());
 
     // ----------------------------------------
-
-    MisionDAO misionDAO = new MisionDAO(); // Used to make the FK
-    misionDAO.init(connectionBean);
 
     strbuf = new StringBuffer();
 
@@ -324,7 +321,6 @@ public class MisionDAO extends BaseDAO {
 
   public void loadOrdenList(MisionDO misionDO) throws Exception {
     checkCache(misionDO, CHECK_UPDATE);
-    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
 
     OrdenDAO ordenDAO = (OrdenDAO) FactoryDAO.getDAO( //
         OrdenDAO.class, connectionBean);
@@ -336,7 +332,6 @@ public class MisionDAO extends BaseDAO {
 
   public void loadMisionPersonajeList(MisionDO misionDO) throws Exception {
     checkCache(misionDO, CHECK_UPDATE);
-    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
 
     MisionPersonajeDAO misionPersonajeDAO = (MisionPersonajeDAO) FactoryDAO.getDAO( //
         MisionPersonajeDAO.class, connectionBean);
@@ -348,12 +343,11 @@ public class MisionDAO extends BaseDAO {
 
   public void loadMisionCLaseLinternaList(MisionDO misionDO) throws Exception {
     checkCache(misionDO, CHECK_UPDATE);
-    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
 
-    MisionCLaseLinternaDAO misionCLaseLinternaDAO = (MisionCLaseLinternaDAO) FactoryDAO.getDAO( //
-    		MisionCLaseLinternaAO.class, connectionBean);
+    MisionClaseLinternaDAO misionClaseLinternaDAO = (MisionClaseLinternaDAO) FactoryDAO.getDAO(//
+    		MisionClaseLinternaDAO.class, connectionBean);
 
-    misionDO.setMisionCLaseLinternaList(misionCLaseLinternaDAO.listByMisionId(misionDO.getId()));
+    misionDO.setMisionClaselinternaList(misionClaseLinternaDAO.listByMisionId(misionDO.getId()));
   }
 
 }
