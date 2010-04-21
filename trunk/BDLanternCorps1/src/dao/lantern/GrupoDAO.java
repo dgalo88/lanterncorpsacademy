@@ -7,7 +7,7 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-//import dao.api.FactoryDAO;
+import dao.api.FactoryDAO;
 import dao.api.Reference;
 
 public class GrupoDAO extends BaseDAO {
@@ -368,15 +368,14 @@ public class GrupoDAO extends BaseDAO {
   
   // --------------------------------------------------------------------------------
 
-  public void loadGrupoPersonajeList(GrupoDO grupoDO) throws Exception {
-	    checkCache(grupoDO, CHECK_UPDATE);
-	    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
-/*
-	    GrupoPersonajeDAO grupoPersonajeDAO = (GrupoPersonajeDAO) FactoryDAO.getDAO( //
-	        GrupoPersonajeDAO.class, connectionBean);
+  public void loadPersonajeList(GrupoDO grupoDO) throws Exception {
+      checkCache(grupoDO, CHECK_UPDATE);
+      checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
 
-	    grupoDO.setGrupoPersonajeList(grupoPersonajeDAO.listByGrupoId(grupoDO.getId()));
-*/
-	  }
+      PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
+      PersonajeDAO.class, connectionBean);
+
+      grupoDO.setPersonajeList(personajeDAO.listByIdGrupoId(grupoDO.getId()));
+    }
 
 }
