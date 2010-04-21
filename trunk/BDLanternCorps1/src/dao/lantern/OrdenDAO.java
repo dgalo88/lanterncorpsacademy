@@ -13,19 +13,19 @@ public class OrdenDAO extends BaseDAO {
 
 	@Override
 	public int countAll() throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT COUNT(*) FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT COUNT(*) FROM ");
+		strbuf.append(getTableName());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-	    rs.next();
+		rs.next();
 
-	    return rs.getInt("count");
+		return rs.getInt("count");
 
 	}
 
@@ -61,8 +61,8 @@ public class OrdenDAO extends BaseDAO {
 
 		ObjetivoDAO objetivoDAO = new ObjetivoDAO();
 		objetivoDAO.init(connectionBean);
-		
-		MisionDAO misionDAO = new MisionDAO(); 
+
+		MisionDAO misionDAO = new MisionDAO();
 		misionDAO.init(connectionBean);
 
 		strbuf = new StringBuffer();
@@ -99,8 +99,6 @@ public class OrdenDAO extends BaseDAO {
 
 		connection.createStatement().execute(strbuf.toString());
 
-
-
 	}
 
 	@Override
@@ -129,7 +127,6 @@ public class OrdenDAO extends BaseDAO {
 		refM.checkInsert();
 		strbuf.append(refM.getIdAsString());
 		strbuf.append(")");
-		
 
 		System.err.println(strbuf.toString());
 
@@ -137,119 +134,118 @@ public class OrdenDAO extends BaseDAO {
 
 		dtaSession.add(dataObject);
 
-		
 	}
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_UPDATE);
-	    checkClass(dataObject, OrdenDO.class, CHECK_UPDATE);
+		checkCache(dataObject, CHECK_UPDATE);
+		checkClass(dataObject, OrdenDO.class, CHECK_UPDATE);
 
-	    OrdenDO orden = (OrdenDO) dataObject;
+		OrdenDO orden = (OrdenDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("UPDATE ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" SET ");
+		strbuf.append("UPDATE ");
+		strbuf.append(getTableName());
+		strbuf.append(" SET ");
 
-	    strbuf.append(OrdenDO.PRIORIDAD);
-	    strbuf.append(" = ");
-	    strbuf.append(orden.getPrioridad());
+		strbuf.append(OrdenDO.PRIORIDAD);
+		strbuf.append(" = ");
+		strbuf.append(orden.getPrioridad());
 
-	    strbuf.append(", ");
+		strbuf.append(", ");
 
-	    strbuf.append(OrdenDO.OBJETIVO_ID);
-	    strbuf.append(" = ");
-	    Reference<ObjetivoDO> refOb = orden.getObjetivoRef();
-	    refOb.checkUpdate();
-	    strbuf.append(refOb.getIdAsString());
-	    
-	    strbuf.append(", ");
-	    
-	    strbuf.append(OrdenDO.MISION_ID);
-	    strbuf.append(" = ");
-	    Reference<MisionDO> refM = orden.getMisionRef();
-	    refM.checkUpdate();
-	    strbuf.append(refM.getIdAsString());
- 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(OrdenDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(orden.getId());
+		strbuf.append(OrdenDO.OBJETIVO_ID);
+		strbuf.append(" = ");
+		Reference<ObjetivoDO> refOb = orden.getObjetivoRef();
+		refOb.checkUpdate();
+		strbuf.append(refOb.getIdAsString());
 
-	    System.err.println(strbuf.toString());
+		strbuf.append(", ");
 
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf.append(OrdenDO.MISION_ID);
+		strbuf.append(" = ");
+		Reference<MisionDO> refM = orden.getMisionRef();
+		refM.checkUpdate();
+		strbuf.append(refM.getIdAsString());
 
-		
+		strbuf.append(" WHERE ");
+		strbuf.append(OrdenDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(orden.getId());
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
 	}
+
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_DELETE);
-	    checkClass(dataObject, ObjetivoDO.class, CHECK_DELETE);
+		checkCache(dataObject, CHECK_DELETE);
+		checkClass(dataObject, ObjetivoDO.class, CHECK_DELETE);
 
-	    OrdenDO ordenDO = (OrdenDO) dataObject;
+		OrdenDO ordenDO = (OrdenDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("DELETE FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("DELETE FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(OrdenDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(ordenDO.getId());
+		strbuf.append(" WHERE ");
+		strbuf.append(OrdenDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(ordenDO.getId());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    dtaSession.del(dataObject);
+		dtaSession.del(dataObject);
 
 	}
-	
+
 	@Override
 	public DataObject loadById(int id) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(OrdenDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(id);
+		strbuf.append(" WHERE ");
+		strbuf.append(OrdenDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(id);
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (rs.next()) {
-	      return resultSetToDO(rs);
-	    }
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
 
-	    return null;
+		return null;
 	}
 
 	private int getNextId() throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT nextval(");
-	    strbuf.append(singleQuotes("seq_" + getTableName()));
-	    strbuf.append(")");
+		strbuf.append("SELECT nextval(");
+		strbuf.append(singleQuotes("seq_" + getTableName()));
+		strbuf.append(")");
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (!rs.next()) {
-	      throw new IllegalStateException("!rs.next()");
-	    }
+		if (!rs.next()) {
+			throw new IllegalStateException("!rs.next()");
+		}
 
-	    return rs.getInt("nextval");
+		return rs.getInt("nextval");
 	}
 
 	@Override
@@ -310,6 +306,56 @@ public class OrdenDAO extends BaseDAO {
 	public List<DataObject> listAll() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<OrdenDO> listByObjetivoId(int objId) throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(OrdenDO.OBJETIVO_ID);
+		strbuf.append(" = ");
+		strbuf.append(objId);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<OrdenDO> ret = new ArrayList<OrdenDO>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+
+		return ret;
+	}
+
+	public List<OrdenDO> listByMisionId(int MisionId) throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(OrdenDO.MISION_ID);
+		strbuf.append(" = ");
+		strbuf.append(MisionId);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<OrdenDO> ret = new ArrayList<OrdenDO>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+
+		return ret;
 	}
 
 }
