@@ -8,6 +8,7 @@ import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
+import dao.api.FactoryDAO;
 
 public class PersonajeDAO extends BaseDAO {
 
@@ -57,9 +58,6 @@ public class PersonajeDAO extends BaseDAO {
 	    connection.createStatement().execute(strbuf.toString());
 
 	    // ----------------------------------------
-
-	    UsuarioDAO usuarioDAO = new UsuarioDAO(); 
-	    usuarioDAO.init(connectionBean);
 	    
 	    PlanetaDAO planetaDAO = new PlanetaDAO(); 
 	    planetaDAO.init(connectionBean);
@@ -88,9 +86,6 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(" INT,   ");
 	    strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO); 
 	    strbuf.append(" DATE,   ");
-	    strbuf.append(PersonajeDO.USUARIO_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(usuarioDAO.getTableName());
 	    strbuf.append(PersonajeDO.PLANETA_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(planetaDAO.getTableName());
@@ -173,15 +168,12 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(", ");
 	    strbuf.append(personajeDO.getUltimaFechaIngreso());
 	    strbuf.append(", ");
-	    Reference<UsuarioDO> refU = personajeDO.getUsuarioRef();
-	    refU.checkInsert();
-	    strbuf.append(refU.getIdAsString());
 
-	    //Done...
 	    Reference<PlanetaDO> refPl = personajeDO.getPlanetaRef();
 	    refPl.checkUpdate();
 	    strbuf.append(refPl.getIdAsString());
-	    
+	    strbuf.append(", ");
+
 	    Reference<GrupoDO> refGr = personajeDO.getGrupoRef();
 	    refGr.checkUpdate();
 	    strbuf.append(refGr.getIdAsString());
@@ -263,10 +255,6 @@ public class PersonajeDAO extends BaseDAO {
 	        ret.setNivel/*						*/(rs.getInt(PersonajeDO.NIVEL));
 	        ret.setUltimaFechaIngreso/*     	*/(rs.getDate(PersonajeDO.ULTIMA_FECHA_INGRESO));
 
-	        Reference<UsuarioDO> refU = new Reference<UsuarioDO>();
-	        refU.setRefIdent(rs.getInt(PersonajeDO.USUARIO_ID));
-	        ret.setUsuarioRef(refU);
-	        //Done...
 	        Reference<PlanetaDO> refPl = new Reference<PlanetaDO>();
 	        refPl.setRefIdent(rs.getInt(PersonajeDO.PLANETA_ID));
 	        ret.setPlanetaRef(refPl);
@@ -274,7 +262,6 @@ public class PersonajeDAO extends BaseDAO {
 	        Reference<GrupoDO> refGr = new Reference<GrupoDO>();
 	        refGr.setRefIdent(rs.getInt(PersonajeDO.GRUPO_ID));
 	        ret.setGrupoRef(refGr);
-	        
 	        
 	        return (PersonajeDO) dtaSession.add(ret);
 	}
@@ -361,15 +348,7 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO);
 	    strbuf.append(" = ");
 	    strbuf.append(personajeDO.getUltimaFechaIngreso());
-	    
-	    strbuf.append(", ");
-	    
-	    strbuf.append(PersonajeDO.USUARIO_ID);
-	    strbuf.append(" = ");
-	    Reference<UsuarioDO> refP = personajeDO.getUsuarioRef();
-	    refP.checkUpdate();
-	    strbuf.append(refP.getIdAsString());
-	    
+	       
 	    strbuf.append(", ");
 	    
 	    strbuf.append(PersonajeDO.PLANETA_ID);
@@ -397,4 +376,91 @@ public class PersonajeDAO extends BaseDAO {
 
 	}
 
+	  // --------------------------------------------------------------------------------
+
+	  public void loadPlanetaRef(PersonajeDO personajeDO) throws SQLException {
+	    // XXX: Check this method's semantic
+	    checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
+
+	    PlanetaDAO planetaDAO = new PlanetaDAO();
+	    planetaDAO.init(connectionBean);
+
+	    Reference<PlanetaDO> ref = personajeDO.getPlanetaRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    PlanetaDO planetaDO = //
+	    (PlanetaDO) planetaDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(planetaDO);
+	  }
+
+	  // --------------------------------------------------------------------------------
+
+	  public void loadGrupoRef(PersonajeDO personajeDO) throws SQLException {
+	    // XXX: Check this method's semantic
+	    checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
+
+	    GrupoDAO grupoDAO = new GrupoDAO();
+	    grupoDAO.init(connectionBean);
+
+	    Reference<GrupoDO> ref = personajeDO.getGrupoRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    GrupoDO grupoDO = //
+	    (GrupoDO) grupoDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(grupoDO);
+	  }
+	  
+	  // --------------------------------------------------------------------------------
+
+	  public void loadClaseLinternaRef(PersonajeDO personajeDO) throws SQLException {
+	    // XXX: Check this method's semantic
+	    checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
+
+	    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
+	    claseLinternaDAO.init(connectionBean);
+
+	    Reference<ClaseLinternaDO> ref = personajeDO.getClaseLinternaRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    ClaseLinternaDO claseLinternaDO = //
+	    (ClaseLinternaDO) claseLinternaDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(claseLinternaDO);
+	  }
+
+	  // --------------------------------------------------------------------------------
+
+	  public void loadHabilidadActivaList(PersonajeDO personajeDO) throws Exception {
+	    checkCache(personajeDO, CHECK_UPDATE);
+	    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
+
+	    HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO.getDAO( //
+	    		HabilidadActivaDAO.class, connectionBean);
+
+	    personajeDO.setHabilidadActivaList(habilidadActivaDAO.listByPersonajeId(personajeDO.getId()));
+	  }
+	  
+	  // --------------------------------------------------------------------------------
+
+	  public void loadMisionPersonajeList(PersonajeDO personajeDO) throws Exception {
+	    checkCache(personajeDO, CHECK_UPDATE);
+	    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
+
+	    MisionPersonajeDAO misionPersonajeDAO = (MisionPersonajeDAO) FactoryDAO.getDAO( //
+	    		MisionPersonajeDAO.class, connectionBean);
+
+	    personajeDO.setMisionPersonajeList(misionPersonajeDAO.listByPersonajeId(personajeDO.getId()));
+	  }
+	  
 }

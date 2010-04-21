@@ -75,10 +75,10 @@ public class HabilidadActivaDAO extends BaseDAO {
 	    strbuf.append(" INT PRIMARY KEY, ");
 	    strbuf.append(HabilidadActivaDO.NIVEL_HABILIDAD);
 	    strbuf.append(" INT,    ");
-	    strbuf.append(HabilidadActivaDO.PERSONAJE_REF);
+	    strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(personajeDAO.getTableName()+", ");
-	    strbuf.append(HabilidadActivaDO.HABILIDAD_REF);
+	    strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(habilidadDAO.getTableName());
 	    strbuf.append(")");
@@ -255,11 +255,11 @@ public class HabilidadActivaDAO extends BaseDAO {
 		ret.setNivelHabilidad/*	            */(rs.getInt(HabilidadActivaDO.NIVEL_HABILIDAD));
 
 		Reference<PersonajeDO> refP = new Reference<PersonajeDO>();
-		refP.setRefIdent(rs.getInt(HabilidadActivaDO.PERSONAJE_REF));
+		refP.setRefIdent(rs.getInt(HabilidadActivaDO.PERSONAJE_ID));
 		ret.setPersonajeRef(refP);
-		// Done...
+
 		Reference<HabilidadDO> refH = new Reference<HabilidadDO>();
-		refH.setRefIdent(rs.getInt(HabilidadActivaDO.HABILIDAD_REF));
+		refH.setRefIdent(rs.getInt(HabilidadActivaDO.HABILIDAD_ID));
 		ret.setHabilidadRef(refH);
 
 		return (HabilidadActivaDO) dtaSession.add(ret);
@@ -284,7 +284,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 	    
 	    strbuf.append(", ");
 	    	    
-	    strbuf.append(HabilidadActivaDO.PERSONAJE_REF);
+	    strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
 	    strbuf.append(" = ");
 	    Reference<PersonajeDO> refP = habilidadActivaDO.getPersonajeRef();
 	    refP.checkUpdate();
@@ -292,7 +292,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 	    
 	    strbuf.append(", ");
 	    
-	    strbuf.append(HabilidadActivaDO.HABILIDAD_REF);
+	    strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
 	    strbuf.append(" = ");
 	    Reference<HabilidadDO> refH = habilidadActivaDO.getHabilidadRef();
 	    refH.checkUpdate();
@@ -316,7 +316,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 		strbuf.append(getTableName());
 
 		strbuf.append(" WHERE ");
-		strbuf.append(HabilidadActivaDO.HABILIDAD_REF);
+		strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
 		strbuf.append(" = ");
 		strbuf.append(habilidadId);
 
@@ -334,6 +334,29 @@ public class HabilidadActivaDAO extends BaseDAO {
 		return ret;
 	}
 	
-	
+	public List<HabilidadActivaDO> listByPersonajeId(int personajeId) throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
+		strbuf.append(" = ");
+		strbuf.append(personajeId);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<HabilidadActivaDO> ret = new ArrayList<HabilidadActivaDO>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+
+		return ret;
+	}
 
 }
