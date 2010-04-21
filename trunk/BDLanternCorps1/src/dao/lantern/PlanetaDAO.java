@@ -326,7 +326,7 @@ public class PlanetaDAO extends BaseDAO {
   
   // --------------------------------------------------------------------------------
 
-  public void loadPersonajeList(PlanetaDO planetaDO) throws SQLException {
+  public void loadPersonajeList(PlanetaDO planetaDO) throws Exception {
     // XXX: Check this method's semantic
 	checkCache(planetaDO, CHECK_UPDATE);
     checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
@@ -334,7 +334,7 @@ public class PlanetaDAO extends BaseDAO {
     PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
             PersonajeDAO.class, connectionBean);
 
-   planetaDO.setPersonajeList(personajeDAO.listByPlanetId(planetaDO.getId()));
+   planetaDO.setPersonajeList(personajeDAO.listByPlanetaId(planetaDO.getId()));
 
   }
   // --------------------------------------------------------------------------------
