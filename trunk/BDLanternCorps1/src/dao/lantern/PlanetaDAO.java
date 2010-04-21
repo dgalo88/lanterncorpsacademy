@@ -7,7 +7,7 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-//import dao.api.FactoryDAO;
+import dao.api.FactoryDAO;
 import dao.api.Reference;
 
 public class PlanetaDAO extends BaseDAO {
@@ -29,9 +29,6 @@ public class PlanetaDAO extends BaseDAO {
 
     // ----------------------------------------
 
-    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO(); 
-    claseLinternaDAO.init(connectionBean);
-    
     strbuf = new StringBuffer();
 
     strbuf.append("DROP SEQUENCE IF EXISTS ");
@@ -43,13 +40,7 @@ public class PlanetaDAO extends BaseDAO {
     connection.createStatement().execute(strbuf.toString());
 
     // ----------------------------------------
-/*
-    PlanetaDAO planetaDAO = new PlanetaDAO(); // Used to make the FK
-    planetaDAO.init(connectionBean);
-    
-    HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = new HabilidadClaseLinternaDAO(); // Used to make the FK
-    habilidadClaseLinternaDAO.init(connectionBean);
-*/
+
     strbuf = new StringBuffer();
 
     strbuf.append("CREATE TABLE ");
@@ -65,10 +56,6 @@ public class PlanetaDAO extends BaseDAO {
     strbuf.append(" FLOAT,    ");
     strbuf.append(PlanetaDO.COORDENADA_EN_Y);
     strbuf.append(" FLOAT,    ");
-    strbuf.append(PlanetaDO.CLASE_LINTERNA_ID);
-    strbuf.append(" INT REFERENCES   ");
-    strbuf.append(claseLinternaDAO.getTableName());
-
     
     System.err.println(strbuf.toString());
 
@@ -319,25 +306,20 @@ public class PlanetaDAO extends BaseDAO {
     ret.setCoordenadaEnX/*  	*/(rs.getFloat(PlanetaDO.COORDENADA_EN_X));
     ret.setCoordenadaEnY/*  	*/(rs.getFloat(PlanetaDO.COORDENADA_EN_Y));
     
-    Reference<ClaseLinternaDO> refU = new Reference<ClaseLinternaDO>();
-    refU.setRefIdent(rs.getInt(PlanetaDO.CLASE_LINTERNA_ID));
-    ret.setClaseLinternaRef(refU);
-
-    
     return (PlanetaDO) dtaSession.add(ret);
   }
 
   // --------------------------------------------------------------------------------
 
-  public void loadObjetivoList(PlanetaDO planetaDO) throws SQLException {
+  public void loadObjetivoList(PlanetaDO planetaDO) throws Exception {
     // XXX: Check this method's semantic
 	checkCache(planetaDO, CHECK_UPDATE);
     checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
 
-    ObjetivoDAO objetivoDAO = new ObjetivoDAO();
-    objetivoDAO.init(connectionBean);
-
-   // planetaDO.setObjetivoList(objetivoDAO.ListByIdPlanetaID(planetaDO.getId()));
+    ObjetivoDAO objetivoDAO = (ObjetivoDAO) FactoryDAO.getDAO( //
+            ObjetivoDAO.class, connectionBean);
+    
+   planetaDO.setObjetivoList(objetivoDAO.listByPlanetId(planetaDO.getId()));
 
   }
   
@@ -349,20 +331,23 @@ public class PlanetaDAO extends BaseDAO {
 	checkCache(planetaDO, CHECK_UPDATE);
     checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
 
-    PersonajeDAO personajeDAO = new PersonajeDAO();
-    personajeDAO.init(connectionBean);
+    PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
+            PersonajeDAO.class, connectionBean);
 
-   // planetaDO.setPersonajeList(personajeDAO.ListByIdPlanetaId(planetaDO.getId()));
+   planetaDO.setPersonajeList(personajeDAO.listByPlanetId(planetaDO.getId()));
 
   }
   // --------------------------------------------------------------------------------
 
-  public void loadClaseLinternaRef(PlanetaDO planetaDO) throws SQLException {
+  public void loadClaseLinternaRef(PlanetaDO planetaDO) throws Exception {
     // XXX: Check this method's semantic
     checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
 
-    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
-    claseLinternaDAO.init(connectionBean);
+//    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
+//    claseLinternaDAO.init(connectionBean); //TODO USE FACTORY
+    
+    ClaseLinternaDAO claseLinternaDAO = (ClaseLinternaDAO) FactoryDAO.getDAO( //
+            ClaseLinternaDAO.class, connectionBean);
 
     Reference<ClaseLinternaDO> ref = planetaDO.getClaseLinternaRef();
 

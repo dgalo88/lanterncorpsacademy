@@ -12,9 +12,8 @@ public class PlanetaDO implements DataObject {
 	public static final String SECTOR = "sector";
 	public static final String COORDENADA_EN_X = "coordenada_en_x";
 	public static final String COORDENADA_EN_Y = "coordenada_en_y";
+//	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
 	
-	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
-	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
 
 	
 	// --------------------------------------------------------------------------------
@@ -26,14 +25,13 @@ public class PlanetaDO implements DataObject {
 	private float coordenada_en_x;
 	private float coordenada_en_y;
 
+	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
 	// --------------------------------------------------------------------------------
 
 	private List<PersonajeDO> personajeList = //
 	new ArrayList<PersonajeDO>();
 
-	//private List<ClaseLinternaDO> claseLinternaList = //
-		//new ArrayList<ClaseLinternaDO>();
-	
+
 	private List<ObjetivoDO> objetivoList = //
 		new ArrayList<ObjetivoDO>();
 	
@@ -115,15 +113,7 @@ public class PlanetaDO implements DataObject {
 	}
 
 	// --------------------------------------------------------------------------------
-/*
-	public List<ClaseLinternaDO> getClaseLinternaList() {
-		return claseLinternaList;
-	}
 
-	public void setClaseLinternaList(List<ClaseLinternaDO> claseLinternaList) {
-		this.claseLinternaList = claseLinternaList;
-	}
-*/
 	// --------------------------------------------------------------------------------
 
 	public List<ObjetivoDO> getObjetivoList() {
@@ -133,7 +123,5 @@ public class PlanetaDO implements DataObject {
 	public void setObjetivoList(List<ObjetivoDO> objetivoList) {
 		this.objetivoList = objetivoList;
 	}
-
-	
 
 }
