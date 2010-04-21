@@ -65,6 +65,9 @@ public class PersonajeDAO extends BaseDAO {
 	    GrupoDAO grupoDAO = new GrupoDAO(); 
 	    grupoDAO.init(connectionBean);
 	    
+	    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO(); 
+	    claseLinternaDAO.init(connectionBean);
+	    
 	    strbuf = new StringBuffer();
 
 	    strbuf.append("CREATE TABLE ");
@@ -89,9 +92,14 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(PersonajeDO.PLANETA_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(planetaDAO.getTableName());
+	    strbuf.append(", ");
 	    strbuf.append(PersonajeDO.GRUPO_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(grupoDAO.getTableName());
+	    strbuf.append(", ");
+	    strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
+	    strbuf.append(" INT REFERENCES   ");
+	    strbuf.append(claseLinternaDAO.getTableName());
 	    
 	    strbuf.append(")");
 
@@ -177,7 +185,12 @@ public class PersonajeDAO extends BaseDAO {
 	    Reference<GrupoDO> refGr = personajeDO.getGrupoRef();
 	    refGr.checkUpdate();
 	    strbuf.append(refGr.getIdAsString());
-	    
+	    strbuf.append(", ");
+
+	    Reference<ClaseLinternaDO> refCL = personajeDO.getClaseLinternaRef();
+	    refCL.checkUpdate();
+	    strbuf.append(refCL.getIdAsString());
+
 	    strbuf.append(")");
 
 	    System.err.println(strbuf.toString());
@@ -263,6 +276,10 @@ public class PersonajeDAO extends BaseDAO {
 	        refGr.setRefIdent(rs.getInt(PersonajeDO.GRUPO_ID));
 	        ret.setGrupoRef(refGr);
 	        
+	        Reference<ClaseLinternaDO> refCL = new Reference<ClaseLinternaDO>();
+	        refCL.setRefIdent(rs.getInt(PersonajeDO.CLASE_LINTERNA_ID));
+	        ret.setClaseLinternaRef(refCL);
+	        
 	        return (PersonajeDO) dtaSession.add(ret);
 	}
 
@@ -272,6 +289,86 @@ public class PersonajeDAO extends BaseDAO {
 		return null;
 	}
 
+	  // --------------------------------------------------------------------------------
+
+	  public List<PersonajeDO> listByPlanetaId(int planetaId) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(PersonajeDO.PLANETA_ID);
+	    strbuf.append(" = ");
+	    strbuf.append(planetaId);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    List<PersonajeDO> ret = new ArrayList<PersonajeDO>();
+
+	    while (rs.next()) {
+	      ret.add(resultSetToDO(rs));
+	    }
+
+	    return ret;
+	  }
+	  
+	  // --------------------------------------------------------------------------------
+
+	  public List<PersonajeDO> listByGrupoId(int grupoId) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(PersonajeDO.GRUPO_ID);
+	    strbuf.append(" = ");
+	    strbuf.append(grupoId);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    List<PersonajeDO> ret = new ArrayList<PersonajeDO>();
+
+	    while (rs.next()) {
+	      ret.add(resultSetToDO(rs));
+	    }
+
+	    return ret;
+	  }
+
+	  // --------------------------------------------------------------------------------
+
+	  public List<PersonajeDO> listByClaseLinternaId(int claseLinternaId) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
+	    strbuf.append(" = ");
+	    strbuf.append(claseLinternaId);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    List<PersonajeDO> ret = new ArrayList<PersonajeDO>();
+
+	    while (rs.next()) {
+	      ret.add(resultSetToDO(rs));
+	    }
+
+	    return ret;
+	  }
 	@Override
 	public DataObject loadById(int id) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
@@ -364,6 +461,14 @@ public class PersonajeDAO extends BaseDAO {
 	    Reference<GrupoDO> refGr = personajeDO.getGrupoRef();
 	    refGr.checkUpdate();
 	    strbuf.append(refGr.getIdAsString());
+	    
+	    strbuf.append(", ");
+	    
+	    strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
+	    strbuf.append(" = ");
+	    Reference<ClaseLinternaDO> refCL = personajeDO.getClaseLinternaRef();
+	    refCL.checkUpdate();
+	    strbuf.append(refCL.getIdAsString());
 	    
 	    strbuf.append(" WHERE ");
 	    strbuf.append(PersonajeDO.ID);
@@ -462,30 +567,5 @@ public class PersonajeDAO extends BaseDAO {
 
 	    personajeDO.setMisionPersonajeList(misionPersonajeDAO.listByPersonajeId(personajeDO.getId()));
 	  }
-	  
-	  public List<PersonajeDO> listByIdGrupoId(int grupoId) throws SQLException {
-		    StringBuffer strbuf = new StringBuffer();
-
-		    strbuf.append("SELECT * FROM ");
-		    strbuf.append(getTableName());
-
-		    strbuf.append(" WHERE ");
-		    strbuf.append(PersonajeDO.GRUPO_ID);
-		    strbuf.append(" = ");
-		    strbuf.append(grupoId);
-
-		    System.err.println(strbuf.toString());
-
-		    ResultSet rs = //
-		    connection.createStatement().executeQuery(strbuf.toString());
-
-		    List<PersonajeDO> ret = new ArrayList<PersonajeDO>();
-
-		    while (rs.next()) {
-		      ret.add(resultSetToDO(rs));
-		    }
-
-		    return ret;
-		  }
 	  
 }
