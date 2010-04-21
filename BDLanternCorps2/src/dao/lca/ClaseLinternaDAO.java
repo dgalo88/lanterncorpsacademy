@@ -344,4 +344,25 @@ public class ClaseLinternaDAO extends BaseDAO {
 				.getId()));
 
 	}
+	
+	public void loadPlanetaRef(ClaseLinternaDO claseLinternaDO) throws SQLException {
+		if(claseLinternaDO==null){
+			return;
+		}
+
+		checkClass(claseLinternaDO, ClaseLinternaDO.class, CHECK_UPDATE);
+
+		PlanetaDAO planetaDAO = new PlanetaDAO();
+		planetaDAO.init(connectionBean);
+
+		Reference<PlanetaDO> ref = claseLinternaDO.getPlanetaRef();
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
+
+		PlanetaDO planetaDO = //
+		(PlanetaDO) planetaDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(planetaDO);
+	}
 }
