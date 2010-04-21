@@ -233,11 +233,11 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 		ret.setId/*     */(rs.getInt(HabilidadClaseLinternaDO.ID));
 
 		Reference<ClaseLinternaDO> refCl = new Reference<ClaseLinternaDO>();
-		refCl.setRefIdent(rs.getInt(HabilidadDO.CLASE_ID));
+		refCl.setRefIdent(rs.getInt(HabilidadClaseLinternaDO.CLASE_LINTERNA_ID));
 		ret.setClaseLinternaRef(refCl);
 
 		Reference<HabilidadDO> refH = new Reference<HabilidadDO>();
-		refH.setRefIdent(rs.getInt(ClaseLinternaDO.HABILIDAD_ID));
+		refH.setRefIdent(rs.getInt(HabilidadClaseLinternaDO.HABILIDAD_ID));
 		ret.setHabilidadRef(refH);
 
 		return (HabilidadClaseLinternaDO) dtaSession.add(ret);
