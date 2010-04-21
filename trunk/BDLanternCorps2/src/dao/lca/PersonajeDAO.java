@@ -111,6 +111,15 @@ public class PersonajeDAO extends BaseDAO {
 
     strbuf.append("INSERT INTO ");
     strbuf.append(getTableName());
+    strbuf.append(" (");
+    strbuf.append(PersonajeDO.ID);
+    strbuf.append(", ");
+    strbuf.append(PersonajeDO.ALIAS);
+    strbuf.append(", ");
+    strbuf.append(PersonajeDO.PLANETA_ID);
+    strbuf.append(", ");
+    strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
+    strbuf.append(") ");
     strbuf.append(" VALUES (");
     strbuf.append(personajeDO.getId());
     strbuf.append(", ");
@@ -340,10 +349,13 @@ public class PersonajeDAO extends BaseDAO {
     ret.setUltimaFechaIngreso(rs.getDate(PersonajeDO.ULTIMA_FECHA_INGRESO));
     Reference<PlanetaDO> ref1 = new Reference<PlanetaDO>();
     ref1.setRefIdent(rs.getInt(PersonajeDO.PLANETA_ID));
+    ret.setPlanetaRef(ref1);
     Reference<GrupoDO> ref2 = new Reference<GrupoDO>();
     ref2.setRefIdent(rs.getInt(PersonajeDO.GRUPO_ID));
+    ret.setGrupoRef(ref2);
     Reference<ClaseLinternaDO> ref3 = new Reference<ClaseLinternaDO>();
     ref3.setRefIdent(rs.getInt(PersonajeDO.CLASE_LINTERNA_ID));
+    ret.setClaseLinternaRef(ref3);
         
     return (PersonajeDO) dtaSession.add(ret);
   }

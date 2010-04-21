@@ -9,9 +9,11 @@ import dao.api.InterfaceDAO;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
 import dao.lca.ClaseLinternaDAO;
+import dao.lca.ClaseLinternaDO;
 import dao.lca.GrupoDAO;
 import dao.lca.HabilidadDAO;
 import dao.lca.MisionClaseLinternaDAO;
+import dao.lca.MisionClaseLinternaDO;
 import dao.lca.MisionDAO;
 import dao.lca.MisionDO;
 import dao.lca.MisionPersonajeDAO;
@@ -75,7 +77,17 @@ public class test2 {
 		}
 		personajeDO=(PersonajeDO) pDAO.loadById(3);
 		pDAO.loadClaseLinternaRef(personajeDO);
-		//cDAO.l(personajeDO.getClaseLinternaRef().getRefValue())
+		System.out.println("aqui "+personajeDO.getClaseLinternaRef().getIdAsString());
+		cDAO.loadMisionClaseLinternaList(personajeDO.getClaseLinternaRef().getRefValue());
+		//cDAO.loadHabilidadClaseLinternaList(personajeDO.getClaseLinternaRef().getRefValue());
+		ClaseLinternaDO claseLinternaDO=personajeDO.getClaseLinternaRef().getRefValue();
+		Iterator<MisionClaseLinternaDO> mcIterator=claseLinternaDO.getMisionClaseLinternaList().iterator();
+		
+		while(mcIterator.hasNext()){
+			mcIterator.next();
+			System.out.println(1);
+		}
+		
 		pDAO.loadMisionPersonajeList(personajeDO);
 		mIterator=personajeDO.getMisionPersonajeList().iterator();
 		while(mIterator.hasNext()){
