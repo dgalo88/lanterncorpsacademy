@@ -334,4 +334,47 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 
 		return ret;
 	}
+
+	public void loadMisionRef(MisionClaseLinternaDO misionClaseDO) throws SQLException {
+		if(misionClaseDO==null){
+			return;
+		}
+
+		checkClass(misionClaseDO, UsuarioDO.class, CHECK_UPDATE);
+
+		MisionDAO misionDAO = new MisionDAO();
+		misionDAO.init(connectionBean);
+
+		Reference<MisionDO> ref = misionClaseDO.getMisionRef();
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
+
+		MisionDO misionDO = //
+		(MisionDO) misionDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(misionDO);
+	}
+	
+	public void loadClaseLinternaRef(MisionClaseLinternaDO misionClaseDO) throws SQLException {
+		if(misionClaseDO==null){
+			return;
+		}
+
+		checkClass(misionClaseDO, UsuarioDO.class, CHECK_UPDATE);
+
+		ClaseLinternaDAO claseDAO = new ClaseLinternaDAO();
+		claseDAO.init(connectionBean);
+
+		Reference<ClaseLinternaDO> ref = misionClaseDO.getClaseLinternaRef();
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
+
+		ClaseLinternaDO claseDO = //
+		(ClaseLinternaDO) claseDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(claseDO);
+	}
+
 }
