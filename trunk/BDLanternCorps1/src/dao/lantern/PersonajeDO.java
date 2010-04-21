@@ -19,6 +19,8 @@ public class PersonajeDO implements DataObject {
 	
 	public static final String PLANETA_ID = "planetaId";
 	public static final String GRUPO_ID = "grupoId";
+	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
+
 	
 	// --------------------------------------------------------------------------------
 

@@ -65,6 +65,9 @@ public class PersonajeDAO extends BaseDAO {
 	    GrupoDAO grupoDAO = new GrupoDAO(); 
 	    grupoDAO.init(connectionBean);
 	    
+	    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO(); 
+	    claseLinternaDAO.init(connectionBean);
+	    
 	    strbuf = new StringBuffer();
 
 	    strbuf.append("CREATE TABLE ");
@@ -89,9 +92,14 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(PersonajeDO.PLANETA_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(planetaDAO.getTableName());
+	    strbuf.append(", ");
 	    strbuf.append(PersonajeDO.GRUPO_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(grupoDAO.getTableName());
+	    strbuf.append(", ");
+	    strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
+	    strbuf.append(" INT REFERENCES   ");
+	    strbuf.append(claseLinternaDAO.getTableName());
 	    
 	    strbuf.append(")");
 
@@ -177,7 +185,12 @@ public class PersonajeDAO extends BaseDAO {
 	    Reference<GrupoDO> refGr = personajeDO.getGrupoRef();
 	    refGr.checkUpdate();
 	    strbuf.append(refGr.getIdAsString());
-	    
+	    strbuf.append(", ");
+
+	    Reference<ClaseLinternaDO> refCL = personajeDO.getClaseLinternaRef();
+	    refCL.checkUpdate();
+	    strbuf.append(refCL.getIdAsString());
+
 	    strbuf.append(")");
 
 	    System.err.println(strbuf.toString());
@@ -262,6 +275,10 @@ public class PersonajeDAO extends BaseDAO {
 	        Reference<GrupoDO> refGr = new Reference<GrupoDO>();
 	        refGr.setRefIdent(rs.getInt(PersonajeDO.GRUPO_ID));
 	        ret.setGrupoRef(refGr);
+	        
+	        Reference<ClaseLinternaDO> refCL = new Reference<ClaseLinternaDO>();
+	        refCL.setRefIdent(rs.getInt(PersonajeDO.CLASE_LINTERNA_ID));
+	        ret.setClaseLinternaRef(refCL);
 	        
 	        return (PersonajeDO) dtaSession.add(ret);
 	}
@@ -364,6 +381,14 @@ public class PersonajeDAO extends BaseDAO {
 	    Reference<GrupoDO> refGr = personajeDO.getGrupoRef();
 	    refGr.checkUpdate();
 	    strbuf.append(refGr.getIdAsString());
+	    
+	    strbuf.append(", ");
+	    
+	    strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
+	    strbuf.append(" = ");
+	    Reference<ClaseLinternaDO> refCL = personajeDO.getClaseLinternaRef();
+	    refCL.checkUpdate();
+	    strbuf.append(refCL.getIdAsString());
 	    
 	    strbuf.append(" WHERE ");
 	    strbuf.append(PersonajeDO.ID);
