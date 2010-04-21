@@ -7,8 +7,8 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-//import dao.api.FactoryDAO;
 import dao.api.Reference;
+import dao.api.FactoryDAO;
 
 public class ClaseLinternaDAO extends BaseDAO {
 
@@ -292,7 +292,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 	    return ret;
 	  }
 
-	  // --------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------
 
   private int getNextId() throws SQLException {
     StringBuffer strbuf = new StringBuffer();
@@ -358,4 +358,48 @@ public class ClaseLinternaDAO extends BaseDAO {
     ref.setRefValue(planetaDO);
   }
   
+// --------------------------------------------------------------------------------
+
+public void loadGrupoList(ClaseLinternaDO claseLinternaDO) throws Exception {
+  checkCache(claseLinternaDO, CHECK_UPDATE);
+
+  	GrupoDAO grupoDAO = (GrupoDAO) FactoryDAO.getDAO( //
+      GrupoDAO.class, connectionBean);
+
+  	claseLinternaDO.setGrupoList(grupoDAO.listByClaseLinternaId(claseLinternaDO.getId()));
+	}
+
+//--------------------------------------------------------------------------------
+
+public void loadPersonajeList(ClaseLinternaDO claseLinternaDO) throws Exception {
+  checkCache(claseLinternaDO, CHECK_UPDATE);
+
+  	PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
+  			PersonajeDAO.class, connectionBean);
+
+  	claseLinternaDO.setPersonajeList(personajeDAO.listByClaseLinternaId(claseLinternaDO.getId()));
+	}
+
+//--------------------------------------------------------------------------------
+
+public void loadHabilidadClaseLinternaList(ClaseLinternaDO claseLinternaDO) throws Exception {
+  checkCache(claseLinternaDO, CHECK_UPDATE);
+
+  HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO.getDAO( //
+		  HabilidadClaseLinternaDAO.class, connectionBean);
+
+  	claseLinternaDO.setHabilidadClaseLinternaList(habilidadClaseLinternaDAO.listByClaseLinternaId(claseLinternaDO.getId()));
+	}
+
+//--------------------------------------------------------------------------------
+
+public void loadMisionClaseLinternaList(ClaseLinternaDO claseLinternaDO) throws Exception {
+  checkCache(claseLinternaDO, CHECK_UPDATE);
+
+  MisionClaseLinternaDAO misionClaseLinternaDAO = (MisionClaseLinternaDAO) FactoryDAO.getDAO( //
+		  MisionClaseLinternaDAO.class, connectionBean);
+
+  	claseLinternaDO.setMisionClaseLinternaList(misionClaseLinternaDAO.listByClaseLinternaId(claseLinternaDO.getId()));
+	}
+
 }
