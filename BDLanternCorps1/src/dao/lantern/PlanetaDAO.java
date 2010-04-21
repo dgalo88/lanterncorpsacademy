@@ -7,6 +7,7 @@ import java.util.List;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+import dao.api.FactoryDAO;
 import dao.api.Reference;
 
 public class PlanetaDAO extends BaseDAO {
