@@ -212,6 +212,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 	      return ret;
 	}
 
+	// --------------------------------------------------------------------------------
+
 	private NivelHabilidadDO resultSetToDO(ResultSet rs) throws SQLException {
 		NivelHabilidadDO ret = //
 	        (NivelHabilidadDO) dtaSession.getDtaByKey( //
@@ -236,11 +238,15 @@ public class NivelHabilidadDAO extends BaseDAO {
 	        return (NivelHabilidadDO) dtaSession.add(ret);
 	}
 
+	  // --------------------------------------------------------------------------------
+
 	@Override
 	public List<DataObject> listAll() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	  // --------------------------------------------------------------------------------
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
@@ -265,6 +271,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 
 	    return null;
 	}
+
+	  // --------------------------------------------------------------------------------
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
@@ -342,5 +350,26 @@ public class NivelHabilidadDAO extends BaseDAO {
 
 		    return ret;
 		  }
+
+	  // --------------------------------------------------------------------------------
+
+	  public void loadHabilidadRef(NivelHabilidadDO nivelHabilidadDO) throws SQLException {
+	    // XXX: Check this method's semantic
+	    checkClass(nivelHabilidadDO, NivelHabilidadDO.class, CHECK_UPDATE);
+
+	    HabilidadDAO habilidadDAO = new HabilidadDAO();
+	    habilidadDAO.init(connectionBean);
+
+	    Reference<HabilidadDO> ref = nivelHabilidadDO.getHabilidadRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    HabilidadDO habilidadDO = //
+	    (HabilidadDO) habilidadDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(habilidadDO);
+	  }
 
 }
