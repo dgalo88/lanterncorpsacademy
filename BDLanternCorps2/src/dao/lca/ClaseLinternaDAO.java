@@ -320,4 +320,28 @@ public class ClaseLinternaDAO extends BaseDAO {
 				.listByHabilidadId(claseLinternaDO.getId()));
 
 	}
+
+	public void loadGrupoList(ClaseLinternaDO claseLinternaDO) throws Exception {
+		checkCache(claseLinternaDO, CHECK_UPDATE);
+		checkClass(claseLinternaDO, ClaseLinternaDO.class, CHECK_UPDATE);
+
+		GrupoDAO grupoDAO = (GrupoDAO) FactoryDAO.getDAO( //
+				GrupoDAO.class, connectionBean);
+
+		claseLinternaDO.setGrupoList(grupoDAO.listByIdGrupoId(claseLinternaDO
+				.getId()));
+
+	}
+
+	public void loadPersonajeList(ClaseLinternaDO claseLinternaDO) throws Exception {
+		checkCache(claseLinternaDO, CHECK_UPDATE);
+		checkClass(claseLinternaDO, ClaseLinternaDO.class, CHECK_UPDATE);
+
+		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
+				PersonajeDAO.class, connectionBean);
+
+		claseLinternaDO.setPersonajeList(personajeDAO.listByPersonajeId(claseLinternaDO
+				.getId()));
+
+	}
 }
