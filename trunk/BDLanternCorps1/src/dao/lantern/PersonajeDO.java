@@ -17,12 +17,8 @@ public class PersonajeDO implements DataObject {
 	public static final String NIVEL 					= "nivel";
 	public static final String ULTIMA_FECHA_INGRESO 	= "ultima_fecha_ingreso";
 	
-	public static final String USUARIO_ID = "usuarioId";
 	public static final String PLANETA_ID = "planetaId";
-	public static final String HABILIDAD_ACTIVA_ID = "habilidadActivaId";
-	public static final String MISION_PERSONAJE_ID = "misionPersonajeId";
 	public static final String GRUPO_ID = "grupoId";
-	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
 	
 	// --------------------------------------------------------------------------------
 
@@ -36,21 +32,17 @@ public class PersonajeDO implements DataObject {
 	private int nivel;
 	private Date ultima_fecha_ingreso;
 
-	private Reference<UsuarioDO> usuarioRef = new Reference<UsuarioDO>();
-
 	private Reference<PlanetaDO> planetaRef = new Reference<PlanetaDO>();
 	
 	private Reference<GrupoDO> grupoRef = new Reference<GrupoDO>();
+	
+	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
 	
 	private List<HabilidadActivaDO> habilidadActivaList = //
 		new ArrayList<HabilidadActivaDO>();
 
 	private List<MisionPersonajeDO> misionPersonajeList = //
 		new ArrayList<MisionPersonajeDO>();
-
-
-	private List<ClaseLinternaDO> claseLinternaList = //
-		new ArrayList<ClaseLinternaDO>();
 	
 		// --------------------------------------------------------------------------------
 
@@ -141,16 +133,6 @@ public class PersonajeDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<UsuarioDO> getUsuarioRef() {
-		return usuarioRef;
-	}
-
-	public void setUsuarioRef(Reference<UsuarioDO> usuarioRef) {
-		this.usuarioRef = usuarioRef;
-	}
-
-	// --------------------------------------------------------------------------------
-
 	public Reference<PlanetaDO> getPlanetaRef() {
 		return  planetaRef;
 	}
@@ -169,6 +151,7 @@ public class PersonajeDO implements DataObject {
 		this.grupoRef = grupoRef;
 	}
 	//----------------------------------------------------------------------------------
+	
 	public void setHabilidadActivaList(List<HabilidadActivaDO> habilidadActivaList) {
 		this.habilidadActivaList = habilidadActivaList;
 	}
@@ -189,15 +172,12 @@ public class PersonajeDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-
-	// --------------------------------------------------------------------------------
-
-	public void setClaseLinternaList(List<ClaseLinternaDO> claseLinternaList) {
-		this.claseLinternaList = claseLinternaList;
+	public void setClaseLinternaRef(Reference<ClaseLinternaDO> claseLinternaRef) {
+		this.claseLinternaRef = claseLinternaRef;
 	}
 
-	public List<ClaseLinternaDO> getClaseLinternaList() {
-		return claseLinternaList;
+	public Reference<ClaseLinternaDO> getClaseLinternaRef() {
+		return claseLinternaRef;
 	}
 	
 }
