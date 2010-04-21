@@ -249,6 +249,31 @@ public class UsuarioDAO extends BaseDAO {
 		return null;
 	}
 	
+	public List<UsuarioDO> listByPersonajeId(int personajeId) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(UsuarioDO.PERSONAJE_ID);
+	    strbuf.append(" = ");
+	    strbuf.append(personajeId);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    List<UsuarioDO> ret = new ArrayList<UsuarioDO>();
+
+	    while (rs.next()) {
+	      ret.add(resultSetToDO(rs));
+	    }
+
+	    return ret;
+	  }
+
 	@Override
 	public int countAll() throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
