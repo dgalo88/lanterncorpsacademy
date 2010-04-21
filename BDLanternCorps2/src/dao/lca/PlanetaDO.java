@@ -22,7 +22,6 @@ public class PlanetaDO implements DataObject {
 	// --------------------------------------------------------------------------------
 
 	private List<PersonajeDO> personajeList = new ArrayList<PersonajeDO>();
-	private List<ClaseLinternaDO> claseLinternaList = new ArrayList<ClaseLinternaDO>();
 	private List<ObjetivoDO> objetivoList = new ArrayList<ObjetivoDO>();
 	
 	// --------------------------------------------------------------------------------
@@ -94,15 +93,6 @@ public class PlanetaDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public List<ClaseLinternaDO> getClaseLinternaList() {
-		return claseLinternaList;
-	}
-
-	public void setClaseLinternaList(List<ClaseLinternaDO> claseLinternaList) {
-		this.claseLinternaList = claseLinternaList;
-	}
-
-	// --------------------------------------------------------------------------------
 
 	public List<ObjetivoDO> getObjetivoList() {
 		return objetivoList;
