@@ -9,29 +9,14 @@ import dao.api.BaseDAO;
 import dao.api.DataObject;
 
 public class NpcDAO extends BaseDAO {
-
-	@Override
-	public int countAll() throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
-
-	    strbuf.append("SELECT COUNT(*) FROM ");
-	    strbuf.append(getTableName());
-
-	    System.err.println(strbuf.toString());
-
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
-
-	    rs.next();
-
-	    return rs.getInt("count");
+	
+	public NpcDAO() {
+		// Empty
 	}
 
 	@Override
 	public void createTable() throws SQLException {
 	    StringBuffer strbuf;
-
-	    // ----------------------------------------
 
 	    strbuf = new StringBuffer();
 
@@ -73,7 +58,7 @@ public class NpcDAO extends BaseDAO {
 	    strbuf.append(NpcDO.DANO);
 	    strbuf.append(" INT,    ");
 	    strbuf.append(NpcDO.COLOR);
-	    strbuf.append(" INT    ");
+	    strbuf.append(" VARCHAR(15)    ");
 	    
 	    strbuf.append(")");
 
@@ -97,31 +82,6 @@ public class NpcDAO extends BaseDAO {
 	}
 
 	@Override
-	public void delete(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_DELETE);
-	    checkClass(dataObject, HabilidadDO.class, CHECK_DELETE);
-
-	    NpcDO npcDO = (NpcDO) dataObject;
-
-	    StringBuffer strbuf = new StringBuffer();
-
-	    strbuf.append("DELETE FROM ");
-	    strbuf.append(getTableName());
-
-	    strbuf.append(" WHERE ");
-	    strbuf.append(NpcDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(npcDO.getId());
-
-	    System.err.println(strbuf.toString());
-
-	    connection.createStatement().execute(strbuf.toString());
-
-	    dtaSession.del(dataObject);
-
-	}
-
-	@Override
 	public void insert(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_INSERT);
 	    checkClass(dataObject, NpcDO.class, CHECK_INSERT);
@@ -135,7 +95,7 @@ public class NpcDAO extends BaseDAO {
 	    strbuf.append("INSERT INTO ");
 	    strbuf.append(getTableName());
 	    strbuf.append(" VALUES (");
-	    strbuf.append(npcDO.getId()); // INSTANCIA
+	    strbuf.append(npcDO.getId());
 	    strbuf.append(", ");
 	    strbuf.append(singleQuotes(npcDO.getNombre()));
 	    strbuf.append(", ");
@@ -145,7 +105,7 @@ public class NpcDAO extends BaseDAO {
 	    strbuf.append(", ");
 	    strbuf.append(npcDO.getDano());
 	    strbuf.append(", ");
-	    strbuf.append(npcDO.getColor());
+	    strbuf.append(singleQuotes(npcDO.getColor()));
 	    
 	    strbuf.append(")");
 
@@ -156,110 +116,11 @@ public class NpcDAO extends BaseDAO {
 	    dtaSession.add(dataObject);
 
 	}
-
-	private int getNextId() throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
-
-	    strbuf.append("SELECT nextval(");
-	    strbuf.append(singleQuotes("seq_" + getTableName()));
-	    strbuf.append(")");
-
-	    System.err.println(strbuf.toString());
-
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
-
-	    if (!rs.next()) {
-		    throw new IllegalStateException("!rs.next()");
-		   }
-
-		return rs.getInt("nextval");
-	}
-
-	@Override
-	public List<DataObject> listAll(int lim, int off) throws SQLException {
-		   StringBuffer strbuf = new StringBuffer();
-
-	       strbuf.append("SELECT * FROM ");
-	       strbuf.append(getTableName());
-
-	      if (lim >= 0 && off >= 0) {
-	         strbuf.append(" LIMIT  ");
-	         strbuf.append(lim);
-	         strbuf.append(" OFFSET ");
-	         strbuf.append(off);
-	        }
-
-	    System.err.println(strbuf.toString());
-
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
-
-	    List<DataObject> ret = new ArrayList<DataObject>();
-
-	    while (rs.next()) {
-	        ret.add(resultSetToDO(rs));
-	      }
-
-	      return ret;
-	}
-
-	private NpcDO resultSetToDO(ResultSet rs) throws SQLException {
-	  	  NpcDO ret = //
-	  	      (NpcDO) dtaSession.getDtaByKey( //
-	  	      		NpcDO.class, rs.getInt(NpcDO.ID));
-
-	  	      if (ret != null) {
-	  	        return ret;
-	  	      }
-
-	  	      ret = new NpcDO();
-
-	  	      ret.setId/*     */(rs.getInt(HabilidadDO.ID));
-	  	      ret.setNombre/*   */(rs.getString(HabilidadDO.NOMBRE));
-	  	      ret.setNivel((rs.getInt(NpcDO.NIVEL)));
-	  	      ret.setSalud((rs.getInt(NpcDO.SALUD)));
-	  	      ret.setDano((rs.getInt(NpcDO.DANO)));
-	  	      ret.setColor((rs.getString(NpcDO.COLOR)));
-	  	      
-	  	      return (NpcDO) dtaSession.add(ret);	
-	}
-
-	@Override
-	public List<DataObject> listAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataObject loadById(int id) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
-
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
-
-	    strbuf.append(" WHERE ");
-	    strbuf.append(NpcDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(id);
-
-	    System.err.println(strbuf.toString());
-
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
-
-	    if (rs.next()) {
-	      return resultSetToDO(rs);
-	    }
-
-	    return null;
-		
-	}
-
+	
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
-	    checkClass(dataObject, HabilidadDO.class, CHECK_UPDATE);
+	    checkClass(dataObject, NpcDO.class, CHECK_UPDATE);
 
 	    NpcDO npcDO = (NpcDO) dataObject;
 
@@ -309,5 +170,149 @@ public class NpcDAO extends BaseDAO {
 	    connection.createStatement().execute(strbuf.toString());
 
 	}
+	
+	@Override
+	public void delete(DataObject dataObject) throws SQLException {
+	    checkCache(dataObject, CHECK_DELETE);
+	    checkClass(dataObject, NpcDO.class, CHECK_DELETE);
 
+	    NpcDO npcDO = (NpcDO) dataObject;
+
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("DELETE FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(NpcDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(npcDO.getId());
+
+	    System.err.println(strbuf.toString());
+
+	    connection.createStatement().execute(strbuf.toString());
+
+	    dtaSession.del(dataObject);
+
+	}
+	
+	@Override
+	public DataObject loadById(int id) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(NpcDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(id);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
+	    }
+
+	    return null;
+		
+	}
+	
+	@Override
+	public List<DataObject> listAll(int lim, int off) throws SQLException {
+		   StringBuffer strbuf = new StringBuffer();
+
+	       strbuf.append("SELECT * FROM ");
+	       strbuf.append(getTableName());
+
+	      if (lim >= 0 && off >= 0) {
+	         strbuf.append(" LIMIT  ");
+	         strbuf.append(lim);
+	         strbuf.append(" OFFSET ");
+	         strbuf.append(off);
+	        }
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    List<DataObject> ret = new ArrayList<DataObject>();
+
+	    while (rs.next()) {
+	        ret.add(resultSetToDO(rs));
+	      }
+
+	      return ret;
+	}
+
+	@Override
+	public int countAll() throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT COUNT(*) FROM ");
+	    strbuf.append(getTableName());
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    rs.next();
+
+	    return rs.getInt("count");
+	}
+	
+	private int getNextId() throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT nextval(");
+	    strbuf.append(singleQuotes("seq_" + getTableName()));
+	    strbuf.append(")");
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (!rs.next()) {
+		    throw new IllegalStateException("!rs.next()");
+		   }
+
+		return rs.getInt("nextval");
+	}
+
+	private NpcDO resultSetToDO(ResultSet rs) throws SQLException {
+	  	  NpcDO ret = //
+	  	      (NpcDO) dtaSession.getDtaByKey( //
+	  	      		NpcDO.class, rs.getInt(NpcDO.ID));
+
+	  	      if (ret != null) {
+	  	        return ret;
+	  	      }
+
+	  	      ret = new NpcDO();
+
+	  	      ret.setId/*     */(rs.getInt(HabilidadDO.ID));
+	  	      ret.setNombre/*   */(rs.getString(HabilidadDO.NOMBRE));
+	  	      ret.setNivel((rs.getInt(NpcDO.NIVEL)));
+	  	      ret.setSalud((rs.getInt(NpcDO.SALUD)));
+	  	      ret.setDano((rs.getInt(NpcDO.DANO)));
+	  	      ret.setColor((rs.getString(NpcDO.COLOR)));
+	  	      
+	  	      return (NpcDO) dtaSession.add(ret);	
+	}
+
+	@Override
+	public List<DataObject> listAll() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+	
 }
