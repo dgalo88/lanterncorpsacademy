@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import dao.api.BaseDAO;
 import dao.api.DataObject; //import dao.api.FactoryDAO;
+import dao.api.FactoryDAO;
 import dao.api.Reference;
 
 public class GrupoDAO extends BaseDAO {
@@ -315,5 +316,39 @@ public class GrupoDAO extends BaseDAO {
 		}
 
 		return ret;
+	}
+
+	public void loadPersonajeList(GrupoDO grupoDO) throws Exception {
+		checkCache(grupoDO, CHECK_UPDATE);
+		checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
+
+		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
+				PersonajeDAO.class, connectionBean);
+
+		grupoDO.setPersonajeList(personajeDAO
+				.listByPersonajeId(grupoDO.getId()));
+
+	}
+
+	public void loadClaseLinternaRef(GrupoDO grupoDO)
+			throws SQLException {
+		if (grupoDO == null) {
+			return;
+		}
+
+		checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
+
+		ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
+		claseLinternaDAO.init(connectionBean);
+
+		Reference<ClaseLinternaDO> ref = grupoDO.getClaseLinternaRef();
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
+
+		ClaseLinternaDO claseLinternaDO = //
+		(ClaseLinternaDO) claseLinternaDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(claseLinternaDO);
 	}
 }
