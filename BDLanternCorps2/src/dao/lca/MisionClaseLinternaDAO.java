@@ -263,4 +263,38 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 		return (MisionClaseLinternaDO) dtaSession.add(ret);
 	}
 
+	public List<MisionClaseLinternaDO> listByIdMisionId(int misionId)
+			throws SQLException {
+
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(MisionClaseLinternaDO.MISION_ID);
+		strbuf.append(" = ");
+		strbuf.append(misionId);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<MisionClaseLinternaDO> ret = new ArrayList<MisionClaseLinternaDO>();
+		MisionClaseLinternaDO mcl;
+
+		while (rs.next()) {
+			mcl = (MisionClaseLinternaDO) dtaSession.getDtaByKey( //
+					MisionClaseLinternaDO.class, rs.getInt(MisionClaseLinternaDO.ID));
+
+			if (mcl == null) {
+				mcl = (MisionClaseLinternaDO) dtaSession.add(resultSetToDO(rs));
+			}
+
+			ret.add(mcl);
+		}
+
+		return ret;
+	}
 }
