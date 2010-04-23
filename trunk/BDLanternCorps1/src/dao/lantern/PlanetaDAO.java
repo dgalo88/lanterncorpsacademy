@@ -55,7 +55,9 @@ public class PlanetaDAO extends BaseDAO {
     strbuf.append(PlanetaDO.COORDENADA_EN_X);
     strbuf.append(" FLOAT,    ");
     strbuf.append(PlanetaDO.COORDENADA_EN_Y);
-    strbuf.append(" FLOAT,    ");
+    strbuf.append(" FLOAT    ");
+    
+    strbuf.append(" )");
     
     System.err.println(strbuf.toString());
 
