@@ -47,6 +47,13 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 
     // ----------------------------------------
 
+    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
+    claseLinternaDAO.init(connectionBean);
+    
+    MisionDAO misionDAO = new MisionDAO();
+    misionDAO.init(connectionBean);
+    
+    
     strbuf = new StringBuffer();
 
     strbuf.append("CREATE TABLE ");
@@ -55,9 +62,12 @@ public class MisionClaseLinternaDAO extends BaseDAO {
     strbuf.append(MisionClaseLinternaDO.ID);
     strbuf.append(" INT PRIMARY KEY, ");
     strbuf.append(MisionClaseLinternaDO.CLASE_LINTERNA_ID);
-    strbuf.append(" STRING REFERENCES,   ");
+    strbuf.append(" INT REFERENCES   ");
+    strbuf.append(claseLinternaDAO.getTableName());
+    strbuf.append(", ");
     strbuf.append(MisionClaseLinternaDO.MISION_ID);
-    strbuf.append(" STRING REFERENCES   ");
+    strbuf.append(" INT REFERENCES   ");
+    strbuf.append(misionDAO.getTableName());
     strbuf.append(")");
     
     System.err.println(strbuf.toString());

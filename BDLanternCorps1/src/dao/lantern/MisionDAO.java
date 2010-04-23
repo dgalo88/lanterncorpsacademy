@@ -56,7 +56,7 @@ public class MisionDAO extends BaseDAO {
     strbuf.append(MisionDO.PUNTOS_DE_ENTRENAMIENTO_GANADOS);
     strbuf.append(" INT,    ");
     strbuf.append(MisionDO.NIVEL_NECESARIO);
-    strbuf.append(" INT,    ");
+    strbuf.append(" INT    ");
     strbuf.append(")");
 
     System.err.println(strbuf.toString());

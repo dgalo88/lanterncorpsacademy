@@ -47,9 +47,6 @@ public class GrupoDAO extends BaseDAO {
 
 		// ----------------------------------------
 
-		GrupoDAO grupoDAO = new GrupoDAO(); // Used to make the FK
-		grupoDAO.init(connectionBean);
-
 		ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
 		claseLinternaDAO.init(connectionBean);
 
