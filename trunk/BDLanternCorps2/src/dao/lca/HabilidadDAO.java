@@ -19,6 +19,7 @@ public class HabilidadDAO extends BaseDAO {
 
 	@Override
 	public void createTable() throws SQLException {
+		
 		StringBuffer strbuf;
 
 		// ----------------------------------------

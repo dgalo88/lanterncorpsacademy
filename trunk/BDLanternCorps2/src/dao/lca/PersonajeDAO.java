@@ -412,6 +412,8 @@ public class PersonajeDAO extends BaseDAO {
 		ref.setRefValue(grupoDO);
 	}
 
+	// --------------------------------------------------------------------------------
+
 	public void loadMisionPersonajeList(PersonajeDO personajeDO)
 			throws Exception {
 		checkCache(personajeDO, CHECK_UPDATE);
@@ -435,6 +437,8 @@ public class PersonajeDAO extends BaseDAO {
 				.listByPersonajeId(personajeDO.getId()));
 
 	}
+
+	// --------------------------------------------------------------------------------
 
 	public List<PersonajeDO> listByPersonajeId(int claseLinternaId)
 			throws SQLException {
@@ -473,22 +477,27 @@ public class PersonajeDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	/*
-	 * public List<PersonajeDO> listRankin() throws SQLException {
-	 * 
-	 * StringBuffer strbuf = new StringBuffer(); strbuf.append("SELECT" +
-	 * PersonajeDO.ALIAS + "," + PersonajeDO.NIVEL); strbuf.append(","+
-	 * PersonajeDO.CLASE_LINTERNA_ID + "FROM "); strbuf.append(getTableName());
-	 * strbuf.append("ODERBY BY nivel, experiencia");
-	 * System.err.println(strbuf.toString()); ResultSet rs = //
-	 * connection.createStatement().executeQuery(strbuf.toString());
-	 * 
-	 * List<PersonajeDO> ret = new ArrayList<PersonajeDO>(); PersonajeDO per;
-	 * 
-	 * while (rs.next()){ per=resultSetToDO(rs); loadClaseLinternaRef(per);
-	 * ret.add(per); }
-	 * 
-	 * return ret; }
-	 */
+	public List<PersonajeDO> listRankin() throws SQLException {
+
+		StringBuffer strbuf = new StringBuffer();
+		strbuf.append("SELECT	");
+		strbuf.append("*	FROM ");
+		strbuf.append(getTableName());
+		strbuf.append("ODERBY BY nivel, experiencia");
+		System.err.println(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<PersonajeDO> ret = new ArrayList<PersonajeDO>();
+		PersonajeDO per;
+
+		while (rs.next()) {
+			per = resultSetToDO(rs);
+			loadClaseLinternaRef(per);
+			ret.add(per);
+		}
+
+		return ret;
+	}
 
 }

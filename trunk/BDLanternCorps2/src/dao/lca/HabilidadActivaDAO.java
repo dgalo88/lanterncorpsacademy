@@ -24,8 +24,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 		strbuf.append(getTableName());
 
 		System.err.println(strbuf.toString());
-		ResultSet rs = connection.createStatement().executeQuery(
-				strbuf.toString());
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
 		rs.next();
 
 		return rs.getInt("count");
@@ -254,8 +253,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public List<HabilidadActivaDO> listByHabilidadId(int HabilidadId)
-			throws SQLException {
+	public List<HabilidadActivaDO> listByHabilidadId(int HabilidadId) throws SQLException {
 
 		StringBuffer strbuf = new StringBuffer();
 		strbuf.append("SELECT * FROM ");
@@ -278,8 +276,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public List<HabilidadActivaDO> listByPersonajeId(int PersonajeId)
-			throws SQLException {
+	public List<HabilidadActivaDO> listByPersonajeId(int PersonajeId) throws SQLException {
 
 		StringBuffer strbuf = new StringBuffer();
 		strbuf.append("SELECT * FROM ");
@@ -326,8 +323,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public void loadPersonajeRef(HabilidadActivaDO habilidadDO)
-			throws SQLException {
+	public void loadPersonajeRef(HabilidadActivaDO habilidadDO) throws SQLException {
 		if (habilidadDO == null) {
 			return;
 		}
@@ -348,8 +344,10 @@ public class HabilidadActivaDAO extends BaseDAO {
 		ref.setRefValue(personajeDO);
 	}
 
-	public void loadHabilidadRef(HabilidadActivaDO habilidadActivaDO)
-			throws SQLException {
+	// --------------------------------------------------------------------------------
+
+	public void loadHabilidadRef(HabilidadActivaDO habilidadActivaDO) throws SQLException {
+		
 		if (habilidadActivaDO == null) {
 			return;
 		}
@@ -369,4 +367,5 @@ public class HabilidadActivaDAO extends BaseDAO {
 
 		ref.setRefValue(habilidadDO);
 	}
+	
 }

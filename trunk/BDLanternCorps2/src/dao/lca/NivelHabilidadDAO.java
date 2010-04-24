@@ -14,6 +14,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 		// Empty
 	}
 
+	// --------------------------------------------------------------------------------
+
 	@Override
 	public int countAll() throws SQLException {
 
@@ -28,6 +30,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 
 		return rs.getInt("count");
 	}
+
+	// --------------------------------------------------------------------------------
 
 	@Override
 	public void createTable() throws SQLException {
@@ -93,6 +97,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 		connection.createStatement().execute(strbuf.toString());
 	}
 
+	// --------------------------------------------------------------------------------
+
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
 
@@ -113,6 +119,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 		connection.createStatement().execute(strbuf.toString());
 		dtaSession.del(dataObject);
 	}
+
+	// --------------------------------------------------------------------------------
 
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
@@ -147,6 +155,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 		dtaSession.add(dataObject);
 	}
 
+	// --------------------------------------------------------------------------------
+
 	private int getNextId() throws SQLException {
 
 		StringBuffer strbuf = new StringBuffer();
@@ -163,6 +173,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 		}
 		return rs.getInt("nextval");
 	}
+
+	// --------------------------------------------------------------------------------
 
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
@@ -189,10 +201,14 @@ public class NivelHabilidadDAO extends BaseDAO {
 		return ret;
 	}
 
+	// --------------------------------------------------------------------------------
+
 	@Override
 	public List<DataObject> listAll() throws SQLException {
 		return listAll(-1, -1);
 	}
+
+	// --------------------------------------------------------------------------------
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
@@ -214,6 +230,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 		}
 		return null;
 	}
+
+	// --------------------------------------------------------------------------------
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
@@ -247,6 +265,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 		connection.createStatement().execute(strbuf.toString());
 	}
 
+	// --------------------------------------------------------------------------------
+
 	public List<NivelHabilidadDO> listByHabilidadId(int HabilidadId)
 			throws SQLException {
 
@@ -268,6 +288,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 		}
 		return ret;
 	}
+
+	// --------------------------------------------------------------------------------
 
 	private NivelHabilidadDO resultSetToDO(ResultSet rs) throws SQLException {
 		NivelHabilidadDO ret = (NivelHabilidadDO) dtaSession.getDtaByKey( //
@@ -292,6 +314,8 @@ public class NivelHabilidadDAO extends BaseDAO {
 
 	}
 
+	// --------------------------------------------------------------------------------
+
 	public void loadHabilidadRef(HabilidadActivaDO habilidadActivaDO)
 			throws SQLException {
 		if (habilidadActivaDO == null) {
@@ -313,4 +337,5 @@ public class NivelHabilidadDAO extends BaseDAO {
 
 		ref.setRefValue(habilidadDO);
 	}
+
 }
