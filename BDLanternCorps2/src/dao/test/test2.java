@@ -2,7 +2,6 @@ package dao.test;
 
 import java.util.Iterator;
 import java.util.List;
-
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 import dao.api.InterfaceDAO;
@@ -10,22 +9,22 @@ import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
 import dao.lca.ClaseLinternaDAO;
 import dao.lca.ClaseLinternaDO;
-import dao.lca.GrupoDAO;
-import dao.lca.HabilidadDAO;
-import dao.lca.MisionClaseLinternaDAO;
+//import dao.lca.GrupoDAO;
+//import dao.lca.HabilidadDAO;
+//import dao.lca.MisionClaseLinternaDAO;
 import dao.lca.MisionClaseLinternaDO;
 import dao.lca.MisionDAO;
 import dao.lca.MisionDO;
-import dao.lca.MisionPersonajeDAO;
+//import dao.lca.MisionPersonajeDAO;
 import dao.lca.MisionPersonajeDO;
-import dao.lca.NpcDAO;
+//import dao.lca.NpcDAO;
 import dao.lca.ObjetivoDAO;
 import dao.lca.ObjetivoDO;
-import dao.lca.OrdenDAO;
+//import dao.lca.OrdenDAO;
 import dao.lca.OrdenDO;
 import dao.lca.PersonajeDAO;
 import dao.lca.PersonajeDO;
-import dao.lca.PlanetaDAO;
+//import dao.lca.PlanetaDAO;
 import dao.lca.UsuarioDAO;
 import dao.lca.UsuarioDO;
 
@@ -39,17 +38,17 @@ public class test2 {
 		// Instanciar DAO
 		UsuarioDAO uDAO = (UsuarioDAO) FactoryDAO.getDAO(UsuarioDAO.class, conn);
 		PersonajeDAO pDAO = (PersonajeDAO) FactoryDAO.getDAO(PersonajeDAO.class, conn);
-		InterfaceDAO pmDAO = FactoryDAO.getDAO(MisionPersonajeDAO.class, conn);
+		//InterfaceDAO pmDAO = FactoryDAO.getDAO(MisionPersonajeDAO.class, conn);
 		ClaseLinternaDAO cDAO = (ClaseLinternaDAO) FactoryDAO.getDAO(ClaseLinternaDAO.class, conn);
-		InterfaceDAO plDAO = FactoryDAO.getDAO(PlanetaDAO.class, conn);
-		InterfaceDAO gDAO = FactoryDAO.getDAO(GrupoDAO.class, conn);
+		//InterfaceDAO plDAO = FactoryDAO.getDAO(PlanetaDAO.class, conn);
+		//InterfaceDAO gDAO = FactoryDAO.getDAO(GrupoDAO.class, conn);
 		InterfaceDAO mDAO = FactoryDAO.getDAO(MisionDAO.class, conn);
-		InterfaceDAO oDAO = FactoryDAO.getDAO(OrdenDAO.class, conn);
+		//InterfaceDAO oDAO = FactoryDAO.getDAO(OrdenDAO.class, conn);
 		InterfaceDAO obDAO = FactoryDAO.getDAO(ObjetivoDAO.class, conn);
-		InterfaceDAO npcDAO = FactoryDAO.getDAO(NpcDAO.class, conn);
-		InterfaceDAO mcDAO = FactoryDAO.getDAO(MisionClaseLinternaDAO.class,
-				conn);
-		InterfaceDAO hDAO = FactoryDAO.getDAO(HabilidadDAO.class, conn);
+		//InterfaceDAO npcDAO = FactoryDAO.getDAO(NpcDAO.class, conn);
+		//InterfaceDAO mcDAO = FactoryDAO.getDAO(MisionClaseLinternaDAO.class,
+		//		conn);
+		//InterfaceDAO hDAO = FactoryDAO.getDAO(HabilidadDAO.class, conn);
 		
 		UsuarioDO usuarioDO=new UsuarioDO();
 		usuarioDO.setClave("ROJOROJO");
