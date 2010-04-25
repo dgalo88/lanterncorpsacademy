@@ -104,7 +104,7 @@ public class OrdenDAO extends BaseDAO {
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_INSERT);
-		checkClass(dataObject, ObjetivoDO.class, CHECK_INSERT);
+		checkClass(dataObject, OrdenDO.class, CHECK_INSERT);
 
 		OrdenDO orden = (OrdenDO) dataObject;
 

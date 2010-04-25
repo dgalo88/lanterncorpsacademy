@@ -142,8 +142,6 @@ public class ObjetivoDAO extends BaseDAO {
 		strbuf.append(", ");
 		strbuf.append(singleQuotes(objetivoDO.getDescripcion()));
 		strbuf.append(", ");
-		strbuf.append(singleQuotes(objetivoDO.getDescripcion()));
-		strbuf.append(", ");
 		strbuf.append(objetivoDO.getNumeroDeNpc());
 		strbuf.append(", ");
 		Reference<PlanetaDO> refPl = objetivoDO.getPlanetaRef();
