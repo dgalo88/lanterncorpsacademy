@@ -92,10 +92,10 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(" INT,   ");
 	    strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO); 
 	    strbuf.append(" DATE,   ");
-	    strbuf.append(PersonajeDO.USUARIO_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(usuarioDAO.getTableName());
-	    strbuf.append(", ");
+//	    strbuf.append(PersonajeDO.USUARIO_ID);
+//	    strbuf.append(" INT REFERENCES   ");
+//	    strbuf.append(usuarioDAO.getTableName());
+//	    strbuf.append(", ");
 	    strbuf.append(PersonajeDO.PLANETA_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(planetaDAO.getTableName());
@@ -156,7 +156,7 @@ public class PersonajeDAO extends BaseDAO {
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, NpcDO.class, CHECK_INSERT);
+	    checkClass(dataObject, PersonajeDO.class, CHECK_INSERT);
 
 	    PersonajeDO personajeDO = (PersonajeDO) dataObject;
 
@@ -184,23 +184,23 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(personajeDO.getUltimaFechaIngreso());
 	    strbuf.append(", ");
 
-	    Reference<UsuarioDO> refU = personajeDO.getUsuarioRef();
-	    refU.checkUpdate();
-	    strbuf.append(refU.getIdAsString());
-	    strbuf.append(", ");
+//	    Reference<UsuarioDO> refU = personajeDO.getUsuarioRef();
+//	    refU.checkInsert();
+//	    strbuf.append(refU.getIdAsString());
+//	    strbuf.append(", ");
 	    
 	    Reference<PlanetaDO> refPl = personajeDO.getPlanetaRef();
-	    refPl.checkUpdate();
+	    refPl.checkInsert();
 	    strbuf.append(refPl.getIdAsString());
 	    strbuf.append(", ");
 
 	    Reference<GrupoDO> refGr = personajeDO.getGrupoRef();
-	    refGr.checkUpdate();
+	    refGr.checkInsert();
 	    strbuf.append(refGr.getIdAsString());
 	    strbuf.append(", ");
 
 	    Reference<ClaseLinternaDO> refCL = personajeDO.getClaseLinternaRef();
-	    refCL.checkUpdate();
+	    refCL.checkInsert();
 	    strbuf.append(refCL.getIdAsString());
 
 	    strbuf.append(")");
@@ -280,9 +280,9 @@ public class PersonajeDAO extends BaseDAO {
 	        ret.setNivel/*						*/(rs.getInt(PersonajeDO.NIVEL));
 	        ret.setUltimaFechaIngreso/*     	*/(rs.getDate(PersonajeDO.ULTIMA_FECHA_INGRESO));
 
-	        Reference<UsuarioDO> refU = new Reference<UsuarioDO>();
-	        refU.setRefIdent(rs.getInt(PersonajeDO.USUARIO_ID));
-	        ret.setUsuarioRef(refU);
+//	        Reference<UsuarioDO> refU = new Reference<UsuarioDO>();
+//	        refU.setRefIdent(rs.getInt(PersonajeDO.USUARIO_ID));
+//	        ret.setUsuarioRef(refU);
 	        
 	        Reference<PlanetaDO> refPl = new Reference<PlanetaDO>();
 	        refPl.setRefIdent(rs.getInt(PersonajeDO.PLANETA_ID));

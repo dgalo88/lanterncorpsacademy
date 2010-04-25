@@ -82,16 +82,16 @@ public class HabilidadDAO extends BaseDAO {
 	    strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
 	    strbuf.append(" INT CHECK (costo_aprendizaje>=0),    ");
 	    strbuf.append(HabilidadDO.TIPO);
-	    strbuf.append(" INT,    ");
-	    strbuf.append(HabilidadDO.CLASE_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(habilidadClaseLinternaDAO.getTableName()+", ");
-	    strbuf.append(HabilidadDO.NIVEL_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(nivelHabilidadDAO.getTableName()+", ");
-	    strbuf.append(HabilidadDO.HAB_ACTIVA_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(habilidadActivaDAO.getTableName());
+	    strbuf.append(" INT    ");
+//	    strbuf.append(HabilidadDO.CLASE_ID);
+//	    strbuf.append(" INT REFERENCES   ");
+//	    strbuf.append(habilidadClaseLinternaDAO.getTableName()+", ");
+//	    strbuf.append(HabilidadDO.NIVEL_ID);
+//	    strbuf.append(" INT REFERENCES   ");
+//	    strbuf.append(nivelHabilidadDAO.getTableName()+", ");
+//	    strbuf.append(HabilidadDO.HAB_ACTIVA_ID);
+//	    strbuf.append(" INT REFERENCES   ");
+//	    strbuf.append(habilidadActivaDAO.getTableName());
 	    strbuf.append(")");
 
 	    System.err.println(strbuf.toString());
