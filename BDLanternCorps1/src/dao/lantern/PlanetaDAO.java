@@ -101,10 +101,10 @@ public class PlanetaDAO extends BaseDAO {
     strbuf.append(planetaDO.getCoordenadaEnX());
     strbuf.append(", ");
     strbuf.append(planetaDO.getCoordenadaEnY());
-    strbuf.append(", ");
-    Reference<ClaseLinternaDO> refU = planetaDO.getClaseLinternaRef();
-    refU.checkInsert();
-    strbuf.append(refU.getIdAsString());
+//    strbuf.append(", ");
+//    Reference<ClaseLinternaDO> refU = planetaDO.getClaseLinternaRef();
+//    refU.checkInsert();
+//    strbuf.append(refU.getIdAsString());
     
     strbuf.append(")");
 

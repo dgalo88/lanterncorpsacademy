@@ -16,6 +16,7 @@ import dao.lantern.MisionDAO;
 import dao.lantern.MisionDO;
 import dao.lantern.MisionPersonajeDAO;
 import dao.lantern.MisionPersonajeDO;
+import dao.lantern.NivelHabilidadDAO;
 import dao.lantern.NpcDAO;
 import dao.lantern.ObjetivoDAO;
 import dao.lantern.ObjetivoDO;
@@ -57,6 +58,7 @@ public class TestDAOs {
 	                InterfaceDAO hDAO = FactoryDAO.getDAO(HabilidadDAO.class, conn);
 	                InterfaceDAO hcDAO = FactoryDAO.getDAO(HabilidadClaseLinternaDAO.class, conn);
 	                InterfaceDAO haDAO = FactoryDAO.getDAO(HabilidadActivaDAO.class, conn);
+	                InterfaceDAO nhDAO = FactoryDAO.getDAO(NivelHabilidadDAO.class, conn);
 
 	               
 	                // CREATE TABLE
@@ -66,13 +68,14 @@ public class TestDAOs {
 	                obDAO.createTable();
 	                oDAO.createTable();
 	                gDAO.createTable();
-	                uDAO.createTable();  //TODO make them work!
 	                pDAO.createTable();
+	                uDAO.createTable();  //TODO make them work!
 	                pmDAO.createTable();
 
 	                npcDAO.createTable();
 	                mcDAO.createTable();
 	                hDAO.createTable(); //TODO este en consecuencia tampoco sirve
+	                nhDAO.createTable();
 	                haDAO.createTable();
 	                hcDAO.createTable();
 
@@ -179,7 +182,7 @@ public class TestDAOs {
 	                        udo[ROJO].setClave("ROJOROJO");
 	                        udo[AZUL].setClave("AZULAZUL");
 	                        udo[VERDE].setClave("VERDEVERDE");
-	                        udo[AMARILLO].setClave("AMARILLOAMARILLO");
+	                        udo[AMARILLO].setClave("ILLOAMARILLO"); //12 chars max
 
 	                        udo[ROJO].setNombre("ROJO");
 	                        udo[AZUL].setNombre("AZUL");
