@@ -1,4 +1,4 @@
-package com.ulasoft.lanterncorpsacademy;
+package com.ulasoft.lanterncorpsacademy.paneles;
 
 import echopoint.HtmlLayout;
 import nextapp.echo.app.Label;
@@ -9,7 +9,7 @@ public class PanelAboutGame extends Panel{
 	public  PanelAboutGame() {
 		try {
 		      htmlLayout = new HtmlLayout( //
-		          getClass().getResourceAsStream("reglas.html"), "UTF-8");
+		          getClass().getResourceAsStream("../reglas.html"), "UTF-8");
 		    } catch (Exception e) {
 		      throw new RuntimeException(e);
 		    }

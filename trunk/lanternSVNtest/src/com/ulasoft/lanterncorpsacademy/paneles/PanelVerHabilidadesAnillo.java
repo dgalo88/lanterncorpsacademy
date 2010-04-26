@@ -1,4 +1,4 @@
-package com.ulasoft.lanterncorpsacademy;
+package com.ulasoft.lanterncorpsacademy.paneles;
 
 import com.minotauro.echo.table.base.ETable;
 import com.minotauro.echo.table.base.ETableNavigation;
@@ -8,37 +8,43 @@ import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.PersonBean;
+import com.ulasoft.lanterncorpsacademy.TestTableModel;
 
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
+import nextapp.echo.app.CheckBox;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.RadioButton;
 import nextapp.echo.app.Row;
+import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
-public class PanelMisiones extends Panel{
-	
+public class PanelVerHabilidadesAnillo extends Panel{
+
 	private TestTableModel tableDtaModel;
 	
-	public PanelMisiones() {
+	public PanelVerHabilidadesAnillo() {
 		Column col = new Column();
 		
-		Label lblTitle = new Label("Lista de Misiones");
+		Label lblTitle = new Label("Habilidades que Posee");
 		lblTitle.setBackground(Color.WHITE);
 		//lblCorreo.
 	    col.add(lblTitle);
-	    		
+		
 		col.add(initTable());
 		
 		Row row = new Row();
-		Button btnSalir = new Button("SALIR");
+		Button btnSalir = new Button("Adquirir Nueva Habilidad");
 	    btnSalir.setStyle(GUIStyles.DEFAULT_STYLE);
 	    btnSalir.addActionListener(new ActionListener() {
 	      @Override
@@ -48,42 +54,24 @@ public class PanelMisiones extends Panel{
 	    });
 	    row.add(btnSalir);
 	    
-	    Button btnDescripcion = new Button("Descripcion");
-	    btnDescripcion.setStyle(GUIStyles.DEFAULT_STYLE);
-	    btnDescripcion.addActionListener(new ActionListener() {
+	    Button btnCrearGrupo = new Button("Entrenar Habilidad");
+	    btnCrearGrupo.setStyle(GUIStyles.DEFAULT_STYLE);
+	    btnCrearGrupo.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
-	    	  btnDescripcionClicked();
+	    	  btnCrearGrupoClicked();
 	      }
 	    });
 	    
-	    row.add(btnDescripcion);
-	    
-	    Button btnRealizarMision = new Button("Realizar Mision");
-	    btnRealizarMision.setStyle(GUIStyles.DEFAULT_STYLE);
-	    btnRealizarMision.addActionListener(new ActionListener() {
-	      @Override
-	      public void actionPerformed(ActionEvent arg0) {
-	    	  btnRealizarMisionClicked();
-	      }
-	    });
-	    
-	    row.add(btnRealizarMision);
-
+	    row.add(btnCrearGrupo);
 	    col.add(row);
 		add(col);
 		}
 
+		protected void btnCrearGrupoClicked() {
 
-		protected void btnRealizarMisionClicked() {
-		
-	}
-
-
-		protected void btnDescripcionClicked() {
-		
-	}
-
+			
+		}
 
 		protected void btnSalirClicked() {
 					
@@ -147,12 +135,6 @@ public class PanelMisiones extends Panel{
 		    TableColumn tableColumn;
 		    
 		    tableColumn = new TableColumn();
-		    tableColumn.setWidth(new Extent(50));
-		    tableColumn.setHeadValue("");
-		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		    tableColumn.setDataCellRenderer(initNestedCellRenderer());
-		    tableColModel.getTableColumnList().add(tableColumn);
-
 
 		    tableColumn = new TableColumn() {
 		      @Override
@@ -165,13 +147,7 @@ public class PanelMisiones extends Panel{
 		    
 		    
 		    tableColumn.setWidth(new Extent(50));
-		    tableColumn.setHeadValue("Nombre de Mision");
-		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		    tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		    tableColModel.getTableColumnList().add(tableColumn);
-		    
-		    tableColumn.setWidth(new Extent(50));
-		    tableColumn.setHeadValue("Ptos de Entrenamiento Ofrecidos");
+		    tableColumn.setHeadValue("Nombre");
 		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		    tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		    tableColModel.getTableColumnList().add(tableColumn);
@@ -184,9 +160,51 @@ public class PanelMisiones extends Panel{
 		      }
 		    };
 		    tableColumn.setWidth(new Extent(50));
-		    tableColumn.setHeadValue("Experiencia Obtenida");
+		    tableColumn.setHeadValue("Nivel");
 		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		    tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		    tableColModel.getTableColumnList().add(tableColumn);
+		    
+		    tableColumn = new TableColumn() {
+			      @Override
+			      public Object getValue(ETable table, Object element) {
+			        PersonBean personaBean = (PersonBean) element;
+			        return personaBean.getLastName();
+			      }
+			    };
+		    
+		    tableColumn.setWidth(new Extent(50));
+		    tableColumn.setHeadValue("Caracteristica");
+		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		    tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		    tableColModel.getTableColumnList().add(tableColumn);
+		    
+		    tableColumn = new TableColumn() {
+			      @Override
+			      public Object getValue(ETable table, Object element) {
+			        PersonBean personaBean = (PersonBean) element;
+			        return personaBean.getLastName();
+			      }
+			    };
+		    
+		    tableColumn.setWidth(new Extent(50));
+		    tableColumn.setHeadValue("Costo de Entrenar");
+		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		    tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		    tableColModel.getTableColumnList().add(tableColumn);
+		    
+		    tableColumn = new TableColumn() {
+			      @Override
+			      public Object getValue(ETable table, Object element) {
+			        PersonBean personaBean = (PersonBean) element;
+			        return personaBean.getLastName();
+			      }
+			    };
+		    
+		    tableColumn.setWidth(new Extent(50));
+		    tableColumn.setHeadValue("");
+		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		    tableColumn.setDataCellRenderer(initNestedCellRenderer());
 		    tableColModel.getTableColumnList().add(tableColumn);
 
 		    return tableColModel;
@@ -205,7 +223,7 @@ public class PanelMisiones extends Panel{
 
 		        boolean editable = ((TestTableModel) table.getTableDtaModel()).getEditable();
 
-		        RadioButton ret = new RadioButton();
+		        CheckBox ret = new CheckBox();
 		        ret.setStyle(GUIStyles.DEFAULT_STYLE);
 		        ret.setEnabled(editable);
 		        ret.setToolTipText("Seleccion");
@@ -225,6 +243,7 @@ public class PanelMisiones extends Panel{
 		  // --------------------------------------------------------------------------------
 
 		  private void btnRadioClicked(int row) {
-	}
+		    
+		  }
+		
 }
-

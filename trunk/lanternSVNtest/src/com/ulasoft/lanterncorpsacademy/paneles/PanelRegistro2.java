@@ -1,5 +1,6 @@
-package com.ulasoft.lanterncorpsacademy;
+package com.ulasoft.lanterncorpsacademy.paneles;
 
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
@@ -19,95 +20,88 @@ import nextapp.echo.app.event.ActionListener;
 public class PanelRegistro2 extends Panel {
 
 	public PanelRegistro2() {
-		
+
 		Row row1 = new Row();
-		
-		row1.setCellSpacing(new Extent(400));
-		
-		
-		Label lbl = new Label("");
-		row1.add(lbl);
-		
+		row1.setStyle(GUIStyles.STYLE3);
+
 		Column col = new Column();
-		col.setInsets(new Insets(5,5,5,5));
+		col.setInsets(new Insets(5, 5, 5, 5));
 		col.setCellSpacing(new Extent(50));
 		col.setBackground(Color.WHITE);
-		
+
 		Label lblTitle = new Label("REGISTRO");
-	    col.add(lblTitle);
-	    
+		col.add(lblTitle);
+
 		Grid grid = new Grid();
 		grid.setStyle(GUIStyles.DEFAULT_STYLE);
-		
+
 		ButtonGroup btnGroupClases = new ButtonGroup();
-		
 		RadioButton btnRadioVerde = new RadioButton("Verde - Green Lantern Corps");
 		btnGroupClases.addButton(btnRadioVerde);
-		
+
 		RadioButton btnRadioAmarillo = new RadioButton("Amarillo - Sinestro Corps");
 		btnGroupClases.addButton(btnRadioAmarillo);
-		
+
 		RadioButton btnRadioNegro = new RadioButton("Negro - Black Lantern Corps");
 		btnGroupClases.addButton(btnRadioNegro);
-		
+
 		RadioButton btnRadioRojo = new RadioButton("Rojo - Red Lantern Corps");
 		btnGroupClases.addButton(btnRadioRojo);
-		
+
 		RadioButton btnRadioAzul = new RadioButton("Azul - Blue Lantern Corps");
 		btnGroupClases.addButton(btnRadioAzul);
-		
+
 		RadioButton btnRadioIndigo = new RadioButton("Indigo - La Tribu Indigo");
 		btnGroupClases.addButton(btnRadioIndigo);
-		
+
 		RadioButton btnRadioVioleta = new RadioButton("Violeta - Star Sapphires");
 		btnGroupClases.addButton(btnRadioVioleta);
-		
+
 		//grid.add(btnGroupClases);
-	        
-	    grid.setColumnWidth(1, new Extent(600));
-	    col.add(grid);
-		
+
+		grid.setColumnWidth(1, new Extent(600));
+		col.add(grid);
+
 		Row row = new Row();
-		
-	    Button btnBack = new Button("Atras");
-	    btnBack.setStyle(GUIStyles.STYLE);
-	    btnBack.addActionListener(new ActionListener() {
-	      @Override
-	      public void actionPerformed(ActionEvent arg0) {
-	    	  btnBackClicked();
-	      }
+		Button btnBack = new Button("Atras");
+		btnBack.setStyle(GUIStyles.STYLE);
+		btnBack.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				btnBackClicked();
+			}
 
-		private void btnBackClicked() {
-			removeAll();
-			PanelRegistro1 pnlMain = new PanelRegistro1();
-		    add(pnlMain);
-		}
-	    });
-	    
-	    Button btnSend = new Button("Enviar");
-	    btnSend.setStyle(GUIStyles.STYLE);
-	    btnSend.addActionListener(new ActionListener() {
-	      @Override
-	      public void actionPerformed(ActionEvent arg0) {
-	    	  btnSendClicked();
-	      }
+			private void btnBackClicked() {
+				removeAll();
+				PanelRegistro1 pnlMain = new PanelRegistro1();
+				add(pnlMain);
+			}
+		});
 
-		private void btnSendClicked() {
-			// TODO Auto-generated method stub
-			
-		}
-	    });
-		
-		    
-	    //btnNext.setAlignment(new Alignment(Alignment.ALIGN_RIGHT, Alignment.BOTTOM));
-	    row.add(btnBack);
-	    row.add(btnSend);
-	    row.setCellSpacing(new Extent(10));
+		Button btnSend = new Button("Enviar");
+		btnSend.setStyle(GUIStyles.STYLE);
+		btnSend.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				btnSendClicked();
+			}
+
+			private void btnSendClicked() {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		// btnNext.setAlignment(new Alignment(Alignment.ALIGN_RIGHT,
+		// Alignment.BOTTOM));
+		row.add(btnBack);
+		row.add(btnSend);
+		row.setCellSpacing(new Extent(10));
 		col.add(row);
 		row1.add(col);
-		
+
 		add(row1);
-		
-		}	
-	
+
+	}
+
 }

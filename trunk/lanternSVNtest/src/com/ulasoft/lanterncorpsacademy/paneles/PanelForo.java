@@ -1,4 +1,4 @@
-package com.ulasoft.lanterncorpsacademy;
+package com.ulasoft.lanterncorpsacademy.paneles;
 
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
