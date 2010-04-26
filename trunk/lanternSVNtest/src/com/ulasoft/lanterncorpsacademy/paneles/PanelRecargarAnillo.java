@@ -25,7 +25,7 @@ public class PanelRecargarAnillo extends Panel{
 		col.add(new Label("Recarga de Anillo"));
 		
 		Label lblImagen = new Label(); 
-		lblImagen.setIcon(new ResourceImageReference("com/ulasoft/lanterncorpsacademy/jim-lee-green-lantern.jpg",new Extent(152), new Extent(232)));
+		lblImagen.setIcon(new ResourceImageReference("com/ulasoft/lanterncorpsacademy/imagenes/jim-lee-green-lantern.jpg",new Extent(152), new Extent(232)));
 		col.add(lblImagen);
 		
 		col.add(new Label("Nivel	xx"));

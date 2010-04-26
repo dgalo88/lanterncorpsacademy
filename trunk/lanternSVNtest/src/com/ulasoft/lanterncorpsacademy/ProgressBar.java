@@ -6,7 +6,7 @@ import nextapp.echo.app.Color;
 import org.informagen.echo.app.CapacityBar;
 
 /**
- * @author julian
+ * @author julian ovalle
  *
  *ulasoft echo component
  */
@@ -19,7 +19,7 @@ public class ProgressBar extends CapacityBar {
 
 	public ProgressBar(int height, int width, int type, Color color) {
 		super(height, width);
-		this.setReflectivity(0.01);
+		this.setReflectivity(1.0);
 		this.setTickSpacing(20);
 		switch (type) {
 		case 0: this.setColor(Color.RED); break; //healthbar

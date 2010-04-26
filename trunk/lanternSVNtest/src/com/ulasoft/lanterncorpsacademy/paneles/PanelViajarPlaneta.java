@@ -15,7 +15,7 @@ public class PanelViajarPlaneta extends Panel{
 		lblTitle.setBackground(Color.WHITE);
 		col.add(lblTitle);
 		Label lblImagen = new Label(); 
-		lblImagen.setIcon(new ResourceImageReference("com/ulasoft/lanterncorpsacademy/space.png",new Extent(652), new Extent(332)));
+		lblImagen.setIcon(new ResourceImageReference("com/ulasoft/lanterncorpsacademy/imagenes/space.png",new Extent(652), new Extent(332)));
 		col.add(lblImagen);
 		add(col);
 	}
