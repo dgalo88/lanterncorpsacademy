@@ -96,7 +96,7 @@ public class MisionPersonajeDAO extends BaseDAO {
     strbuf.append(getTableName());
     strbuf.append(" VALUES (");
     strbuf.append(misionPersonajeDO.getId());
-
+    strbuf.append(", ");
     Reference<PersonajeDO> refP = misionPersonajeDO.getPersonajeRef();
     refP.checkInsert();
     strbuf.append(refP.getIdAsString());
