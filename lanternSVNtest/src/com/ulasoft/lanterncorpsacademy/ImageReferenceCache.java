@@ -5,7 +5,6 @@ package com.ulasoft.lanterncorpsacademy;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import nextapp.echo.app.ImageReference;
 import nextapp.echo.app.ResourceImageReference;
 

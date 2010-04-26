@@ -1,4 +1,4 @@
-package com.ulasoft.lanterncorpsacademy;
+package com.ulasoft.lanterncorpsacademy.paneles;
 
 import com.minotauro.echo.table.base.ETable;
 import com.minotauro.echo.table.base.ETableNavigation;
@@ -6,6 +6,9 @@ import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
 import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.PersonBean;
+import com.ulasoft.lanterncorpsacademy.TestTableModel;
 
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;

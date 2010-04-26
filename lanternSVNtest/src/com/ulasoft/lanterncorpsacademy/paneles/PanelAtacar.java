@@ -1,4 +1,4 @@
-package com.ulasoft.lanterncorpsacademy;
+package com.ulasoft.lanterncorpsacademy.paneles;
 
 import com.minotauro.echo.table.base.ETable;
 import com.minotauro.echo.table.base.ETableNavigation;
@@ -8,6 +8,10 @@ import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.PersonBean;
+import com.ulasoft.lanterncorpsacademy.TestTableModel;
+
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -24,11 +28,11 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
-public class PanelRanking extends Panel {
-	
-	private TestTableModel tableDtaModel;
+public class PanelAtacar extends Panel{
 
-	public PanelRanking() {
+	private TestTableModel tableDtaModel;
+	
+	public PanelAtacar() {
 		setInsets(new Insets(2, 2, 2, 2));
 
 	    Column col = new Column();
@@ -70,7 +74,20 @@ public class PanelRanking extends Panel {
 
 	    ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
 	    col.add(tableNavigation);
+	    
+	    Button btnAtacar = new Button("ATACAR");
+	    btnAtacar.setStyle(GUIStyles.DEFAULT_STYLE);
+	    btnAtacar.addActionListener(new ActionListener() {
+	      @Override
+	      public void actionPerformed(ActionEvent arg0) {
+	    	  btnAtacarClicked();
+	      }
+	    });
+	    col.add(btnAtacar);
 	  }
+
+	  protected void btnAtacarClicked() {
+	}
 
 	// --------------------------------------------------------------------------------
 
@@ -78,6 +95,8 @@ public class PanelRanking extends Panel {
 	    Row row = new Row();
 	    row.setCellSpacing(new Extent(5));
 
+	    row.add(new Label("Lista de Contrincantes"));
+	    row.setAlignment(new Alignment(Alignment.CENTER, Alignment.CENTER));
 	    return row;
 	  }
 
@@ -95,12 +114,6 @@ public class PanelRanking extends Panel {
 	        return personaBean.getFrstName();
 	      }
 	    };
-	    tableColumn.setWidth(new Extent(50));
-	    tableColumn.setHeadValue("Posicion");
-	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
-	    tableColModel.getTableColumnList().add(tableColumn);
-	    
 	    tableColumn.setWidth(new Extent(50));
 	    tableColumn.setHeadValue("Nombre");
 	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
@@ -124,6 +137,13 @@ public class PanelRanking extends Panel {
 	    tableColumn.setHeadValue("Clase");
 	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
+	    tableColModel.getTableColumnList().add(tableColumn);
+	    
+	    tableColumn = new TableColumn();
+	    tableColumn.setWidth(new Extent(50));
+	    tableColumn.setHeadValue("Actions");
+	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+	    tableColumn.setDataCellRenderer(initNestedCellRenderer());
 	    tableColModel.getTableColumnList().add(tableColumn);
 
 	    return tableColModel;
@@ -165,4 +185,14 @@ public class PanelRanking extends Panel {
 	    
 	  }
 
+	  // --------------------------------------------------------------------------------
+
+
+	  // --------------------------------------------------------------------------------
+
+	
+
+	  // --------------------------------------------------------------------------------
+
+	  
 }

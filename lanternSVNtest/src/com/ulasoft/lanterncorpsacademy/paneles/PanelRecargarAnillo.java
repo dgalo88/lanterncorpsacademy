@@ -1,4 +1,6 @@
-package com.ulasoft.lanterncorpsacademy;
+package com.ulasoft.lanterncorpsacademy.paneles;
+
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;

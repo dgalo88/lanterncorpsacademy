@@ -1,4 +1,4 @@
-package com.ulasoft.lanterncorpsacademy;
+package com.ulasoft.lanterncorpsacademy.paneles;
 
 import com.minotauro.echo.table.base.ETable;
 import com.minotauro.echo.table.base.ETableNavigation;
@@ -8,8 +8,9 @@ import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
-
-
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.PersonBean;
+import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -25,18 +26,18 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
-public class PanelAtacar extends Panel{
 
-	private TestTableModel tableDtaModel;
+public class PanelRanking extends Panel {
 	
-	public PanelAtacar() {
-		setInsets(new Insets(2, 2, 2, 2));
+	private TestTableModel tableDtaModel;
 
+	public PanelRanking() {
+		
+		setInsets(new Insets(2, 2, 2, 2));
 	    Column col = new Column();
-	    //col.setCellSpacing(new Extent(1));
+	    col.setCellSpacing(new Extent(1));
 	    col.setBackground(Color.WHITE);
 	    add(col);
-
 	    col.add(initTopRow());
 
 	    // ----------------------------------------
@@ -45,7 +46,6 @@ public class PanelAtacar extends Panel{
 
 	    TableColModel tableColModel = initTableColModel();
 	    TableSelModel tableSelModel = new TableSelModel();
-
 	    tableDtaModel = new TestTableModel();
 	    tableDtaModel.setEditable(true);
 	    tableDtaModel.setPageSize(3);
@@ -58,10 +58,8 @@ public class PanelAtacar extends Panel{
 	    table.setTableDtaModel(tableDtaModel);
 	    table.setTableColModel(tableColModel);
 	    table.setTableSelModel(tableSelModel);
-
 	    table.setEasyview(true);
-
-	    table.setBorder(new Border(1, Color.BLACK, Border.STYLE_NONE));
+	    table.setBorder(new Border(1, Color.BLACK, Border.STYLE_SOLID));
 	    table.setInsets(new Insets(5, 2, 5, 2));
 	    col.add(table);
 
@@ -71,39 +69,25 @@ public class PanelAtacar extends Panel{
 
 	    ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
 	    col.add(tableNavigation);
-	    
-	    Button btnAtacar = new Button("ATACAR");
-	    btnAtacar.setStyle(GUIStyles.DEFAULT_STYLE);
-	    btnAtacar.addActionListener(new ActionListener() {
-	      @Override
-	      public void actionPerformed(ActionEvent arg0) {
-	    	  btnAtacarClicked();
-	      }
-	    });
-	    col.add(btnAtacar);
 	  }
-
-	  protected void btnAtacarClicked() {
-	}
 
 	// --------------------------------------------------------------------------------
 
 	  private Row initTopRow() {
 	    Row row = new Row();
-	    row.setCellSpacing(new Extent(5));
-
-	    row.add(new Label("Lista de Contrincantes"));
-	    row.setAlignment(new Alignment(Alignment.CENTER, Alignment.CENTER));
+	    row.setStyle(GUIStyles.STYLE3);
+	    //row.setCellSpacing(new Extent(5));
 	    return row;
 	  }
 
 	  // --------------------------------------------------------------------------------
 
 	  private TableColModel initTableColModel() {
-	    TableColModel tableColModel = new TableColModel();
-
+	   
+		TableColModel tableColModel = new TableColModel();
+		
 	    TableColumn tableColumn;
-
+	    
 	    tableColumn = new TableColumn() {
 	      @Override
 	      public Object getValue(ETable table, Object element) {
@@ -111,6 +95,21 @@ public class PanelAtacar extends Panel{
 	        return personaBean.getFrstName();
 	      }
 	    };
+	    
+	    tableColumn.setWidth(new Extent(50));
+	    tableColumn.setHeadValue("Posicion");
+	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
+	    tableColModel.getTableColumnList().add(tableColumn);
+	    
+		tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				PersonBean personaBean = (PersonBean) element;
+				return personaBean.getLastName();
+			}
+		};
+	    
 	    tableColumn.setWidth(new Extent(50));
 	    tableColumn.setHeadValue("Nombre");
 	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
@@ -124,23 +123,25 @@ public class PanelAtacar extends Panel{
 	        return personaBean.getLastName();
 	      }
 	    };
+	    
 	    tableColumn.setWidth(new Extent(50));
 	    tableColumn.setHeadValue("Nivel");
 	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
 	    tableColModel.getTableColumnList().add(tableColumn);
 
+		tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				PersonBean personaBean = (PersonBean) element;
+				return personaBean.getLastName();
+			}
+		};
+	    
 	    tableColumn.setWidth(new Extent(50));
 	    tableColumn.setHeadValue("Clase");
 	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
-	    tableColModel.getTableColumnList().add(tableColumn);
-	    
-	    tableColumn = new TableColumn();
-	    tableColumn.setWidth(new Extent(50));
-	    tableColumn.setHeadValue("Actions");
-	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-	    tableColumn.setDataCellRenderer(initNestedCellRenderer());
 	    tableColModel.getTableColumnList().add(tableColumn);
 
 	    return tableColModel;
@@ -151,6 +152,7 @@ public class PanelAtacar extends Panel{
 	  // --------------------------------------------------------------------------------
 
 	  private NestedCellRenderer initNestedCellRenderer() {
+		  
 	    NestedCellRenderer nestedCellRenderer = new NestedCellRenderer();
 	    nestedCellRenderer.getCellRendererList().add(new BaseCellRenderer() {
 	      @Override
@@ -182,14 +184,4 @@ public class PanelAtacar extends Panel{
 	    
 	  }
 
-	  // --------------------------------------------------------------------------------
-
-
-	  // --------------------------------------------------------------------------------
-
-	
-
-	  // --------------------------------------------------------------------------------
-
-	  
 }
