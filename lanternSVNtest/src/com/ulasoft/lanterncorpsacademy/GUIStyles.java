@@ -96,9 +96,9 @@ public class GUIStyles {
 		    style.set(Button.PROPERTY_FOCUSED_BACKGROUND, new Color(0x32, 0xCD, 0x32));
 		    style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, Color.GREEN, Border.STYLE_SOLID));
 		    
-		    //style.set(Button.PROPERTY_ROLLOVER_ENABLED, true);
-		    //style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(0x32, 0xCD, 0x32));
-		    //style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.GREEN, Border.STYLE_SOLID));
+		    style.set(Button.PROPERTY_ROLLOVER_ENABLED, true);
+		    style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(139, 232, 141));
+		    style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.RED, Border.STYLE_SOLID));
 
 		    style.set(Button.PROPERTY_INSETS, new Insets(2,2,2,2));
 		    //style.set(Button.PROPERTY_OUTSETS, new Insets(1));
