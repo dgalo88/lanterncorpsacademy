@@ -1,9 +1,5 @@
 package com.ulasoft.lanterncorpsacademy;
 
-
-import javax.swing.text.Position;
-
-import org.informagen.echo.app.CapacityBar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
@@ -22,16 +18,13 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
 import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.FillImage;
 import nextapp.echo.app.Grid;
-import nextapp.echo.app.ImageReference;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.PasswordField;
