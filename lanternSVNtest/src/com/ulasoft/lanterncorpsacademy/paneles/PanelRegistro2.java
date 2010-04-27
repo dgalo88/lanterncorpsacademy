@@ -4,6 +4,7 @@ import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
+import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
@@ -38,58 +39,99 @@ public class PanelRegistro2 extends Panel {
 //		grid.setStyle(GUIStyles.DEFAULT_STYLE);
 		
 		AccordionPane clases = new AccordionPane();
-		Column colo1 = new Column();
-		Label prueba = new Label("Funcionaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		colo1.add(prueba);
-		AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
-		acc.setTitle("assassaadjjl");
-		colo1.setLayoutData(acc);
-		clases.add(colo1);
-		
+//		ContentPane cp = new ContentPane();
+//		Column colo1 = new Column();
+//		Label prueba = new Label("Funcionaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+//		colo1.add(prueba);
+//		cp.add(colo1);
+//		acc.setTitle("assassaadjjl");
+//		cp.setLayoutData(acc);
+//		clases.add(cp);
+//		
 		//clases.setLayoutData(acc);
 		
 		
 //		ButtonGroup btnGroupClases = new ButtonGroup();
-//		RadioButton btnRadioVerde = new RadioButton("Verde - Green Lantern Corps");
+		RadioButton btnRadioVerde = new RadioButton("Verde - Green Lantern Corps");
 //		btnGroupClases.addButton(btnRadioVerde);
-//		
-//		clases.add(btnRadioVerde);
-//
-//		RadioButton btnRadioAmarillo = new RadioButton("Amarillo - Sinestro Corps");
-//		btnGroupClases.addButton(btnRadioAmarillo);
-//		
-//		clases.add(btnRadioAmarillo);
-//
-//		RadioButton btnRadioNegro = new RadioButton("Negro - Black Lantern Corps");
-//		btnGroupClases.addButton(btnRadioNegro);
-//		
-//		clases.add(btnRadioNegro);
-//
-//		RadioButton btnRadioRojo = new RadioButton("Rojo - Red Lantern Corps");
-//		btnGroupClases.addButton(btnRadioRojo);
-//		
-//		clases.add(btnRadioRojo);
-//
-//		RadioButton btnRadioAzul = new RadioButton("Azul - Blue Lantern Corps");
-//		btnGroupClases.addButton(btnRadioAzul);
-//		
-//		clases.add(btnRadioAzul);
-//
-//		RadioButton btnRadioIndigo = new RadioButton("Indigo - La Tribu Indigo");
-//		btnGroupClases.addButton(btnRadioIndigo);
-//		
-//		clases.add(btnRadioIndigo);
-//
-//		RadioButton btnRadioVioleta = new RadioButton("Violeta - Star Sapphires");
-//		btnGroupClases.addButton(btnRadioVioleta);
-//		
-//		clases.add(btnRadioVioleta);
+		AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
+		acc.setTitle("Verde - Green Lantern Corps");
+		ContentPane cp = new ContentPane();
+		cp.setLayoutData(acc);
+		cp.add(btnRadioVerde);
 
+		clases.add(cp);
+//
+		RadioButton btnRadioAmarillo = new RadioButton("Amarillo - Sinestro Corps");
+//		btnGroupClases.addButton(btnRadioAmarillo);
+		AccordionPaneLayoutData acc1 = new AccordionPaneLayoutData();
+		acc1.setTitle("Amarillo - Sinestro Corps");
+		ContentPane cp1 = new ContentPane();
+		cp1.setLayoutData(acc1);
+		cp1.add(btnRadioAmarillo);
+
+		clases.add(cp1);
+	
+
+		RadioButton btnRadioNegro = new RadioButton("Negro - Black Lantern Corps");
+//		btnGroupClases.addButton(btnRadioNegro);
+		AccordionPaneLayoutData acc2 = new AccordionPaneLayoutData();
+		acc2.setTitle("Negro - Black Lantern Corps");
+		ContentPane cp2 = new ContentPane();
+		cp2.setLayoutData(acc2);
+		cp2.add(btnRadioNegro);
+
+		clases.add(cp2);		
+
+
+		RadioButton btnRadioRojo = new RadioButton("Rojo - Red Lantern Corps");
+//		btnGroupClases.addButton(btnRadioRojo);
+		AccordionPaneLayoutData acc3 = new AccordionPaneLayoutData();
+		acc3.setTitle("Rojo - Red Lantern Corps");
+		ContentPane cp3 = new ContentPane();
+		cp3.setLayoutData(acc3);
+		cp3.add(btnRadioRojo);
+
+		clases.add(cp3);
+
+
+		RadioButton btnRadioAzul = new RadioButton("Azul - Blue Lantern Corps");
+//		btnGroupClases.addButton(btnRadioAzul);
+		AccordionPaneLayoutData acc4 = new AccordionPaneLayoutData();
+		acc4.setTitle("Azul - Blue Lantern Corps");
+		ContentPane cp4 = new ContentPane();
+		cp4.setLayoutData(acc4);
+		cp4.add(btnRadioAzul);
+
+		clases.add(cp4);
+		
+		
+		RadioButton btnRadioIndigo = new RadioButton("Indigo - La Tribu Indigo");
+//		btnGroupClases.addButton(btnRadioIndigo);
+		AccordionPaneLayoutData acc5 = new AccordionPaneLayoutData();
+		acc5.setTitle("Indigo - La Tribu Indigo");
+		ContentPane cp5 = new ContentPane();
+		cp5.setLayoutData(acc5);
+		cp5.set(PROPERTY_BACKGROUND, Color.LIGHTGRAY);
+		cp5.add(btnRadioIndigo);
+
+		clases.add(cp5);
+		
+		RadioButton btnRadioVioleta = new RadioButton("Violeta - Star Sapphires");
+//		btnGroupClases.addButton(btnRadioVioleta);
+		AccordionPaneLayoutData acc6 = new AccordionPaneLayoutData();
+		acc6.setTitle("Violeta - Star Sapphires");
+		ContentPane cp6 = new ContentPane();
+		cp6.setLayoutData(acc6);
+		cp6.set(PROPERTY_BACKGROUND, Color.LIGHTGRAY);
+		cp6.add(btnRadioVioleta);
+
+		clases.add(cp6);
 		
 		//grid.add(btnGroupClases);
 
 //		grid.setColumnWidth(1, new Extent(600));
-//		col.add(grid);
+//		col.add(clases); TODO:no funciona yet
 		
 
 		Row row = new Row();
