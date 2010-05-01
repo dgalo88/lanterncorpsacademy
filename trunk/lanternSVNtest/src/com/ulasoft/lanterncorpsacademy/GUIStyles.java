@@ -2,11 +2,6 @@ package com.ulasoft.lanterncorpsacademy;
 
 import java.awt.Font;
 
-import javax.sound.midi.Track;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
-import javax.xml.soap.Text;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.IntData;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;

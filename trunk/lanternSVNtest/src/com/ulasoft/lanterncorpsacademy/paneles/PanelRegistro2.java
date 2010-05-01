@@ -1,7 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.awt.Component;
-
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -13,6 +12,7 @@ import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.RadioButton;
 import nextapp.echo.app.Row;
+import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.button.ButtonGroup;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
@@ -21,28 +21,20 @@ import nextapp.echo.extras.app.layout.AccordionPaneLayoutData;
 
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 
+import echopoint.layout.HtmlLayoutData;
+
+@SuppressWarnings("serial")
 public class PanelRegistro2 extends Panel {
 
 	public PanelRegistro2() {
 
-		Row row1 = new Row();
-		row1.setStyle(GUIStyles.STYLE3);
-
-		// ------------------------------------------------------------------------------
-
-		Column col = new Column();
-		col.setInsets(new Insets(7, 7, 7, 7));
-		col.setCellSpacing(new Extent(150));
-		col.setBackground(Color.WHITE);
-
-		// ------------------------------------------------------------------------------
-
 		Label lblTitle = new Label("REGISTRO");
-		col.add(lblTitle);
+		Row row2 = new Row();
+		row2.add(lblTitle);
+		row2.setBackground(Color.WHITE);
 
 		// ------------------------------------------------------------------------------
 
-		Row row = new Row();
 		Button btnBack = new Button("Atras");
 		btnBack.setStyle(GUIStyles.STYLE);
 		btnBack.addActionListener(new ActionListener() {
@@ -53,7 +45,9 @@ public class PanelRegistro2 extends Panel {
 
 			private void btnBackClicked() {
 				removeAll();
+				HtmlLayoutData hld = new HtmlLayoutData("main");
 				PanelRegistro1 pnlMain = new PanelRegistro1();
+				pnlMain.setLayoutData(hld);
 				add(pnlMain);
 			}
 		});
@@ -69,131 +63,229 @@ public class PanelRegistro2 extends Panel {
 			}
 
 			private void btnSendClicked() {
-			
+
 			}
 		});
 
 		// ------------------------------------------------------------------------------
 
-//		row.add(btnBack);
-//		row.add(btnSend);
-//		row.setCellSpacing(new Extent(10));
-//		col.add(row);
-//		row1.add(col);
-//		add(row1);
-		
-		AccordionPane claseslinternas = initclases();
-		add(claseslinternas);
-
-	}
-	
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	
-	private ButtonGroup initgroup() {
-		
-		ButtonGroup btnGroupClases = new ButtonGroup();
-		RadioButton btnRadioVerde = new RadioButton();
-		btnGroupClases.addButton(btnRadioVerde);
-		RadioButton btnRadioAmarillo = new RadioButton();
-		btnGroupClases.addButton(btnRadioAmarillo);
-		RadioButton btnRadioNegro = new RadioButton();
-		btnGroupClases.addButton(btnRadioNegro);
-		RadioButton btnRadioRojo = new RadioButton();
-		btnGroupClases.addButton(btnRadioRojo);
-		RadioButton btnRadioAzul = new RadioButton();
-		btnGroupClases.addButton(btnRadioAzul);
-		RadioButton btnRadioIndigo = new RadioButton();
-		btnGroupClases.addButton(btnRadioIndigo);
-		RadioButton btnRadioVioleta = new RadioButton();
-		btnGroupClases.addButton(btnRadioVioleta);
-		
-		return btnGroupClases;
-
-		
-	}
-	
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	
-	private AccordionPane initclases() {
-		
-		AccordionPane clases = new AccordionPane();
+		Row row = new Row();
+		row.add(btnBack);
+		row.add(btnSend);
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_RIGHT);
+		row.setBackground(Color.WHITE);
 
 		// ------------------------------------------------------------------------------
 
-		
+		Row row1 = initgroup();
+		row1.setBackground(Color.WHITE);
+
 		// ------------------------------------------------------------------------------
 
-		AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
-		acc.setTitle("Verde - Green Lantern Corps");
+		SplitPane sp2 = new SplitPane(
+				SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(25));
+		sp2.add(row2);
+		sp2.add(row1);
+
+		// ------------------------------------------------------------------------------
+
+		SplitPane sp = new SplitPane(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM,
+				new Extent(43));
+		sp.add(sp2);
+		sp.add(new initclases());
+
+		// ------------------------------------------------------------------------------
+
 		ContentPane cp = new ContentPane();
-		cp.setLayoutData(acc);
-		cp.setBackground(Color.WHITE);
-		clases.add(cp);
-
-		// ------------------------------------------------------------------------------
-		
-		AccordionPaneLayoutData acc1 = new AccordionPaneLayoutData();
-		acc1.setTitle("Amarillo - Sinestro Corps");
-		ContentPane cp1 = new ContentPane();
-		cp1.setLayoutData(acc1);
-		cp1.setBackground(Color.WHITE);
-		clases.add(cp1);
+		cp.add(sp);
 
 		// ------------------------------------------------------------------------------
 
-		AccordionPaneLayoutData acc2 = new AccordionPaneLayoutData();
-		acc2.setTitle("Negro - Black Lantern Corps");
+		SplitPane sp1 = new SplitPane(
+				SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(350));
+		sp1.add(cp);
+		sp1.add(row);
+
+		// ------------------------------------------------------------------------------
+
 		ContentPane cp2 = new ContentPane();
-		cp2.setLayoutData(acc2);
-		cp2.setBackground(Color.WHITE);
-		clases.add(cp2);
+		cp2.add(sp1);
+		add(cp2);
+
+	}
+
+	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	private Row initgroup() {
+
+		ButtonGroup btnGroupClases = new ButtonGroup();
 
 		// ------------------------------------------------------------------------------
 
-		AccordionPaneLayoutData acc3 = new AccordionPaneLayoutData();
-		acc3.setTitle("Rojo - Red Lantern Corps");
-		ContentPane cp3 = new ContentPane();
-		cp3.setLayoutData(acc3);
-		cp3.setBackground(Color.WHITE);
-		clases.add(cp3);
+		RadioButton btnRadioVerde = new RadioButton("Verde");
+		btnRadioVerde.setGroup(btnGroupClases);
+
+		RadioButton btnRadioAmarillo = new RadioButton("Amarillo");
+		btnRadioAmarillo.setGroup(btnGroupClases);
+
+		RadioButton btnRadioNegro = new RadioButton("Negro");
+		btnRadioNegro.setGroup(btnGroupClases);
+
+		RadioButton btnRadioRojo = new RadioButton("Rojo");
+		btnRadioRojo.setGroup(btnGroupClases);
+
+		RadioButton btnRadioAzul = new RadioButton("Azul");
+		btnRadioAzul.setGroup(btnGroupClases);
+
+		RadioButton btnRadioIndigo = new RadioButton("Indigo");
+		btnRadioIndigo.setGroup(btnGroupClases);
+
+		RadioButton btnRadioVioleta = new RadioButton("Vileta");
+		btnRadioVioleta.setGroup(btnGroupClases);
 
 		// ------------------------------------------------------------------------------
 
+		Row row = new Row();
+		row.add(btnRadioVerde);
+		row.add(btnRadioAmarillo);
+		row.add(btnRadioNegro);
+		row.add(btnRadioRojo);
+		row.add(btnRadioAzul);
+		row.add(btnRadioIndigo);
+		row.add(btnRadioVioleta);
+		row.setBorder(new Border(1, Color.BLACK, Border.STYLE_SOLID));
 
-		AccordionPaneLayoutData acc4 = new AccordionPaneLayoutData();
-		acc4.setTitle("Azul - Blue Lantern Corps");
-		ContentPane cp4 = new ContentPane();
-		cp4.setLayoutData(acc4);
-		cp4.setBackground(Color.WHITE);
-		clases.add(cp4);
-		
-		//------------------------------------------------------------------------------
+		return row;
 
-//		AccordionPaneLayoutData acc5 = new AccordionPaneLayoutData();
-//		acc5.setTitle("Indigo - La Tribu Indigo");
-//		ContentPane cp5 = new ContentPane();
-//		cp5.setLayoutData(acc5);
-//		cp5.setBackground(Color.WHITE);
-//		clases.add(cp5);
-//
-//		//------------------------------------------------------------------------------
-//
-//		AccordionPaneLayoutData acc6 = new AccordionPaneLayoutData();
-//		acc6.setTitle("Violeta - Star Sapphires");
-//		ContentPane cp6 = new ContentPane();
-//		cp6.setLayoutData(acc6);
-//		cp6.setBackground(Color.WHITE);
-//		clases.add(cp6);
-		
-		//------------------------------------------------------------------------------
-			
-		
-		clases.setAnimationTime(300);
-		clases.set(PROPERTY_BORDER, Border.STYLE_SOLID);
-		
-		
-		return clases;
-		
+	}
+
+	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	public class initclases extends AccordionPane {
+
+		public initclases() {
+			add(verde());
+			add(amarillo());
+			add(negro());
+			add(rojo());
+			add(azul());
+			add(indigo());
+			add(violeta());
+		}
+
+		// ------------------------------------------------------------------------------
+
+		private ContentPane verde() {
+			ContentPane cp = new ContentPane();
+			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
+			acc.setTitle("Verde - Green Lantern Corps");
+			cp.setLayoutData(acc);
+			Column c = new Column();
+			c.add(new Label("firstPane label 1"));
+			c.add(new Label("firstPane label 2"));
+			c.add(new Label("firstPane label 3"));
+			cp.add(c);
+			cp.setBackground(Color.WHITE);
+			return cp;
+		}
+
+		// ------------------------------------------------------------------------------
+
+		private ContentPane amarillo() {
+			ContentPane cp = new ContentPane();
+			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
+			acc.setTitle("Amarillo - Sinestro Corps");
+			cp.setLayoutData(acc);
+			Column c = new Column();
+			c.add(new Label("firstPane label 1"));
+			c.add(new Label("firstPane label 2"));
+			c.add(new Label("firstPane label 3"));
+			cp.add(c);
+			cp.setBackground(Color.WHITE);
+			return cp;
+		}
+
+		// ------------------------------------------------------------------------------
+
+		private ContentPane negro() {
+			ContentPane cp = new ContentPane();
+			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
+			acc.setTitle("Negro - Black Lantern Corps");
+			cp.setLayoutData(acc);
+			Column c = new Column();
+			c.add(new Label("firstPane label 1"));
+			c.add(new Label("firstPane label 2"));
+			c.add(new Label("firstPane label 3"));
+			cp.add(c);
+			cp.setBackground(Color.WHITE);
+			return cp;
+		}
+
+		// ------------------------------------------------------------------------------
+
+		private ContentPane rojo() {
+			ContentPane cp = new ContentPane();
+			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
+			acc.setTitle("Rojo - Red Lantern Corps");
+			cp.setLayoutData(acc);
+			Column c = new Column();
+			c.add(new Label("firstPane label 1"));
+			c.add(new Label("firstPane label 2"));
+			c.add(new Label("firstPane label 3"));
+			cp.add(c);
+			cp.setBackground(Color.WHITE);
+			return cp;
+		}
+
+		// ------------------------------------------------------------------------------
+
+		private ContentPane azul() {
+			ContentPane cp = new ContentPane();
+			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
+			acc.setTitle("Azul - Blue Lantern Corps");
+			cp.setLayoutData(acc);
+			Column c = new Column();
+			c.add(new Label("firstPane label 1"));
+			c.add(new Label("firstPane label 2"));
+			c.add(new Label("firstPane label 3"));
+			cp.add(c);
+			cp.setBackground(Color.WHITE);
+			return cp;
+		}
+
+		// ------------------------------------------------------------------------------
+
+		private ContentPane indigo() {
+			ContentPane cp = new ContentPane();
+			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
+			acc.setTitle("Indigo - La Tribu Indigo");
+			cp.setLayoutData(acc);
+			Column c = new Column();
+			c.add(new Label("firstPane label 1"));
+			c.add(new Label("firstPane label 2"));
+			c.add(new Label("firstPane label 3"));
+			cp.add(c);
+			cp.setBackground(Color.WHITE);
+			return cp;
+		}
+
+		// ------------------------------------------------------------------------------
+
+		private ContentPane violeta() {
+			ContentPane cp = new ContentPane();
+			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
+			acc.setTitle("Violeta - Star Sapphires");
+			cp.setLayoutData(acc);
+			Column c = new Column();
+			c.add(new Label("firstPane label 1"));
+			c.add(new Label("firstPane label 2"));
+			c.add(new Label("firstPane label 3"));
+			cp.add(c);
+			cp.setBackground(Color.WHITE);
+			return cp;
+		}
+
 	}
 
 }

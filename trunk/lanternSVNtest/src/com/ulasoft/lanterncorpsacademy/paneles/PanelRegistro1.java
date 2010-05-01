@@ -1,7 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
-import echopoint.layout.HtmlLayoutData;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
@@ -15,6 +13,11 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
+
+import echopoint.layout.HtmlLayoutData;
 
 @SuppressWarnings("serial")
 public class PanelRegistro1 extends Panel {
@@ -84,6 +87,7 @@ public class PanelRegistro1 extends Panel {
 		btnNext.setStyle(GUIStyles.STYLE);
 		row.add(btnNext);
 		col.add(row);
+		
 		btnNext.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -100,6 +104,9 @@ public class PanelRegistro1 extends Panel {
 	private void btnNextClicked() {
 		removeAll();
 		PanelRegistro2 pnlMain = new PanelRegistro2();
+		pnlMain.setLayoutData(hld);
+		pnlMain.set(PROPERTY_HEIGHT, new Extent(400));
+		pnlMain.set(PROPERTY_WIDTH, new Extent(900));
 		add(pnlMain);
 
 	}
