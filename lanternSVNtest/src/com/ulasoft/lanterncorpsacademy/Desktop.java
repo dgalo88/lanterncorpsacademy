@@ -66,10 +66,8 @@ public class Desktop extends ContentPane {
 		}
 
 		HtmlLayoutData hld;
-
 		hld = new HtmlLayoutData("head");
 		Component menuHead = initMenuHead();
-		;
 		menuHead.setLayoutData(hld);
 		htmlLayout.add(menuHead);
 
@@ -79,6 +77,7 @@ public class Desktop extends ContentPane {
 		login.setLayoutData(hld);
 		htmlLayout.add(login);
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
+		//htmlLayout.setHeight(new Extent(500));
 		// htmlLayout.setBackground(new Color(0x00, 0xFF, 0x00));
 		return htmlLayout;
 	}
