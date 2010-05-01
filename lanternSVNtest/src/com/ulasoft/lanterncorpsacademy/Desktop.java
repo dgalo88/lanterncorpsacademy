@@ -1,22 +1,5 @@
 package com.ulasoft.lanterncorpsacademy;
 
-import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelForo;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelInvitarNuevosUsuarios;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelMedia;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelMisiones;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelRegistro1;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
-import echopoint.HtmlLayout;
-import echopoint.layout.HtmlLayoutData;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -33,6 +16,25 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+
+import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelForo;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelInvitarNuevosUsuarios;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelMedia;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelMisiones;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelRegistro1;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
+
+import echopoint.HtmlLayout;
+import echopoint.layout.HtmlLayoutData;
 
 /**
  * @author typson julian Jose
@@ -134,7 +136,6 @@ public class Desktop extends ContentPane {
 		row.add(btnClickToRegister);
 		
 		row.setCellSpacing(new Extent(10));
-		
 		col.add(row);
 		row1.add(col);
 		return row1;
@@ -146,11 +147,11 @@ public class Desktop extends ContentPane {
 	protected void btnClickToRegisterClicked() {
 		
 		HtmlLayoutData hld = new HtmlLayoutData("main");
-		PanelRegistro1 pnlMain = new PanelRegistro1();
-		pnlMain.setId("main");
-		pnlMain.setLayoutData(hld);
+		PanelRegistro1 pnlMain1 = new PanelRegistro1();
+		pnlMain1.setId("main");
+		pnlMain1.setLayoutData(hld);
 		htmlLayout.remove(htmlLayout.getComponent("main"));
-		htmlLayout.add(pnlMain);
+		htmlLayout.add(pnlMain1);
 		
 	}
 
