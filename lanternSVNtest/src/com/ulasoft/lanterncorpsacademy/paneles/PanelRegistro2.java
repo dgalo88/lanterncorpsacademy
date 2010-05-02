@@ -141,7 +141,7 @@ public class PanelRegistro2 extends Panel {
 		RadioButton btnRadioIndigo = new RadioButton("Indigo");
 		btnRadioIndigo.setGroup(btnGroupClases);
 
-		RadioButton btnRadioVioleta = new RadioButton("Vileta");
+		RadioButton btnRadioVioleta = new RadioButton("Violeta");
 		btnRadioVioleta.setGroup(btnGroupClases);
 
 		// ------------------------------------------------------------------------------
