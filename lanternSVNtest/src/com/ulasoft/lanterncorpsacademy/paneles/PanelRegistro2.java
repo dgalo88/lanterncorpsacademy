@@ -32,6 +32,7 @@ public class PanelRegistro2 extends Panel {
 		Row row2 = new Row();
 		row2.add(lblTitle);
 		row2.setBackground(Color.WHITE);
+		row2.setAlignment(Alignment.ALIGN_CENTER);
 
 		// ------------------------------------------------------------------------------
 
@@ -155,6 +156,8 @@ public class PanelRegistro2 extends Panel {
 		row.add(btnRadioIndigo);
 		row.add(btnRadioVioleta);
 		row.setBorder(new Border(1, Color.BLACK, Border.STYLE_SOLID));
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		row.setCellSpacing(new Extent(50));
 
 		return row;
 
