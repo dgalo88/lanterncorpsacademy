@@ -7,6 +7,7 @@ import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Font;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -33,6 +34,7 @@ public class PanelRegistro2 extends Panel {
 		row2.add(lblTitle);
 		row2.setBackground(Color.WHITE);
 		row2.setAlignment(Alignment.ALIGN_CENTER);
+		
 
 		// ------------------------------------------------------------------------------
 
@@ -85,14 +87,14 @@ public class PanelRegistro2 extends Panel {
 		// ------------------------------------------------------------------------------
 
 		SplitPane sp2 = new SplitPane(
-				SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(25));
+				SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(15));
 		sp2.add(row2);
 		sp2.add(row1);
 
 		// ------------------------------------------------------------------------------
 
 		SplitPane sp = new SplitPane(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM,
-				new Extent(43));
+				new Extent(33));
 		sp.add(sp2);
 		sp.add(new initclases());
 
