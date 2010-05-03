@@ -13,10 +13,8 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
-
+import dao.lca.UsuarioDO;
 import echopoint.layout.HtmlLayoutData;
 
 @SuppressWarnings("serial")
@@ -24,7 +22,11 @@ public class PanelRegistro1 extends Panel {
 	
 	public HtmlLayoutData hld = new HtmlLayoutData("main");
 	
+	
+	
 	public PanelRegistro1() {
+		
+		UsuarioDO usu = new UsuarioDO();
 		
 		Row row1 = new Row();
 		row1.setStyle(GUIStyles.STYLE3);
@@ -44,7 +46,9 @@ public class PanelRegistro1 extends Panel {
 		grid.add(lblNombre);
 		TextField txtNombre = new TextField();
 		txtNombre.setWidth(new Extent(400));
+		txtNombre.setText(usu.getNombre());
 		grid.add(txtNombre);
+		
 
 		Label lblApellido = new Label("Apellido");
 		grid.add(lblApellido);
@@ -98,6 +102,8 @@ public class PanelRegistro1 extends Panel {
 
 		row1.add(col);
 		add(row1);
+		
+		usu.setNombre(txtNombre.getText());
 
 	}
 
