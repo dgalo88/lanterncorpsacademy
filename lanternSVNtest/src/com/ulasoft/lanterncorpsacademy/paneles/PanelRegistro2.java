@@ -13,6 +13,7 @@ import nextapp.echo.app.RadioButton;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
+import nextapp.echo.app.TextField;
 import nextapp.echo.app.button.ButtonGroup;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
@@ -21,18 +22,32 @@ import nextapp.echo.extras.app.layout.AccordionPaneLayoutData;
 
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 
+import dao.lca.UsuarioDO;
+
 import echopoint.layout.HtmlLayoutData;
 
 @SuppressWarnings("serial")
 public class PanelRegistro2 extends Panel {
+	
+	private UsuarioDO usuarioNuevo;
 
-	public PanelRegistro2() {
+	public PanelRegistro2(UsuarioDO usuario) {
+		
+//		Label lblAlias = new Label("Alias");
+//		grid.add(lblAlias);
+//		txtAlias = new TextField();
+//		txtAlias.setToolTipText("Nombre con el que otros jugadores te verán en el universo.");
+//		txtAlias.setWidth(new Extent(400));
+//		grid.add(txtAlias);
 
+		usuarioNuevo = usuario;
+		
 		Label lblTitle = new Label("REGISTRO");
 		Row row2 = new Row();
 		row2.add(lblTitle);
 		row2.setBackground(Color.WHITE);
 		row2.setAlignment(Alignment.ALIGN_CENTER);
+		
 
 		// ------------------------------------------------------------------------------
 
@@ -42,14 +57,6 @@ public class PanelRegistro2 extends Panel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				btnBackClicked();
-			}
-
-			private void btnBackClicked() {
-				removeAll();
-				HtmlLayoutData hld = new HtmlLayoutData("main");
-				PanelRegistro1 pnlMain = new PanelRegistro1();
-				pnlMain.setLayoutData(hld);
-				add(pnlMain);
 			}
 		});
 
@@ -62,7 +69,6 @@ public class PanelRegistro2 extends Panel {
 			public void actionPerformed(ActionEvent arg0) {
 				btnSendClicked();
 			}
-
 		});
 
 		// ------------------------------------------------------------------------------
@@ -82,14 +88,14 @@ public class PanelRegistro2 extends Panel {
 		// ------------------------------------------------------------------------------
 
 		SplitPane sp2 = new SplitPane(
-				SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(25));
+				SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(15));
 		sp2.add(row2);
 		sp2.add(row1);
 
 		// ------------------------------------------------------------------------------
 
 		SplitPane sp = new SplitPane(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM,
-				new Extent(43));
+				new Extent(33));
 		sp.add(sp2);
 		sp.add(new initclases());
 
@@ -111,11 +117,6 @@ public class PanelRegistro2 extends Panel {
 		cp2.add(sp1);
 		add(cp2);
 
-	}
-
-	protected void btnSendClicked() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -184,7 +185,6 @@ public class PanelRegistro2 extends Panel {
 	public class initclases extends AccordionPane {
 
 		public initclases() {
-			
 			add(verde());
 			add(amarillo());
 			add(negro());
@@ -322,4 +322,21 @@ public class PanelRegistro2 extends Panel {
 
 	}
 
+	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	protected void btnBackClicked() {
+		removeAll();
+		HtmlLayoutData hld = new HtmlLayoutData("main");
+		PanelRegistro1 pnlMain = new PanelRegistro1(usuarioNuevo);
+		pnlMain.setLayoutData(hld);
+		add(pnlMain);
+}
+	
+	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	protected void btnSendClicked() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
