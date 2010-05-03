@@ -33,6 +33,8 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 
+import dao.lca.UsuarioDO;
+
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
 
@@ -40,6 +42,8 @@ import echopoint.layout.HtmlLayoutData;
  * @author typson julian Jose
  *
  */
+
+@SuppressWarnings("serial")
 public class Desktop extends ContentPane {
 
 	private HtmlLayout htmlLayout;
@@ -145,14 +149,13 @@ public class Desktop extends ContentPane {
 	// --------------------------------------------------------------------------------
 
 	protected void btnClickToRegisterClicked() {
-		
+		UsuarioDO usuario = new UsuarioDO();
 		HtmlLayoutData hld = new HtmlLayoutData("main");
-		PanelRegistro1 pnlMain1 = new PanelRegistro1();
+		PanelRegistro1 pnlMain1 = new PanelRegistro1(usuario);
 		pnlMain1.setId("main");
 		pnlMain1.setLayoutData(hld);
 		htmlLayout.remove(htmlLayout.getComponent("main"));
-		htmlLayout.add(pnlMain1);
-		
+		htmlLayout.add(pnlMain1);	
 	}
 
 	// --------------------------------------------------------------------------------
