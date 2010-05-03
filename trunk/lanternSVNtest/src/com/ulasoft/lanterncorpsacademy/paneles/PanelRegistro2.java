@@ -10,6 +10,7 @@ import nextapp.echo.app.Extent;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.RadioButton;
+import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.SplitPane;
 import nextapp.echo.app.button.ButtonGroup;
@@ -32,7 +33,6 @@ public class PanelRegistro2 extends Panel {
 		row2.add(lblTitle);
 		row2.setBackground(Color.WHITE);
 		row2.setAlignment(Alignment.ALIGN_CENTER);
-		
 
 		// ------------------------------------------------------------------------------
 
@@ -63,9 +63,6 @@ public class PanelRegistro2 extends Panel {
 				btnSendClicked();
 			}
 
-			private void btnSendClicked() {
-
-			}
 		});
 
 		// ------------------------------------------------------------------------------
@@ -85,14 +82,14 @@ public class PanelRegistro2 extends Panel {
 		// ------------------------------------------------------------------------------
 
 		SplitPane sp2 = new SplitPane(
-				SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(15));
+				SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(25));
 		sp2.add(row2);
 		sp2.add(row1);
 
 		// ------------------------------------------------------------------------------
 
 		SplitPane sp = new SplitPane(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM,
-				new Extent(33));
+				new Extent(43));
 		sp.add(sp2);
 		sp.add(new initclases());
 
@@ -116,6 +113,11 @@ public class PanelRegistro2 extends Panel {
 
 	}
 
+	protected void btnSendClicked() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	private Row initgroup() {
@@ -125,24 +127,38 @@ public class PanelRegistro2 extends Panel {
 		// ------------------------------------------------------------------------------
 
 		RadioButton btnRadioVerde = new RadioButton("Verde");
+		btnRadioVerde.setIcon(new ResourceImageReference( //
+			"com/ulasoft/lanterncorpsacademy/imagenes/greenIcon.png",new Extent(20), new Extent(20)));
 		btnRadioVerde.setGroup(btnGroupClases);
 
 		RadioButton btnRadioAmarillo = new RadioButton("Amarillo");
+		btnRadioAmarillo.setIcon(new ResourceImageReference( //
+			"com/ulasoft/lanterncorpsacademy/imagenes/yellowIcon.png",new Extent(20), new Extent(20)));
 		btnRadioAmarillo.setGroup(btnGroupClases);
 
 		RadioButton btnRadioNegro = new RadioButton("Negro");
+		btnRadioNegro.setIcon(new ResourceImageReference( //
+			"com/ulasoft/lanterncorpsacademy/imagenes/blackIcon.png",new Extent(20), new Extent(20)));
 		btnRadioNegro.setGroup(btnGroupClases);
 
 		RadioButton btnRadioRojo = new RadioButton("Rojo");
+		btnRadioRojo.setIcon(new ResourceImageReference( //
+			"com/ulasoft/lanterncorpsacademy/imagenes/redIcon.png",new Extent(20), new Extent(20)));
 		btnRadioRojo.setGroup(btnGroupClases);
 
 		RadioButton btnRadioAzul = new RadioButton("Azul");
+		btnRadioAzul.setIcon(new ResourceImageReference( //
+			"com/ulasoft/lanterncorpsacademy/imagenes/blueIcon.png",new Extent(20), new Extent(20)));
 		btnRadioAzul.setGroup(btnGroupClases);
 
 		RadioButton btnRadioIndigo = new RadioButton("Indigo");
+		btnRadioIndigo.setIcon(new ResourceImageReference( //
+			"com/ulasoft/lanterncorpsacademy/imagenes/indigoIcon.png",new Extent(20), new Extent(20)));
 		btnRadioIndigo.setGroup(btnGroupClases);
 
 		RadioButton btnRadioVioleta = new RadioButton("Violeta");
+		btnRadioVioleta.setIcon(new ResourceImageReference( //
+			"com/ulasoft/lanterncorpsacademy/imagenes/violetIcon.png",new Extent(20), new Extent(20)));
 		btnRadioVioleta.setGroup(btnGroupClases);
 
 		// ------------------------------------------------------------------------------
@@ -157,7 +173,7 @@ public class PanelRegistro2 extends Panel {
 		row.add(btnRadioVioleta);
 		row.setBorder(new Border(1, Color.BLACK, Border.STYLE_SOLID));
 		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.setCellSpacing(new Extent(50));
+		row.setCellSpacing(new Extent(40));
 
 		return row;
 
@@ -168,6 +184,7 @@ public class PanelRegistro2 extends Panel {
 	public class initclases extends AccordionPane {
 
 		public initclases() {
+			
 			add(verde());
 			add(amarillo());
 			add(negro());
@@ -183,6 +200,8 @@ public class PanelRegistro2 extends Panel {
 			ContentPane cp = new ContentPane();
 			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
 			acc.setTitle("Verde - Green Lantern Corps");
+			acc.setIcon(new ResourceImageReference( //
+			"com/ulasoft/lanterncorpsacademy/imagenes/greenIcon.png",new Extent(20), new Extent(20)));
 			cp.setLayoutData(acc);
 			Column c = new Column();
 			c.add(new Label("firstPane label 1"));
@@ -199,6 +218,8 @@ public class PanelRegistro2 extends Panel {
 			ContentPane cp = new ContentPane();
 			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
 			acc.setTitle("Amarillo - Sinestro Corps");
+			acc.setIcon(new ResourceImageReference( //
+					"com/ulasoft/lanterncorpsacademy/imagenes/yellowIcon.png",new Extent(20), new Extent(20)));
 			cp.setLayoutData(acc);
 			Column c = new Column();
 			c.add(new Label("firstPane label 1"));
@@ -215,6 +236,8 @@ public class PanelRegistro2 extends Panel {
 			ContentPane cp = new ContentPane();
 			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
 			acc.setTitle("Negro - Black Lantern Corps");
+			acc.setIcon(new ResourceImageReference( //
+					"com/ulasoft/lanterncorpsacademy/imagenes/blackIcon.png",new Extent(20), new Extent(20)));
 			cp.setLayoutData(acc);
 			Column c = new Column();
 			c.add(new Label("firstPane label 1"));
@@ -230,6 +253,8 @@ public class PanelRegistro2 extends Panel {
 		private ContentPane rojo() {
 			ContentPane cp = new ContentPane();
 			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
+			acc.setIcon(new ResourceImageReference( //
+					"com/ulasoft/lanterncorpsacademy/imagenes/redIcon.png",new Extent(20), new Extent(20)));
 			acc.setTitle("Rojo - Red Lantern Corps");
 			cp.setLayoutData(acc);
 			Column c = new Column();
@@ -247,6 +272,8 @@ public class PanelRegistro2 extends Panel {
 			ContentPane cp = new ContentPane();
 			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
 			acc.setTitle("Azul - Blue Lantern Corps");
+			acc.setIcon(new ResourceImageReference( //
+					"com/ulasoft/lanterncorpsacademy/imagenes/blueIcon.png",new Extent(20), new Extent(20)));
 			cp.setLayoutData(acc);
 			Column c = new Column();
 			c.add(new Label("firstPane label 1"));
@@ -263,6 +290,8 @@ public class PanelRegistro2 extends Panel {
 			ContentPane cp = new ContentPane();
 			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
 			acc.setTitle("Indigo - La Tribu Indigo");
+			acc.setIcon(new ResourceImageReference( //
+					"com/ulasoft/lanterncorpsacademy/imagenes/indigoIcon.png",new Extent(20), new Extent(20)));
 			cp.setLayoutData(acc);
 			Column c = new Column();
 			c.add(new Label("firstPane label 1"));
@@ -278,6 +307,8 @@ public class PanelRegistro2 extends Panel {
 		private ContentPane violeta() {
 			ContentPane cp = new ContentPane();
 			AccordionPaneLayoutData acc = new AccordionPaneLayoutData();
+			acc.setIcon(new ResourceImageReference( //
+					"com/ulasoft/lanterncorpsacademy/imagenes/violetIcon.png",new Extent(20), new Extent(20)));
 			acc.setTitle("Violeta - Star Sapphires");
 			cp.setLayoutData(acc);
 			Column c = new Column();
