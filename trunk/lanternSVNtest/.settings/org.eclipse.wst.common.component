@@ -3,6 +3,12 @@
     <wb-module deploy-name="lanternSVNtest">
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="BDLanternCorps2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BDLanternCorps2/BDLanternCorps2">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="DaoPattern.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/DaoPattern/DaoPattern">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/lantern SVN test/build/classes"/>
         <property name="context-root" value="lantern_SVN_test"/>
     </wb-module>

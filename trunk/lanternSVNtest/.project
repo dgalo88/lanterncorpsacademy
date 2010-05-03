@@ -3,6 +3,8 @@
 	<name>lanternSVNtest</name>
 	<comment></comment>
 	<projects>
+		<project>BDLanternCorps2</project>
+		<project>DaoPattern</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
