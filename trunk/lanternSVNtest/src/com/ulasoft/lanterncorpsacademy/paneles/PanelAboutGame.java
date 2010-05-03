@@ -1,9 +1,9 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import echopoint.HtmlLayout;
-import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
+import echopoint.HtmlLayout;
 
+@SuppressWarnings("serial")
 public class PanelAboutGame extends Panel{
 	private HtmlLayout htmlLayout;
 	public  PanelAboutGame() {
