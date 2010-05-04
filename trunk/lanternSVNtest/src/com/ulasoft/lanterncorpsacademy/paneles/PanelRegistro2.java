@@ -22,7 +22,8 @@ import nextapp.echo.extras.app.layout.AccordionPaneLayoutData;
 
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 
-import dao.lca.UsuarioDO;
+//import dao.lca.UsuarioDO;
+import dao.lantern.UsuarioDO;
 
 import echopoint.layout.HtmlLayoutData;
 
@@ -33,12 +34,14 @@ public class PanelRegistro2 extends Panel {
 
 	public PanelRegistro2(UsuarioDO usuario) {
 		
-//		Label lblAlias = new Label("Alias");
-//		grid.add(lblAlias);
-//		txtAlias = new TextField();
-//		txtAlias.setToolTipText("Nombre con el que otros jugadores te verán en el universo.");
-//		txtAlias.setWidth(new Extent(400));
-//		grid.add(txtAlias);
+		Row aliasRow = new Row();
+		Label lblAlias = new Label("Alias");
+		aliasRow.add(lblAlias);
+		TextField txtAlias = new TextField();
+		txtAlias.setToolTipText("Nombre con el que otros jugadores te verán en el universo.");
+		txtAlias.setWidth(new Extent(200));
+		aliasRow.add(txtAlias);
+		aliasRow.setStyle(GUIStyles.DEFAULT_STYLE);
 
 		usuarioNuevo = usuario;
 		
@@ -113,9 +116,20 @@ public class PanelRegistro2 extends Panel {
 
 		// ------------------------------------------------------------------------------
 
+		SplitPane sp3 = new SplitPane(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM,
+				new Extent(25));
+		sp3.add(aliasRow);
+		sp3.add(sp1);
+
 		ContentPane cp2 = new ContentPane();
-		cp2.add(sp1);
+		cp2.add(sp3);
 		add(cp2);
+
+		
+		//XXX: careful...
+//		ContentPane cp2 = new ContentPane();
+//		cp2.add(sp1);
+//		add(cp2);
 
 	}
 

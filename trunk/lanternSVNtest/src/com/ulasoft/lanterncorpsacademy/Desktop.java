@@ -33,7 +33,8 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 
-import dao.lca.UsuarioDO;
+//import dao.lca.UsuarioDO;
+import dao.lantern.UsuarioDO;
 
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;

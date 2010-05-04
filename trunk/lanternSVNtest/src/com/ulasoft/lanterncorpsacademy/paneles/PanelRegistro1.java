@@ -1,8 +1,13 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.awt.Font;
+import java.sql.SQLException;
+
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
+import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
@@ -16,7 +21,12 @@ import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
-import dao.lca.UsuarioDO;
+//import dao.lca.UsuarioDO;
+import dao.api.FactoryDAO;
+import dao.connection.ConnectionBean;
+import dao.connection.ConnectionFactory;
+import dao.lantern.UsuarioDAO;
+import dao.lantern.UsuarioDO;
 import echopoint.layout.HtmlLayoutData;
 
 @SuppressWarnings("serial")
@@ -25,9 +35,12 @@ public class PanelRegistro1 extends Panel {
 	public HtmlLayoutData hld = new HtmlLayoutData("main");
 	public UsuarioDO usuarioNuevo;
 	public TextField txtNombre;
-	public TextField txtCorreo;
-	public PasswordField fldPass;
-	public PasswordField fldConfirmPass;
+	private TextField txtCorreo;
+	private PasswordField fldPass;
+	private PasswordField fldConfirmPass;
+	private Grid grid;
+	private Column col;
+	private Row errorRow;
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
@@ -38,15 +51,16 @@ public class PanelRegistro1 extends Panel {
 		Row row1 = new Row();
 		row1.setStyle(GUIStyles.STYLE3);
 
-		Column col = new Column();
+		col = new Column();
 		col.setInsets(new Insets(5, 5, 5, 5));
 		col.setCellSpacing(new Extent(50));
 		col.setBackground(Color.WHITE);
 
 		Label lblTitle = new Label("REGISTRO");
+		lblTitle.setTextAlignment(Alignment.ALIGN_CENTER);
 		col.add(lblTitle);
 
-		Grid grid = new Grid();
+		grid = new Grid();
 		grid.setStyle(GUIStyles.DEFAULT_STYLE);
 
 		Label lblNombre = new Label("Nombre");
@@ -83,13 +97,20 @@ public class PanelRegistro1 extends Panel {
 		row.setCellSpacing(new Extent(10));
 		Button btnNext = new Button("Siguiente");
 		btnNext.setStyle(GUIStyles.STYLE);
+		btnNext.setAlignment(Alignment.ALIGN_RIGHT);
 		row.add(btnNext);
 		col.add(row);
 		
 		btnNext.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				btnNextClicked();
+				try {
+					btnNextClicked();
+				} catch (ClassNotFoundException e) {
+				  e.printStackTrace();
+				} catch (Exception e) {
+				  e.printStackTrace();
+				}
 			}
 
 		});
@@ -101,14 +122,52 @@ public class PanelRegistro1 extends Panel {
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	private void btnNextClicked() {
-		
-		
+	private void btnNextClicked() throws ClassNotFoundException, Exception {
+
 		usuarioNuevo.setNombre(txtNombre.getText());
 		usuarioNuevo.setCorreo(txtCorreo.getText());
+
+		if (!(fldConfirmPass.getText().equals(fldPass.getText()))) { // JUL:defensive..
+			if (col.getComponentCount() > 3) {
+				System.out.println("COL:" + col.getComponentCount());
+				col.remove(errorRow);
+			}
+			errorRow = new Row();
+			Label lblErr = new Label("Por favor confirme su contraseña.");
+			lblErr.set(PROPERTY_FONT, Font.BOLD);
+			errorRow.add(lblErr);
+			errorRow.setAlignment(Alignment.ALIGN_CENTER);
+			col.add(errorRow);
+			fldPass.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
+			fldConfirmPass.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
+			return;
+		}
+
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+
+		UsuarioDAO usuarioDAO = //
+		(UsuarioDAO) FactoryDAO.getDAO(UsuarioDAO.class, connectionBean);
+
+		try {
+
+			if (usuarioDAO.checkIfUsuarioExists(usuarioNuevo.getCorreo())) {
+				if (col.getComponentCount() > 3) {
+					System.out.println("COL:" + col.getComponentCount());
+					col.remove(errorRow);
+				}
+				errorRow = new Row();
+				errorRow.add(new Label("Ya existe una cuenta con ese correo."));
+				col.add(errorRow);
+				txtCorreo.set(PROPERTY_BACKGROUND, Color.RED);
+				return;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+// Si no hay campos vacios proceder a la siguiente etapa del registro		
 		
-		
-		if (fldConfirmPass.getText().equals(fldPass.getText())) {
+		if (!(checkEmptyFields())) {
 			usuarioNuevo.setClave(fldPass.getText());
 			removeAll();
 			PanelRegistro2 pnlMain = new PanelRegistro2(usuarioNuevo);
@@ -116,19 +175,46 @@ public class PanelRegistro1 extends Panel {
 			pnlMain.set(PROPERTY_HEIGHT, new Extent(400));
 			pnlMain.set(PROPERTY_WIDTH, new Extent(900));
 			add(pnlMain);
-		
-		} else {
-//			ContentPane cp = new ContentPane();
-//			WindowPane wrongPasswdPane = new WindowPane();
-//			wrongPasswdPane.setModal(true);
-//			wrongPasswdPane.setTitle("Error");
-//			wrongPasswdPane.add(new Label("Las contraseñas no concuerdan"));
-//			cp.add(wrongPasswdPane);
-//			add(cp); FIXME : JOSE 
 		}
-			
 
+	}
 
+	private boolean checkEmptyFields() {
+
+		boolean flg = false;
+		if (txtNombre.getText() == "") {
+			txtNombre.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
+			flg = true;
+		}
+
+		if (txtCorreo.getText() == "") {
+			txtCorreo.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
+			flg = true;
+		}
+		if (fldPass.getText() == "") {
+			fldPass.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
+			flg = true;
+		}
+		if (fldConfirmPass.getText() == "") {
+			fldConfirmPass.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
+			flg = true;
+		}
+
+		if (flg) {
+			if (col.getComponentCount() > 3) {
+				System.out.println("COL:" + col.getComponentCount());
+				col.remove(errorRow);
+			}
+			errorRow = new Row();
+			Label lblErr = new Label("Todos los campos son obligatorios.");
+			lblErr.set(PROPERTY_FONT, Font.BOLD);
+			errorRow.add(lblErr);
+			errorRow.setAlignment(Alignment.ALIGN_CENTER);
+			col.add(errorRow);
+			return true;
+		}
+
+		return false;
 	}
 
 }
