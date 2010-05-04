@@ -350,4 +350,32 @@ public class UsuarioDAO extends BaseDAO {
 
 		        ref.setRefValue(personajeDO);
 	  }
+	  
+      public boolean checkIfUsuarioExists(String correo) throws SQLException {
+          StringBuffer strbuf = new StringBuffer();
+
+          strbuf.append("SELECT * FROM ");
+          strbuf.append(getTableName());
+
+          strbuf.append(" WHERE ");
+//          strbuf.append(UsuarioDO.NOMBRE);
+//          strbuf.append(" = ");
+//          strbuf.append(singleQuotes(nombre));
+//          strbuf.append(" OR ");
+          strbuf.append(UsuarioDO.CORREO);
+          strbuf.append(" = ");
+          strbuf.append(singleQuotes(correo));
+          
+          System.err.println(strbuf.toString());
+
+          ResultSet rs = connection.createStatement().executeQuery(
+                          strbuf.toString());
+
+          if(rs.next()) {
+                  return true;
+          }
+          
+          return false;
+  }
+
 }
