@@ -48,7 +48,7 @@ public class PanelRegistro2 extends Panel {
 		
 		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 		Desktop d = app.getDesktop(); //XXX:JUL: ORGANIZAAAAAAAR
-		//d.setPanelCentral FIXME
+		d.setPanelCentral();
 		
 		
 		Row aliasRow = new Row();

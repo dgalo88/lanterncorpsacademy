@@ -10,13 +10,13 @@ import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
+import nextapp.echo.app.Panel;
 import nextapp.echo.app.PasswordField;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
-
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
@@ -28,14 +28,12 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMisiones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelRegistro1;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelRegistro;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
-
-//import dao.lca.UsuarioDO;
-import dao.lantern.UsuarioDO;
-
+import com.ulasoft.lanterncorpsacademy.paneles.PanelRegistro1;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelRegistro1;
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
 
@@ -48,6 +46,7 @@ import echopoint.layout.HtmlLayoutData;
 public class Desktop extends ContentPane {
 
 	private HtmlLayout htmlLayout;
+	
 
 	// --------------------------------------------------------------------------------
 
@@ -86,77 +85,6 @@ public class Desktop extends ContentPane {
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
 		// htmlLayout.setBackground(new Color(0x00, 0xFF, 0x00));
 		return htmlLayout;
-	}
-
-	// --------------------------------------------------------------------------------
-
-	private Component initLogin() {
-
-		Row row1 = new Row();
-		row1.setStyle(GUIStyles.STYLE3);
-
-		Column col = new Column();
-		col.setInsets(new Insets(5, 5, 5, 5));
-		col.setCellSpacing(new Extent(10));
-		col.setBackground(Color.WHITE);
-		Label lblTitle = new Label("Ingresar al Sistema");
-		col.add(lblTitle);
-		Grid grid = new Grid();
-		grid.setStyle(GUIStyles.DEFAULT_STYLE);
-		
-		Label lblCorreo = new Label("Correo");
-		grid.add(lblCorreo);
-		TextField txtCorreo = new TextField();
-		txtCorreo.setWidth(new Extent(300));
-		txtCorreo.setText("");
-		grid.add(txtCorreo);
-
-		Label lblPass = new Label("Contraseña");
-		grid.add(lblPass);
-		PasswordField fldPass = new PasswordField();
-		fldPass.setWidth(new Extent(300));
-		grid.add(fldPass);
-		col.add(grid);
-
-		Row row = new Row();
-		
-		Button btnClickToEnter = new Button("Entrar");
-		btnClickToEnter.setStyle(GUIStyles.STYLE);
-		btnClickToEnter.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				btnClickToEnterClicked();
-			}
-		});
-		row.add(btnClickToEnter);
-		
-		Button btnClickToRegister = new Button("Regístrarse");
-		btnClickToRegister.setStyle(GUIStyles.STYLE);
-		btnClickToRegister.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				btnClickToRegisterClicked();
-			}
-		});
-		row.add(btnClickToRegister);
-		
-		row.setCellSpacing(new Extent(10));
-		col.add(row);
-		row1.add(col);
-		return row1;
-		
-	}
-
-	// --------------------------------------------------------------------------------
-
-	protected void btnClickToRegisterClicked() {
-		UsuarioDO usuario = new UsuarioDO();
-		HtmlLayoutData hld = new HtmlLayoutData("main");
-		PanelRegistro1 pnlMain1 = new PanelRegistro1(usuario);
-		pnlMain1.setId("main");
-		pnlMain1.setLayoutData(hld);
-		htmlLayout.remove(htmlLayout.getComponent("main"));
-		htmlLayout.add(pnlMain1);	
 	}
 
 	// --------------------------------------------------------------------------------
@@ -753,4 +681,8 @@ public class Desktop extends ContentPane {
 		add(initTemplate1());
 	}
 
+	public void setPanelCentral(){
+	
+	
+	}
 }
