@@ -16,9 +16,7 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
-
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
-
 import dao.api.FactoryDAO;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
@@ -43,9 +41,9 @@ public class PanelRegistro1 extends Panel {
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
-	public PanelRegistro1(UsuarioDO usuario) {
+	public PanelRegistro1() {
 
-		usuarioNuevo = usuario;
+		usuarioNuevo = new UsuarioDO();
 		
 		Row row1 = new Row();
 		row1.setStyle(GUIStyles.STYLE3);

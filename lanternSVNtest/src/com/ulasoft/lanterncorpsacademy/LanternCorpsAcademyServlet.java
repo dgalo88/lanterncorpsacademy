@@ -12,8 +12,8 @@ import nextapp.echo.webcontainer.WebContainerServlet;
  *
  */
 public class LanternCorpsAcademyServlet extends WebContainerServlet{
-
+	
 	public ApplicationInstance newApplicationInstance() {
-	    return new LanternCorpsAcademyApp();
-	  }
+		return new LanternCorpsAcademyApp();
+	}	
 }
