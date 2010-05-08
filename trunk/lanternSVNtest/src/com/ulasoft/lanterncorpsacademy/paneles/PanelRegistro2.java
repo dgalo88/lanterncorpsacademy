@@ -48,7 +48,7 @@ public class PanelRegistro2 extends Panel {
 		
 		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 		Desktop d = app.getDesktop(); //XXX:JUL: ORGANIZAAAAAAAR
-		d.setPanelCentral();
+		//d.setPanelCentral();
 		
 		
 		Row aliasRow = new Row();
@@ -413,7 +413,7 @@ public class PanelRegistro2 extends Panel {
 	protected void btnBackClicked() {
 		removeAll();
 		HtmlLayoutData hld = new HtmlLayoutData("main");
-		PanelRegistro1 pnlMain = new PanelRegistro1(usuarioNuevo);
+		PanelRegistro1 pnlMain = new PanelRegistro1();
 		pnlMain.setLayoutData(hld);
 		add(pnlMain);
 }

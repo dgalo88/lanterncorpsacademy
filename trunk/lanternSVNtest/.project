@@ -5,6 +5,7 @@
 	<projects>
 		<project>BDLanternCorps2</project>
 		<project>DaoPattern</project>
+		<project>BDLanternCorps1</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

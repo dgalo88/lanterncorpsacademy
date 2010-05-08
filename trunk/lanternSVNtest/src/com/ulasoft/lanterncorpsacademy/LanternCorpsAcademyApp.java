@@ -9,7 +9,7 @@ import nextapp.echo.app.Window;
 
 public class LanternCorpsAcademyApp extends ApplicationInstance {
 
-	private Desktop desktop;
+	public Desktop desktop;
 
 	/*
 	 * (non-Javadoc)
@@ -20,10 +20,8 @@ public class LanternCorpsAcademyApp extends ApplicationInstance {
 	public Window init() {
 		Window window = new Window();
 		window.setTitle("Lantern Corps Academy");
-
 		desktop = new Desktop();
 		window.setContent(getDesktop());
-
 		return window;
 	}
 

@@ -1,14 +1,8 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
-import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-
-import echopoint.layout.HtmlLayoutData;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
-import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
@@ -19,6 +13,11 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+
+import com.ulasoft.lanterncorpsacademy.Desktop;
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+
 
 public class PanelLogin extends Panel {
 	
@@ -85,11 +84,15 @@ public class PanelLogin extends Panel {
 	// --------------------------------------------------------------------------------
 
 	protected void btnClickToRegisterClicked() {
-		HtmlLayoutData hld = new HtmlLayoutData("main");
-		PanelRegistro pnlMain1 = new PanelRegistro();
-		pnlMain1.setId("main");
-		pnlMain1.setLayoutData(hld);
-		d.setPanelCentral();	
+		PanelRegistro pnlregistro = new PanelRegistro();
+		d.setPanelCentral(pnlregistro);
+	}
+	
+	// --------------------------------------------------------------------------------
+
+	private void btnClickToEnterClicked() {
+		removeAll();
+		add(d.initTemplate2());
 	}
 
 }
