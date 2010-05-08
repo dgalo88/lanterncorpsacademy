@@ -20,9 +20,12 @@ import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.extras.app.AccordionPane;
 import nextapp.echo.extras.app.layout.AccordionPaneLayoutData;
 
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 
 //import dao.lca.UsuarioDO;
+import dao.lantern.PersonajeDO;
 import dao.lantern.UsuarioDO;
 
 import echopoint.layout.HtmlLayoutData;
@@ -30,9 +33,23 @@ import echopoint.layout.HtmlLayoutData;
 @SuppressWarnings("serial")
 public class PanelRegistro2 extends Panel {
 	
-	private UsuarioDO usuarioNuevo;
+	protected static final int VERDE = 0;
+	protected static final int AMARILLO = 1;
+	protected static final int ROJO = 2;
+	protected static final int NEGRO = 3;
+	protected static final int AZUL = 4;
+	protected static final int INDIGO = 5;
+	protected static final int VIOLETA = 6;
+		
+	protected UsuarioDO usuarioNuevo;
+	protected PersonajeDO personajeNuevo;
 
 	public PanelRegistro2(UsuarioDO usuario) {
+		
+		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+		Desktop d = app.getDesktop(); //XXX:JUL: ORGANIZAAAAAAAR
+		//d.setPanelCentral FIXME
+		
 		
 		Row aliasRow = new Row();
 		Label lblAlias = new Label("Alias");
@@ -126,7 +143,7 @@ public class PanelRegistro2 extends Panel {
 		add(cp2);
 
 		
-		//XXX: careful...
+// careful...
 //		ContentPane cp2 = new ContentPane();
 //		cp2.add(sp1);
 //		add(cp2);
@@ -145,36 +162,91 @@ public class PanelRegistro2 extends Panel {
 		btnRadioVerde.setIcon(new ResourceImageReference( //
 			"com/ulasoft/lanterncorpsacademy/imagenes/greenIcon.png",new Extent(20), new Extent(20)));
 		btnRadioVerde.setGroup(btnGroupClases);
+		btnRadioVerde.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//personajeNuevo.setClaseLinternaRef(claseLinternaRef)
+			}
+		});
 
 		RadioButton btnRadioAmarillo = new RadioButton("Amarillo");
 		btnRadioAmarillo.setIcon(new ResourceImageReference( //
 			"com/ulasoft/lanterncorpsacademy/imagenes/yellowIcon.png",new Extent(20), new Extent(20)));
 		btnRadioAmarillo.setGroup(btnGroupClases);
+		btnRadioAmarillo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		RadioButton btnRadioNegro = new RadioButton("Negro");
 		btnRadioNegro.setIcon(new ResourceImageReference( //
 			"com/ulasoft/lanterncorpsacademy/imagenes/blackIcon.png",new Extent(20), new Extent(20)));
 		btnRadioNegro.setGroup(btnGroupClases);
+		btnRadioNegro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		RadioButton btnRadioRojo = new RadioButton("Rojo");
 		btnRadioRojo.setIcon(new ResourceImageReference( //
 			"com/ulasoft/lanterncorpsacademy/imagenes/redIcon.png",new Extent(20), new Extent(20)));
 		btnRadioRojo.setGroup(btnGroupClases);
+		btnRadioRojo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		RadioButton btnRadioAzul = new RadioButton("Azul");
 		btnRadioAzul.setIcon(new ResourceImageReference( //
 			"com/ulasoft/lanterncorpsacademy/imagenes/blueIcon.png",new Extent(20), new Extent(20)));
 		btnRadioAzul.setGroup(btnGroupClases);
+		btnRadioAzul.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		RadioButton btnRadioIndigo = new RadioButton("Indigo");
 		btnRadioIndigo.setIcon(new ResourceImageReference( //
 			"com/ulasoft/lanterncorpsacademy/imagenes/indigoIcon.png",new Extent(20), new Extent(20)));
 		btnRadioIndigo.setGroup(btnGroupClases);
+		btnRadioIndigo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		RadioButton btnRadioVioleta = new RadioButton("Violeta");
 		btnRadioVioleta.setIcon(new ResourceImageReference( //
 			"com/ulasoft/lanterncorpsacademy/imagenes/violetIcon.png",new Extent(20), new Extent(20)));
 		btnRadioVioleta.setGroup(btnGroupClases);
+		btnRadioVioleta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		// ------------------------------------------------------------------------------
 
@@ -349,7 +421,10 @@ public class PanelRegistro2 extends Panel {
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	protected void btnSendClicked() {
-		// TODO Auto-generated method stub
+		// TODO Aqui viene el...
+		
+		
+		
 		
 	}
 	
