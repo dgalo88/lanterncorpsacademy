@@ -2,13 +2,10 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 
 import java.awt.Font;
 import java.sql.SQLException;
-
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
-import nextapp.echo.app.Component;
-import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
@@ -17,17 +14,19 @@ import nextapp.echo.app.Panel;
 import nextapp.echo.app.PasswordField;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.TextField;
-import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
-//import dao.lca.UsuarioDO;
+
 import dao.api.FactoryDAO;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
 import dao.lantern.UsuarioDAO;
 import dao.lantern.UsuarioDO;
 import echopoint.layout.HtmlLayoutData;
+
+
 
 @SuppressWarnings("serial")
 public class PanelRegistro1 extends Panel {
@@ -179,6 +178,8 @@ public class PanelRegistro1 extends Panel {
 
 	}
 
+	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
 	private boolean checkEmptyFields() {
 
 		boolean flg = false;

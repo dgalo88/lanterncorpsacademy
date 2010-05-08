@@ -6,10 +6,7 @@ package com.ulasoft.lanterncorpsacademy;
 import nextapp.echo.app.ApplicationInstance;
 import nextapp.echo.app.Window;
 
-/**
- * @author typson
- * 
- */
+
 public class LanternCorpsAcademyApp extends ApplicationInstance {
 
 	private Desktop desktop;
@@ -19,6 +16,7 @@ public class LanternCorpsAcademyApp extends ApplicationInstance {
 	 * 
 	 * @see nextapp.echo.app.ApplicationInstance#init()
 	 */
+	
 	public Window init() {
 		Window window = new Window();
 		window.setTitle("Lantern Corps Academy");
