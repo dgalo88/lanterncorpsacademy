@@ -6,10 +6,11 @@ import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
 import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.PersonBean;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
-
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -47,7 +48,7 @@ public class PanelMiGrupo extends Panel {
 		
 		Row row = new Row();
 		Button btnInvitarNuevoIntegrante = new Button("Invitar Nuevo Integrante");
-		btnInvitarNuevoIntegrante.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnInvitarNuevoIntegrante.setStyle(GUIStyles.STYLE2);
 		btnInvitarNuevoIntegrante.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
@@ -57,7 +58,7 @@ public class PanelMiGrupo extends Panel {
 	    row.add(btnInvitarNuevoIntegrante);
 	    
 	    Button btnAbandonarGrupo = new Button("Abandonar Grupo");
-	    btnAbandonarGrupo.setStyle(GUIStyles.DEFAULT_STYLE);
+	    btnAbandonarGrupo.setStyle(GUIStyles.STYLE2);
 	    btnAbandonarGrupo.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
@@ -68,7 +69,7 @@ public class PanelMiGrupo extends Panel {
 	    row.add(btnAbandonarGrupo);
 	    
 	    Button btnMensaje = new Button("Mensaje");
-	    btnMensaje.setStyle(GUIStyles.DEFAULT_STYLE);
+	    btnMensaje.setStyle(GUIStyles.STYLE2);
 	    btnMensaje.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
@@ -80,9 +81,12 @@ public class PanelMiGrupo extends Panel {
 	    col.add(row);
 		add(col);
 		}
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+	Desktop d = app.getDesktop();
 
 		protected void btnMensajeClicked() {
-
+			PanelMensaje pnlMain = new PanelMensaje();
+			d.setPanelCentral(pnlMain);
 		
 	}
 
