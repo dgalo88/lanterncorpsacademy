@@ -13,6 +13,8 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelForo;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMedia;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMisiones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
@@ -137,124 +139,79 @@ public class MenuHead2 extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnRankingClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelRanking pnlMain = new PanelRanking();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnAboutGameClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
 		PanelAboutGame pnlMain = new PanelAboutGame();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnForoClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelForo pnlMain = new PanelForo();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnMediaClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelMedia pnlMain = new PanelMedia();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// -------------------------------------------------------------------------------
 
 	protected void btnRing2Clicked() {
-		
 //		removeAll();
 //		add(initTemplate2());
+		PanelMain pnlMain = new PanelMain();
+		//d = app.getDesktop();
+		d.setPanelCentral(pnlMain);
 
 	}
 
 	// --------------------------------------------------------------------------------
 
 	protected void btnViajarPlanetaClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelViajarPlaneta pnlMain = new PanelViajarPlaneta();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	protected void btnAtacarClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelAtacar pnlMain = new PanelAtacar();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
-
 	}
 
 	// --------------------------------------------------------------------------------
 
 	protected void btnRecargarAnilloClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
 		PanelRecargarAnillo pnlMain = new PanelRecargarAnillo();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
-
 	}
 
 	// --------------------------------------------------------------------------------
 
 	protected void btnMisionesClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelMisiones pnlMain = new PanelMisiones();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
 
 	}
 
