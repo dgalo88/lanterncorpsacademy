@@ -19,7 +19,7 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 public class MenuHead extends Panel {
 
 	public LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
-	public Desktop d = app.getDesktop();
+//	public Desktop d = app.getDesktop();
 	
 	public MenuHead() {
 		Row row = new Row();
@@ -86,63 +86,48 @@ public class MenuHead extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnRankingClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelRanking pnlMain = new PanelRanking();
+		Desktop d = app.getDesktop(); 
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnAboutGameClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelAboutGame pnlMain = new PanelAboutGame();
+		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnForoClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelForo pnlMain = new PanelForo();
+		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnMediaClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelMedia pnlMain = new PanelMedia();
+		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// -------------------------------------------------------------------------------
 
 	private void btnRingClicked() {
 		PanelLogin pnlMain = new PanelLogin();
+		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
 	}
 

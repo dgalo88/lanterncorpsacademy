@@ -21,6 +21,7 @@ public class MenuI extends Panel {
 	
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 	Desktop d = app.getDesktop();
+	//JUL: en estos si se puede usar esta variable porque con certeza el desktop ya fue cargado.
 	
 	public MenuI(){
 		Row row = new Row();
@@ -108,92 +109,67 @@ public class MenuI extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnMiGrupoClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelMiGrupo pnlMain = new PanelMiGrupo();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnCrearGrupoClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelCrearGrupo pnlMain = new PanelCrearGrupo();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnVerInvitacionesClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelVerInvitaciones pnlMain = new PanelVerInvitaciones();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnInvitarNuevosUsuariosClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelInvitarNuevosUsuarios pnlMain = new PanelInvitarNuevosUsuarios();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnVerHabilidadesAnilloClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelVerHabilidadesAnillo pnlMain = new PanelVerHabilidadesAnillo();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnEditarDatosUsuarioClicked() {
-//		HtmlLayoutData hld = new HtmlLayoutData("main");
+
 		PanelEditarDatosUsuario pnlMain = new PanelEditarDatosUsuario();
 		d.setPanelCentral(pnlMain);
-//		pnlMain.setId("main");
-//		pnlMain.setLayoutData(hld);
-//
-//		// Remueve componente anterior del htmlLayout
-//		htmlLayout.remove(htmlLayout.getComponent("main"));
-//		htmlLayout.add(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnExitClicked() {
-		removeAll();
-		add(d.initTemplate1());
+//		removeAll();
+//		add(d.initTemplate1());
+		//removeAll();
+		Desktop desktop = app.getDesktop();
+		d.removeAll();
+	    d.add(desktop.initTemplate1());
+	  }
 	}
 
-}
+

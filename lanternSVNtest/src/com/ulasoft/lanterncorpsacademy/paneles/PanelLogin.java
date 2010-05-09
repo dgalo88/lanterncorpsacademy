@@ -100,9 +100,12 @@ public class PanelLogin extends Panel {
   // --------------------------------------------------------------------------------
 
   private void btnClickToEnterClicked() {
-    removeAll();
-    Desktop desktop = app.getDesktop();
-    add(desktop.initTemplate2());
+    //removeAll();
+	Desktop desktop = app.getDesktop();
+//    desktop.remove(this);
+	desktop.removeAll();
+    //add(desktop.initTemplate2());
+    desktop.add(desktop.initTemplate2());
   }
 
 }
