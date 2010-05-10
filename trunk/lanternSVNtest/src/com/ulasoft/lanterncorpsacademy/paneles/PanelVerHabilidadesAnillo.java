@@ -12,6 +12,7 @@ import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.PersonBean;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.CheckBox;
@@ -35,17 +36,20 @@ public class PanelVerHabilidadesAnillo extends Panel{
 	
 	public PanelVerHabilidadesAnillo() {
 		Column col = new Column();
-		
+		Grid grid = new Grid();
+		grid.setStyle(GUIStyles.DEFAULT_STYLE);
+		grid.setWidth(new Extent(500));
 		Label lblTitle = new Label("Habilidades que Posee");
-		lblTitle.setBackground(Color.WHITE);
+		grid.add(lblTitle);
 		//lblCorreo.
-	    col.add(lblTitle);
+	    col.add(grid);
 		
 		col.add(initTable());
 		
 		Row row = new Row();
 		Button btnSalir = new Button("Adquirir Nueva Habilidad");
-	    btnSalir.setStyle(GUIStyles.DEFAULT_STYLE);
+	    btnSalir.setStyle(GUIStyles.STYLE2);
+	    btnSalir.setWidth(new Extent(200));
 	    btnSalir.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
@@ -55,7 +59,8 @@ public class PanelVerHabilidadesAnillo extends Panel{
 	    row.add(btnSalir);
 	    
 	    Button btnCrearGrupo = new Button("Entrenar Habilidad");
-	    btnCrearGrupo.setStyle(GUIStyles.DEFAULT_STYLE);
+	    btnCrearGrupo.setStyle(GUIStyles.STYLE2);
+	    btnCrearGrupo.setWidth(new Extent(160));
 	    btnCrearGrupo.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
@@ -64,6 +69,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 	    });
 	    
 	    row.add(btnCrearGrupo);
+	    row.setAlignment(Alignment.ALIGN_CENTER);
 	    col.add(row);
 		add(col);
 		}

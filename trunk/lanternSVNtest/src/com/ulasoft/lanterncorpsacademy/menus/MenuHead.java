@@ -97,7 +97,7 @@ public class MenuHead extends Panel {
 
 	private void btnAboutGameClicked() {
 
-		PanelAboutGame pnlMain = new PanelAboutGame();
+		PanelAboutGame pnlMain = new PanelAboutGame("1");
 		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
 

@@ -8,9 +8,13 @@ import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.PersonBean;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
+
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -31,19 +35,28 @@ public class PanelMensaje extends Panel {
 	private TestTableModel tableDtaModel;
 
 	public PanelMensaje(){
-Column col = new Column();
-		
-		Grid grid = new Grid(2);
-		grid.setStyle(GUIStyles.DEFAULT_STYLE);
-		grid.setWidth(new Extent(500));
+		Column col = new Column();
+		Row row1 = new Row();
+		row1.setStyle(GUIStyles.DEFAULT_STYLE);
 		Label lblTitle = new Label("Bandeja de Entrada:");
-		//lblCorreo.
-	    grid.add(lblTitle);
-		col.add(grid);
+		row1.add(lblTitle);
+		col.add(row1);
 		
 		col.add(initTable());
 		
 		Row row = new Row();
+		
+		Button btnAtras = new Button("Atras");
+	    btnAtras.setStyle(GUIStyles.STYLE2);
+	    btnAtras.addActionListener(new ActionListener() {
+	      @Override
+	      public void actionPerformed(ActionEvent arg0) {
+	    	  btnAtrasClicked();
+	      }
+	    });
+	    
+	    row.add(btnAtras);
+	    
 		Button btnBorrarSeleccionado = new Button("Borrar Seleccionado");
 		btnBorrarSeleccionado.setStyle(GUIStyles.STYLE2);
 		btnBorrarSeleccionado.setWidth(new Extent(200));
@@ -76,12 +89,22 @@ Column col = new Column();
 	    });
 	    
 	    row.add(btnEnviarMensaje);
+	    row.setAlignment(Alignment.ALIGN_CENTER);
 	    col.add(row);
 		add(col);
 	}
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+	Desktop d = app.getDesktop();
+	
+	protected void btnAtrasClicked() {
+		PanelMiGrupo pnlMain = new PanelMiGrupo();
+		d.setPanelCentral(pnlMain);
+		
+	}
 	
 	protected void btnEnviarMensajeClicked() {
-		// TODO Auto-generated method stub
+		PanelEnviarMensaje pnlMain = new PanelEnviarMensaje();
+		d.setPanelCentral(pnlMain);
 		
 	}
 

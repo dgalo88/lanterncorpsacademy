@@ -42,6 +42,7 @@ public class MenuHead2 extends Panel {
 
 		Button btnAtacar = new Button("Atacar");
 		btnAtacar.setStyle(GUIStyles.STYLE2);
+		btnAtacar.setWidth(new Extent(100));
 		//btnAtacar.setWidth(new Extent(100));
 		btnAtacar.addActionListener(new ActionListener() {
 			@Override
@@ -63,6 +64,7 @@ public class MenuHead2 extends Panel {
 
 		Button btnViajarPlaneta = new Button("Viajar a Otro Planeta");
 		btnViajarPlaneta.setStyle(GUIStyles.STYLE2);
+		btnViajarPlaneta.setWidth(new Extent(160));
 		btnViajarPlaneta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -148,7 +150,7 @@ public class MenuHead2 extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnAboutGameClicked() {
-		PanelAboutGame pnlMain = new PanelAboutGame();
+		PanelAboutGame pnlMain = new PanelAboutGame("1");
 		d.setPanelCentral(pnlMain);
 
 	}

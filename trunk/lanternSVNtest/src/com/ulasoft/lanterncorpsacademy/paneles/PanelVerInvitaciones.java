@@ -19,6 +19,7 @@ import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -35,10 +36,14 @@ public class PanelVerInvitaciones extends Panel{
 		setInsets(new Insets(2, 2, 2, 2));
 
 	    Column col = new Column();
-	    //col.setCellSpacing(new Extent(1));
 	    col.setBackground(Color.WHITE);
-	    add(col);
-
+	    Grid grid = new Grid();
+		grid.setStyle(GUIStyles.DEFAULT_STYLE);
+		grid.setWidth(new Extent(500));
+		Label lblTitle = new Label("Invitaciones");
+		//lblCorreo.
+	    grid.add(lblTitle);
+		col.add(grid);
 	    // ----------------------------------------
 	    // The table models
 	    // ----------------------------------------
@@ -103,8 +108,9 @@ public class PanelVerInvitaciones extends Panel{
 	      }
 	    });
 	    row.add(btnAceptar);
-	    
+	    row.setAlignment(Alignment.ALIGN_CENTER);
 	    col.add(row);
+	    add(col);
 	  }
 
 	protected void btnAceptarClicked() {
