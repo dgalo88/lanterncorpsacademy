@@ -8,10 +8,13 @@ import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.PersonBean;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.CheckBox;
@@ -52,8 +55,8 @@ public class PanelCrearGrupo extends Panel{
 	col.add(initTable());
 	
 	Row row = new Row();
-	Button btnSalir = new Button("SALIR");
-    btnSalir.setStyle(GUIStyles.DEFAULT_STYLE);
+	Button btnSalir = new Button("Cancelar");
+    btnSalir.setStyle(GUIStyles.STYLE2);
     btnSalir.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent arg0) {
@@ -63,7 +66,7 @@ public class PanelCrearGrupo extends Panel{
     row.add(btnSalir);
     
     Button btnCrearGrupo = new Button("Crear Grupo");
-    btnCrearGrupo.setStyle(GUIStyles.DEFAULT_STYLE);
+    btnCrearGrupo.setStyle(GUIStyles.STYLE2);
     btnCrearGrupo.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent arg0) {
@@ -72,17 +75,22 @@ public class PanelCrearGrupo extends Panel{
     });
     
     row.add(btnCrearGrupo);
+    row.setAlignment(Alignment.ALIGN_CENTER);
     col.add(row);
 	add(col);
 	}
 
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+	Desktop d = app.getDesktop();
+	
 	protected void btnCrearGrupoClicked() {
-
+		// TODO Auto-generated method stub
 		
 	}
 
 	protected void btnSalirClicked() {
-				
+		PanelMain pnlMain = new PanelMain();
+		d.setPanelCentral(pnlMain);
 	}
 
 	private Component initTable() {
@@ -221,7 +229,7 @@ public class PanelCrearGrupo extends Panel{
 	  // --------------------------------------------------------------------------------
 
 	  private void btnRadioClicked(int row) {
-	    
+			// TODO Auto-generated method stub	    
 	  }
 
 }

@@ -11,6 +11,8 @@ import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.PersonBean;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
+
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -49,6 +51,7 @@ public class PanelMiGrupo extends Panel {
 		Row row = new Row();
 		Button btnInvitarNuevoIntegrante = new Button("Invitar Nuevo Integrante");
 		btnInvitarNuevoIntegrante.setStyle(GUIStyles.STYLE2);
+		btnInvitarNuevoIntegrante.setWidth(new Extent(200));
 		btnInvitarNuevoIntegrante.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
@@ -59,6 +62,7 @@ public class PanelMiGrupo extends Panel {
 	    
 	    Button btnAbandonarGrupo = new Button("Abandonar Grupo");
 	    btnAbandonarGrupo.setStyle(GUIStyles.STYLE2);
+	    btnAbandonarGrupo.setWidth(new Extent(200));
 	    btnAbandonarGrupo.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
@@ -78,9 +82,11 @@ public class PanelMiGrupo extends Panel {
 	    });
 	    
 	    row.add(btnMensaje);
+	    row.setAlignment(Alignment.ALIGN_CENTER);
 	    col.add(row);
 		add(col);
 		}
+	
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 	Desktop d = app.getDesktop();
 
@@ -91,11 +97,13 @@ public class PanelMiGrupo extends Panel {
 	}
 
 		protected void btnAbandonarGrupoClicked() {
-		
+			// TODO Auto-generated method stub
+			
 	}
 
 		protected void btnInvitarNuevoIntegranteClicked() {
-		
+			// TODO Auto-generated method stub
+			
 	}
 
 		private Component initTable() {

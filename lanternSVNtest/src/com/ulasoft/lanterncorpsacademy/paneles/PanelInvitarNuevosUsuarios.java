@@ -56,7 +56,7 @@ public class PanelInvitarNuevosUsuarios extends Panel{
 		
 		Row row = new Row();
 		Button btnGuardar = new Button("Enviar Invitacion");
-	    btnGuardar.setStyle(GUIStyles.STYLE);
+	    btnGuardar.setStyle(GUIStyles.STYLE2);
 	    btnGuardar.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {

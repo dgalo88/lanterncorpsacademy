@@ -1,7 +1,9 @@
 package com.ulasoft.lanterncorpsacademy;
 
 import nextapp.echo.app.Alignment;
+import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
+import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
@@ -9,6 +11,10 @@ import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
+import nextapp.echo.app.Row;
+import nextapp.echo.app.WindowPane;
+import nextapp.echo.app.event.ActionEvent;
+import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead2;
@@ -18,6 +24,7 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 
 import echopoint.HtmlLayout;
+import echopoint.able.Widthable;
 import echopoint.layout.HtmlLayoutData;
 
 /**
@@ -30,6 +37,7 @@ public class Desktop extends ContentPane {
 
 	private HtmlLayout htmlLayout;
 	private HtmlLayoutData hld;
+	private WindowPane windowPane;
 	
 
 	// --------------------------------------------------------------------------------
@@ -119,6 +127,25 @@ public class Desktop extends ContentPane {
 		htmlLayout.remove(htmlLayout.getComponent("main"));
 		htmlLayout.add(panel);
 	
+	}
+
+	public void setWindowPaneEmergente(String texto) {
+		Column col = new Column();
+		windowPane = new WindowPane();
+		windowPane.setStyle(GUIStyles.DEFAULT_STYLE);
+	    windowPane.setTitle("Informacion");
+	    col.add(new Label(texto));
+	    Button btnOk = new Button("Ok");
+		btnOk.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnOk.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+		   	  remove(windowPane);
+			}
+		 	});
+		col.add(btnOk);
+		windowPane.add(col);
+	    add(windowPane);
 	}
 
 }

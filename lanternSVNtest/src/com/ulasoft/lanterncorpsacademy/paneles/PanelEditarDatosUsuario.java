@@ -65,7 +65,7 @@ public class PanelEditarDatosUsuario extends Panel{
 		
 		Row row = new Row();
 		Button btnGuardar = new Button("Guardar");
-	    btnGuardar.setStyle(GUIStyles.STYLE);
+	    btnGuardar.setStyle(GUIStyles.STYLE2);
 	    btnGuardar.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
@@ -74,6 +74,7 @@ public class PanelEditarDatosUsuario extends Panel{
 	    });
 	    row.add(btnGuardar);
 	    row.setCellSpacing(new Extent(10));
+	    row.setAlignment(Alignment.ALIGN_CENTER);
 		col.add(row);
 		col.setBorder(new Border(3, new Color(0x00, 0x00, 0x00), Border.STYLE_SOLID));
 		add(col);
