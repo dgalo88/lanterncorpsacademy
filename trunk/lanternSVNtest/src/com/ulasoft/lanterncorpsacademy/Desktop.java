@@ -134,6 +134,7 @@ public class Desktop extends ContentPane {
 		windowPane = new WindowPane();
 		windowPane.setStyle(GUIStyles.DEFAULT_STYLE);
 	    windowPane.setTitle("Informacion");
+	    windowPane.setModal(true);
 	    col.add(new Label(texto));
 	    Button btnOk = new Button("Ok");
 		btnOk.setStyle(GUIStyles.DEFAULT_STYLE);

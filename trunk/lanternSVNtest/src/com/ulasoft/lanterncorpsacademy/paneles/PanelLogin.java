@@ -1,5 +1,8 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
@@ -18,9 +21,18 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 
+import dao.api.FactoryDAO;
+import dao.connection.ConnectionBean;
+import dao.connection.ConnectionFactory;
+import dao.lantern.UsuarioDAO;
+import dao.lantern.UsuarioDO;
+
 public class PanelLogin extends Panel {
 
   LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+  private UsuarioDO usuario;
+  private TextField txtCorreo;
+  private PasswordField fldPass;
 
   // Por alguna extraña razon, cuando se construye el panel aun no se
   // ha asignado la referencia a desktop en LanternCorpsAcademyApp (ver
@@ -42,14 +54,14 @@ public class PanelLogin extends Panel {
 
     Label lblCorreo = new Label("Correo");
     grid.add(lblCorreo);
-    TextField txtCorreo = new TextField();
+    txtCorreo = new TextField();
     txtCorreo.setWidth(new Extent(300));
     txtCorreo.setText("");
     grid.add(txtCorreo);
 
     Label lblPass = new Label("Contraseña");
     grid.add(lblPass);
-    PasswordField fldPass = new PasswordField();
+    fldPass = new PasswordField();
     fldPass.setWidth(new Extent(300));
     grid.add(fldPass);
     col.add(grid);
@@ -61,7 +73,11 @@ public class PanelLogin extends Panel {
     btnClickToEnter.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent arg0) {
-        btnClickToEnterClicked();
+        try {
+			btnClickToEnterClicked();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
       }
     });
     row.add(btnClickToEnter);
@@ -99,13 +115,31 @@ public class PanelLogin extends Panel {
 
   // --------------------------------------------------------------------------------
 
-  private void btnClickToEnterClicked() {
-    //removeAll();
-	Desktop desktop = app.getDesktop();
-//    desktop.remove(this);
-	desktop.removeAll();
-    //add(desktop.initTemplate2());
-    desktop.add(desktop.initTemplate2());
+  private void btnClickToEnterClicked() throws Exception {
+
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+
+		UsuarioDAO usDAO = //
+		(UsuarioDAO) FactoryDAO.getDAO(UsuarioDAO.class, connectionBean);
+
+		try {
+			usuario = new UsuarioDO();
+			usuario=usDAO.loadByCorreo(txtCorreo.getText());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Desktop desktop = app.getDesktop();
+		if (usuario.equals(null)||(usuario.getCorreo() != txtCorreo.getText())
+				|| (usuario.getClave() != fldPass.getText())) {
+		
+			desktop.setWindowPaneEmergente(//
+					"La informacion de correo o Contraseña proporcionada no es Correcta.");
+			return;
+		}
+		
+		desktop.removeAll();
+
+		desktop.add(desktop.initTemplate2());
   }
 
 }

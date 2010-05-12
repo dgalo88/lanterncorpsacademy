@@ -25,13 +25,14 @@ import dao.lantern.UsuarioDO;
 import echopoint.layout.HtmlLayoutData;
 
 
-
 @SuppressWarnings("serial")
 public class PanelRegistro1 extends Panel {
 	
+	
+		
 	public HtmlLayoutData hld = new HtmlLayoutData("main");
-	public UsuarioDO usuarioNuevo;
-	public TextField txtNombre;
+	private UsuarioDO usuarioNuevo;
+	private TextField txtNombre;
 	private TextField txtCorreo;
 	private PasswordField fldPass;
 	private PasswordField fldConfirmPass;
@@ -41,9 +42,9 @@ public class PanelRegistro1 extends Panel {
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
-	public PanelRegistro1() {
+	public PanelRegistro1(UsuarioDO usuario) {
 
-		usuarioNuevo = new UsuarioDO();
+		usuarioNuevo = usuario;
 		
 		Row row1 = new Row();
 		row1.setStyle(GUIStyles.STYLE3);
@@ -166,12 +167,15 @@ public class PanelRegistro1 extends Panel {
 		
 		if (!(checkEmptyFields())) {
 			usuarioNuevo.setClave(fldPass.getText());
-			removeAll();
-			PanelRegistro2 pnlMain = new PanelRegistro2(usuarioNuevo);
-			pnlMain.setLayoutData(hld);
+//			removeAll();
+			PanelRegistro pr = (PanelRegistro) getParent();
+			PanelRegistro2 pnlMain = new PanelRegistro2(pr.getPersonaje());
+//			pnlMain.setLayoutData(hld);
 			pnlMain.set(PROPERTY_HEIGHT, new Extent(400));
 			pnlMain.set(PROPERTY_WIDTH, new Extent(900));
-			add(pnlMain);
+//			add(pnlMain);
+			pr.setUsuario(usuarioNuevo);
+			pr.changePanel(pnlMain);
 		}
 
 	}
