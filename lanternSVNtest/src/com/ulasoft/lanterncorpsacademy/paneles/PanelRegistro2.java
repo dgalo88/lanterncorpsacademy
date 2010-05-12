@@ -1,5 +1,7 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.sql.SQLException;
+
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -25,7 +27,13 @@ import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 
 //import dao.lca.UsuarioDO;
+import dao.api.FactoryDAO;
+import dao.connection.ConnectionBean;
+import dao.connection.ConnectionFactory;
+import dao.lantern.ClaseLinternaDO;
+import dao.lantern.PersonajeDAO;
 import dao.lantern.PersonajeDO;
+import dao.lantern.UsuarioDAO;
 import dao.lantern.UsuarioDO;
 
 import echopoint.layout.HtmlLayoutData;
@@ -33,35 +41,39 @@ import echopoint.layout.HtmlLayoutData;
 @SuppressWarnings("serial")
 public class PanelRegistro2 extends Panel {
 	
-	protected static final int VERDE = 0;
-	protected static final int AMARILLO = 1;
-	protected static final int ROJO = 2;
-	protected static final int NEGRO = 3;
-	protected static final int AZUL = 4;
-	protected static final int INDIGO = 5;
-	protected static final int VIOLETA = 6;
+	protected static final String VERDE = "Verde";
+	protected static final String AMARILLO = "Amarillo";
+	protected static final String ROJO = "Rojo";
+	protected static final String NEGRO = "Negro";
+	protected static final String AZUL = "Azul";
+	protected static final String INDIGO = "Indigo";
+	protected static final String VIOLETA = "Violeta";
 		
 	protected UsuarioDO usuarioNuevo;
-	protected PersonajeDO personajeNuevo;
+	public PersonajeDO personajeNuevo;
+	private ClaseLinternaDO claseSelect;
+	private String optClase;
+	private TextField txtAlias;
+	
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 
-	public PanelRegistro2(UsuarioDO usuario) {
+	public PanelRegistro2(PersonajeDO personaje) {
 		
-		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
-		Desktop d = app.getDesktop(); //XXX:JUL: ORGANIZAAAAAAAR
-		//d.setPanelCentral();
+			
+		personajeNuevo=personaje;
 		
 		
 		Row aliasRow = new Row();
 		Label lblAlias = new Label("Alias");
 		aliasRow.add(lblAlias);
-		TextField txtAlias = new TextField();
+		txtAlias = new TextField();
 		txtAlias.setToolTipText("Nombre con el que otros jugadores te verán en el universo.");
 		txtAlias.setWidth(new Extent(200));
+		txtAlias.setText(personajeNuevo.getAlias());
 		aliasRow.add(txtAlias);
 		aliasRow.setStyle(GUIStyles.DEFAULT_STYLE);
 
-		usuarioNuevo = usuario;
-		
+				
 		Label lblTitle = new Label("REGISTRO");
 		Row row2 = new Row();
 		row2.add(lblTitle);
@@ -87,7 +99,13 @@ public class PanelRegistro2 extends Panel {
 		btnSend.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				btnSendClicked();
+				try {
+					btnSendClicked();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -166,7 +184,7 @@ public class PanelRegistro2 extends Panel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//personajeNuevo.setClaseLinternaRef(claseLinternaRef)
+				optClase=VERDE;
 			}
 		});
 
@@ -178,7 +196,7 @@ public class PanelRegistro2 extends Panel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				optClase=AMARILLO;
 				
 			}
 		});
@@ -191,7 +209,7 @@ public class PanelRegistro2 extends Panel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				optClase=NEGRO;
 				
 			}
 		});
@@ -204,7 +222,7 @@ public class PanelRegistro2 extends Panel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				optClase=ROJO;
 				
 			}
 		});
@@ -217,7 +235,7 @@ public class PanelRegistro2 extends Panel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				optClase=AZUL;
 				
 			}
 		});
@@ -230,7 +248,7 @@ public class PanelRegistro2 extends Panel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				optClase=INDIGO;
 				
 			}
 		});
@@ -243,7 +261,7 @@ public class PanelRegistro2 extends Panel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				optClase=VIOLETA;
 				
 			}
 		});
@@ -411,20 +429,46 @@ public class PanelRegistro2 extends Panel {
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	protected void btnBackClicked() {
-		removeAll();
-		HtmlLayoutData hld = new HtmlLayoutData("main");
-		PanelRegistro1 pnlMain = new PanelRegistro1();
-		pnlMain.setLayoutData(hld);
-		add(pnlMain);
-}
+		// removeAll();
+		// HtmlLayoutData hld = new HtmlLayoutData("main");
+		// pnlMain.setLayoutData(hld);
+		// add(pnlMain);
+		PanelRegistro pr = (PanelRegistro) getParent();
+		personajeNuevo.setAlias(txtAlias.getText());
+		pr.setPersonaje(personajeNuevo);
+
+		PanelRegistro1 pnlMain = new PanelRegistro1(pr.getUsuario());
+		// pnlMain.set(PROPERTY_HEIGHT, new Extent(400));
+		// pnlMain.set(PROPERTY_WIDTH, new Extent(900));
+		pr.changePanel(pnlMain);
+
+	}
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	protected void btnSendClicked() {
+	protected void btnSendClicked() throws ClassNotFoundException, Exception {
 		// TODO Aqui viene el...
 		
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+
+		PersonajeDAO usuarioDAO = //
+		(PersonajeDAO) FactoryDAO.getDAO(PersonajeDAO.class, connectionBean);
+
+		try {
+
+			if (usuarioDAO.checkIfAliasExists(personajeNuevo.getAlias())) {
+				Desktop d = app.getDesktop();
+				d.setWindowPaneEmergente("Escoge el Alias para tu Personaje!");
+				return;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		
+		PanelRegistro pr = (PanelRegistro) getParent();
+		personajeNuevo.setAlias(txtAlias.getText());
+		pr.setPersonaje(personajeNuevo);
+		pr.Registrar(optClase);
 		
 	}
 	
