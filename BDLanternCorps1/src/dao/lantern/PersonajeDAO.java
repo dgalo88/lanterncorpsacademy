@@ -81,21 +81,18 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(PersonajeDO.ALIAS); 
 	    strbuf.append(" VARCHAR(15) UNIQUE,    ");
 	    strbuf.append(PersonajeDO.EXPERIENCIA); 
-	    strbuf.append(" INT CHECK (experiencia>=0),   ");
+	    strbuf.append(" INT CHECK (experiencia>=0) DEFAULT 0,   ");
 	    strbuf.append(PersonajeDO.PUNTOS_DE_ENTRENAMIENTO); 
-	    strbuf.append(" INT,   ");
+	    strbuf.append(" INT DEFAULT 0,	");
 	    strbuf.append(PersonajeDO.SALUD); 
-	    strbuf.append(" INT,   ");
+	    strbuf.append(" INT CHECK (" + PersonajeDO.SALUD
+				+ " >= 0 ) DEFAULT 200,	");
 	    strbuf.append(PersonajeDO.ENERGIA_DEL_ANILLO); 
-	    strbuf.append(" INT,   ");
+	    strbuf.append(" INT DEFAULT 100,	");
 	    strbuf.append(PersonajeDO.NIVEL); 
-	    strbuf.append(" INT,   ");
+	    strbuf.append(" INT DEFAULT 1,	");
 	    strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO); 
-	    strbuf.append(" DATE,   ");
-//	    strbuf.append(PersonajeDO.USUARIO_ID);
-//	    strbuf.append(" INT REFERENCES   ");
-//	    strbuf.append(usuarioDAO.getTableName());
-//	    strbuf.append(", ");
+	    strbuf.append(" DATE DEFAULT current_date ,	");
 	    strbuf.append(PersonajeDO.PLANETA_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(planetaDAO.getTableName());
@@ -183,12 +180,7 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(", ");
 	    strbuf.append(personajeDO.getUltimaFechaIngreso());
 	    strbuf.append(", ");
-
-//	    Reference<UsuarioDO> refU = personajeDO.getUsuarioRef();
-//	    refU.checkInsert();
-//	    strbuf.append(refU.getIdAsString());
-//	    strbuf.append(", ");
-	    
+  
 	    Reference<PlanetaDO> refPl = personajeDO.getPlanetaRef();
 	    refPl.checkInsert();
 	    strbuf.append(refPl.getIdAsString());
@@ -639,5 +631,52 @@ public class PersonajeDAO extends BaseDAO {
 
 	    personajeDO.setMisionPersonajeList(misionPersonajeDAO.listByPersonajeId(personajeDO.getId()));
 	  }
-	  
+
+	public boolean checkIfAliasExists(String alias) throws SQLException {
+        StringBuffer strbuf = new StringBuffer();
+
+        strbuf.append("SELECT * FROM ");
+        strbuf.append(getTableName());
+
+        strbuf.append(" WHERE ");
+        strbuf.append(PersonajeDO.ALIAS);
+        strbuf.append(" = ");
+        strbuf.append(singleQuotes(alias));
+        
+        System.err.println(strbuf.toString());
+
+        ResultSet rs = connection.createStatement().executeQuery(
+                        strbuf.toString());
+
+        if(rs.next()) {
+                return true;
+        }
+
+		return false;
+	}
+
+	public PersonajeDO loadByAlias(String alias) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(PersonajeDO.ALIAS);
+	    strbuf.append(" = ");
+	    strbuf.append(singleQuotes(alias));
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
+	    }
+
+	    return null;
+	}
+	
+	
 }

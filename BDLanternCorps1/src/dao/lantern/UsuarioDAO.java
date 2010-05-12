@@ -378,4 +378,27 @@ public class UsuarioDAO extends BaseDAO {
           return false;
   }
 
+      
+      public UsuarioDO loadByCorreo(String mail) throws SQLException {
+  	    StringBuffer strbuf = new StringBuffer();
+
+  	    strbuf.append("SELECT * FROM ");
+  	    strbuf.append(getTableName());
+
+  	    strbuf.append(" WHERE ");
+  	    strbuf.append(UsuarioDO.CORREO);
+  	    strbuf.append(" = ");
+  	    strbuf.append(singleQuotes(mail));
+
+  	    System.err.println(strbuf.toString());
+
+  	    ResultSet rs = //
+  	    connection.createStatement().executeQuery(strbuf.toString());
+
+  	    if (rs.next()) {
+  	      return resultSetToDO(rs);
+  	    }
+
+  	    return null;
+  	}
 }

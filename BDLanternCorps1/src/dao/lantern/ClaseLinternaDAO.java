@@ -96,9 +96,9 @@ public class ClaseLinternaDAO extends BaseDAO {
     strbuf.append(" VALUES (");
     strbuf.append(claseLinternaDO.getId());
     strbuf.append(", ");
-    strbuf.append(singleQuotes(claseLinternaDO.getNombreDeCuerpoLinterna()));
-    strbuf.append(", ");
     strbuf.append(singleQuotes(claseLinternaDO.getColor()));
+    strbuf.append(", ");
+    strbuf.append(singleQuotes(claseLinternaDO.getNombreDeCuerpoLinterna()));
     strbuf.append(", ");
 
     Reference<PlanetaDO> refPl = claseLinternaDO.getPlanetaRef();
@@ -186,7 +186,7 @@ public class ClaseLinternaDAO extends BaseDAO {
   // --------------------------------------------------------------------------------
 
   @Override
-  public DataObject loadById(int id) throws SQLException {
+  public ClaseLinternaDO loadById(int id) throws SQLException {
     StringBuffer strbuf = new StringBuffer();
 
     strbuf.append("SELECT * FROM ");
@@ -211,6 +211,58 @@ public class ClaseLinternaDAO extends BaseDAO {
 
   // --------------------------------------------------------------------------------
 
+  
+  public ClaseLinternaDO loadByName(String name) throws SQLException {
+    StringBuffer strbuf = new StringBuffer();
+
+    strbuf.append("SELECT * FROM ");
+    strbuf.append(getTableName());
+
+    strbuf.append(" WHERE ");
+    strbuf.append(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA);
+    strbuf.append(" = ");
+    strbuf.append(singleQuotes(name));
+
+    System.err.println(strbuf.toString());
+
+    ResultSet rs = //
+    connection.createStatement().executeQuery(strbuf.toString());
+
+    if (rs.next()) {
+      return resultSetToDO(rs);
+    }
+
+    return null;
+  }
+
+  // --------------------------------------------------------------------------------
+  
+  public ClaseLinternaDO loadByColor(String color) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(ClaseLinternaDO.COLOR);
+	    strbuf.append(" = ");
+	    strbuf.append(singleQuotes(color));
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
+	    }
+
+	    return null;
+	  }
+
+	  // --------------------------------------------------------------------------------
+  
+  
   @Override
   public List<DataObject> listAll(int lim, int off) throws SQLException {
     StringBuffer strbuf = new StringBuffer();
