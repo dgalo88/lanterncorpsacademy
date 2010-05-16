@@ -71,9 +71,9 @@ public class NivelHabilidadDAO extends BaseDAO {
 	    strbuf.append(NivelHabilidadDO.NIVEL_DE_HABILIDAD); 
 	    strbuf.append(" INT,    ");
 	    strbuf.append(NivelHabilidadDO.EFECTIVIDAD); 
-	    strbuf.append(" INT,   ");
+	    strbuf.append(" FLOAT,   ");
 	    strbuf.append(NivelHabilidadDO.COSTO_DE_ENERGIA); 
-	    strbuf.append(" INT,   ");
+	    strbuf.append(" FLOAT,   ");
 	    strbuf.append(NivelHabilidadDO.PROBABILIDAD); 
 	    strbuf.append(" INT,   ");
 
