@@ -499,5 +499,43 @@ public class PersonajeDAO extends BaseDAO {
 
 		return ret;
 	}
+	
+	public boolean checkIfAliasExists(String alias) throws SQLException {
+        
+		StringBuffer strbuf = new StringBuffer();
+        strbuf.append("SELECT * FROM ");
+        strbuf.append(getTableName());
+        strbuf.append(" WHERE ");
+        strbuf.append(PersonajeDO.ALIAS);
+        strbuf.append(" = ");
+        strbuf.append(singleQuotes(alias));
+        System.err.println(strbuf.toString());
+
+        ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
+
+        if(rs.next()) {
+                return true;
+        }
+		return false;
+	}
+
+	public PersonajeDO loadByAlias(String alias) throws SQLException {
+	    
+		StringBuffer strbuf = new StringBuffer();
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+	    strbuf.append(" WHERE ");
+	    strbuf.append(PersonajeDO.ALIAS);
+	    strbuf.append(" = ");
+	    strbuf.append(singleQuotes(alias));
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
+	    }
+	    return null;
+	}
 
 }
