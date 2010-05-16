@@ -365,4 +365,42 @@ public class ClaseLinternaDAO extends BaseDAO {
 
 		ref.setRefValue(planetaDO);
 	}
+	
+	public ClaseLinternaDO loadByName(String nombre) throws SQLException {
+	    
+		StringBuffer strbuf = new StringBuffer();
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+	    strbuf.append(" WHERE ");
+	    strbuf.append(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA);
+	    strbuf.append(" = ");
+	    strbuf.append(singleQuotes(nombre));
+	    System.err.println(strbuf.toString());
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
+	    }
+	    return null;
+	  }
+	
+	  // --------------------------------------------------------------------------------
+	
+	  public ClaseLinternaDO loadByColor(String color) throws SQLException {
+		    
+		  	StringBuffer strbuf = new StringBuffer();
+		    strbuf.append("SELECT * FROM ");
+		    strbuf.append(getTableName());
+		    strbuf.append(" WHERE ");
+		    strbuf.append(ClaseLinternaDO.COLOR);
+		    strbuf.append(" = ");
+		    strbuf.append(singleQuotes(color));
+		    System.err.println(strbuf.toString());
+		    ResultSet rs = //
+		    connection.createStatement().executeQuery(strbuf.toString());
+		    if (rs.next()) {
+		      return resultSetToDO(rs);
+		    }
+		    return null;
+	  }
 }
