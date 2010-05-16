@@ -20,7 +20,7 @@ public class NivelHabilidadDO implements DataObject {
 	
 	private int nivel_de_habilidad;
 	private float efectividad;
-	private int costo_de_energia;
+	private float costo_de_energia;
 	private int probabilidad;
 	
 	private Reference<HabilidadDO> habilidadRef = new Reference<HabilidadDO>();
@@ -65,7 +65,7 @@ public class NivelHabilidadDO implements DataObject {
 	// --------------------------------------------------------------------------------
 	
 
-	public int getCostoDeEnergia() {
+	public float getCostoDeEnergia() {
 		return costo_de_energia;
 	}
 
