@@ -9,6 +9,7 @@ import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 import dao.api.FactoryDAO;
+import dao.lantern.PersonajeDO;
 
 public class PersonajeDAO extends BaseDAO {
 
@@ -163,33 +164,42 @@ public class PersonajeDAO extends BaseDAO {
 
 	    strbuf.append("INSERT INTO ");
 	    strbuf.append(getTableName());
+		strbuf.append(" (");
+		strbuf.append(PersonajeDO.ID);
+		strbuf.append(", ");
+		strbuf.append(PersonajeDO.ALIAS);
+		strbuf.append(", ");
+		strbuf.append(PersonajeDO.PLANETA_ID);
+		strbuf.append(", ");
+		strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
+		strbuf.append(") ");
 	    strbuf.append(" VALUES (");
 	    strbuf.append(personajeDO.getId()); // INSTANCIA
 	    strbuf.append(", ");
 	    strbuf.append(singleQuotes(personajeDO.getAlias()));
 	    strbuf.append(", ");
-	    strbuf.append(personajeDO.getExperiencia());
-	    strbuf.append(", ");
-	    strbuf.append(personajeDO.getPuntosDeEntrenamiento());
-	    strbuf.append(", ");
-	    strbuf.append(personajeDO.getSalud());
-	    strbuf.append(", ");
-	    strbuf.append(personajeDO.getEnergiaDelAnillo());
-	    strbuf.append(", ");
-	    strbuf.append(personajeDO.getNivel());
-	    strbuf.append(", ");
-	    strbuf.append(personajeDO.getUltimaFechaIngreso());
-	    strbuf.append(", ");
+//	    strbuf.append(personajeDO.getExperiencia());
+//	    strbuf.append(", ");
+//	    strbuf.append(personajeDO.getPuntosDeEntrenamiento());
+//	    strbuf.append(", ");
+//	    strbuf.append(personajeDO.getSalud());
+//	    strbuf.append(", ");
+//	    strbuf.append(personajeDO.getEnergiaDelAnillo());
+//	    strbuf.append(", ");
+//	    strbuf.append(personajeDO.getNivel());
+//	    strbuf.append(", ");
+//	    strbuf.append(personajeDO.getUltimaFechaIngreso());
+//	    strbuf.append(", ");
   
 	    Reference<PlanetaDO> refPl = personajeDO.getPlanetaRef();
 	    refPl.checkInsert();
 	    strbuf.append(refPl.getIdAsString());
 	    strbuf.append(", ");
 
-	    Reference<GrupoDO> refGr = personajeDO.getGrupoRef();
-	    refGr.checkInsert();
-	    strbuf.append(refGr.getIdAsString());
-	    strbuf.append(", ");
+//	    Reference<GrupoDO> refGr = personajeDO.getGrupoRef();
+//	    refGr.checkInsert();
+//	    strbuf.append(refGr.getIdAsString());
+//	    strbuf.append(", ");
 
 	    Reference<ClaseLinternaDO> refCL = personajeDO.getClaseLinternaRef();
 	    refCL.checkInsert();
