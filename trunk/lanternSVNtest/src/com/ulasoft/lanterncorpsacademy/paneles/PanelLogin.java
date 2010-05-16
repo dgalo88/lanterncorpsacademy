@@ -26,6 +26,8 @@ import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
 import dao.lantern.UsuarioDAO;
 import dao.lantern.UsuarioDO;
+//import dao.lca.UsuarioDAO;
+//import dao.lca.UsuarioDO;
 
 public class PanelLogin extends Panel {
 
@@ -124,14 +126,21 @@ public class PanelLogin extends Panel {
 
 		try {
 			usuario = new UsuarioDO();
-			usuario=usDAO.loadByCorreo(txtCorreo.getText());
+			usuario = usDAO.loadByCorreo(txtCorreo.getText());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		Desktop desktop = app.getDesktop();
-		if (usuario.equals(null)||(usuario.getCorreo() != txtCorreo.getText())
+		if (usuario.equals(null)) {
+
+			desktop.setWindowPaneEmergente(//
+					"user not found/loaded.");
+			return;
+		}
+		System.out.println(usuario.getCorreo());
+		System.out.println(usuario.getClave());
+		if ((usuario.getCorreo() != txtCorreo.getText())
 				|| (usuario.getClave() != fldPass.getText())) {
-		
 			desktop.setWindowPaneEmergente(//
 					"La informacion de correo o Contraseña proporcionada no es Correcta.");
 			return;

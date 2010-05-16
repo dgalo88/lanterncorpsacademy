@@ -3,9 +3,7 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 
-import nextapp.echo.app.Component;
-import nextapp.echo.app.ContentPane;
-import nextapp.echo.app.Extent;
+
 import nextapp.echo.app.Panel;
 import dao.api.FactoryDAO;
 import dao.api.Reference;
@@ -17,6 +15,12 @@ import dao.lantern.PersonajeDAO;
 import dao.lantern.PersonajeDO;
 import dao.lantern.UsuarioDAO;
 import dao.lantern.UsuarioDO;
+//import dao.lca.ClaseLinternaDAO;
+//import dao.lca.ClaseLinternaDO;
+//import dao.lca.PersonajeDAO;
+//import dao.lca.PersonajeDO;
+//import dao.lca.UsuarioDAO;
+//import dao.lca.UsuarioDO;
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
 
