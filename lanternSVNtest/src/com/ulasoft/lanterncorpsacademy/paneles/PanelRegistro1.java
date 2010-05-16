@@ -22,6 +22,8 @@ import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
 import dao.lantern.UsuarioDAO;
 import dao.lantern.UsuarioDO;
+//import dao.lca.UsuarioDAO;
+//import dao.lca.UsuarioDO;
 import echopoint.layout.HtmlLayoutData;
 
 
@@ -156,7 +158,7 @@ public class PanelRegistro1 extends Panel {
 				errorRow = new Row();
 				errorRow.add(new Label("Ya existe una cuenta con ese correo."));
 				col.add(errorRow);
-				txtCorreo.set(PROPERTY_BACKGROUND, Color.RED);
+				txtCorreo.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
 				return;
 			}
 		} catch (SQLException e) {

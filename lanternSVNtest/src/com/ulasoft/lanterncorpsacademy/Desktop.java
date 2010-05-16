@@ -135,9 +135,11 @@ public class Desktop extends ContentPane {
 		windowPane.setStyle(GUIStyles.DEFAULT_STYLE);
 	    windowPane.setTitle("Informacion");
 	    windowPane.setModal(true);
+	    windowPane.setHeight(new Extent(200));
+	    windowPane.setWidth(new Extent(200));
 	    col.add(new Label(texto));
 	    Button btnOk = new Button("Ok");
-		btnOk.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnOk.setStyle(GUIStyles.STYLE2);
 		btnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

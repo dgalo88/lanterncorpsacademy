@@ -449,16 +449,23 @@ public class PanelRegistro2 extends Panel {
 	protected void btnSendClicked() throws ClassNotFoundException, Exception {
 		// TODO Aqui viene el...
 		
+		if ((txtAlias.getText())=="") {
+			Desktop d = app.getDesktop();
+			d.setWindowPaneEmergente("Escoge el Alias para tu Personaje!");
+			return;
+		}
+		
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
 		PersonajeDAO usuarioDAO = //
 		(PersonajeDAO) FactoryDAO.getDAO(PersonajeDAO.class, connectionBean);
+		personajeNuevo.setAlias(txtAlias.getText());
 
 		try {
 
 			if (usuarioDAO.checkIfAliasExists(personajeNuevo.getAlias())) {
 				Desktop d = app.getDesktop();
-				d.setWindowPaneEmergente("Escoge el Alias para tu Personaje!");
+				d.setWindowPaneEmergente("Ya existe un jugador con ese Alias.");
 				return;
 			}
 		} catch (SQLException e) {
@@ -466,7 +473,6 @@ public class PanelRegistro2 extends Panel {
 		}
 		
 		PanelRegistro pr = (PanelRegistro) getParent();
-		personajeNuevo.setAlias(txtAlias.getText());
 		pr.setPersonaje(personajeNuevo);
 		pr.Registrar(optClase);
 		
