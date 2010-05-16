@@ -15,8 +15,8 @@ public class NivelHabilidadDO implements DataObject {
 
 	private int id;
 	private int nivelDeHabilidad;
-	private int efectividad;
-	private int costoDeEnergia;
+	private float efectividad;
+	private float costoDeEnergia;
 	private int probabilidad;
 	
 	// --------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ public class NivelHabilidadDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
-	public int getEfectividad() {
+	public float getEfectividad() {
 		return efectividad;
 	}
 
@@ -63,7 +63,7 @@ public class NivelHabilidadDO implements DataObject {
 	// --------------------------------------------------------------------------------
 	
 
-	public int getCosto_de_energia() {
+	public float getCosto_de_energia() {
 		return costoDeEnergia;
 	}
 

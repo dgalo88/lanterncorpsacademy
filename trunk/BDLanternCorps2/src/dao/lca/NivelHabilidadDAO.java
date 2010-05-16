@@ -71,10 +71,10 @@ public class NivelHabilidadDAO extends BaseDAO {
 		strbuf.append(" INT CHECK (" + NivelHabilidadDO.NIVEL_DE_HABILIDAD
 				+ " >= 1 ) NOT NULL, ");
 		strbuf.append(NivelHabilidadDO.EFECTIVIDAD);
-		strbuf.append(" INT CHECK (" + NivelHabilidadDO.EFECTIVIDAD
+		strbuf.append(" FLOAT CHECK (" + NivelHabilidadDO.EFECTIVIDAD
 				+ " >= 1 ) NOT NULL");
 		strbuf.append(NivelHabilidadDO.COSTO_DE_ENERGIA);
-		strbuf.append(" INT CHECK (" + NivelHabilidadDO.COSTO_DE_ENERGIA
+		strbuf.append(" FLOAT CHECK (" + NivelHabilidadDO.COSTO_DE_ENERGIA
 				+ " >= 1 ) NOT NULL");
 		strbuf.append(NivelHabilidadDO.PROBABILIDAD);
 		strbuf.append(" INT CHECK (" + NivelHabilidadDO.PROBABILIDAD
