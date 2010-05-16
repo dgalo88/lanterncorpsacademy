@@ -19,7 +19,7 @@ public class NivelHabilidadDO implements DataObject {
 	private int id;
 	
 	private int nivel_de_habilidad;
-	private int efectividad;
+	private float efectividad;
 	private int costo_de_energia;
 	private int probabilidad;
 	
@@ -54,9 +54,9 @@ public class NivelHabilidadDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
-	public int getEfectividad() {
+	public float getEfectividad() {
 		return efectividad;
-	}
+	} //XXX: esto cambióooo
 
 	public void setEfectividad(int efectividad) {
 		this.efectividad = efectividad;

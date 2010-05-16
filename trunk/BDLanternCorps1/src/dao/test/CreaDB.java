@@ -12,11 +12,13 @@ import dao.lantern.GrupoDAO;
 import dao.lantern.HabilidadActivaDAO;
 import dao.lantern.HabilidadClaseLinternaDAO;
 import dao.lantern.HabilidadDAO;
+import dao.lantern.HabilidadDO;
 import dao.lantern.MisionClaseLinternaDAO;
 import dao.lantern.MisionDAO;
 import dao.lantern.MisionDO;
 import dao.lantern.MisionPersonajeDAO;
 import dao.lantern.NivelHabilidadDAO;
+import dao.lantern.NivelHabilidadDO;
 import dao.lantern.NpcDAO;
 import dao.lantern.ObjetivoDAO;
 import dao.lantern.ObjetivoDO;
@@ -156,13 +158,47 @@ public class CreaDB {
 
                     // CREATE REFERENCE TO PLANETA AND INSERT CLASELINTERNA
                     Reference<PlanetaDO> refpl;
-                    for (int i = 0; i < 6; i++) {
+                    for (int i = 0; i < 7; i++) {
                             refpl = new Reference<PlanetaDO>();
                             refpl.setRefIdent(pldo[i].getId());
                             cdo[i].setPlanetaRef(refpl);
                             cDAO.insert(cdo[i]);
                     }
                     
+//                    //CREATE AND INSERT HABILIDADES
+//                    HabilidadDO hdo[]= new HabilidadDO[4];
+//                    for (int i = 1; i < 3; i++) {
+//						hdo[i] = new HabilidadDO();
+//                    }
+//                    
+//                    
+//                    hdo[1].setNombre("Vuelo");
+//                    hdo[1].setCostoDeAprendizaje(0);
+//                    hdo[1].setTipo(2);
+//                    
+//                    Reference<HabilidadDO> refhab;
+//                    refhab = new Reference<HabilidadDO>();
+//                    refhab.setRefIdent(hdo[1].getId());
+//
+//                    NivelHabilidadDO nhdo[]= new NivelHabilidadDO[10];
+//
+//                    for (int i = 0; i < 10; i++) {
+//                    		nhdo[i]= new NivelHabilidadDO();
+//                    		nhdo[i].setNivelDeHabilidad(i);
+//                    		nhdo[i].setEfectividad(10);
+//                    		nhdo[i].setCostoDeEnergia(1-(i/100));
+//                            nhdo[i].setHabilidadRef(refhab);
+//                            nhDAO.insert(nhdo[i]);
+//                    }
+//                    
+//                    hdo[2].setNombre("Aura Protectora");
+//                    hdo[2].setCostoDeAprendizaje(0);
+//                    hdo[2].setTipo(1);
+//                    
+//                    hdo[3].setNombre("Rayo Directo");
+//                    hdo[3].setCostoDeAprendizaje(0);
+//                    hdo[3].setTipo(0);
+//                    
                     
                     // CREATE AND INSERT MISION
                     StringBuffer str2 = new StringBuffer();
