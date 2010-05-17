@@ -69,16 +69,19 @@ public class HabilidadActivaDAO extends BaseDAO {
 		strbuf.append(HabilidadActivaDO.ID);
 		strbuf.append(" INT PRIMARY KEY,	");
 		strbuf.append(HabilidadActivaDO.NIVEL_HABILIDAD);
-		strbuf.append(" INT CHECK (" + HabilidadActivaDO.NIVEL_HABILIDAD
-				+ " >= 1 ) DEFAULT 1,	");
+		strbuf.append(" INT CHECK("+HabilidadActivaDO.NIVEL_HABILIDAD
+				+ " >= 1) DEFAULT 1,	");
+		
 		strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
-		strbuf.append(" INT REFERENCES NOT NULL");
+		strbuf.append(" INT NOT NULL REFERENCES	");
 		strbuf.append(personajeDAO.getTableName());
-		strbuf.append(",");
+		strbuf.append(", ");
+		
 		strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
-		strbuf.append(" INT REFERENCES NOT NULL");
+		strbuf.append(" INT NOT NULL REFERENCES	");
 		strbuf.append(habilidadDAO.getTableName());
 		strbuf.append(")");
+		
 		System.err.println(strbuf.toString());
 		connection.createStatement().execute(strbuf.toString());
 
