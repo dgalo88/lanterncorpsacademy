@@ -68,19 +68,19 @@ public class NivelHabilidadDAO extends BaseDAO {
 		strbuf.append(NivelHabilidadDO.ID);
 		strbuf.append(" INT PRIMARY KEY,	");
 		strbuf.append(NivelHabilidadDO.NIVEL_DE_HABILIDAD);
-		strbuf.append(" INT CHECK (" + NivelHabilidadDO.NIVEL_DE_HABILIDAD
-				+ " >= 1 ) NOT NULL, ");
+		strbuf.append(" INT CHECK("+NivelHabilidadDO.NIVEL_DE_HABILIDAD
+				+ " >= 1) NOT NULL,	");
 		strbuf.append(NivelHabilidadDO.EFECTIVIDAD);
-		strbuf.append(" FLOAT CHECK (" + NivelHabilidadDO.EFECTIVIDAD
-				+ " >= 1 ) NOT NULL");
+		strbuf.append(" FLOAT CHECK("+NivelHabilidadDO.EFECTIVIDAD
+				+ " >= 1) NOT NULL,	");
 		strbuf.append(NivelHabilidadDO.COSTO_DE_ENERGIA);
-		strbuf.append(" FLOAT CHECK (" + NivelHabilidadDO.COSTO_DE_ENERGIA
-				+ " >= 1 ) NOT NULL");
+		strbuf.append(" FLOAT CHECK("+NivelHabilidadDO.COSTO_DE_ENERGIA
+				+ " >= 1) NOT NULL,	");
 		strbuf.append(NivelHabilidadDO.PROBABILIDAD);
-		strbuf.append(" INT CHECK (" + NivelHabilidadDO.PROBABILIDAD
-				+ " >= 1 ) NOT NULL");
+		strbuf.append(" INT CHECK(" + NivelHabilidadDO.PROBABILIDAD
+				+ " >= 1) NOT NULL,	");
 		strbuf.append(NivelHabilidadDO.HABILIDAD_ID);
-		strbuf.append(" INT REFERENCES NOT NULL");
+		strbuf.append(" INT NOT NULL REFERENCES	");
 		strbuf.append(habilidadDAO.getTableName());
 		strbuf.append(")");
 
