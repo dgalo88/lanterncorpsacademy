@@ -69,9 +69,9 @@ public class PlanetaDAO extends BaseDAO {
 		strbuf.append(PlanetaDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(PlanetaDO.NOMBRE);
-		strbuf.append(" VARCHAR(100),    ");
+		strbuf.append(" VARCHAR(50),    ");
 		strbuf.append(PlanetaDO.SECTOR);
-		strbuf.append(" VARCHAR(100),    ");
+		strbuf.append(" VARCHAR(50),    ");
 		strbuf.append(PlanetaDO.COORDENADA_EN_X);
 		strbuf.append(" FLOAT,     ");
 		strbuf.append(PlanetaDO.COORDENADA_EN_Y);
