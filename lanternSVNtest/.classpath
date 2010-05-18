@@ -13,9 +13,6 @@
 			<attribute name="owner.project.facets" value="jst.java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/BDLanternCorps2"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/BDLanternCorps1"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/DaoPattern"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/InterfacesDO"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
