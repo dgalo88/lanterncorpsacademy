@@ -4,7 +4,6 @@ import dao.api.FactoryDAO;
 import dao.api.InterfaceDAO;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
-import dao.lca.PlanetaDO;
 import dao.lca.ClaseLinternaDAO;
 import dao.lca.GrupoDAO;
 import dao.lca.HabilidadActivaDAO;
@@ -19,6 +18,7 @@ import dao.lca.ObjetivoDAO;
 import dao.lca.OrdenDAO;
 import dao.lca.PersonajeDAO;
 import dao.lca.PlanetaDAO;
+import dao.lca.PlanetaDO;
 import dao.lca.UsuarioDAO;
 
 public class inicializarBD {
@@ -35,8 +35,15 @@ public class inicializarBD {
 	public static void main(String[] nada) throws Exception {
 		
 		// Obtenemos la Conexion
+		ConnectionBean connCreateDB = ConnectionFactory.getConnectionBean("connection_create_db.properties");
+
+		connCreateDB.getConnection().createStatement().execute("DROP DATABASE IF EXISTS lca");
+		connCreateDB.getConnection().createStatement().execute("CREATE DATABASE lca");
+
+		ConnectionFactory.closeConnection(connCreateDB.getConnection());
+
 		ConnectionBean conn = ConnectionFactory.getConnectionBean();
-		
+
 		// Instanciamos los DAO
 		InterfaceDAO UsuarioDAO = FactoryDAO.getDAO(UsuarioDAO.class, conn);
 		InterfaceDAO PersonajeDAO = FactoryDAO.getDAO(PersonajeDAO.class, conn);
