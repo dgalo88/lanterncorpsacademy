@@ -4,11 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IHabilidadClaseLinternaDAO;
+import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
+import lcaInterfaceDAO.IHabilidadDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-public class HabilidadClaseLinternaDAO extends BaseDAO{
+public class HabilidadClaseLinternaDAO extends BaseDAO implements IHabilidadClaseLinternaDAO{
 	
 	public HabilidadClaseLinternaDAO() {
 		//Empty
@@ -247,7 +252,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO{
 	// --------------------------------------------------------------------------------
 
 	
-	public List<HabilidadClaseLinternaDO> listByHabilidadId(int HabilidadId) throws SQLException {
+	public List<IHabilidadClaseLinternaDO> listByHabilidadId(int HabilidadId) throws SQLException {
 		
 		StringBuffer strbuf = new StringBuffer();
 		strbuf.append("SELECT * FROM ");
@@ -260,7 +265,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO{
 		System.err.println(strbuf.toString());
 		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
 
-		List<HabilidadClaseLinternaDO> ret = new ArrayList<HabilidadClaseLinternaDO>();
+		List<IHabilidadClaseLinternaDO> ret = new ArrayList<IHabilidadClaseLinternaDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
@@ -272,7 +277,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO{
 	// --------------------------------------------------------------------------------
 
 	
-	public List<HabilidadClaseLinternaDO> listByClaseId(int claseId) throws SQLException {
+	public List<IHabilidadClaseLinternaDO> listByClaseId(int claseId) throws SQLException {
 		
 		StringBuffer strbuf = new StringBuffer();
 		strbuf.append("SELECT * FROM ");
@@ -285,7 +290,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO{
 		System.err.println(strbuf.toString());
 		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
 
-		List<HabilidadClaseLinternaDO> ret = new ArrayList<HabilidadClaseLinternaDO>();
+		List<IHabilidadClaseLinternaDO> ret = new ArrayList<IHabilidadClaseLinternaDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
@@ -295,7 +300,6 @@ public class HabilidadClaseLinternaDAO extends BaseDAO{
 	}
 
 	// --------------------------------------------------------------------------------
-
 
 	private HabilidadClaseLinternaDO resultSetToDO(ResultSet rs) throws SQLException {
 		HabilidadClaseLinternaDO ret = (HabilidadClaseLinternaDO) dtaSession.getDtaByKey( //
@@ -308,11 +312,11 @@ public class HabilidadClaseLinternaDAO extends BaseDAO{
 		ret = new HabilidadClaseLinternaDO();
 		ret.setId(rs.getInt(HabilidadClaseLinternaDO.ID));
 		
-		Reference<HabilidadDO> ref = new Reference<HabilidadDO>();
+		Reference<IHabilidadDO> ref = new Reference<IHabilidadDO>();
 	    ref.setRefIdent(rs.getInt(HabilidadClaseLinternaDO.HABILIDAD_ID));
 	    ret.setHabilidadRef(ref);
 	    
-		Reference<ClaseLinternaDO> ref1 = new Reference<ClaseLinternaDO>();
+		Reference<IClaseLinternaDO> ref1 = new Reference<IClaseLinternaDO>();
 	    ref1.setRefIdent(rs.getInt(HabilidadClaseLinternaDO.CLASE_LINTERNA_ID));
 	    ret.setClaseLinternaRef(ref1);
 	    

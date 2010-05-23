@@ -2,10 +2,13 @@ package dao.lca;
 
 import java.util.ArrayList;
 import java.util.List;
-import dao.api.DataObject;
+
+import lcaInterfaceDAO.IObjetivoDO;
+import lcaInterfaceDAO.IOrdenDO;
+import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.Reference;
 
-public class ObjetivoDO implements DataObject {
+public class ObjetivoDO implements IObjetivoDO {
 
 	public static final String DESCRIPCION = "descripcion";
 	public static final String NUMERO_DE_NPC = "numeroDeNpc";
@@ -19,8 +22,8 @@ public class ObjetivoDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 	
-	private Reference<PlanetaDO> planetaRef = new Reference<PlanetaDO>();
-	private List<OrdenDO> ordenList = new ArrayList<OrdenDO>();
+	private Reference<IPlanetaDO> planetaRef = new Reference<IPlanetaDO>();
+	private List<IOrdenDO> ordenList = new ArrayList<IOrdenDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -61,21 +64,21 @@ public class ObjetivoDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<PlanetaDO> getPlanetaRef() {
+	public Reference<IPlanetaDO> getPlanetaRef() {
 		return planetaRef;
 	}
 
-	public void setPlanetaRef(Reference<PlanetaDO> planetaRef) {
+	public void setPlanetaRef(Reference<IPlanetaDO> planetaRef) {
 		this.planetaRef = planetaRef;
 	}
 
 	// --------------------------------------------------------------------------------
 	
-	public void setOrdenList(List<OrdenDO> ordenList) {
+	public void setOrdenList(List<IOrdenDO> ordenList) {
 		this.ordenList = ordenList;
 	}
 
-	public List<OrdenDO> getOrdenList() {
+	public List<IOrdenDO> getOrdenList() {
 		return ordenList;
 	}
 

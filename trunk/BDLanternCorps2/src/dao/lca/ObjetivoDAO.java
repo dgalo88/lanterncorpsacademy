@@ -5,11 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IObjetivoDAO;
+import lcaInterfaceDAO.IObjetivoDO;
+import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+import dao.api.FactoryDAO;
 import dao.api.Reference;
 
-public class ObjetivoDAO extends BaseDAO {
+public class ObjetivoDAO extends BaseDAO  implements IObjetivoDAO {
 
 	public ObjetivoDAO() {
 		// Empty
@@ -311,7 +315,7 @@ public class ObjetivoDAO extends BaseDAO {
 		ret.setId(rs.getInt(ObjetivoDO.ID));
 		ret.setDescripcion(rs.getString(ObjetivoDO.DESCRIPCION));
 		ret.setNumeroDeNpc(rs.getInt(ObjetivoDO.NUMERO_DE_NPC));
-		Reference<PlanetaDO> p = new Reference<PlanetaDO>();
+		Reference<IPlanetaDO> p = new Reference<IPlanetaDO>();
 		p.setRefIdent(rs.getInt(ObjetivoDO.NUMERO_DE_NPC));
 		ret.setPlanetaRef(p);
 
@@ -320,28 +324,25 @@ public class ObjetivoDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 	
-	{
-//	public void loadOrdenList(ObjetivoDO objetivoDO) throws Exception {
-//		checkCache(objetivoDO, CHECK_UPDATE);
-//		checkClass(objetivoDO, ObjetivoDO.class, CHECK_UPDATE);
-//
-//		OrdenDAO ordenDAO = (OrdenDAO) FactoryDAO.getDAO( //
-//				OrdenDAO.class, connectionBean);
-//
-//		objetivoDO.setOrdenList(ordenDAO.listByIdObjetivoId(objetivoDO.getId()));
-//	}
+	
+	public void loadOrdenList(IObjetivoDO objetivoDO) throws Exception {
+		checkCache(objetivoDO, CHECK_UPDATE);
+		checkClass(objetivoDO, ObjetivoDO.class, CHECK_UPDATE);
+		OrdenDAO ordenDAO = (OrdenDAO) FactoryDAO.getDAO(OrdenDAO.class, connectionBean);
+		objetivoDO.setOrdenList(ordenDAO.listByIdObjetivoId(objetivoDO.getId()));
 	}
+	
 
 	// --------------------------------------------------------------------------------
 	
-	public void loadPlanetaRef(ObjetivoDO objetivoDO) throws SQLException {
+	public void loadPlanetaRef(IObjetivoDO objetivoDO) throws SQLException {
 
 		checkClass(objetivoDO, ObjetivoDO.class, CHECK_UPDATE);
 
 		PlanetaDAO misionDAO = new PlanetaDAO();
 		misionDAO.init(connectionBean);
 
-		Reference<PlanetaDO> ref = objetivoDO.getPlanetaRef();
+		Reference<IPlanetaDO> ref = objetivoDO.getPlanetaRef();
 		if (ref.getRefIdent() == 0) {
 			return;
 		}

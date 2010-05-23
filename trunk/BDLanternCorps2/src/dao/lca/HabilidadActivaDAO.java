@@ -4,11 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import lcaInterfaceDAO.IHabilidadActivaDAO;
+import lcaInterfaceDAO.IHabilidadActivaDO;
+import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.IPersonajeDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-public class HabilidadActivaDAO extends BaseDAO {
+public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 
 	public HabilidadActivaDAO() {
 		// Emty
@@ -36,7 +41,6 @@ public class HabilidadActivaDAO extends BaseDAO {
 	public void createTable() throws SQLException {
 
 		StringBuffer strbuf;
-
 		strbuf = new StringBuffer();
 		strbuf.append("DROP TABLE IF EXISTS ");
 		strbuf.append(getTableName());
@@ -137,11 +141,11 @@ public class HabilidadActivaDAO extends BaseDAO {
 		strbuf.append(", ");
 		strbuf.append(habilidadActivaDO.getNivel_habilidad());
 		strbuf.append(", ");
-		Reference<PersonajeDO> ref = habilidadActivaDO.getPersonajeRef();
+		Reference<IPersonajeDO> ref = habilidadActivaDO.getPersonajeRef();
 		ref.checkInsert();
 		strbuf.append(ref.getIdAsString());
 		strbuf.append(", ");
-		Reference<HabilidadDO> ref1 = habilidadActivaDO.getHabilidadRef();
+		Reference<IHabilidadDO> ref1 = habilidadActivaDO.getHabilidadRef();
 		ref1.checkInsert();
 		strbuf.append(ref1.getIdAsString());
 		strbuf.append(")");
@@ -256,7 +260,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public List<HabilidadActivaDO> listByHabilidadId(int HabilidadId) throws SQLException {
+	public List<IHabilidadActivaDO> listByHabilidadId(int HabilidadId) throws SQLException {
 
 		StringBuffer strbuf = new StringBuffer();
 		strbuf.append("SELECT * FROM ");
@@ -269,7 +273,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 		System.err.println(strbuf.toString());
 		ResultSet rs = connection.createStatement().executeQuery(
 				strbuf.toString());
-		List<HabilidadActivaDO> ret = new ArrayList<HabilidadActivaDO>();
+		List<IHabilidadActivaDO> ret = new ArrayList<IHabilidadActivaDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
@@ -279,7 +283,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public List<HabilidadActivaDO> listByPersonajeId(int PersonajeId) throws SQLException {
+	public List<IHabilidadActivaDO> listByPersonajeId(int PersonajeId) throws SQLException {
 
 		StringBuffer strbuf = new StringBuffer();
 		strbuf.append("SELECT * FROM ");
@@ -292,7 +296,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 		System.err.println(strbuf.toString());
 		ResultSet rs = connection.createStatement().executeQuery(
 				strbuf.toString());
-		List<HabilidadActivaDO> ret = new ArrayList<HabilidadActivaDO>();
+		List<IHabilidadActivaDO> ret = new ArrayList<IHabilidadActivaDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
@@ -302,7 +306,7 @@ public class HabilidadActivaDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	private HabilidadActivaDO resultSetToDO(ResultSet rs) throws SQLException {
+	private IHabilidadActivaDO resultSetToDO(ResultSet rs) throws SQLException {
 		HabilidadActivaDO ret = (HabilidadActivaDO) dtaSession.getDtaByKey( //
 				HabilidadActivaDO.class, rs.getInt(HabilidadActivaDO.ID));
 
@@ -313,10 +317,10 @@ public class HabilidadActivaDAO extends BaseDAO {
 		ret = new HabilidadActivaDO();
 		ret.setId(rs.getInt(HabilidadActivaDO.ID));
 		ret.setNivel_habilidad(rs.getInt(HabilidadActivaDO.NIVEL_HABILIDAD));
-		Reference<PersonajeDO> ref = new Reference<PersonajeDO>();
+		Reference<IPersonajeDO> ref = new Reference<IPersonajeDO>();
 		ref.setRefIdent(rs.getInt(HabilidadActivaDO.PERSONAJE_ID));
 		ret.setPersonajeRef(ref);
-		Reference<HabilidadDO> ref1 = new Reference<HabilidadDO>();
+		Reference<IHabilidadDO> ref1 = new Reference<IHabilidadDO>();
 		ref1.setRefIdent(rs.getInt(HabilidadActivaDO.HABILIDAD_ID));
 		ret.setHabilidadRef(ref1);
 
@@ -326,47 +330,44 @@ public class HabilidadActivaDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public void loadPersonajeRef(HabilidadActivaDO habilidadDO) throws SQLException {
+	public void loadPersonajeRef(IHabilidadActivaDO habilidadDO) throws SQLException {
+		
 		if (habilidadDO == null) {
 			return;
 		}
 
 		checkClass(habilidadDO, HabilidadActivaDO.class, CHECK_UPDATE);
-
 		PersonajeDAO personajeDAO = new PersonajeDAO();
 		personajeDAO.init(connectionBean);
 
-		Reference<PersonajeDO> ref = habilidadDO.getPersonajeRef();
+		Reference<IPersonajeDO> ref = habilidadDO.getPersonajeRef();
 		if (ref.getRefIdent() == 0) {
 			return;
 		}
 
-		PersonajeDO personajeDO = //
-		(PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
+		PersonajeDO personajeDO = (PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
 
 		ref.setRefValue(personajeDO);
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void loadHabilidadRef(HabilidadActivaDO habilidadActivaDO) throws SQLException {
+	public void loadHabilidadRef(IHabilidadActivaDO habilidadActivaDO) throws SQLException {
 		
 		if (habilidadActivaDO == null) {
 			return;
 		}
 
 		checkClass(habilidadActivaDO, HabilidadActivaDO.class, CHECK_UPDATE);
-
 		HabilidadActivaDAO habilidaDAO = new HabilidadActivaDAO();
 		habilidaDAO.init(connectionBean);
 
-		Reference<HabilidadDO> ref = habilidadActivaDO.getHabilidadRef();
+		Reference<IHabilidadDO> ref = habilidadActivaDO.getHabilidadRef();
 		if (ref.getRefIdent() == 0) {
 			return;
 		}
 
-		HabilidadDO habilidadDO = //
-		(HabilidadDO) habilidaDAO.loadById(ref.getRefIdent());
+		HabilidadDO habilidadDO = (HabilidadDO) habilidaDAO.loadById(ref.getRefIdent());
 
 		ref.setRefValue(habilidadDO);
 	}

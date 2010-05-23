@@ -4,12 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import lcaInterfaceDAO.IHabilidadDAO;
+import lcaInterfaceDAO.IHabilidadDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 
 
-public class HabilidadDAO extends BaseDAO {
+public class HabilidadDAO extends BaseDAO implements IHabilidadDAO{
 
 	public HabilidadDAO() {
 		// Empty
@@ -265,7 +268,7 @@ public class HabilidadDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public void loadHabilidadClaseLinternaList(HabilidadDO habilidadDO) throws Exception {
+	public void loadHabilidadClaseLinternaList(IHabilidadDO habilidadDO) throws Exception {
 		
 		checkCache(habilidadDO, CHECK_UPDATE);
 		HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO
@@ -278,7 +281,7 @@ public class HabilidadDAO extends BaseDAO {
 	
 	// --------------------------------------------------------------------------------
 
-	public void loadNivelHabilidadList(HabilidadDO habilidadDO) throws Exception {
+	public void loadNivelHabilidadList(IHabilidadDO habilidadDO) throws Exception {
 	
 		checkCache(habilidadDO, CHECK_UPDATE);
 		NivelHabilidadDAO nivelHabilidadDAO = (NivelHabilidadDAO) FactoryDAO
@@ -291,7 +294,7 @@ public class HabilidadDAO extends BaseDAO {
 	
 	// --------------------------------------------------------------------------------
 
-	public void loadHabilidadActivaList(HabilidadDO habilidadDO) throws Exception {
+	public void loadHabilidadActivaList(IHabilidadDO habilidadDO) throws Exception {
 		checkCache(habilidadDO, CHECK_UPDATE);
 		HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO
 				.getDAO(HabilidadActivaDAO.class, connectionBean);

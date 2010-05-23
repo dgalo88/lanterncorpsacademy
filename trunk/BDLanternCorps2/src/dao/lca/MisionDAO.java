@@ -5,11 +5,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IMisionDAO;
+import lcaInterfaceDAO.IMisionDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 
-public class MisionDAO extends BaseDAO {
+public class MisionDAO extends BaseDAO implements IMisionDAO{
 
 	public MisionDAO() {
 		// Empty
@@ -335,7 +337,7 @@ public class MisionDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public void loadOrdenList(MisionDO misionDO) throws Exception {
+	public void loadOrdenList(IMisionDO misionDO) throws Exception {
 		checkCache(misionDO, CHECK_UPDATE);
 		checkClass(misionDO, MisionDO.class, CHECK_UPDATE);
 
@@ -347,7 +349,7 @@ public class MisionDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 	
-	public void loadMisionPersonajeList(MisionDO misionDO) throws Exception {
+	public void loadMisionPersonajeList(IMisionDO misionDO) throws Exception {
 		checkCache(misionDO, CHECK_UPDATE);
 		checkClass(misionDO, MisionDO.class, CHECK_UPDATE);
 
@@ -356,4 +358,5 @@ public class MisionDAO extends BaseDAO {
 
 		misionDO.setMisionPersonajeList(misionPersonajeDAO.listByIdMisionId(misionDO.getId()));
 	}
+
 }

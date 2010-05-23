@@ -4,11 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import lcaInterfaceDAO.IPlanetaDAO;
+import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 
-public class PlanetaDAO extends BaseDAO {
+public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 
 	public PlanetaDAO() {
 		// Empty
@@ -227,46 +229,36 @@ public class PlanetaDAO extends BaseDAO {
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
+		
 		checkCache(dataObject, CHECK_UPDATE);
 		checkClass(dataObject, PlanetaDO.class, CHECK_UPDATE);
 
 		PlanetaDO planetaDO = (PlanetaDO) dataObject;
 
 		StringBuffer strbuf = new StringBuffer();
-
 		strbuf.append("UPDATE ");
 		strbuf.append(getTableName());
 		strbuf.append(" SET ");
-
 		strbuf.append(PlanetaDO.NOMBRE);
 		strbuf.append(" = ");
 		strbuf.append(singleQuotes(planetaDO.getNombre()));
-
 		strbuf.append(", ");
-
 		strbuf.append(PlanetaDO.SECTOR);
 		strbuf.append(" = ");
 		strbuf.append(singleQuotes(planetaDO.getSector()));
-
 		strbuf.append(", ");
-
 		strbuf.append(PlanetaDO.COORDENADA_EN_X);
 		strbuf.append(" = ");
 		strbuf.append(planetaDO.getCoordenadaEnX());
-
 		strbuf.append(", ");
-
 		strbuf.append(PlanetaDO.COORDENADA_EN_Y);
 		strbuf.append(" = ");
 		strbuf.append(planetaDO.getCoordenadaEnY());
-
 		strbuf.append(" WHERE ");
 		strbuf.append(PlanetaDO.ID);
 		strbuf.append(" = ");
 		strbuf.append(planetaDO.getId());
-
 		System.err.println(strbuf.toString());
-
 		connection.createStatement().execute(strbuf.toString());
 
 	}
@@ -281,17 +273,16 @@ public class PlanetaDAO extends BaseDAO {
 		}
 
 		ret = new PlanetaDO();
-
 		ret.setId/*           */(rs.getInt(PlanetaDO.ID));
 		ret.setNombre/*       */(rs.getString(PlanetaDO.NOMBRE));
 		ret.setSector/*       */(rs.getString(PlanetaDO.SECTOR));
 		ret.setCoordenadaEnX/**/(rs.getFloat(PlanetaDO.COORDENADA_EN_X));
 		ret.setCoordenadaEnY/**/(rs.getFloat(PlanetaDO.COORDENADA_EN_Y));
-
 		return (PlanetaDO) dtaSession.add(ret);
+		
 	}
 
-	public void loadPersonajeList(PlanetaDO planetaDO)
+	public void loadPersonajeList(IPlanetaDO planetaDO)
 			throws Exception {
 		checkCache(planetaDO, CHECK_UPDATE);
 		checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
