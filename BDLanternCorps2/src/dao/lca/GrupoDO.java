@@ -2,10 +2,13 @@ package dao.lca;
 
 import java.util.ArrayList;
 import java.util.List;
-import dao.api.DataObject;
+
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IGrupoDO;
+import lcaInterfaceDAO.IPersonajeDO;
 import dao.api.Reference;
 
-public class GrupoDO implements DataObject {
+public class GrupoDO implements IGrupoDO {
 
 	// --------------------------------------------------------------------------------
 	
@@ -21,8 +24,8 @@ public class GrupoDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<PersonajeDO> personajeList =new ArrayList<PersonajeDO>();
-	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
+	private List<IPersonajeDO> personajeList =new ArrayList<IPersonajeDO>();
+	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -63,21 +66,21 @@ public class GrupoDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	public List<PersonajeDO> getPersonajeList() {
+	public List<IPersonajeDO> getPersonajeList() {
 		return personajeList;
 	}
 
-	public void setPersonajeList(List<PersonajeDO> personajeList) {
+	public void setPersonajeList(List<IPersonajeDO> personajeList) {
 		this.personajeList = personajeList;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<ClaseLinternaDO> getClaseLinternaRef() {
+	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
 		return claseLinternaRef;
 	}
 
-	public void setClaseLinternaRef(Reference<ClaseLinternaDO> claseLinternaRef) {
+	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
 		this.claseLinternaRef = claseLinternaRef;
 	}
 

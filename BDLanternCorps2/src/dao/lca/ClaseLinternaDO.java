@@ -2,11 +2,17 @@ package dao.lca;
 
 import java.util.ArrayList;
 import java.util.List;
-import dao.api.DataObject;
+
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IGrupoDO;
+import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
+import lcaInterfaceDAO.IMisionClaseLinternaDO;
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.Reference;
 
 
-public class ClaseLinternaDO implements DataObject {
+public class ClaseLinternaDO implements IClaseLinternaDO {
 
 	public static final String COLOR /*                */= "color";
 	public static final String NOMBRE_DE_CUERPO_LINTERNA = "nombreDeCuerpoLinterna";
@@ -20,11 +26,11 @@ public class ClaseLinternaDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<PersonajeDO> personajeList = new ArrayList<PersonajeDO>();
-	private List<GrupoDO> grupoList = new ArrayList<GrupoDO>();
-	private List<HabilidadClaseLinternaDO> habilidadClaseLinternaList = new ArrayList<HabilidadClaseLinternaDO>();
-	private List<MisionClaseLinternaDO> misionClaseLinternaList = new  ArrayList<MisionClaseLinternaDO>();
-	private Reference<PlanetaDO> planetaRef = new Reference<PlanetaDO>();
+	private List<IPersonajeDO> personajeList = new ArrayList<IPersonajeDO>();
+	private List<IGrupoDO> grupoList = new ArrayList<IGrupoDO>();
+	private List<IHabilidadClaseLinternaDO> habilidadClaseLinternaList = new ArrayList<IHabilidadClaseLinternaDO>();
+	private List<IMisionClaseLinternaDO> misionClaseLinternaList = new  ArrayList<IMisionClaseLinternaDO>();
+	private Reference<IPlanetaDO> planetaRef = new Reference<IPlanetaDO>();
 	
 	
 	// --------------------------------------------------------------------------------
@@ -66,51 +72,51 @@ public class ClaseLinternaDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	public List<PersonajeDO> getPersonajeList() {
+	public List<IPersonajeDO> getPersonajeList() {
 		return personajeList;
 	}
 
-	public void setPersonajeList(List<PersonajeDO> personajeList) {
+	public void setPersonajeList(List<IPersonajeDO> personajeList) {
 		this.personajeList = personajeList;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public List<GrupoDO> getGrupoList() {
+	public List<IGrupoDO> getGrupoList() {
 		return grupoList;
 	}
 
-	public void setGrupoList(List<GrupoDO> grupoList) {
+	public void setGrupoList(List<IGrupoDO> grupoList) {
 		this.grupoList = grupoList;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public List<HabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
+	public List<IHabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
 		return habilidadClaseLinternaList;
 	}
 
-	public void setHabilidadClaseLinternaList(List<HabilidadClaseLinternaDO> habilidadClaseLinternaList) {
+	public void setHabilidadClaseLinternaList(List<IHabilidadClaseLinternaDO> habilidadClaseLinternaList) {
 		this.habilidadClaseLinternaList = habilidadClaseLinternaList;
 	}
 	
 	// --------------------------------------------------------------------------------
 
-	public List<MisionClaseLinternaDO> getMisionClaseLinternaList() {
+	public List<IMisionClaseLinternaDO> getMisionClaseLinternaList() {
 		return misionClaseLinternaList;
 	}
 
-	public void setMisionClaseLinternaList(List<MisionClaseLinternaDO> misionClaseLinternaList) {
+	public void setMisionClaseLinternaList(List<IMisionClaseLinternaDO> misionClaseLinternaList) {
 		this.misionClaseLinternaList = misionClaseLinternaList;
 	}
 	
 	// --------------------------------------------------------------------------------
 	
-	public Reference<PlanetaDO> getPlanetaRef() {
+	public Reference<IPlanetaDO> getPlanetaRef() {
 		return planetaRef;
 	}
 
-	public void setPlanetaRef(Reference<PlanetaDO> planetaRef) {
+	public void setPlanetaRef(Reference<IPlanetaDO> planetaRef) {
 		this.planetaRef = planetaRef;
 	}
 

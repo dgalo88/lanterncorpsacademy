@@ -2,10 +2,13 @@ package dao.lca;
 
 import java.util.ArrayList;
 import java.util.List;
-import dao.api.DataObject;
+
+import lcaInterfaceDAO.IMisionDO;
+import lcaInterfaceDAO.IMisionPersonajeDO;
+import lcaInterfaceDAO.IOrdenDO;
 
 
-public class MisionDO implements DataObject {
+public class MisionDO implements IMisionDO {
 
 	public static final String NOMBRE = "nombre";
 	public static final String DESCRIPCION = "descripcion";
@@ -22,8 +25,8 @@ public class MisionDO implements DataObject {
 	private int puntosDeEntrenamientoGanados;
 	private int nivelNecesario;
 
-	private List<OrdenDO> ordenList = new ArrayList<OrdenDO>();
-	private List<MisionPersonajeDO> misionPersonajeList = new ArrayList<MisionPersonajeDO>();
+	private List<IOrdenDO> ordenList = new ArrayList<IOrdenDO>();
+	private List<IMisionPersonajeDO> misionPersonajeList = new ArrayList<IMisionPersonajeDO>();
 		
 	// --------------------------------------------------------------------------------
 
@@ -94,21 +97,21 @@ public class MisionDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 	
-	public void setOrdenList(List<OrdenDO> ordenList) {
+	public void setOrdenList(List<IOrdenDO> ordenList) {
 		this.ordenList = ordenList;
 	}
 
-	public List<OrdenDO> getOrdenList() {
+	public List<IOrdenDO> getOrdenList() {
 		return ordenList;
 	}
 
 	// --------------------------------------------------------------------------------
 	
-	public void setMisionPersonajeList(List<MisionPersonajeDO> misionPersonajeList) {
+	public void setMisionPersonajeList(List<IMisionPersonajeDO> misionPersonajeList) {
 		this.misionPersonajeList = misionPersonajeList;
 	}
 
-	public List<MisionPersonajeDO> getMisionPersonajeList() {
+	public List<IMisionPersonajeDO> getMisionPersonajeList() {
 		return misionPersonajeList;
 	}
 

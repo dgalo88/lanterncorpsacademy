@@ -5,11 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IMisionDO;
+import lcaInterfaceDAO.IObjetivoDO;
+import lcaInterfaceDAO.IOrdenDAO;
+import lcaInterfaceDAO.IOrdenDO;
 import dao.api.BaseDAO;
-import dao.api.DataObject; //import dao.api.FactoryDAO;
+import dao.api.DataObject;
 import dao.api.Reference;
 
-public class OrdenDAO extends BaseDAO {
+public class OrdenDAO extends BaseDAO implements IOrdenDAO{
 
 	public OrdenDAO() {
 		// Empty
@@ -315,11 +319,11 @@ public class OrdenDAO extends BaseDAO {
 		ret.setId(rs.getInt(OrdenDO.ID));
 		ret.setPrioridad(rs.getInt(OrdenDO.PRIORIDAD));
 
-		Reference<MisionDO> refm = new Reference<MisionDO>();
+		Reference<IMisionDO> refm = new Reference<IMisionDO>();
 		refm.setRefIdent(rs.getInt(OrdenDO.MISION_ID));
 		ret.setMisionRef(refm);
 
-		Reference<ObjetivoDO> refo = new Reference<ObjetivoDO>();
+		Reference<IObjetivoDO> refo = new Reference<IObjetivoDO>();
 		refo.setRefIdent(rs.getInt(OrdenDO.OBJETIVO_ID));
 		ret.setObjetivoRef(refo);
 
@@ -328,7 +332,7 @@ public class OrdenDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public List<OrdenDO> listByIdMisionId(int misionId) throws SQLException {
+	public List<IOrdenDO> listByIdMisionId(int misionId) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
 		strbuf.append("SELECT * FROM ");
@@ -344,7 +348,7 @@ public class OrdenDAO extends BaseDAO {
 		ResultSet rs = //
 		connection.createStatement().executeQuery(strbuf.toString());
 
-		List<OrdenDO> ret = new ArrayList<OrdenDO>();
+		List<IOrdenDO> ret = new ArrayList<IOrdenDO>();
 		OrdenDO orden;
 
 		while (rs.next()) {
@@ -364,53 +368,52 @@ public class OrdenDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	{
-		// public List<OrdenDO> listByIdObjetivoId(int objetivoId) throws
-		// SQLException {//NECESARIO?
-		// StringBuffer strbuf = new StringBuffer();
-		//
-		// strbuf.append("SELECT * FROM ");
-		// strbuf.append(getTableName());
-		//
-		// strbuf.append(" WHERE ");
-		// strbuf.append(OrdenDO.OBJETIVO_ID);
-		// strbuf.append(" = ");
-		// strbuf.append(objetivoId);
-		//
-		// System.err.println(strbuf.toString());
-		//
-		// ResultSet rs = //
-		// connection.createStatement().executeQuery(strbuf.toString());
-		//
-		// List<OrdenDO> ret = new ArrayList<OrdenDO>();
-		// OrdenDO orden;
-		//
-		// while (rs.next()) {
-		//
-		// orden = (OrdenDO) dtaSession.getDtaByKey( //
-		// OrdenDO.class, rs.getInt(OrdenDO.ID));
-		//
-		// if (orden == null) {
-		// orden = (OrdenDO) dtaSession.add(resultSetToDO(rs));
-		// }
-		//
-		// ret.add(orden);
-		// }
-		//
-		// return ret;
-		// }
+
+	public List<IOrdenDO> listByIdObjetivoId(int objetivoId) throws SQLException {// NECESARIO?
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(OrdenDO.OBJETIVO_ID);
+		strbuf.append(" = ");
+		strbuf.append(objetivoId);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<IOrdenDO> ret = new ArrayList<IOrdenDO>();
+		OrdenDO orden;
+
+		while (rs.next()) {
+
+			orden = (OrdenDO) dtaSession.getDtaByKey( //
+					OrdenDO.class, rs.getInt(OrdenDO.ID));
+
+			if (orden == null) {
+				orden = (OrdenDO) dtaSession.add(resultSetToDO(rs));
+			}
+
+			ret.add(orden);
+		}
+
+		return ret;
 	}
+	
 
 	// --------------------------------------------------------------------------------
 
-	public void loadMisionRef(OrdenDO ordenDO) throws SQLException {
+	public void loadMisionRef(IOrdenDO ordenDO) throws SQLException {
 
 		checkClass(ordenDO, OrdenDO.class, CHECK_UPDATE);
 
 		MisionDAO misionDAO = new MisionDAO();
 		misionDAO.init(connectionBean);
 
-		Reference<MisionDO> ref = ordenDO.getMisionRef();
+		Reference<IMisionDO> ref = ordenDO.getMisionRef();
 		if (ref.getRefIdent() == 0) {
 			return;
 		}
@@ -423,21 +426,22 @@ public class OrdenDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public void loadObjetivoRef(OrdenDO ordenDO) throws SQLException {
+	public void loadObjetivoRef(IOrdenDO ordenDO) throws SQLException {
 
 		checkClass(ordenDO, OrdenDO.class, CHECK_UPDATE);
 
-		ObjetivoDAO personajeDAO = new ObjetivoDAO();
-		personajeDAO.init(connectionBean);
+		ObjetivoDAO objetivoDAO = new ObjetivoDAO();
+		objetivoDAO.init(connectionBean);
 
-		Reference<ObjetivoDO> ref = ordenDO.getObjetivoRef();
+		Reference<IObjetivoDO> ref = ordenDO.getObjetivoRef();
 		if (ref.getRefIdent() == 0) {
 			return;
 		}
 
-		ObjetivoDO personajeDO = //
-		(ObjetivoDO) personajeDAO.loadById(ref.getRefIdent());
+		ObjetivoDO objetivoDO = //
+		(ObjetivoDO) objetivoDAO.loadById(ref.getRefIdent());
 
-		ref.setRefValue(personajeDO);
+		ref.setRefValue(objetivoDO);
 	}
+
 }

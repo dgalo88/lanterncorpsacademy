@@ -1,8 +1,8 @@
 package dao.lca;
 
-import dao.api.DataObject;
+import lcaInterfaceDAO.INpcDO;
 
-public class NpcDO implements DataObject {
+public class NpcDO implements INpcDO {
 
 	public static final String NOMBRE = "nombre";
 	public static final String NIVEL = "nivel";

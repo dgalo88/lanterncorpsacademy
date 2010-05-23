@@ -4,12 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import lcaInterfaceDAO.IClaseLinternaDAO;
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 import dao.api.Reference;
 
-public class ClaseLinternaDAO extends BaseDAO {
+public class ClaseLinternaDAO extends BaseDAO implements IClaseLinternaDAO {
 
 	public ClaseLinternaDAO() {
 		// Empty
@@ -144,7 +148,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 		strbuf.append(singleQuotes(claseLinternaDO
 				.getNombre_de_cuerpo_linterna()));
 		strbuf.append(", ");
-		Reference<PlanetaDO> ref = claseLinternaDO.getPlanetaRef();
+		Reference<IPlanetaDO> ref = claseLinternaDO.getPlanetaRef();
 		ref.checkInsert();
 		strbuf.append(ref.getIdAsString());
 		strbuf.append(")");
@@ -256,7 +260,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 
 		strbuf.append(ClaseLinternaDO.PLANETA_ID);
 		strbuf.append(" = ");
-		Reference<PlanetaDO> ref1 = claseLinternaDO.getPlanetaRef();
+		Reference<IPlanetaDO> ref1 = claseLinternaDO.getPlanetaRef();
 		ref1.checkUpdate();
 		strbuf.append(ref1.getIdAsString());
 
@@ -286,7 +290,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 		ret.setNombre_de_cuerpo_linterna/**/(rs
 				.getString(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA));
 
-		Reference<PlanetaDO> ref = new Reference<PlanetaDO>();
+		Reference<IPlanetaDO> ref = new Reference<IPlanetaDO>();
 		ref.setRefIdent(rs.getInt(ClaseLinternaDO.PLANETA_ID));
 
 		ret.setPlanetaRef(ref);
@@ -294,7 +298,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 		return (ClaseLinternaDO) dtaSession.add(ret);
 	}
 
-	public void loadMisionClaseLinternaList(ClaseLinternaDO claseLinternaDO)
+	public void loadMisionClaseLinternaList(IClaseLinternaDO claseLinternaDO)
 			throws Exception {
 		checkCache(claseLinternaDO, CHECK_UPDATE);
 		checkClass(claseLinternaDO, ClaseLinternaDO.class, CHECK_UPDATE);
@@ -307,7 +311,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 				.listByIdMisionId(claseLinternaDO.getId()));
 	}
 
-	public void loadHabilidadClaseLinternaList(ClaseLinternaDO claseLinternaDO)
+	public void loadHabilidadClaseLinternaList(IClaseLinternaDO claseLinternaDO)
 			throws Exception {
 		checkCache(claseLinternaDO, CHECK_UPDATE);
 		checkClass(claseLinternaDO, ClaseLinternaDO.class, CHECK_UPDATE);
@@ -321,7 +325,8 @@ public class ClaseLinternaDAO extends BaseDAO {
 
 	}
 
-	public void loadGrupoList(ClaseLinternaDO claseLinternaDO) throws Exception {
+	public void loadGrupoList(IClaseLinternaDO claseLinternaDO)
+			throws Exception {
 		checkCache(claseLinternaDO, CHECK_UPDATE);
 		checkClass(claseLinternaDO, ClaseLinternaDO.class, CHECK_UPDATE);
 
@@ -333,20 +338,22 @@ public class ClaseLinternaDAO extends BaseDAO {
 
 	}
 
-	public void loadPersonajeList(ClaseLinternaDO claseLinternaDO) throws Exception {
+	public void loadPersonajeList(IClaseLinternaDO claseLinternaDO)
+			throws Exception {
 		checkCache(claseLinternaDO, CHECK_UPDATE);
 		checkClass(claseLinternaDO, ClaseLinternaDO.class, CHECK_UPDATE);
 
 		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
 				PersonajeDAO.class, connectionBean);
 
-		claseLinternaDO.setPersonajeList(personajeDAO.listByPersonajeId(claseLinternaDO
-				.getId()));
+		claseLinternaDO.setPersonajeList(personajeDAO
+				.listByPersonajeId(claseLinternaDO.getId()));
 
 	}
-	
-	public void loadPlanetaRef(ClaseLinternaDO claseLinternaDO) throws SQLException {
-		if(claseLinternaDO==null){
+
+	public void loadPlanetaRef(IClaseLinternaDO claseLinternaDO)
+			throws SQLException {
+		if (claseLinternaDO == null) {
 			return;
 		}
 
@@ -355,7 +362,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 		PlanetaDAO planetaDAO = new PlanetaDAO();
 		planetaDAO.init(connectionBean);
 
-		Reference<PlanetaDO> ref = claseLinternaDO.getPlanetaRef();
+		Reference<IPlanetaDO> ref = claseLinternaDO.getPlanetaRef();
 		if (ref.getRefIdent() == 0) {
 			return;
 		}
@@ -365,42 +372,42 @@ public class ClaseLinternaDAO extends BaseDAO {
 
 		ref.setRefValue(planetaDO);
 	}
-	
-	public ClaseLinternaDO loadByName(String nombre) throws SQLException {
-	    
+
+	public IClaseLinternaDO loadByName(String nombre) throws SQLException {
+
 		StringBuffer strbuf = new StringBuffer();
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" WHERE ");
-	    strbuf.append(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA);
-	    strbuf.append(" = ");
-	    strbuf.append(singleQuotes(nombre));
-	    System.err.println(strbuf.toString());
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
-	    if (rs.next()) {
-	      return resultSetToDO(rs);
-	    }
-	    return null;
-	  }
-	
-	  // --------------------------------------------------------------------------------
-	
-	  public ClaseLinternaDO loadByColor(String color) throws SQLException {
-		    
-		  	StringBuffer strbuf = new StringBuffer();
-		    strbuf.append("SELECT * FROM ");
-		    strbuf.append(getTableName());
-		    strbuf.append(" WHERE ");
-		    strbuf.append(ClaseLinternaDO.COLOR);
-		    strbuf.append(" = ");
-		    strbuf.append(singleQuotes(color));
-		    System.err.println(strbuf.toString());
-		    ResultSet rs = //
-		    connection.createStatement().executeQuery(strbuf.toString());
-		    if (rs.next()) {
-		      return resultSetToDO(rs);
-		    }
-		    return null;
-	  }
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+		strbuf.append(" WHERE ");
+		strbuf.append(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA);
+		strbuf.append(" = ");
+		strbuf.append(singleQuotes(nombre));
+		System.err.println(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
+		return null;
+	}
+
+	// --------------------------------------------------------------------------------
+
+	public IClaseLinternaDO loadByColor(String color) throws SQLException {
+
+		StringBuffer strbuf = new StringBuffer();
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+		strbuf.append(" WHERE ");
+		strbuf.append(ClaseLinternaDO.COLOR);
+		strbuf.append(" = ");
+		strbuf.append(singleQuotes(color));
+		System.err.println(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
+		return null;
+	}
 }

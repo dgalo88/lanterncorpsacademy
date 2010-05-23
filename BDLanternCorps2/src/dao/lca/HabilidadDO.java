@@ -2,10 +2,14 @@ package dao.lca;
 
 import java.util.ArrayList;
 import java.util.List;
-import dao.api.DataObject;
+
+import lcaInterfaceDAO.IHabilidadActivaDO;
+import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
+import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.INivelHabilidadDO;
 
 
-public class HabilidadDO implements DataObject {
+public class HabilidadDO implements IHabilidadDO {
 
 	public static final String NOMBRE = "nombre";
 	public static final String COSTO_DE_APRENDIZAJE = "costoDeAprendizaje";
@@ -20,9 +24,9 @@ public class HabilidadDO implements DataObject {
 	private int costoDeAprendizaje;
 	private int tipo;
 	
-	private List<HabilidadClaseLinternaDO> habilidadClaseLinternaList = new ArrayList<HabilidadClaseLinternaDO>();
-	private List<NivelHabilidadDO> nivelHabilidadList = new ArrayList<NivelHabilidadDO>();
-	private List<HabilidadActivaDO> habilidadActivaList = new ArrayList<HabilidadActivaDO>();
+	private List<IHabilidadClaseLinternaDO> habilidadClaseLinternaList = new ArrayList<IHabilidadClaseLinternaDO>();
+	private List<INivelHabilidadDO> nivelHabilidadList = new ArrayList<INivelHabilidadDO>();
+	private List<IHabilidadActivaDO> habilidadActivaList = new ArrayList<IHabilidadActivaDO>();
 		// --------------------------------------------------------------------------------
 
 	public HabilidadDO() {
@@ -72,31 +76,31 @@ public class HabilidadDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 	
-	public List<HabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
+	public List<IHabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
 		return habilidadClaseLinternaList;
 	}
 
-	public void setHabilidadClaseLinternaList(List<HabilidadClaseLinternaDO> habilidadClaseLinternaList) {
+	public void setHabilidadClaseLinternaList(List<IHabilidadClaseLinternaDO> habilidadClaseLinternaList) {
 		this.habilidadClaseLinternaList = habilidadClaseLinternaList;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public List<NivelHabilidadDO> getNivelHabilidadList() {
+	public List<INivelHabilidadDO> getNivelHabilidadList() {
 		return nivelHabilidadList;
 	}
 
-	public void setNivelHabilidadList(List<NivelHabilidadDO> nivelHabilidadList) {
+	public void setNivelHabilidadList(List<INivelHabilidadDO> nivelHabilidadList) {
 		this.nivelHabilidadList = nivelHabilidadList;
 	}
 
 	// --------------------------------------------------------------------------------
 	
-	public void setHabilidadActivaList(List<HabilidadActivaDO> habilidadActivaList) {
+	public void setHabilidadActivaList(List<IHabilidadActivaDO> habilidadActivaList) {
 		this.habilidadActivaList = habilidadActivaList;
 	}
 
-	public List<HabilidadActivaDO> getHabilidadActivaList() {
+	public List<IHabilidadActivaDO> getHabilidadActivaList() {
 		return habilidadActivaList;
 	}
 	

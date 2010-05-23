@@ -5,13 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IUsuarioDAO;
+import lcaInterfaceDAO.IUsuarioDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 import dao.api.Reference;
-import dao.lca.UsuarioDO;
 
-public class UsuarioDAO extends BaseDAO {
+public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
 
 	public UsuarioDAO() {
 
@@ -25,25 +27,19 @@ public class UsuarioDAO extends BaseDAO {
 		// ----------------------------------------
 
 		strbuf = new StringBuffer();
-
 		strbuf.append("DROP TABLE IF EXISTS ");
 		strbuf.append(getTableName());
 		strbuf.append(" CASCADE");
-
 		System.err.println(strbuf.toString());
-
 		connection.createStatement().execute(strbuf.toString());
 
 		// ----------------------------------------
 
 		strbuf = new StringBuffer();
-
 		strbuf.append("DROP SEQUENCE IF EXISTS ");
 		strbuf.append("seq_");
 		strbuf.append(getTableName());
-
 		System.err.println(strbuf.toString());
-
 		connection.createStatement().execute(strbuf.toString());
 
 		// ----------------------------------------
@@ -188,13 +184,7 @@ public class UsuarioDAO extends BaseDAO {
 
 		UsuarioDO usuarioDO;
 
-		usuarioDO = (UsuarioDO) dtaSession.getDtaByKey(UsuarioDO.class, id);// VERIFICA
-																			// SI
-																			// ESTE
-																			// ID
-																			// ESTA
-																			// EN
-																			// CACHE
+		usuarioDO = (UsuarioDO) dtaSession.getDtaByKey(UsuarioDO.class, id);// VERIFICA SI ESTE ID ESTA EN CACHE
 
 		if (usuarioDO != null) {
 			return usuarioDO;
@@ -314,19 +304,13 @@ public class UsuarioDAO extends BaseDAO {
 	// --------------------------------------------------------------------------------
 
 	private UsuarioDO resultSetToDO(ResultSet rs) throws SQLException {
+		
 		UsuarioDO ret = new UsuarioDO();
-
-		// if (idInCache(rs.getInt(UsuarioDO.ID), ret)) {
-		//
-		// return ret;
-		//
-		// } else {
-
 		ret.setId(rs.getInt(UsuarioDO.ID));
 		ret.setNombre(rs.getString(UsuarioDO.NOMBRE));
 		ret.setCorreo(rs.getString(UsuarioDO.CORREO));
 		ret.setClave(rs.getString(UsuarioDO.CLAVE));
-		Reference<PersonajeDO> refp = new Reference<PersonajeDO>();
+		Reference<IPersonajeDO> refp = new Reference<IPersonajeDO>();
 		refp.setRefIdent(rs.getInt(UsuarioDO.PERSONAJE_ID));
 		ret.setPersonajeRef(refp);
 
@@ -339,7 +323,7 @@ public class UsuarioDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public void loadPersonajeRef(UsuarioDO usuarioDO) throws SQLException {
+	public void loadPersonajeRef(IUsuarioDO usuarioDO) throws SQLException {
 		if(usuarioDO==null){
 			return;
 		}
@@ -349,58 +333,48 @@ public class UsuarioDAO extends BaseDAO {
 		PersonajeDAO personajeDAO = new PersonajeDAO();
 		personajeDAO.init(connectionBean);
 
-		Reference<PersonajeDO> ref = usuarioDO.getPersonajeRef();
+		Reference<IPersonajeDO> ref = usuarioDO.getPersonajeRef();
 		if (ref.getRefIdent() == 0) {
 			return;
 		}
 
-		PersonajeDO personajeDO = //
-		(PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
+		PersonajeDO personajeDO = (PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
 
 		ref.setRefValue(personajeDO);
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public PersonajeDO Login(UsuarioDO usuarioDO) throws SQLException{
+	public IPersonajeDO login(IUsuarioDO usuarioDO) throws SQLException{
+		
 		checkCache(usuarioDO, CHECK_INSERT);
 		checkClass(usuarioDO, UsuarioDO.class, CHECK_INSERT);
-	
+		
 		StringBuffer strbuf = new StringBuffer();
-
 		strbuf.append("SELECT * FROM ");
 		strbuf.append(getTableName());
-
 		strbuf.append(" WHERE ");
 		strbuf.append(UsuarioDO.CORREO);
 		strbuf.append(" = ");
 		strbuf.append(singleQuotes(usuarioDO.getCorreo()));
-		
 		strbuf.append(" AND ");
-		
 		strbuf.append(UsuarioDO.CLAVE);
 		strbuf.append(" = ");
 		strbuf.append(singleQuotes(usuarioDO.getClave()));
-		
-
 		System.err.println(strbuf.toString());
-
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
+		
 		PersonajeDO personajeDO=new PersonajeDO();
-		if(rs.next()){
-
-			
+		
+		if(rs.next()){	
 			PersonajeDAO personajeDAO;
 			try {
-				personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
-						PersonajeDAO.class, connectionBean);
+				personajeDAO = (PersonajeDAO) FactoryDAO.getDAO(PersonajeDAO.class, connectionBean);
 				usuarioDO = (UsuarioDO) dtaSession.add(resultSetToDO(rs));
 				System.out.print(usuarioDO.getId());
 				personajeDO= (PersonajeDO) personajeDAO.loadById(usuarioDO.getId());
 				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -426,7 +400,7 @@ public class UsuarioDAO extends BaseDAO {
 		return false;
 	}
 	
-	public UsuarioDO loadByCorreo(String mail) throws SQLException {
+	public IUsuarioDO loadByCorreo(String mail) throws SQLException {
 		    StringBuffer strbuf = new StringBuffer();	
 		    strbuf.append("SELECT * FROM ");
 		    strbuf.append(getTableName());	

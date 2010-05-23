@@ -4,12 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IGrupoDAO;
+import lcaInterfaceDAO.IGrupoDO;
 import dao.api.BaseDAO;
-import dao.api.DataObject; //import dao.api.FactoryDAO;
+import dao.api.DataObject;
 import dao.api.FactoryDAO;
 import dao.api.Reference;
 
-public class GrupoDAO extends BaseDAO {
+public class GrupoDAO extends BaseDAO implements IGrupoDAO{
 
 	public GrupoDAO() {
 		// Empty
@@ -142,7 +146,7 @@ public class GrupoDAO extends BaseDAO {
 		strbuf.append(", ");
 		strbuf.append(grupoDO.isEstado());
 		strbuf.append(", ");
-		Reference<ClaseLinternaDO> ref = grupoDO.getClaseLinternaRef();
+		Reference<IClaseLinternaDO> ref = grupoDO.getClaseLinternaRef();
 		ref.checkInsert();
 		strbuf.append(ref.getIdAsString());
 		strbuf.append(")");
@@ -275,7 +279,7 @@ public class GrupoDAO extends BaseDAO {
 		ret.setNombre/*  */(rs.getString(GrupoDO.NOMBRE));
 		ret.setEstado/*  */(rs.getBoolean(GrupoDO.ESTADO));
 
-		Reference<ClaseLinternaDO> ref = new Reference<ClaseLinternaDO>();
+		Reference<IClaseLinternaDO> ref = new Reference<IClaseLinternaDO>();
 		ref.setRefIdent(rs.getInt(GrupoDO.CLASE_LINTERNA_ID));
 
 		ret.setClaseLinternaRef(ref);
@@ -283,7 +287,7 @@ public class GrupoDAO extends BaseDAO {
 		return (GrupoDO) dtaSession.add(ret);
 	}
 
-	public List<GrupoDO> listByIdGrupoId(int claseLinternaId)
+	public List<IGrupoDO> listByIdGrupoId(int claseLinternaId)
 			throws SQLException {
 
 		StringBuffer strbuf = new StringBuffer();
@@ -301,7 +305,7 @@ public class GrupoDAO extends BaseDAO {
 		ResultSet rs = //
 		connection.createStatement().executeQuery(strbuf.toString());
 
-		List<GrupoDO> ret = new ArrayList<GrupoDO>();
+		List<IGrupoDO> ret = new ArrayList<IGrupoDO>();
 		GrupoDO gr;
 
 		while (rs.next()) {
@@ -318,7 +322,7 @@ public class GrupoDAO extends BaseDAO {
 		return ret;
 	}
 
-	public void loadPersonajeList(GrupoDO grupoDO) throws Exception {
+	public void loadPersonajeList(IGrupoDO grupoDO) throws Exception {
 		checkCache(grupoDO, CHECK_UPDATE);
 		checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
 
@@ -330,7 +334,7 @@ public class GrupoDAO extends BaseDAO {
 
 	}
 
-	public void loadClaseLinternaRef(GrupoDO grupoDO)
+	public void loadClaseLinternaRef(IGrupoDO grupoDO)
 			throws SQLException {
 		if (grupoDO == null) {
 			return;
@@ -341,7 +345,7 @@ public class GrupoDAO extends BaseDAO {
 		ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
 		claseLinternaDAO.init(connectionBean);
 
-		Reference<ClaseLinternaDO> ref = grupoDO.getClaseLinternaRef();
+		Reference<IClaseLinternaDO> ref = grupoDO.getClaseLinternaRef();
 		if (ref.getRefIdent() == 0) {
 			return;
 		}
@@ -351,4 +355,5 @@ public class GrupoDAO extends BaseDAO {
 
 		ref.setRefValue(claseLinternaDO);
 	}
+
 }

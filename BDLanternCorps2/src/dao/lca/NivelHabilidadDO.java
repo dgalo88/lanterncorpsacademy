@@ -1,9 +1,10 @@
 package dao.lca;
 
-import dao.api.DataObject;
+import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.INivelHabilidadDO;
 import dao.api.Reference;
 
-public class NivelHabilidadDO implements DataObject {
+public class NivelHabilidadDO implements INivelHabilidadDO {
 
 	public static final String NIVEL_DE_HABILIDAD = "nivelDeHabilidad";
 	public static final String EFECTIVIDAD = "efectividad";
@@ -21,7 +22,7 @@ public class NivelHabilidadDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 	
-	private Reference<HabilidadDO> habilidadRef = new Reference<HabilidadDO>();
+	private Reference<IHabilidadDO> habilidadRef = new Reference<IHabilidadDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -83,11 +84,11 @@ public class NivelHabilidadDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 	
-	public Reference<HabilidadDO> getHabilidadRef() {
+	public Reference<IHabilidadDO> getHabilidadRef() {
 		return habilidadRef;
 	}
 
-	public void setHabilidadRef(Reference<HabilidadDO> habilidadRef) {
+	public void setHabilidadRef(Reference<IHabilidadDO> habilidadRef) {
 		this.habilidadRef = habilidadRef;
 	}
 	

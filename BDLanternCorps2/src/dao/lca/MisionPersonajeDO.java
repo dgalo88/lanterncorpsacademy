@@ -1,9 +1,11 @@
 package dao.lca;
 
-import dao.api.DataObject;
+import lcaInterfaceDAO.IMisionDO;
+import lcaInterfaceDAO.IMisionPersonajeDO;
+import lcaInterfaceDAO.IPersonajeDO;
 import dao.api.Reference;
 
-public class MisionPersonajeDO implements DataObject {
+public class MisionPersonajeDO implements IMisionPersonajeDO{
 
 	public static final String PERSONAJE_ID = "personajeId";
 	public static final String MISION_ID = "misionId";
@@ -14,8 +16,8 @@ public class MisionPersonajeDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	private Reference<PersonajeDO> personajeRef = new Reference<PersonajeDO>();
-	private Reference<MisionDO> misionRef =	new Reference<MisionDO>();
+	private Reference<IPersonajeDO> personajeRef = new Reference<IPersonajeDO>();
+	private Reference<IMisionDO> misionRef =	new Reference<IMisionDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -36,21 +38,21 @@ public class MisionPersonajeDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
-	public void setPersonajeRef(Reference<PersonajeDO> personajeRef) {
+	public void setPersonajeRef(Reference<IPersonajeDO> personajeRef) {
 		this.personajeRef = personajeRef;
 	}
 
-	public Reference<PersonajeDO> getPersonajeRef() {
+	public Reference<IPersonajeDO> getPersonajeRef() {
 		return personajeRef;
 	}
 
 	// --------------------------------------------------------------------------------
 	
-	public void setMisionRef(Reference<MisionDO> misionRef) {
+	public void setMisionRef(Reference<IMisionDO> misionRef) {
 		this.misionRef = misionRef;
 	}
 
-	public Reference<MisionDO> getMisionRef() {
+	public Reference<IMisionDO> getMisionRef() {
 		return misionRef;
 	}
 		

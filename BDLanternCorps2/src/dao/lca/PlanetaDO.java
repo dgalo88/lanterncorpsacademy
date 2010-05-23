@@ -2,10 +2,13 @@ package dao.lca;
 
 import java.util.ArrayList;
 import java.util.List;
-import dao.api.DataObject;
+
+import lcaInterfaceDAO.IObjetivoDO;
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IPlanetaDO;
 
 
-public class PlanetaDO implements DataObject {
+public class PlanetaDO implements IPlanetaDO {
 
 	public static final String NOMBRE = "nombre";
 	public static final String SECTOR = "sector";
@@ -21,8 +24,8 @@ public class PlanetaDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	private List<PersonajeDO> personajeList = new ArrayList<PersonajeDO>();
-	private List<ObjetivoDO> objetivoList = new ArrayList<ObjetivoDO>();
+	private List<IPersonajeDO> personajeList = new ArrayList<IPersonajeDO>();
+	private List<IObjetivoDO> objetivoList = new ArrayList<IObjetivoDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -83,22 +86,22 @@ public class PlanetaDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	public List<PersonajeDO> getPersonajeList() {
+	public List<IPersonajeDO> getPersonajeList() {
 		return personajeList;
 	}
 
-	public void setPersonajeList(List<PersonajeDO> personajeList) {
+	public void setPersonajeList(List<IPersonajeDO> personajeList) {
 		this.personajeList = personajeList;
 	}
 
 	// --------------------------------------------------------------------------------
 
 
-	public List<ObjetivoDO> getObjetivoList() {
+	public List<IObjetivoDO> getObjetivoList() {
 		return objetivoList;
 	}
 
-	public void setObjetivoList(List<ObjetivoDO> objetivoList) {
+	public void setObjetivoList(List<IObjetivoDO> objetivoList) {
 		this.objetivoList = objetivoList;
 	}
 
