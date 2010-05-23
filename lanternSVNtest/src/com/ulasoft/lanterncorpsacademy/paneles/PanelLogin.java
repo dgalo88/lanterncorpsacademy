@@ -119,33 +119,33 @@ public class PanelLogin extends Panel {
 
   private void btnClickToEnterClicked() throws Exception {
 
-		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-
-		UsuarioDAO usDAO = //
-		(UsuarioDAO) FactoryDAO.getDAO(UsuarioDAO.class, connectionBean);
-
-		try {
-			usuario = new UsuarioDO();
-			usuario = usDAO.loadByCorreo(txtCorreo.getText());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+//
+//		UsuarioDAO usDAO = //
+//		(UsuarioDAO) FactoryDAO.getDAO(UsuarioDAO.class, connectionBean);
+//
+//		try {
+//			usuario = new UsuarioDO();
+//			usuario = usDAO.loadByCorreo(txtCorreo.getText());
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		Desktop desktop = app.getDesktop();
-		if (usuario.equals(null)) {
-
-			desktop.setWindowPaneEmergente(//
-					"user not found/loaded.");
-			return;
-		}
-		System.out.println(usuario.getCorreo());
-		System.out.println(usuario.getClave());
-		if ((usuario.getCorreo() != txtCorreo.getText())
-				|| (usuario.getClave() != fldPass.getText())) {
-			desktop.setWindowPaneEmergente(//
-					"La informacion de correo o Contraseña proporcionada no es Correcta.");
-			return;
-		}
-		
+//		if (usuario.equals(null)) {
+//
+//			desktop.setWindowPaneEmergente(//
+//					"user not found/loaded.");
+//			return;
+//		}
+//		System.out.println(usuario.getCorreo());
+//		System.out.println(usuario.getClave());
+//		if ((usuario.getCorreo() != txtCorreo.getText())
+//				|| (usuario.getClave() != fldPass.getText())) {
+//			desktop.setWindowPaneEmergente(//
+//					"La informacion de correo o Contraseña proporcionada no es Correcta.");
+//			return;
+//		}
+//		ConnectionFactory.closeConnection(connectionBean.getConnection());
 		desktop.removeAll();
 
 		desktop.add(desktop.initTemplate2());
