@@ -13,5 +13,7 @@ public interface IOrdenDAO extends InterfaceDAO{
 	public abstract void loadMisionRef(IOrdenDO ordenDO) throws SQLException;
 
 	public abstract void loadObjetivoRef(IOrdenDO ordenDO) throws SQLException;
+	
+	public List<IOrdenDO> listByIdObjetivoId(int objetivoId) throws SQLException;
 
 }
