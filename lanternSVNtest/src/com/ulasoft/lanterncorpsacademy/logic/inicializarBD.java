@@ -1,14 +1,18 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
 import lcaInterfaceDAO.IClaseLinternaDAO;
+import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IGrupoDAO;
 import lcaInterfaceDAO.IHabilidadActivaDAO;
 import lcaInterfaceDAO.IHabilidadClaseLinternaDAO;
+import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
 import lcaInterfaceDAO.IHabilidadDAO;
+import lcaInterfaceDAO.IHabilidadDO;
 import lcaInterfaceDAO.IMisionClaseLinternaDAO;
 import lcaInterfaceDAO.IMisionDAO;
 import lcaInterfaceDAO.IMisionPersonajeDAO;
 import lcaInterfaceDAO.INivelHabilidadDAO;
+import lcaInterfaceDAO.INivelHabilidadDO;
 import lcaInterfaceDAO.INpcDAO;
 import lcaInterfaceDAO.IObjetivoDAO;
 import lcaInterfaceDAO.IOrdenDAO;
@@ -16,6 +20,7 @@ import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IUsuarioDAO;
+import dao.api.Reference;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
 import factory.BD;
@@ -35,6 +40,7 @@ public class inicializarBD {
 
 
 		
+	@SuppressWarnings("unchecked")
 	public static void main(String[] nada) throws Exception {
 		
 		StringBuffer strbuf;
@@ -307,11 +313,937 @@ public class inicializarBD {
 			PlanetaDO[46].setCoordenadaEnY(448);
 			PlanetaDO[47].setCoordenadaEnY(380);
 
-			
 			// INSERT PLANETA
 			for (int i = 0; i < 48; i++) {
 				PlanetaDAO.insert(PlanetaDO[i]);
 			}
+			
+
+			// CREATE CLASELINTERNA
+			IClaseLinternaDO ClaseLinternaDO[] = new IClaseLinternaDO[7];
+			for (int i = 0; i < 7; i++) {
+				ClaseLinternaDO[i] = (IClaseLinternaDO) GlobalDOFactory
+						.getDO(IClaseLinternaDO.class);
+			}
+			ClaseLinternaDO[VERDE].setColor("Verde");
+			ClaseLinternaDO[AMARILLO].setColor("Amarillo");
+			ClaseLinternaDO[ROJO].setColor("Rojo");
+			ClaseLinternaDO[AZUL].setColor("Azul");
+			ClaseLinternaDO[NEGRO].setColor("Negro");
+			ClaseLinternaDO[INDIGO].setColor("Indigo");
+			ClaseLinternaDO[VIOLETA].setColor("Violeta");
+
+			ClaseLinternaDO[VERDE]
+					.setNombre_de_cuerpo_linterna("Green Lantern Corps");
+			ClaseLinternaDO[AMARILLO]
+					.setNombre_de_cuerpo_linterna("Sinestro Corps");
+			ClaseLinternaDO[ROJO]
+					.setNombre_de_cuerpo_linterna("Red Lantern Corps");
+			ClaseLinternaDO[AZUL]
+					.setNombre_de_cuerpo_linterna("Blue Lantern Corps");
+			ClaseLinternaDO[NEGRO]
+					.setNombre_de_cuerpo_linterna("Black Lantern Corps");
+			ClaseLinternaDO[INDIGO]
+					.setNombre_de_cuerpo_linterna("Tribu Indigo");
+			ClaseLinternaDO[VIOLETA]
+					.setNombre_de_cuerpo_linterna("Star Sapphires");
+
+			// CREATE REFERENCE TO PLANETA AND INSERT CLASELINTERNA
+			Reference<IPlanetaDO> refpl;
+			Reference<IClaseLinternaDO> refcl[] = new Reference[7];
+
+			for (int i = 0; i < 7; i++) {
+				refpl = new Reference<IPlanetaDO>();
+				refcl[i] = new Reference<IClaseLinternaDO>();
+				refpl.setRefIdent(PlanetaDO[i].getId());
+				refcl[i].setRefIdent(ClaseLinternaDO[i].getId());
+				ClaseLinternaDO[i].setPlanetaRef(refpl);
+				ClaseLinternaDAO.insert(ClaseLinternaDO[i]);
+			}
+
+			// CREATE AND INSERT HABILIDADES
+			IHabilidadDO HabilidadDO;
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Taclear");
+			HabilidadDO.setCosto_de_aprendizaje(1500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			Reference<IHabilidadDO> refhab;
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			INivelHabilidadDO NivelHabilidadDO[] = new INivelHabilidadDO[10];
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			IHabilidadClaseLinternaDO habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+
+			
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Daga de Cristal");
+			HabilidadDO.setCosto_de_aprendizaje(1500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Electrocución");
+			HabilidadDO.setCosto_de_aprendizaje(4500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+			
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Hacha de Energía Amarilla");
+			HabilidadDO.setCosto_de_aprendizaje(1500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+			
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Rayo antimateria");
+			HabilidadDO.setCosto_de_aprendizaje(1500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+			
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Espada de Energía Verde");
+			HabilidadDO.setCosto_de_aprendizaje(1500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+			
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Llama Roja");
+			HabilidadDO.setCosto_de_aprendizaje(13500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Campo de Cristal");
+			HabilidadDO.setCosto_de_aprendizaje(4500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Aura de Esperanza");
+			HabilidadDO.setCosto_de_aprendizaje(13500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Avatar de Protección");
+			HabilidadDO.setCosto_de_aprendizaje(13500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Piel de Hueso");
+			HabilidadDO.setCosto_de_aprendizaje(4500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Esfera Indigo");
+			HabilidadDO.setCosto_de_aprendizaje(4500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Avatar del Predator");
+			HabilidadDO.setCosto_de_aprendizaje(13500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(85 + i * 10);
+				NivelHabilidadDO[i].setCosto_de_energia(25 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Avatar del Antimonitor");
+			HabilidadDO.setCosto_de_aprendizaje(13500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(85 + i * 10);
+				NivelHabilidadDO[i].setCosto_de_energia(25 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Avatar de Abin Sur");
+			HabilidadDO.setCosto_de_aprendizaje(13500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(85 + i * 10);
+				NivelHabilidadDO[i].setCosto_de_energia(25 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Avatar de Parallax");
+			HabilidadDO.setCosto_de_aprendizaje(37500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(100 + i * 20);
+				NivelHabilidadDO[i].setCosto_de_energia(30 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Avatar de ION");
+			HabilidadDO.setCosto_de_aprendizaje(37500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(100 + i * 20);
+				NivelHabilidadDO[i].setCosto_de_energia(30 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Corrupción de Energía");
+			HabilidadDO.setCosto_de_aprendizaje(4500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(20 + i);
+				NivelHabilidadDO[i].setCosto_de_energia(15 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Plasma");
+			HabilidadDO.setCosto_de_aprendizaje(37500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(100 + i * 20);
+				NivelHabilidadDO[i].setCosto_de_energia(30 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Petrificar");
+			HabilidadDO.setCosto_de_aprendizaje(37500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(10 + i );
+				NivelHabilidadDO[i].setCosto_de_energia(40 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Consumir Corazón");
+			HabilidadDO.setCosto_de_aprendizaje(37500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(10 + i );
+				NivelHabilidadDO[i].setCosto_de_energia(40 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Predicción de Ataque");
+			HabilidadDO.setCosto_de_aprendizaje(1500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(25 + i * 5 );
+				NivelHabilidadDO[i].setCosto_de_energia(1 - i*0.05);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Infligir Terror");
+			HabilidadDO.setCosto_de_aprendizaje(4500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(25 + i * 5 );
+				NivelHabilidadDO[i].setCosto_de_energia(1 - i*0.05);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Rayo de esperanza");
+			HabilidadDO.setCosto_de_aprendizaje(37500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(110 + i * 20 );
+				NivelHabilidadDO[i].setCosto_de_energia(30 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Cetro Cargado");
+			HabilidadDO.setCosto_de_aprendizaje(37500);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(110 + i * 20 );
+				NivelHabilidadDO[i].setCosto_de_energia(30 - i);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Golpe de Mazo");
+			HabilidadDO.setCosto_de_aprendizaje(125);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(30 + i * 10 );
+				NivelHabilidadDO[i].setCosto_de_energia(10 - i * 0.5);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Constricción");
+			HabilidadDO.setCosto_de_aprendizaje(125);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(35 + i * 5 );
+				NivelHabilidadDO[i].setCosto_de_energia(10 - i * 0.5);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Robo de Salud");
+			HabilidadDO.setCosto_de_aprendizaje(125);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(45 + i * 5 );
+				NivelHabilidadDO[i].setCosto_de_energia((45 + i * 5 )*(0.3 - i * 0.02));
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Puño Luminoso");
+			HabilidadDO.setCosto_de_aprendizaje(125);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(35 + i * 5 );
+				NivelHabilidadDO[i].setCosto_de_energia(10 - i * 0.5);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Curación");
+			HabilidadDO.setCosto_de_aprendizaje(125);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(45 + i * 5 );
+				NivelHabilidadDO[i].setCosto_de_energia((45 + i * 5 )*(0.3 - i * 0.02));
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Evasión de Combate");
+			HabilidadDO.setCosto_de_aprendizaje(125);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(10 + i * 3 );
+				NivelHabilidadDO[i].setCosto_de_energia(20 - i );
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Confusión");
+			HabilidadDO.setCosto_de_aprendizaje(125);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(15 + i * 2 );
+				NivelHabilidadDO[i].setCosto_de_energia((15 + i * 2 )*(0.5 - i * 0.02) );
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+					.getDO(IHabilidadClaseLinternaDO.class);
+			habilidadClaseLinternaDO.setHabilidadRef(refhab);
+			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
+			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Vuelo");
+			HabilidadDO.setCosto_de_aprendizaje(50);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(0);
+				NivelHabilidadDO[i].setCosto_de_energia(1 - i * 0.1 );
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			for (int i = 0; i < 7; i++) {
+				habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+						.getDO(IHabilidadClaseLinternaDO.class);
+				habilidadClaseLinternaDO.setHabilidadRef(refhab);
+				habilidadClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+			}
+
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Rayo Directo");
+			HabilidadDO.setCosto_de_aprendizaje(75);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(20 + i * 5);
+				NivelHabilidadDO[i].setCosto_de_energia(5 - i * 0.2 );
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			for (int i = 0; i < 7; i++) {
+				habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+						.getDO(IHabilidadClaseLinternaDO.class);
+				habilidadClaseLinternaDO.setHabilidadRef(refhab);
+				habilidadClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+			}
+
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Aura Protectora");
+			HabilidadDO.setCosto_de_aprendizaje(100);
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(30 + i * 2);
+				NivelHabilidadDO[i].setCosto_de_energia(0.3 - i * 0.02 );
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			for (int i = 0; i < 7; i++) {
+				habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+						.getDO(IHabilidadClaseLinternaDO.class);
+				habilidadClaseLinternaDO.setHabilidadRef(refhab);
+				habilidadClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+			}
+
+		
+			
+			HabilidadDO = (IHabilidadDO) GlobalDOFactory
+					.getDO(IHabilidadDO.class);
+			HabilidadDO.setNombre("Escudo");
+			HabilidadDO.setCosto_de_aprendizaje(100);////////NO DEFINIDO
+			HabilidadDO.setTipo(1);
+			HabilidadDAO.insert(HabilidadDO);
+			refhab = new Reference<IHabilidadDO>();
+			refhab.setRefIdent(HabilidadDO.getId());
+			for (int i = 0; i < 10; i++) {
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
+				NivelHabilidadDO[i].setEfectividad(40 + i * 3);
+				NivelHabilidadDO[i].setCosto_de_energia(0.4 - i * 0.03);
+				NivelHabilidadDO[i].setHabilidadRef(refhab);
+				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
+			}
+			for (int i = 0; i < 7; i++) {
+				habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+						.getDO(IHabilidadClaseLinternaDO.class);
+				habilidadClaseLinternaDO.setHabilidadRef(refhab);
+				habilidadClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
+			}
+			
+			//////FALTA DEFINICION DE Verde: Cañón de energía, Explosión de Energía.
+			//////Y Indigo: Empatia 
 
 		} finally {
 			// Cerramos la Conexion
