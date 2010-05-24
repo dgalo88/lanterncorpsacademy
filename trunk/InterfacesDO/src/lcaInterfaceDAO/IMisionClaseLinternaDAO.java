@@ -7,7 +7,7 @@ import dao.api.InterfaceDAO;
 
 public interface IMisionClaseLinternaDAO extends InterfaceDAO{
 
-	public abstract List<IMisionClaseLinternaDO> listByIdMisionId(int misionId)
+	public abstract List<IMisionClaseLinternaDO> listByMisionId(int misionId)
 			throws SQLException;
 
 	public abstract List<IMisionClaseLinternaDO> listByClaseLinternaId(
