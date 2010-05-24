@@ -287,7 +287,7 @@ public class GrupoDAO extends BaseDAO implements IGrupoDAO{
 		return (GrupoDO) dtaSession.add(ret);
 	}
 
-	public List<IGrupoDO> listByIdGrupoId(int claseLinternaId)
+	public List<IGrupoDO> listByClaseLinternaId(int claseLinternaId)
 			throws SQLException {
 
 		StringBuffer strbuf = new StringBuffer();

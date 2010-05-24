@@ -333,7 +333,7 @@ public class ClaseLinternaDAO extends BaseDAO implements IClaseLinternaDAO {
 		GrupoDAO grupoDAO = (GrupoDAO) FactoryDAO.getDAO( //
 				GrupoDAO.class, connectionBean);
 
-		claseLinternaDO.setGrupoList(grupoDAO.listByIdGrupoId(claseLinternaDO
+		claseLinternaDO.setGrupoList(grupoDAO.listByClaseLinternaId(claseLinternaDO
 				.getId()));
 
 	}

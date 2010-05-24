@@ -17,7 +17,7 @@ public class NivelHabilidadDO implements INivelHabilidadDO {
 	private int id;
 	private int nivelDeHabilidad;
 	private float efectividad;
-	private float costoDeEnergia;
+	private double costoDeEnergia;
 	private int probabilidad;
 	
 	// --------------------------------------------------------------------------------
@@ -64,11 +64,11 @@ public class NivelHabilidadDO implements INivelHabilidadDO {
 	// --------------------------------------------------------------------------------
 	
 
-	public float getCosto_de_energia() {
+	public double getCosto_de_energia() {
 		return costoDeEnergia;
 	}
 
-	public void setCosto_de_energia(int costoDeEnergia) {
+	public void setCosto_de_energia(double costoDeEnergia) {
 		this.costoDeEnergia = costoDeEnergia;
 	}
 	
