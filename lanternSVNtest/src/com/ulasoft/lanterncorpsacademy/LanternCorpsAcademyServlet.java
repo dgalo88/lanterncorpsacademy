@@ -7,10 +7,8 @@ package com.ulasoft.lanterncorpsacademy;
 import nextapp.echo.app.ApplicationInstance;
 import nextapp.echo.webcontainer.WebContainerServlet;
 
-/**
- * @author typson
- *
- */
+
+@SuppressWarnings("serial")
 public class LanternCorpsAcademyServlet extends WebContainerServlet{
 	
 	public ApplicationInstance newApplicationInstance() {

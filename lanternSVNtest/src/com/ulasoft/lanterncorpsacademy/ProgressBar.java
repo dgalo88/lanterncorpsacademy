@@ -11,10 +11,11 @@ import org.informagen.echo.app.CapacityBar;
  *ulasoft echo component
  */
 
+@SuppressWarnings("serial")
 public class ProgressBar extends CapacityBar {
 
 	public ProgressBar() {
-	
+		//Empty
 	}
 
 	public ProgressBar(int height, int width, int type, Color color) {
@@ -26,14 +27,12 @@ public class ProgressBar extends CapacityBar {
 		
 		case 1: this.setColor(color);
 		        this.setShowTicks(false); break; //energy bar,character class dependent color
-		
+		        
 		case 2: this.setColor(Color.DARKGRAY); break; //exp bar
 		}
-		
 	}
 
-	public void setCurrValue (int value) {
-		
+	public void setCurrValue (int value) {	
 		List<Number> values= new ArrayList<Number>(2);
 	    values.add(value);
 	    values.add(100-value);

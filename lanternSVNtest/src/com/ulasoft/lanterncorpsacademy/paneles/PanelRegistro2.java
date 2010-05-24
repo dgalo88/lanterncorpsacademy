@@ -2,6 +2,9 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 
 import java.sql.SQLException;
 
+import lcaInterfaceDAO.IPersonajeDAO;
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IUsuarioDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -26,17 +29,10 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 
-//import dao.lca.UsuarioDO;
-import dao.api.FactoryDAO;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
-import dao.lantern.ClaseLinternaDO;
-import dao.lantern.PersonajeDAO;
-import dao.lantern.PersonajeDO;
-import dao.lantern.UsuarioDAO;
-import dao.lantern.UsuarioDO;
+import factory.GlobalDAOFactory;
 
-import echopoint.layout.HtmlLayoutData;
 
 @SuppressWarnings("serial")
 public class PanelRegistro2 extends Panel {
@@ -49,15 +45,14 @@ public class PanelRegistro2 extends Panel {
 	protected static final String INDIGO = "Indigo";
 	protected static final String VIOLETA = "Violeta";
 		
-	protected UsuarioDO usuarioNuevo;
-	public PersonajeDO personajeNuevo;
-	private ClaseLinternaDO claseSelect;
+	protected IUsuarioDO usuarioNuevo;
+	public IPersonajeDO personajeNuevo;
 	private String optClase;
 	private TextField txtAlias;
 	
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 
-	public PanelRegistro2(PersonajeDO personaje) {
+	public PanelRegistro2(IPersonajeDO personaje) {
 		
 			
 		personajeNuevo=personaje;
@@ -88,7 +83,11 @@ public class PanelRegistro2 extends Panel {
 		btnBack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				btnBackClicked();
+				try {
+					btnBackClicked();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -428,7 +427,7 @@ public class PanelRegistro2 extends Panel {
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
-	protected void btnBackClicked() {
+	protected void btnBackClicked() throws Exception {
 		// removeAll();
 		// HtmlLayoutData hld = new HtmlLayoutData("main");
 		// pnlMain.setLayoutData(hld);
@@ -447,7 +446,6 @@ public class PanelRegistro2 extends Panel {
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	protected void btnSendClicked() throws ClassNotFoundException, Exception {
-		// TODO Aqui viene el...
 		
 		if ((txtAlias.getText())=="") {
 			Desktop d = app.getDesktop();
@@ -457,8 +455,7 @@ public class PanelRegistro2 extends Panel {
 		
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
-		PersonajeDAO usuarioDAO = //
-		(PersonajeDAO) FactoryDAO.getDAO(PersonajeDAO.class, connectionBean);
+		IPersonajeDAO usuarioDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
 		personajeNuevo.setAlias(txtAlias.getText());
 
 		try {

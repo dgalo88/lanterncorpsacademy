@@ -28,7 +28,7 @@ public class PanelAboutGame extends Panel{
 		pagina=pag;
 		try {
 			htmlLayout = new HtmlLayout( //
-					getClass().getResourceAsStream("../reglas"+pag+".html"), "UTF-8");
+					getClass().getResourceAsStream("reglashtml/reglas"+pag+".html"), "UTF-8");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 			}
