@@ -7,7 +7,7 @@ import dao.api.InterfaceDAO;
 
 public interface IGrupoDAO extends InterfaceDAO{
 
-	public abstract List<IGrupoDO> listByIdGrupoId(int claseLinternaId)
+	public abstract List<IGrupoDO> listByClaseLinternaId(int claseLinternaId)
 			throws SQLException;
 
 	public abstract void loadPersonajeList(IGrupoDO grupoDO) throws Exception;

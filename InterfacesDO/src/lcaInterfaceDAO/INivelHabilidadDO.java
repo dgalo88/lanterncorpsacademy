@@ -15,7 +15,7 @@ public interface INivelHabilidadDO extends DataObject{
 
 	public abstract float getCosto_de_energia();
 
-	public abstract void setCosto_de_energia(int costoDeEnergia);
+	public abstract void setCosto_de_energia(float costoDeEnergia);
 
 	public abstract int getProbabilidad();
 
