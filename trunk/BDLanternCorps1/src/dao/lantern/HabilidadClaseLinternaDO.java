@@ -1,9 +1,11 @@
 package dao.lantern;
 
-import dao.api.DataObject;
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
+import lcaInterfaceDAO.IHabilidadDO;
 import dao.api.Reference;
 
-public class HabilidadClaseLinternaDO implements DataObject {
+public class HabilidadClaseLinternaDO implements IHabilidadClaseLinternaDO {
 
 	public static final String  HABILIDAD_ID= "habilidadId";
 	public static final String  CLASE_LINTERNA_ID= "claselinternaId";
@@ -14,9 +16,9 @@ public class HabilidadClaseLinternaDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	private Reference<HabilidadDO> habilidadRef = new Reference<HabilidadDO>();
+	private Reference<IHabilidadDO> habilidadRef = new Reference<IHabilidadDO>();
 	
-	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
+	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -37,21 +39,21 @@ public class HabilidadClaseLinternaDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public void setHabilidadRef(Reference<HabilidadDO> habilidadRef) {
+	public void setHabilidadRef(Reference<IHabilidadDO> habilidadRef) {
 		this.habilidadRef = habilidadRef;
 	}
 
-	public Reference<HabilidadDO> getHabilidadRef() {
+	public Reference<IHabilidadDO> getHabilidadRef() {
 		return habilidadRef;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setClaseLinternaRef(Reference<ClaseLinternaDO> claseLinternaRef) {
+	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
 		this.claseLinternaRef = claseLinternaRef;
 	}
 
-	public Reference<ClaseLinternaDO> getClaseLinternaRef() {
+	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
 		return claseLinternaRef;
 	}
 	

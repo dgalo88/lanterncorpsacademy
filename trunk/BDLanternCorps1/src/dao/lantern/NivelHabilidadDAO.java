@@ -5,11 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IHabilidadActivaDO;
+import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.INivelHabilidadDAO;
+import lcaInterfaceDAO.INivelHabilidadDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-public class NivelHabilidadDAO extends BaseDAO {
+public class NivelHabilidadDAO extends BaseDAO implements INivelHabilidadDAO {
 
 	@Override
 	public int countAll() throws SQLException {
@@ -142,16 +146,16 @@ public class NivelHabilidadDAO extends BaseDAO {
 	    strbuf.append(" VALUES (");
 	    strbuf.append(nivelHabilidadDO.getId()); // INSTANCIA
 	    strbuf.append(", ");
-	    strbuf.append(nivelHabilidadDO.getNivelDeHabilidad());
+	    strbuf.append(nivelHabilidadDO.getNivel_de_habilidad());
 	    strbuf.append(", ");
 	    strbuf.append(nivelHabilidadDO.getEfectividad());
 	    strbuf.append(", ");
-	    strbuf.append(nivelHabilidadDO.getCostoDeEnergia());
+	    strbuf.append(nivelHabilidadDO.getCosto_de_energia());
 	    strbuf.append(", ");
 	    strbuf.append(nivelHabilidadDO.getProbabilidad());
 	    strbuf.append(", ");
 	    
-	    Reference<HabilidadDO> refU = nivelHabilidadDO.getHabilidadRef();
+	    Reference<IHabilidadDO> refU = nivelHabilidadDO.getHabilidadRef();
 	    refU.checkInsert();
 	    strbuf.append(refU.getIdAsString());
 	    
@@ -226,14 +230,14 @@ public class NivelHabilidadDAO extends BaseDAO {
 	        ret = new NivelHabilidadDO();
 
 	        ret.setId/*     			*/(rs.getInt(PersonajeDO.ID));
-	        ret.setNivelDeHabilidad/*	*/(rs.getInt(NivelHabilidadDO.NIVEL_DE_HABILIDAD));
+	        ret.setNivel_de_habilidad/*	*/(rs.getInt(NivelHabilidadDO.NIVEL_DE_HABILIDAD));
 	        ret.setEfectividad/*	    */(rs.getInt(NivelHabilidadDO.EFECTIVIDAD));
-	        ret.setCostoDeEnergia/*	    */(rs.getInt(NivelHabilidadDO.COSTO_DE_ENERGIA));
+	        ret.setCosto_de_energia/*	    */(rs.getInt(NivelHabilidadDO.COSTO_DE_ENERGIA));
 	        ret.setProbabilidad/*		*/(rs.getInt(NivelHabilidadDO.PROBABILIDAD));
 
-	        Reference<HabilidadDO> refU = new Reference<HabilidadDO>();
-	        refU.setRefIdent(rs.getInt(NivelHabilidadDO.HABILIDAD_ID));
-	        ret.setHabilidadRef(refU);
+	        Reference<IHabilidadDO> refH = new Reference<IHabilidadDO>();
+	        refH.setRefIdent(rs.getInt(NivelHabilidadDO.HABILIDAD_ID));
+	        ret.setHabilidadRef(refH);
 	        
 	        return (NivelHabilidadDO) dtaSession.add(ret);
 	}
@@ -295,7 +299,7 @@ public class NivelHabilidadDAO extends BaseDAO {
 	    
 	    strbuf.append(NivelHabilidadDO.COSTO_DE_ENERGIA);
 	    strbuf.append(" = ");
-	    strbuf.append(nivelHabilidadDO.getCostoDeEnergia());
+	    strbuf.append(nivelHabilidadDO.getCosto_de_energia());
 	    
 	    strbuf.append(", ");
 	    
@@ -307,9 +311,9 @@ public class NivelHabilidadDAO extends BaseDAO {
 	    	    
 	    strbuf.append(NivelHabilidadDO.HABILIDAD_ID);
 	    strbuf.append(" = ");
-	    Reference<HabilidadDO> refP = nivelHabilidadDO.getHabilidadRef();
-	    refP.checkUpdate();
-	    strbuf.append(refP.getIdAsString());
+	    Reference<IHabilidadDO> refH = nivelHabilidadDO.getHabilidadRef();
+	    refH.checkUpdate();
+	    strbuf.append(refH.getIdAsString());
 	    
 	    strbuf.append(", ");
 	    
@@ -326,7 +330,7 @@ public class NivelHabilidadDAO extends BaseDAO {
 	
 	// --------------------------------------------------------------------------------
 	  
-	  public List<NivelHabilidadDO> listByHabilidadId(int habilidadId) throws SQLException {
+	  public List<INivelHabilidadDO> listByHabilidadId(int habilidadId) throws SQLException {
 		    StringBuffer strbuf = new StringBuffer();
 
 		    strbuf.append("SELECT * FROM ");
@@ -342,7 +346,7 @@ public class NivelHabilidadDAO extends BaseDAO {
 		    ResultSet rs = //
 		    connection.createStatement().executeQuery(strbuf.toString());
 
-		    List<NivelHabilidadDO> ret = new ArrayList<NivelHabilidadDO>();
+		    List<INivelHabilidadDO> ret = new ArrayList<INivelHabilidadDO>();
 
 		    while (rs.next()) {
 		      ret.add(resultSetToDO(rs));
@@ -353,14 +357,14 @@ public class NivelHabilidadDAO extends BaseDAO {
 
 	  // --------------------------------------------------------------------------------
 
-	  public void loadHabilidadRef(NivelHabilidadDO nivelHabilidadDO) throws SQLException {
-	    // XXX: Check this method's semantic
+	  public void loadHabilidadRef(INivelHabilidadDO nivelHabilidadDO) throws SQLException {
+
 	    checkClass(nivelHabilidadDO, NivelHabilidadDO.class, CHECK_UPDATE);
 
 	    HabilidadDAO habilidadDAO = new HabilidadDAO();
 	    habilidadDAO.init(connectionBean);
 
-	    Reference<HabilidadDO> ref = nivelHabilidadDO.getHabilidadRef();
+	    Reference<IHabilidadDO> ref = nivelHabilidadDO.getHabilidadRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;
@@ -371,5 +375,12 @@ public class NivelHabilidadDAO extends BaseDAO {
 
 	    ref.setRefValue(habilidadDO);
 	  }
+
+	@Override
+	public void loadHabilidadRef(IHabilidadActivaDO habilidadActivaDO)
+			throws SQLException {
+		// TODO este metodo como q esta mal en la interfaz..
+		
+	}
 
 }

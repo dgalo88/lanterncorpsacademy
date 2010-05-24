@@ -5,11 +5,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IMisionDAO;
+import lcaInterfaceDAO.IMisionDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 
-public class MisionDAO extends BaseDAO {
+public class MisionDAO extends BaseDAO implements IMisionDAO{
 
   public void createTable() throws SQLException {
     StringBuffer strbuf;
@@ -98,11 +100,11 @@ public class MisionDAO extends BaseDAO {
     strbuf.append(", ");
     strbuf.append(singleQuotes(misionDO.getDescripcion()));
     strbuf.append(", ");
-    strbuf.append(misionDO.getExperienciaGanada());
+    strbuf.append(misionDO.getExperiencia_ganada());
     strbuf.append(", ");
-    strbuf.append(misionDO.getPuntosDeEntrenamientoGanados());
+    strbuf.append(misionDO.getPuntos_de_entrenamiento_ganados());
     strbuf.append(", ");
-    strbuf.append(misionDO.getNivelNecesario());
+    strbuf.append(misionDO.getNivel_necesario());
     strbuf.append(")");
 
     System.err.println(strbuf.toString());
@@ -141,19 +143,19 @@ public class MisionDAO extends BaseDAO {
 
     strbuf.append(MisionDO.EXPERIENCIA_GANADA);
     strbuf.append(" = ");
-    strbuf.append(misionDO.getExperienciaGanada());
+    strbuf.append(misionDO.getExperiencia_ganada());
 
     strbuf.append(", ");
 
     strbuf.append(MisionDO.PUNTOS_DE_ENTRENAMIENTO_GANADOS);
     strbuf.append(" = ");
-    strbuf.append(misionDO.getPuntosDeEntrenamientoGanados());
+    strbuf.append(misionDO.getPuntos_de_entrenamiento_ganados());
 
     strbuf.append(", ");
 
     strbuf.append(MisionDO.NIVEL_NECESARIO);
     strbuf.append(" = ");
-    strbuf.append(misionDO.getNivelNecesario());
+    strbuf.append(misionDO.getNivel_necesario());
 
     strbuf.append(" WHERE ");
     strbuf.append(MisionDO.ID);
@@ -310,16 +312,16 @@ public class MisionDAO extends BaseDAO {
     ret.setId(rs.getInt(MisionDO.ID));
     ret.setNombre(rs.getString(MisionDO.NOMBRE));
     ret.setDescripcion(rs.getString(MisionDO.DESCRIPCION));
-    ret.setExperienciaGanada(rs.getInt(MisionDO.EXPERIENCIA_GANADA));
-    ret.setPuntosDeEntrenamientoGanados(rs.getInt(MisionDO.PUNTOS_DE_ENTRENAMIENTO_GANADOS));
-    ret.setNivelNecesario(rs.getInt(MisionDO.NIVEL_NECESARIO));
+    ret.setExperiencia_ganada(rs.getInt(MisionDO.EXPERIENCIA_GANADA));
+    ret.setPuntos_de_entrenamiento_ganados(rs.getInt(MisionDO.PUNTOS_DE_ENTRENAMIENTO_GANADOS));
+    ret.setNivel_necesario(rs.getInt(MisionDO.NIVEL_NECESARIO));
     
     return (MisionDO) dtaSession.add(ret);
   }
   
 //--------------------------------------------------------------------------------
 
-  public void loadOrdenList(MisionDO misionDO) throws Exception {
+  public void loadOrdenList(IMisionDO misionDO) throws Exception {
     checkCache(misionDO, CHECK_UPDATE);
 
     OrdenDAO ordenDAO = (OrdenDAO) FactoryDAO.getDAO( //
@@ -330,7 +332,7 @@ public class MisionDAO extends BaseDAO {
 
 //--------------------------------------------------------------------------------
 
-  public void loadMisionPersonajeList(MisionDO misionDO) throws Exception {
+  public void loadMisionPersonajeList(IMisionDO misionDO) throws Exception {
     checkCache(misionDO, CHECK_UPDATE);
 
     MisionPersonajeDAO misionPersonajeDAO = (MisionPersonajeDAO) FactoryDAO.getDAO( //
@@ -341,13 +343,13 @@ public class MisionDAO extends BaseDAO {
   
 //--------------------------------------------------------------------------------
 
-  public void loadMisionCLaseLinternaList(MisionDO misionDO) throws Exception {
-    checkCache(misionDO, CHECK_UPDATE);
-
-    MisionClaseLinternaDAO misionClaseLinternaDAO = (MisionClaseLinternaDAO) FactoryDAO.getDAO(//
-    		MisionClaseLinternaDAO.class, connectionBean);
-
-    misionDO.setMisionClaselinternaList(misionClaseLinternaDAO.listByMisionId(misionDO.getId()));
-  }
+//  public void loadMisionCLaseLinternaList(IMisionDO misionDO) throws Exception {
+//    checkCache(misionDO, CHECK_UPDATE);
+//
+//    MisionClaseLinternaDAO misionClaseLinternaDAO = (MisionClaseLinternaDAO) FactoryDAO.getDAO(//
+//    		MisionClaseLinternaDAO.class, connectionBean);
+//
+//    misionDO.setMisionClaselinternaList(misionClaseLinternaDAO.listByMisionId(misionDO.getId()));
+//  }
 
 }

@@ -4,10 +4,16 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.api.DataObject;
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IGrupoDO;
+import lcaInterfaceDAO.IHabilidadActivaDO;
+import lcaInterfaceDAO.IMisionPersonajeDO;
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IPlanetaDO;
+import lcaInterfaceDAO.IUsuarioDO;
 import dao.api.Reference;
 
-public class PersonajeDO implements DataObject {
+public class PersonajeDO implements IPersonajeDO {
 
 	public static final String ALIAS 					= "alias";
 	public static final String EXPERIENCIA 				= "experiencia";
@@ -35,19 +41,19 @@ public class PersonajeDO implements DataObject {
 	private int nivel;
 	private Date ultima_fecha_ingreso;
 
-	private Reference<UsuarioDO> usuarioRef = new Reference<UsuarioDO>();
+	private Reference<IUsuarioDO> usuarioRef = new Reference<IUsuarioDO>();
 
-	private Reference<PlanetaDO> planetaRef = new Reference<PlanetaDO>();
+	private Reference<IPlanetaDO> planetaRef = new Reference<IPlanetaDO>();
 	
-	private Reference<GrupoDO> grupoRef = new Reference<GrupoDO>();
+	private Reference<IGrupoDO> grupoRef = new Reference<IGrupoDO>();
 	
-	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
+	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
 	
-	private List<HabilidadActivaDO> habilidadActivaList = //
-		new ArrayList<HabilidadActivaDO>();
+	private List<IHabilidadActivaDO> habilidadActivaList = //
+		new ArrayList<IHabilidadActivaDO>();
 
-	private List<MisionPersonajeDO> misionPersonajeList = //
-		new ArrayList<MisionPersonajeDO>();
+	private List<IMisionPersonajeDO> misionPersonajeList = //
+		new ArrayList<IMisionPersonajeDO>();
 	
 		// --------------------------------------------------------------------------------
 
@@ -138,60 +144,60 @@ public class PersonajeDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<PlanetaDO> getPlanetaRef() {
+	public Reference<IPlanetaDO> getPlanetaRef() {
 		return  planetaRef;
 	}
 
-	public void setPlanetaRef(Reference<PlanetaDO> planetaRef) {
+	public void setPlanetaRef(Reference<IPlanetaDO> planetaRef) {
 		this.planetaRef = planetaRef;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<GrupoDO> getGrupoRef() {
+	public Reference<IGrupoDO> getGrupoRef() {
 		return grupoRef;
 	}
 
-	public void setGrupoRef(Reference<GrupoDO> grupoRef) {
+	public void setGrupoRef(Reference<IGrupoDO> grupoRef) {
 		this.grupoRef = grupoRef;
 	}
 	//----------------------------------------------------------------------------------
 	
-	public void setHabilidadActivaList(List<HabilidadActivaDO> habilidadActivaList) {
+	public void setHabilidadActivaList(List<IHabilidadActivaDO> habilidadActivaList) {
 		this.habilidadActivaList = habilidadActivaList;
 	}
 
-	public List<HabilidadActivaDO> getHabilidadActivaList() {
+	public List<IHabilidadActivaDO> getHabilidadActivaList() {
 		return habilidadActivaList;
 	}
 	
 	// --------------------------------------------------------------------------------
 
-	public void setMisionPersonajeList(List<MisionPersonajeDO> misionPersonajeList) {
+	public void setMisionPersonajelist(List<IMisionPersonajeDO> misionPersonajeList) {
 		this.misionPersonajeList = misionPersonajeList;
 	}
 
-	public List<MisionPersonajeDO> getMisionPersonajeList() {
+	public List<IMisionPersonajeDO> getMisionPersonajeList() {
 		return misionPersonajeList;
 	}
 	
 	// --------------------------------------------------------------------------------
 
-	public void setClaseLinternaRef(Reference<ClaseLinternaDO> claseLinternaRef) {
+	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
 		this.claseLinternaRef = claseLinternaRef;
 	}
 
-	public Reference<ClaseLinternaDO> getClaseLinternaRef() {
+	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
 		return claseLinternaRef;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setUsuarioRef(Reference<UsuarioDO> usuarioRef) {
+	public void setUsuarioRef(Reference<IUsuarioDO> usuarioRef) {
 		this.usuarioRef = usuarioRef;
 	}
 
-	public Reference<UsuarioDO> getUsuarioRef() {
+	public Reference<IUsuarioDO> getUsuarioRef() {
 		return usuarioRef;
 	}
 	

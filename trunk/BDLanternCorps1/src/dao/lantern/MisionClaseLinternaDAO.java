@@ -5,12 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IMisionClaseLinternaDAO;
+import lcaInterfaceDAO.IMisionClaseLinternaDO;
+import lcaInterfaceDAO.IMisionDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-//import dao.api.FactoryDAO;
 import dao.api.Reference;
 
-public class MisionClaseLinternaDAO extends BaseDAO {
+public class MisionClaseLinternaDAO extends BaseDAO implements IMisionClaseLinternaDAO {
 
   public MisionClaseLinternaDAO() {
     // Empty
@@ -106,12 +109,12 @@ public class MisionClaseLinternaDAO extends BaseDAO {
     strbuf.append(misionClaseLinternaDO.getId());
     strbuf.append(", ");
 
-    Reference<MisionDO> refM = misionClaseLinternaDO.getMisionRef();
+    Reference<IMisionDO> refM = misionClaseLinternaDO.getMisionRef();
     refM.checkInsert();
     strbuf.append(refM.getIdAsString());
     strbuf.append(", ");
 
-    Reference<ClaseLinternaDO> refCl = misionClaseLinternaDO.getClaseLinternaRef();
+    Reference<IClaseLinternaDO> refCl = misionClaseLinternaDO.getClaseLinternaRef();
     refCl.checkInsert();
     strbuf.append(refCl.getIdAsString());
 
@@ -141,7 +144,7 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 
     strbuf.append(MisionClaseLinternaDO.CLASE_LINTERNA_ID);
     strbuf.append(" = ");
-    Reference<ClaseLinternaDO> refCl = misionClaseLinternaDO.getClaseLinternaRef();
+    Reference<IClaseLinternaDO> refCl = misionClaseLinternaDO.getClaseLinternaRef();
     refCl.checkUpdate();
     strbuf.append(refCl.getIdAsString());
 
@@ -149,7 +152,7 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 
     strbuf.append(MisionClaseLinternaDO.MISION_ID);
     strbuf.append(" = ");
-    Reference<MisionDO> refM = misionClaseLinternaDO.getMisionRef();
+    Reference<IMisionDO> refM = misionClaseLinternaDO.getMisionRef();
     refM.checkUpdate();
     strbuf.append(refM.getIdAsString());
 
@@ -273,7 +276,7 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 
   // --------------------------------------------------------------------------------
   
-  public List<MisionClaseLinternaDO> listByClaseLinternaId(int claseLinternaId) throws SQLException {
+  public List<IMisionClaseLinternaDO> listByClaseLinternaId(int claseLinternaId) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("SELECT * FROM ");
@@ -289,7 +292,7 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 	    ResultSet rs = //
 	    connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<MisionClaseLinternaDO> ret = new ArrayList<MisionClaseLinternaDO>();
+	    List<IMisionClaseLinternaDO> ret = new ArrayList<IMisionClaseLinternaDO>();
 
 	    while (rs.next()) {
 	      ret.add(resultSetToDO(rs));
@@ -300,7 +303,7 @@ public class MisionClaseLinternaDAO extends BaseDAO {
   
   // --------------------------------------------------------------------------------
   
-  public List<MisionClaseLinternaDO> listByMisionId(int misionId) throws SQLException {
+  public List<IMisionClaseLinternaDO> listByMisionId(int misionId) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("SELECT * FROM ");
@@ -316,7 +319,7 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 	    ResultSet rs = //
 	    connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<MisionClaseLinternaDO> ret = new ArrayList<MisionClaseLinternaDO>();
+	    List<IMisionClaseLinternaDO> ret = new ArrayList<IMisionClaseLinternaDO>();
 
 	    while (rs.next()) {
 	      ret.add(resultSetToDO(rs));
@@ -361,11 +364,11 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 
     ret.setId(rs.getInt(MisionClaseLinternaDO.ID));
  
-    Reference<ClaseLinternaDO> refCl = new Reference<ClaseLinternaDO>();
+    Reference<IClaseLinternaDO> refCl = new Reference<IClaseLinternaDO>();
     refCl.setRefIdent(rs.getInt(MisionClaseLinternaDO.CLASE_LINTERNA_ID));
     ret.setClaseLinternaRef(refCl);
 
-    Reference<MisionDO> refM = new Reference<MisionDO>();
+    Reference<IMisionDO> refM = new Reference<IMisionDO>();
     refM.setRefIdent(rs.getInt(MisionClaseLinternaDO.MISION_ID));
     ret.setMisionRef(refM);
     
@@ -374,13 +377,13 @@ public class MisionClaseLinternaDAO extends BaseDAO {
 
   // --------------------------------------------------------------------------------
 
-  public void loadClaseLinternaRef(MisionClaseLinternaDO misionClaseLinternaDO) throws SQLException {
+  public void loadClaseLinternaRef(IMisionClaseLinternaDO misionClaseLinternaDO) throws SQLException {
 	    checkClass(misionClaseLinternaDO, MisionClaseLinternaDO.class, CHECK_UPDATE);
 
 	    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
 	    claseLinternaDAO.init(connectionBean);
 
-	    Reference<ClaseLinternaDO> ref = misionClaseLinternaDO.getClaseLinternaRef();
+	    Reference<IClaseLinternaDO> ref = misionClaseLinternaDO.getClaseLinternaRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;
@@ -394,13 +397,13 @@ public class MisionClaseLinternaDAO extends BaseDAO {
   
   // --------------------------------------------------------------------------------
 
-  public void loadMisionRef(MisionClaseLinternaDO misionClaseLinternaDO) throws SQLException {
+  public void loadMisionRef(IMisionClaseLinternaDO misionClaseLinternaDO) throws SQLException {
 	    checkClass(misionClaseLinternaDO, MisionClaseLinternaDO.class, CHECK_UPDATE);
 
 	    MisionDAO misionDAO = new MisionDAO();
 	    misionDAO.init(connectionBean);
 
-	    Reference<MisionDO> ref = misionClaseLinternaDO.getMisionRef();
+	    Reference<IMisionDO> ref = misionClaseLinternaDO.getMisionRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;

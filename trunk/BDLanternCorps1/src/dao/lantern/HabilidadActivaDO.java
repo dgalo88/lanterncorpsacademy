@@ -1,9 +1,11 @@
 package dao.lantern;
 
-import dao.api.DataObject;
+import lcaInterfaceDAO.IHabilidadActivaDO;
+import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.IPersonajeDO;
 import dao.api.Reference;
 
-public class HabilidadActivaDO implements DataObject {
+public class HabilidadActivaDO implements IHabilidadActivaDO {
 
 	public static final String NIVEL_HABILIDAD = "nivel_habilidad";
 	
@@ -18,9 +20,9 @@ public class HabilidadActivaDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	private Reference<PersonajeDO> personajeRef = new Reference<PersonajeDO>();
+	private Reference<IPersonajeDO> personajeRef = new Reference<IPersonajeDO>();
 	
-	private Reference<HabilidadDO> habilidadRef = new Reference<HabilidadDO>();
+	private Reference<IHabilidadDO> habilidadRef = new Reference<IHabilidadDO>();
 		
 	// --------------------------------------------------------------------------------
 
@@ -41,31 +43,31 @@ public class HabilidadActivaDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 	
-	public int getNivelHabilidad() {
+	public int getNivel_habilidad() {
 		return nivel_habilidad;
 	}
 
-	public void setNivelHabilidad(int nivelHabilidad) {
+	public void setNivel_habilidad(int nivelHabilidad) {
 		nivel_habilidad = nivelHabilidad;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setPersonajeRef(Reference<PersonajeDO> personajeRef) {
+	public void setPersonajeRef(Reference<IPersonajeDO> personajeRef) {
 		this.personajeRef = personajeRef;
 	}
 
-	public Reference<PersonajeDO> getPersonajeRef() {
+	public Reference<IPersonajeDO> getPersonajeRef() {
 		return personajeRef;
 	}
 	
 	// --------------------------------------------------------------------------------
 
-	public void setHabilidadRef(Reference<HabilidadDO> habilidadRef) {
+	public void setHabilidadRef(Reference<IHabilidadDO> habilidadRef) {
 		this.habilidadRef = habilidadRef;
 	}
 
-	public Reference<HabilidadDO> getHabilidadRef() {
+	public Reference<IHabilidadDO> getHabilidadRef() {
 		return habilidadRef;
 	}
 	

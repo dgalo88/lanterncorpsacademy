@@ -5,12 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IUsuarioDAO;
+import lcaInterfaceDAO.IUsuarioDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-//import dao.api.FactoryDAO;
+import dao.api.FactoryDAO;
 import dao.api.Reference;
 
-public class UsuarioDAO extends BaseDAO {
+public class UsuarioDAO extends BaseDAO implements IUsuarioDAO{
 
 	@Override
 	public void createTable() throws SQLException {
@@ -104,7 +107,7 @@ public class UsuarioDAO extends BaseDAO {
 	    strbuf.append(", ");
 	    strbuf.append(singleQuotes(usuarioDO.getClave()));
 	    strbuf.append(", ");
-	    Reference<PersonajeDO> refP = usuarioDO.getPersonajeRef();
+	    Reference<IPersonajeDO> refP = usuarioDO.getPersonajeRef();
 	    refP.checkInsert();
 	    strbuf.append(refP.getIdAsString());
 	    
@@ -151,7 +154,7 @@ public class UsuarioDAO extends BaseDAO {
 	    
 	    strbuf.append(UsuarioDO.PERSONAJE_ID);
 	    strbuf.append(" = ");
-	    Reference<PersonajeDO> refP = usuarioDO.getPersonajeRef();
+	    Reference<IPersonajeDO> refP = usuarioDO.getPersonajeRef();
 	    refP.checkUpdate();
 	    strbuf.append(refP.getIdAsString());
 	    
@@ -326,20 +329,20 @@ public class UsuarioDAO extends BaseDAO {
 	        ret.setCorreo/*						*/(rs.getString(UsuarioDO.CORREO));
 	        ret.setClave/*						*/(rs.getString(UsuarioDO.CLAVE));
 
-	        Reference<PersonajeDO> refP = new Reference<PersonajeDO>();
+	        Reference<IPersonajeDO> refP = new Reference<IPersonajeDO>();
 	        refP.setRefIdent(rs.getInt(UsuarioDO.PERSONAJE_ID));
 	        ret.setPersonajeRef(refP);
 	        
 	        return (UsuarioDO) dtaSession.add(ret);
 	}
 	
-	  public void loadPersonajeRef(UsuarioDO usuarioDO) throws SQLException {
+	  public void loadPersonajeRef(IUsuarioDO usuarioDO) throws SQLException {
 		    checkClass(usuarioDO, UsuarioDO.class, CHECK_UPDATE);
 
 		    PersonajeDAO personajeDAO = new PersonajeDAO();
 		    personajeDAO.init(connectionBean);
 
-		    Reference<PersonajeDO> ref = usuarioDO.getPersonajeRef();
+		    Reference<IPersonajeDO> ref = usuarioDO.getPersonajeRef();
 
 		    if (ref.getRefIdent() == 0) {
 		      return;
@@ -379,7 +382,7 @@ public class UsuarioDAO extends BaseDAO {
   }
 
       
-      public UsuarioDO loadByCorreo(String mail) throws SQLException {
+      public IUsuarioDO loadByCorreo(String mail) throws SQLException {
   	    StringBuffer strbuf = new StringBuffer();
 
   	    strbuf.append("SELECT * FROM ");
@@ -401,4 +404,42 @@ public class UsuarioDAO extends BaseDAO {
 
   	    return null;
   	}
+
+	@Override
+	public IPersonajeDO login(IUsuarioDO usuarioDO) throws SQLException {
+        checkCache(usuarioDO, CHECK_INSERT);
+        checkClass(usuarioDO, UsuarioDO.class, CHECK_INSERT);
+        
+        StringBuffer strbuf = new StringBuffer();
+        strbuf.append("SELECT * FROM ");
+        strbuf.append(getTableName());
+        strbuf.append(" WHERE ");
+        strbuf.append(UsuarioDO.CORREO);
+        strbuf.append(" = ");
+        strbuf.append(singleQuotes(usuarioDO.getCorreo()));
+        strbuf.append(" AND ");
+        strbuf.append(UsuarioDO.CLAVE);
+        strbuf.append(" = ");
+        strbuf.append(singleQuotes(usuarioDO.getClave()));
+        System.err.println(strbuf.toString());
+        ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
+        
+        PersonajeDO personajeDO=new PersonajeDO();
+        
+        if(rs.next()){  
+                PersonajeDAO personajeDAO;
+                try {
+                        personajeDAO = (PersonajeDAO) FactoryDAO.getDAO(PersonajeDAO.class, connectionBean);
+                        usuarioDO = (UsuarioDO) dtaSession.add(resultSetToDO(rs));
+                        System.out.print(usuarioDO.getId());
+                        personajeDO= (PersonajeDO) personajeDAO.loadById(usuarioDO.getId());
+                        
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+                
+        }
+        return personajeDO;
+
+	}
 }

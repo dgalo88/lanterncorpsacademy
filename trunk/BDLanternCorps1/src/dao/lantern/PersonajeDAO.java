@@ -5,13 +5,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IGrupoDO;
+import lcaInterfaceDAO.IPersonajeDAO;
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IPlanetaDO;
+import lcaInterfaceDAO.IUsuarioDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
-import dao.api.Reference;
 import dao.api.FactoryDAO;
-import dao.lantern.PersonajeDO;
+import dao.api.Reference;
 
-public class PersonajeDAO extends BaseDAO {
+public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 
 	@Override
 	public int countAll() throws SQLException {
@@ -178,20 +183,8 @@ public class PersonajeDAO extends BaseDAO {
 	    strbuf.append(", ");
 	    strbuf.append(singleQuotes(personajeDO.getAlias()));
 	    strbuf.append(", ");
-//	    strbuf.append(personajeDO.getExperiencia());
-//	    strbuf.append(", ");
-//	    strbuf.append(personajeDO.getPuntosDeEntrenamiento());
-//	    strbuf.append(", ");
-//	    strbuf.append(personajeDO.getSalud());
-//	    strbuf.append(", ");
-//	    strbuf.append(personajeDO.getEnergiaDelAnillo());
-//	    strbuf.append(", ");
-//	    strbuf.append(personajeDO.getNivel());
-//	    strbuf.append(", ");
-//	    strbuf.append(personajeDO.getUltimaFechaIngreso());
-//	    strbuf.append(", ");
   
-	    Reference<PlanetaDO> refPl = personajeDO.getPlanetaRef();
+	    Reference<IPlanetaDO> refPl = personajeDO.getPlanetaRef();
 	    refPl.checkInsert();
 	    strbuf.append(refPl.getIdAsString());
 	    strbuf.append(", ");
@@ -201,7 +194,7 @@ public class PersonajeDAO extends BaseDAO {
 //	    strbuf.append(refGr.getIdAsString());
 //	    strbuf.append(", ");
 
-	    Reference<ClaseLinternaDO> refCL = personajeDO.getClaseLinternaRef();
+	    Reference<IClaseLinternaDO> refCL = personajeDO.getClaseLinternaRef();
 	    refCL.checkInsert();
 	    strbuf.append(refCL.getIdAsString());
 
@@ -286,15 +279,15 @@ public class PersonajeDAO extends BaseDAO {
 //	        refU.setRefIdent(rs.getInt(PersonajeDO.USUARIO_ID));
 //	        ret.setUsuarioRef(refU);
 	        
-	        Reference<PlanetaDO> refPl = new Reference<PlanetaDO>();
+	        Reference<IPlanetaDO> refPl = new Reference<IPlanetaDO>();
 	        refPl.setRefIdent(rs.getInt(PersonajeDO.PLANETA_ID));
 	        ret.setPlanetaRef(refPl);
 	        
-	        Reference<GrupoDO> refGr = new Reference<GrupoDO>();
+	        Reference<IGrupoDO> refGr = new Reference<IGrupoDO>();
 	        refGr.setRefIdent(rs.getInt(PersonajeDO.GRUPO_ID));
 	        ret.setGrupoRef(refGr);
 	        
-	        Reference<ClaseLinternaDO> refCL = new Reference<ClaseLinternaDO>();
+	        Reference<IClaseLinternaDO> refCL = new Reference<IClaseLinternaDO>();
 	        refCL.setRefIdent(rs.getInt(PersonajeDO.CLASE_LINTERNA_ID));
 	        ret.setClaseLinternaRef(refCL);
 	        
@@ -336,7 +329,7 @@ public class PersonajeDAO extends BaseDAO {
 	  
 	  // --------------------------------------------------------------------------------
 
-	  public List<PersonajeDO> listByPlanetaId(int planetaId) throws SQLException {
+	  public List<IPersonajeDO> listByPlanetaId(int planetaId) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("SELECT * FROM ");
@@ -352,7 +345,7 @@ public class PersonajeDAO extends BaseDAO {
 	    ResultSet rs = //
 	    connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<PersonajeDO> ret = new ArrayList<PersonajeDO>();
+	    List<IPersonajeDO> ret = new ArrayList<IPersonajeDO>();
 
 	    while (rs.next()) {
 	      ret.add(resultSetToDO(rs));
@@ -363,7 +356,7 @@ public class PersonajeDAO extends BaseDAO {
 	  
 	  // --------------------------------------------------------------------------------
 
-	  public List<PersonajeDO> listByGrupoId(int grupoId) throws SQLException {
+	  public List<IPersonajeDO> listByGrupoId(int grupoId) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("SELECT * FROM ");
@@ -379,7 +372,7 @@ public class PersonajeDAO extends BaseDAO {
 	    ResultSet rs = //
 	    connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<PersonajeDO> ret = new ArrayList<PersonajeDO>();
+	    List<IPersonajeDO> ret = new ArrayList<IPersonajeDO>();
 
 	    while (rs.next()) {
 	      ret.add(resultSetToDO(rs));
@@ -390,7 +383,7 @@ public class PersonajeDAO extends BaseDAO {
 
 	  // --------------------------------------------------------------------------------
 
-	public List<PersonajeDO> listByClaseLinternaId(int claseLinternaId) throws SQLException {
+	public List<IPersonajeDO> listByClaseLinternaId(int claseLinternaId) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("SELECT * FROM ");
@@ -406,7 +399,7 @@ public class PersonajeDAO extends BaseDAO {
 	    ResultSet rs = //
 	    connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<PersonajeDO> ret = new ArrayList<PersonajeDO>();
+	    List<IPersonajeDO> ret = new ArrayList<IPersonajeDO>();
 
 	    while (rs.next()) {
 	      ret.add(resultSetToDO(rs));
@@ -496,7 +489,7 @@ public class PersonajeDAO extends BaseDAO {
 	    
 	    strbuf.append(PersonajeDO.USUARIO_ID);
 	    strbuf.append(" = ");
-	    Reference<UsuarioDO> refU = personajeDO.getUsuarioRef();
+	    Reference<IUsuarioDO> refU = personajeDO.getUsuarioRef();
 	    refU.checkUpdate();
 	    strbuf.append(refU.getIdAsString());
 	    
@@ -504,7 +497,7 @@ public class PersonajeDAO extends BaseDAO {
 	    
 	    strbuf.append(PersonajeDO.PLANETA_ID);
 	    strbuf.append(" = ");
-	    Reference<PlanetaDO> refPl = personajeDO.getPlanetaRef();
+	    Reference<IPlanetaDO> refPl = personajeDO.getPlanetaRef();
 	    refPl.checkUpdate();
 	    strbuf.append(refPl.getIdAsString());
  
@@ -512,7 +505,7 @@ public class PersonajeDAO extends BaseDAO {
 	    
 	    strbuf.append(PersonajeDO.GRUPO_ID);
 	    strbuf.append(" = ");
-	    Reference<GrupoDO> refGr = personajeDO.getGrupoRef();
+	    Reference<IGrupoDO> refGr = personajeDO.getGrupoRef();
 	    refGr.checkUpdate();
 	    strbuf.append(refGr.getIdAsString());
 	    
@@ -520,7 +513,7 @@ public class PersonajeDAO extends BaseDAO {
 	    
 	    strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
 	    strbuf.append(" = ");
-	    Reference<ClaseLinternaDO> refCL = personajeDO.getClaseLinternaRef();
+	    Reference<IClaseLinternaDO> refCL = personajeDO.getClaseLinternaRef();
 	    refCL.checkUpdate();
 	    strbuf.append(refCL.getIdAsString());
 	    
@@ -537,34 +530,34 @@ public class PersonajeDAO extends BaseDAO {
 	
 	// --------------------------------------------------------------------------------
 
-	  public void loadUsuarioRef(PersonajeDO personajeDO) throws SQLException {
-	    // XXX: Check this method's semantic
-	    checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
-
-	    UsuarioDAO usuarioDAO = new UsuarioDAO();
-	    usuarioDAO.init(connectionBean);
-
-	    Reference<UsuarioDO> ref = personajeDO.getUsuarioRef();
-
-	    if (ref.getRefIdent() == 0) {
-	      return;
-	    }
-
-	    UsuarioDO usuarioDO = //
-	    (UsuarioDO) usuarioDAO.loadById(ref.getRefIdent());
-
-	    ref.setRefValue(usuarioDO);
-	  }
+//	  public void loadUsuarioRef(IPersonajeDO personajeDO) throws SQLException {
+//
+//	    checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
+//
+//	    UsuarioDAO usuarioDAO = new UsuarioDAO();
+//	    usuarioDAO.init(connectionBean);
+//
+//	    Reference<IUsuarioDO> ref = personajeDO.getUsuarioRef();
+//
+//	    if (ref.getRefIdent() == 0) {
+//	      return;
+//	    }
+//
+//	    UsuarioDO usuarioDO = //
+//	    (UsuarioDO) usuarioDAO.loadById(ref.getRefIdent());
+//
+//	    ref.setRefValue(usuarioDO);
+//	  }
 
 	  // --------------------------------------------------------------------------------
 
-	  public void loadPlanetaRef(PersonajeDO personajeDO) throws SQLException {
+	  public void loadPlanetaRef(IPersonajeDO personajeDO) throws SQLException {
 	    checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
 
 	    PlanetaDAO planetaDAO = new PlanetaDAO();
 	    planetaDAO.init(connectionBean);
 
-	    Reference<PlanetaDO> ref = personajeDO.getPlanetaRef();
+	    Reference<IPlanetaDO> ref = personajeDO.getPlanetaRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;
@@ -578,14 +571,14 @@ public class PersonajeDAO extends BaseDAO {
 
 	  // --------------------------------------------------------------------------------
 
-	  public void loadGrupoRef(PersonajeDO personajeDO) throws SQLException {
+	  public void loadGrupoRef(IPersonajeDO personajeDO) throws SQLException {
 	    // XXX: Check this method's semantic
 	    checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
 
 	    GrupoDAO grupoDAO = new GrupoDAO();
 	    grupoDAO.init(connectionBean);
 
-	    Reference<GrupoDO> ref = personajeDO.getGrupoRef();
+	    Reference<IGrupoDO> ref = personajeDO.getGrupoRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;
@@ -599,14 +592,14 @@ public class PersonajeDAO extends BaseDAO {
 	  
 	  // --------------------------------------------------------------------------------
 
-	  public void loadClaseLinternaRef(PersonajeDO personajeDO) throws SQLException {
-	    // XXX: Check this method's semantic
+	  public void loadClaseLinternaRef(IPersonajeDO personajeDO) throws SQLException {
+
 	    checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
 
 	    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
 	    claseLinternaDAO.init(connectionBean);
 
-	    Reference<ClaseLinternaDO> ref = personajeDO.getClaseLinternaRef();
+	    Reference<IClaseLinternaDO> ref = personajeDO.getClaseLinternaRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;
@@ -620,9 +613,8 @@ public class PersonajeDAO extends BaseDAO {
 
 	  // --------------------------------------------------------------------------------
 
-	  public void loadHabilidadActivaList(PersonajeDO personajeDO) throws Exception {
+	  public void loadHabilidadActivaList(IPersonajeDO personajeDO) throws Exception {
 	    checkCache(personajeDO, CHECK_UPDATE);
-	    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
 
 	    HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO.getDAO( //
 	    		HabilidadActivaDAO.class, connectionBean);
@@ -632,14 +624,13 @@ public class PersonajeDAO extends BaseDAO {
 	  
 	  // --------------------------------------------------------------------------------
 
-	  public void loadMisionPersonajeList(PersonajeDO personajeDO) throws Exception {
+	  public void loadMisionPersonajeList(IPersonajeDO personajeDO) throws Exception {
 	    checkCache(personajeDO, CHECK_UPDATE);
-	    //checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
 
 	    MisionPersonajeDAO misionPersonajeDAO = (MisionPersonajeDAO) FactoryDAO.getDAO( //
 	    		MisionPersonajeDAO.class, connectionBean);
 
-	    personajeDO.setMisionPersonajeList(misionPersonajeDAO.listByPersonajeId(personajeDO.getId()));
+	    personajeDO.setMisionPersonajelist(misionPersonajeDAO.listByPersonajeId(personajeDO.getId()));
 	  }
 
 	public boolean checkIfAliasExists(String alias) throws SQLException {
@@ -686,6 +677,34 @@ public class PersonajeDAO extends BaseDAO {
 	    }
 
 	    return null;
+	}
+
+	@Override
+	public List<IPersonajeDO> listByPersonajeId(int claseLinternaId)
+			throws SQLException {
+		// TODO este esta mal en la interfaz no va...
+		return null;
+	}
+
+	@Override
+	public List<IPersonajeDO> listRankin() throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
+		
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+		strbuf.append("ODERBY BY nivel, experiencia");
+		System.err.println(strbuf.toString());
+	    ResultSet rs = //
+		    connection.createStatement().executeQuery(strbuf.toString());
+	    List<IPersonajeDO> ret = new ArrayList<IPersonajeDO>();
+	    PersonajeDO per;
+	    while (rs.next()) {
+	    	per = resultSetToDO(rs);
+	    	loadClaseLinternaRef(per);
+	    	ret.add(per);
+	    }
+		
+		return ret;
 	}
 	
 	

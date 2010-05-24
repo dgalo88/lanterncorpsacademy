@@ -1,9 +1,10 @@
 package dao.lantern;
 
-import dao.api.DataObject;
+import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.INivelHabilidadDO;
 import dao.api.Reference;
 
-public class NivelHabilidadDO implements DataObject {
+public class NivelHabilidadDO implements INivelHabilidadDO {
 
 	// --------------------------------------------------------------------------------
 	
@@ -20,10 +21,10 @@ public class NivelHabilidadDO implements DataObject {
 	
 	private int nivel_de_habilidad;
 	private float efectividad;
-	private float costo_de_energia;
+	private double costo_de_energia;
 	private int probabilidad;
 	
-	private Reference<HabilidadDO> habilidadRef = new Reference<HabilidadDO>();
+	private Reference<IHabilidadDO> habilidadRef = new Reference<IHabilidadDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -44,11 +45,11 @@ public class NivelHabilidadDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
-	public int getNivelDeHabilidad() {
+	public int getNivel_de_habilidad() {
 		return nivel_de_habilidad;
 	}
 
-	public void setNivelDeHabilidad(int nivelDeHabilidad) {
+	public void setNivel_de_habilidad(int nivelDeHabilidad) {
 		nivel_de_habilidad = nivelDeHabilidad;
 	}
 
@@ -56,7 +57,7 @@ public class NivelHabilidadDO implements DataObject {
 	
 	public float getEfectividad() {
 		return efectividad;
-	} //XXX: esto cambióooo
+	}
 
 	public void setEfectividad(int efectividad) {
 		this.efectividad = efectividad;
@@ -65,14 +66,14 @@ public class NivelHabilidadDO implements DataObject {
 	// --------------------------------------------------------------------------------
 	
 
-	public float getCostoDeEnergia() {
+	public double getCosto_de_energia() {
 		return costo_de_energia;
 	}
 
-	public void setCostoDeEnergia(int costoDeEnergia) {
+	public void setCosto_de_energia(double costoDeEnergia) {
 		costo_de_energia = costoDeEnergia;
 	}
-	
+
 	// --------------------------------------------------------------------------------
 	
 	public int getProbabilidad() {
@@ -85,12 +86,13 @@ public class NivelHabilidadDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 	
-	public Reference<HabilidadDO> getHabilidadRef() {
+	public Reference<IHabilidadDO> getHabilidadRef() {
 		return habilidadRef;
 	}
 
-	public void setHabilidadRef(Reference<HabilidadDO> habilidadRef) {
+	public void setHabilidadRef(Reference<IHabilidadDO> habilidadRef) {
 		this.habilidadRef = habilidadRef;
 	}
+
 	
 }

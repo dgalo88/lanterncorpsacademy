@@ -5,12 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IPlanetaDAO;
+import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 import dao.api.Reference;
 
-public class PlanetaDAO extends BaseDAO {
+public class PlanetaDAO extends BaseDAO implements IPlanetaDAO{
 
   public void createTable() throws SQLException {
     StringBuffer strbuf;
@@ -147,7 +150,7 @@ public class PlanetaDAO extends BaseDAO {
     strbuf.append(planetaDO.getCoordenadaEnY());
     strbuf.append(", ");
     
-    Reference<ClaseLinternaDO> refH = planetaDO.getClaseLinternaRef();
+    Reference<IClaseLinternaDO> refH = planetaDO.getClaseLinternaRef();
     refH.checkUpdate();
     strbuf.append(refH.getIdAsString());
     
@@ -313,7 +316,7 @@ public class PlanetaDAO extends BaseDAO {
 
   // --------------------------------------------------------------------------------
 
-  public void loadObjetivoList(PlanetaDO planetaDO) throws Exception {
+  public void loadObjetivoList(IPlanetaDO planetaDO) throws Exception {
     // XXX: Check this method's semantic
 	checkCache(planetaDO, CHECK_UPDATE);
     checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
@@ -328,7 +331,7 @@ public class PlanetaDAO extends BaseDAO {
   
   // --------------------------------------------------------------------------------
 
-  public void loadPersonajeList(PlanetaDO planetaDO) throws Exception {
+  public void loadPersonajeList(IPlanetaDO planetaDO) throws Exception {
     // XXX: Check this method's semantic
 	checkCache(planetaDO, CHECK_UPDATE);
     checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
@@ -341,26 +344,26 @@ public class PlanetaDAO extends BaseDAO {
   }
   // --------------------------------------------------------------------------------
 
-  public void loadClaseLinternaRef(PlanetaDO planetaDO) throws Exception {
-    // XXX: Check this method's semantic
-    checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
-
-//    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
-//    claseLinternaDAO.init(connectionBean); //TODO USE FACTORY
-    
-    ClaseLinternaDAO claseLinternaDAO = (ClaseLinternaDAO) FactoryDAO.getDAO( //
-            ClaseLinternaDAO.class, connectionBean);
-
-    Reference<ClaseLinternaDO> ref = planetaDO.getClaseLinternaRef();
-
-    if (ref.getRefIdent() == 0) {
-      return;
-    }
-
-    ClaseLinternaDO claseLinternaDO = //
-    (ClaseLinternaDO) claseLinternaDAO.loadById(ref.getRefIdent());
-
-    ref.setRefValue(claseLinternaDO);
+  public void loadClaseLinternaRef(IPlanetaDO planetaDO) throws Exception {
+//    // XXX: Check this method's semantic
+//    checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
+//
+////    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
+////    claseLinternaDAO.init(connectionBean); //TODO USE FACTORY
+//    
+//    ClaseLinternaDAO claseLinternaDAO = (ClaseLinternaDAO) FactoryDAO.getDAO( //
+//            ClaseLinternaDAO.class, connectionBean);
+//
+//    Reference<IClaseLinternaDO> ref = planetaDO.getClaseLinternaRef();
+//
+//    if (ref.getRefIdent() == 0) {
+//      return;
+//    }
+//
+//    ClaseLinternaDO claseLinternaDO = //
+//    (ClaseLinternaDO) claseLinternaDAO.loadById(ref.getRefIdent());
+//
+//    ref.setRefValue(claseLinternaDO);
   }
   
 }

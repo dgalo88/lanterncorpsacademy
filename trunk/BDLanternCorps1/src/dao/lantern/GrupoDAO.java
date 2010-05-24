@@ -5,12 +5,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IGrupoDAO;
+import lcaInterfaceDAO.IGrupoDO;
+
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 import dao.api.Reference;
 
-public class GrupoDAO extends BaseDAO {
+public class GrupoDAO extends BaseDAO implements IGrupoDAO {
 
 	public GrupoDAO() {
 		// Empty
@@ -106,7 +110,7 @@ public class GrupoDAO extends BaseDAO {
 		strbuf.append(grupoDO.isEstado());
 		strbuf.append(", ");
 
-		Reference<ClaseLinternaDO> refCl = grupoDO.getClaseLinternaRef();
+		Reference<IClaseLinternaDO> refCl = grupoDO.getClaseLinternaRef();
 		refCl.checkInsert();
 		strbuf.append(refCl.getIdAsString());
 
@@ -148,7 +152,7 @@ public class GrupoDAO extends BaseDAO {
 
 		strbuf.append(GrupoDO.CLASE_LINTERNA_ID);
 		strbuf.append(" = ");
-		Reference<ClaseLinternaDO> refcl = grupoDO.getClaseLinternaRef();
+		Reference<IClaseLinternaDO> refcl = grupoDO.getClaseLinternaRef();
 		refcl.checkUpdate();
 		strbuf.append(refcl.getIdAsString());
 
@@ -272,7 +276,7 @@ public class GrupoDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public List<GrupoDO> listByClaseLinternaId(int claseLinternaId)
+	public List<IGrupoDO> listByClaseLinternaId(int claseLinternaId)
 			throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
@@ -289,7 +293,7 @@ public class GrupoDAO extends BaseDAO {
 		ResultSet rs = //
 		connection.createStatement().executeQuery(strbuf.toString());
 
-		List<GrupoDO> ret = new ArrayList<GrupoDO>();
+		List<IGrupoDO> ret = new ArrayList<IGrupoDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
@@ -336,7 +340,7 @@ public class GrupoDAO extends BaseDAO {
 		ret.setNombre(rs.getString(GrupoDO.NOMBRE));
 		ret.setEstado(rs.getBoolean(GrupoDO.ESTADO));
 
-		Reference<ClaseLinternaDO> refCl = new Reference<ClaseLinternaDO>();
+		Reference<IClaseLinternaDO> refCl = new Reference<IClaseLinternaDO>();
 		refCl.setRefIdent(rs.getInt(GrupoDO.CLASE_LINTERNA_ID));
 		ret.setClaseLinternaRef(refCl);
 
@@ -345,14 +349,14 @@ public class GrupoDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public void loadClaseLinternaRef(GrupoDO grupoDO) throws SQLException {
-		// XXX: Check this method's semantic
+	public void loadClaseLinternaRef(IGrupoDO grupoDO) throws SQLException {
+
 		checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
 
 		ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
 		claseLinternaDAO.init(connectionBean);
 
-		Reference<ClaseLinternaDO> ref = grupoDO.getClaseLinternaRef();
+		Reference<IClaseLinternaDO> ref = grupoDO.getClaseLinternaRef();
 
 		if (ref.getRefIdent() == 0) {
 			return;
@@ -366,7 +370,7 @@ public class GrupoDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public void loadPersonajeList(GrupoDO grupoDO) throws Exception {
+	public void loadPersonajeList(IGrupoDO grupoDO) throws Exception {
 		checkCache(grupoDO, CHECK_UPDATE);
 		checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
 

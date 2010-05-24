@@ -3,9 +3,12 @@ package dao.lantern;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.api.DataObject;
+import lcaInterfaceDAO.IMisionClaseLinternaDO;
+import lcaInterfaceDAO.IMisionDO;
+import lcaInterfaceDAO.IMisionPersonajeDO;
+import lcaInterfaceDAO.IOrdenDO;
 
-public class MisionDO implements DataObject {
+public class MisionDO implements IMisionDO {
 
 	public static final String NOMBRE 							= "nombre";
 	public static final String DESCRIPCION 						= "descripcion";
@@ -23,14 +26,14 @@ public class MisionDO implements DataObject {
 	private int puntos_de_entrenamiento_ganados;
 	private int nivel_necesario;
 
-	private List<OrdenDO> OrdenList = //
-		new ArrayList<OrdenDO>();
+	private List<IOrdenDO> OrdenList = //
+		new ArrayList<IOrdenDO>();
 	
-	private List<MisionPersonajeDO> MisionPersonajeList = //
-		new ArrayList<MisionPersonajeDO>();
+	private List<IMisionPersonajeDO> MisionPersonajeList = //
+		new ArrayList<IMisionPersonajeDO>();
 		
-	private List<MisionClaseLinternaDO> MisionClaselinternaList = //
-		new ArrayList<MisionClaseLinternaDO>();
+	private List<IMisionClaseLinternaDO> MisionClaselinternaList = //
+		new ArrayList<IMisionClaseLinternaDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -71,61 +74,61 @@ public class MisionDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 	
-	public int getExperienciaGanada() {
+	public int getExperiencia_ganada() {
 		return experiencia_ganada;
 	}
 
-	public void setExperienciaGanada(int experienciaGanada) {
+	public void setExperiencia_ganada(int experienciaGanada) {
 		experiencia_ganada = experienciaGanada;
 	}
 
 	// --------------------------------------------------------------------------------
 	
-	public int getPuntosDeEntrenamientoGanados() {
+	public int getPuntos_de_entrenamiento_ganados() {
 		return puntos_de_entrenamiento_ganados;
 	}
 
-	public void setPuntosDeEntrenamientoGanados(int puntosDeEntrenamientoGanados) {
+	public void setPuntos_de_entrenamiento_ganados(int puntosDeEntrenamientoGanados) {
 		puntos_de_entrenamiento_ganados = puntosDeEntrenamientoGanados;
 	}
 	
 	// --------------------------------------------------------------------------------
 	
-	public int getNivelNecesario() {
+	public int getNivel_necesario() {
 		return nivel_necesario;
 	}
 
-	public void setNivelNecesario(int nivelNecesario) {
+	public void setNivel_necesario(int nivelNecesario) {
 		nivel_necesario = nivelNecesario;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setOrdenList(List<OrdenDO> ordenList) {
+	public void setOrdenList(List<IOrdenDO> ordenList) {
 		OrdenList = ordenList;
 	}
 
-	public List<OrdenDO> getOrdenList() {
+	public List<IOrdenDO> getOrdenList() {
 		return OrdenList;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setMisionPersonajeList(List<MisionPersonajeDO> misionPersonajeList) {
+	public void setMisionPersonajeList(List<IMisionPersonajeDO> misionPersonajeList) {
 		MisionPersonajeList = misionPersonajeList;
 	}
 
-	public List<MisionPersonajeDO> getMisionPersonajeList() {
+	public List<IMisionPersonajeDO> getMisionPersonajeList() {
 		return MisionPersonajeList;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setMisionClaselinternaList(List<MisionClaseLinternaDO> misionClaselinternaList) {
+	public void setMisionClaselinternaList(List<IMisionClaseLinternaDO> misionClaselinternaList) {
 		MisionClaselinternaList = misionClaselinternaList;
 	}
 
-	public List<MisionClaseLinternaDO> getMisionClaselinternaList() {
+	public List<IMisionClaseLinternaDO> getMisionClaselinternaList() {
 		return MisionClaselinternaList;
 	}
 

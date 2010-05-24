@@ -1,9 +1,11 @@
 package dao.lantern;
 
-import dao.api.DataObject;
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IMisionClaseLinternaDO;
+import lcaInterfaceDAO.IMisionDO;
 import dao.api.Reference;
 
-public class MisionClaseLinternaDO implements DataObject {
+public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 
 	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
 	public static final String MISION_ID = "misionId";
@@ -15,9 +17,9 @@ public class MisionClaseLinternaDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	private Reference<ClaseLinternaDO> claseLinternaRef = new Reference<ClaseLinternaDO>();
+	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
 
-	private Reference<MisionDO> misionRef = new Reference<MisionDO>();
+	private Reference<IMisionDO> misionRef = new Reference<IMisionDO>();
 		
 	// --------------------------------------------------------------------------------
 
@@ -38,21 +40,21 @@ public class MisionClaseLinternaDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<ClaseLinternaDO> getClaseLinternaRef() {
+	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
 		return claseLinternaRef;
 	}
 
-	public void setClaseLinternaRef(Reference<ClaseLinternaDO> claseLinternaRef) {
+	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
 		this.claseLinternaRef = claseLinternaRef;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setMisionRef(Reference<MisionDO> misionRef) {
+	public void setMisionRef(Reference<IMisionDO> misionRef) {
 		this.misionRef = misionRef;
 	}
 
-	public Reference<MisionDO> getMisionRef() {
+	public Reference<IMisionDO> getMisionRef() {
 		return misionRef;
 	}
 	
