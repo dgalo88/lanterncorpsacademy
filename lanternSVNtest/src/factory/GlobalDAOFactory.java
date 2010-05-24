@@ -18,24 +18,20 @@ import lcaInterfaceDAO.IUsuarioDAO;
 import dao.api.FactoryDAO;
 import dao.api.InterfaceDAO;
 import dao.connection.ConnectionBean;
+import factory.BD.Grupo;
 
 public class GlobalDAOFactory {
-
-	public enum Grupo {
-		LCA, LANTERN
-	}
-
-	// ----------------------------------------------------------------------
-
-	private static final Grupo GRUPO = Grupo.LCA;
-
+ 
+	
+	private static Grupo grupo = BD.GRUPO;
+	
 	// ----------------------------------------------------------------------
 
 	public static InterfaceDAO getDAO(Class<? extends InterfaceDAO> clazz,
 			ConnectionBean connectionBean) throws Exception {
 		// clazz -> IXXXDAO
 
-		switch (GRUPO) {
+		switch (grupo) {
 		case LCA:
 			return createDAOLCA(clazz, connectionBean);
 		case LANTERN:
