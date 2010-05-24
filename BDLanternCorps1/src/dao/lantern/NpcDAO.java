@@ -5,10 +5,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.INpcDAO;
+
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 
-public class NpcDAO extends BaseDAO {
+public class NpcDAO extends BaseDAO implements INpcDAO {
 	
 	public NpcDAO() {
 		// Empty

@@ -5,14 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IHabilidadDAO;
+import lcaInterfaceDAO.IHabilidadDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
-import dao.lantern.HabilidadDO;
 
 
 
-public class HabilidadDAO extends BaseDAO {
+public class HabilidadDAO extends BaseDAO implements IHabilidadDAO{
 
 	@Override
 	public int countAll() throws SQLException {
@@ -83,15 +84,6 @@ public class HabilidadDAO extends BaseDAO {
 	    strbuf.append(" INT CHECK (costo_aprendizaje>=0),    ");
 	    strbuf.append(HabilidadDO.TIPO);
 	    strbuf.append(" INT    ");
-//	    strbuf.append(HabilidadDO.CLASE_ID);
-//	    strbuf.append(" INT REFERENCES   ");
-//	    strbuf.append(habilidadClaseLinternaDAO.getTableName()+", ");
-//	    strbuf.append(HabilidadDO.NIVEL_ID);
-//	    strbuf.append(" INT REFERENCES   ");
-//	    strbuf.append(nivelHabilidadDAO.getTableName()+", ");
-//	    strbuf.append(HabilidadDO.HAB_ACTIVA_ID);
-//	    strbuf.append(" INT REFERENCES   ");
-//	    strbuf.append(habilidadActivaDAO.getTableName());
 	    strbuf.append(")");
 
 	    System.err.println(strbuf.toString());
@@ -156,7 +148,7 @@ public class HabilidadDAO extends BaseDAO {
 	    strbuf.append(", ");
 	    strbuf.append(singleQuotes(habilidadDO.getNombre()));
 	    strbuf.append(", ");
-	    strbuf.append(habilidadDO.getCostoDeAprendizaje());
+	    strbuf.append(habilidadDO.getCosto_de_aprendizaje());
 	    strbuf.append(", ");
 	    strbuf.append(habilidadDO.getTipo());
 
@@ -251,7 +243,7 @@ public class HabilidadDAO extends BaseDAO {
 
 	    strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
 	    strbuf.append(" = ");
-	    strbuf.append(habilidadDO.getCostoDeAprendizaje());
+	    strbuf.append(habilidadDO.getCosto_de_aprendizaje());
 	    
 	    strbuf.append(", ");
 
@@ -302,13 +294,13 @@ public class HabilidadDAO extends BaseDAO {
 
       ret.setId/*     */(rs.getInt(HabilidadDO.ID));
       ret.setNombre/*   */(rs.getString(HabilidadDO.NOMBRE));
-      ret.setCostoDeAprendizaje((rs.getInt(HabilidadDO.COSTO_DE_APRENDIZAJE)));
+      ret.setCosto_de_aprendizaje((rs.getInt(HabilidadDO.COSTO_DE_APRENDIZAJE)));
       ret.setTipo(rs.getInt(HabilidadDO.TIPO));
  
       return (HabilidadDO) dtaSession.add(ret);	
     }
     
-    public void loadNivelList(HabilidadDO habilidadDO) throws Exception {
+    public void loadNivelHabilidadList(IHabilidadDO habilidadDO) throws Exception {
         checkCache(habilidadDO, CHECK_UPDATE);
 
         NivelHabilidadDAO nivelHabilidadDAO = (NivelHabilidadDAO) FactoryDAO.getDAO( //
@@ -317,16 +309,16 @@ public class HabilidadDAO extends BaseDAO {
         habilidadDO.setNivelHabilidadList(nivelHabilidadDAO.listByHabilidadId(habilidadDO.getId()));
       }
     
-    public void loadClaseLinternaList(HabilidadDO habilidadDO) throws Exception {
+    public void loadHabilidadClaseLinternaList(IHabilidadDO habilidadDO) throws Exception {
         checkCache(habilidadDO, CHECK_UPDATE);
 
         HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO.getDAO( //
         HabilidadClaseLinternaDAO.class, connectionBean);
 
-        habilidadDO.setHabilidadClaseLinternaList(habilidadClaseLinternaDAO.listByClaseLinternaId(habilidadDO.getId()));
+        habilidadDO.setHabilidadClaseLinternaList(habilidadClaseLinternaDAO.listByClaseId(habilidadDO.getId()));
       }
     
-    public void loadHabActivaList(HabilidadDO habilidadDO) throws Exception {
+    public void loadHabilidadActivaList(IHabilidadDO habilidadDO) throws Exception {
         checkCache(habilidadDO, CHECK_UPDATE);
 
         HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO.getDAO( //

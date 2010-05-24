@@ -1,9 +1,11 @@
 package dao.lantern;
 
-import dao.api.DataObject;
+import lcaInterfaceDAO.IMisionDO;
+import lcaInterfaceDAO.IObjetivoDO;
+import lcaInterfaceDAO.IOrdenDO;
 import dao.api.Reference;
 
-public class OrdenDO implements DataObject {
+public class OrdenDO implements IOrdenDO {
 
 	public static final String PRIORIDAD = "prioridad";
 	public static final String OBJETIVO_ID = "objetivoId";
@@ -17,9 +19,9 @@ public class OrdenDO implements DataObject {
 	
 	// --------------------------------------------------------------------------------
 
-	private Reference<ObjetivoDO> objetivoRef = new Reference<ObjetivoDO>();
+	private Reference<IObjetivoDO> objetivoRef = new Reference<IObjetivoDO>();
 	
-	private Reference<MisionDO> misionRef = new Reference<MisionDO>();
+	private Reference<IMisionDO> misionRef = new Reference<IMisionDO>();
 		
 	// --------------------------------------------------------------------------------
 
@@ -50,21 +52,21 @@ public class OrdenDO implements DataObject {
 		
 	// --------------------------------------------------------------------------------
 
-	public void setObjetivoRef(Reference<ObjetivoDO> objetivoRef) {
+	public void setObjetivoRef(Reference<IObjetivoDO> objetivoRef) {
 		this.objetivoRef = objetivoRef;
 	}
 
-	public Reference<ObjetivoDO> getObjetivoRef() {
+	public Reference<IObjetivoDO> getObjetivoRef() {
 		return objetivoRef;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setMisionRef(Reference<MisionDO> misionRef) {
+	public void setMisionRef(Reference<IMisionDO> misionRef) {
 		this.misionRef = misionRef;
 	}
 
-	public Reference<MisionDO> getMisionRef() {
+	public Reference<IMisionDO> getMisionRef() {
 		return misionRef;
 	}
 

@@ -5,14 +5,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IClaseLinternaDAO;
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IPlanetaDO;
+
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 import dao.api.FactoryDAO;
 
-public class ClaseLinternaDAO extends BaseDAO {
+public class ClaseLinternaDAO extends BaseDAO implements IClaseLinternaDAO {
 
-  public void createTable() throws SQLException {
+	public ClaseLinternaDAO() {
+		// Empty
+	}
+	
+	
+  public void createTable() throws SQLException {  
     StringBuffer strbuf;
 
     // ----------------------------------------
@@ -42,7 +51,7 @@ public class ClaseLinternaDAO extends BaseDAO {
     // ----------------------------------------
 
         
-    PlanetaDAO planetaDAO = new PlanetaDAO(); // Used to make the FK
+    PlanetaDAO planetaDAO = new PlanetaDAO();
     planetaDAO.init(connectionBean);
 
     strbuf = new StringBuffer();
@@ -98,10 +107,10 @@ public class ClaseLinternaDAO extends BaseDAO {
     strbuf.append(", ");
     strbuf.append(singleQuotes(claseLinternaDO.getColor()));
     strbuf.append(", ");
-    strbuf.append(singleQuotes(claseLinternaDO.getNombreDeCuerpoLinterna()));
+    strbuf.append(singleQuotes(claseLinternaDO.getNombre_de_cuerpo_linterna()));
     strbuf.append(", ");
 
-    Reference<PlanetaDO> refPl = claseLinternaDO.getPlanetaRef();
+    Reference<IPlanetaDO> refPl = claseLinternaDO.getPlanetaRef();
     refPl.checkInsert();
     strbuf.append(refPl.getIdAsString());
 
@@ -137,13 +146,13 @@ public class ClaseLinternaDAO extends BaseDAO {
 
     strbuf.append(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA);
     strbuf.append(" = ");
-    strbuf.append(singleQuotes(claseLinternaDO.getNombreDeCuerpoLinterna()));
+    strbuf.append(singleQuotes(claseLinternaDO.getNombre_de_cuerpo_linterna()));
     
     strbuf.append(", ");
     
     strbuf.append(ClaseLinternaDO.PLANETA_ID);
     strbuf.append(" = ");
-    Reference<PlanetaDO> refPl = claseLinternaDO.getPlanetaRef();
+    Reference<IPlanetaDO> refPl = claseLinternaDO.getPlanetaRef();
     refPl.checkUpdate();
     strbuf.append(refPl.getIdAsString());
     
@@ -212,7 +221,7 @@ public class ClaseLinternaDAO extends BaseDAO {
   // --------------------------------------------------------------------------------
 
   
-  public ClaseLinternaDO loadByName(String name) throws SQLException {
+  public IClaseLinternaDO loadByName(String name) throws SQLException {
     StringBuffer strbuf = new StringBuffer();
 
     strbuf.append("SELECT * FROM ");
@@ -237,7 +246,7 @@ public class ClaseLinternaDAO extends BaseDAO {
 
   // --------------------------------------------------------------------------------
   
-  public ClaseLinternaDO loadByColor(String color) throws SQLException {
+  public IClaseLinternaDO loadByColor(String color) throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("SELECT * FROM ");
@@ -380,9 +389,9 @@ public class ClaseLinternaDAO extends BaseDAO {
 
     ret.setId/*     					*/(rs.getInt(ClaseLinternaDO.ID));
     ret.setColor/*						*/(rs.getString(ClaseLinternaDO.COLOR));
-    ret.setNombreDeCuerpoLinterna/*	*/(rs.getString(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA));
+    ret.setNombre_de_cuerpo_linterna/*	*/(rs.getString(ClaseLinternaDO.NOMBRE_DE_CUERPO_LINTERNA));
 
-    Reference<PlanetaDO> refPl = new Reference<PlanetaDO>();
+    Reference<IPlanetaDO> refPl = new Reference<IPlanetaDO>();
     refPl.setRefIdent(rs.getInt(ClaseLinternaDO.PLANETA_ID));
     ret.setPlanetaRef(refPl);
     
@@ -391,14 +400,14 @@ public class ClaseLinternaDAO extends BaseDAO {
 
   // --------------------------------------------------------------------------------
 
-  public void loadPlanetaRef(ClaseLinternaDO claseLinternaDO) throws SQLException {
+  public void loadPlanetaRef(IClaseLinternaDO claseLinternaDO) throws SQLException {
     // XXX: Check this method's semantic
     checkClass(claseLinternaDO, ClaseLinternaDO.class, CHECK_UPDATE);
 
     PlanetaDAO planetaDAO = new PlanetaDAO();
     planetaDAO.init(connectionBean);
 
-    Reference<PlanetaDO> ref = claseLinternaDO.getPlanetaRef();
+    Reference<IPlanetaDO> ref = claseLinternaDO.getPlanetaRef();
 
     if (ref.getRefIdent() == 0) {
       return;
@@ -412,7 +421,7 @@ public class ClaseLinternaDAO extends BaseDAO {
   
 // --------------------------------------------------------------------------------
 
-public void loadGrupoList(ClaseLinternaDO claseLinternaDO) throws Exception {
+public void loadGrupoList(IClaseLinternaDO claseLinternaDO) throws Exception {
   checkCache(claseLinternaDO, CHECK_UPDATE);
 
   	GrupoDAO grupoDAO = (GrupoDAO) FactoryDAO.getDAO( //
@@ -423,7 +432,7 @@ public void loadGrupoList(ClaseLinternaDO claseLinternaDO) throws Exception {
 
 //--------------------------------------------------------------------------------
 
-public void loadPersonajeList(ClaseLinternaDO claseLinternaDO) throws Exception {
+public void loadPersonajeList(IClaseLinternaDO claseLinternaDO) throws Exception {
   checkCache(claseLinternaDO, CHECK_UPDATE);
 
   	PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
@@ -434,18 +443,18 @@ public void loadPersonajeList(ClaseLinternaDO claseLinternaDO) throws Exception 
 
 //--------------------------------------------------------------------------------
 
-public void loadHabilidadClaseLinternaList(ClaseLinternaDO claseLinternaDO) throws Exception {
+public void loadHabilidadClaseLinternaList(IClaseLinternaDO claseLinternaDO) throws Exception {
   checkCache(claseLinternaDO, CHECK_UPDATE);
 
   HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO.getDAO( //
 		  HabilidadClaseLinternaDAO.class, connectionBean);
 
-  	claseLinternaDO.setHabilidadClaseLinternaList(habilidadClaseLinternaDAO.listByClaseLinternaId(claseLinternaDO.getId()));
+  	claseLinternaDO.setHabilidadClaseLinternaList(habilidadClaseLinternaDAO.listByClaseId(claseLinternaDO.getId()));
 	}
 
 //--------------------------------------------------------------------------------
 
-public void loadMisionClaseLinternaList(ClaseLinternaDO claseLinternaDO) throws Exception {
+public void loadMisionClaseLinternaList(IClaseLinternaDO claseLinternaDO) throws Exception {
   checkCache(claseLinternaDO, CHECK_UPDATE);
 
   MisionClaseLinternaDAO misionClaseLinternaDAO = (MisionClaseLinternaDAO) FactoryDAO.getDAO( //

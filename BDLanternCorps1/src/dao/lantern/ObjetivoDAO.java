@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IObjetivoDAO;
+import lcaInterfaceDAO.IObjetivoDO;
+import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
@@ -12,7 +15,7 @@ import dao.api.Reference;
 
 
 
-public class ObjetivoDAO extends BaseDAO {
+public class ObjetivoDAO extends BaseDAO implements IObjetivoDAO {
 
 	@Override
 	public int countAll() throws SQLException {
@@ -144,7 +147,7 @@ public class ObjetivoDAO extends BaseDAO {
 		strbuf.append(", ");
 		strbuf.append(objetivoDO.getNumeroDeNpc());
 		strbuf.append(", ");
-		Reference<PlanetaDO> refPl = objetivoDO.getPlanetaRef();
+		Reference<IPlanetaDO> refPl = objetivoDO.getPlanetaRef();
 		refPl.checkInsert();
 		strbuf.append(refPl.getIdAsString());
 		strbuf.append(")");
@@ -249,7 +252,7 @@ public class ObjetivoDAO extends BaseDAO {
 		ret.setDescripcion/*				*/(rs.getString(ObjetivoDO.DESCRIPCION));
 		ret.setNumeroDeNpc/*	            */(rs.getInt(ObjetivoDO.NUMERO_DE_NPC));
 
-		Reference<PlanetaDO> refPl = new Reference<PlanetaDO>();
+		Reference<IPlanetaDO> refPl = new Reference<IPlanetaDO>();
 		refPl.setRefIdent(rs.getInt(ObjetivoDO.PLANETA_ID));
 		ret.setPlanetaRef(refPl);
 
@@ -283,7 +286,7 @@ public class ObjetivoDAO extends BaseDAO {
 
 	    strbuf.append(ObjetivoDO.PLANETA_ID);
 	    strbuf.append(" = ");
-	    Reference<PlanetaDO> refPl = objetivoDO.getPlanetaRef();
+	    Reference<IPlanetaDO> refPl = objetivoDO.getPlanetaRef();
 	    refPl.checkUpdate();
 	    strbuf.append(refPl.getIdAsString());
  
@@ -298,7 +301,7 @@ public class ObjetivoDAO extends BaseDAO {
 
 	}
 
-	public List<ObjetivoDO> listByPlanetId(int planetId)
+	public List<IObjetivoDO> listByPlanetId(int planetId)
 			throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
@@ -315,7 +318,7 @@ public class ObjetivoDAO extends BaseDAO {
 		ResultSet rs = //
 		connection.createStatement().executeQuery(strbuf.toString());
 
-		List<ObjetivoDO> ret = new ArrayList<ObjetivoDO>();
+		List<IObjetivoDO> ret = new ArrayList<IObjetivoDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
@@ -324,7 +327,7 @@ public class ObjetivoDAO extends BaseDAO {
 		return ret;
 	}
 	
-	  public void loadPlanetRef(ObjetivoDO objetivo) throws SQLException {
+	  public void loadPlanetaRef(IObjetivoDO objetivo) throws SQLException {
 		    // XXX: Check this method's semantic
 		    checkClass(objetivo, ObjetivoDO.class, CHECK_UPDATE);
 
@@ -335,7 +338,7 @@ public class ObjetivoDAO extends BaseDAO {
 //		    		PlanetaDAO.class, connectionBean) throws ClassNotFoundException, Exception;
 		    //unmanageable exceptions...
 
-		    Reference<PlanetaDO> ref = objetivo.getPlanetaRef();
+		    Reference<IPlanetaDO> ref = objetivo.getPlanetaRef();
 
 		    // ----------------------------------------
 		    // If ident == 0 there is nothing to do
@@ -351,7 +354,7 @@ public class ObjetivoDAO extends BaseDAO {
 		    ref.setRefValue(planetaDO);
 		  }
 
-	public void loadOrdenList(ObjetivoDO objetivo) throws Exception {
+	public void loadOrdenList(IObjetivoDO objetivo) throws Exception {
 		checkCache(objetivo, CHECK_UPDATE);
 		// checkClass(departmentDO, DepartmentDO.class, CHECK_UPDATE);
 

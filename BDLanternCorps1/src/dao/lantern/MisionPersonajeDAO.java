@@ -5,11 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IMisionDO;
+import lcaInterfaceDAO.IMisionPersonajeDAO;
+import lcaInterfaceDAO.IMisionPersonajeDO;
+import lcaInterfaceDAO.IPersonajeDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-public class MisionPersonajeDAO extends BaseDAO {
+public class MisionPersonajeDAO extends BaseDAO implements IMisionPersonajeDAO {
 
   public void createTable() throws SQLException {
     StringBuffer strbuf;
@@ -97,12 +101,12 @@ public class MisionPersonajeDAO extends BaseDAO {
     strbuf.append(" VALUES (");
     strbuf.append(misionPersonajeDO.getId());
     strbuf.append(", ");
-    Reference<PersonajeDO> refP = misionPersonajeDO.getPersonajeRef();
+    Reference<IPersonajeDO> refP = misionPersonajeDO.getPersonajeRef();
     refP.checkInsert();
     strbuf.append(refP.getIdAsString());
     strbuf.append(", ");
 
-    Reference<MisionDO> refM = misionPersonajeDO.getMisionRef();
+    Reference<IMisionDO> refM = misionPersonajeDO.getMisionRef();
     refM.checkInsert();
     strbuf.append(refM.getIdAsString());
     
@@ -132,14 +136,14 @@ public class MisionPersonajeDAO extends BaseDAO {
 
     strbuf.append(MisionPersonajeDO.PERSONAJE_ID);
     strbuf.append(" = ");
-    Reference<PersonajeDO> refP = misionPersonajeDO.getPersonajeRef();
+    Reference<IPersonajeDO> refP = misionPersonajeDO.getPersonajeRef();
     refP.checkUpdate();
     strbuf.append(refP.getIdAsString());
     strbuf.append(", ");
 
     strbuf.append(MisionPersonajeDO.MISION_ID);
     strbuf.append(" = ");
-    Reference<MisionDO> refM = misionPersonajeDO.getMisionRef();
+    Reference<IMisionDO> refM = misionPersonajeDO.getMisionRef();
     refM.checkUpdate();
     strbuf.append(refM.getIdAsString());
     
@@ -263,7 +267,7 @@ public class MisionPersonajeDAO extends BaseDAO {
 
 //--------------------------------------------------------------------------------
 
-  public List<MisionPersonajeDO> listByMisionId(int misionId) throws SQLException {
+  public List<IMisionPersonajeDO> listByMisionId(int misionId) throws SQLException {
     StringBuffer strbuf = new StringBuffer();
 
     strbuf.append("SELECT * FROM ");
@@ -279,7 +283,7 @@ public class MisionPersonajeDAO extends BaseDAO {
     ResultSet rs = //
     connection.createStatement().executeQuery(strbuf.toString());
 
-    List<MisionPersonajeDO> ret = new ArrayList<MisionPersonajeDO>();
+    List<IMisionPersonajeDO> ret = new ArrayList<IMisionPersonajeDO>();
 
     while (rs.next()) {
       ret.add(resultSetToDO(rs));
@@ -290,7 +294,7 @@ public class MisionPersonajeDAO extends BaseDAO {
 
 //--------------------------------------------------------------------------------
 
-  public List<MisionPersonajeDO> listByPersonajeId(int personajeId) throws SQLException {
+  public List<IMisionPersonajeDO> listByPersonajeId(int personajeId) throws SQLException {
     StringBuffer strbuf = new StringBuffer();
 
     strbuf.append("SELECT * FROM ");
@@ -306,7 +310,7 @@ public class MisionPersonajeDAO extends BaseDAO {
     ResultSet rs = //
     connection.createStatement().executeQuery(strbuf.toString());
 
-    List<MisionPersonajeDO> ret = new ArrayList<MisionPersonajeDO>();
+    List<IMisionPersonajeDO> ret = new ArrayList<IMisionPersonajeDO>();
 
     while (rs.next()) {
       ret.add(resultSetToDO(rs));
@@ -351,11 +355,11 @@ public class MisionPersonajeDAO extends BaseDAO {
 
     ret.setId(rs.getInt(MisionPersonajeDO.ID));
 
-    Reference<PersonajeDO> refP = new Reference<PersonajeDO>();
+    Reference<IPersonajeDO> refP = new Reference<IPersonajeDO>();
     refP.setRefIdent(rs.getInt(MisionPersonajeDO.PERSONAJE_ID));
     ret.setPersonajeRef(refP);
 
-    Reference<MisionDO> refM = new Reference<MisionDO>();
+    Reference<IMisionDO> refM = new Reference<IMisionDO>();
     refM.setRefIdent(rs.getInt(MisionPersonajeDO.MISION_ID));
     ret.setMisionRef(refM);
 
@@ -364,14 +368,14 @@ public class MisionPersonajeDAO extends BaseDAO {
   
 //--------------------------------------------------------------------------------
 
-  public void loadPersonajeRef(MisionPersonajeDO misionPersonajeDO) throws SQLException {
-	    // XXX: Check this method's semantic
+  public void loadPersonajeRef(IMisionPersonajeDO misionPersonajeDO) throws SQLException {
+
 	    checkClass(misionPersonajeDO, MisionPersonajeDO.class, CHECK_UPDATE);
 
 	    PersonajeDAO personajeDAO = new PersonajeDAO();
 	    personajeDAO.init(connectionBean);
 
-	    Reference<PersonajeDO> ref = misionPersonajeDO.getPersonajeRef();
+	    Reference<IPersonajeDO> ref = misionPersonajeDO.getPersonajeRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;
@@ -385,14 +389,14 @@ public class MisionPersonajeDAO extends BaseDAO {
 
 //--------------------------------------------------------------------------------
 
-  public void loadMisionRef(MisionPersonajeDO misionPersonajeDO) throws SQLException {
-	    // XXX: Check this method's semantic
+  public void loadMisionRef(IMisionPersonajeDO misionPersonajeDO) throws SQLException {
+
 	    checkClass(misionPersonajeDO, MisionPersonajeDO.class, CHECK_UPDATE);
 
 	    MisionDAO misionDAO = new MisionDAO();
 	    misionDAO.init(connectionBean);
 
-	    Reference<MisionDO> ref = misionPersonajeDO.getMisionRef();
+	    Reference<IMisionDO> ref = misionPersonajeDO.getMisionRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;

@@ -1,9 +1,10 @@
 package dao.lantern;
 
-import dao.api.DataObject;
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IUsuarioDO;
 import dao.api.Reference;
 
-public class UsuarioDO implements DataObject {
+public class UsuarioDO implements IUsuarioDO {
 
 	public static final String ID = "id";
 	public static final String NOMBRE = "nombre";
@@ -20,7 +21,7 @@ public class UsuarioDO implements DataObject {
 	private String correo;
 	private String clave;
 
-	private Reference<PersonajeDO> personajeRef = new Reference<PersonajeDO>();
+	private Reference<IPersonajeDO> personajeRef = new Reference<IPersonajeDO>();
 
 	// --------------------------------------------------------------------------------
 
@@ -71,11 +72,11 @@ public class UsuarioDO implements DataObject {
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<PersonajeDO> getPersonajeRef() {
+	public Reference<IPersonajeDO> getPersonajeRef() {
 		return personajeRef;
 	}
 
-	public void setPersonajeRef(Reference<PersonajeDO> personajeRef) {
+	public void setPersonajeRef(Reference<IPersonajeDO> personajeRef) {
 		this.personajeRef = personajeRef;
 	}
 

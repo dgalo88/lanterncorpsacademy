@@ -5,11 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IHabilidadClaseLinternaDAO;
+import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
+import lcaInterfaceDAO.IHabilidadDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-public class HabilidadClaseLinternaDAO extends BaseDAO {
+public class HabilidadClaseLinternaDAO extends BaseDAO implements IHabilidadClaseLinternaDAO {
 
 	@Override
 	public int countAll() throws SQLException {
@@ -145,14 +149,14 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 	    strbuf.append(habilidadClaseLinternaDO.getId());
 	    strbuf.append(", ");
 
-	    Reference<ClaseLinternaDO> refcl = habilidadClaseLinternaDO.getClaseLinternaRef();
+	    Reference<IClaseLinternaDO> refcl = habilidadClaseLinternaDO.getClaseLinternaRef();
 	    refcl.checkInsert();
 	    strbuf.append(refcl.getIdAsString());
 	    
 	    
 	    strbuf.append(", ");
 
-	    Reference<HabilidadDO> refh = habilidadClaseLinternaDO.getHabilidadRef();
+	    Reference<IHabilidadDO> refh = habilidadClaseLinternaDO.getHabilidadRef();
 	    refh.checkInsert();
 	    strbuf.append(refh.getIdAsString());
 	    strbuf.append(")");
@@ -232,11 +236,11 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 
 		ret.setId/*     */(rs.getInt(HabilidadClaseLinternaDO.ID));
 
-		Reference<ClaseLinternaDO> refCl = new Reference<ClaseLinternaDO>();
+		Reference<IClaseLinternaDO> refCl = new Reference<IClaseLinternaDO>();
 		refCl.setRefIdent(rs.getInt(HabilidadClaseLinternaDO.CLASE_LINTERNA_ID));
 		ret.setClaseLinternaRef(refCl);
 
-		Reference<HabilidadDO> refH = new Reference<HabilidadDO>();
+		Reference<IHabilidadDO> refH = new Reference<IHabilidadDO>();
 		refH.setRefIdent(rs.getInt(HabilidadClaseLinternaDO.HABILIDAD_ID));
 		ret.setHabilidadRef(refH);
 
@@ -253,7 +257,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 	
     // ----------------------------------------
 
-	public List<HabilidadClaseLinternaDO> listByHabilidadId(int habilidadId)
+	public List<IHabilidadClaseLinternaDO> listByHabilidadId(int habilidadId)
 	throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
@@ -270,7 +274,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 		ResultSet rs = //
 			connection.createStatement().executeQuery(strbuf.toString());
 
-		List<HabilidadClaseLinternaDO> ret = new ArrayList<HabilidadClaseLinternaDO>();
+		List<IHabilidadClaseLinternaDO> ret = new ArrayList<IHabilidadClaseLinternaDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
@@ -281,7 +285,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 	
     // ----------------------------------------
 
-	public List<HabilidadClaseLinternaDO> listByClaseLinternaId(int claseLinternaId)
+	public List<IHabilidadClaseLinternaDO> listByClaseId(int claseLinternaId)
 	throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
@@ -298,7 +302,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 		ResultSet rs = //
 			connection.createStatement().executeQuery(strbuf.toString());
 
-		List<HabilidadClaseLinternaDO> ret = new ArrayList<HabilidadClaseLinternaDO>();
+		List<IHabilidadClaseLinternaDO> ret = new ArrayList<IHabilidadClaseLinternaDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
@@ -335,14 +339,14 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 
 	// --------------------------------------------------------------------------------
 
-	  public void loadHabilidadRef(HabilidadClaseLinternaDO habilidadClaseLinternaDO) throws SQLException {
-	    // XXX: Check this method's semantic
+	  public void loadHabilidadRef(IHabilidadClaseLinternaDO habilidadClaseLinternaDO) throws SQLException {
+
 	    checkClass(habilidadClaseLinternaDO, HabilidadClaseLinternaDO.class, CHECK_UPDATE);
 
 	    HabilidadDAO habilidadDAO = new HabilidadDAO();
 	    habilidadDAO.init(connectionBean);
 
-	    Reference<HabilidadDO> ref = habilidadClaseLinternaDO.getHabilidadRef();
+	    Reference<IHabilidadDO> ref = habilidadClaseLinternaDO.getHabilidadRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;
@@ -356,14 +360,14 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 
 		// --------------------------------------------------------------------------------
 
-	  public void loadClaseLinternaRef(HabilidadClaseLinternaDO habilidadClaseLinternaDO) throws SQLException {
-	    // XXX: Check this method's semantic
+	  public void loadClaseLinternaRef(IHabilidadClaseLinternaDO habilidadClaseLinternaDO) throws SQLException {
+
 	    checkClass(habilidadClaseLinternaDO, HabilidadClaseLinternaDO.class, CHECK_UPDATE);
 
 	    ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
 	    claseLinternaDAO.init(connectionBean);
 
-	    Reference<ClaseLinternaDO> ref = habilidadClaseLinternaDO.getClaseLinternaRef();
+	    Reference<IClaseLinternaDO> ref = habilidadClaseLinternaDO.getClaseLinternaRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;
@@ -390,7 +394,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 
 	    strbuf.append(HabilidadClaseLinternaDO.CLASE_LINTERNA_ID);
 	    strbuf.append(" = ");
-	    Reference<ClaseLinternaDO> refCl = habilidadClaseLinternaDO.getClaseLinternaRef();
+	    Reference<IClaseLinternaDO> refCl = habilidadClaseLinternaDO.getClaseLinternaRef();
 	    refCl.checkUpdate();
 	    strbuf.append(refCl.getIdAsString());
 	    
@@ -398,7 +402,7 @@ public class HabilidadClaseLinternaDAO extends BaseDAO {
 	    
 	    strbuf.append(HabilidadClaseLinternaDO.HABILIDAD_ID);
 	    strbuf.append(" = ");
-	    Reference<HabilidadDO> refH = habilidadClaseLinternaDO.getHabilidadRef();
+	    Reference<IHabilidadDO> refH = habilidadClaseLinternaDO.getHabilidadRef();
 	    refH.checkUpdate();
 	    strbuf.append(refH.getIdAsString());
 
