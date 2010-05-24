@@ -7,10 +7,10 @@ import dao.api.InterfaceDAO;
 
 public interface IMisionPersonajeDAO extends InterfaceDAO{
 
-	public abstract List<IMisionPersonajeDO> listByIdMisionId(int misionId)
+	public abstract List<IMisionPersonajeDO> listByMisionId(int misionId)
 			throws SQLException;
 
-	public abstract List<IMisionPersonajeDO> listByIdPersonajeId(int personajeId)
+	public abstract List<IMisionPersonajeDO> listByPersonajeId(int personajeId)
 			throws SQLException;
 
 	public abstract void loadPersonajeRef(IMisionPersonajeDO misionpersonajeDO)
