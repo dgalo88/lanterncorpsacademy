@@ -11,6 +11,7 @@ import nextapp.echo.app.ResourceImageReference;
 /**
  * @author Demián Gutierrez
  */
+
 public class ImageReferenceCache {
 
   private static ImageReferenceCache instance = new ImageReferenceCache();

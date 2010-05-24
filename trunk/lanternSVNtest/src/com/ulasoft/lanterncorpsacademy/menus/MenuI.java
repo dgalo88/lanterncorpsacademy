@@ -6,6 +6,7 @@ import nextapp.echo.app.Panel;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
@@ -16,7 +17,7 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
 
-
+@SuppressWarnings("serial")
 public class MenuI extends Panel {
 	
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
@@ -24,6 +25,7 @@ public class MenuI extends Panel {
 	//JUL: en estos si se puede usar esta variable porque con certeza el desktop ya fue cargado.
 	
 	public MenuI(){
+		
 		Row row = new Row();
 		row.setStyle(GUIStyles.STYLE4);
 				
@@ -163,9 +165,6 @@ public class MenuI extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnExitClicked() {
-//		removeAll();
-//		add(d.initTemplate1());
-		//removeAll();
 		Desktop desktop = app.getDesktop();
 		d.removeAll();
 	    d.add(desktop.initTemplate1());

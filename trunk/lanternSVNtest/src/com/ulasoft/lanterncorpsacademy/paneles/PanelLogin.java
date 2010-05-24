@@ -1,8 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
+import lcaInterfaceDAO.IUsuarioDO;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
@@ -16,31 +14,20 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
-
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.login;
 
-import dao.api.FactoryDAO;
-import dao.connection.ConnectionBean;
-import dao.connection.ConnectionFactory;
-import dao.lantern.UsuarioDAO;
-import dao.lantern.UsuarioDO;
-//import dao.lca.UsuarioDAO;
-//import dao.lca.UsuarioDO;
-
+@SuppressWarnings("serial")
 public class PanelLogin extends Panel {
 
   LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
-  private UsuarioDO usuario;
+  private IUsuarioDO usuario;
   private TextField txtCorreo;
   private PasswordField fldPass;
-
-  // Por alguna extraña razon, cuando se construye el panel aun no se
-  // ha asignado la referencia a desktop en LanternCorpsAcademyApp (ver
-  // el comentario ahi)
-  // Desktop d = app.getDesktop();
-
+  Desktop desktop;
+  
   public PanelLogin() {
 
     Row row1 = new Row();
@@ -89,7 +76,11 @@ public class PanelLogin extends Panel {
     btnClickToRegister.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent arg0) {
-        btnClickToRegisterClicked();
+        try {
+			btnClickToRegisterClicked();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
       }
     });
     row.add(btnClickToRegister);
@@ -103,15 +94,9 @@ public class PanelLogin extends Panel {
 
   // --------------------------------------------------------------------------------
 
-  protected void btnClickToRegisterClicked() {
+  protected void btnClickToRegisterClicked() throws Exception {
     PanelRegistro pnlregistro = new PanelRegistro();
-    
-    // Generalmente tratan de mantener la menor cantidad posible de variables de instancia
-    // posible (esto es algo que hay que poner en las transparencias de codificación.
-    // Es decir, no necesitan una variable de instancia para guardar una referencia al desktop.
-    // cada vez que lo necesiten pueden ponerlo como una variable local y llamar a app.getDesktop().
-    // El desktop lo usan así:
-    Desktop desktop = app.getDesktop();
+    desktop = app.getDesktop();
     desktop.setPanelCentral(pnlregistro);
   }
 
@@ -119,36 +104,16 @@ public class PanelLogin extends Panel {
 
   private void btnClickToEnterClicked() throws Exception {
 
-//		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-//
-//		UsuarioDAO usDAO = //
-//		(UsuarioDAO) FactoryDAO.getDAO(UsuarioDAO.class, connectionBean);
-//
-//		try {
-//			usuario = new UsuarioDO();
-//			usuario = usDAO.loadByCorreo(txtCorreo.getText());
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-		Desktop desktop = app.getDesktop();
-//		if (usuario.equals(null)) {
-//
-//			desktop.setWindowPaneEmergente(//
-//					"user not found/loaded.");
-//			return;
-//		}
-//		System.out.println(usuario.getCorreo());
-//		System.out.println(usuario.getClave());
-//		if ((usuario.getCorreo() != txtCorreo.getText())
-//				|| (usuario.getClave() != fldPass.getText())) {
-//			desktop.setWindowPaneEmergente(//
-//					"La informacion de correo o Contraseña proporcionada no es Correcta.");
-//			return;
-//		}
-//		ConnectionFactory.closeConnection(connectionBean.getConnection());
+	  	usuario = login.verificarlogin(usuario, txtCorreo.getText(), fldPass.getText());	 
+	  	if (usuario.equals(null)) {
+			desktop.setWindowPaneEmergente("La informacion de correo o Contraseña proporcionada no es Correcta.");
+			return;
+		}
+	  	
+	  	desktop = app.getDesktop();
 		desktop.removeAll();
-
 		desktop.add(desktop.initTemplate2());
   }
 
+  
 }

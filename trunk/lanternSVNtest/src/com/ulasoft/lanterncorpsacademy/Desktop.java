@@ -2,20 +2,16 @@ package com.ulasoft.lanterncorpsacademy;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
-import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
-import nextapp.echo.app.Row;
 import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
-
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead2;
 import com.ulasoft.lanterncorpsacademy.menus.MenuI;
@@ -24,12 +20,11 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 
 import echopoint.HtmlLayout;
-import echopoint.able.Widthable;
 import echopoint.layout.HtmlLayoutData;
 
 /**
  * @author typson julian Jose
- *
+ * 
  */
 
 @SuppressWarnings("serial")
@@ -38,7 +33,6 @@ public class Desktop extends ContentPane {
 	private HtmlLayout htmlLayout;
 	private HtmlLayoutData hld;
 	private WindowPane windowPane;
-	
 
 	// --------------------------------------------------------------------------------
 
@@ -57,12 +51,11 @@ public class Desktop extends ContentPane {
 	public Component initTemplate1() {
 		try {
 			setInsets(new Insets(2, 2, 2, 2));
-			htmlLayout = new HtmlLayout( //
-					getClass().getResourceAsStream("template1.html"), "UTF-8");
+			htmlLayout = new HtmlLayout(getClass().getResourceAsStream(
+					"templatehtml/template1.html"), "UTF-8");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
 
 		hld = new HtmlLayoutData("head");
 		MenuHead menuHead = new MenuHead();
@@ -74,18 +67,19 @@ public class Desktop extends ContentPane {
 		login.setId("main");
 		login.setLayoutData(hld);
 		htmlLayout.add(login);
+
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
-		// htmlLayout.setBackground(new Color(0x00, 0xFF, 0x00));
+
 		return htmlLayout;
 	}
-
 
 	// --------------------------------------------------------------------------------
 
 	public Component initTemplate2() {
 		try {
 			htmlLayout = new HtmlLayout( //
-					getClass().getResourceAsStream("template2.html"), "UTF-8");
+					getClass().getResourceAsStream(
+							"templatehtml/template2.html"), "UTF-8");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -118,37 +112,39 @@ public class Desktop extends ContentPane {
 	}
 
 	// --------------------------------------------------------------------------------
-	
-	public void setPanelCentral(Panel panel){
+
+	public void setPanelCentral(Panel panel) {
 		hld = new HtmlLayoutData("main");
 		panel.setId("main");
 		panel.setLayoutData(hld);
 		// Remueve componente anterior del htmlLayout
 		htmlLayout.remove(htmlLayout.getComponent("main"));
 		htmlLayout.add(panel);
-	
+
 	}
+
+	// --------------------------------------------------------------------------------
 
 	public void setWindowPaneEmergente(String texto) {
 		Column col = new Column();
 		windowPane = new WindowPane();
 		windowPane.setStyle(GUIStyles.DEFAULT_STYLE);
-	    windowPane.setTitle("Informacion");
-	    windowPane.setModal(true);
-	    windowPane.setHeight(new Extent(200));
-	    windowPane.setWidth(new Extent(200));
-	    col.add(new Label(texto));
-	    Button btnOk = new Button("Ok");
+		windowPane.setTitle("Informacion");
+		windowPane.setModal(true);
+		windowPane.setHeight(new Extent(200));
+		windowPane.setWidth(new Extent(200));
+		col.add(new Label(texto));
+		Button btnOk = new Button("Ok");
 		btnOk.setStyle(GUIStyles.STYLE2);
 		btnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-		   	  remove(windowPane);
+				remove(windowPane);
 			}
-		 	});
+		});
 		col.add(btnOk);
 		windowPane.add(col);
-	    add(windowPane);
+		add(windowPane);
 	}
 
 }

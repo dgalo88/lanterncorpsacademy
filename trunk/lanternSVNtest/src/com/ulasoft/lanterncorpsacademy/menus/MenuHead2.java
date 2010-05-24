@@ -7,13 +7,13 @@ import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelForo;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMedia;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMisiones;
@@ -21,6 +21,7 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 
+@SuppressWarnings("serial")
 public class MenuHead2 extends Panel {
 	
 

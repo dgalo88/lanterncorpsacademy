@@ -5,9 +5,11 @@ import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
+
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.ProgressBar;
 
+@SuppressWarnings("serial")
 public class Menud extends Panel {
 	
 	public Menud(){
