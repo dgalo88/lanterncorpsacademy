@@ -16,23 +16,18 @@ import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IUsuarioDO;
 import dao.api.DataObject;
+import factory.BD.Grupo;
 
 public class GlobalDOFactory {
-
-	public enum Grupo {
-		LCA, LANTERN
-	}
-
-	// ----------------------------------------------------------------------
-
-	private static final Grupo GRUPO = Grupo.LCA;
+	
+	private static Grupo grupo = BD.GRUPO;
 
 	// ----------------------------------------------------------------------
 
 	public static DataObject getDO(Class<? extends DataObject> clazz)
 			throws Exception {
 		// clazz -> IXXXDO
-		switch (GRUPO) {
+		switch (grupo) {
 		case LCA:
 			return createDOLCA(clazz);
 		case LANTERN:
