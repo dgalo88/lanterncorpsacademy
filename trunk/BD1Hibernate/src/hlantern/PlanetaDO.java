@@ -3,12 +3,27 @@ package hlantern;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Proxy;
+
 import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IObjetivoDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.Reference;
-
+@Entity
+@Table(name = "t_planeta")
+@Proxy(lazy = false)
 public class PlanetaDO implements IPlanetaDO {
 
 	public static final String NOMBRE = "nombre";
@@ -46,6 +61,8 @@ public class PlanetaDO implements IPlanetaDO {
 
 	// --------------------------------------------------------------------------------
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Override
 	public int getId() {
 		return id;
@@ -96,7 +113,7 @@ public class PlanetaDO implements IPlanetaDO {
 	}
 	
 	// --------------------------------------------------------------------------------
-
+	@OneToOne(mappedBy = "planetaRef") //referenciado por: claseLinterna
 	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
 		return claseLinternaRef;
 	}
@@ -106,7 +123,9 @@ public class PlanetaDO implements IPlanetaDO {
 	}
 	
 	// --------------------------------------------------------------------------------
-
+	@OneToMany(mappedBy = "planetaRef")
+	@LazyCollection(LazyCollectionOption.TRUE)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<IPersonajeDO> getPersonajeList() {
 		return personajeList;
 	}
@@ -117,7 +136,9 @@ public class PlanetaDO implements IPlanetaDO {
 
 
 	// --------------------------------------------------------------------------------
-
+	@OneToMany(mappedBy = "planetaRef")
+	@LazyCollection(LazyCollectionOption.TRUE)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<IObjetivoDO> getObjetivoList() {
 		return objetivoList;
 	}

@@ -88,7 +88,7 @@ public class UsuarioDO implements IUsuarioDO {
 	}
 
 	// --------------------------------------------------------------------------------
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL) //referencia al personaje, columna "personajeid"
 	@PrimaryKeyJoinColumn
 	public Reference<IPersonajeDO> getPersonajeRef() {
 		return personajeRef;
