@@ -1,10 +1,22 @@
 package hlantern;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Proxy;
+
 import lcaInterfaceDAO.IHabilidadActivaDO;
 import lcaInterfaceDAO.IHabilidadDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import dao.api.Reference;
 
+@Entity
+@Table(name = "t_hablilidad_activa")
+@Proxy(lazy = false)
 public class HabilidadActivaDO implements IHabilidadActivaDO {
 
 	public static final String NIVEL_HABILIDAD = "nivel_habilidad";
@@ -32,7 +44,9 @@ public class HabilidadActivaDO implements IHabilidadActivaDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
+	@Override	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -56,7 +70,7 @@ public class HabilidadActivaDO implements IHabilidadActivaDO {
 	public void setPersonajeRef(Reference<IPersonajeDO> personajeRef) {
 		this.personajeRef = personajeRef;
 	}
-
+	@ManyToOne
 	public Reference<IPersonajeDO> getPersonajeRef() {
 		return personajeRef;
 	}
@@ -66,7 +80,7 @@ public class HabilidadActivaDO implements IHabilidadActivaDO {
 	public void setHabilidadRef(Reference<IHabilidadDO> habilidadRef) {
 		this.habilidadRef = habilidadRef;
 	}
-
+	@ManyToOne
 	public Reference<IHabilidadDO> getHabilidadRef() {
 		return habilidadRef;
 	}

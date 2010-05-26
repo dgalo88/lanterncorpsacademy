@@ -3,6 +3,17 @@ package hlantern;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Proxy;
+
 import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IGrupoDO;
 import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
@@ -10,7 +21,9 @@ import lcaInterfaceDAO.IMisionClaseLinternaDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.Reference;
-
+@Entity
+@Table(name = "t_claselinterna")
+@Proxy(lazy = false)
 public class ClaseLinternaDO implements IClaseLinternaDO {
 
 	public static final String COLOR = "color";
@@ -50,6 +63,8 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	// --------------------------------------------------------------------------------
 
 	@Override
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -100,7 +115,8 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	}
 
 	// --------------------------------------------------------------------------------
-
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	public Reference<IPlanetaDO> getPlanetaRef() {
 		return planetaRef;
 	}
