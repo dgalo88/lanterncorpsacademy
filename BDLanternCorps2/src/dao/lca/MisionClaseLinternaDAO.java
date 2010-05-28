@@ -268,7 +268,7 @@ public class MisionClaseLinternaDAO extends BaseDAO implements IMisionClaseLinte
 		return (MisionClaseLinternaDO) dtaSession.add(ret);
 	}
 
-	public List<IMisionClaseLinternaDO> listByIdMisionId(int misionId)
+	public List<IMisionClaseLinternaDO> listByMisionId(int misionId)
 			throws SQLException {
 
 		StringBuffer strbuf = new StringBuffer();

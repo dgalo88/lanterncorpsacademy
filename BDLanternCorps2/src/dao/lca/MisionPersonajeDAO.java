@@ -279,7 +279,7 @@ public class MisionPersonajeDAO extends BaseDAO implements IMisionPersonajeDAO{
 
 	// --------------------------------------------------------------------------------
 
-	public List<IMisionPersonajeDO> listByIdMisionId(int misionId)
+	public List<IMisionPersonajeDO> listByMisionId(int misionId)
 			throws SQLException {
 
 		StringBuffer strbuf = new StringBuffer();
@@ -308,7 +308,7 @@ public class MisionPersonajeDAO extends BaseDAO implements IMisionPersonajeDAO{
 
 	// --------------------------------------------------------------------------------
 
-	public List<IMisionPersonajeDO> listByIdPersonajeId(int personajeId)
+	public List<IMisionPersonajeDO> listByPersonajeId(int personajeId)
 			throws SQLException {
 
 		StringBuffer strbuf = new StringBuffer();

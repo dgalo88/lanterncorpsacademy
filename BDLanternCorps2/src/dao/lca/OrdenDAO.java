@@ -332,7 +332,7 @@ public class OrdenDAO extends BaseDAO implements IOrdenDAO{
 
 	// --------------------------------------------------------------------------------
 
-	public List<IOrdenDO> listByIdMisionId(int misionId) throws SQLException {
+	public List<IOrdenDO> listByMisionId(int misionId) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
 		strbuf.append("SELECT * FROM ");
@@ -369,7 +369,7 @@ public class OrdenDAO extends BaseDAO implements IOrdenDAO{
 	// --------------------------------------------------------------------------------
 
 
-	public List<IOrdenDO> listByIdObjetivoId(int objetivoId) throws SQLException {// NECESARIO?
+	public List<IOrdenDO> listByObjetivoId(int objetivoId) throws SQLException {// NECESARIO?
 		StringBuffer strbuf = new StringBuffer();
 
 		strbuf.append("SELECT * FROM ");

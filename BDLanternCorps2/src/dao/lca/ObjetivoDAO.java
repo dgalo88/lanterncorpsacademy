@@ -329,7 +329,7 @@ public class ObjetivoDAO extends BaseDAO  implements IObjetivoDAO {
 		checkCache(objetivoDO, CHECK_UPDATE);
 		checkClass(objetivoDO, ObjetivoDO.class, CHECK_UPDATE);
 		OrdenDAO ordenDAO = (OrdenDAO) FactoryDAO.getDAO(OrdenDAO.class, connectionBean);
-		objetivoDO.setOrdenList(ordenDAO.listByIdObjetivoId(objetivoDO.getId()));
+		objetivoDO.setOrdenList(ordenDAO.listByObjetivoId(objetivoDO.getId()));
 	}
 	
 

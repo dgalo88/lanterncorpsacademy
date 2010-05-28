@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IHabilidadActivaDO;
 import lcaInterfaceDAO.IHabilidadDO;
 import lcaInterfaceDAO.INivelHabilidadDAO;
 import lcaInterfaceDAO.INivelHabilidadDO;
@@ -321,24 +320,23 @@ public class NivelHabilidadDAO extends BaseDAO implements INivelHabilidadDAO{
 
 	// --------------------------------------------------------------------------------
 
-	public void loadHabilidadRef(IHabilidadActivaDO habilidadActivaDO)
+	public void loadHabilidadRef(INivelHabilidadDO nivelHabilidadDO)
 			throws SQLException {
-		if (habilidadActivaDO == null) {
+		if (nivelHabilidadDO == null) {
 			return;
 		}
 
-		checkClass(habilidadActivaDO, HabilidadActivaDO.class, CHECK_UPDATE);
+		checkClass(nivelHabilidadDO, HabilidadActivaDO.class, CHECK_UPDATE);
 
 		HabilidadActivaDAO habilidaDAO = new HabilidadActivaDAO();
 		habilidaDAO.init(connectionBean);
 
-		Reference<IHabilidadDO> ref = habilidadActivaDO.getHabilidadRef();
+		Reference<IHabilidadDO> ref = nivelHabilidadDO.getHabilidadRef();
 		if (ref.getRefIdent() == 0) {
 			return;
 		}
 
-		HabilidadDO habilidadDO = //
-		(HabilidadDO) habilidaDAO.loadById(ref.getRefIdent());
+		HabilidadDO habilidadDO = (HabilidadDO) habilidaDAO.loadById(ref.getRefIdent());
 
 		ref.setRefValue(habilidadDO);
 	}
