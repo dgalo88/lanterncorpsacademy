@@ -427,7 +427,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 				.getDAO(MisionPersonajeDAO.class, connectionBean);
 
 		personajeDO.setMisionPersonajelist(misionPersonaDAO
-				.listByIdPersonajeId(personajeDO.getId()));
+				.listByPersonajeId(personajeDO.getId()));
 
 	}
 
@@ -446,7 +446,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 
 	// --------------------------------------------------------------------------------
 
-	public List<IPersonajeDO> listByPersonajeId(int claseLinternaId)
+	public List<IPersonajeDO> listByClaseLinternaId(int claseLinternaId)
 			throws SQLException {
 
 		StringBuffer strbuf = new StringBuffer();

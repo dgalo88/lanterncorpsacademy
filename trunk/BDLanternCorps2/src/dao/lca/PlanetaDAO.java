@@ -291,7 +291,7 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 				PersonajeDAO.class, connectionBean);
 
 		planetaDO.setPersonajeList(personajeDAO
-				.listByPersonajeId(planetaDO.getId()));
+				.listByClaseLinternaId(planetaDO.getId()));
 
 	}
 }

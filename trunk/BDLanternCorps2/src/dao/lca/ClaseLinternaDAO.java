@@ -308,7 +308,7 @@ public class ClaseLinternaDAO extends BaseDAO implements IClaseLinternaDAO {
 						MisionClaseLinternaDAO.class, connectionBean);
 
 		claseLinternaDO.setMisionClaseLinternaList(misionClaseLinternaDAO
-				.listByIdMisionId(claseLinternaDO.getId()));
+				.listByMisionId(claseLinternaDO.getId()));
 	}
 
 	public void loadHabilidadClaseLinternaList(IClaseLinternaDO claseLinternaDO)
@@ -347,7 +347,7 @@ public class ClaseLinternaDAO extends BaseDAO implements IClaseLinternaDAO {
 				PersonajeDAO.class, connectionBean);
 
 		claseLinternaDO.setPersonajeList(personajeDAO
-				.listByPersonajeId(claseLinternaDO.getId()));
+				.listByClaseLinternaId(claseLinternaDO.getId()));
 
 	}
 

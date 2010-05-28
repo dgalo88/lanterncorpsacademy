@@ -330,7 +330,7 @@ public class GrupoDAO extends BaseDAO implements IGrupoDAO{
 				PersonajeDAO.class, connectionBean);
 
 		grupoDO.setPersonajeList(personajeDAO
-				.listByPersonajeId(grupoDO.getId()));
+				.listByClaseLinternaId(grupoDO.getId()));
 
 	}
 

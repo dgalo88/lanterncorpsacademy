@@ -344,7 +344,7 @@ public class MisionDAO extends BaseDAO implements IMisionDAO{
 		OrdenDAO ordenDAO = (OrdenDAO) FactoryDAO.getDAO( //
 				OrdenDAO.class, connectionBean);
 
-		misionDO.setOrdenList(ordenDAO.listByIdMisionId(misionDO.getId()));
+		misionDO.setOrdenList(ordenDAO.listByMisionId(misionDO.getId()));
 	}
 
 	// --------------------------------------------------------------------------------
@@ -356,7 +356,7 @@ public class MisionDAO extends BaseDAO implements IMisionDAO{
 		MisionPersonajeDAO misionPersonajeDAO = (MisionPersonajeDAO) FactoryDAO.getDAO( //
 				MisionPersonajeDAO.class, connectionBean);
 
-		misionDO.setMisionPersonajeList(misionPersonajeDAO.listByIdMisionId(misionDO.getId()));
+		misionDO.setMisionPersonajeList(misionPersonajeDAO.listByMisionId(misionDO.getId()));
 	}
 
 }
