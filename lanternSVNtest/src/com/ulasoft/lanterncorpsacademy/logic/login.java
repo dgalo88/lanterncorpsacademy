@@ -24,7 +24,8 @@ public class login {
 			e.printStackTrace();
 		}
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
-		if(usuario.equals(null) || usuario.getClave() != fldPass){
+		
+		if(usuario.getClave() != fldPass){
 			return null;
 		}else{
 			return usuario;
