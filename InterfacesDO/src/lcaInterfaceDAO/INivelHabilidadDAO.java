@@ -10,7 +10,7 @@ public interface INivelHabilidadDAO extends InterfaceDAO{
 	public abstract List<INivelHabilidadDO> listByHabilidadId(int HabilidadId)
 			throws SQLException;
 
-	public abstract void loadHabilidadRef(IHabilidadActivaDO habilidadActivaDO)
+	public abstract void loadHabilidadRef(INivelHabilidadDO nivelHabilidadDO)
 			throws SQLException;
 
 }
