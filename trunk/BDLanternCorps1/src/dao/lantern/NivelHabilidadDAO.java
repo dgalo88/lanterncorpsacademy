@@ -376,11 +376,6 @@ public class NivelHabilidadDAO extends BaseDAO implements INivelHabilidadDAO {
 	    ref.setRefValue(habilidadDO);
 	  }
 
-	@Override
-	public void loadHabilidadRef(IHabilidadActivaDO habilidadActivaDO)
-			throws SQLException {
-		// TODO este metodo como q esta mal en la interfaz..
-		
-	}
+
 
 }
