@@ -44,9 +44,9 @@ public class inicializarBD {
 	public static void main(String[] nada) throws Exception {
 		
 		StringBuffer strbuf;
-		strbuf = new StringBuffer();
-		strbuf.append("CREATE DATABASE ");
-		strbuf.append(BD.nombreBD());
+//		strbuf = new StringBuffer();
+//		strbuf.append("CREATE DATABASE ");
+//		strbuf.append(BD.nombreBD());
 		
 		// Obtenemos la Conexion
 		
@@ -156,8 +156,8 @@ public class inicializarBD {
 			PlanetaDO[42].setNombre("Betrassus");
 			PlanetaDO[43].setNombre("Apiaton");
 			PlanetaDO[44].setNombre("Berrith");
-			PlanetaDO[45].setNombre("H'iven");
-			PlanetaDO[46].setNombre("Z'nang");
+			PlanetaDO[45].setNombre("Hiven"); // H'iven tal vez por el encoding aqui da error
+			PlanetaDO[46].setNombre("Znang"); //Z'nang
 			PlanetaDO[47].setNombre("Vorn");
 
 			// ********************************************
@@ -523,7 +523,7 @@ public class inicializarBD {
 						.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
-				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
 				NivelHabilidadDO[i].setHabilidadRef(refhab);
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
@@ -547,7 +547,7 @@ public class inicializarBD {
 						.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
-				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
 				NivelHabilidadDO[i].setHabilidadRef(refhab);
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
@@ -571,7 +571,7 @@ public class inicializarBD {
 						.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
-				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
 				NivelHabilidadDO[i].setHabilidadRef(refhab);
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
@@ -595,7 +595,7 @@ public class inicializarBD {
 						.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
-				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
 				NivelHabilidadDO[i].setHabilidadRef(refhab);
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
@@ -619,7 +619,7 @@ public class inicializarBD {
 						.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
-				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
 				NivelHabilidadDO[i].setHabilidadRef(refhab);
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
@@ -643,7 +643,7 @@ public class inicializarBD {
 						.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
-				NivelHabilidadDO[i].setCosto_de_energia(0.40 - i*0.05);
+				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
 				NivelHabilidadDO[i].setHabilidadRef(refhab);
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
