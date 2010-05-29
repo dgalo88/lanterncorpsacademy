@@ -12,6 +12,9 @@
         <dependent-module archiveName="BDLanternCorps1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BDLanternCorps1/BDLanternCorps1">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="InterfacesDO.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/InterfacesDO/InterfacesDO">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/lantern SVN test/build/classes"/>
         <property name="context-root" value="lantern_SVN_test"/>
     </wb-module>
