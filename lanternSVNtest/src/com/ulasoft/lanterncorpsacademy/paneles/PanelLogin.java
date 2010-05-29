@@ -14,6 +14,7 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
@@ -104,16 +105,16 @@ public class PanelLogin extends Panel {
 
   private void btnClickToEnterClicked() throws Exception {
 	  	//TODO: verif campos vacios antes de enviar...
-		usuario = login.verificarlogin(usuario, txtCorreo.getText(), fldPass
-				.getText());
 
-		if (usuario.equals(null)) {
-			desktop
-					.setWindowPaneEmergente("La informacion de correo o Contraseña proporcionada no es Correcta.");
+	  
+	    usuario = login.verificarlogin(txtCorreo.getText(), fldPass.getText());
+	    desktop = app.getDesktop();
+	    
+		if (usuario == null) {
+			desktop.setWindowPaneEmergente("La informacion de correo o Contraseña proporcionada no es Correcta.");
 			return;
 		}
-	  	
-	  	desktop = app.getDesktop();
+	  		  	
 		desktop.removeAll();
 		desktop.add(desktop.initTemplate2());
   }
