@@ -78,10 +78,10 @@ public class HabilidadClaseLinternaDAO extends BaseDAO implements IHabilidadClas
 	    strbuf.append(" INT PRIMARY KEY, ");
 	    
 	    strbuf.append(HabilidadClaseLinternaDO.CLASE_LINTERNA_ID);
-	    strbuf.append(" INT REFERENCES   ");
+	    strbuf.append(" INT NOT NULL REFERENCES   ");
 	    strbuf.append(claseLinternaDAO.getTableName()+", ");
 	    strbuf.append(HabilidadClaseLinternaDO.HABILIDAD_ID);
-	    strbuf.append(" INT REFERENCES   ");
+	    strbuf.append(" INT NOT NULL REFERENCES   ");
 	    strbuf.append(habilidadDAO.getTableName());
 	    strbuf.append(")");
 

@@ -15,6 +15,11 @@ import dao.api.Reference;
 
 public class UsuarioDAO extends BaseDAO implements IUsuarioDAO{
 
+	
+	public UsuarioDAO() {
+
+	}
+
 	@Override
 	public void createTable() throws SQLException {
 	    StringBuffer strbuf;
