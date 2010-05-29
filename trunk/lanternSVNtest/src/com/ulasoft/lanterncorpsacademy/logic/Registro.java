@@ -37,27 +37,6 @@ public class Registro {
 
 		refc.setRefIdent(clase.getId());
 
-		List<DataObject> habInic = habDAO.listHabIniciales(clase.getId());
-
-		// Relacionando al personaje con sus habilidades iniciales.
-
-		for (int i = 0; i < (habInic.size()); i++) {
-
-			IHabilidadActivaDO habActiva = (IHabilidadActivaDO) GlobalDOFactory
-					.getDO(IHabilidadActivaDO.class);
-
-			Reference<IHabilidadDO> href = new Reference<IHabilidadDO>();
-			href.setRefIdent(habInic.get(i).getId());
-			habActiva.setHabilidadRef(href);
-			Reference<IPersonajeDO> persoRef = new Reference<IPersonajeDO>();
-			persoRef.setRefIdent(personaje.getId());
-			habActiva.setPersonajeRef(persoRef);
-
-			habActDAO.insert(habActiva);
-
-			personaje.getHabilidadActivaList().add(habActiva);
-
-		}
 		
 		personaje.setClaseLinternaRef(refc);
 		personaje.setPlanetaRef(clase.getPlanetaRef());
@@ -67,6 +46,28 @@ public class Registro {
 		IPersonajeDO pers = perDAO.loadByAlias(personaje.getAlias());
 		Reference<IPersonajeDO> refper = new Reference<IPersonajeDO>();
 		refper.setRefIdent(pers.getId());
+		
+		// Relacionando al personaje con sus habilidades iniciales.
+		List<DataObject> habInic = habDAO.listHabIniciales(clase.getId());
+		
+		for (int i = 0; i < (habInic.size()); i++) {
+			
+			IHabilidadActivaDO habActiva = (IHabilidadActivaDO) GlobalDOFactory
+			.getDO(IHabilidadActivaDO.class);
+			
+			habActiva.setNivel_habilidad(1);
+			Reference<IHabilidadDO> href = new Reference<IHabilidadDO>();
+			href.setRefIdent(habInic.get(i).getId());
+			habActiva.setHabilidadRef(href);
+//			Reference<IPersonajeDO> persoRef = new Reference<IPersonajeDO>();
+//			persoRef.setRefIdent(personaje.getId());
+			habActiva.setPersonajeRef(refper);
+			
+			habActDAO.insert(habActiva);
+			
+			personaje.getHabilidadActivaList().add(habActiva);
+			
+		}
 		usuario.setPersonajeRef(refper);
 		usDAO.insert(usuario);
 		
