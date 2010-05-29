@@ -52,7 +52,7 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO{
 		strbuf.append(HabilidadDO.ID);
 		strbuf.append(" INT PRIMARY KEY,	");
 		strbuf.append(HabilidadDO.NOMBRE);
-		strbuf.append(" VARCHAR(20) UNIQUE NOT NULL,	");
+		strbuf.append(" VARCHAR(50) UNIQUE NOT NULL,	");
 		strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
 		strbuf.append(" INT CHECK (" + HabilidadDO.COSTO_DE_APRENDIZAJE + " >= 0 ) DEFAULT 0,	");
 		strbuf.append(HabilidadDO.TIPO);

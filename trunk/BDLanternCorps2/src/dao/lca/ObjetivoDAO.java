@@ -94,7 +94,6 @@ public class ObjetivoDAO extends BaseDAO  implements IObjetivoDAO {
 		checkClass(dataObject, ObjetivoDO.class, CHECK_INSERT);
 
 		ObjetivoDO objetivoDO = (ObjetivoDO) dataObject;
-
 		objetivoDO.setId(getNextId());
 
 		StringBuffer strbuf = new StringBuffer();
