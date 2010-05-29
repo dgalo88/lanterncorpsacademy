@@ -3,7 +3,7 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-//import com.ulasoft.lanterncorpsacademy.logic.EditarDatosUsuario;
+import com.ulasoft.lanterncorpsacademy.logic.EditarDatosUsuario;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -21,6 +21,7 @@ import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class PanelEditarDatosUsuario extends Panel{
 	
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
@@ -91,17 +92,15 @@ public class PanelEditarDatosUsuario extends Panel{
 
 	protected void btnGuardarClicked() {
 		Desktop d = app.getDesktop();
-		if(allEmptyFields()){
-			d.setWindowPaneEmergente("Todos los Campos se encuentran Vacios ");
+		if(EditarDatosUsuario.allEmptyFields(txtNombre, fldOldPass, fldNewPass, fldConfirPass)){
+			d.setWindowPaneEmergente("Todos los Campos se encuentran Vacios no se Actualizara ninguna Información");
+			return;
 		}
-		
-	}
-
-	private boolean allEmptyFields() {
-		if (txtNombre.getText() == "" && fldOldPass.getText() == "" && //
-				fldNewPass.getText() == "" && fldConfirPass.getText() == "") {
-			return true;
-			}
-		return false;
+		if(!EditarDatosUsuario.checkNewPassFields(fldConfirPass, fldNewPass)){
+			d.setWindowPaneEmergente("Los Campos de la Nueva Clave No concuerdan");
+			fldNewPass.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
+			fldConfirPass.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
+			return;
+		}
 	}
 }

@@ -1,6 +1,9 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.InvitarNuevosUsuarios;
 
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -18,7 +21,13 @@ import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class PanelInvitarNuevosUsuarios extends Panel{
+	
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+	private TextField txtCorreo;
+	private TextField txtNombre;
+	private TextArea fldComentarios;
 	
 	public  PanelInvitarNuevosUsuarios() {
 		Column col = new Column();
@@ -31,49 +40,54 @@ public class PanelInvitarNuevosUsuarios extends Panel{
 	    
 		Grid grid = new Grid();
 		grid.setStyle(GUIStyles.DEFAULT_STYLE);
-		Label lblCorreo = new Label("Nombre");
-	    grid.add(lblCorreo);
+		Label lblNombre = new Label("Nombre");
+	    grid.add(lblNombre);
 	    
-	    TextField txtCorreo = new TextField();
-	    txtCorreo.setWidth(new Extent(300));
-	    grid.add(txtCorreo);
+	    txtNombre = new TextField();
+	    txtNombre.setWidth(new Extent(300));
+	    grid.add(txtNombre);
 	    
 	    Label lblPass = new Label("Correo");
 	    grid.add(lblPass);
 	    
-	    TextField fldPass = new TextField();
-	    fldPass.setWidth(new Extent(300));
-	    grid.add(fldPass);
+	    txtCorreo = new TextField();
+	    txtCorreo.setWidth(new Extent(300));
+	    grid.add(txtCorreo);
 	
-	    Label lblConfirPass = new Label("Comentarios");
-	    grid.add(lblConfirPass);
+	    Label lblComentarios = new Label("Comentarios");
+	    grid.add(lblComentarios);
 	    
-	    TextArea fldConfirPass = new TextArea();
-	    fldConfirPass.setWidth(new Extent(300));
-	    grid.add(fldConfirPass);
+	    fldComentarios = new TextArea();
+	    fldComentarios.setWidth(new Extent(300));
+	    grid.add(fldComentarios);
 	    
 		col.add(grid);
 		
 		Row row = new Row();
-		Button btnGuardar = new Button("Enviar Invitacion");
-	    btnGuardar.setStyle(GUIStyles.STYLE2);
-	    btnGuardar.addActionListener(new ActionListener() {
+		Button btnEnviarInvitacion = new Button("Enviar Invitacion");
+	    btnEnviarInvitacion.setStyle(GUIStyles.STYLE2);
+	    btnEnviarInvitacion.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
-	        btnGuardarClicked();
+	        btnEnviarInvitacionClicked();
 	      }
 	    });
-	    row.add(btnGuardar);
+	    row.add(btnEnviarInvitacion);
 	    row.setCellSpacing(new Extent(10));
 		col.add(row);
 		col.setBorder(new Border(3, new Color(0x00, 0x00, 0x00), Border.STYLE_SOLID));
 		add(col);
 	}
 
-	protected void btnGuardarClicked() {
-		// TODO Auto-generated method stub
-		
+	protected void btnEnviarInvitacionClicked() {
+		Desktop d = app.getDesktop();
+		String campo=InvitarNuevosUsuarios.checkEmptyFields(txtCorreo , txtNombre , fldComentarios);
+		if(campo!=null){
+			d.setWindowPaneEmergente(campo);
+			return;
+		}
 	}
-
-
 }
+
+
+
