@@ -1,10 +1,22 @@
 package hlantern;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Proxy;
+
 import lcaInterfaceDAO.IMisionDO;
 import lcaInterfaceDAO.IObjetivoDO;
 import lcaInterfaceDAO.IOrdenDO;
 import dao.api.Reference;
 
+@Entity
+@Table(name = "t_orden")
+@Proxy(lazy = false)
 public class OrdenDO implements IOrdenDO {
 
 	public static final String PRIORIDAD = "prioridad";
@@ -32,6 +44,8 @@ public class OrdenDO implements IOrdenDO {
 	// --------------------------------------------------------------------------------
 
 	@Override
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -55,7 +69,8 @@ public class OrdenDO implements IOrdenDO {
 	public void setObjetivoRef(Reference<IObjetivoDO> objetivoRef) {
 		this.objetivoRef = objetivoRef;
 	}
-
+	
+	@ManyToOne
 	public Reference<IObjetivoDO> getObjetivoRef() {
 		return objetivoRef;
 	}
@@ -66,6 +81,7 @@ public class OrdenDO implements IOrdenDO {
 		this.misionRef = misionRef;
 	}
 
+	@ManyToOne
 	public Reference<IMisionDO> getMisionRef() {
 		return misionRef;
 	}

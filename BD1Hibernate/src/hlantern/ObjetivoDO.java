@@ -3,11 +3,28 @@ package hlantern;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Proxy;
+
+
 import lcaInterfaceDAO.IObjetivoDO;
 import lcaInterfaceDAO.IOrdenDO;
 import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.Reference;
 
+@Entity
+@Table(name = "t_objetivo")
+@Proxy(lazy = false)
 public class ObjetivoDO implements IObjetivoDO {
 
 	public static final String DESCRIPCION = "descripcion";
@@ -40,6 +57,8 @@ public class ObjetivoDO implements IObjetivoDO {
 	// --------------------------------------------------------------------------------
 
 	@Override
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -69,7 +88,8 @@ public class ObjetivoDO implements IObjetivoDO {
 	}
 
 	// --------------------------------------------------------------------------------
-
+	
+	@ManyToOne
 	public Reference<IPlanetaDO> getPlanetaRef() {
 		return planetaRef;
 	}
@@ -83,18 +103,13 @@ public class ObjetivoDO implements IObjetivoDO {
 	public void setOrdenList(List<IOrdenDO> ordenList) {
 		OrdenList = ordenList;
 	}
-
+	
+	@OneToMany(mappedBy = "objetivoRef")
+	@LazyCollection(LazyCollectionOption.TRUE)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<IOrdenDO> getOrdenList() {
 		return OrdenList;
 	}
 	
 	// --------------------------------------------------------------------------------
-
-	public Reference<IOrdenDO> getOrdenRef() {
-		return ordenRef;
-	}
-
-	public void setOrdenRef(Reference<IOrdenDO> ordenRef) {
-		this.ordenRef = ordenRef;
-	}
 }

@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -164,7 +163,8 @@ public class PersonajeDO implements IPersonajeDO {
 	}
 
 	// --------------------------------------------------------------------------------
-	@ManyToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	public Reference<IPlanetaDO> getPlanetaRef() {
 		return  planetaRef;
 	}
@@ -227,6 +227,6 @@ public class PersonajeDO implements IPersonajeDO {
 	@OneToOne(mappedBy = "personajeRef") //referenciado por: usuario, mediante personajeRef
 	public Reference<IUsuarioDO> getUsuarioRef() {
 		return usuarioRef;
-	} //FIXME: QUITAR <reference> y poner el objeto usuario directamente get UsuarioDO
-//	IGUAL EN EL SET, se manejarán objetos completos en vez de referencias
+	}
+//	
 }

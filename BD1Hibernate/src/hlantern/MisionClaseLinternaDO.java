@@ -1,10 +1,22 @@
 package hlantern;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Proxy;
+
 import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IMisionClaseLinternaDO;
 import lcaInterfaceDAO.IMisionDO;
 import dao.api.Reference;
 
+@Entity
+@Table(name = "t_mision_clase_linterna")
+@Proxy(lazy = false)
 public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 
 	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
@@ -30,6 +42,8 @@ public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 	// --------------------------------------------------------------------------------
 
 	@Override
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -39,7 +53,7 @@ public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 	}
 
 	// --------------------------------------------------------------------------------
-
+	@ManyToOne
 	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
 		return claseLinternaRef;
 	}
@@ -53,7 +67,8 @@ public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 	public void setMisionRef(Reference<IMisionDO> misionRef) {
 		this.misionRef = misionRef;
 	}
-
+	
+	@ManyToOne
 	public Reference<IMisionDO> getMisionRef() {
 		return misionRef;
 	}

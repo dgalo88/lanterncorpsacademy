@@ -11,18 +11,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IObjetivoDO;
-import lcaInterfaceDAO.IPersonajeDO;
-import lcaInterfaceDAO.IPlanetaDO;
-
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IObjetivoDO;
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.Reference;
+
 @Entity
 @Table(name = "t_planeta")
 @Proxy(lazy = false)
@@ -32,10 +31,6 @@ public class PlanetaDO implements IPlanetaDO {
 	public static final String SECTOR = "sector";
 	public static final String COORDENADA_EN_X = "coordenada_en_x";
 	public static final String COORDENADA_EN_Y = "coordenada_en_y";
-
-	
-
-	
 	// --------------------------------------------------------------------------------
 
 	private int id;
@@ -127,7 +122,7 @@ public class PlanetaDO implements IPlanetaDO {
 	// --------------------------------------------------------------------------------
 	@OneToMany(mappedBy = "planetaRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
-	@Cascade({CascadeType.ALL, CascadeType.DELETE_ORPHAN})
+	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<IPersonajeDO> getPersonajeList() {
 		return personajeList;
 	}
