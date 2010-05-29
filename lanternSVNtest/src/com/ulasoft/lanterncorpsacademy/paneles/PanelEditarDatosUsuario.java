@@ -1,6 +1,9 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.EditarDatosUsuario;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -19,6 +22,12 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 public class PanelEditarDatosUsuario extends Panel{
+	
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+	private TextField txtNombre;
+	private PasswordField fldOldPass;
+	private PasswordField fldNewPass;
+	private PasswordField fldConfirPass;
 
 	public PanelEditarDatosUsuario() {
 		Column col = new Column();
@@ -35,29 +44,29 @@ public class PanelEditarDatosUsuario extends Panel{
 		
 	    grid.add(lblNombre);
 	    
-	    TextField txtNombre = new TextField();
+	    txtNombre = new TextField();
 	    txtNombre.setWidth(new Extent(300));
 	    
 	    grid.add(txtNombre);
+	    
+	    Label lblOldPass = new Label("Antigua Contraseña");
+	    grid.add(lblOldPass);
+	    
+	    fldOldPass = new PasswordField();
+	    fldOldPass.setWidth(new Extent(300));
+	    grid.add(fldOldPass);
 	
-	    Label lblApellido = new Label("Apellido");
-	    grid.add(lblApellido);
+	    Label lblNewPass = new Label("Nueva Contraseña");
+	    grid.add(lblNewPass);
 	    
-	    TextField txtApellido = new TextField();
-	    txtApellido.setWidth(new Extent(300));
-	    grid.add(txtApellido);
+	    fldNewPass = new PasswordField();
+	    fldNewPass.setWidth(new Extent(300));
+	    grid.add(fldNewPass);
 	    
-	    Label lblPass = new Label("Contraseña");
-	    grid.add(lblPass);
-	    
-	    PasswordField fldPass = new PasswordField();
-	    fldPass.setWidth(new Extent(300));
-	    grid.add(fldPass);
-	
-	    Label lblConfirPass = new Label("Confirmar Contraseña");
+	    Label lblConfirPass = new Label("Confirmar Nueva Contraseña");
 	    grid.add(lblConfirPass);
 	    
-	    PasswordField fldConfirPass = new PasswordField();
+	    fldConfirPass = new PasswordField();
 	    fldConfirPass.setWidth(new Extent(300));
 	    grid.add(fldConfirPass);
  
@@ -81,7 +90,18 @@ public class PanelEditarDatosUsuario extends Panel{
 	}
 
 	protected void btnGuardarClicked() {
-		// TODO Auto-generated method stub
+		Desktop d = app.getDesktop();
+		if(allEmptyFields()){
+			d.setWindowPaneEmergente("Todos los Campos se encuentran Vacios ");
+		}
 		
+	}
+
+	private boolean allEmptyFields() {
+		if (txtNombre.getText() == "" && fldOldPass.getText() == "" && //
+				fldNewPass.getText() == "" && fldConfirPass.getText() == "") {
+			return true;
+			}
+		return false;
 	}
 }
