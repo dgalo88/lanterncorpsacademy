@@ -197,7 +197,7 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO{
 		return null;
 	}
 
-	public List<IHabilidadDO> listHabIniciales(int claseid) throws ClassNotFoundException, Exception {
+	public List<DataObject> listHabIniciales(int claseid) throws ClassNotFoundException, Exception {
 		
 		HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO.getDAO( //
 		        HabilidadClaseLinternaDAO.class, connectionBean);
@@ -219,7 +219,6 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO{
 	       strbuf.append(" = ");
 	       strbuf.append(claseid);
 	       strbuf.append(" AND ");
-	       strbuf.append(" WHERE ");
 	       strbuf.append(getTableName());
 	       strbuf.append("."+HabilidadDO.ID);
 	       strbuf.append(">25 ");
@@ -229,7 +228,7 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO{
 	    ResultSet rs = //
 	    connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<IHabilidadDO> ret = new ArrayList<IHabilidadDO>();
+	    List<DataObject> ret = new ArrayList<DataObject>();
 
 	    while (rs.next()) {
 	        ret.add(resultSetToDO(rs));
