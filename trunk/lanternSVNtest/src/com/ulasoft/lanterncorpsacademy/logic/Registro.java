@@ -85,5 +85,5 @@ public class Registro {
 		connectionBean.getConnection().close();
 		return false;
 	}
-
+	
 }

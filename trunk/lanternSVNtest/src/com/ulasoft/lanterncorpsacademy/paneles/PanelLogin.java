@@ -104,7 +104,8 @@ public class PanelLogin extends Panel {
 
   private void btnClickToEnterClicked() throws Exception {
 	  	//TODO: verif campos vacios antes de enviar...
-		usuario = login.verificarlogin(usuario, txtCorreo.getText(), fldPass.getText());
+		usuario = login.verificarlogin(usuario, txtCorreo.getText(), fldPass
+				.getText());
 
 		if (usuario.equals(null)) {
 			desktop
