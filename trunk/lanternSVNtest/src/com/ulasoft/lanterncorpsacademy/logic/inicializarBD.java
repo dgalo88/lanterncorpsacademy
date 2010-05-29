@@ -44,10 +44,7 @@ public class inicializarBD {
 	public static void main(String[] nada) throws Exception {
 		
 		StringBuffer strbuf;
-//		strbuf = new StringBuffer();
-//		strbuf.append("CREATE DATABASE ");
-//		strbuf.append(BD.nombreBD());
-		
+	
 		// Obtenemos la Conexion
 		
 		ConnectionBean connCreateDB = ConnectionFactory.getConnectionBean("connection_create_db.properties");
@@ -60,6 +57,7 @@ public class inicializarBD {
 		strbuf.append(BD.nombreBD());
 		connCreateDB.getConnection().createStatement().execute(strbuf.toString());
 		ConnectionFactory.closeConnection(connCreateDB.getConnection());
+		
 		ConnectionBean conn = ConnectionFactory.getConnectionBean();
 
 		// Instanciamos los DAO
@@ -374,14 +372,24 @@ public class inicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			INivelHabilidadDO NivelHabilidadDO[] = new INivelHabilidadDO[10];
 			for (int i = 0; i < 10; i++) {
-				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
 				NivelHabilidadDO[i].setHabilidadRef(refhab);
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
+			//Reference<IClaseLinternaDO> refcl[] = new Reference[7];
+
+			for (int i = 0; i < 7; i++) {
+				//refpl = new Reference<IPlanetaDO>();
+				refcl[i] = new Reference<IClaseLinternaDO>();
+				//refpl.setRefIdent(PlanetaDO[i].getId());
+				refcl[i].setRefIdent(ClaseLinternaDO[i].getId());
+				//ClaseLinternaDO[i].setPlanetaRef(refpl);
+				//ClaseLinternaDAO.insert(ClaseLinternaDO[i]);
+			}
+			
 			IHabilidadClaseLinternaDO habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
 					.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);

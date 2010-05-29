@@ -12,9 +12,10 @@ import factory.GlobalDOFactory;
 public class login {
 
 	
-	public static IUsuarioDO verificarlogin(IUsuarioDO usuario, String txtCorreo, String fldPass) throws Exception {
+	public static IUsuarioDO verificarlogin(IUsuarioDO usuario, String txtCorreo, String fldPass) throws Exception{
 		
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+		
 		IUsuarioDAO usDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(IUsuarioDAO.class, connectionBean);
 		
 		try {
