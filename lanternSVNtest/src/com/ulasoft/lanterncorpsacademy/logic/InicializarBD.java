@@ -27,7 +27,7 @@ import factory.BD;
 import factory.GlobalDAOFactory;
 import factory.GlobalDOFactory;
 
-public class inicializarBD {
+public class InicializarBD {
 
 	// Clases de linterna
 	protected static final int VERDE = 0;

@@ -1,5 +1,7 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import lcaInterfaceDAO.IPersonajeDO;
+
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 
 import nextapp.echo.app.Color;
