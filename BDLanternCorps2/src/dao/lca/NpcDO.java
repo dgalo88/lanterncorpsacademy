@@ -2,6 +2,9 @@ package dao.lca;
 
 import lcaInterfaceDAO.INpcDO;
 
+@Entity
+@Table(name = "t_npc")
+@Proxy(lazy = false)
 public class NpcDO implements INpcDO {
 
 	public static final String NOMBRE = "nombre";
@@ -26,7 +29,8 @@ public class NpcDO implements INpcDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}

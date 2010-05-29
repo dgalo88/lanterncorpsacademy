@@ -11,6 +11,9 @@ import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.Reference;
 
+@Entity
+@Table(name = "t_claseLinterna")
+@Proxy(lazy = false)
 
 public class ClaseLinternaDO implements IClaseLinternaDO {
 
@@ -41,7 +44,8 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -71,7 +75,9 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	}
 	
 	// --------------------------------------------------------------------------------
-
+	@OneToMany(mappedBy = "claseRef")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<IPersonajeDO> getPersonajeList() {
 		return personajeList;
 	}
@@ -81,7 +87,9 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	}
 
 	// --------------------------------------------------------------------------------
-
+	@OneToMany(mappedBy = "claseRef")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<IGrupoDO> getGrupoList() {
 		return grupoList;
 	}
@@ -91,7 +99,9 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	}
 
 	// --------------------------------------------------------------------------------
-
+	@OneToMany(mappedBy = "claseRef")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<IHabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
 		return habilidadClaseLinternaList;
 	}
@@ -101,7 +111,9 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	}
 	
 	// --------------------------------------------------------------------------------
-
+	@OneToMany(mappedBy = "unoRef")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<IMisionClaseLinternaDO> getMisionClaseLinternaList() {
 		return misionClaseLinternaList;
 	}
@@ -112,11 +124,20 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	
 	// --------------------------------------------------------------------------------
 	
-	public Reference<IPlanetaDO> getPlanetaRef() {
+//	public Reference<IPlanetaDO> getPlanetaRef() {
+//		return planetaRef;
+//	}
+//
+//	public void setPlanetaRef(Reference<IPlanetaDO> planetaRef) {
+//		this.planetaRef = planetaRef;
+//	}
+
+	@ManyToOne
+	public Planeta getPlanetaRef() {
 		return planetaRef;
 	}
 
-	public void setPlanetaRef(Reference<IPlanetaDO> planetaRef) {
+	public void setPlanetaRef(Planeta planetaRef) {
 		this.planetaRef = planetaRef;
 	}
 
