@@ -76,13 +76,13 @@ public class NivelHabilidadDAO extends BaseDAO implements INivelHabilidadDAO{
 				+ " >= 1) NOT NULL,	");
 		strbuf.append(NivelHabilidadDO.EFECTIVIDAD);
 		strbuf.append(" FLOAT CHECK("+NivelHabilidadDO.EFECTIVIDAD
-				+ " >= 1) NOT NULL,	");
+				+ " >= 0) NOT NULL,	");
 		strbuf.append(NivelHabilidadDO.COSTO_DE_ENERGIA);
-		strbuf.append(" FLOAT CHECK("+NivelHabilidadDO.COSTO_DE_ENERGIA
-				+ " >= 1) NOT NULL,	");
+		strbuf.append(" REAL CHECK("+NivelHabilidadDO.COSTO_DE_ENERGIA
+				+ " >= 0) NOT NULL,	");
 		strbuf.append(NivelHabilidadDO.PROBABILIDAD);
 		strbuf.append(" INT CHECK(" + NivelHabilidadDO.PROBABILIDAD
-				+ " >= 1) NOT NULL,	");
+				+ " >= 0) NOT NULL,	");
 		strbuf.append(NivelHabilidadDO.HABILIDAD_ID);
 		strbuf.append(" INT NOT NULL REFERENCES	");
 		strbuf.append(habilidadDAO.getTableName());
@@ -136,6 +136,7 @@ public class NivelHabilidadDAO extends BaseDAO implements INivelHabilidadDAO{
 		nivelHabilidadDO.setId(getNextId());
 
 		StringBuffer strbuf = new StringBuffer();
+		
 		strbuf.append("INSERT INTO ");
 		strbuf.append(getTableName());
 		strbuf.append(" VALUES (");
@@ -152,7 +153,7 @@ public class NivelHabilidadDAO extends BaseDAO implements INivelHabilidadDAO{
 		Reference<IHabilidadDO> ref = nivelHabilidadDO.getHabilidadRef();
 		ref.checkInsert();
 		strbuf.append(ref.getIdAsString());
-		strbuf.append(", ");
+		strbuf.append(" )");
 
 		System.err.println(strbuf.toString());
 		connection.createStatement().execute(strbuf.toString());

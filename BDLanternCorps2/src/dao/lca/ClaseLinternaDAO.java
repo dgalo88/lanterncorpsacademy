@@ -130,6 +130,7 @@ public class ClaseLinternaDAO extends BaseDAO implements IClaseLinternaDAO {
 
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
+		
 		checkCache(dataObject, CHECK_INSERT);
 		checkClass(dataObject, ClaseLinternaDO.class, CHECK_INSERT);
 
