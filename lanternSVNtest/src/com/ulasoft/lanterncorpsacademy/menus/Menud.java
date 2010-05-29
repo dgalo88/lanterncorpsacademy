@@ -9,7 +9,6 @@ import nextapp.echo.app.Panel;
 
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.ProgressBar;
-import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 
 @SuppressWarnings("serial")
 public class Menud extends Panel {
@@ -40,13 +39,12 @@ public class Menud extends Panel {
 		lblTrainsValue = new Label("XX");
 		Label lblNivel = new Label("NIvel");
 		lblNiveLabelValue = new Label("XX");
-		System.err.println("PERSONAJE ID en menud:"+personaje.getId());
-		try {
-			Atributos.updateMenud (this, personaje);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		
+//		Desktop d = (Desktop) getParent();
+				
+//		System.err.println("PERSONAJE ID en menud:"+personaje.getId());
+//		personaje =d.getPersonajeDO();
+	
 //		salud.setCurrValue(95);
 //		energia.setCurrValue(90);
 //		experiencia.setCurrValue(80);
