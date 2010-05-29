@@ -1,17 +1,24 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import lcaInterfaceDAO.IClaseLinternaDAO;
 import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IHabilidadActivaDAO;
+import lcaInterfaceDAO.IHabilidadActivaDO;
+import lcaInterfaceDAO.IHabilidadDAO;
+import lcaInterfaceDAO.IHabilidadDO;
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
+import dao.api.DataObject;
 import dao.api.Reference;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
 import factory.GlobalDAOFactory;
+import factory.GlobalDOFactory;
 
 public class Registro {
 	
@@ -21,6 +28,8 @@ public class Registro {
 		IUsuarioDAO usDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(IUsuarioDAO.class, connectionBean);
 		IPersonajeDAO perDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
 		IClaseLinternaDAO clDAO = (IClaseLinternaDAO) GlobalDAOFactory.getDAO(IClaseLinternaDAO.class, connectionBean);
+		IHabilidadDAO habDAO = (IHabilidadDAO) GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
+		IHabilidadActivaDAO habActDAO = (IHabilidadActivaDAO) GlobalDAOFactory.getDAO(IHabilidadActivaDAO.class, connectionBean);
 
 		Reference<IClaseLinternaDO> refc = new Reference<IClaseLinternaDO>();
 
@@ -28,6 +37,28 @@ public class Registro {
 
 		refc.setRefIdent(clase.getId());
 
+		List<DataObject> habInic = habDAO.listHabIniciales(clase.getId());
+
+		// Relacionando al personaje con sus habilidades iniciales.
+
+		for (int i = 0; i < (habInic.size()); i++) {
+
+			IHabilidadActivaDO habActiva = (IHabilidadActivaDO) GlobalDOFactory
+					.getDO(IHabilidadActivaDO.class);
+
+			Reference<IHabilidadDO> href = new Reference<IHabilidadDO>();
+			href.setRefIdent(habInic.get(i).getId());
+			habActiva.setHabilidadRef(href);
+			Reference<IPersonajeDO> persoRef = new Reference<IPersonajeDO>();
+			persoRef.setRefIdent(personaje.getId());
+			habActiva.setPersonajeRef(persoRef);
+
+			habActDAO.insert(habActiva);
+
+			personaje.getHabilidadActivaList().add(habActiva);
+
+		}
+		
 		personaje.setClaseLinternaRef(refc);
 		personaje.setPlanetaRef(clase.getPlanetaRef());
 
@@ -85,5 +116,5 @@ public class Registro {
 		connectionBean.getConnection().close();
 		return false;
 	}
-	
+
 }
