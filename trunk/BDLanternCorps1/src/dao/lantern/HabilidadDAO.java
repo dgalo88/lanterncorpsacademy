@@ -223,10 +223,10 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO{
 	       strbuf.append("."+HabilidadDO.ID);
 	       strbuf.append(">25 ");
 	       
-	    System.err.println(strbuf.toString());
 
 	    ResultSet rs = //
 	    connection.createStatement().executeQuery(strbuf.toString());
+	    System.err.println(strbuf.toString());
 
 	    List<DataObject> ret = new ArrayList<DataObject>();
 

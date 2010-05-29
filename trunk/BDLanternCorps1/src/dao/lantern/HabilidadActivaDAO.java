@@ -108,7 +108,7 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
 	    checkCache(dataObject, CHECK_DELETE);
-	    checkClass(dataObject, HabilidadDO.class, CHECK_DELETE);
+	    checkClass(dataObject, HabilidadActivaDO.class, CHECK_DELETE);
 
 	    HabilidadDO habilidadDO = (HabilidadDO) dataObject;
 
@@ -133,7 +133,7 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
 	    checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, HabilidadDO.class, CHECK_INSERT);
+	    checkClass(dataObject, HabilidadActivaDO.class, CHECK_INSERT);
 
 	    HabilidadActivaDO habilidadActivaDO = (HabilidadActivaDO) dataObject;
 
@@ -146,6 +146,8 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 	    strbuf.append(" VALUES (");
 	    strbuf.append(habilidadActivaDO.getId());
 	    strbuf.append(", ");
+	    strbuf.append(habilidadActivaDO.getNivel_habilidad());
+	    strbuf.append(", ");
 	    Reference<IPersonajeDO> refP = habilidadActivaDO.getPersonajeRef();
 	    refP.checkInsert();
 	    strbuf.append(refP.getIdAsString());
@@ -154,7 +156,7 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 	    Reference<IHabilidadDO> refH = habilidadActivaDO.getHabilidadRef();
 	    refH.checkInsert();
 	    strbuf.append(refH.getIdAsString());
-	    strbuf.append(", ");
+
 	    
 	    strbuf.append(")");
 
