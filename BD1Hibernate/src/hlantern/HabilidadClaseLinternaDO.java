@@ -9,15 +9,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
-import lcaInterfaceDAO.IHabilidadDO;
-import dao.api.Reference;
-
 @Entity
 @Table(name = "t_habilidad_clase_linterna")
 @Proxy(lazy = false)
-public class HabilidadClaseLinternaDO implements IHabilidadClaseLinternaDO {
+public class HabilidadClaseLinternaDO{
 
 	public static final String  HABILIDAD_ID= "habilidadId";
 	public static final String  CLASE_LINTERNA_ID= "claselinternaId";
@@ -28,9 +23,9 @@ public class HabilidadClaseLinternaDO implements IHabilidadClaseLinternaDO {
 	
 	// --------------------------------------------------------------------------------
 
-	private Reference<IHabilidadDO> habilidadRef = new Reference<IHabilidadDO>();
+	private HabilidadDO habilidad;
 	
-	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
+	private ClaseLinternaDO claseLinterna;
 	
 	// --------------------------------------------------------------------------------
 
@@ -40,7 +35,6 @@ public class HabilidadClaseLinternaDO implements IHabilidadClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
@@ -53,24 +47,24 @@ public class HabilidadClaseLinternaDO implements IHabilidadClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 
-	public void setHabilidadRef(Reference<IHabilidadDO> habilidadRef) {
-		this.habilidadRef = habilidadRef;
+	public void setHabilidadRef(HabilidadDO habilidadRef) {
+		this.habilidad = habilidadRef;
 	}
 	
 	@ManyToOne
-	public Reference<IHabilidadDO> getHabilidadRef() {
-		return habilidadRef;
+	public HabilidadDO getHabilidadRef() {
+		return habilidad;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
-		this.claseLinternaRef = claseLinternaRef;
+	public void setClaseLinternaRef(ClaseLinternaDO claseLinternaRef) {
+		this.claseLinterna = claseLinternaRef;
 	}
 
 	@ManyToOne
-	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
-		return claseLinternaRef;
+	public ClaseLinternaDO getClaseLinternaRef() {
+		return claseLinterna;
 	}
 	
 }

@@ -9,14 +9,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.IHabilidadDO;
-import lcaInterfaceDAO.INivelHabilidadDO;
-import dao.api.Reference;
-
 @Entity
 @Table(name = "t_nivel_habilidad")
 @Proxy(lazy = false)
-public class NivelHabilidadDO implements INivelHabilidadDO {
+public class NivelHabilidadDO {
 
 	// --------------------------------------------------------------------------------
 	
@@ -36,7 +32,7 @@ public class NivelHabilidadDO implements INivelHabilidadDO {
 	private double costo_de_energia;
 	private int probabilidad;
 	
-	private Reference<IHabilidadDO> habilidadRef = new Reference<IHabilidadDO>();
+	private HabilidadDO habilidad;
 	
 	// --------------------------------------------------------------------------------
 
@@ -46,7 +42,6 @@ public class NivelHabilidadDO implements INivelHabilidadDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
@@ -101,13 +96,12 @@ public class NivelHabilidadDO implements INivelHabilidadDO {
 	// --------------------------------------------------------------------------------
 	
 	@ManyToOne
-	public Reference<IHabilidadDO> getHabilidadRef() {
-		return habilidadRef;
+	public HabilidadDO getHabilidadRef() {
+		return habilidad;
 	}
 
-	public void setHabilidadRef(Reference<IHabilidadDO> habilidadRef) {
-		this.habilidadRef = habilidadRef;
+	public void setHabilidadRef(HabilidadDO habilidadRef) {
+		this.habilidad = habilidadRef;
 	}
 
-	
 }

@@ -18,16 +18,10 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IGrupoDO;
-import lcaInterfaceDAO.IPersonajeDO;
-
-import dao.api.Reference;
-
 @Entity
 @Table(name = "t_grupo")
 @Proxy(lazy = false)
-public class GrupoDO implements IGrupoDO {
+public class GrupoDO {
 
 	// --------------------------------------------------------------------------------
 	
@@ -45,12 +39,12 @@ public class GrupoDO implements IGrupoDO {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<IPersonajeDO> PersonajeList = //
-		new ArrayList<IPersonajeDO>();
+	private List<PersonajeDO> PersonajeList = //
+		new ArrayList<PersonajeDO>();
 
 	
 		
-	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
+	private ClaseLinternaDO claseLinterna;
 	
 	// --------------------------------------------------------------------------------
 
@@ -60,7 +54,6 @@ public class GrupoDO implements IGrupoDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
@@ -96,11 +89,11 @@ public class GrupoDO implements IGrupoDO {
 	@OneToMany(mappedBy = "grupoRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<IPersonajeDO> getPersonajeList() {
+	public List<PersonajeDO> getPersonajeList() {
 		return PersonajeList;
 	}
 
-	public void setPersonajeList(List<IPersonajeDO> personajeList) {
+	public void setPersonajeList(List<PersonajeDO> personajeList) {
 		PersonajeList = personajeList;
 	}
 
@@ -108,13 +101,12 @@ public class GrupoDO implements IGrupoDO {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
-	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
-		return claseLinternaRef;
+	public ClaseLinternaDO getClaseLinternaRef() {
+		return claseLinterna;
 	}
 
-	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
-		this.claseLinternaRef = claseLinternaRef;
+	public void setClaseLinternaRef(ClaseLinternaDO claseLinternaRef) {
+		this.claseLinterna = claseLinternaRef;
 	}
-
 
 }

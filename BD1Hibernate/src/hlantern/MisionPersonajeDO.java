@@ -9,15 +9,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.IMisionDO;
-import lcaInterfaceDAO.IMisionPersonajeDO;
-import lcaInterfaceDAO.IPersonajeDO;
-import dao.api.Reference;
-
 @Entity
 @Table(name = "t_mision_personaje")
 @Proxy(lazy = false)
-public class MisionPersonajeDO implements IMisionPersonajeDO {
+public class MisionPersonajeDO {
 
 	public static final String PERSONAJE_ID= "personajeId";
 	public static final String MISION_ID= "misionId";
@@ -28,9 +23,9 @@ public class MisionPersonajeDO implements IMisionPersonajeDO {
 	
 	// --------------------------------------------------------------------------------
 
-	private Reference<IPersonajeDO> personajeRef = new Reference<IPersonajeDO>();
+	private PersonajeDO personaje;
 	
-	private Reference<IMisionDO> misionRef = new Reference<IMisionDO>();
+	private MisionDO mision;
 	
 	// --------------------------------------------------------------------------------
 
@@ -39,8 +34,7 @@ public class MisionPersonajeDO implements IMisionPersonajeDO {
 	}
 
 	// --------------------------------------------------------------------------------
-
-	@Override	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
@@ -53,22 +47,22 @@ public class MisionPersonajeDO implements IMisionPersonajeDO {
 
 	// --------------------------------------------------------------------------------
 
-	public void setPersonajeRef(Reference<IPersonajeDO> personajeRef) {
-		this.personajeRef = personajeRef;
+	public void setPersonajeRef(PersonajeDO personajeRef) {
+		this.personaje = personajeRef;
 	}
 	@ManyToOne
-	public Reference<IPersonajeDO> getPersonajeRef() {
-		return personajeRef;
+	public PersonajeDO getPersonajeRef() {
+		return personaje;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setMisionRef(Reference<IMisionDO> misionRef) {
-		this.misionRef = misionRef;
+	public void setMisionRef(MisionDO misionRef) {
+		this.mision = misionRef;
 	}
 	@ManyToOne
-	public Reference<IMisionDO> getMisionRef() {
-		return misionRef;
+	public MisionDO getMisionRef() {
+		return mision;
 	}
 	
 }

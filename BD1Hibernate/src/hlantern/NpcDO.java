@@ -8,12 +8,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.INpcDO;
-
 @Entity
 @Table(name = "t_npc")
 @Proxy(lazy = false)
-public class NpcDO implements INpcDO {
+public class NpcDO {
 
 	public static final String NOMBRE 	= "nombre";
 	public static final String NIVEL 	= "nivel";
@@ -41,7 +39,6 @@ public class NpcDO implements INpcDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
