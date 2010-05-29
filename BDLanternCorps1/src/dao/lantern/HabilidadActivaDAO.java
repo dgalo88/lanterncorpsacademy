@@ -78,7 +78,7 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 	    strbuf.append(HabilidadActivaDO.ID);
 	    strbuf.append(" INT PRIMARY KEY, ");
 	    strbuf.append(HabilidadActivaDO.NIVEL_HABILIDAD);
-	    strbuf.append(" INT,    ");
+	    strbuf.append(" INT DEFAULT 1,    ");
 	    strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(personajeDAO.getTableName()+", ");
