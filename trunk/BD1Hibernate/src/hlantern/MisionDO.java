@@ -3,11 +3,26 @@ package hlantern;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Proxy;
+
 import lcaInterfaceDAO.IMisionClaseLinternaDO;
 import lcaInterfaceDAO.IMisionDO;
 import lcaInterfaceDAO.IMisionPersonajeDO;
 import lcaInterfaceDAO.IOrdenDO;
 
+@Entity
+@Table(name = "t_mision")
+@Proxy(lazy = false)
 public class MisionDO implements IMisionDO {
 
 	public static final String NOMBRE 							= "nombre";
@@ -43,7 +58,9 @@ public class MisionDO implements IMisionDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
+	@Override	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -107,7 +124,10 @@ public class MisionDO implements IMisionDO {
 	public void setOrdenList(List<IOrdenDO> ordenList) {
 		OrdenList = ordenList;
 	}
-
+	
+	@OneToMany(mappedBy = "misionRef")
+	@LazyCollection(LazyCollectionOption.TRUE)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<IOrdenDO> getOrdenList() {
 		return OrdenList;
 	}
@@ -118,6 +138,9 @@ public class MisionDO implements IMisionDO {
 		MisionPersonajeList = misionPersonajeList;
 	}
 
+	@OneToMany(mappedBy = "misionRef")
+	@LazyCollection(LazyCollectionOption.TRUE)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<IMisionPersonajeDO> getMisionPersonajeList() {
 		return MisionPersonajeList;
 	}
@@ -127,7 +150,10 @@ public class MisionDO implements IMisionDO {
 	public void setMisionClaselinternaList(List<IMisionClaseLinternaDO> misionClaselinternaList) {
 		MisionClaselinternaList = misionClaselinternaList;
 	}
-
+	
+	@OneToMany(mappedBy = "misionRef")
+	@LazyCollection(LazyCollectionOption.TRUE)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<IMisionClaseLinternaDO> getMisionClaselinternaList() {
 		return MisionClaselinternaList;
 	}

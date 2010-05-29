@@ -1,9 +1,21 @@
 package hlantern;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Proxy;
+
 import lcaInterfaceDAO.IHabilidadDO;
 import lcaInterfaceDAO.INivelHabilidadDO;
 import dao.api.Reference;
 
+@Entity
+@Table(name = "t_nivel_habilidad")
+@Proxy(lazy = false)
 public class NivelHabilidadDO implements INivelHabilidadDO {
 
 	// --------------------------------------------------------------------------------
@@ -35,6 +47,8 @@ public class NivelHabilidadDO implements INivelHabilidadDO {
 	// --------------------------------------------------------------------------------
 
 	@Override
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -86,6 +100,7 @@ public class NivelHabilidadDO implements INivelHabilidadDO {
 	
 	// --------------------------------------------------------------------------------
 	
+	@ManyToOne
 	public Reference<IHabilidadDO> getHabilidadRef() {
 		return habilidadRef;
 	}

@@ -9,9 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
 import lcaInterfaceDAO.IClaseLinternaDO;
@@ -21,6 +25,7 @@ import lcaInterfaceDAO.IMisionClaseLinternaDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.Reference;
+
 @Entity
 @Table(name = "t_claselinterna")
 @Proxy(lazy = false)
@@ -95,7 +100,9 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	
 	// --------------------------------------------------------------------------------
 
-
+	@OneToMany(mappedBy = "clase_linternaRef")
+	@LazyCollection(LazyCollectionOption.TRUE)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<IPersonajeDO> getPersonajeList() {
 		return personajeList;
 	}
@@ -106,6 +113,9 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 
+	@OneToMany(mappedBy = "clase_linternaRef")
+	@LazyCollection(LazyCollectionOption.TRUE)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<IGrupoDO> getGrupoList() {
 		return grupoList;
 	}
@@ -132,6 +142,9 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 		this.habilidadClaseLinternaList = habilidadClaseLinternaList;
 	}
 
+	@OneToMany(mappedBy = "clase_linternaRef")
+	@LazyCollection(LazyCollectionOption.TRUE)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<IHabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
 		return habilidadClaseLinternaList;
 	}
@@ -142,6 +155,9 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 		this.misionClaseLinternaList = misionClaseLinternaList;
 	}
 
+	@OneToMany(mappedBy = "clase_linternaRef")
+	@LazyCollection(LazyCollectionOption.TRUE)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<IMisionClaseLinternaDO> getMisionClaseLinternaList() {
 		return misionClaseLinternaList;
 	}
