@@ -1,9 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
-import java.sql.SQLException;
-
-import lcaInterfaceDAO.IPersonajeDAO;
-import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
 import dao.connection.ConnectionBean;
@@ -13,7 +9,7 @@ import factory.GlobalDOFactory;
 
 public class Login {
 
-	public static IUsuarioDO verificarLogin(String txtCorreo, String fldPass) throws Exception {
+	public static IUsuarioDO verificarlogin(String txtCorreo, String fldPass) throws Exception {
 
 		IUsuarioDO usDO = (IUsuarioDO) GlobalDOFactory.getDO(IUsuarioDO.class);
 		
@@ -32,20 +28,5 @@ public class Login {
 
         return null;
 
-	}
-
-	public static IPersonajeDO cargarPersonaje(int personajeid) throws Exception {
-		
-		IPersonajeDO personDO = (IPersonajeDO) GlobalDOFactory.getDO(IPersonajeDO.class);
-		
-		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-		IPersonajeDAO personDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
-		personDO = (IPersonajeDO) personDAO.loadById(personajeid);
-		
-	    if (personDO == null) {
-            return null;
-        }
-		
-		return personDO;
 	}
 }
