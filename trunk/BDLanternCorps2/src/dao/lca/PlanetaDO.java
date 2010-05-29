@@ -7,6 +7,9 @@ import lcaInterfaceDAO.IObjetivoDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
 
+@Entity
+@Table(name = "t_planeta")
+@Proxy(lazy = false)
 
 public class PlanetaDO implements IPlanetaDO {
 
@@ -85,7 +88,9 @@ public class PlanetaDO implements IPlanetaDO {
 	}
 	
 	// --------------------------------------------------------------------------------
-
+	@OneToMany(mappedBy = "planetaRef")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<IPersonajeDO> getPersonajeList() {
 		return personajeList;
 	}
@@ -96,7 +101,9 @@ public class PlanetaDO implements IPlanetaDO {
 
 	// --------------------------------------------------------------------------------
 
-
+	@OneToMany(mappedBy = "planetaRef")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<IObjetivoDO> getObjetivoList() {
 		return objetivoList;
 	}

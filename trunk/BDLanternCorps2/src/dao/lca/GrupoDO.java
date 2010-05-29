@@ -8,6 +8,10 @@ import lcaInterfaceDAO.IGrupoDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import dao.api.Reference;
 
+@Entity
+@Table(name = "t_grupo")
+@Proxy(lazy = false)
+
 public class GrupoDO implements IGrupoDO {
 
 	// --------------------------------------------------------------------------------
@@ -25,8 +29,8 @@ public class GrupoDO implements IGrupoDO {
 	// --------------------------------------------------------------------------------
 
 	private List<IPersonajeDO> personajeList =new ArrayList<IPersonajeDO>();
-	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
-	
+//	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
+	private clase getClaseRef;
 	// --------------------------------------------------------------------------------
 
 	public GrupoDO() {
@@ -65,7 +69,9 @@ public class GrupoDO implements IGrupoDO {
 	}
 	
 	// --------------------------------------------------------------------------------
-
+	@OneToMany(mappedBy = "grupoRef")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<IPersonajeDO> getPersonajeList() {
 		return personajeList;
 	}
@@ -76,12 +82,21 @@ public class GrupoDO implements IGrupoDO {
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
-		return claseLinternaRef;
+//	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
+//		return claseLinternaRef;
+//	}
+//
+//	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
+//		this.claseLinternaRef = claseLinternaRef;
+//	}
+	
+	@ManyToOne
+	public clase getClaseRef() {
+		return claseRef;
 	}
 
-	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
-		this.claseLinternaRef = claseLinternaRef;
+	public void setClaseRef(Clase claseRef) {
+		this.claseRef = claseRef;
 	}
 
 }

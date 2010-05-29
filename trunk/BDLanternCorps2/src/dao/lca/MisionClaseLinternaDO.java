@@ -5,6 +5,9 @@ import lcaInterfaceDAO.IMisionClaseLinternaDO;
 import lcaInterfaceDAO.IMisionDO;
 import dao.api.Reference;
 
+@Entity
+@Table(name = "t_misionclaselinterna")
+@Proxy(lazy = false)
 
 public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 
@@ -39,22 +42,40 @@ public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 
-	public Reference<IMisionDO> getMisionRef() {
+//	public Reference<IMisionDO> getMisionRef() {
+//		return misionRef;
+//	}
+//
+//	public void setMisionRef(Reference<IMisionDO> misionRef) {
+//		this.misionRef = misionRef;
+//	}
+
+	@ManyToOne
+	public Mision getMisionRef() {
 		return misionRef;
 	}
 
-	public void setMisionRef(Reference<IMisionDO> misionRef) {
+	public void setMisionRef(Mision misionRef) {
 		this.misionRef = misionRef;
 	}
-
+	
 	// --------------------------------------------------------------------------------
 
-	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
-		return claseLinternaRef;
+//	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
+//		return claseLinternaRef;
+//	}
+//
+//	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
+//		this.claseLinternaRef = claseLinternaRef;
+//	}
+	
+	@ManyToOne
+	public Clase getClaseRef() {
+		return claseRef;
 	}
 
-	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
-		this.claseLinternaRef = claseLinternaRef;
+	public void setClaseRef(Clase claseRef) {
+		this.claseRef = claseRef;
 	}
 
 }
