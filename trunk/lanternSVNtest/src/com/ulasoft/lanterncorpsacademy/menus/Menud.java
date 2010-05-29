@@ -1,5 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.menus;
 
+import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
@@ -8,53 +9,113 @@ import nextapp.echo.app.Panel;
 
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.ProgressBar;
+import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 
 @SuppressWarnings("serial")
 public class Menud extends Panel {
 	
+	private ProgressBar salud;
+	private ProgressBar energia;
+	private ProgressBar experiencia;
+	private Label lblTrainsValue;
+	private Label lblNiveLabelValue;
+	private IPersonajeDO personaje;
+
 	public Menud(){
 		Grid grid = new Grid(2);
 
 		Label lblSalud = new Label("Salud");
-		grid.add(lblSalud);
 
-		// PROGRESS BAR AQUI HEALTH
-		ProgressBar salud = new ProgressBar(17, 180, 0, null);
-		salud.setCurrValue(95);
-		grid.add(salud);
+		salud = new ProgressBar(17, 180, 0, null);
 
 		Label lblEnergia = new Label("Energia del Anillo");
-		grid.add(lblEnergia);
 
-		// PROGRESS BAR AQUI ENERGIA
-		ProgressBar energia = new ProgressBar(17, 180, 1, Color.GREEN);
-		energia.setCurrValue(90);
-		grid.add(energia);
+		energia = new ProgressBar(17, 180, 1, Color.GREEN);
 
 		Label lblExperiencia = new Label("Experiencia");
-		grid.add(lblExperiencia);
 
-		// PROGRESS BAR EXP
-		ProgressBar experiencia = new ProgressBar(17, 180, 2, null);
-		experiencia.setCurrValue(80);
-		grid.add(experiencia);
+		experiencia = new ProgressBar(17, 180, 2, null);
 
 		Label lblTrains = new Label("Puntos de Entrenamiento:");
-		grid.add(lblTrains);
-
-		Label lblTrainsValue = new Label("XXXXX");
-		grid.add(lblTrainsValue);
-
+		lblTrainsValue = new Label("XX");
 		Label lblNivel = new Label("NIvel");
+		lblNiveLabelValue = new Label("XX");
+		System.err.println("PERSONAJE ID en menud:"+personaje.getId());
+		try {
+			Atributos.updateMenud (this, personaje);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+//		salud.setCurrValue(95);
+//		energia.setCurrValue(90);
+//		experiencia.setCurrValue(80);
+//		lblTrainsValue = new Label("XXXXX");
+//		lblNiveLabelValue = new Label("XXXXX");
+
+		grid.add(lblSalud);
+		grid.add(salud);
+		grid.add(lblEnergia);
+		grid.add(energia);
+		grid.add(lblExperiencia);
+		grid.add(experiencia);
+		grid.add(lblTrains);
+		grid.add(lblTrainsValue);
 		grid.add(lblNivel);
-
-		Label lblNiveLabel = new Label("XXXXX");
-		grid.add(lblNiveLabel);
-
+		grid.add(lblNiveLabelValue);
+		
 		grid.setStyle(GUIStyles.DEFAULT_STYLE);
 		grid.setHeight(new Extent(315));
 
 		add(grid);
+	}
+
+	public IPersonajeDO getPersonaje() {
+		return personaje;
+	}
+
+	public void setPersonaje(IPersonajeDO personaje) {
+		this.personaje = personaje;
+	}
+
+	public ProgressBar getSalud() {
+		return salud;
+	}
+
+	public void setSalud(ProgressBar salud) {
+		this.salud = salud;
+	}
+
+	public ProgressBar getEnergia() {
+		return energia;
+	}
+
+	public void setEnergia(ProgressBar energia) {
+		this.energia = energia;
+	}
+
+	public ProgressBar getExperiencia() {
+		return experiencia;
+	}
+
+	public void setExperiencia(ProgressBar experiencia) {
+		this.experiencia = experiencia;
+	}
+
+	public Label getLblTrainsValue() {
+		return lblTrainsValue;
+	}
+
+	public void setLblTrainsValue(Label lblTrainsValue) {
+		this.lblTrainsValue = lblTrainsValue;
+	}
+
+	public Label getLblNiveLabelValue() {
+		return lblNiveLabelValue;
+	}
+
+	public void setLblNiveLabelValue(Label lblNiveLabelValue) {
+		this.lblNiveLabelValue = lblNiveLabelValue;
 	}
 
 }

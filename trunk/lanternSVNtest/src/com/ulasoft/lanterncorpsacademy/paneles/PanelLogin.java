@@ -1,5 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDO;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -18,13 +19,14 @@ import nextapp.echo.app.event.ActionListener;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.logic.login;
+import com.ulasoft.lanterncorpsacademy.logic.Login;
 
 @SuppressWarnings("serial")
 public class PanelLogin extends Panel {
 
   LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
   private IUsuarioDO usuario;
+  private IPersonajeDO personaje;
   private TextField txtCorreo;
   private PasswordField fldPass;
   Desktop desktop;
@@ -107,16 +109,17 @@ public class PanelLogin extends Panel {
 	  	//TODO: verif campos vacios antes de enviar...
 
 	  
-	    usuario = login.verificarlogin(txtCorreo.getText(), fldPass.getText());
+	    usuario = Login.verificarLogin(txtCorreo.getText(), fldPass.getText());
 	    desktop = app.getDesktop();
 	    
 		if (usuario == null) {
 			desktop.setWindowPaneEmergente("La informacion de correo o Contraseña proporcionada no es Correcta.");
 			return;
 		}
-	  		  	
+	    personaje = Login.cargarPersonaje(usuario.getPersonajeRef().getRefIdent());
+	    System.err.println("PERSONAJE ID en PLogin:"+personaje.getId());
 		desktop.removeAll();
-		desktop.add(desktop.initTemplate2());
+		desktop.add(desktop.initTemplate2(personaje, usuario));
   }
 
   

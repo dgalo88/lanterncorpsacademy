@@ -1,5 +1,7 @@
 package com.ulasoft.lanterncorpsacademy;
 
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IUsuarioDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
@@ -75,7 +77,7 @@ public class Desktop extends ContentPane {
 
 	// --------------------------------------------------------------------------------
 
-	public Component initTemplate2() {
+	public Component initTemplate2(IPersonajeDO personaje, IUsuarioDO usuario) {
 		try {
 			htmlLayout = new HtmlLayout( //
 					getClass().getResourceAsStream(
@@ -102,8 +104,10 @@ public class Desktop extends ContentPane {
 		main.setLayoutData(hld);
 		htmlLayout.add(main);
 
+		System.err.println("PERSONAJE ID en desk:"+personaje.getId());
 		hld = new HtmlLayoutData("menud");
 		Menud menud = new Menud();
+		menud.setPersonaje(personaje);
 		menud.setLayoutData(hld);
 		htmlLayout.add(menud);
 
