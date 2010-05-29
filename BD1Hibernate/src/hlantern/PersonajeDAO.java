@@ -679,12 +679,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	    return null;
 	}
 
-	@Override
-	public List<IPersonajeDO> listByPersonajeId(int claseLinternaId)
-			throws SQLException {
-		// TODO este esta mal en la interfaz no va...
-		return null;
-	}
+
 
 	@Override
 	public List<IPersonajeDO> listRankin() throws SQLException {
