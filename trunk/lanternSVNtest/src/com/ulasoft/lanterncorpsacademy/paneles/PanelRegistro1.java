@@ -3,7 +3,6 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.awt.Font;
 import java.sql.SQLException;
 
-import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
@@ -19,11 +18,11 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
-import dao.connection.ConnectionBean;
-import dao.connection.ConnectionFactory;
+import com.ulasoft.lanterncorpsacademy.logic.Registro;
+
 import echopoint.layout.HtmlLayoutData;
-import factory.GlobalDAOFactory;
 
 @SuppressWarnings("serial")
 public class PanelRegistro1 extends Panel {
@@ -138,13 +137,9 @@ public class PanelRegistro1 extends Panel {
 			return;
 		}
 
-		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-
-		IUsuarioDAO usuarioDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(IUsuarioDAO.class, connectionBean);
-
 		try {
 
-			if (usuarioDAO.checkIfUsuarioExists(usuarioNuevo.getCorreo())) {
+			if (Registro.verificarCorreo(usuarioNuevo.getCorreo())) {
 				if (col.getComponentCount() > 3) {
 					System.out.println("COL:" + col.getComponentCount());
 					col.remove(errorRow);
