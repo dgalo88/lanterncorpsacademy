@@ -9,15 +9,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.IHabilidadActivaDO;
-import lcaInterfaceDAO.IHabilidadDO;
-import lcaInterfaceDAO.IPersonajeDO;
-import dao.api.Reference;
-
 @Entity
 @Table(name = "t_hablilidad_activa")
 @Proxy(lazy = false)
-public class HabilidadActivaDO implements IHabilidadActivaDO {
+public class HabilidadActivaDO {
 
 	public static final String NIVEL_HABILIDAD = "nivel_habilidad";
 	
@@ -32,9 +27,9 @@ public class HabilidadActivaDO implements IHabilidadActivaDO {
 	
 	// --------------------------------------------------------------------------------
 
-	private Reference<IPersonajeDO> personajeRef = new Reference<IPersonajeDO>();
+	private PersonajeDO personaje;
 	
-	private Reference<IHabilidadDO> habilidadRef = new Reference<IHabilidadDO>();
+	private HabilidadDO habilidad;
 		
 	// --------------------------------------------------------------------------------
 
@@ -43,8 +38,7 @@ public class HabilidadActivaDO implements IHabilidadActivaDO {
 	}
 
 	// --------------------------------------------------------------------------------
-
-	@Override	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
@@ -67,22 +61,24 @@ public class HabilidadActivaDO implements IHabilidadActivaDO {
 
 	// --------------------------------------------------------------------------------
 
-	public void setPersonajeRef(Reference<IPersonajeDO> personajeRef) {
-		this.personajeRef = personajeRef;
+	public void setPersonajeRef(PersonajeDO personajeRef) {
+		this.personaje = personajeRef;
 	}
+	
 	@ManyToOne
-	public Reference<IPersonajeDO> getPersonajeRef() {
-		return personajeRef;
+	public PersonajeDO getPersonajeRef() {
+		return personaje;
 	}
 	
 	// --------------------------------------------------------------------------------
 
-	public void setHabilidadRef(Reference<IHabilidadDO> habilidadRef) {
-		this.habilidadRef = habilidadRef;
+	public void setHabilidadRef(HabilidadDO habilidadRef) {
+		this.habilidad = habilidadRef;
 	}
+	
 	@ManyToOne
-	public Reference<IHabilidadDO> getHabilidadRef() {
-		return habilidadRef;
+	public HabilidadDO getHabilidadRef() {
+		return habilidad;
 	}
 	
 }

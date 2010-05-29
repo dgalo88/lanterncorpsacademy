@@ -15,15 +15,10 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.IHabilidadActivaDO;
-import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
-import lcaInterfaceDAO.IHabilidadDO;
-import lcaInterfaceDAO.INivelHabilidadDO;
-
 @Entity
 @Table(name = "t_habilidad")
 @Proxy(lazy = false)
-public class HabilidadDO implements IHabilidadDO {
+public class HabilidadDO{
 
 	public static final String ID     	= "id";
 	public static final String NOMBRE 	= "nombre";
@@ -42,14 +37,14 @@ public class HabilidadDO implements IHabilidadDO {
 	private int costo_de_aprendizaje;
 	private int tipo;
 	
-	private List<IHabilidadClaseLinternaDO> habilidadClaseLinternaList = //
-		new ArrayList<IHabilidadClaseLinternaDO>();
+	private List<HabilidadClaseLinternaDO> habilidadClaseLinternaList = //
+		new ArrayList<HabilidadClaseLinternaDO>();
 	
-	private List<INivelHabilidadDO> nivelHabilidadList = //
-		new ArrayList<INivelHabilidadDO>();
+	private List<NivelHabilidadDO> nivelHabilidadList = //
+		new ArrayList<NivelHabilidadDO>();
 
-	private List<IHabilidadActivaDO> habilidadActivaList = //
-		new ArrayList<IHabilidadActivaDO>();
+	private List<HabilidadActivaDO> habilidadActivaList = //
+		new ArrayList<HabilidadActivaDO>();
 
 	
 	// --------------------------------------------------------------------------------
@@ -60,7 +55,6 @@ public class HabilidadDO implements IHabilidadDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
@@ -104,40 +98,40 @@ public class HabilidadDO implements IHabilidadDO {
 	
 	// --------------------------------------------------------------------------------
 
-	public void setHabilidadClaseLinternaList(List<IHabilidadClaseLinternaDO> habilidadClaseLinternaList) {
+	public void setHabilidadClaseLinternaList(List<HabilidadClaseLinternaDO> habilidadClaseLinternaList) {
 		this.habilidadClaseLinternaList = habilidadClaseLinternaList;
 	}
 
 	@OneToMany(mappedBy = "hablidadRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<IHabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
+	public List<HabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
 		return habilidadClaseLinternaList;
 	}
 	
 	// --------------------------------------------------------------------------------
 	
-	public void setNivelHabilidadList(List<INivelHabilidadDO> nivelHabilidadList) {
+	public void setNivelHabilidadList(List<NivelHabilidadDO> nivelHabilidadList) {
 		this.nivelHabilidadList = nivelHabilidadList;
 	}
 
 	@OneToMany(mappedBy = "hablidadRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<INivelHabilidadDO> getNivelHabilidadList() {
+	public List<NivelHabilidadDO> getNivelHabilidadList() {
 		return nivelHabilidadList;
 	}
 
 	// --------------------------------------------------------------------------------
 	
-	public void setHabilidadActivaList(List<IHabilidadActivaDO> habilidadActivaList) {
+	public void setHabilidadActivaList(List<HabilidadActivaDO> habilidadActivaList) {
 		this.habilidadActivaList = habilidadActivaList;
 	}
 
 	@OneToMany(mappedBy = "hablidadRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<IHabilidadActivaDO> getHabilidadActivaList() {
+	public List<HabilidadActivaDO> getHabilidadActivaList() {
 		return habilidadActivaList;
 	}
 

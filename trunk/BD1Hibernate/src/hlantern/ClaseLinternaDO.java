@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -18,18 +18,10 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IGrupoDO;
-import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
-import lcaInterfaceDAO.IMisionClaseLinternaDO;
-import lcaInterfaceDAO.IPersonajeDO;
-import lcaInterfaceDAO.IPlanetaDO;
-import dao.api.Reference;
-
 @Entity
 @Table(name = "t_claselinterna")
 @Proxy(lazy = false)
-public class ClaseLinternaDO implements IClaseLinternaDO {
+public class ClaseLinternaDO  {
 
 	public static final String COLOR = "color";
 	public static final String NOMBRE_DE_CUERPO_LINTERNA   = "nombre_de_cuerpo_linterna";
@@ -45,19 +37,19 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<IGrupoDO> grupoList = //
-	new ArrayList<IGrupoDO>();
+	private List<GrupoDO> grupoList = //
+	new ArrayList<GrupoDO>();
 
-	private List<IPersonajeDO> personajeList = //
-		new ArrayList<IPersonajeDO>();
+	private List<PersonajeDO> personajeList = //
+		new ArrayList<PersonajeDO>();
 	
-	private List<IHabilidadClaseLinternaDO> habilidadClaseLinternaList = //
-		new ArrayList<IHabilidadClaseLinternaDO>();
+	private List<HabilidadClaseLinternaDO> habilidadClaseLinternaList = //
+		new ArrayList<HabilidadClaseLinternaDO>();
 	
-	private List<IMisionClaseLinternaDO> misionClaseLinternaList = //
-		new ArrayList<IMisionClaseLinternaDO>();	
+	private List<MisionClaseLinternaDO> misionClaseLinternaList = //
+		new ArrayList<MisionClaseLinternaDO>();	
 	
-	private Reference<IPlanetaDO> planetaRef = new Reference<IPlanetaDO>();
+	private PlanetaDO planeta;
 	
 	// --------------------------------------------------------------------------------
 
@@ -67,7 +59,6 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
@@ -103,11 +94,11 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	@OneToMany(mappedBy = "clase_linternaRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<IPersonajeDO> getPersonajeList() {
+	public List<PersonajeDO> getPersonajeList() {
 		return personajeList;
 	}
 
-	public void setPersonajeList(List<IPersonajeDO> personajeList) {
+	public void setPersonajeList(List<PersonajeDO> personajeList) {
 		this.personajeList = personajeList;
 	}
 
@@ -116,54 +107,52 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	@OneToMany(mappedBy = "clase_linternaRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<IGrupoDO> getGrupoList() {
+	public List<GrupoDO> getGrupoList() {
 		return grupoList;
 	}
 
-	public void setGrupoList(List<IGrupoDO> grupoList) {
+	public void setGrupoList(List<GrupoDO> grupoList) {
 		this.grupoList = grupoList;
 	}
 
 	// --------------------------------------------------------------------------------
 	@OneToOne(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
-	public Reference<IPlanetaDO> getPlanetaRef() {
-		return planetaRef;
+	public PlanetaDO getPlanetaRef() {
+		return planeta;
 	}
 
-	public void setPlanetaRef(Reference<IPlanetaDO> planetaRef) {
-		this.planetaRef = planetaRef;
+	public void setPlanetaRef(PlanetaDO planetaRef) {
+		this.planeta = planetaRef;
 	}
 
 	// --------------------------------------------------------------------------------
 	
 	public void setHabilidadClaseLinternaList(
-			List<IHabilidadClaseLinternaDO> habilidadClaseLinternaList) {
+			List<HabilidadClaseLinternaDO> habilidadClaseLinternaList) {
 		this.habilidadClaseLinternaList = habilidadClaseLinternaList;
 	}
 
 	@OneToMany(mappedBy = "clase_linternaRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<IHabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
+	public List<HabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
 		return habilidadClaseLinternaList;
 	}
 
 	// --------------------------------------------------------------------------------
 	
-	public void setMisionClaseLinternaList(List<IMisionClaseLinternaDO> misionClaseLinternaList) {
+	public void setMisionClaseLinternaList(List<MisionClaseLinternaDO> misionClaseLinternaList) {
 		this.misionClaseLinternaList = misionClaseLinternaList;
 	}
 
 	@OneToMany(mappedBy = "clase_linternaRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<IMisionClaseLinternaDO> getMisionClaseLinternaList() {
+	public List<MisionClaseLinternaDO> getMisionClaseLinternaList() {
 		return misionClaseLinternaList;
 	}
-
-
-
+	
 	// --------------------------------------------------------------------------------
 
 }

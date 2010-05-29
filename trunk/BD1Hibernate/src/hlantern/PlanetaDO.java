@@ -16,16 +16,10 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IObjetivoDO;
-import lcaInterfaceDAO.IPersonajeDO;
-import lcaInterfaceDAO.IPlanetaDO;
-import dao.api.Reference;
-
 @Entity
 @Table(name = "t_planeta")
 @Proxy(lazy = false)
-public class PlanetaDO implements IPlanetaDO {
+public class PlanetaDO {
 
 	public static final String NOMBRE = "nombre";
 	public static final String SECTOR = "sector";
@@ -40,15 +34,14 @@ public class PlanetaDO implements IPlanetaDO {
 	private float coordenada_en_x;
 	private float coordenada_en_y;
 
-	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
+	private ClaseLinternaDO claseLinterna;
 	// --------------------------------------------------------------------------------
 
-	private List<IPersonajeDO> personajeList = //
-	new ArrayList<IPersonajeDO>();
+	private List<PersonajeDO> personajeList = //
+	new ArrayList<PersonajeDO>();
 
-
-	private List<IObjetivoDO> objetivoList = //
-		new ArrayList<IObjetivoDO>();
+	private List<ObjetivoDO> objetivoList = //
+		new ArrayList<ObjetivoDO>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -60,8 +53,7 @@ public class PlanetaDO implements IPlanetaDO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Override
-	public int getId() {
+		public int getId() {
 		return id;
 	}
 
@@ -111,23 +103,23 @@ public class PlanetaDO implements IPlanetaDO {
 	
 	// --------------------------------------------------------------------------------
 	@OneToOne(mappedBy = "planetaRef") //referenciado por: claseLinterna
-	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
-		return claseLinternaRef;
+	public ClaseLinternaDO getClaseLinternaRef() {
+		return claseLinterna;
 	}
 
-	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
-		this.claseLinternaRef = claseLinternaRef;
+	public void setClaseLinternaRef(ClaseLinternaDO claseLinternaRef) {
+		this.claseLinterna = claseLinternaRef;
 	}
 	
 	// --------------------------------------------------------------------------------
 	@OneToMany(mappedBy = "planetaRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<IPersonajeDO> getPersonajeList() {
+	public List<PersonajeDO> getPersonajeList() {
 		return personajeList;
 	}
 
-	public void setPersonajeList(List<IPersonajeDO> personajeList) {
+	public void setPersonajeList(List<PersonajeDO> personajeList) {
 		this.personajeList = personajeList;
 	}
 
@@ -136,11 +128,11 @@ public class PlanetaDO implements IPlanetaDO {
 	@OneToMany(mappedBy = "planetaRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<IObjetivoDO> getObjetivoList() {
+	public List<ObjetivoDO> getObjetivoList() {
 		return objetivoList;
 	}
 
-	public void setObjetivoList(List<IObjetivoDO> objetivoList) {
+	public void setObjetivoList(List<ObjetivoDO> objetivoList) {
 		this.objetivoList = objetivoList;
 	}
 

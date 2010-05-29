@@ -9,15 +9,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IMisionClaseLinternaDO;
-import lcaInterfaceDAO.IMisionDO;
-import dao.api.Reference;
-
 @Entity
 @Table(name = "t_mision_clase_linterna")
 @Proxy(lazy = false)
-public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
+public class MisionClaseLinternaDO {
 
 	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
 	public static final String MISION_ID = "misionId";
@@ -29,9 +24,9 @@ public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 
-	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
+	private ClaseLinternaDO claseLinterna;
 
-	private Reference<IMisionDO> misionRef = new Reference<IMisionDO>();
+	private MisionDO mision;
 		
 	// --------------------------------------------------------------------------------
 
@@ -41,7 +36,6 @@ public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
@@ -54,23 +48,23 @@ public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 	@ManyToOne
-	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
-		return claseLinternaRef;
+	public ClaseLinternaDO getClaseLinternaRef() {
+		return claseLinterna;
 	}
 
-	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
-		this.claseLinternaRef = claseLinternaRef;
+	public void setClaseLinternaRef(ClaseLinternaDO claseLinternaRef) {
+		this.claseLinterna = claseLinternaRef;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setMisionRef(Reference<IMisionDO> misionRef) {
-		this.misionRef = misionRef;
+	public void setMisionRef(MisionDO misionRef) {
+		this.mision = misionRef;
 	}
 	
 	@ManyToOne
-	public Reference<IMisionDO> getMisionRef() {
-		return misionRef;
+	public MisionDO getMisionRef() {
+		return mision;
 	}
 	
 }

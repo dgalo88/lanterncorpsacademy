@@ -16,16 +16,10 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
-
-import lcaInterfaceDAO.IObjetivoDO;
-import lcaInterfaceDAO.IOrdenDO;
-import lcaInterfaceDAO.IPlanetaDO;
-import dao.api.Reference;
-
 @Entity
 @Table(name = "t_objetivo")
 @Proxy(lazy = false)
-public class ObjetivoDO implements IObjetivoDO {
+public class ObjetivoDO {
 
 	public static final String DESCRIPCION = "descripcion";
 	public static final String NUMERO_DE_NPC = "numero_de_npc";
@@ -42,12 +36,11 @@ public class ObjetivoDO implements IObjetivoDO {
 	
 	// --------------------------------------------------------------------------------
 	
-	private Reference<IPlanetaDO> planetaRef = new Reference<IPlanetaDO>();
+	private PlanetaDO planeta;
 	
-	private List<IOrdenDO> OrdenList = //
-		new ArrayList<IOrdenDO>();
+	private List<OrdenDO> OrdenList = //
+		new ArrayList<OrdenDO>();
 	
-	private Reference<IOrdenDO> ordenRef = new Reference<IOrdenDO>();
 	// --------------------------------------------------------------------------------
 
 	public ObjetivoDO() {
@@ -56,7 +49,6 @@ public class ObjetivoDO implements IObjetivoDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
@@ -90,24 +82,24 @@ public class ObjetivoDO implements IObjetivoDO {
 	// --------------------------------------------------------------------------------
 	
 	@ManyToOne
-	public Reference<IPlanetaDO> getPlanetaRef() {
-		return planetaRef;
+	public PlanetaDO getPlanetaRef() {
+		return planeta;
 	}
 
-	public void setPlanetaRef(Reference<IPlanetaDO> planetaRef) {
-		this.planetaRef = planetaRef;
+	public void setPlanetaRef(PlanetaDO planetaRef) {
+		this.planeta = planetaRef;
 	}
 	
 	// --------------------------------------------------------------------------------
 
-	public void setOrdenList(List<IOrdenDO> ordenList) {
+	public void setOrdenList(List<OrdenDO> ordenList) {
 		OrdenList = ordenList;
 	}
 	
 	@OneToMany(mappedBy = "objetivoRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<IOrdenDO> getOrdenList() {
+	public List<OrdenDO> getOrdenList() {
 		return OrdenList;
 	}
 	

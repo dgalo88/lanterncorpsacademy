@@ -9,15 +9,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.IMisionDO;
-import lcaInterfaceDAO.IObjetivoDO;
-import lcaInterfaceDAO.IOrdenDO;
-import dao.api.Reference;
-
 @Entity
 @Table(name = "t_orden")
 @Proxy(lazy = false)
-public class OrdenDO implements IOrdenDO {
+public class OrdenDO {
 
 	public static final String PRIORIDAD = "prioridad";
 	public static final String OBJETIVO_ID = "objetivoId";
@@ -31,9 +26,9 @@ public class OrdenDO implements IOrdenDO {
 	
 	// --------------------------------------------------------------------------------
 
-	private Reference<IObjetivoDO> objetivoRef = new Reference<IObjetivoDO>();
+	private ObjetivoDO objetivo;
 	
-	private Reference<IMisionDO> misionRef = new Reference<IMisionDO>();
+	private MisionDO mision;
 		
 	// --------------------------------------------------------------------------------
 
@@ -43,7 +38,6 @@ public class OrdenDO implements IOrdenDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
@@ -66,24 +60,24 @@ public class OrdenDO implements IOrdenDO {
 		
 	// --------------------------------------------------------------------------------
 
-	public void setObjetivoRef(Reference<IObjetivoDO> objetivoRef) {
-		this.objetivoRef = objetivoRef;
+	public void setObjetivoRef(ObjetivoDO objetivoRef) {
+		this.objetivo = objetivoRef;
 	}
 	
 	@ManyToOne
-	public Reference<IObjetivoDO> getObjetivoRef() {
-		return objetivoRef;
+	public ObjetivoDO getObjetivoRef() {
+		return objetivo;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setMisionRef(Reference<IMisionDO> misionRef) {
-		this.misionRef = misionRef;
+	public void setMisionRef(MisionDO misionRef) {
+		this.mision = misionRef;
 	}
 
 	@ManyToOne
-	public Reference<IMisionDO> getMisionRef() {
-		return misionRef;
+	public MisionDO getMisionRef() {
+		return mision;
 	}
 
 }
