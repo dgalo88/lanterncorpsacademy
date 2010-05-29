@@ -1,8 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.sql.SQLException;
-
-import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDO;
 import nextapp.echo.app.Alignment;
@@ -28,10 +25,7 @@ import nextapp.echo.extras.app.layout.AccordionPaneLayoutData;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-
-import dao.connection.ConnectionBean;
-import dao.connection.ConnectionFactory;
-import factory.GlobalDAOFactory;
+import com.ulasoft.lanterncorpsacademy.logic.Registro;
 
 
 @SuppressWarnings("serial")
@@ -453,25 +447,28 @@ public class PanelRegistro2 extends Panel {
 			return;
 		}
 		
-		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-
-		IPersonajeDAO usuarioDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
 		personajeNuevo.setAlias(txtAlias.getText());
 
-		try {
+//		try {
 
-			if (usuarioDAO.checkIfAliasExists(personajeNuevo.getAlias())) {
-				Desktop d = app.getDesktop();
-				d.setWindowPaneEmergente("Ya existe un jugador con ese Alias.");
-				return;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if (Registro.verificarAlias(personajeNuevo.getAlias())) {
+			Desktop d = app.getDesktop();
+			d.setWindowPaneEmergente("Ya existe un jugador con ese Alias.");
+			return;
 		}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		
 		PanelRegistro pr = (PanelRegistro) getParent();
 		pr.setPersonaje(personajeNuevo);
-		pr.Registrar(optClase);
+		Registro.guardarUsuario(pr.getUsuario(), pr.getPersonaje(), optClase);
+		
+		Desktop d = app.getDesktop();
+		d.remove(pr);
+		d.setWindowPaneEmergente("Has Completado EL Registro Satisfactoriamente");
+		PanelLogin pnlMain = new PanelLogin();
+		d.setPanelCentral(pnlMain);
 		
 	}
 	
