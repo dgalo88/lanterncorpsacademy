@@ -39,19 +39,19 @@
 			<property name="hibernate.connection.pool_size">5</property>
 			<property name="hibernate.jdbc.batch_size">0</property>
 		-->
-		<!-- **************************************** -->
-		<!-- POSTGRES :s                                   -->
-		<!-- **************************************** -->
 
-		<!--
-			<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-			<property name="hibernate.connection.url">jdbc:oracle:thin:@127.0.0.1:1521:XE</property>
-			<property name="dialect">org.hibernate.dialect.Oracle9Dialect</property>
-			<property name="hibernate.connection.username">CFC_USER</property>
-			<property name="hibernate.connection.password">sa003</property>
-			<property name="hibernate.connection.pool_size">5</property>
-			<property name="hibernate.jdbc.batch_size">0</property>
-		-->
+         <!-- **************************************** -->
+         <!-- PostgreSQL                               -->
+         <!-- **************************************** -->
+
+
+	<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+	<property name="hibernate.connection.url">jdbc:postgresql://localhost/sch_test</property>
+	<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+	<property name="hibernate.connection.username">postgres</property>
+	<property name="hibernate.connection.password">123456</property>
+	<property name="hibernate.connection.pool_size">5</property>
+        
 
 		<!-- **************************************** -->
 		<!-- Misc                                     -->
