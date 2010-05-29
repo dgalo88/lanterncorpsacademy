@@ -9,7 +9,7 @@ public class BD {
 
 	// ----------------------------------------------------------------------
 
-	public static final Grupo GRUPO = Grupo.LCA;
+	public static final Grupo GRUPO = Grupo.LANTERN;
 	
 	// ----------------------------------------------------------------------
 
