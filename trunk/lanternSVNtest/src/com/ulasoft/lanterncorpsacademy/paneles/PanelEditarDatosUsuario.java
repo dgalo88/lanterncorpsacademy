@@ -3,7 +3,7 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.logic.EditarDatosUsuario;
+//import com.ulasoft.lanterncorpsacademy.logic.EditarDatosUsuario;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;

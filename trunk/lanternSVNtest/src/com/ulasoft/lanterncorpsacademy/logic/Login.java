@@ -39,6 +39,7 @@ public static IPersonajeDO cargarPersonaje(int personajeid) throws Exception {
         ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
         IPersonajeDAO personDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
         personDO = (IPersonajeDO) personDAO.loadById(personajeid);
+        ConnectionFactory.closeConnection(connectionBean.getConnection());
         
     if (personDO == null) {
     return null;
