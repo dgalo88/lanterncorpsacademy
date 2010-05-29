@@ -11,15 +11,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
-import lcaInterfaceDAO.IPersonajeDO;
-import lcaInterfaceDAO.IUsuarioDO;
-import dao.api.Reference;
-
-
 @Entity
 @Table(name = "t_usuario")
 @Proxy(lazy = false)
-public class UsuarioDO implements IUsuarioDO {
+public class UsuarioDO {
 
 	public static final String ID = "id";
 	public static final String NOMBRE = "nombre";
@@ -35,9 +30,9 @@ public class UsuarioDO implements IUsuarioDO {
 	private String nombre;
 	private String correo;
 	private String clave;
+	//private Reference<IPersonajeDO> personajeRef = new Reference<IPersonajeDO>();
 
-	private Reference<IPersonajeDO> personajeRef = new Reference<IPersonajeDO>();
-
+	private PersonajeDO personaje;
 	// --------------------------------------------------------------------------------
 
 	public UsuarioDO() {
@@ -46,7 +41,6 @@ public class UsuarioDO implements IUsuarioDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
@@ -90,12 +84,12 @@ public class UsuarioDO implements IUsuarioDO {
 	// --------------------------------------------------------------------------------
 	@OneToOne(cascade = CascadeType.ALL) //referencia al personaje, columna "personajeid"
 	@PrimaryKeyJoinColumn
-	public Reference<IPersonajeDO> getPersonajeRef() {
-		return personajeRef;
+	public PersonajeDO getPersonajeRef() {
+		return personaje;
 	}
 
-	public void setPersonajeRef(Reference<IPersonajeDO> personajeRef) {
-		this.personajeRef = personajeRef;
+	public void setPersonajeRef(PersonajeDO personajeRef) {
+		this.personaje = personajeRef;
 	}
 
 }
