@@ -38,7 +38,8 @@ public class PlanetaDO implements IPlanetaDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
