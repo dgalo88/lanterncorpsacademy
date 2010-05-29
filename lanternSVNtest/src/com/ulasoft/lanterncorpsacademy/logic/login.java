@@ -1,7 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
 import java.sql.SQLException;
-
 import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
 import dao.connection.ConnectionBean;
@@ -12,7 +11,7 @@ import factory.GlobalDOFactory;
 public class login {
 
 	
-	public static IUsuarioDO verificarlogin(IUsuarioDO usuario, String txtCorreo, String fldPass) throws Exception{
+	public static IUsuarioDO verificarlogin(IUsuarioDO usuario, String txtCorreo, String fldPass) throws ClassNotFoundException, Exception{
 		
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 		
@@ -24,10 +23,11 @@ public class login {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
 		
 		if(usuario.getClave() != fldPass){
-			return null;
+			return usuario;
 		}else{
 			return usuario;
 		}
