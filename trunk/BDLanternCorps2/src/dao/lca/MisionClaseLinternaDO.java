@@ -31,7 +31,8 @@ public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}

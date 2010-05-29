@@ -39,7 +39,8 @@ public class GrupoDO implements IGrupoDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Override
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
