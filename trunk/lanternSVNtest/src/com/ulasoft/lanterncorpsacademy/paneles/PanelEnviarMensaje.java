@@ -3,6 +3,7 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.EnviarMensaje;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -17,7 +18,10 @@ import nextapp.echo.app.TextArea;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class PanelEnviarMensaje extends Panel {
+	
+	private TextArea texArea;
 	
 	public PanelEnviarMensaje(){
 		Column col = new Column();
@@ -28,7 +32,7 @@ public class PanelEnviarMensaje extends Panel {
 		col.add(row1);
 		
 		Row row2 = new Row();
-		TextArea texArea = new TextArea();
+		texArea = new TextArea();
 		texArea.setHeight(new Extent(300));
 		texArea.setWidth(new Extent(600));
 		row2.setBackground(Color.WHITE);
@@ -69,8 +73,10 @@ public class PanelEnviarMensaje extends Panel {
 	Desktop d = app.getDesktop();
 
 	protected void btnEnviarClicked() {
-		// TODO Auto-generated method stub
-		
+		if(EnviarMensaje.checkMensaje(texArea)){
+			d.setWindowPaneEmergente("El Campo Mensaje se Encuentra Vacio no se Enviara el Mensaje al Grupo");
+			texArea.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
+		}
 	}
 
 	protected void btnCancelarClicked() {

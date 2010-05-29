@@ -30,6 +30,7 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class PanelMensaje extends Panel {
 	
 	private TestTableModel tableDtaModel;
