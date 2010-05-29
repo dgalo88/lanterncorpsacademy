@@ -14,6 +14,8 @@ import nextapp.echo.app.Panel;
 import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+
+import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead2;
 import com.ulasoft.lanterncorpsacademy.menus.MenuI;
@@ -35,6 +37,7 @@ public class Desktop extends ContentPane {
 	private HtmlLayout htmlLayout;
 	private HtmlLayoutData hld;
 	private WindowPane windowPane;
+	//private IPersonajeDO personajeDO;
 
 	// --------------------------------------------------------------------------------
 
@@ -77,7 +80,7 @@ public class Desktop extends ContentPane {
 
 	// --------------------------------------------------------------------------------
 
-	public Component initTemplate2(IPersonajeDO personaje, IUsuarioDO usuario) {
+	public Component initTemplate2(IPersonajeDO personaje, IUsuarioDO usuario, Atributos atrib) {
 		try {
 			htmlLayout = new HtmlLayout( //
 					getClass().getResourceAsStream(
@@ -85,7 +88,11 @@ public class Desktop extends ContentPane {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
+		
+		//Atributos atts= new Atributos();
+//		atrib.setPersonaje(personaje);
+//		atrib.setUsuario(usuario);
+		
 		hld = new HtmlLayoutData("head");
 		MenuHead2 menuHead = new MenuHead2();
 		menuHead.setLayoutData(hld);
@@ -107,7 +114,12 @@ public class Desktop extends ContentPane {
 		System.err.println("PERSONAJE ID en desk:"+personaje.getId());
 		hld = new HtmlLayoutData("menud");
 		Menud menud = new Menud();
-		menud.setPersonaje(personaje);
+		try {
+			atrib.updateMenud(menud);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+//		menud.setPersonaje(personaje);
 		menud.setLayoutData(hld);
 		htmlLayout.add(menud);
 
@@ -150,5 +162,13 @@ public class Desktop extends ContentPane {
 		windowPane.add(col);
 		add(windowPane);
 	}
+
+//	public IPersonajeDO getPersonajeDO() {
+//		return personajeDO;
+//	}
+//
+//	public void setPersonajeDO(IPersonajeDO personajeDO) {
+//		this.personajeDO = personajeDO;
+//	}
 
 }
