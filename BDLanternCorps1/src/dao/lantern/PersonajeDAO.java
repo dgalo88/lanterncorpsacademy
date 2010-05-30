@@ -687,7 +687,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		
 		strbuf.append("SELECT * FROM ");
 		strbuf.append(getTableName());
-		strbuf.append("ODERBY BY nivel, experiencia");
+		strbuf.append("ORDER BY nivel, experiencia");
 		System.err.println(strbuf.toString());
 	    ResultSet rs = //
 		    connection.createStatement().executeQuery(strbuf.toString());
