@@ -80,7 +80,11 @@ public class Desktop extends ContentPane {
 
 	// --------------------------------------------------------------------------------
 
-	public Component initTemplate2(IPersonajeDO personaje, IUsuarioDO usuario, Atributos atrib) {
+  // XXX: DMI: Ya no necesito pasar atrib, porque lo puedo sacar de la aplicación. Claro,
+  // asumiendo que el usuario ya hizo login. Si la application retorna nulo para el atrib
+  // entonces quiere decir que el usuario no ha hecho login
+  // public Component initTemplate2(IPersonajeDO personaje, IUsuarioDO usuario, Atributos atrib) {
+  public Component initTemplate2() {
 		try {
 			htmlLayout = new HtmlLayout( //
 					getClass().getResourceAsStream(
@@ -89,6 +93,12 @@ public class Desktop extends ContentPane {
 			throw new RuntimeException(e);
 		}
 		
+    // De esta forma se puede acceder universalmente a la aplicacion desde cualquier caso
+    // Recordar que como es una aplicacion WEB, cada sesion o conexión de usuario (cliente)
+    // tiene su propia App
+    LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+    Atributos atrib = lca.getAtributos();
+
 		//Atributos atts= new Atributos();
 //		atrib.setPersonaje(personaje);
 //		atrib.setUsuario(usuario);
@@ -111,7 +121,7 @@ public class Desktop extends ContentPane {
 		main.setLayoutData(hld);
 		htmlLayout.add(main);
 
-		System.err.println("PERSONAJE ID en desk:"+personaje.getId());
+		//System.err.println("PERSONAJE ID en desk:"+personaje.getId());
 		hld = new HtmlLayoutData("menud");
 		Menud menud = new Menud();
 		try {
