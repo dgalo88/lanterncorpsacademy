@@ -32,8 +32,8 @@ public class Planeta {
 
 	// --------------------------------------------------------------------------------
 
-	private List<Personaje> personajeList;
-	private List<Objetivo> objetivoList;
+	private List<Personaje> personajeList = new ArrayList<Personaje>();
+	private List<Objetivo> objetivoList = new ArrayList<Objetivo>();
 	
 	// --------------------------------------------------------------------------------
 
