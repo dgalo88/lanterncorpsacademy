@@ -34,7 +34,7 @@ public class ProgressBar extends CapacityBar {
 
 	public void setCurrValue (int value) {	
 		List<Number> values= new ArrayList<Number>(2);
-	    values.add(value);
+	    values.add(value%100);
 	    values.add(100-value);
 	    this.setValues(values);
 	}

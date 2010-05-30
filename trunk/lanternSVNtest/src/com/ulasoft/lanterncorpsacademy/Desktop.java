@@ -96,8 +96,8 @@ public class Desktop extends ContentPane {
     // De esta forma se puede acceder universalmente a la aplicacion desde cualquier caso
     // Recordar que como es una aplicacion WEB, cada sesion o conexión de usuario (cliente)
     // tiene su propia App
-    LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
-    Atributos atrib = lca.getAtributos();
+		LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+		Atributos atrib = lca.getAtributos();
 
 		//Atributos atts= new Atributos();
 //		atrib.setPersonaje(personaje);

@@ -120,11 +120,12 @@ public class PanelLogin extends Panel {
 	    personaje = Login.cargarPersonaje(usuario.getPersonajeRef().getRefIdent());
 	    System.err.println("PERSONAJE ID en PLogin:"+personaje.getId());
 	    
-		Atributos atts= new Atributos();
+		Atributos atts= new Atributos(); //FIXME: FIXMEEEEEEEEE
 		atts.setPersonaje(personaje);
 		atts.setUsuario(usuario);
+		app.setAtributos(atts);
 		desktop.removeAll();
-		desktop.add(desktop.initTemplate2(personaje, usuario, atts));
+		desktop.add(desktop.initTemplate2());
   }
 
   
