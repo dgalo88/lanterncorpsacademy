@@ -14,8 +14,6 @@ public class HabilidadDO implements IHabilidadDO {
 	public static final String NOMBRE = "nombre";
 	public static final String COSTO_DE_APRENDIZAJE = "costoDeAprendizaje";
 	public static final String TIPO = "tipo";
-
-
 	
 	// --------------------------------------------------------------------------------
 
