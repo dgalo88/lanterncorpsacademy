@@ -483,17 +483,26 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 
 	// --------------------------------------------------------------------------------
 
+	
+	//funcion usada para el caso de uso ver clasificacion (Listar mejores jugadores)
+	//esta funcion devuelve una lista de personajes ordenada de manera dependiendo de la posicion 
+	//La tabla que se quiere mostrar debe tener Posicion alias nivel y clase 
+	//la posicion la colocas segun El orden en que se encuentren en la lista y para la clase 
+	//solo tienes el id pero se decidio trabajarlo arriba ya que son 7 clases nada mas ...
+	//Ej si el Id es 1 es linterna verde ... (Buscar el orden en q se encuentran en la BD)
+	
 	public List<IPersonajeDO> listRankin() throws SQLException {
-
+		
 		StringBuffer strbuf = new StringBuffer();
+		
 		strbuf.append("SELECT	");
-		strbuf.append("*	FROM ");
+		strbuf.append("* FROM ");
 		strbuf.append(getTableName());
 		strbuf.append("ODERBY BY nivel, experiencia");
 		System.err.println(strbuf.toString());
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
-
+		
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
+		
 		List<IPersonajeDO> ret = new ArrayList<IPersonajeDO>();
 		PersonajeDO per;
 
