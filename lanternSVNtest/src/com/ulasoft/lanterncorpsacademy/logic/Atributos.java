@@ -40,7 +40,7 @@ public class Atributos {
 		
 		ConnectionBean connectionBean=ConnectionFactory.getConnectionBean();
 		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
-		personaje = (IPersonajeDO) GlobalDOFactory.getDO(IPersonajeDO.class);
+		//personaje = (IPersonajeDO) GlobalDOFactory.getDO(IPersonajeDO.class);
 		
 		System.err.println("PERSONAJE ID en atts:"+personaje.getId());
 		personaje= (IPersonajeDO) personajeDAO.loadById(personaje.getId());
