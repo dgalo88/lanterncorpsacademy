@@ -10,12 +10,6 @@ import java.util.List;
 
 public class Planeta {
 
-	public static final String NOMBRE = "nombre";
-	public static final String SECTOR = "sector";
-	public static final String COORDENADA_EN_X = "coordenadaEnX";
-	public static final String COORDENADA_EN_Y = "coordenadaEnY";
-	// --------------------------------------------------------------------------------
-
 	private int id;
 	private String nombre;
 	private String sector;

@@ -5,13 +5,6 @@
 @Proxy(lazy = false)
 public class Npc {
 
-	public static final String NOMBRE = "nombre";
-	public static final String NIVEL = "nivel";
-	public static final String SALUD = "salud";
-	public static final String DANO = "dano";
-	public static final String COLOR = "color";
-	// --------------------------------------------------------------------------------
-
 	private int id;
 	private String nombre;
 	private int nivel;
