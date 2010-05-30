@@ -1,11 +1,11 @@
 
 
-import lcaInterfaceDAO.INpcDO;
+import lcaInterfaceDAO.INpc;
 
 @Entity
 @Table(name = "t_npc")
 @Proxy(lazy = false)
-public class NpcDO implements INpcDO {
+public class Npc implements INpc {
 
 	public static final String NOMBRE = "nombre";
 	public static final String NIVEL = "nivel";
@@ -23,7 +23,7 @@ public class NpcDO implements INpcDO {
 
 	// --------------------------------------------------------------------------------
 
-	public NpcDO() {
+	public Npc() {
 		// Empty
 	}
 

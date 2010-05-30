@@ -3,19 +3,19 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IGrupoDO;
-import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
-import lcaInterfaceDAO.IMisionClaseLinternaDO;
-import lcaInterfaceDAO.IPersonajeDO;
-import lcaInterfaceDAO.IPlanetaDO;
+import lcaInterfaceDAO.IClaseLinterna;
+import lcaInterfaceDAO.IGrupo;
+import lcaInterfaceDAO.IHabilidadClaseLinterna;
+import lcaInterfaceDAO.IMisionClaseLinterna;
+import lcaInterfaceDAO.IPersonaje;
+import lcaInterfaceDAO.IPlaneta;
 import dao.api.Reference;
 
 @Entity
 @Table(name = "t_claseLinterna")
 @Proxy(lazy = false)
 
-public class ClaseLinternaDO implements IClaseLinternaDO {
+public class ClaseLinterna implements IClaseLinterna {
 
 	public static final String COLOR /*                */= "color";
 	public static final String NOMBRE_DE_CUERPO_LINTERNA = "nombreDeCuerpoLinterna";
@@ -29,16 +29,16 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<IPersonajeDO> personajeList = new ArrayList<IPersonajeDO>();
-	private List<IGrupoDO> grupoList = new ArrayList<IGrupoDO>();
-	private List<IHabilidadClaseLinternaDO> habilidadClaseLinternaList = new ArrayList<IHabilidadClaseLinternaDO>();
-	private List<IMisionClaseLinternaDO> misionClaseLinternaList = new  ArrayList<IMisionClaseLinternaDO>();
-	private Reference<IPlanetaDO> planetaRef = new Reference<IPlanetaDO>();
+	private List<IPersonaje> personajeList = new ArrayList<IPersonaje>();
+	private List<IGrupo> grupoList = new ArrayList<IGrupo>();
+	private List<IHabilidadClaseLinterna> habilidadClaseLinternaList = new ArrayList<IHabilidadClaseLinterna>();
+	private List<IMisionClaseLinterna> misionClaseLinternaList = new  ArrayList<IMisionClaseLinterna>();
+	private Reference<IPlaneta> planetaRef = new Reference<IPlaneta>();
 	
 	
 	// --------------------------------------------------------------------------------
 
-	public ClaseLinternaDO() {
+	public ClaseLinterna() {
 		// Empty
 	}
 
@@ -78,11 +78,11 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	@OneToMany(mappedBy = "claseRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IPersonajeDO> getPersonajeList() {
+	public List<IPersonaje> getPersonajeList() {
 		return personajeList;
 	}
 
-	public void setPersonajeList(List<IPersonajeDO> personajeList) {
+	public void setPersonajeList(List<IPersonaje> personajeList) {
 		this.personajeList = personajeList;
 	}
 
@@ -90,11 +90,11 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	@OneToMany(mappedBy = "claseRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IGrupoDO> getGrupoList() {
+	public List<IGrupo> getGrupoList() {
 		return grupoList;
 	}
 
-	public void setGrupoList(List<IGrupoDO> grupoList) {
+	public void setGrupoList(List<IGrupo> grupoList) {
 		this.grupoList = grupoList;
 	}
 
@@ -102,11 +102,11 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	@OneToMany(mappedBy = "claseRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IHabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
+	public List<IHabilidadClaseLinterna> getHabilidadClaseLinternaList() {
 		return habilidadClaseLinternaList;
 	}
 
-	public void setHabilidadClaseLinternaList(List<IHabilidadClaseLinternaDO> habilidadClaseLinternaList) {
+	public void setHabilidadClaseLinternaList(List<IHabilidadClaseLinterna> habilidadClaseLinternaList) {
 		this.habilidadClaseLinternaList = habilidadClaseLinternaList;
 	}
 	
@@ -114,11 +114,11 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	@OneToMany(mappedBy = "unoRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IMisionClaseLinternaDO> getMisionClaseLinternaList() {
+	public List<IMisionClaseLinterna> getMisionClaseLinternaList() {
 		return misionClaseLinternaList;
 	}
 
-	public void setMisionClaseLinternaList(List<IMisionClaseLinternaDO> misionClaseLinternaList) {
+	public void setMisionClaseLinternaList(List<IMisionClaseLinterna> misionClaseLinternaList) {
 		this.misionClaseLinternaList = misionClaseLinternaList;
 	}
 	

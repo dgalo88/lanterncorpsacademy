@@ -3,15 +3,15 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IObjetivoDO;
-import lcaInterfaceDAO.IPersonajeDO;
-import lcaInterfaceDAO.IPlanetaDO;
+import lcaInterfaceDAO.IObjetivo;
+import lcaInterfaceDAO.IPersonaje;
+import lcaInterfaceDAO.IPlaneta;
 
 @Entity
 @Table(name = "t_planeta")
 @Proxy(lazy = false)
 
-public class PlanetaDO implements IPlanetaDO {
+public class Planeta implements IPlaneta {
 
 	public static final String NOMBRE = "nombre";
 	public static final String SECTOR = "sector";
@@ -27,12 +27,12 @@ public class PlanetaDO implements IPlanetaDO {
 
 	// --------------------------------------------------------------------------------
 
-	private List<IPersonajeDO> personajeList = new ArrayList<IPersonajeDO>();
-	private List<IObjetivoDO> objetivoList = new ArrayList<IObjetivoDO>();
+	private List<IPersonaje> personajeList = new ArrayList<IPersonaje>();
+	private List<IObjetivo> objetivoList = new ArrayList<IObjetivo>();
 	
 	// --------------------------------------------------------------------------------
 
-	public PlanetaDO() {
+	public Planeta() {
 		// Empty
 	}
 
@@ -92,11 +92,11 @@ public class PlanetaDO implements IPlanetaDO {
 	@OneToMany(mappedBy = "planetaRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IPersonajeDO> getPersonajeList() {
+	public List<IPersonaje> getPersonajeList() {
 		return personajeList;
 	}
 
-	public void setPersonajeList(List<IPersonajeDO> personajeList) {
+	public void setPersonajeList(List<IPersonaje> personajeList) {
 		this.personajeList = personajeList;
 	}
 
@@ -105,11 +105,11 @@ public class PlanetaDO implements IPlanetaDO {
 	@OneToMany(mappedBy = "planetaRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IObjetivoDO> getObjetivoList() {
+	public List<IObjetivo> getObjetivoList() {
 		return objetivoList;
 	}
 
-	public void setObjetivoList(List<IObjetivoDO> objetivoList) {
+	public void setObjetivoList(List<IObjetivo> objetivoList) {
 		this.objetivoList = objetivoList;
 	}
 
