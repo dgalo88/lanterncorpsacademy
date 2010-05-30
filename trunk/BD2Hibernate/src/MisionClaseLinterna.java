@@ -1,17 +1,9 @@
 
-
-
-
 @Entity
 @Table(name = "t_misionclaselinterna")
 @Proxy(lazy = false)
 
 public class MisionClaseLinterna {
-
-	public static final String MISION_ID = "misionId";
-	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
-
-	// --------------------------------------------------------------------------------
 
 	private int id;
 	

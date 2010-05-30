@@ -1,8 +1,18 @@
-
 import java.util.List;
 
-public class Mision {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
+@Entity
+@Table(name = "t_grupo")
+@Proxy(lazy = false)
+public class Mision {
 
 	// --------------------------------------------------------------------------------
 
@@ -15,7 +25,7 @@ public class Mision {
 
 	private List<Orden> ordenList;
 	private List<MisionPersonaje> misionPersonajeList;
-		
+
 	// --------------------------------------------------------------------------------
 
 	public Mision() {
@@ -23,7 +33,8 @@ public class Mision {
 	}
 
 	// --------------------------------------------------------------------------------
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -43,7 +54,7 @@ public class Mision {
 	}
 
 	// --------------------------------------------------------------------------------
-	
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -53,7 +64,7 @@ public class Mision {
 	}
 
 	// --------------------------------------------------------------------------------
-	
+
 	public int getExperiencia_ganada() {
 		return experienciaGanada;
 	}
@@ -63,17 +74,18 @@ public class Mision {
 	}
 
 	// --------------------------------------------------------------------------------
-	
+
 	public int getPuntos_de_entrenamiento_ganados() {
 		return puntosDeEntrenamientoGanados;
 	}
 
-	public void setPuntos_de_entrenamiento_ganados(int puntosDeEntrenamientoGanados) {
+	public void setPuntos_de_entrenamiento_ganados(
+			int puntosDeEntrenamientoGanados) {
 		this.puntosDeEntrenamientoGanados = puntosDeEntrenamientoGanados;
 	}
-	
+
 	// --------------------------------------------------------------------------------
-	
+
 	public int getNivel_necesario() {
 		return nivelNecesario;
 	}
@@ -81,9 +93,9 @@ public class Mision {
 	public void setNivel_necesario(int nivelNecesario) {
 		this.nivelNecesario = nivelNecesario;
 	}
-	
+
 	// --------------------------------------------------------------------------------
-	
+	@ManyToOne
 	public void setOrdenList(List<Orden> ordenList) {
 		this.ordenList = ordenList;
 	}
@@ -93,7 +105,7 @@ public class Mision {
 	}
 
 	// --------------------------------------------------------------------------------
-	
+	@ManyToOne
 	public void setMisionPersonajeList(List<MisionPersonaje> misionPersonajeList) {
 		this.misionPersonajeList = misionPersonajeList;
 	}

@@ -3,18 +3,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @Table(name = "t_claseLinterna")
 @Proxy(lazy = false)
 
 public class ClaseLinterna {
-
-	public static final String COLOR /*                */= "color";
-	public static final String NOMBRE_DE_CUERPO_LINTERNA = "nombreDeCuerpoLinterna";
-	public static final String PLANETA_ID /*           */= "planetaId";
-
-	// --------------------------------------------------------------------------------
 
 	private int id;
 	private String color;
@@ -117,8 +110,6 @@ public class ClaseLinterna {
 	
 	// --------------------------------------------------------------------------------
 	
-
-
 	@ManyToOne
 	public Planeta getPlanetaRef() {
 		return planetaRef;

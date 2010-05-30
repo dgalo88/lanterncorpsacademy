@@ -12,12 +12,6 @@ public class Grupo {
 
 	// --------------------------------------------------------------------------------
 	
-	public static final String NOMBRE = "nombre";
-	public static final String ESTADO = "estado";
-	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
-	
-	// --------------------------------------------------------------------------------
-	
 	private int id;
 	private String nombre;
 	private boolean estado;
@@ -25,7 +19,7 @@ public class Grupo {
 	// --------------------------------------------------------------------------------
 
 	private List<Personaje> personajeList =new ArrayList<Personaje>();
-	private clase ClaseRef;
+	private ClaseLinterna ClaseRef;
 	// --------------------------------------------------------------------------------
 
 	public Grupo() {
