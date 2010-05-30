@@ -1,5 +1,11 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import lcaInterfaceDAO.IPersonajeDAO;
+import lcaInterfaceDAO.IPersonajeDO;
+
 import com.minotauro.echo.table.base.ETable;
 import com.minotauro.echo.table.base.ETableNavigation;
 import com.minotauro.echo.table.base.TableColModel;
@@ -11,6 +17,10 @@ import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.PersonBean;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
+import com.ulasoft.lanterncorpsacademy.logic.Ranking;
+
+import dao.api.DataObject;
+
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -27,9 +37,11 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 
+@SuppressWarnings("serial")
 public class PanelRanking extends Panel {
 	
 	private TestTableModel tableDtaModel;
+	List<IPersonajeDO> personajes;
 
 	public PanelRanking() {
 		
@@ -39,6 +51,11 @@ public class PanelRanking extends Panel {
 	    col.setBackground(Color.WHITE);
 	    add(col);
 	    col.add(initTopRow());
+	    try {
+			personajes = Ranking.obtenerRanking();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	    // ----------------------------------------
 	    // The table models
@@ -48,8 +65,9 @@ public class PanelRanking extends Panel {
 	    TableSelModel tableSelModel = new TableSelModel();
 	    tableDtaModel = new TestTableModel();
 	    tableDtaModel.setEditable(true);
-	    tableDtaModel.setPageSize(3);
-
+	    tableDtaModel.setPageSize(5);
+	    
+	    
 	    // ----------------------------------------
 	    // The table
 	    // ----------------------------------------
@@ -105,8 +123,8 @@ public class PanelRanking extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				PersonBean personaBean = (PersonBean) element;
-				return personaBean.getLastName();
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return personaje.getAlias();
 			}
 		};
 	    
@@ -119,8 +137,8 @@ public class PanelRanking extends Panel {
 	    tableColumn = new TableColumn() {
 	      @Override
 	      public Object getValue(ETable table, Object element) {
-	        PersonBean personaBean = (PersonBean) element;
-	        return personaBean.getLastName();
+	    	  IPersonajeDO personaje = (IPersonajeDO) element;
+	        return personaje.getNivel();
 	      }
 	    };
 	    
@@ -133,8 +151,8 @@ public class PanelRanking extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				PersonBean personaBean = (PersonBean) element;
-				return personaBean.getLastName();
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return (personaje.getClaseLinternaRef()).getRefIdent();
 			}
 		};
 	    
@@ -145,43 +163,6 @@ public class PanelRanking extends Panel {
 	    tableColModel.getTableColumnList().add(tableColumn);
 
 	    return tableColModel;
-	  }
-
-	  // --------------------------------------------------------------------------------
-	  // Setup command bar renderer
-	  // --------------------------------------------------------------------------------
-
-	  private NestedCellRenderer initNestedCellRenderer() {
-		  
-	    NestedCellRenderer nestedCellRenderer = new NestedCellRenderer();
-	    nestedCellRenderer.getCellRendererList().add(new BaseCellRenderer() {
-	      @Override
-	      public Component getCellRenderer( //
-	          final ETable table, final Object value, final int col, final int row) {
-
-	        boolean editable = ((TestTableModel) table.getTableDtaModel()).getEditable();
-
-	        RadioButton ret = new RadioButton();
-	        ret.setStyle(GUIStyles.DEFAULT_STYLE);
-	        ret.setEnabled(editable);
-	        ret.setToolTipText("Seleccion");
-
-	        ret.addActionListener(new ActionListener() {
-	          public void actionPerformed(ActionEvent e) {
-	            btnRadioClicked(row);
-	          }
-	        });
-	        return ret;
-	      }
-	    });
-
-	    return nestedCellRenderer;
-	  }
-
-	  // --------------------------------------------------------------------------------
-
-	  private void btnRadioClicked(int row) {
-	    
 	  }
 
 }
