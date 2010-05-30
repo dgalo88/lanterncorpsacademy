@@ -29,10 +29,10 @@ public class ClaseLinterna {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<Personaje> personajeList;
-	private List<Grupo> grupoList;
-	private List<HabilidadClaseLinterna> habilidadClaseLinternaList;
-	private List<MisionClaseLinterna> misionClaseLinternaList;
+	private List<Personaje> personajeList = new ArrayList<Personaje>();
+	private List<Grupo> grupoList = new ArrayList<Grupo>();
+	private List<HabilidadClaseLinterna> habilidadClaseLinternaList = new ArrayList<HabilidadClaseLinterna>();
+	private List<MisionClaseLinterna> misionClaseLinternaList = new ArrayList<MisionClaseLinterna>();
 	private Planeta planetaRef;
 	
 	

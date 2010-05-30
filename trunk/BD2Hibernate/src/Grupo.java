@@ -32,7 +32,7 @@ public class Grupo {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<Personaje> personajeList;
+	private List<Personaje> personajeList = new ArrayList<Personaje>();
 	private ClaseLinterna claseLinternaRef;
 	// --------------------------------------------------------------------------------
 
