@@ -266,6 +266,28 @@ public class MisionPersonajeDAO extends BaseDAO implements IMisionPersonajeDAO {
   }
 
 //--------------------------------------------------------------------------------
+  @Override
+  public int countByPersonajeId(int personajeid) throws SQLException {
+    StringBuffer strbuf = new StringBuffer();
+
+    strbuf.append("SELECT COUNT(*) FROM ");
+    strbuf.append(getTableName());
+    strbuf.append(" WHERE ");
+    strbuf.append(MisionPersonajeDO.PERSONAJE_ID);
+    strbuf.append(" = ");
+    strbuf.append(personajeid);
+
+    System.err.println(strbuf.toString());
+
+    ResultSet rs = //
+    connection.createStatement().executeQuery(strbuf.toString());
+
+    rs.next();
+
+    return rs.getInt("count");
+  }
+
+//--------------------------------------------------------------------------------
 
   public List<IMisionPersonajeDO> listByMisionId(int misionId) throws SQLException {
     StringBuffer strbuf = new StringBuffer();

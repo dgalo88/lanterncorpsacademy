@@ -19,4 +19,6 @@ public interface IMisionPersonajeDAO extends InterfaceDAO{
 	public abstract void loadMisionRef(IMisionPersonajeDO misionpersonajeDO)
 			throws SQLException;
 
+	int countByPersonajeId(int personajeid) throws SQLException;
+
 }

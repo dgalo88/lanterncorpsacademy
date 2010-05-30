@@ -305,8 +305,9 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO{
     }
 
     ret = new PlanetaDO();
-
+    
     ret.setId/*     			*/(rs.getInt(PlanetaDO.ID));
+    ret.setNombre/*             */(rs.getString(PlanetaDO.NOMBRE));
     ret.setSector/*				*/(rs.getString(PlanetaDO.SECTOR));
     ret.setCoordenadaEnX/*  	*/(rs.getFloat(PlanetaDO.COORDENADA_EN_X));
     ret.setCoordenadaEnY/*  	*/(rs.getFloat(PlanetaDO.COORDENADA_EN_Y));
