@@ -1,4 +1,5 @@
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,8 +34,8 @@ public class Personaje {
 	private Date ultimaFechaIngreso;
 
 	private Planeta planetaRef;
-	private List<HabilidadActiva> habilidadActivaList;
-	private List<MisionPersonaje> misionPersonajeList;
+	private List<HabilidadActiva> habilidadActivaList = new ArrayList<HabilidadActiva>();
+	private List<MisionPersonaje> misionPersonajeList = new ArrayList<MisionPersonaje>();
 	private Grupo grupoRef;
 	private ClaseLinterna claseLinternaRef;
 
