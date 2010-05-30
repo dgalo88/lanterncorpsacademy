@@ -1,15 +1,12 @@
 
 
-import lcaInterfaceDAO.IClaseLinterna;
-import lcaInterfaceDAO.IMisionClaseLinterna;
-import lcaInterfaceDAO.IMision;
-import dao.api.Reference;
+
 
 @Entity
 @Table(name = "t_misionclaselinterna")
 @Proxy(lazy = false)
 
-public class MisionClaseLinterna implements IMisionClaseLinterna {
+public class MisionClaseLinterna {
 
 	public static final String MISION_ID = "misionId";
 	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
@@ -20,8 +17,8 @@ public class MisionClaseLinterna implements IMisionClaseLinterna {
 	
 	// --------------------------------------------------------------------------------
 
-	private Reference<IMision> misionRef = new Reference<IMision>();
-	private Reference<IClaseLinterna> claseLinternaRef = new Reference<IClaseLinterna>();
+	private Mision misionRef;
+	private ClaseLinterna claseLinternaRef;
 	
 	// --------------------------------------------------------------------------------
 
@@ -43,13 +40,6 @@ public class MisionClaseLinterna implements IMisionClaseLinterna {
 
 	// --------------------------------------------------------------------------------
 
-//	public Reference<IMisionDO> getMisionRef() {
-//		return misionRef;
-//	}
-//
-//	public void setMisionRef(Reference<IMisionDO> misionRef) {
-//		this.misionRef = misionRef;
-//	}
 
 	@ManyToOne
 	public Mision getMisionRef() {
@@ -62,21 +52,14 @@ public class MisionClaseLinterna implements IMisionClaseLinterna {
 	
 	// --------------------------------------------------------------------------------
 
-//	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
-//		return claseLinternaRef;
-//	}
-//
-//	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
-//		this.claseLinternaRef = claseLinternaRef;
-//	}
 	
 	@ManyToOne
-	public Clase getClaseRef() {
-		return claseRef;
+	public ClaseLinterna getClaseLinternaRef() {
+		return claseLinternaRef;
 	}
 
-	public void setClaseRef(Clase claseRef) {
-		this.claseRef = claseRef;
+	public void setClaseLinternaRef(ClaseLinterna claseLinternaRef) {
+		this.claseLinternaRef = claseLinternaRef;
 	}
 
 }

@@ -3,19 +3,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IClaseLinterna;
-import lcaInterfaceDAO.IGrupo;
-import lcaInterfaceDAO.IHabilidadClaseLinterna;
-import lcaInterfaceDAO.IMisionClaseLinterna;
-import lcaInterfaceDAO.IPersonaje;
-import lcaInterfaceDAO.IPlaneta;
-import dao.api.Reference;
 
 @Entity
 @Table(name = "t_claseLinterna")
 @Proxy(lazy = false)
 
-public class ClaseLinterna implements IClaseLinterna {
+public class ClaseLinterna {
 
 	public static final String COLOR /*                */= "color";
 	public static final String NOMBRE_DE_CUERPO_LINTERNA = "nombreDeCuerpoLinterna";
@@ -29,11 +22,11 @@ public class ClaseLinterna implements IClaseLinterna {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<IPersonaje> personajeList = new ArrayList<IPersonaje>();
-	private List<IGrupo> grupoList = new ArrayList<IGrupo>();
-	private List<IHabilidadClaseLinterna> habilidadClaseLinternaList = new ArrayList<IHabilidadClaseLinterna>();
-	private List<IMisionClaseLinterna> misionClaseLinternaList = new  ArrayList<IMisionClaseLinterna>();
-	private Reference<IPlaneta> planetaRef = new Reference<IPlaneta>();
+	private List<Personaje> personajeList = new ArrayList<Personaje>();
+	private List<Grupo> grupoList = new ArrayList<Grupo>();
+	private List<HabilidadClaseLinterna> habilidadClaseLinternaList = new ArrayList<HabilidadClaseLinterna>();
+	private List<MisionClaseLinterna> misionClaseLinternaList = new  ArrayList<MisionClaseLinterna>();
+	private Planeta planetaRef;
 	
 	
 	// --------------------------------------------------------------------------------
@@ -78,11 +71,11 @@ public class ClaseLinterna implements IClaseLinterna {
 	@OneToMany(mappedBy = "claseRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IPersonaje> getPersonajeList() {
+	public List<Personaje> getPersonajeList() {
 		return personajeList;
 	}
 
-	public void setPersonajeList(List<IPersonaje> personajeList) {
+	public void setPersonajeList(List<Personaje> personajeList) {
 		this.personajeList = personajeList;
 	}
 
@@ -90,11 +83,11 @@ public class ClaseLinterna implements IClaseLinterna {
 	@OneToMany(mappedBy = "claseRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IGrupo> getGrupoList() {
+	public List<Grupo> getGrupoList() {
 		return grupoList;
 	}
 
-	public void setGrupoList(List<IGrupo> grupoList) {
+	public void setGrupoList(List<Grupo> grupoList) {
 		this.grupoList = grupoList;
 	}
 
@@ -102,11 +95,11 @@ public class ClaseLinterna implements IClaseLinterna {
 	@OneToMany(mappedBy = "claseRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IHabilidadClaseLinterna> getHabilidadClaseLinternaList() {
+	public List<HabilidadClaseLinterna> getHabilidadClaseLinternaList() {
 		return habilidadClaseLinternaList;
 	}
 
-	public void setHabilidadClaseLinternaList(List<IHabilidadClaseLinterna> habilidadClaseLinternaList) {
+	public void setHabilidadClaseLinternaList(List<HabilidadClaseLinterna> habilidadClaseLinternaList) {
 		this.habilidadClaseLinternaList = habilidadClaseLinternaList;
 	}
 	
@@ -114,23 +107,17 @@ public class ClaseLinterna implements IClaseLinterna {
 	@OneToMany(mappedBy = "unoRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IMisionClaseLinterna> getMisionClaseLinternaList() {
+	public List<MisionClaseLinterna> getMisionClaseLinternaList() {
 		return misionClaseLinternaList;
 	}
 
-	public void setMisionClaseLinternaList(List<IMisionClaseLinterna> misionClaseLinternaList) {
+	public void setMisionClaseLinternaList(List<MisionClaseLinterna> misionClaseLinternaList) {
 		this.misionClaseLinternaList = misionClaseLinternaList;
 	}
 	
 	// --------------------------------------------------------------------------------
 	
-//	public Reference<IPlanetaDO> getPlanetaRef() {
-//		return planetaRef;
-//	}
-//
-//	public void setPlanetaRef(Reference<IPlanetaDO> planetaRef) {
-//		this.planetaRef = planetaRef;
-//	}
+
 
 	@ManyToOne
 	public Planeta getPlanetaRef() {

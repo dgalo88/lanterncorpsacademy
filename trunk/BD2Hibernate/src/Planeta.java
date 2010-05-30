@@ -3,15 +3,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IObjetivo;
-import lcaInterfaceDAO.IPersonaje;
-import lcaInterfaceDAO.IPlaneta;
 
 @Entity
 @Table(name = "t_planeta")
 @Proxy(lazy = false)
 
-public class Planeta implements IPlaneta {
+public class Planeta {
 
 	public static final String NOMBRE = "nombre";
 	public static final String SECTOR = "sector";
@@ -27,8 +24,8 @@ public class Planeta implements IPlaneta {
 
 	// --------------------------------------------------------------------------------
 
-	private List<IPersonaje> personajeList = new ArrayList<IPersonaje>();
-	private List<IObjetivo> objetivoList = new ArrayList<IObjetivo>();
+	private List<Personaje> personajeList = new ArrayList<Personaje>();
+	private List<Objetivo> objetivoList = new ArrayList<Objetivo>();
 	
 	// --------------------------------------------------------------------------------
 
@@ -92,11 +89,11 @@ public class Planeta implements IPlaneta {
 	@OneToMany(mappedBy = "planetaRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IPersonaje> getPersonajeList() {
+	public List<Personaje> getPersonajeList() {
 		return personajeList;
 	}
 
-	public void setPersonajeList(List<IPersonaje> personajeList) {
+	public void setPersonajeList(List<Personaje> personajeList) {
 		this.personajeList = personajeList;
 	}
 
@@ -105,11 +102,11 @@ public class Planeta implements IPlaneta {
 	@OneToMany(mappedBy = "planetaRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IObjetivo> getObjetivoList() {
+	public List<Objetivo> getObjetivoList() {
 		return objetivoList;
 	}
 
-	public void setObjetivoList(List<IObjetivo> objetivoList) {
+	public void setObjetivoList(List<Objetivo> objetivoList) {
 		this.objetivoList = objetivoList;
 	}
 
