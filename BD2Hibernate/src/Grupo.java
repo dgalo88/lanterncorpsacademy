@@ -3,16 +3,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IClaseLinterna;
-import lcaInterfaceDAO.IGrupo;
-import lcaInterfaceDAO.IPersonaje;
-import dao.api.Reference;
 
 @Entity
 @Table(name = "t_grupo")
 @Proxy(lazy = false)
 
-public class Grupo implements IGrupo {
+public class Grupo {
 
 	// --------------------------------------------------------------------------------
 	
@@ -28,9 +24,8 @@ public class Grupo implements IGrupo {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<IPersonaje> personajeList =new ArrayList<IPersonaje>();
-//	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
-	private clase getClaseRef;
+	private List<Personaje> personajeList =new ArrayList<Personaje>();
+	private clase ClaseRef;
 	// --------------------------------------------------------------------------------
 
 	public Grupo() {
@@ -73,24 +68,17 @@ public class Grupo implements IGrupo {
 	@OneToMany(mappedBy = "grupoRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IPersonaje> getPersonajeList() {
+	public List<Personaje> getPersonajeList() {
 		return personajeList;
 	}
 
-	public void setPersonajeList(List<IPersonaje> personajeList) {
+	public void setPersonajeList(List<Personaje> personajeList) {
 		this.personajeList = personajeList;
 	}
 
 	// --------------------------------------------------------------------------------
 
-//	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
-//		return claseLinternaRef;
-//	}
-//
-//	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
-//		this.claseLinternaRef = claseLinternaRef;
-//	}
-	
+
 	@ManyToOne
 	public clase getClaseRef() {
 		return claseRef;
