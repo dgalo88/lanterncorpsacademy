@@ -5,9 +5,6 @@ import lcaInterfaceDAO.IMisionClaseLinternaDO;
 import lcaInterfaceDAO.IMisionDO;
 import dao.api.Reference;
 
-@Entity
-@Table(name = "t_misionclaselinterna")
-@Proxy(lazy = false)
 
 public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 
@@ -31,8 +28,7 @@ public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -43,40 +39,22 @@ public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 
-//	public Reference<IMisionDO> getMisionRef() {
-//		return misionRef;
-//	}
-//
-//	public void setMisionRef(Reference<IMisionDO> misionRef) {
-//		this.misionRef = misionRef;
-//	}
-
-	@ManyToOne
-	public Mision getMisionRef() {
+	public Reference<IMisionDO> getMisionRef() {
 		return misionRef;
 	}
 
-	public void setMisionRef(Mision misionRef) {
+	public void setMisionRef(Reference<IMisionDO> misionRef) {
 		this.misionRef = misionRef;
 	}
-	
+
 	// --------------------------------------------------------------------------------
 
-//	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
-//		return claseLinternaRef;
-//	}
-//
-//	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
-//		this.claseLinternaRef = claseLinternaRef;
-//	}
-	
-	@ManyToOne
-	public Clase getClaseRef() {
-		return claseRef;
+	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
+		return claseLinternaRef;
 	}
 
-	public void setClaseRef(Clase claseRef) {
-		this.claseRef = claseRef;
+	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
+		this.claseLinternaRef = claseLinternaRef;
 	}
 
 }

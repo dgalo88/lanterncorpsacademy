@@ -303,4 +303,46 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO{
 				.listByHabilidadId(habilidadDO.getId()));
 	}
 
+	@Override
+	public List<DataObject> listHabIniciales(int claseid) throws ClassNotFoundException, Exception {
+		
+		HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO.getDAO( //
+		        HabilidadClaseLinternaDAO.class, connectionBean);
+		
+		   StringBuffer strbuf = new StringBuffer();
+
+	       strbuf.append("SELECT "+getTableName()+".* FROM ");
+	       strbuf.append(getTableName());
+	       strbuf.append(" RIGHT JOIN  ");
+	       strbuf.append(habilidadClaseLinternaDAO.getTableName());
+	       strbuf.append(" ON ");
+	       strbuf.append(getTableName());
+	       strbuf.append("."+HabilidadDO.ID);
+	       strbuf.append(" = ");
+	       strbuf.append(habilidadClaseLinternaDAO.getTableName());
+	       strbuf.append("."+HabilidadClaseLinternaDO.HABILIDAD_ID);
+	       strbuf.append(" WHERE ");
+	       strbuf.append(HabilidadClaseLinternaDO.CLASE_LINTERNA_ID);
+	       strbuf.append(" = ");
+	       strbuf.append(claseid);
+	       strbuf.append(" AND ");
+	       strbuf.append(getTableName());
+	       strbuf.append("."+HabilidadDO.ID);
+	       strbuf.append(">25 ");
+	       
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+	    System.err.println(strbuf.toString());
+
+	    List<DataObject> ret = new ArrayList<DataObject>();
+
+	    while (rs.next()) {
+	        ret.add(resultSetToDO(rs));
+	      }
+
+	      return ret;
+		//return null;
+	}
+
 }
