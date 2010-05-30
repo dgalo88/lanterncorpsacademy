@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
@@ -18,7 +19,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
 @Entity
-@Table(name = "t_mision")
+@Table(name = "t_personaje")
 @Proxy(lazy = false)
 public class Personaje {
 
@@ -48,6 +49,7 @@ public class Personaje {
 	// --------------------------------------------------------------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@OneToOne(mappedBy = "personajeRef")
 	public int getId() {
 		return id;
 	}
@@ -57,7 +59,7 @@ public class Personaje {
 	}
 
 	// --------------------------------------------------------------------------------
-	@Column(unique=true, nullable=false)
+	@Column(unique = true, nullable = false)
 	public String getAlias() {
 		return alias;
 	}
@@ -73,7 +75,7 @@ public class Personaje {
 	}
 
 	public void setExperiencia(int experiencia) {
-		if(experiencia<this.experiencia)
+		if (experiencia < this.experiencia)
 			return;
 		this.experiencia = experiencia;
 	}
@@ -85,7 +87,7 @@ public class Personaje {
 	}
 
 	public void setPuntosDeEntrenamiento(int puntosDeEntrenamiento) {
-		if(puntosDeEntrenamiento<0)
+		if (puntosDeEntrenamiento < 0)
 			return;
 		this.puntosDeEntrenamiento = puntosDeEntrenamiento;
 	}
@@ -133,7 +135,7 @@ public class Personaje {
 	}
 
 	public void setUltimaFechaIngreso(Date ultimaFechaIngreso) {
-		if(ultimaFechaIngreso.before(this.ultimaFechaIngreso))
+		if (ultimaFechaIngreso.before(this.ultimaFechaIngreso))
 			return;
 		this.ultimaFechaIngreso = ultimaFechaIngreso;
 	}
@@ -141,20 +143,20 @@ public class Personaje {
 	// --------------------------------------------------------------------------------
 
 	@ManyToOne
-	public Planeta getPlanetaRef(){
+	public Planeta getPlanetaRef() {
 		return planetaRef;
 	}
 
 	public void setPlanetaRef(Planeta planetaRef) {
-			
+
 		this.planetaRef = planetaRef;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	@OneToMany(mappedBy= "habilidadRef")
+	@OneToMany(mappedBy = "habilidadRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@Cascade({CascadeType.ALL, CascadeType.DELETE_ORPHAN})
+	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<HabilidadActiva> getHabilidadActivaList() {
 		return habilidadActivaList;
 	}
@@ -164,9 +166,9 @@ public class Personaje {
 	}
 
 	// --------------------------------------------------------------------------------
-	@OneToMany(mappedBy= "personajeRef")
+	@OneToMany(mappedBy = "personajeRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
-	@Cascade({CascadeType.ALL, CascadeType.DELETE_ORPHAN})
+	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<MisionPersonaje> getMisionPersonajeList() {
 		return misionPersonajeList;
 	}
