@@ -3,16 +3,16 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IGrupoDO;
-import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IClaseLinterna;
+import lcaInterfaceDAO.IGrupo;
+import lcaInterfaceDAO.IPersonaje;
 import dao.api.Reference;
 
 @Entity
 @Table(name = "t_grupo")
 @Proxy(lazy = false)
 
-public class GrupoDO implements IGrupoDO {
+public class Grupo implements IGrupo {
 
 	// --------------------------------------------------------------------------------
 	
@@ -28,12 +28,12 @@ public class GrupoDO implements IGrupoDO {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<IPersonajeDO> personajeList =new ArrayList<IPersonajeDO>();
+	private List<IPersonaje> personajeList =new ArrayList<IPersonaje>();
 //	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
 	private clase getClaseRef;
 	// --------------------------------------------------------------------------------
 
-	public GrupoDO() {
+	public Grupo() {
 		// Empty
 	}
 
@@ -73,11 +73,11 @@ public class GrupoDO implements IGrupoDO {
 	@OneToMany(mappedBy = "grupoRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public List<IPersonajeDO> getPersonajeList() {
+	public List<IPersonaje> getPersonajeList() {
 		return personajeList;
 	}
 
-	public void setPersonajeList(List<IPersonajeDO> personajeList) {
+	public void setPersonajeList(List<IPersonaje> personajeList) {
 		this.personajeList = personajeList;
 	}
 

@@ -1,15 +1,15 @@
 
 
-import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IMisionClaseLinternaDO;
-import lcaInterfaceDAO.IMisionDO;
+import lcaInterfaceDAO.IClaseLinterna;
+import lcaInterfaceDAO.IMisionClaseLinterna;
+import lcaInterfaceDAO.IMision;
 import dao.api.Reference;
 
 @Entity
 @Table(name = "t_misionclaselinterna")
 @Proxy(lazy = false)
 
-public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
+public class MisionClaseLinterna implements IMisionClaseLinterna {
 
 	public static final String MISION_ID = "misionId";
 	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
@@ -20,12 +20,12 @@ public class MisionClaseLinternaDO implements IMisionClaseLinternaDO {
 	
 	// --------------------------------------------------------------------------------
 
-	private Reference<IMisionDO> misionRef = new Reference<IMisionDO>();
-	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
+	private Reference<IMision> misionRef = new Reference<IMision>();
+	private Reference<IClaseLinterna> claseLinternaRef = new Reference<IClaseLinterna>();
 	
 	// --------------------------------------------------------------------------------
 
-	public MisionClaseLinternaDO() {
+	public MisionClaseLinterna() {
 		// Empty
 	}
 
