@@ -3,6 +3,20 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Proxy;
+
 @Entity
 @Table(name = "t_claseLinterna")
 @Proxy(lazy = false)
@@ -15,10 +29,10 @@ public class ClaseLinterna {
 	
 	// --------------------------------------------------------------------------------
 
-	private List<Personaje> personajeList = new ArrayList<Personaje>();
-	private List<Grupo> grupoList = new ArrayList<Grupo>();
-	private List<HabilidadClaseLinterna> habilidadClaseLinternaList = new ArrayList<HabilidadClaseLinterna>();
-	private List<MisionClaseLinterna> misionClaseLinternaList = new  ArrayList<MisionClaseLinterna>();
+	private List<Personaje> personajeList;
+	private List<Grupo> grupoList;
+	private List<HabilidadClaseLinterna> habilidadClaseLinternaList;
+	private List<MisionClaseLinterna> misionClaseLinternaList;
 	private Planeta planetaRef;
 	
 	
