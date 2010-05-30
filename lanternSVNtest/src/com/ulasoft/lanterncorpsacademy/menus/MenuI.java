@@ -167,7 +167,10 @@ public class MenuI extends Panel {
 	private void btnExitClicked() {
 		Desktop desktop = app.getDesktop();
 		d.removeAll();
-	    d.add(desktop.initTemplate1());
+    d.add(desktop.initTemplate1());
+    // El usuario está haciendo logout, asi que ponemos los atributos a null en la aplicacion
+    LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+    lca.setAtributos(null);
 	  }
 	}
 
