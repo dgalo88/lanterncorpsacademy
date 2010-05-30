@@ -40,16 +40,7 @@ public class Menud extends Panel {
 		Label lblNivel = new Label("NIvel");
 		lblNiveLabelValue = new Label("XX");
 		
-//		Desktop d = (Desktop) getParent();
-				
-//		System.err.println("PERSONAJE ID en menud:"+personaje.getId());
-//		personaje =d.getPersonajeDO();
-	
-//		salud.setCurrValue(95);
-//		energia.setCurrValue(90);
-//		experiencia.setCurrValue(80);
-//		lblTrainsValue = new Label("XXXXX");
-//		lblNiveLabelValue = new Label("XXXXX");
+
 
 		grid.add(lblSalud);
 		grid.add(salud);

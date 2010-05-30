@@ -114,10 +114,14 @@ public class Desktop extends ContentPane {
 		menui.setLayoutData(hld);
 		htmlLayout.add(menui);
 
-		hld = new HtmlLayoutData("main");
 		PanelMain main = new PanelMain();
-		main.setLayoutData(hld);
-		main.setId("main"); // Para poder removerlo luego
+		hld = new HtmlLayoutData("main");
+		main.setId("main");
+//		try {
+//			atrib.updatePanelMain (main);
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//		}
 		main.setLayoutData(hld);
 		htmlLayout.add(main);
 
