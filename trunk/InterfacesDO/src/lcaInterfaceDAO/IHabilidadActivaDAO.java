@@ -3,6 +3,7 @@ package lcaInterfaceDAO;
 import java.sql.SQLException;
 import java.util.List;
 
+import dao.api.DataObject;
 import dao.api.InterfaceDAO;
 
 public interface IHabilidadActivaDAO extends InterfaceDAO {
@@ -17,6 +18,9 @@ public interface IHabilidadActivaDAO extends InterfaceDAO {
 			throws SQLException;
 
 	public abstract void loadHabilidadRef(IHabilidadActivaDO habilidadActivaDO)
+			throws SQLException;
+
+	DataObject loadByHabilidadId(int habid, int personajeId)
 			throws SQLException;
 
 }

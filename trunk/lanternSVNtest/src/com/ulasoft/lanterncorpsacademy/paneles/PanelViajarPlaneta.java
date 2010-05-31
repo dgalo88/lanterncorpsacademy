@@ -28,6 +28,7 @@ import factory.GlobalDOFactory;
 public class PanelViajarPlaneta extends Panel{
 
 	private Label lblSelected;
+	LanternCorpsAcademyApp aplicacion = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 
 	@SuppressWarnings("serial")
 	public PanelViajarPlaneta() {
@@ -58,19 +59,28 @@ public class PanelViajarPlaneta extends Panel{
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					Viajar.viajarA(evt.getActionCommand());
+										
+					if (Viajar.viajarA(evt.getActionCommand())) {
+//						Desktop d=app.getDesktop();
+//						d.setWindowPaneEmergente("Has viajado a:"+evt.getActionCommand());
+						PlanetClicked();				
+					}
+					
+					else {
+						Desktop d=app.getDesktop();
+						d.setWindowPaneEmergente("No tienes suficiente energia disponible llegar.");
+						}
+					
+					
 				} catch (Exception e) {
-
 					e.printStackTrace();
 				}
-				PlanetClicked();				
 				lblSelected.setText("Voy a:"+evt.getActionCommand());
 			
 			}
 		});
 
-		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
-		Atributos atts = app.getAtributos();
+//		Atributos atts = app.getAtributos();
 
 		//CircleSection(int x, int y, int radius, String... values) 
 		//LAS COORDENADAS TIENEN Q SALIR DE LA BD repetir para el resto de los planetas..
@@ -87,6 +97,9 @@ public class PanelViajarPlaneta extends Panel{
 	protected void PlanetClicked() {
 		PanelMain pnlMain = new PanelMain();
 		Desktop d = app.getDesktop();
+		
+		d.setWindowPaneEmergente("Has viajado a:");
+		
 		d.setPanelCentral(pnlMain);
 		
 	}
