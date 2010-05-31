@@ -498,7 +498,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		strbuf.append("SELECT	");
 		strbuf.append("* FROM ");
 		strbuf.append(getTableName());
-		strbuf.append(" ODERBY BY nivel, experiencia");
+		strbuf.append(" ORDER BY nivel, experiencia");
 		System.err.println(strbuf.toString());
 		
 		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
@@ -577,7 +577,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		strbuf.append(PersonajeDO.ID);
 		strbuf.append(" <> ");
 		strbuf.append(personajeId);
-		strbuf.append(" ODERBY BY ");
+		strbuf.append(" ORDER BY ");
 		strbuf.append(PersonajeDO.NIVEL);
 
 		System.err.println(strbuf.toString());
