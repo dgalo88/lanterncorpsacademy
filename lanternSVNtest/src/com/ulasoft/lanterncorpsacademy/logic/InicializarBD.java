@@ -238,7 +238,7 @@ public class InicializarBD {
 			PlanetaDO[24].setCoordenadaEnX(508);
 			PlanetaDO[25].setCoordenadaEnX(500);
 			PlanetaDO[26].setCoordenadaEnX(286);
-			PlanetaDO[27].setCoordenadaEnX(284);
+			PlanetaDO[27].setCoordenadaEnX(584);
 			PlanetaDO[28].setCoordenadaEnX(300);
 			PlanetaDO[29].setCoordenadaEnX(255);
 			PlanetaDO[30].setCoordenadaEnX(624);
