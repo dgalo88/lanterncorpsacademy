@@ -498,7 +498,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		strbuf.append("SELECT	");
 		strbuf.append("* FROM ");
 		strbuf.append(getTableName());
-		strbuf.append("ODERBY BY nivel, experiencia");
+		strbuf.append(" ODERBY BY nivel, experiencia");
 		System.err.println(strbuf.toString());
 		
 		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
@@ -555,6 +555,51 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	      return resultSetToDO(rs);
 	    }
 	    return null;
+	}
+	
+	
+	//Metodo recibe el id del personaje del planeta actual y de la clase a la que pertenece y
+	//retorna la lista de personajes a atacar ordenados por el nivel de manera ascendente
+	@Override
+	public List<IPersonajeDO> listContrincantes(int personajeId, int claseId, int planetaId) throws SQLException {
+	
+		StringBuffer strbuf = new StringBuffer();
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+		strbuf.append(" WHERE ");
+		strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
+		strbuf.append(" = ");
+		strbuf.append(claseId);
+		strbuf.append(" AND ");
+		strbuf.append(PersonajeDO.PLANETA_ID);
+		strbuf.append(" = ");
+		strbuf.append(planetaId);
+		strbuf.append(PersonajeDO.ID);
+		strbuf.append(" <> ");
+		strbuf.append(personajeId);
+		strbuf.append(" ODERBY BY ");
+		strbuf.append(PersonajeDO.NIVEL);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<IPersonajeDO> ret = new ArrayList<IPersonajeDO>();
+		PersonajeDO per;
+
+		while (rs.next()) {
+			per = (PersonajeDO) dtaSession.getDtaByKey( //
+					PersonajeDO.class, rs.getInt(PersonajeDO.ID));
+
+			if (per == null) {
+				per = (PersonajeDO) dtaSession.add(resultSetToDO(rs));
+			}
+
+			ret.add(per);
+		}
+
+		return ret;
 	}
 
 }
