@@ -1,14 +1,11 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
-import com.ulasoft.lanterncorpsacademy.TestTableModel;
 
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
+
+import com.ulasoft.lanterncorpsacademy.TestTableModel;
 
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
