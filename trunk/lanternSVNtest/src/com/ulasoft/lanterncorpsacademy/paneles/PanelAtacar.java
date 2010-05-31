@@ -34,13 +34,16 @@ import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.RadioButton;
 import nextapp.echo.app.Row;
+import nextapp.echo.app.button.ButtonGroup;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class PanelAtacar extends Panel{
 
 	private TestTableModel tableDtaModel;
 	List<IPersonajeDO> personajes;
+	ButtonGroup btnGroupClases = new ButtonGroup();
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 		LanternCorpsAcademyApp.getActive();
 	
@@ -72,10 +75,9 @@ public class PanelAtacar extends Panel{
 	    try {
 			personajes = Atacar.obtenerContrincantes(atrr.getPersonaje());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
+		tableDtaModel = Atacar.asignarRanking(tableDtaModel,personajes);
 	    // ----------------------------------------
 	    // The table
 	    // ----------------------------------------
@@ -192,10 +194,10 @@ public class PanelAtacar extends Panel{
 	        boolean editable = ((TestTableModel) table.getTableDtaModel()).getEditable();
 
 	        RadioButton ret = new RadioButton();
-	        ret.setStyle(GUIStyles.DEFAULT_STYLE);
+//	        ret.setStyle(GUIStyles.DEFAULT_STYLE);
 	        ret.setEnabled(editable);
 	        ret.setToolTipText("Seleccion");
-
+	        ret.setGroup(btnGroupClases);
 	        ret.addActionListener(new ActionListener() {
 	          public void actionPerformed(ActionEvent e) {
 	            btnRadioClicked(row);
