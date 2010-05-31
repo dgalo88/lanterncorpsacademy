@@ -75,7 +75,7 @@ public class ClaseLinterna {
 	}
 	
 	// --------------------------------------------------------------------------------
-	@OneToMany(mappedBy = "claseRef")
+	@OneToMany(mappedBy = "claseLinternaRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<Personaje> getPersonajeList() {
@@ -87,7 +87,7 @@ public class ClaseLinterna {
 	}
 
 	// --------------------------------------------------------------------------------
-	@OneToMany(mappedBy = "claseRef")
+	@OneToMany(mappedBy = "claseLinternaRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<Grupo> getGrupoList() {
@@ -99,7 +99,7 @@ public class ClaseLinterna {
 	}
 
 	// --------------------------------------------------------------------------------
-	@OneToMany(mappedBy = "claseRef")
+	@OneToMany(mappedBy = "claseLinternaRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<HabilidadClaseLinterna> getHabilidadClaseLinternaList() {
@@ -111,7 +111,7 @@ public class ClaseLinterna {
 	}
 	
 	// --------------------------------------------------------------------------------
-	@OneToMany(mappedBy = "unoRef")
+	@OneToMany(mappedBy = "claseLinternaRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<MisionClaseLinterna> getMisionClaseLinternaList() {
