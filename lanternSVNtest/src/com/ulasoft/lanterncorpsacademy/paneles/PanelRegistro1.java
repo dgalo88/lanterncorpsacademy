@@ -130,6 +130,7 @@ public class PanelRegistro1 extends Panel {
 
 		usuario.setNombre(txtNombre.getText());
 		usuario.setCorreo(txtCorreo.getText());
+		
 
 		if (!(fldConfirmPass.getText().equals(fldPass.getText()))) { // JUL:defensive..
 			if (col.getComponentCount() > 3) {
@@ -167,9 +168,8 @@ public class PanelRegistro1 extends Panel {
 		// Si no hay campos vacios proceder a la siguiente etapa del registro
 
 		if (!(checkEmptyFields())) {
+			usuario.setClave(fldPass.getText());
 			PanelRegistro2 pnlregistro2 = new PanelRegistro2(usuario, personaje);
-			// pnlregistro2.set(PROPERTY_HEIGHT, new Extent(400));
-			// pnlregistro2.set(PROPERTY_WIDTH, new Extent(900));
 			desktop = app.getDesktop();
 			desktop.setPanelCentral(pnlregistro2);
 		}
