@@ -61,14 +61,13 @@ public class PanelViajarPlaneta extends Panel{
 				try {
 										
 					if (Viajar.viajarA(evt.getActionCommand())) {
-//						Desktop d=app.getDesktop();
-//						d.setWindowPaneEmergente("Has viajado a:"+evt.getActionCommand());
-						PlanetClicked();				
+
+						PlanetClicked(evt.getActionCommand());				
 					}
 					
 					else {
 						Desktop d=app.getDesktop();
-						d.setWindowPaneEmergente("No tienes suficiente energia disponible llegar.");
+						d.setWindowPaneEmergente("No tienes suficiente energia disponible para llegar.");
 						}
 					
 					
@@ -94,11 +93,11 @@ public class PanelViajarPlaneta extends Panel{
 	
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 	
-	protected void PlanetClicked() {
+	protected void PlanetClicked(String command) {
 		PanelMain pnlMain = new PanelMain();
 		Desktop d = app.getDesktop();
 		
-		d.setWindowPaneEmergente("Has viajado a:");
+		d.setWindowPaneEmergente("Has viajado a:"+command);
 		
 		d.setPanelCentral(pnlMain);
 		

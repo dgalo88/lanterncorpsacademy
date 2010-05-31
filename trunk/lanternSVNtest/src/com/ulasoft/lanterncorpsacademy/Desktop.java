@@ -36,6 +36,7 @@ public class Desktop extends ContentPane {
 	private HtmlLayoutData hld;
 	private WindowPane windowPane;
 	//private IPersonajeDO personajeDO;
+	private Menud menud;
 
 	// --------------------------------------------------------------------------------
 
@@ -125,7 +126,7 @@ public class Desktop extends ContentPane {
 
 		//System.err.println("PERSONAJE ID en desk:"+personaje.getId());
 		hld = new HtmlLayoutData("menud");
-		Menud menud = new Menud();
+		menud = new Menud();
 		try {
 			atrib.updateMenud(menud);
 		} catch (Exception e) {
@@ -173,6 +174,14 @@ public class Desktop extends ContentPane {
 		col.add(btnOk);
 		windowPane.add(col);
 		add(windowPane);
+	}
+
+	public Menud getMenud() {
+		return menud;
+	}
+
+	public void setMenud(Menud menud) {
+		this.menud = menud;
 	}
 
 //	public IPersonajeDO getPersonajeDO() {

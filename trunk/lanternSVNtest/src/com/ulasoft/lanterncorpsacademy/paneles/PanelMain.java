@@ -66,7 +66,7 @@ public class PanelMain extends Panel {
 		col.add(new Label("Ultimo Ingreso"));
 		col.add(new Label("Fecha:"));
 		col.add(lblFechaValue);
-		col.add(new Label("Hora:"));
+
 		grid.add(col);
 		row.add(grid);
 		row.set(PROPERTY_WIDTH, new Extent(700));
