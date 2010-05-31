@@ -1,5 +1,7 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
+import java.sql.SQLException;
+
 import lcaInterfaceDAO.IMisionPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
@@ -8,6 +10,8 @@ import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
 
+import com.ulasoft.lanterncorpsacademy.Desktop;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.menus.Menud;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 
@@ -24,6 +28,9 @@ public class Atributos {
 
 	private IPersonajeDO personaje;
 	private IUsuarioDO usuario;
+	LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+	
+	
 	
 	public void updateAtts () throws Exception {
 		ConnectionBean connectionBean=ConnectionFactory.getConnectionBean();
@@ -103,7 +110,23 @@ public void guardarAtts() throws Exception {
 		
 	}
 	
-	
+	public void recargaAnillo() throws Exception {
+		ConnectionBean connectionBean=ConnectionFactory.getConnectionBean();
+	    
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
+		
+		personaje.setEnergiaDelAnillo(100);
+		
+	    personajeDAO.update(personaje);
+	    
+	    Desktop d = lca.getDesktop();
+	    updateMenud(d.getMenud());
+		
+		System.err.println("PERSONAJE ID en atts save:"+personaje.getId());
+		
+		ConnectionFactory.closeConnection(connectionBean.getConnection());
+		
+	}
 	
 	
 	
@@ -124,6 +147,8 @@ public void guardarAtts() throws Exception {
 	public void setUsuario(IUsuarioDO usuario) {
 		this.usuario = usuario;
 	}
+
+	
 
 	
 

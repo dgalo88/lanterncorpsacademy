@@ -16,6 +16,7 @@ import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
 
 import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 
 import dao.api.DataObject;
@@ -178,7 +179,9 @@ public class Viajar {
 			
 			personaje.setEnergiaDelAnillo((int) energiaNueva);
 			
+			Desktop d =app.getDesktop();
 			atts.setPersonaje(personaje);
+			atts.updateMenud(d.getMenud());
 						
 			personajeDAO.update(personaje);
 			

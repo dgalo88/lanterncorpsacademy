@@ -1,6 +1,9 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
@@ -32,15 +35,15 @@ public class PanelRecargarAnillo extends Panel{
 		
 		Row row = new Row(); 
 		
-		Button btnCargarBatPrin = new Button("Cargar con Bateria Central");
-		btnCargarBatPrin.setStyle(GUIStyles.DEFAULT_STYLE);
-		btnCargarBatPrin.addActionListener(new ActionListener() {
-	      @Override
-	      public void actionPerformed(ActionEvent arg0) {
-	    	  btnCargarBatPrinClicked();
-	      }
-	    });
-	    row.add(btnCargarBatPrin);
+//		Button btnCargarBatPrin = new Button("Cargar con Bateria Central");
+//		btnCargarBatPrin.setStyle(GUIStyles.DEFAULT_STYLE);
+//		btnCargarBatPrin.addActionListener(new ActionListener() {
+//	      @Override
+//	      public void actionPerformed(ActionEvent arg0) {
+//	    	  btnCargarBatPrinClicked();
+//	      }
+//	    });
+//	    row.add(btnCargarBatPrin);
 		
 	    Button btnCargarBatPort = new Button("Cargar con Bateria Portatil");
 	    btnCargarBatPort.setStyle(GUIStyles.DEFAULT_STYLE);
@@ -57,13 +60,29 @@ public class PanelRecargarAnillo extends Panel{
 	    this.add(col);
 	}
 
+	LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+	Atributos atrib = lca.getAtributos();
+	Desktop d = lca.getDesktop();
+	
 	protected void btnCargarBatPortClicked() {
-		// TODO Auto-generated method stub
+		
+		try {
+			atrib.recargaAnillo();
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 		
 	}
 
-	protected void btnCargarBatPrinClicked() {
-		// TODO Auto-generated method stub
-		
-	}
+//	protected void btnCargarBatPrinClicked() {
+//		try {
+//			atrib.recargaAnillo();
+//		} catch (Exception e) {
+//
+//			e.printStackTrace();
+//		}
+//		
+//	}
 }
