@@ -717,6 +717,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		strbuf.append(PersonajeDO.PLANETA_ID);
 		strbuf.append(" = ");
 		strbuf.append(planetaId);
+		strbuf.append(" AND ");
 		strbuf.append(PersonajeDO.ID);
 		strbuf.append(" <> ");
 		strbuf.append(personajeId);
