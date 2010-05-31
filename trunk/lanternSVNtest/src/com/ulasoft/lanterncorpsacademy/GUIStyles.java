@@ -43,7 +43,7 @@ public class GUIStyles {
 	 
 	    style.set(Button.PROPERTY_DISABLED_FOREGROUND, Color.LIGHTGRAY);
 	    style.set(Button.PROPERTY_TEXT_POSITION, new Alignment(Alignment.CENTER, Alignment.CENTER));
-
+	    style.set(Row.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 
 		DEFAULT_STYLE = style;
 	  }
