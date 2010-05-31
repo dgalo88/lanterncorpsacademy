@@ -1,4 +1,3 @@
-//asd
 package dao.lca;
 
 import java.util.ArrayList;
