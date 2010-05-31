@@ -3,6 +3,7 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.awt.Font;
 import java.sql.SQLException;
 
+import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
@@ -19,7 +20,9 @@ import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Registro;
 
 import echopoint.layout.HtmlLayoutData;
@@ -28,7 +31,8 @@ import echopoint.layout.HtmlLayoutData;
 public class PanelRegistro1 extends Panel {
 
 	public HtmlLayoutData hld = new HtmlLayoutData("main");
-	private IUsuarioDO usuarioNuevo;
+	private IUsuarioDO usuario;
+	private IPersonajeDO personaje;
 	private TextField txtNombre;
 	private TextField txtCorreo;
 	private PasswordField fldPass;
@@ -37,11 +41,17 @@ public class PanelRegistro1 extends Panel {
 	private Column col;
 	private Row errorRow;
 
+	Desktop desktop;
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+			.getActive();
+
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	public PanelRegistro1(IUsuarioDO usuario) throws Exception{
+	public PanelRegistro1(IUsuarioDO usuarioNuevo, IPersonajeDO personajeNuevo)
+			throws Exception {
 
-	    usuarioNuevo = usuario;
+		usuario = usuarioNuevo;
+		personaje = personajeNuevo;
 
 		Row row1 = new Row();
 		row1.setStyle(GUIStyles.STYLE3);
@@ -62,14 +72,14 @@ public class PanelRegistro1 extends Panel {
 		grid.add(lblNombre);
 		txtNombre = new TextField();
 		txtNombre.setWidth(new Extent(400));
-		txtNombre.setText(usuarioNuevo.getNombre());
+		txtNombre.setText(usuario.getNombre());
 		grid.add(txtNombre);
 
 		Label lblCorreo = new Label("Correo");
 		grid.add(lblCorreo);
 		txtCorreo = new TextField();
 		txtCorreo.setWidth(new Extent(400));
-		txtCorreo.setText(usuarioNuevo.getCorreo());
+		txtCorreo.setText(usuario.getCorreo());
 		grid.add(txtCorreo);
 
 		Label lblPass = new Label("Contraseña");
@@ -118,8 +128,8 @@ public class PanelRegistro1 extends Panel {
 
 	private void btnNextClicked() throws ClassNotFoundException, Exception {
 
-		usuarioNuevo.setNombre(txtNombre.getText());
-		usuarioNuevo.setCorreo(txtCorreo.getText());
+		usuario.setNombre(txtNombre.getText());
+		usuario.setCorreo(txtCorreo.getText());
 
 		if (!(fldConfirmPass.getText().equals(fldPass.getText()))) { // JUL:defensive..
 			if (col.getComponentCount() > 3) {
@@ -139,7 +149,7 @@ public class PanelRegistro1 extends Panel {
 
 		try {
 
-			if (Registro.verificarCorreo(usuarioNuevo.getCorreo())) {
+			if (Registro.verificarCorreo(usuario.getCorreo())) {
 				if (col.getComponentCount() > 3) {
 					System.out.println("COL:" + col.getComponentCount());
 					col.remove(errorRow);
@@ -157,16 +167,11 @@ public class PanelRegistro1 extends Panel {
 		// Si no hay campos vacios proceder a la siguiente etapa del registro
 
 		if (!(checkEmptyFields())) {
-			usuarioNuevo.setClave(fldPass.getText());
-			// removeAll();
-			PanelRegistro pr = (PanelRegistro) getParent();
-			PanelRegistro2 pnlMain = new PanelRegistro2(pr.getPersonaje());
-			// pnlMain.setLayoutData(hld);
-			pnlMain.set(PROPERTY_HEIGHT, new Extent(400));
-			pnlMain.set(PROPERTY_WIDTH, new Extent(900));
-			// add(pnlMain);
-			pr.setUsuario(usuarioNuevo);
-			pr.changePanel(pnlMain);
+			PanelRegistro2 pnlregistro2 = new PanelRegistro2(usuario, personaje);
+			// pnlregistro2.set(PROPERTY_HEIGHT, new Extent(400));
+			// pnlregistro2.set(PROPERTY_WIDTH, new Extent(900));
+			desktop = app.getDesktop();
+			desktop.setPanelCentral(pnlregistro2);
 		}
 
 	}
