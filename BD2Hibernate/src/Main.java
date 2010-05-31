@@ -65,7 +65,7 @@ public class Main {
 		nivelHabilidad.setEfectividad(0);
 		nivelHabilidad.setCosto_de_energia(1);
 		nivelHabilidad.setHabilidadRef(habilidad);
-		session.save(habilidad);
+		session.save(nivelHabilidad);
 
 		// HABILIDADCLASESLINTERNA 5
 
