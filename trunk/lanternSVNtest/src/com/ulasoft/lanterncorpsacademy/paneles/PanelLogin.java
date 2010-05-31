@@ -22,6 +22,8 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Login;
 
+import factory.GlobalDOFactory;
+
 @SuppressWarnings("serial")
 public class PanelLogin extends Panel {
 
@@ -99,9 +101,11 @@ public class PanelLogin extends Panel {
   // --------------------------------------------------------------------------------
 
   protected void btnClickToRegisterClicked() throws Exception {
-    PanelRegistro pnlregistro = new PanelRegistro();
-    desktop = app.getDesktop();
-    desktop.setPanelCentral(pnlregistro);
+	IUsuarioDO usuario = (IUsuarioDO) GlobalDOFactory.getDO(IUsuarioDO.class);
+	IPersonajeDO personaje = (IPersonajeDO) GlobalDOFactory.getDO(IPersonajeDO.class);
+    PanelRegistro1 pnlregistro1 = new PanelRegistro1(usuario, personaje);
+    desktop = app.getDesktop();    
+    desktop.setPanelCentral(pnlregistro1);
   }
 
   // --------------------------------------------------------------------------------
