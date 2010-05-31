@@ -371,5 +371,34 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 
 		ref.setRefValue(habilidadDO);
 	}
+
+	@Override
+	public DataObject loadByHabilidadId(int habid, int personajeId)
+			throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
+	    strbuf.append(" = ");
+	    strbuf.append(habid);
+	    strbuf.append(" AND ");
+	    strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
+	    strbuf.append(" = ");
+	    strbuf.append(personajeId);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
+	    }
+
+	    return null;
+	}
 	
 }
