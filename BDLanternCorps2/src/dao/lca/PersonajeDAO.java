@@ -153,9 +153,9 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 
 		checkCache(dataObject, CHECK_UPDATE);
 		checkClass(dataObject, PersonajeDO.class, CHECK_UPDATE);
-
+		
 		PersonajeDO personajeDO = (PersonajeDO) dataObject;
-
+		
 		StringBuffer strbuf = new StringBuffer();
 		strbuf.append("UPDATE ");
 		strbuf.append(getTableName());
@@ -568,7 +568,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		strbuf.append(getTableName());
 		strbuf.append(" WHERE ");
 		strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
-		strbuf.append(" = ");
+		strbuf.append(" <> ");
 		strbuf.append(claseId);
 		strbuf.append(" AND ");
 		strbuf.append(PersonajeDO.PLANETA_ID);
@@ -580,7 +580,6 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		strbuf.append(personajeId);
 		strbuf.append(" ORDER BY ");
 		strbuf.append(PersonajeDO.NIVEL);
-
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
