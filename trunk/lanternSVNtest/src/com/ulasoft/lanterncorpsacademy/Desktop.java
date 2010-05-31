@@ -1,7 +1,5 @@
 package com.ulasoft.lanterncorpsacademy;
 
-import lcaInterfaceDAO.IPersonajeDO;
-import lcaInterfaceDAO.IUsuarioDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
