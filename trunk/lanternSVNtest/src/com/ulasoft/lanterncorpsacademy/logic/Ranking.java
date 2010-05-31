@@ -2,6 +2,7 @@ package com.ulasoft.lanterncorpsacademy.logic;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
@@ -24,10 +25,13 @@ public static List<IPersonajeDO> obtenerRanking() throws Exception{
 	connectionBean.getConnection().close();
 	return personajes;
 	}
-public static void asignarRanking(TestTableModel tableDtaModel, List<IPersonajeDO> personajes){
-	int posicion=0;
-	while(personajes.get(posicion)==null){
-		tableDtaModel.add(personajes.get(posicion));
+public static TestTableModel asignarRanking(TestTableModel tableDtaModel, List<IPersonajeDO> personajes){
+	
+	for(int posicion=0;posicion<personajes.size();posicion++){
+		//tableDtaModel.add(posicion);
+		tableDtaModel.add(personajes.get(posicion)); 
+		
 	}
+	return tableDtaModel;
 }
 }

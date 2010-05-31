@@ -42,6 +42,7 @@ public class PanelRanking extends Panel {
 	
 	private TestTableModel tableDtaModel;
 	List<IPersonajeDO> personajes;
+	int pos=0;
 
 	public PanelRanking() {
 		
@@ -65,9 +66,9 @@ public class PanelRanking extends Panel {
 	    TableSelModel tableSelModel = new TableSelModel();
 	    tableDtaModel = new TestTableModel();
 	    tableDtaModel.setEditable(true);
-	    tableDtaModel.setPageSize(5);
+	    tableDtaModel.setPageSize(8);
 	    
-	    
+	    tableDtaModel=Ranking.asignarRanking(tableDtaModel, personajes);
 	    // ----------------------------------------
 	    // The table
 	    // ----------------------------------------
@@ -109,8 +110,9 @@ public class PanelRanking extends Panel {
 	    tableColumn = new TableColumn() {
 	      @Override
 	      public Object getValue(ETable table, Object element) {
-	        PersonBean personaBean = (PersonBean) element;
-	        return personaBean.getFrstName();
+//	        PersonBean personaBean = (PersonBean) element;
+	    	  pos++; 
+	        return pos;
 	      }
 	    };
 	    
@@ -152,7 +154,25 @@ public class PanelRanking extends Panel {
 			@Override
 			public Object getValue(ETable table, Object element) {
 				IPersonajeDO personaje = (IPersonajeDO) element;
-				return (personaje.getClaseLinternaRef()).getRefIdent();
+				switch ((personaje.getClaseLinternaRef()).getRefIdent()) {
+				case 1:
+					return "Green Lantern Corps";
+				case 2:
+					return "Siniestro Corps";
+				case 3:
+					return "Red Lantern Corps";
+				case 4:
+					return "Black Lantern Corps";
+				case 5:
+					return "Blue Lantern Corps";
+				case 6:
+					return "Tribu Indigo";
+				case 7:
+					return "Star Saphirre";
+				default:
+					break;
+				}
+				return "";
 			}
 		};
 	    
