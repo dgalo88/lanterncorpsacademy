@@ -11,7 +11,7 @@ import org.hibernate.annotations.Proxy;
 import Object.ClaseLinterna;
 
 @Entity
-@Table(name = "t_claseLinterna")
+@Table(name = "t_habilidadClaselinterna")
 @Proxy(lazy = false)
 public class HabilidadClaseLinterna{
 

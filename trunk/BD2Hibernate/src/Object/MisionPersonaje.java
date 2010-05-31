@@ -1,5 +1,6 @@
 package Object;
-import javax.persistence.Column;
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,18 +13,17 @@ import org.hibernate.annotations.Proxy;
 @Entity
 @Table(name = "t_misionpersonaje")
 @Proxy(lazy = false)
-public class MisionPersonaje{
+public class MisionPersonaje {
 
 	// --------------------------------------------------------------------------------
 
-
 	private int id;
-	
+
 	// --------------------------------------------------------------------------------
 
 	private Personaje personajeRef;
 	private Mision misionRef;
-	
+
 	// --------------------------------------------------------------------------------
 
 	public MisionPersonaje() {
@@ -33,7 +33,7 @@ public class MisionPersonaje{
 	// --------------------------------------------------------------------------------
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -43,27 +43,25 @@ public class MisionPersonaje{
 	}
 
 	// --------------------------------------------------------------------------------
-	
-	@ManyToOne()
-	@Column(nullable=false)
-	public void setPersonajeRef(Personaje personajeRef) {
-		this.personajeRef = personajeRef;
-	}
-	
+
+	@ManyToOne
 	public Personaje getPersonajeRef() {
 		return personajeRef;
 	}
 
+	public void setPersonajeRef(Personaje personajeRef) {
+		this.personajeRef = personajeRef;
+	}
+
 	// --------------------------------------------------------------------------------
-	
+
 	@ManyToOne
-	@Column(nullable=false)
+	public Mision getMisionRef() {
+		return misionRef;
+	}
+
 	public void setMisionRef(Mision misionRef) {
 		this.misionRef = misionRef;
 	}
 
-	public Mision getMisionRef() {
-		return misionRef;
-	}
-		
 }

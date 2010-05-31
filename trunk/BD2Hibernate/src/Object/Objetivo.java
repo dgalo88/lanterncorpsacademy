@@ -1,4 +1,5 @@
 package Object;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +77,6 @@ public class Objetivo {
 	// --------------------------------------------------------------------------------
 
 	@ManyToOne
-	@Column(nullable = false)
 	public Planeta getPlanetaRef() {
 		return planetaRef;
 	}
@@ -90,12 +90,12 @@ public class Objetivo {
 	@OneToMany(mappedBy = "objetivoRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
-	public void setOrdenList(List<Orden> ordenList) {
-		this.ordenList = ordenList;
-	}
-
 	public List<Orden> getOrdenList() {
 		return ordenList;
+	}
+
+	public void setOrdenList(List<Orden> ordenList) {
+		this.ordenList = ordenList;
 	}
 
 }

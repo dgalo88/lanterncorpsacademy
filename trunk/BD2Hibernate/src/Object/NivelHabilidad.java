@@ -11,7 +11,6 @@ import org.hibernate.annotations.Proxy;
 @Entity
 @Table(name = "t_nivelHabilidad")
 @Proxy(lazy = false)
-
 public class NivelHabilidad{
 	
 	// --------------------------------------------------------------------------------

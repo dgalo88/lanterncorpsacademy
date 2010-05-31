@@ -66,7 +66,7 @@ public class Usuario {
 
 	// --------------------------------------------------------------------------------
 
-	@Column(length = 12, nullable = false)
+	@Column(length = 12)
 	public String getClave() {
 		return clave;
 	}

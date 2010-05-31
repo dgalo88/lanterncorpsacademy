@@ -46,7 +46,11 @@ public class Personaje {
 	// --------------------------------------------------------------------------------
 
 	public Personaje() {
-		// Empty
+		salud=100;
+		energiaDelAnillo=100;
+		experiencia=0;
+		nivel=1;
+		puntosDeEntrenamiento=0;
 	}
 
 	// --------------------------------------------------------------------------------
@@ -139,8 +143,8 @@ public class Personaje {
 	}
 
 	public void setUltimaFechaIngreso(Date ultimaFechaIngreso) {
-		if (ultimaFechaIngreso.before(this.ultimaFechaIngreso))
-			return;
+	/*	if (ultimaFechaIngreso.before(this.ultimaFechaIngreso))
+			return;*/
 		this.ultimaFechaIngreso = ultimaFechaIngreso;
 	}
 
@@ -158,7 +162,7 @@ public class Personaje {
 
 	// --------------------------------------------------------------------------------
 
-	@OneToMany(mappedBy = "habilidadRef")
+	@OneToMany(mappedBy = "personajeRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	public List<HabilidadActiva> getHabilidadActivaList() {
@@ -177,7 +181,7 @@ public class Personaje {
 		return misionPersonajeList;
 	}
 
-	public void setMisionPersonajelist(List<MisionPersonaje> misionPersonajeList) {
+	public void setMisionPersonajeList(List<MisionPersonaje> misionPersonajeList) {
 		this.misionPersonajeList = misionPersonajeList;
 	}
 
