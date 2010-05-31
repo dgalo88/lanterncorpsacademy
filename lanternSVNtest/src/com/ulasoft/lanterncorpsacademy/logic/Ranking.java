@@ -29,9 +29,32 @@ public static TestTableModel asignarRanking(TestTableModel tableDtaModel, List<I
 	
 	for(int posicion=0;posicion<personajes.size();posicion++){
 		//tableDtaModel.add(posicion);
+		(personajes.get(posicion)).setId(posicion+1);
 		tableDtaModel.add(personajes.get(posicion)); 
 		
 	}
 	return tableDtaModel;
+}
+
+public static String determinarClase(int clase){
+	switch (clase){
+	case 1:
+		return "Green Lantern Corps";
+	case 2:
+		return "Siniestro Corps";
+	case 3:
+		return "Red Lantern Corps";
+	case 4:
+		return "Black Lantern Corps";
+	case 5:
+		return "Blue Lantern Corps";
+	case 6:
+		return "Tribu Indigo";
+	case 7:
+		return "Star Saphirre";
+	default:
+		break;
+	}
+	return "";
 }
 }
