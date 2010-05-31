@@ -246,7 +246,7 @@ public class NivelHabilidadDAO extends BaseDAO implements INivelHabilidadDAO {
 
 	@Override
 	public List<DataObject> listAll() throws SQLException {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
@@ -375,6 +375,35 @@ public class NivelHabilidadDAO extends BaseDAO implements INivelHabilidadDAO {
 
 	    ref.setRefValue(habilidadDO);
 	  }
+
+	@Override
+	public INivelHabilidadDO loadNivelHabStats(int id, int nivelHabilidad) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(NivelHabilidadDO.HABILIDAD_ID);
+	    strbuf.append(" = ");
+	    strbuf.append(id);
+	    strbuf.append(" AND ");
+	    strbuf.append(NivelHabilidadDO.NIVEL_DE_HABILIDAD);
+	    strbuf.append(" = ");
+	    strbuf.append(nivelHabilidad);
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
+	    }
+
+	    return null;
+
+	}
 
 
 

@@ -1,29 +1,30 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
+import lcaInterfaceDAO.IHabilidadActivaDAO;
+import lcaInterfaceDAO.IHabilidadActivaDO;
+import lcaInterfaceDAO.IHabilidadDAO;
+import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.INivelHabilidadDAO;
+import lcaInterfaceDAO.INivelHabilidadDO;
+import lcaInterfaceDAO.IPersonajeDAO;
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IPlanetaDAO;
+import lcaInterfaceDAO.IPlanetaDO;
+
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 
 import dao.api.DataObject;
-import dao.api.Reference;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
 import echopoint.model.CircleSection;
 import echopoint.model.MapSection;
 import factory.GlobalDAOFactory;
 import factory.GlobalDOFactory;
-
-import lcaInterfaceDAO.IClaseLinternaDAO;
-import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IHabilidadActivaDAO;
-import lcaInterfaceDAO.IHabilidadDAO;
-import lcaInterfaceDAO.IPersonajeDAO;
-import lcaInterfaceDAO.IPersonajeDO;
-import lcaInterfaceDAO.IPlanetaDAO;
-import lcaInterfaceDAO.IPlanetaDO;
-import lcaInterfaceDAO.IUsuarioDAO;
 
 
 
@@ -62,7 +63,7 @@ public class Viajar {
 
 		CircleSection pl = new CircleSection((int) planeta
 			.getCoordenadaEnX(), (int) planeta.getCoordenadaEnY(),
-			15, planeta.getNombre());
+			15, Integer.toString(planeta.getId()));
 
 			if (i < 7) {
 				
@@ -125,24 +126,71 @@ public class Viajar {
 
 }
 
-	public static void viajarA(String planeta) throws Exception {
+	public static boolean viajarA(String planetaid) throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-		IPlanetaDAO planetDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
-
+		
 		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 		Atributos atts = app.getAtributos();
-				
 		
+		IPersonajeDO personaje = atts.getPersonaje();
 		
+		IPlanetaDAO planetDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
+
+		IHabilidadActivaDAO habActivaDAO = (IHabilidadActivaDAO) GlobalDAOFactory.getDAO(IHabilidadActivaDAO.class, connectionBean);
 		
-		ConnectionFactory.closeConnection(connectionBean.getConnection());	
+		IHabilidadDAO habilidadDAO = (IHabilidadDAO) GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
+		
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
+		
+		INivelHabilidadDAO nivHabilidadDAO = (INivelHabilidadDAO) GlobalDAOFactory.getDAO(INivelHabilidadDAO.class, connectionBean);
+
+//		List<IHabilidadActivaDO> habList = new ArrayList<IHabilidadActivaDO>();
+		
+		IHabilidadDO vuelo = habilidadDAO.loadByNombre("Vuelo");
+		
+		IHabilidadActivaDO vueloActive = (IHabilidadActivaDO) habActivaDAO.loadByHabilidadId(vuelo.getId(), personaje.getId());
+		
+		INivelHabilidadDO vueloInfo = nivHabilidadDAO.loadNivelHabStats(vuelo.getId(), vueloActive.getNivel_habilidad());
+		
+			
+		//habList = habActivaDAO.listByPersonajeId(personaje.getId());
+						
+		IPlanetaDO planetaDestino = (IPlanetaDO) planetDAO.loadById(Integer.parseInt(planetaid));
+		
+		float distancia = planetDAO.getPlanetDistance(personaje.getPlanetaRef().getRefIdent(), planetaDestino.getId());
+		
+		System.err.println("Dist: "+distancia);
+		
+		double costo = (distancia/10)*2*vueloInfo.getCosto_de_energia();
+		
+		System.err.println("Costo: "+costo);
+		
+		if (personaje.getEnergiaDelAnillo()<costo)
+			return false;
+		else {
+			
+			personaje.getPlanetaRef().setRefIdent(planetaDestino.getId());
+			
+			double energiaNueva =personaje.getEnergiaDelAnillo() - costo;
+			
+			System.err.println("Energ nueva: "+energiaNueva);
+			
+			personaje.setEnergiaDelAnillo((int) energiaNueva);
+			
+			atts.setPersonaje(personaje);
+						
+			personajeDAO.update(personaje);
+			
+			System.err.println("PLANETA ID travel:"+atts.getPersonaje().getPlanetaRef().getRefIdent());
+			
+			ConnectionFactory.closeConnection(connectionBean.getConnection());
+			
+			return true;
+		}
 		
 	}
 
-	
-	
-	
 	
 	
 }

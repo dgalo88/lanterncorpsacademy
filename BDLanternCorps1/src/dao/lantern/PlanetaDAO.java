@@ -370,13 +370,21 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO{
 //--------------------------------------------------------------------------------
 
   @Override
-  public float getPlanetDistance(int oringenId, int destinoId) throws SQLException {
+  public float getPlanetDistance(int origenId, int destinoId) throws SQLException {
     StringBuffer strbuf = new StringBuffer();
 
     strbuf.append("SELECT |/( (PA.coordenada_en_x - PB.coordenada_en_x)*( PA.coordenada_en_x - PB.coordenada_en_x)");
     strbuf.append("+(PA.coordenada_en_y - PB.coordenada_en_y)*( PA.coordenada_en_y - PB.coordenada_en_y))");
     strbuf.append(" AS d ");
-    strbuf.append(" FROM "+getTableName()+" AS PA"+getTableName()+" AS PB");
+    strbuf.append(" FROM "+getTableName()+" AS PA , "+getTableName()+" AS PB ");
+    strbuf.append(" WHERE ");
+    strbuf.append(" PA.id ");
+    strbuf.append(" = ");
+    strbuf.append(origenId);
+    strbuf.append(" AND ");
+    strbuf.append(" PB.id ");
+    strbuf.append(" = ");
+    strbuf.append(destinoId);
 
     System.err.println(strbuf.toString());
 

@@ -1,5 +1,6 @@
 package lcaInterfaceDAO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import dao.api.DataObject;
@@ -18,5 +19,7 @@ public interface IHabilidadDAO extends InterfaceDAO{
 	
 	public abstract List<DataObject> listHabIniciales(int claseid)
 			throws Exception;
+
+	IHabilidadDO loadByNombre(String nombre) throws SQLException;
 
 }

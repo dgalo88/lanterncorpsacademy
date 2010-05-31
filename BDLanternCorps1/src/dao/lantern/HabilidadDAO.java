@@ -263,6 +263,31 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO{
 	    return null;
 		
 	}
+	
+	@Override
+	public IHabilidadDO loadByNombre(String nombre) throws SQLException {
+	    StringBuffer strbuf = new StringBuffer();
+
+	    strbuf.append("SELECT * FROM ");
+	    strbuf.append(getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(HabilidadDO.NOMBRE);
+	    strbuf.append(" = ");
+	    strbuf.append(singleQuotes(nombre));
+
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = //
+	    connection.createStatement().executeQuery(strbuf.toString());
+
+	    if (rs.next()) {
+	      return resultSetToDO(rs);
+	    }
+
+	    return null;
+		
+	}
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {

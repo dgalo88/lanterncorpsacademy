@@ -13,4 +13,6 @@ public interface INivelHabilidadDAO extends InterfaceDAO{
 	public abstract void loadHabilidadRef(INivelHabilidadDO nivelHabilidadDO)
 			throws SQLException;
 
+	public abstract INivelHabilidadDO loadNivelHabStats(int id, int nivelHabilidad) throws SQLException;
+
 }
