@@ -1,3 +1,15 @@
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Proxy;
+
+@Entity
+@Table(name = "t_nivelHabilidad")
+@Proxy(lazy = false)
 
 public class NivelHabilidad{
 	
@@ -21,7 +33,8 @@ public class NivelHabilidad{
 
 	// --------------------------------------------------------------------------------
 
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -72,7 +85,8 @@ public class NivelHabilidad{
 	}
 	
 	// --------------------------------------------------------------------------------
-	
+
+	@ManyToOne
 	public Habilidad getHabilidadRef() {
 		return habilidadRef;
 	}
