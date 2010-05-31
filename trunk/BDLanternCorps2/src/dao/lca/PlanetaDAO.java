@@ -294,4 +294,24 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 				.listByClaseLinternaId(planetaDO.getId()));
 
 	}
+
+	@Override
+	public float getPlanetDistance(int oringenId, int destinoId)
+			throws SQLException {
+		 StringBuffer strbuf = new StringBuffer();
+
+		    strbuf.append("SELECT |/( (PA.coordenada_en_x - PB.coordenada_en_x)*( PA.coordenada_en_x - PB.coordenada_en_x)");
+		    strbuf.append("+(PA.coordenada_en_y - PB.coordenada_en_y)*( PA.coordenada_en_y - PB.coordenada_en_y))");
+		    strbuf.append(" AS d ");
+		    strbuf.append(" FROM "+getTableName()+" AS PA"+getTableName()+" AS PB");
+
+		    System.err.println(strbuf.toString());
+
+		    ResultSet rs = //
+		    connection.createStatement().executeQuery(strbuf.toString());
+
+		    rs.next();
+
+		    return rs.getFloat("d");
+	}
 }
