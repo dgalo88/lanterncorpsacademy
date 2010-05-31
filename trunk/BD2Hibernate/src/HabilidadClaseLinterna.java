@@ -1,4 +1,15 @@
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
+@Entity
+@Table(name = "t_claseLinterna")
+@Proxy(lazy = false)
 public class HabilidadClaseLinterna{
 
 	// --------------------------------------------------------------------------------
@@ -18,7 +29,8 @@ public class HabilidadClaseLinterna{
 
 	// --------------------------------------------------------------------------------
 
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -28,7 +40,8 @@ public class HabilidadClaseLinterna{
 	}
 
 	// --------------------------------------------------------------------------------
-
+	
+	@ManyToOne
 	public Habilidad getHabilidadRef() {
 		return habilidadRef;
 	}
@@ -39,6 +52,7 @@ public class HabilidadClaseLinterna{
 
 	// --------------------------------------------------------------------------------
 
+	@ManyToOne
 	public ClaseLinterna getClaseLinternaRef() {
 		return claseLinternaRef;
 	}

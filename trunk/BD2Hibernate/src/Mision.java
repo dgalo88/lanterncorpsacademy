@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -28,8 +29,8 @@ public class Mision {
 	private int puntosDeEntrenamientoGanados;
 	private int nivelNecesario;
 
-	private List<Orden> ordenList;
-	private List<MisionPersonaje> misionPersonajeList;
+	private List<Orden> ordenList = new ArrayList<Orden>();
+	private List<MisionPersonaje> misionPersonajeList = new ArrayList<MisionPersonaje>();
 
 	// --------------------------------------------------------------------------------
 
