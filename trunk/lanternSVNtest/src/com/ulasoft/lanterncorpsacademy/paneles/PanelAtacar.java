@@ -1,5 +1,10 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.util.List;
+
+import lcaInterfaceDAO.IPersonajeDAO;
+import lcaInterfaceDAO.IPersonajeDO;
+
 import com.minotauro.echo.table.base.ETable;
 import com.minotauro.echo.table.base.ETableNavigation;
 import com.minotauro.echo.table.base.TableColModel;
@@ -9,8 +14,12 @@ import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.PersonBean;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
+import com.ulasoft.lanterncorpsacademy.logic.Atacar;
+import com.ulasoft.lanterncorpsacademy.logic.Atributos;
+import com.ulasoft.lanterncorpsacademy.logic.Ranking;
 
 
 import nextapp.echo.app.Alignment;
@@ -31,6 +40,9 @@ import nextapp.echo.app.event.ActionListener;
 public class PanelAtacar extends Panel{
 
 	private TestTableModel tableDtaModel;
+	List<IPersonajeDO> personajes;
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+		LanternCorpsAcademyApp.getActive();
 	
 	public PanelAtacar() {
 		setInsets(new Insets(2, 2, 2, 2));
@@ -51,12 +63,22 @@ public class PanelAtacar extends Panel{
 
 	    tableDtaModel = new TestTableModel();
 	    tableDtaModel.setEditable(true);
-	    tableDtaModel.setPageSize(3);
+	    tableDtaModel.setPageSize(10);
 
+	    // ----------------------------------------
+	    // Carga a los Contrincantes
+	    // ----------------------------------------
+	    Atributos atrr = app.getAtributos();
+	    try {
+			personajes = Atacar.obtenerContrincantes(atrr.getPersonaje());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 	    // ----------------------------------------
 	    // The table
 	    // ----------------------------------------
-
 	    ETable table = new ETable();
 	    table.setTableDtaModel(tableDtaModel);
 	    table.setTableColModel(tableColModel);
@@ -94,7 +116,6 @@ public class PanelAtacar extends Panel{
 	  private Row initTopRow() {
 	    Row row = new Row();
 	    row.setCellSpacing(new Extent(5));
-
 	    row.add(new Label("Lista de Contrincantes"));
 	    row.setAlignment(new Alignment(Alignment.CENTER, Alignment.CENTER));
 	    return row;
@@ -110,8 +131,8 @@ public class PanelAtacar extends Panel{
 	    tableColumn = new TableColumn() {
 	      @Override
 	      public Object getValue(ETable table, Object element) {
-	        PersonBean personaBean = (PersonBean) element;
-	        return personaBean.getFrstName();
+	    	  IPersonajeDO personaje = (IPersonajeDO) element;
+	        return personaje.getAlias();
 	      }
 	    };
 	    tableColumn.setWidth(new Extent(50));
@@ -121,18 +142,26 @@ public class PanelAtacar extends Panel{
 	    tableColModel.getTableColumnList().add(tableColumn);
 
 	    tableColumn = new TableColumn() {
-	      @Override
-	      public Object getValue(ETable table, Object element) {
-	        PersonBean personaBean = (PersonBean) element;
-	        return personaBean.getLastName();
-	      }
-	    };
+		      @Override
+		      public Object getValue(ETable table, Object element) {
+		    	  IPersonajeDO personaje = (IPersonajeDO) element;
+		        return personaje.getNivel();
+		      }
+		};
 	    tableColumn.setWidth(new Extent(50));
 	    tableColumn.setHeadValue("Nivel");
 	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
 	    tableColModel.getTableColumnList().add(tableColumn);
 
+	    tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return Atacar.determinarClase((personaje.getClaseLinternaRef()).getRefIdent());
+			}
+		};
+	    
 	    tableColumn.setWidth(new Extent(50));
 	    tableColumn.setHeadValue("Clase");
 	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
@@ -188,11 +217,6 @@ public class PanelAtacar extends Panel{
 	  // --------------------------------------------------------------------------------
 
 
-	  // --------------------------------------------------------------------------------
-
-	
-
-	  // --------------------------------------------------------------------------------
 
 	  
 }
