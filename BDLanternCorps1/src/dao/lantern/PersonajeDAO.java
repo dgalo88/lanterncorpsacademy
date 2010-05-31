@@ -10,7 +10,6 @@ import lcaInterfaceDAO.IGrupoDO;
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
-import lcaInterfaceDAO.IUsuarioDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
@@ -434,7 +433,8 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
-		checkCache(dataObject, CHECK_UPDATE);
+		//checkCache(dataObject, CHECK_UPDATE);
+		//XXX:PersonajeDAO para q funcionara...
 	    checkClass(dataObject, PersonajeDO.class, CHECK_UPDATE);
 
 	    PersonajeDO personajeDO = (PersonajeDO) dataObject;
@@ -482,18 +482,18 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	    strbuf.append(", ");
 	    
 	    strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO);
-	    strbuf.append(" = ");
-	    strbuf.append(personajeDO.getUltimaFechaIngreso());
+	    strbuf.append(" = current_date");
+	    //strbuf.append(personajeDO.getUltimaFechaIngreso());
 	       
 	    strbuf.append(", ");
 	    
-	    strbuf.append(PersonajeDO.USUARIO_ID);
-	    strbuf.append(" = ");
-	    Reference<IUsuarioDO> refU = personajeDO.getUsuarioRef();
-	    refU.checkUpdate();
-	    strbuf.append(refU.getIdAsString());
-	    
-	    strbuf.append(", ");
+//	    strbuf.append(PersonajeDO.USUARIO_ID);
+//	    strbuf.append(" = ");
+//	    Reference<IUsuarioDO> refU = personajeDO.getUsuarioRef();
+//	    refU.checkUpdate();
+//	    strbuf.append(refU.getIdAsString());
+//	    
+//	    strbuf.append(", ");
 	    
 	    strbuf.append(PersonajeDO.PLANETA_ID);
 	    strbuf.append(" = ");
@@ -679,7 +679,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	    return null;
 	}
 
-
+//---------------------------------------------------------------------------
 
 	@Override
 	public List<IPersonajeDO> listRankin() throws SQLException {
@@ -687,7 +687,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		
 		strbuf.append("SELECT * FROM ");
 		strbuf.append(getTableName());
-		strbuf.append("ORDER BY nivel, experiencia");
+		strbuf.append(" ORDER BY nivel, experiencia");
 		System.err.println(strbuf.toString());
 	    ResultSet rs = //
 		    connection.createStatement().executeQuery(strbuf.toString());
@@ -701,6 +701,48 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		
 		return ret;
 	}
+//----------------------------------------------------------------------------------
 	
+	@Override
+	public List<IPersonajeDO> listContrincantes(int personajeId, int claseId, int planetaId) throws SQLException {
+	
+		StringBuffer strbuf = new StringBuffer();
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+		strbuf.append(" WHERE ");
+		strbuf.append(PersonajeDO.CLASE_LINTERNA_ID);
+		strbuf.append(" = ");
+		strbuf.append(claseId);
+		strbuf.append(" AND ");
+		strbuf.append(PersonajeDO.PLANETA_ID);
+		strbuf.append(" = ");
+		strbuf.append(planetaId);
+		strbuf.append(PersonajeDO.ID);
+		strbuf.append(" <> ");
+		strbuf.append(personajeId);
+		strbuf.append(" ORDER BY ");
+		strbuf.append(PersonajeDO.NIVEL);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<IPersonajeDO> ret = new ArrayList<IPersonajeDO>();
+		PersonajeDO per;
+
+		while (rs.next()) {
+			per = (PersonajeDO) dtaSession.getDtaByKey( //
+					PersonajeDO.class, rs.getInt(PersonajeDO.ID));
+
+			if (per == null) {
+				per = (PersonajeDO) dtaSession.add(resultSetToDO(rs));
+			}
+
+			ret.add(per);
+		}
+
+		return ret;
+	}
 	
 }
