@@ -53,16 +53,6 @@ public class HabilidadActiva{
 	}
 	
 	// --------------------------------------------------------------------------------
-	@ManyToOne
-	public Personaje getPersonajeRef() {
-		return personajeRef;
-	}
-
-	public void setPersonajeRef(Personaje personajeRef) {
-		this.personajeRef = personajeRef;
-	}
-
-	// --------------------------------------------------------------------------------
 
 	@ManyToOne
 	public Habilidad getHabilidadRef() {
@@ -72,5 +62,18 @@ public class HabilidadActiva{
 	public void setHabilidadRef(Habilidad habilidadRef) {
 		this.habilidadRef = habilidadRef;
 	}
+	// --------------------------------------------------------------------------------
+	
+
+	@ManyToOne
+	public Personaje getPersonajeRef() {
+		return personajeRef;
+	}
+
+	public void setPersonajeRef(Personaje personajeRef) {
+		this.personajeRef = personajeRef;
+	}
+
+
 
 }

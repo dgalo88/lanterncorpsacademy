@@ -115,24 +115,26 @@ public class Mision {
 	@OneToMany(mappedBy = "misionRef")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
+	public List<Orden> getOrdenList() {
+		return ordenList;
+	}
+	
 	public void setOrdenList(List<Orden> ordenList) {
 		this.ordenList = ordenList;
 	}
 
-	public List<Orden> getOrdenList() {
-		return ordenList;
-	}
 
 	// --------------------------------------------------------------------------------
 	@OneToMany(mappedBy = "misionRef")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@Cascade( { CascadeType.ALL })
+	public List<MisionPersonaje> getMisionPersonajeList() {
+		return misionPersonajeList;
+	}
+	
 	public void setMisionPersonajeList(List<MisionPersonaje> misionPersonajeList) {
 		this.misionPersonajeList = misionPersonajeList;
 	}
 
-	public List<MisionPersonaje> getMisionPersonajeList() {
-		return misionPersonajeList;
-	}
 
 }

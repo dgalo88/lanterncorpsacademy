@@ -1,4 +1,5 @@
 package Object;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -58,25 +59,23 @@ public class Orden {
 	// --------------------------------------------------------------------------------
 
 	@ManyToOne
-	@Column(nullable = false)
-	public void setObjetivoRef(Objetivo objetivoRef) {
-		this.objetivoRef = objetivoRef;
-	}
-
 	public Objetivo getObjetivoRef() {
 		return objetivoRef;
+	}
+
+	public void setObjetivoRef(Objetivo objetivoRef) {
+		this.objetivoRef = objetivoRef;
 	}
 
 	// --------------------------------------------------------------------------------
 
 	@ManyToOne
-	@Column(nullable = false)
-	public void setMisionRef(Mision misionRef) {
-		this.misionRef = misionRef;
-	}
-
 	public Mision getMisionRef() {
 		return misionRef;
+	}
+
+	public void setMisionRef(Mision misionRef) {
+		this.misionRef = misionRef;
 	}
 
 }
