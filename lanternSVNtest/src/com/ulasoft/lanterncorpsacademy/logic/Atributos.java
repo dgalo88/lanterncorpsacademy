@@ -9,6 +9,7 @@ import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.menus.Menud;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
@@ -47,14 +48,11 @@ public class Atributos {
 	
 	public void updateMenud(Menud menud) throws Exception {
 		
-//		ConnectionBean connectionBean=ConnectionFactory.getConnectionBean();
-//		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
-//		//personaje = (IPersonajeDO) GlobalDOFactory.getDO(IPersonajeDO.class);
-//		
+
 		System.err.println("PERSONAJE ID en atts menud:" + personaje.getId());
 		System.err.println("PERSONAJE salud en atts menud:"
 				+ personaje.getSalud());
-		// personaje= (IPersonajeDO) personajeDAO.loadById(personaje.getId());
+
 		menud.getSalud().setCurrValue(
 				(personaje.getSalud()) * 100
 						/ (200 + 50 * (personaje.getNivel() - 1)));
@@ -69,7 +67,32 @@ public class Atributos {
 		menud.getLblNiveLabelValue().setText(
 				Integer.toString(personaje.getNivel()));
 		
-//		ConnectionFactory.closeConnection(connectionBean.getConnection());
+		switch (personaje.getClaseLinternaRef().getRefIdent()) {
+			case 1:
+				menud.getEnergia().setColor(GUIStyles.COLORVERDE);
+				break;
+			case 2: 
+				menud.getEnergia().setColor(GUIStyles.COLORAMARILLO);
+				break;
+			case 3:
+				menud.getEnergia().setColor(GUIStyles.COLORROJOBAR);
+				break;
+			case 4: 
+				menud.getEnergia().setColor(GUIStyles.COLORNEGRO);
+				break;
+			case 5:
+				menud.getEnergia().setColor(GUIStyles.COLORAZUL);
+				break;
+			case 6:
+				menud.getEnergia().setColor(GUIStyles.COLORINDIGO);
+				break;
+			case 7:
+				menud.getEnergia().setColor(GUIStyles.COLORVIOLETA);
+				break;
+			default:
+				break;
+		}
+
 		System.err.println("PERSONAJE ID en atts menud2:" + personaje.getId());
 		
 	}

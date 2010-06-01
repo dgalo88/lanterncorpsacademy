@@ -15,6 +15,17 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.Style;
 
 public class GUIStyles {
+	
+	public static final Color COLORVERDE = new Color(0x32, 0xCD, 0x32);
+	public static final Color COLORAMARILLO = new Color(238,255,58);
+	public static final Color COLORROJOBAR = new Color (175,0,0);
+	public static final Color COLORNEGRO = new Color(0, 0, 0);
+	public static final Color COLORAZUL = new Color(0,153,255);
+	public static final Color COLORINDIGO = new Color(148,71,148);
+	public static final Color COLORVIOLETA = new Color(255, 0, 255);
+	
+
+	
 
 	public static final Style DEFAULT_STYLE;
 
