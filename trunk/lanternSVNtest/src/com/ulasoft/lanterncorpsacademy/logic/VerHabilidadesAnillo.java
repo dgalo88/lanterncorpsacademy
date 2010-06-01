@@ -27,6 +27,8 @@ public class VerHabilidadesAnillo {
 				IHabilidadDAO.class, connectionBean);
 		IPersonajeDAO personaje = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);;
 		personaje.loadHabilidadActivaList(person);
+		
+
 		hab = person.getHabilidadActivaList();
 		for(int pos=0;pos<hab.size();pos++){
 			h=(IHabilidadDO) habilidad.loadById((hab.get(pos).getHabilidadRef()).getRefIdent());

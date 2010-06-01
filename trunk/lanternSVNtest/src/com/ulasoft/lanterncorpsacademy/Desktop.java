@@ -8,9 +8,11 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.FillImage;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
+import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
@@ -64,6 +66,7 @@ public class Desktop extends ContentPane {
 			throw new RuntimeException(e);
 		}
 
+
 		hld = new HtmlLayoutData("head");
 		MenuHead menuHead = new MenuHead();
 		menuHead.setLayoutData(hld);
@@ -100,6 +103,8 @@ public class Desktop extends ContentPane {
     // tiene su propia App
 		LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 		Atributos atrib = lca.getAtributos();
+		
+
 
 		//Atributos atts= new Atributos();
 //		atrib.setPersonaje(personaje);
@@ -164,8 +169,8 @@ public class Desktop extends ContentPane {
 		windowPane.setStyle(GUIStyles.DEFAULT_STYLE);
 		windowPane.setTitle("Informacion");
 		windowPane.setModal(true);
-		windowPane.setHeight(new Extent(100));
-		windowPane.setWidth(new Extent(200));
+		windowPane.setHeight(new Extent(150));
+		windowPane.setWidth(new Extent(300));
 		windowPane.setTitleBackground(new Color(0x32, 0xCD, 0x32));
 		windowPane.setBackground(Color.WHITE);
 		Label txt = new Label(texto);

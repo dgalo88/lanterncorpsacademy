@@ -29,7 +29,7 @@ public class Menud extends Panel {
 
 		Label lblEnergia = new Label("Energia del Anillo");
 
-		energia = new ProgressBar(17, 180, 1, Color.GREEN);
+		energia = new ProgressBar(17, 180, 1, null);
 
 		Label lblExperiencia = new Label("Experiencia");
 
