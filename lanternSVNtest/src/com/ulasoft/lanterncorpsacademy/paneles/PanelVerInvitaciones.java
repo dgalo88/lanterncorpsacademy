@@ -37,12 +37,12 @@ public class PanelVerInvitaciones extends Panel{
 
 	    Column col = new Column();
 	    col.setBackground(Color.WHITE);
-	    Grid grid = new Grid();
+	    Row grid = new Row();
 		grid.setStyle(GUIStyles.DEFAULT_STYLE);
-		grid.setWidth(new Extent(500));
 		Label lblTitle = new Label("Invitaciones");
 		//lblCorreo.
 	    grid.add(lblTitle);
+	    grid.setAlignment(Alignment.ALIGN_CENTER);
 		col.add(grid);
 	    // ----------------------------------------
 	    // The table models

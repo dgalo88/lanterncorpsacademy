@@ -1,8 +1,15 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.sql.SQLException;
+
+import lcaInterfaceDAO.IPersonajeDAO;
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IUsuarioDO;
+
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.EditarDatosUsuario;
 
 import nextapp.echo.app.Alignment;
@@ -47,7 +54,7 @@ public class PanelEditarDatosUsuario extends Panel{
 	    
 	    txtNombre = new TextField();
 	    txtNombre.setWidth(new Extent(300));
-	    
+	    txtNombre.setText(app.getAtributos().getUsuario().getNombre());
 	    grid.add(txtNombre);
 	    
 	    Label lblOldPass = new Label("Antigua Contraseña");
@@ -102,5 +109,20 @@ public class PanelEditarDatosUsuario extends Panel{
 			fldConfirPass.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
 			return;
 		}
+		Atributos atrr =app.getAtributos();
+		if(!EditarDatosUsuario.checkOldPassField(fldOldPass,atrr.getUsuario())){
+			d.setWindowPaneEmergente("Los Campos de la Nueva Clave No concuerdan");
+			fldNewPass.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
+			return;
+		}
+		try {
+			EditarDatosUsuario.updateDatosBD(EditarDatosUsuario.updateDatos(atrr.getUsuario(),txtNombre,fldNewPass));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		PanelMain pnlMain = new PanelMain();
+		d.setWindowPaneEmergente("Los Datos se han Actualizado Correctamente");
+		d.setPanelCentral(pnlMain);
+		
 	}
 }
