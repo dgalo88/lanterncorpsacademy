@@ -3,23 +3,18 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.sql.Date;
 
 import lcaInterfaceDAO.IPlanetaDO;
-import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
-import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
-import nextapp.echo.app.SplitPane;
 
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
-
-import echopoint.ImageMap;
 
 public class PanelMain extends Panel {
 

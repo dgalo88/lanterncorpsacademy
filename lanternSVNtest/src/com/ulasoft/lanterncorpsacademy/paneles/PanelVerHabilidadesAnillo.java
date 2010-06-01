@@ -165,8 +165,9 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		      @Override
 		      public Object getValue(ETable table, Object element) {
 		    	  IHabilidadDO habilidad = (IHabilidadDO) element;
+		    	  Atributos atr=app.getAtributos();		    	  
 		    	  try {
-					return VerHabilidadesAnillo.obtenerNivel(habilidad);
+					return VerHabilidadesAnillo.obtenerNivel(atr.getPersonaje().getId(),habilidad);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
