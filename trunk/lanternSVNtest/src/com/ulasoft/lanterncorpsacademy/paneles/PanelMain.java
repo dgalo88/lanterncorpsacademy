@@ -15,9 +15,12 @@ import nextapp.echo.app.Row;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
+import com.ulasoft.lanterncorpsacademy.logic.Main;
 
+@SuppressWarnings("serial")
 public class PanelMain extends Panel {
 
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 
 	public PanelMain() {
 		Row row = new Row();
@@ -27,10 +30,8 @@ public class PanelMain extends Panel {
 		Grid grid = new Grid(2);
 		grid.setBackground(Color.WHITE);
 		Label lblImagen = new Label();
-		lblImagen
-				.setIcon(new ResourceImageReference(
-						"com/ulasoft/lanterncorpsacademy/imagenes/GreenLanternRebirthHC1.jpg",
-						new Extent(152), new Extent(232)));
+		lblImagen.setIcon(new ResourceImageReference(Main.loadImg(app.getAtributos().getPersonaje())//
+				,new Extent(236), new Extent(360)));
 		grid.add(lblImagen);
 		Column col = new Column();
 		
