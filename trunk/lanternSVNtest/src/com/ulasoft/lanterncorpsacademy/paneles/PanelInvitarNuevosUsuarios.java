@@ -5,6 +5,7 @@ import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.InvitarNuevosUsuarios;
 
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -60,7 +61,6 @@ public class PanelInvitarNuevosUsuarios extends Panel{
 	    fldComentarios = new TextArea();
 	    fldComentarios.setWidth(new Extent(300));
 	    grid.add(fldComentarios);
-	    
 		col.add(grid);
 		
 		Row row = new Row();
@@ -74,6 +74,7 @@ public class PanelInvitarNuevosUsuarios extends Panel{
 	    });
 	    row.add(btnEnviarInvitacion);
 	    row.setCellSpacing(new Extent(10));
+	    row.setAlignment(Alignment.ALIGN_CENTER);
 		col.add(row);
 		col.setBorder(new Border(3, new Color(0x00, 0x00, 0x00), Border.STYLE_SOLID));
 		add(col);
