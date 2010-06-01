@@ -15,7 +15,6 @@ import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
-import nextapp.echo.app.PasswordField;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.TextArea;
 import nextapp.echo.app.TextField;
@@ -38,7 +37,6 @@ public class PanelInvitarNuevosUsuarios extends Panel{
 		
 		Label lblTitle = new Label("Invitar Nuevos Usuarios");
 	    col.add(lblTitle);
-	    
 		Grid grid = new Grid();
 		grid.setStyle(GUIStyles.DEFAULT_STYLE);
 		Label lblNombre = new Label("Nombre");
@@ -61,9 +59,11 @@ public class PanelInvitarNuevosUsuarios extends Panel{
 	    fldComentarios = new TextArea();
 	    fldComentarios.setWidth(new Extent(300));
 	    grid.add(fldComentarios);
-		col.add(grid);
-		
-		Row row = new Row();
+	    Row row = new Row();
+	    row.add(grid);
+	    row.setAlignment(Alignment.ALIGN_CENTER);
+		col.add(row);
+		row = new Row();
 		Button btnEnviarInvitacion = new Button("Enviar Invitacion");
 	    btnEnviarInvitacion.setStyle(GUIStyles.STYLE2);
 	    btnEnviarInvitacion.addActionListener(new ActionListener() {

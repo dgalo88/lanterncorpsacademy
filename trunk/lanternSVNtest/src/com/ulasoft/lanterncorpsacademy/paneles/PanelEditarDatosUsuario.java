@@ -1,11 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.sql.SQLException;
-
-import lcaInterfaceDAO.IPersonajeDAO;
-import lcaInterfaceDAO.IPersonajeDO;
-import lcaInterfaceDAO.IUsuarioDO;
-
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
@@ -77,10 +71,12 @@ public class PanelEditarDatosUsuario extends Panel{
 	    fldConfirPass = new PasswordField();
 	    fldConfirPass.setWidth(new Extent(300));
 	    grid.add(fldConfirPass);
- 
-		col.add(grid);
+	    Row row = new Row();
+	    row.add(grid);
+	    row.setAlignment(Alignment.ALIGN_CENTER);
+		col.add(row);
 		
-		Row row = new Row();
+		row = new Row();
 		Button btnGuardar = new Button("Guardar");
 	    btnGuardar.setStyle(GUIStyles.STYLE2);
 	    btnGuardar.addActionListener(new ActionListener() {

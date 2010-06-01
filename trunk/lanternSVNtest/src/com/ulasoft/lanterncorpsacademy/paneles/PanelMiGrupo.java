@@ -1,17 +1,8 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import com.minotauro.echo.table.base.ETable;
-import com.minotauro.echo.table.base.ETableNavigation;
-import com.minotauro.echo.table.base.TableColModel;
-import com.minotauro.echo.table.base.TableColumn;
-import com.minotauro.echo.table.base.TableSelModel;
-import com.minotauro.echo.table.renderer.LabelCellRenderer;
-import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
-import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.PersonBean;
-import com.ulasoft.lanterncorpsacademy.TestTableModel;
+import java.util.List;
 
+import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -24,17 +15,33 @@ import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.Row;
-import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
+import com.minotauro.echo.table.base.ETable;
+import com.minotauro.echo.table.base.ETableNavigation;
+import com.minotauro.echo.table.base.TableColModel;
+import com.minotauro.echo.table.base.TableColumn;
+import com.minotauro.echo.table.base.TableSelModel;
+import com.minotauro.echo.table.renderer.LabelCellRenderer;
+import com.ulasoft.lanterncorpsacademy.Desktop;
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.TestTableModel;
+import com.ulasoft.lanterncorpsacademy.logic.Atributos;
+import com.ulasoft.lanterncorpsacademy.logic.CrearGrupo;
+import com.ulasoft.lanterncorpsacademy.logic.MiGrupo;
+
+@SuppressWarnings("serial")
 public class PanelMiGrupo extends Panel {
 
 	private TestTableModel tableDtaModel;
+	List<IPersonajeDO> personajes;
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 	
 	public PanelMiGrupo() {
 		Column col = new Column();
-		
+		int flg = 0;
 		Grid grid = new Grid(2);
 		grid.setStyle(GUIStyles.DEFAULT_STYLE);
 		grid.setWidth(new Extent(500));
@@ -42,7 +49,17 @@ public class PanelMiGrupo extends Panel {
 		//lblCorreo.
 	    grid.add(lblNombreGrupo);
 	    
-	    Label lblNombreGrupoValue = new Label("Green Lantern Corp");
+	    Label lblNombreGrupoValue = new Label();
+		try {
+			lblNombreGrupoValue = new Label(CrearGrupo.obtenerNombreGrupo(app.getAtributos().getPersonaje()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(lblNombreGrupoValue.getText().equals("")){
+			flg =1;
+			lblNombreGrupoValue.setText("Ninguno");
+		}
+		
 	    grid.add(lblNombreGrupoValue);
 		col.add(grid);
 		
@@ -58,8 +75,7 @@ public class PanelMiGrupo extends Panel {
 	    	  btnInvitarNuevoIntegranteClicked();
 	      }
 	    });
-	    row.add(btnInvitarNuevoIntegrante);
-	    
+			    
 	    Button btnAbandonarGrupo = new Button("Abandonar Grupo");
 	    btnAbandonarGrupo.setStyle(GUIStyles.STYLE2);
 	    btnAbandonarGrupo.setWidth(new Extent(200));
@@ -70,7 +86,6 @@ public class PanelMiGrupo extends Panel {
 	      }
 	    });
 	    
-	    row.add(btnAbandonarGrupo);
 	    
 	    Button btnMensaje = new Button("Mensaje");
 	    btnMensaje.setStyle(GUIStyles.STYLE2);
@@ -81,13 +96,20 @@ public class PanelMiGrupo extends Panel {
 	      }
 	    });
 	    
+	    if(flg == 1){
+	    	btnInvitarNuevoIntegrante.setEnabled(false);
+	    	btnAbandonarGrupo.setEnabled(false);
+	    	btnMensaje.setEnabled(false);
+		}
+	    
+	    row.add(btnInvitarNuevoIntegrante);
+	    row.add(btnAbandonarGrupo);
 	    row.add(btnMensaje);
 	    row.setAlignment(Alignment.ALIGN_CENTER);
 	    col.add(row);
 		add(col);
 		}
 	
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 	Desktop d = app.getDesktop();
 
 		protected void btnMensajeClicked() {
@@ -124,8 +146,16 @@ public class PanelMiGrupo extends Panel {
 
 		    tableDtaModel = new TestTableModel();
 		    tableDtaModel.setEditable(true);
-		    tableDtaModel.setPageSize(3);
-
+		    tableDtaModel.setPageSize(10);
+		    
+		    Atributos atrr = app.getAtributos();
+			try {
+				personajes = MiGrupo.obtenerPersonClase(atrr.getPersonaje());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			tableDtaModel = MiGrupo.asignarPersonaje(tableDtaModel, personajes);
+		    
 		    // ----------------------------------------
 		    // The table
 		    // ----------------------------------------
@@ -166,18 +196,24 @@ public class PanelMiGrupo extends Panel {
 		    tableColumn = new TableColumn() {
 		      @Override
 		      public Object getValue(ETable table, Object element) {
-		        PersonBean personaBean = (PersonBean) element;
-		        return personaBean.getFrstName();
+		    	  IPersonajeDO personaje = (IPersonajeDO) element; 
+		        return personaje.getId();
 		      }
 		    };
-		    
-		    
-		    
+		    	    
 		    tableColumn.setWidth(new Extent(50));
 		    tableColumn.setHeadValue("Posicion");
 		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		    tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		    tableColModel.getTableColumnList().add(tableColumn);
+		    
+		    tableColumn = new TableColumn() {
+		    	@Override
+		    	public Object getValue(ETable table, Object element) {
+		    		IPersonajeDO personaje = (IPersonajeDO) element;
+		    	  return personaje.getAlias();
+		    	}
+		    };
 		    
 		    tableColumn.setWidth(new Extent(50));
 		    tableColumn.setHeadValue("Nombre");
@@ -188,10 +224,11 @@ public class PanelMiGrupo extends Panel {
 		    tableColumn = new TableColumn() {
 		      @Override
 		      public Object getValue(ETable table, Object element) {
-		        PersonBean personaBean = (PersonBean) element;
-		        return personaBean.getLastName();
+		    	  IPersonajeDO personaje = (IPersonajeDO) element;
+		        return personaje.getNivel();
 		      }
 		    };
+		    
 		    tableColumn.setWidth(new Extent(50));
 		    tableColumn.setHeadValue("Nivel");
 		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
