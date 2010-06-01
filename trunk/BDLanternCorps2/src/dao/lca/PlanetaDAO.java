@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.BaseDAO;
@@ -229,7 +230,7 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
-		
+
 		checkCache(dataObject, CHECK_UPDATE);
 		checkClass(dataObject, PlanetaDO.class, CHECK_UPDATE);
 
@@ -279,39 +280,49 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 		ret.setCoordenadaEnX/**/(rs.getFloat(PlanetaDO.COORDENADA_EN_X));
 		ret.setCoordenadaEnY/**/(rs.getFloat(PlanetaDO.COORDENADA_EN_Y));
 		return (PlanetaDO) dtaSession.add(ret);
-		
+
 	}
 
-	public void loadPersonajeList(IPlanetaDO planetaDO)
-			throws Exception {
+	public void loadPersonajeList(IPlanetaDO planetaDO) throws Exception {
 		checkCache(planetaDO, CHECK_UPDATE);
 		checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
 
 		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
 				PersonajeDAO.class, connectionBean);
 
-		planetaDO.setPersonajeList(personajeDAO
-				.listByClaseLinternaId(planetaDO.getId()));
+		planetaDO.setPersonajeList(personajeDAO.listByClaseLinternaId(planetaDO
+				.getId()));
 
 	}
 
 	@Override
-	public float getPlanetDistance(int oringenId, int destinoId)
+	public float getPlanetDistance(int origenId, int destinoId)
 			throws SQLException {
-		 StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-		    strbuf.append("SELECT |/( (PA.coordenada_en_x - PB.coordenada_en_x)*( PA.coordenada_en_x - PB.coordenada_en_x)");
-		    strbuf.append("+(PA.coordenada_en_y - PB.coordenada_en_y)*( PA.coordenada_en_y - PB.coordenada_en_y))");
-		    strbuf.append(" AS d ");
-		    strbuf.append(" FROM "+getTableName()+" AS PA"+getTableName()+" AS PB");
+		strbuf
+				.append("SELECT |/( (PA.coordenadaEnX - PB.coordenadaEnX)*( PA.coordenadaEnX - PB.coordenadaEnX)");
+		strbuf
+				.append("+(PA.coordenadaEnY - PB.coordenadaEnY)*( PA.coordenadaEnY - PB.coordenadaEnY))");
+		strbuf.append(" AS d ");
+		strbuf.append(" FROM " + getTableName() + " AS PA , " + getTableName()
+				+ " AS PB ");
+		strbuf.append(" WHERE ");
+		strbuf.append(" PA.id ");
+		strbuf.append(" = ");
+		strbuf.append(origenId);
+		strbuf.append(" AND ");
+		strbuf.append(" PB.id ");
+		strbuf.append(" = ");
+		strbuf.append(destinoId);
 
-		    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-		    ResultSet rs = //
-		    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
 
-		    rs.next();
+		rs.next();
 
-		    return rs.getFloat("d");
+		return rs.getFloat("d");
 	}
 }
