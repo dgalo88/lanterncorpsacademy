@@ -11,6 +11,7 @@ import nextapp.echo.app.event.ActionListener;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelForo;
@@ -24,15 +25,17 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 @SuppressWarnings("serial")
 public class MenuHead2 extends Panel {
 	
-
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+	.getActive();
+	
 	public MenuHead2() {
 		Row row = new Row();
 		row.setStyle(GUIStyles.STYLE3);
-		//row.setInsets(new Insets(30, 1, 1, 1));
+		// row.setInsets(new Insets(30, 1, 1, 1));
 
 		Button btnMisiones = new Button("Misiones");
 		btnMisiones.setStyle(GUIStyles.STYLE2);
-		//btnMisiones.setWidth(new Extent(100));
+		// btnMisiones.setWidth(new Extent(100));
 		btnMisiones.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -44,7 +47,7 @@ public class MenuHead2 extends Panel {
 		Button btnAtacar = new Button("Atacar");
 		btnAtacar.setStyle(GUIStyles.STYLE2);
 		btnAtacar.setWidth(new Extent(100));
-		//btnAtacar.setWidth(new Extent(100));
+		// btnAtacar.setWidth(new Extent(100));
 		btnAtacar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -80,9 +83,9 @@ public class MenuHead2 extends Panel {
 		// btnRing.setBackground(Color.GREEN);
 		// btnRing.setDisabledIcon(new
 		// ResourceImageReference("com/ulasoft/lanterncorpsacademy/linterna.png"));
-		btnRing.setIcon(new ResourceImageReference(
-				"com/ulasoft/lanterncorpsacademy/imagenes/linterna.png"));
-		// btnRing.setStyle(GUIStyles.STYLE);
+		btnRing.setIcon(new ResourceImageReference(ImgLoad.menuHead(app
+				.getAtributos().getPersonaje())));
+		// btnRing.setStyle(GUIStyles.STYLE);s
 		btnRing.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -136,9 +139,8 @@ public class MenuHead2 extends Panel {
 		add(row);
 	}
 
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 	Desktop d = app.getDesktop();
-	
+
 	// --------------------------------------------------------------------------------
 
 	private void btnRankingClicked() {
@@ -177,10 +179,10 @@ public class MenuHead2 extends Panel {
 	// -------------------------------------------------------------------------------
 
 	protected void btnRing2Clicked() {
-//		removeAll();
-//		add(initTemplate2());
+		// removeAll();
+		// add(initTemplate2());
 		PanelMain pnlMain = new PanelMain();
-		//d = app.getDesktop();
+		// d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
 
 	}
@@ -217,6 +219,5 @@ public class MenuHead2 extends Panel {
 		d.setPanelCentral(pnlMain);
 
 	}
-
 
 }
