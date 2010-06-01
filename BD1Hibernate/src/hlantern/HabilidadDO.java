@@ -102,8 +102,8 @@ public class HabilidadDO{
 		this.habilidadClaseLinternaList = habilidadClaseLinternaList;
 	}
 
-	@OneToMany(mappedBy = "hablidadRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "habilidad")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<HabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
 		return habilidadClaseLinternaList;
@@ -115,8 +115,8 @@ public class HabilidadDO{
 		this.nivelHabilidadList = nivelHabilidadList;
 	}
 
-	@OneToMany(mappedBy = "hablidadRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "habilidad")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<NivelHabilidadDO> getNivelHabilidadList() {
 		return nivelHabilidadList;
@@ -128,8 +128,8 @@ public class HabilidadDO{
 		this.habilidadActivaList = habilidadActivaList;
 	}
 
-	@OneToMany(mappedBy = "hablidadRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "habilidad")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<HabilidadActivaDO> getHabilidadActivaList() {
 		return habilidadActivaList;

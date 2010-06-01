@@ -102,18 +102,18 @@ public class PlanetaDO {
 	}
 	
 	// --------------------------------------------------------------------------------
-	@OneToOne(mappedBy = "planetaRef") //referenciado por: claseLinterna
-	public ClaseLinternaDO getClaseLinternaRef() {
+	@OneToOne(mappedBy = "planeta") //referenciado por: claseLinterna
+	public ClaseLinternaDO getClaseLinterna() {
 		return claseLinterna;
 	}
 
-	public void setClaseLinternaRef(ClaseLinternaDO claseLinternaRef) {
-		this.claseLinterna = claseLinternaRef;
+	public void setClaseLinterna(ClaseLinternaDO claseLinterna) {
+		this.claseLinterna = claseLinterna;
 	}
 	
 	// --------------------------------------------------------------------------------
-	@OneToMany(mappedBy = "planetaRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "planeta")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<PersonajeDO> getPersonajeList() {
 		return personajeList;
@@ -125,8 +125,8 @@ public class PlanetaDO {
 
 
 	// --------------------------------------------------------------------------------
-	@OneToMany(mappedBy = "planetaRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "planeta")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<ObjetivoDO> getObjetivoList() {
 		return objetivoList;

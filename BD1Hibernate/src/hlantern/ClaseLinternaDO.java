@@ -91,8 +91,8 @@ public class ClaseLinternaDO  {
 	
 	// --------------------------------------------------------------------------------
 
-	@OneToMany(mappedBy = "clase_linternaRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "claseLinterna")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<PersonajeDO> getPersonajeList() {
 		return personajeList;
@@ -104,8 +104,8 @@ public class ClaseLinternaDO  {
 
 	// --------------------------------------------------------------------------------
 
-	@OneToMany(mappedBy = "clase_linternaRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "claseLinterna")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<GrupoDO> getGrupoList() {
 		return grupoList;
@@ -118,12 +118,12 @@ public class ClaseLinternaDO  {
 	// --------------------------------------------------------------------------------
 	@OneToOne(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
-	public PlanetaDO getPlanetaRef() {
+	public PlanetaDO getPlaneta() {
 		return planeta;
 	}
 
-	public void setPlanetaRef(PlanetaDO planetaRef) {
-		this.planeta = planetaRef;
+	public void setPlaneta(PlanetaDO planeta) {
+		this.planeta = planeta;
 	}
 
 	// --------------------------------------------------------------------------------
@@ -133,8 +133,8 @@ public class ClaseLinternaDO  {
 		this.habilidadClaseLinternaList = habilidadClaseLinternaList;
 	}
 
-	@OneToMany(mappedBy = "clase_linternaRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "claseLinterna")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<HabilidadClaseLinternaDO> getHabilidadClaseLinternaList() {
 		return habilidadClaseLinternaList;
@@ -146,8 +146,8 @@ public class ClaseLinternaDO  {
 		this.misionClaseLinternaList = misionClaseLinternaList;
 	}
 
-	@OneToMany(mappedBy = "clase_linternaRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "claseLinterna")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<MisionClaseLinternaDO> getMisionClaseLinternaList() {
 		return misionClaseLinternaList;

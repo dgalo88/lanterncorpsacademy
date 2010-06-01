@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -86,8 +87,8 @@ public class GrupoDO {
 	
 	// --------------------------------------------------------------------------------
 
-	@OneToMany(mappedBy = "grupoRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "grupo")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<PersonajeDO> getPersonajeList() {
 		return PersonajeList;
@@ -99,14 +100,14 @@ public class GrupoDO {
 
 	// --------------------------------------------------------------------------------
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	public ClaseLinternaDO getClaseLinternaRef() {
+
+	@ManyToOne
+	public ClaseLinternaDO getClaseLinterna() {
 		return claseLinterna;
 	}
 
-	public void setClaseLinternaRef(ClaseLinternaDO claseLinternaRef) {
-		this.claseLinterna = claseLinternaRef;
+	public void setClaseLinterna(ClaseLinternaDO claseLinterna) {
+		this.claseLinterna = claseLinterna;
 	}
 
 }

@@ -47,23 +47,23 @@ public class HabilidadClaseLinternaDO{
 
 	// --------------------------------------------------------------------------------
 
-	public void setHabilidadRef(HabilidadDO habilidadRef) {
-		this.habilidad = habilidadRef;
+	public void setHabilidad(HabilidadDO habilidad) {
+		this.habilidad = habilidad;
 	}
 	
 	@ManyToOne
-	public HabilidadDO getHabilidadRef() {
+	public HabilidadDO getHabilidad() {
 		return habilidad;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setClaseLinternaRef(ClaseLinternaDO claseLinternaRef) {
-		this.claseLinterna = claseLinternaRef;
+	public void setClaseLinterna(ClaseLinternaDO claseLinterna) {
+		this.claseLinterna = claseLinterna;
 	}
 
 	@ManyToOne
-	public ClaseLinternaDO getClaseLinternaRef() {
+	public ClaseLinternaDO getClaseLinterna() {
 		return claseLinterna;
 	}
 	

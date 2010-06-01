@@ -61,23 +61,23 @@ public class HabilidadActivaDO {
 
 	// --------------------------------------------------------------------------------
 
-	public void setPersonajeRef(PersonajeDO personajeRef) {
-		this.personaje = personajeRef;
+	public void setPersonaje(PersonajeDO personaje) {
+		this.personaje = personaje;
 	}
 	
 	@ManyToOne
-	public PersonajeDO getPersonajeRef() {
+	public PersonajeDO getPersonaje() {
 		return personaje;
 	}
 	
 	// --------------------------------------------------------------------------------
 
-	public void setHabilidadRef(HabilidadDO habilidadRef) {
-		this.habilidad = habilidadRef;
+	public void setHabilidad(HabilidadDO habilidad) {
+		this.habilidad = habilidad;
 	}
 	
 	@ManyToOne
-	public HabilidadDO getHabilidadRef() {
+	public HabilidadDO getHabilidad() {
 		return habilidad;
 	}
 	

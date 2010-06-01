@@ -82,12 +82,12 @@ public class ObjetivoDO {
 	// --------------------------------------------------------------------------------
 	
 	@ManyToOne
-	public PlanetaDO getPlanetaRef() {
+	public PlanetaDO getPlaneta() {
 		return planeta;
 	}
 
-	public void setPlanetaRef(PlanetaDO planetaRef) {
-		this.planeta = planetaRef;
+	public void setPlaneta(PlanetaDO planeta) {
+		this.planeta = planeta;
 	}
 	
 	// --------------------------------------------------------------------------------
@@ -96,8 +96,8 @@ public class ObjetivoDO {
 		OrdenList = ordenList;
 	}
 	
-	@OneToMany(mappedBy = "objetivoRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "objetivo")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<OrdenDO> getOrdenList() {
 		return OrdenList;

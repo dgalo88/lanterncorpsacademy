@@ -84,12 +84,12 @@ public class UsuarioDO {
 	// --------------------------------------------------------------------------------
 	@OneToOne(cascade = CascadeType.ALL) //referencia al personaje, columna "personajeid"
 	@PrimaryKeyJoinColumn
-	public PersonajeDO getPersonajeRef() {
+	public PersonajeDO getPersonaje() {
 		return personaje;
 	}
 
-	public void setPersonajeRef(PersonajeDO personajeRef) {
-		this.personaje = personajeRef;
+	public void setPersonaje(PersonajeDO personaje) {
+		this.personaje = personaje;
 	}
 
 }
