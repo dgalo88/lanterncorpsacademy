@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Proxy;
 
 @Entity
-@Table(name = "t_npc")
+@Table(name = "npc")
 @Proxy(lazy = false)
 public class NpcDO {
 

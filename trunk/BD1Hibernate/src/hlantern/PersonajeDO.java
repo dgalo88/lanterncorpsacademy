@@ -23,7 +23,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
 @Entity
-@Table(name = "t_personaje")
+@Table(name = "personaje")
 @Proxy(lazy = false)
 public class PersonajeDO {
 
@@ -48,9 +48,9 @@ public class PersonajeDO {
 	private String alias;
 	private int experiencia;
 	private int puntos_de_entrenamiento;
-	private int salud;
-	private int energia_del_anillo;
-	private int nivel;
+	private int salud=200; //los defaults de las tablas... t_
+	private int energia_del_anillo=100;
+	private int nivel=1;
 	private Date ultima_fecha_ingreso;
 
 	private UsuarioDO usuario;
@@ -187,8 +187,8 @@ public class PersonajeDO {
 	}
 	
 	// --------------------------------------------------------------------------------
-
-	public void setmisionPersonajelist(List<MisionPersonajeDO> misionPersonajeList) {
+	            // MisionPersonajeList
+	public void setMisionPersonajeList(List<MisionPersonajeDO> misionPersonajeList) {
 		this.misionPersonajeList = misionPersonajeList;
 	}
 	@OneToMany(mappedBy = "personaje")
