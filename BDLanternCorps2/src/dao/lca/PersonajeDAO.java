@@ -151,7 +151,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 
-		checkCache(dataObject, CHECK_UPDATE);
+		//checkCache(dataObject, CHECK_UPDATE);
 		checkClass(dataObject, PersonajeDO.class, CHECK_UPDATE);
 		
 		PersonajeDO personajeDO = (PersonajeDO) dataObject;
@@ -200,7 +200,6 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		Reference<IGrupoDO> ref2 = personajeDO.getGrupoRef();
 		ref2.checkUpdate();
 		strbuf.append(ref2.getIdAsString());
-		strbuf.append(", ");
 
 		strbuf.append(" WHERE ");
 		strbuf.append(PersonajeDO.ID);
@@ -435,7 +434,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 
 	public void loadHabilidadActivaList(IPersonajeDO personajeDO)
 			throws Exception {
-		checkCache(personajeDO, CHECK_UPDATE);
+		//checkCache(personajeDO, CHECK_UPDATE);
 		HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO
 				.getDAO(HabilidadActivaDAO.class, connectionBean);
 
