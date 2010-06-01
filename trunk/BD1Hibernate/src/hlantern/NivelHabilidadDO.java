@@ -96,12 +96,12 @@ public class NivelHabilidadDO {
 	// --------------------------------------------------------------------------------
 	
 	@ManyToOne
-	public HabilidadDO getHabilidadRef() {
+	public HabilidadDO getHabilidad() {
 		return habilidad;
 	}
 
-	public void setHabilidadRef(HabilidadDO habilidadRef) {
-		this.habilidad = habilidadRef;
+	public void setHabilidad(HabilidadDO habilidad) {
+		this.habilidad = habilidad;
 	}
 
 }

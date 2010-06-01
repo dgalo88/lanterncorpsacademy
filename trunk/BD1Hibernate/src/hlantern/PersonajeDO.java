@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -60,8 +61,8 @@ public class PersonajeDO {
 	
 	private ClaseLinternaDO claseLinterna;
 	
-	private List<IHabilidadActivaDO> habilidadActivaList = //
-		new ArrayList<IHabilidadActivaDO>();
+	private List<HabilidadActivaDO> habilidadActivaList = //
+		new ArrayList<HabilidadActivaDO>();
 
 	private List<MisionPersonajeDO> misionPersonajeList = //
 		new ArrayList<MisionPersonajeDO>();
@@ -155,45 +156,43 @@ public class PersonajeDO {
 	}
 
 	// --------------------------------------------------------------------------------
-	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	public PlanetaDO getPlanetaRef() {
+	@ManyToOne
+	public PlanetaDO getPlaneta() {
 		return  planeta;
 	}
 
-	public void setPlanetaRef(PlanetaDO planetaRef) {
-		this.planeta = planetaRef;
+	public void setPlaneta(PlanetaDO planeta) {
+		this.planeta = planeta;
 	}
 
 	// --------------------------------------------------------------------------------
-	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	public GrupoDO getGrupoRef() {
+	@ManyToOne
+	public GrupoDO getGrupo() {
 		return grupo;
 	}
 
-	public void setGrupoRef(GrupoDO grupoRef) {
-		this.grupo = grupoRef;
+	public void setGrupo(GrupoDO grupo) {
+		this.grupo = grupo;
 	}
 	//----------------------------------------------------------------------------------
 	
-	public void setHabilidadActivaList(List<IHabilidadActivaDO> habilidadActivaList) {
+	public void setHabilidadActivaList(List<HabilidadActivaDO> habilidadActivaList) {
 		this.habilidadActivaList = habilidadActivaList;
 	}
-	@OneToMany(mappedBy = "personajeRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "personaje")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	public List<IHabilidadActivaDO> getHabilidadActivaList() {
+	public List<HabilidadActivaDO> getHabilidadActivaList() {
 		return habilidadActivaList;
 	}
 	
 	// --------------------------------------------------------------------------------
 
-	public void setMisionPersonajelist(List<MisionPersonajeDO> misionPersonajeList) {
+	public void setmisionPersonajelist(List<MisionPersonajeDO> misionPersonajeList) {
 		this.misionPersonajeList = misionPersonajeList;
 	}
-	@OneToMany(mappedBy = "personajeRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "personaje")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<MisionPersonajeDO> getMisionPersonajeList() {
 		return misionPersonajeList;
@@ -201,23 +200,22 @@ public class PersonajeDO {
 	
 	// --------------------------------------------------------------------------------
 
-	public void setClaseLinternaRef(ClaseLinternaDO claseLinternaRef) {
-		this.claseLinterna = claseLinternaRef;
+	public void setClaseLinterna(ClaseLinternaDO claseLinterna) {
+		this.claseLinterna = claseLinterna;
 	}
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	public ClaseLinternaDO getClaseLinternaRef() {
+	@ManyToOne
+	public ClaseLinternaDO getClaseLinterna() {
 		return claseLinterna;
 	}
 
 	// --------------------------------------------------------------------------------
-	public void setUsuarioRef(UsuarioDO usuarioRef) {
-		this.usuario = usuarioRef;
+	public void setUsuario(UsuarioDO usuario) {
+		this.usuario = usuario;
 	}
 
-	@OneToOne(mappedBy = "personajeRef") //referenciado por: usuario, mediante personajeRef
-	public UsuarioDO getUsuarioRef() {
+	@OneToOne(mappedBy = "personaje") //referenciado por: usuario, mediante personajeRef
+	public UsuarioDO getUsuario() {
 		return usuario;
 	}
 //	

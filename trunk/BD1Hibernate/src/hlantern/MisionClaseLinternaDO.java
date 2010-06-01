@@ -48,22 +48,22 @@ public class MisionClaseLinternaDO {
 
 	// --------------------------------------------------------------------------------
 	@ManyToOne
-	public ClaseLinternaDO getClaseLinternaRef() {
+	public ClaseLinternaDO getClaseLinterna() {
 		return claseLinterna;
 	}
 
-	public void setClaseLinternaRef(ClaseLinternaDO claseLinternaRef) {
-		this.claseLinterna = claseLinternaRef;
+	public void setClaseLinterna(ClaseLinternaDO claseLinterna) {
+		this.claseLinterna = claseLinterna;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setMisionRef(MisionDO misionRef) {
-		this.mision = misionRef;
+	public void setMision(MisionDO mision) {
+		this.mision = mision;
 	}
 	
 	@ManyToOne
-	public MisionDO getMisionRef() {
+	public MisionDO getMision() {
 		return mision;
 	}
 	

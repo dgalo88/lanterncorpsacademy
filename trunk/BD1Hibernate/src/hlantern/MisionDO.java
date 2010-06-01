@@ -119,8 +119,8 @@ public class MisionDO {
 		OrdenList = ordenList;
 	}
 	
-	@OneToMany(mappedBy = "misionRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "mision")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<OrdenDO> getOrdenList() {
 		return OrdenList;
@@ -132,8 +132,8 @@ public class MisionDO {
 		MisionPersonajeList = misionPersonajeList;
 	}
 
-	@OneToMany(mappedBy = "misionRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "mision")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<MisionPersonajeDO> getMisionPersonajeList() {
 		return MisionPersonajeList;
@@ -145,8 +145,8 @@ public class MisionDO {
 		MisionClaselinternaList = misionClaselinternaList;
 	}
 	
-	@OneToMany(mappedBy = "misionRef")
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(mappedBy = "mision")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	public List<MisionClaseLinternaDO> getMisionClaselinternaList() {
 		return MisionClaselinternaList;

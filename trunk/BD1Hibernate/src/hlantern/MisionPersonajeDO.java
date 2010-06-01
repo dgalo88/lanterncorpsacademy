@@ -47,21 +47,21 @@ public class MisionPersonajeDO {
 
 	// --------------------------------------------------------------------------------
 
-	public void setPersonajeRef(PersonajeDO personajeRef) {
-		this.personaje = personajeRef;
+	public void setPersonaje(PersonajeDO personaje) {
+		this.personaje = personaje;
 	}
 	@ManyToOne
-	public PersonajeDO getPersonajeRef() {
+	public PersonajeDO getPersonaje() {
 		return personaje;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setMisionRef(MisionDO misionRef) {
-		this.mision = misionRef;
+	public void setMision(MisionDO mision) {
+		this.mision = mision;
 	}
 	@ManyToOne
-	public MisionDO getMisionRef() {
+	public MisionDO getMision() {
 		return mision;
 	}
 	

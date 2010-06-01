@@ -60,23 +60,23 @@ public class OrdenDO {
 		
 	// --------------------------------------------------------------------------------
 
-	public void setObjetivoRef(ObjetivoDO objetivoRef) {
-		this.objetivo = objetivoRef;
+	public void setObjetivo(ObjetivoDO objetivo) {
+		this.objetivo = objetivo;
 	}
 	
 	@ManyToOne
-	public ObjetivoDO getObjetivoRef() {
+	public ObjetivoDO getObjetivo() {
 		return objetivo;
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setMisionRef(MisionDO misionRef) {
-		this.mision = misionRef;
+	public void setMision(MisionDO mision) {
+		this.mision = mision;
 	}
 
 	@ManyToOne
-	public MisionDO getMisionRef() {
+	public MisionDO getMision() {
 		return mision;
 	}
 
