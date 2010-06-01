@@ -155,6 +155,7 @@ public class Test {
         grupo.setClaseLinterna(claseLinterna);
         grupo.setNombre("clan");
         grupo.setEstado(false);
+        grupo.getPersonajeList().add(personaje);        
         session.save(grupo);
         
         personaje.setGrupo(grupo);
@@ -165,9 +166,131 @@ public class Test {
         misionPersonaje.setMision(mision);
         misionPersonaje.setPersonaje(personaje);
         session.save(misionPersonaje);
+        
+        session.getTransaction().commit();
+//        session.close();
+        
+// XXX: LOAD ----------------------------------------------------------------------------------
+        
+        //estos dan problemas xq no tengo control sobre el id de los q inserte anteriormente y no 
+        // se que id genero hibernate
+        
+		Session session2 = sessionFactory.openSession();
+        session2.beginTransaction();
+        
+	    // PLANETAS 1
+
+        PlanetaDO planet;
+        planet = (PlanetaDO) session2.load(PlanetaDO.class, 1);
+        System.err.println("planet nombre: "+planet.getNombre());
+        System.err.println("planet sector: "+planet.getSector());
+        System.err.println("planet x: "+planet.getCoordenadaEnX());
+
+        // CLASELINTERNA 2
+
+        ClaseLinternaDO claseLint;
+        claseLint = (ClaseLinternaDO) session2.load(ClaseLinternaDO.class, 2);
+        System.err.println("clase nombre: "+claseLint.getColor());
+        System.err.println("clase cuerpo: "+claseLint.getNombre_de_cuerpo_linterna());
+//        System.err.println("planet base nombre: "+claseLint.getPlaneta().getNombre());
+
+        // HABILIDAD 3
+
+        HabilidadDO hability = (HabilidadDO) session2.load(HabilidadDO.class, 3);        
+        System.err.println("hability nombre: "+hability.getNombre());
+        System.err.println("hability costo: "+hability.getCosto_de_aprendizaje());
+        System.err.println("hability tipo: "+hability.getTipo());
+
+        // NIVELHABILIDAD 4
+
+        NivelHabilidadDO nivHabilidad = (NivelHabilidadDO) session2.load(NivelHabilidadDO.class, 4);
+        System.err.println("nivHability nivel: "+nivHabilidad.getNivel_de_habilidad());
+        System.err.println("nivHability efectividad: "+nivHabilidad.getEfectividad());
+        System.err.println("nivHability nivel: "+nivHabilidad.getCosto_de_energia());
+        System.err.println("nivHability hability id: "+nivHabilidad.getHabilidad().getId());
+        
+
+        // HABILIDADCLASESLINTERNA 5
+
+		HabilidadClaseLinternaDO habClaseLinterna = (HabilidadClaseLinternaDO) session2
+				.load(HabilidadClaseLinternaDO.class, 5);
+		System.err.println("habClase hability id: "+habClaseLinterna.getHabilidad().getId());
+		System.err.println("habCLase clase id: "+habClaseLinterna.getClaseLinterna().getId());
+
+        
+//        MISION 6
+        
+        MisionDO mision2 = (MisionDO) session2.load(MisionDO.class, 6);
+        System.err.println("mision nombre: "+mision2.getNombre());
+        System.err.println("mision desc: "+mision2.getDescripcion());
+        System.err.println("mision exp won: "+mision2.getExperiencia_ganada());
+        System.err.println("mision trains won: "+mision2.getPuntos_de_entrenamiento_ganados());
+        System.err.println("mision nivel nec: "+mision2.getNivel_necesario());
+
+        
+        //MISIONCLASE 7
+        
+		MisionClaseLinternaDO misionClaseLint = (MisionClaseLinternaDO) session2
+				.load(MisionClaseLinternaDO.class, 7);
+		System.err.println("misionClase claseId: "+misionClaseLint.getClaseLinterna().getId());
+		System.err.println("misionClase misionId: "+misionClaseLint.getMision().getId());
+
+        
+        //OBJETIVO 8
+        
+        ObjetivoDO objetivo2= (ObjetivoDO) session2.load(ObjetivoDO.class, 8);
+        System.err.println("objetivo desc: "+objetivo2.getDescripcion());
+        System.err.println("objetivo num npc: "+objetivo2.getNumeroDeNpc());
+        System.err.println("objetivo planetId: "+objetivo2.getPlaneta().getId());
+
+        
+        //ORDEN 9
+        
+        OrdenDO orden2= (OrdenDO) session2.load(OrdenDO.class, 9);
+        System.err.println("orden misionID: "+orden2.getMision().getId());
+        System.err.println("orden objID: "+orden2.getObjetivo().getId());
+
+        
+        //PERSONAJE 10
+
+        PersonajeDO personaje2= (PersonajeDO) session2.load(PersonajeDO.class, 10);
+        System.err.println("personaje alias: "+personaje2.getAlias());
+        System.err.println("personaje clase id: "+personaje2.getClaseLinterna().getId());
+        System.err.println("personaje planeta id: "+personaje2.getPlaneta().getId());
+
+        
+        //USUARIO 11 Ref
+        
+        UsuarioDO usuario2= (UsuarioDO) session2.load(UsuarioDO.class, 11);
+        System.err.println("usuario clave: "+usuario2.getClave());
+        System.err.println("usuario correo: "+usuario2.getCorreo());
+        System.err.println("usuario nombre: "+usuario2.getNombre());
+        //System.err.println("usuario personajeId: "+usuario2.getPersonaje().getId());
+
+        
+        //HABILIDADACTIVA 12
+        
+        HabilidadActivaDO habactiva=(HabilidadActivaDO) session2.load(HabilidadActivaDO.class, 12);
+        System.err.println("hab activa habilidadID: "+habactiva.getHabilidad().getId());
+        System.err.println("hab activa nivel: "+habactiva.getNivel_habilidad());
+        System.err.println("hab activa personajeID: "+habactiva.getPersonaje().getId());
+
+        
+        //GRUPO 13
+        
+        GrupoDO grupo2=(GrupoDO) session2.load(GrupoDO.class, 13);
+        System.err.println("grupo claseID: "+grupo2.getClaseLinterna().getId());
+        System.err.println("grupo nombre: "+grupo2.getNombre());
+        System.err.println("grupo estado: "+grupo2.isEstado());
+        
+        //MISIONPERSONAJE 14
+        
+        MisionPersonajeDO misionPers=(MisionPersonajeDO) session2.load(MisionPersonajeDO.class, 14);
+        System.err.println("misionP misionId: "+misionPers.getMision().getId());
+        System.err.println("misionP personajeId: "+misionPers.getPersonaje().getId());
 
 
-		session.getTransaction().commit();
-		session.close();
+		session2.getTransaction().commit();
+		session2.close();
 	}
 }

@@ -68,7 +68,7 @@ public class NivelHabilidadDO {
 		return efectividad;
 	}
 
-	public void setEfectividad(int efectividad) {
+	public void setEfectividad(float efectividad) {
 		this.efectividad = efectividad;
 	}
 
