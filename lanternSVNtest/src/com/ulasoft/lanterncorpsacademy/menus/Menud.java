@@ -37,7 +37,7 @@ public class Menud extends Panel {
 
 		Label lblTrains = new Label("Puntos de Entrenamiento:");
 		lblTrainsValue = new Label("XX");
-		Label lblNivel = new Label("NIvel");
+		Label lblNivel = new Label("Nivel");
 		lblNiveLabelValue = new Label("XX");
 		
 

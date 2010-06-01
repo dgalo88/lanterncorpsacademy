@@ -10,7 +10,6 @@ import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.ImageReference;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -47,14 +46,15 @@ public class PanelRecargarAnillo extends Panel{
 		
 	    Button btnCargarBatPort = new Button("Cargar con Bateria Portatil");
 	    btnCargarBatPort.setStyle(GUIStyles.DEFAULT_STYLE);
-	    btnCargarBatPort.addActionListener(new ActionListener() {
+	    btnCargarBatPort.setWidth(new Extent(300))
+;	    btnCargarBatPort.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
 	    	  btnCargarBatPortClicked();
 	      }
 	    });
 	    row.add(btnCargarBatPort);
-	    
+	    row.setAlignment(Alignment.ALIGN_CENTER);
 	    col.add(row);
 	    col.setBackground(Color.WHITE);
 	    this.add(col);

@@ -1,5 +1,9 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.util.List;
+
+import lcaInterfaceDAO.IPersonajeDO;
+
 import com.minotauro.echo.table.base.ETable;
 import com.minotauro.echo.table.base.ETableNavigation;
 import com.minotauro.echo.table.base.TableColModel;
@@ -11,9 +15,9 @@ import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.PersonBean;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
-
+import com.ulasoft.lanterncorpsacademy.logic.Atributos;
+import com.ulasoft.lanterncorpsacademy.logic.CrearGrupo;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -31,9 +35,12 @@ import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class PanelCrearGrupo extends Panel{
 	
 	private TestTableModel tableDtaModel;
+	List<IPersonajeDO> personajes;
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 	
 	public PanelCrearGrupo() {
 	Column col = new Column();
@@ -44,11 +51,15 @@ public class PanelCrearGrupo extends Panel{
 	Label lblCorreo = new Label("Nombre del Grupo");
 	//lblCorreo.
     grid.add(lblCorreo);
-    
     TextField txtGrupo = new TextField();
     txtGrupo.setWidth(new Extent(300));
     //txtCorreo.validate();
-    txtGrupo.setText("Green Lantern Corp");
+    try {
+		txtGrupo.setText(CrearGrupo.obtenerNombreGrupo(app.getAtributos().getPersonaje()));
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+		
     grid.add(txtGrupo);
 	col.add(grid);
 	
@@ -63,7 +74,7 @@ public class PanelCrearGrupo extends Panel{
     	  btnSalirClicked();
       }
     });
-    row.add(btnSalir);
+    
     
     Button btnCrearGrupo = new Button("Crear Grupo");
     btnCrearGrupo.setStyle(GUIStyles.STYLE2);
@@ -74,13 +85,19 @@ public class PanelCrearGrupo extends Panel{
       }
     });
     
+    if(!txtGrupo.getText().equals("")){
+    	btnSalir.setEnabled(false);
+    	btnCrearGrupo.setEnabled(false);
+    }
+    
+    row.add(btnSalir);
     row.add(btnCrearGrupo);
     row.setAlignment(Alignment.ALIGN_CENTER);
     col.add(row);
 	add(col);
 	}
 
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+	
 	Desktop d = app.getDesktop();
 	
 	protected void btnCrearGrupoClicked() {
@@ -111,8 +128,16 @@ public class PanelCrearGrupo extends Panel{
 
 	    tableDtaModel = new TestTableModel();
 	    tableDtaModel.setEditable(true);
-	    tableDtaModel.setPageSize(3);
+	    tableDtaModel.setPageSize(10);
 
+	    Atributos atrr = app.getAtributos();
+	    try {
+			personajes = CrearGrupo.obtenerPersonasClase(atrr.getPersonaje());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tableDtaModel = CrearGrupo.asignarPersonaje(tableDtaModel, personajes);
+	    
 	    // ----------------------------------------
 	    // The table
 	    // ----------------------------------------
@@ -150,21 +175,13 @@ public class PanelCrearGrupo extends Panel{
 	    
 	    TableColumn tableColumn;
 	    
-	    tableColumn = new TableColumn();
-	    tableColumn.setWidth(new Extent(50));
-	    tableColumn.setHeadValue("");
-	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-	    tableColumn.setDataCellRenderer(initNestedCellRenderer());
-	    tableColModel.getTableColumnList().add(tableColumn);
-
-
 	    tableColumn = new TableColumn() {
-	      @Override
-	      public Object getValue(ETable table, Object element) {
-	        PersonBean personaBean = (PersonBean) element;
-	        return personaBean.getFrstName();
-	      }
-	    };
+		      @Override
+		      public Object getValue(ETable table, Object element) {
+		    	  IPersonajeDO personaje = (IPersonajeDO) element; 
+		        return personaje.getId();
+		      }
+		    };
 	    
 	    
 	    
@@ -174,6 +191,14 @@ public class PanelCrearGrupo extends Panel{
 	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
 	    tableColModel.getTableColumnList().add(tableColumn);
 	    
+	    tableColumn = new TableColumn() {
+	    	@Override
+	    	public Object getValue(ETable table, Object element) {
+	    		IPersonajeDO personaje = (IPersonajeDO) element;
+	    	  return personaje.getAlias();
+	    	}
+	    };
+	    
 	    tableColumn.setWidth(new Extent(50));
 	    tableColumn.setHeadValue("Nombre");
 	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
@@ -181,16 +206,24 @@ public class PanelCrearGrupo extends Panel{
 	    tableColModel.getTableColumnList().add(tableColumn);
 
 	    tableColumn = new TableColumn() {
-	      @Override
-	      public Object getValue(ETable table, Object element) {
-	        PersonBean personaBean = (PersonBean) element;
-	        return personaBean.getLastName();
-	      }
-	    };
+		      @Override
+		      public Object getValue(ETable table, Object element) {
+		    	  IPersonajeDO personaje = (IPersonajeDO) element;
+		        return personaje.getNivel();
+		      }
+		    };
+		    
 	    tableColumn.setWidth(new Extent(50));
 	    tableColumn.setHeadValue("Nivel");
 	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
+	    tableColModel.getTableColumnList().add(tableColumn);
+	    
+	    tableColumn = new TableColumn();
+	    tableColumn.setWidth(new Extent(50));
+	    tableColumn.setHeadValue("Actions");
+	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+	    tableColumn.setDataCellRenderer(initNestedCellRenderer());
 	    tableColModel.getTableColumnList().add(tableColumn);
 
 	    return tableColModel;
@@ -210,7 +243,7 @@ public class PanelCrearGrupo extends Panel{
 	        boolean editable = ((TestTableModel) table.getTableDtaModel()).getEditable();
 
 	        CheckBox ret = new CheckBox();
-	        ret.setStyle(GUIStyles.DEFAULT_STYLE);
+//	        ret.setStyle(GUIStyles.DEFAULT_STYLE);
 	        ret.setEnabled(editable);
 	        ret.setToolTipText("Seleccion");
 
@@ -231,5 +264,4 @@ public class PanelCrearGrupo extends Panel{
 	  private void btnRadioClicked(int row) {
 			// TODO Auto-generated method stub	    
 	  }
-
 }
