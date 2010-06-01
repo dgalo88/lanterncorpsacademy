@@ -91,6 +91,7 @@ public class PanelAtacar extends Panel {
 
 		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
 		col.add(tableNavigation);
+		
 		Button btnAtacar = new Button("ATACAR");
 		btnAtacar.setStyle(GUIStyles.DEFAULT_STYLE);
 		btnAtacar.addActionListener(new ActionListener() {
@@ -99,7 +100,10 @@ public class PanelAtacar extends Panel {
 				btnAtacarClicked();
 			}
 		});
-		col.add(btnAtacar);
+		Row row = new Row();
+		row.add(btnAtacar);
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		col.add(row);
 	}
 
 	protected void btnAtacarClicked() {

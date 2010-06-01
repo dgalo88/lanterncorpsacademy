@@ -1,19 +1,12 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
-import dao.connection.ConnectionBean;
-import dao.connection.ConnectionFactory;
-import factory.GlobalDAOFactory;
-
-import lcaInterfaceDAO.IHabilidadDAO;
-import lcaInterfaceDAO.IPersonajeDAO;
-import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
 import nextapp.echo.app.PasswordField;
 import nextapp.echo.app.TextField;
+import dao.connection.ConnectionBean;
+import dao.connection.ConnectionFactory;
+import factory.GlobalDAOFactory;
 
 public class EditarDatosUsuario {
 
