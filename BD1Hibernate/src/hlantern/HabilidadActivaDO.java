@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Proxy;
 
 @Entity
-@Table(name = "t_hablilidad_activa")
+@Table(name = "hablilidad_activa")
 @Proxy(lazy = false)
 public class HabilidadActivaDO {
 

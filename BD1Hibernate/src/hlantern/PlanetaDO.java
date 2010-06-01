@@ -17,7 +17,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
 @Entity
-@Table(name = "t_planeta")
+@Table(name = "planeta")
 @Proxy(lazy = false)
 public class PlanetaDO {
 
