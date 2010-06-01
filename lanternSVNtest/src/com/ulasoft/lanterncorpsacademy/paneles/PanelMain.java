@@ -15,36 +15,39 @@ import nextapp.echo.app.Row;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
-import com.ulasoft.lanterncorpsacademy.logic.Main;
+import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 
 @SuppressWarnings("serial")
 public class PanelMain extends Panel {
 
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+			.getActive();
 
 	public PanelMain() {
 		Row row = new Row();
 		row.setStyle(GUIStyles.STYLE3);
-		//row.setCellSpacing(new Extent(250));
-		//row.add(new Label(""));
+		// row.setCellSpacing(new Extent(250));
+		// row.add(new Label(""));
 		Grid grid = new Grid(2);
 		grid.setBackground(Color.WHITE);
 		Label lblImagen = new Label();
-		lblImagen.setIcon(new ResourceImageReference(Main.loadImg(app.getAtributos().getPersonaje())//
-				,new Extent(236), new Extent(360)));
+		lblImagen.setIcon(new ResourceImageReference(ImgLoad.panelMain(app
+				.getAtributos().getPersonaje())//
+				, new Extent(236), new Extent(360)));
 		grid.add(lblImagen);
 		Column col = new Column();
-		
+
 		lblPlanetaValue = new Label("PL");
 		lblSectorValue = new Label("00");
 		lblFechaValue = new Label("Ult Ing");
 		lblMisionesValue = new Label("00");
-		
-		LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+
+		LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+				.getActive();
 		Atributos atrib = lca.getAtributos();
-		
+
 		try {
-			atrib.updatePanelMain (this);
+			atrib.updatePanelMain(this);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -55,8 +58,8 @@ public class PanelMain extends Panel {
 		col.add(new Label("Sector:"));
 		col.add(lblSectorValue);
 		col.add(new Label("Estadísticas"));
-//		col.add(new Label("Combates Ganados:"));
-//		col.add(new Label("Combates Perdidos:"));
+		// col.add(new Label("Combates Ganados:"));
+		// col.add(new Label("Combates Perdidos:"));
 		col.add(new Label("Misiones Realizadas:"));
 		col.add(lblMisionesValue);
 		col.add(new Label("Ultimo Ingreso"));
@@ -69,122 +72,124 @@ public class PanelMain extends Panel {
 		row.set(PROPERTY_HEIGHT, new Extent(800));
 		add(row);
 
-//		setWidth(new Extent(400));
-//		setHeight(new Extent(500));
+		// setWidth(new Extent(400));
+		// setHeight(new Extent(500));
 	}
-		
-		private IPlanetaDO planeta;
-		private Date fecha;
-		private Label lblFechaValue;
-		private Label lblMisionesValue;
-		private Label lblSectorValue;
-		private Label lblPlanetaValue;
-		
-//		public PanelMain() {
-//
-//		SplitPane splitPane= new SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT);
-//		splitPane.setBackground(Color.LIGHTGRAY);
-//		splitPane.set(PROPERTY_WIDTH, new Extent(400));
-//		splitPane.set(PROPERTY_HEIGHT, new Extent(300));
-//		
-//		ContentPane contenPane = new ContentPane();
-//		ImageMap imageMap = new ImageMap(new ResourceImageReference(
-//				"com/ulasoft/lanterncorpsacademy/imagenes/GreenLanternRebirthHC1.jpg"));
-//		imageMap.setWidth(new Extent(200));
-//	    imageMap.setHeight(new Extent(300));
-//	    
-//	    contenPane.add(imageMap);
-//	    
-//	    splitPane.add(contenPane);
-//		
-//	    ContentPane contentPane2 = new ContentPane();
-//		Grid grid = new Grid(2);
-//		Row row = new Row();
-//
-//		Label lblUbicacion = new Label("Ubicacion:");
-//
-//		Label lblPlaneta = new Label("PLaneta:");
-//		lblPlanetaValue = new Label("PL");
-//
-//		Label lblSector = new Label("Sector");
-//		lblSectorValue = new Label(" ");
-//
-//		Label lblFecha = new Label("Ultimo Ingreso:");
-//		lblFechaValue = new Label("Ult Ing");
-//
-//		lblUbicacion.setTextAlignment(Alignment.ALIGN_CENTER);
-//		row.add(lblUbicacion);
-//		
-//		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
-//		Atributos atrib = app.getAtributos();
-//
-////		try {
-////			atrib.updatePanelMain(this);
-////		} catch (Exception e) {
-////			e.printStackTrace();
-////		}
-//				
-//		grid.add(lblPlaneta);
-//		grid.add(lblPlanetaValue);
-//		grid.add(lblSector);
-//		grid.add(lblSectorValue);
-//		grid.add(lblFecha);
-//		grid.add(lblFechaValue);
-//			
-//		grid.setStyle(GUIStyles.DEFAULT_STYLE);
-//		grid.setHeight(new Extent(300));
-//		contentPane2.add(grid);
-//		splitPane.add(contentPane2);
-//		add(splitPane);
-//		
-//		}
 
-		public IPlanetaDO getPlaneta() {
-			return planeta;
-		}
+	private IPlanetaDO planeta;
+	private Date fecha;
+	private Label lblFechaValue;
+	private Label lblMisionesValue;
+	private Label lblSectorValue;
+	private Label lblPlanetaValue;
 
-		public void setPlaneta(IPlanetaDO planeta) {
-			this.planeta = planeta;
-		}
+	// public PanelMain() {
+	//
+	// SplitPane splitPane= new
+	// SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT);
+	// splitPane.setBackground(Color.LIGHTGRAY);
+	// splitPane.set(PROPERTY_WIDTH, new Extent(400));
+	// splitPane.set(PROPERTY_HEIGHT, new Extent(300));
+	//		
+	// ContentPane contenPane = new ContentPane();
+	// ImageMap imageMap = new ImageMap(new ResourceImageReference(
+	// "com/ulasoft/lanterncorpsacademy/imagenes/GreenLanternRebirthHC1.jpg"));
+	// imageMap.setWidth(new Extent(200));
+	// imageMap.setHeight(new Extent(300));
+	//	    
+	// contenPane.add(imageMap);
+	//	    
+	// splitPane.add(contenPane);
+	//		
+	// ContentPane contentPane2 = new ContentPane();
+	// Grid grid = new Grid(2);
+	// Row row = new Row();
+	//
+	// Label lblUbicacion = new Label("Ubicacion:");
+	//
+	// Label lblPlaneta = new Label("PLaneta:");
+	// lblPlanetaValue = new Label("PL");
+	//
+	// Label lblSector = new Label("Sector");
+	// lblSectorValue = new Label(" ");
+	//
+	// Label lblFecha = new Label("Ultimo Ingreso:");
+	// lblFechaValue = new Label("Ult Ing");
+	//
+	// lblUbicacion.setTextAlignment(Alignment.ALIGN_CENTER);
+	// row.add(lblUbicacion);
+	//		
+	// LanternCorpsAcademyApp app = (LanternCorpsAcademyApp)
+	// LanternCorpsAcademyApp.getActive();
+	// Atributos atrib = app.getAtributos();
+	//
+	// // try {
+	// // atrib.updatePanelMain(this);
+	// // } catch (Exception e) {
+	// // e.printStackTrace();
+	// // }
+	//				
+	// grid.add(lblPlaneta);
+	// grid.add(lblPlanetaValue);
+	// grid.add(lblSector);
+	// grid.add(lblSectorValue);
+	// grid.add(lblFecha);
+	// grid.add(lblFechaValue);
+	//			
+	// grid.setStyle(GUIStyles.DEFAULT_STYLE);
+	// grid.setHeight(new Extent(300));
+	// contentPane2.add(grid);
+	// splitPane.add(contentPane2);
+	// add(splitPane);
+	//		
+	// }
 
-		public Date getFecha() {
-			return fecha;
-		}
+	public IPlanetaDO getPlaneta() {
+		return planeta;
+	}
 
-		public void setFecha(Date fecha) {
-			this.fecha = fecha;
-		}
+	public void setPlaneta(IPlanetaDO planeta) {
+		this.planeta = planeta;
+	}
 
-		public Label getLblFechaValue() {
-			return lblFechaValue;
-		}
+	public Date getFecha() {
+		return fecha;
+	}
 
-		public void setLblFechaValue(Label lblFechaValue) {
-			this.lblFechaValue = lblFechaValue;
-		}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
-		public Label getLblMisionesValue() {
-			return lblMisionesValue;
-		}
+	public Label getLblFechaValue() {
+		return lblFechaValue;
+	}
 
-		public void setLblMisionesValue(Label lblMisionesValue) {
-			this.lblMisionesValue = lblMisionesValue;
-		}
+	public void setLblFechaValue(Label lblFechaValue) {
+		this.lblFechaValue = lblFechaValue;
+	}
 
-		public Label getLblSectorValue() {
-			return lblSectorValue;
-		}
+	public Label getLblMisionesValue() {
+		return lblMisionesValue;
+	}
 
-		public void setLblSectorValue(Label lblSectorValue) {
-			this.lblSectorValue = lblSectorValue;
-		}
+	public void setLblMisionesValue(Label lblMisionesValue) {
+		this.lblMisionesValue = lblMisionesValue;
+	}
 
-		public Label getLblPlanetaValue() {
-			return lblPlanetaValue;
-		}
+	public Label getLblSectorValue() {
+		return lblSectorValue;
+	}
 
-		public void setLblPlanetaValue(Label lblPlanetaValue) {
-			this.lblPlanetaValue = lblPlanetaValue;
-		}
-	
+	public void setLblSectorValue(Label lblSectorValue) {
+		this.lblSectorValue = lblSectorValue;
+	}
+
+	public Label getLblPlanetaValue() {
+		return lblPlanetaValue;
+	}
+
+	public void setLblPlanetaValue(Label lblPlanetaValue) {
+		this.lblPlanetaValue = lblPlanetaValue;
+	}
+
 }
