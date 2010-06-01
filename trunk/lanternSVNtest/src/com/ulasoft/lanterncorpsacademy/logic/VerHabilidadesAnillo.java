@@ -2,6 +2,7 @@ package com.ulasoft.lanterncorpsacademy.logic;
 
 import java.util.List;
 
+import lcaInterfaceDAO.IHabilidadActivaDAO;
 import lcaInterfaceDAO.IHabilidadActivaDO;
 import lcaInterfaceDAO.IHabilidadDAO;
 import lcaInterfaceDAO.IHabilidadDO;
@@ -50,20 +51,20 @@ public class VerHabilidadesAnillo {
 		}
 		return "";
 	}
-	public static int obtenerNivel(IHabilidadDO habilidad) throws Exception{
-		int c=0;
+	public static int obtenerNivel(int personajeId, IHabilidadDO habilidad) throws Exception{
+		int c;
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-		List<INivelHabilidadDO> nhab;
-		IHabilidadDAO h = (IHabilidadDAO) GlobalDAOFactory.getDAO( //
-				IHabilidadDAO.class, connectionBean);
-		h.loadNivelHabilidadList(habilidad);
-		nhab = habilidad.getNivelHabilidadList();
-		for(int pos=0;pos<(nhab.size());pos++){
-  	  		if(habilidad.getId()== nhab.get(pos).getHabilidadRef().getRefIdent()){
-  	  			c=nhab.get(pos).getNivel_de_habilidad();
-  	  		}
-  	  	}
+		IHabilidadActivaDO habAct;
+		IHabilidadActivaDAO hActDAO = (IHabilidadActivaDAO) GlobalDAOFactory.getDAO( //
+				IHabilidadActivaDAO.class, connectionBean);
+		habAct=(IHabilidadActivaDO) hActDAO.loadByHabilidadId(habilidad.getId(), personajeId);
+//		nhab = habilidad.getNivelHabilidadList();
+//		for(int pos=0;pos<(habAct.size());pos++){
+//  	  		if(habilidad.getId()== habAct.get(pos).getHabilidadRef().getRefIdent()){
+//  	  			c=nhab.get(pos).getNivel_de_habilidad();
+//  	  		}
+//  	  	}
   	  connectionBean.getConnection().close();
-      return c;
+      return c=habAct.getNivel_habilidad();
 	}
 }

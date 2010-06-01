@@ -1,7 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
-import java.sql.SQLException;
-
 import lcaInterfaceDAO.IMisionPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
@@ -96,36 +94,38 @@ public class Atributos {
 		
 	}
 
-public void guardarAtts() throws Exception {
-	ConnectionBean connectionBean=ConnectionFactory.getConnectionBean();
-	    
-	IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
-//    IUsuarioDAO usDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(IUsuarioDAO.class, connectionBean);
-//    usuario = (IUsuarioDO) usDAO.loadById(usuario.getId());
-    personajeDAO.update(personaje);
-	
-	System.err.println("PERSONAJE ID en atts save:"+personaje.getId());
-	
-	ConnectionFactory.closeConnection(connectionBean.getConnection());
-		
+	public void guardarAtts() throws Exception {
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(
+				IPersonajeDAO.class, connectionBean);
+
+		personajeDAO.update(personaje);
+
+		System.err.println("PERSONAJE ID en atts save:" + personaje.getId());
+
+		ConnectionFactory.closeConnection(connectionBean.getConnection());
+
 	}
 	
+
 	public void recargaAnillo() throws Exception {
-		ConnectionBean connectionBean=ConnectionFactory.getConnectionBean();
-	    
-		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
-		
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(
+				IPersonajeDAO.class, connectionBean);
+
 		personaje.setEnergiaDelAnillo(100);
-		
-	    personajeDAO.update(personaje);
-	    
-	    Desktop d = lca.getDesktop();
-	    updateMenud(d.getMenud());
-		
-		System.err.println("PERSONAJE ID en atts save:"+personaje.getId());
-		
+
+		personajeDAO.update(personaje);
+
+		Desktop d = lca.getDesktop();
+		updateMenud(d.getMenud());
+
+		System.err.println("PERSONAJE ID en atts save:" + personaje.getId());
+
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
-		
+
 	}
 	
 	
