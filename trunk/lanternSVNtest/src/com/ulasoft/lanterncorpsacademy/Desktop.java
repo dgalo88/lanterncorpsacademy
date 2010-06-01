@@ -1,7 +1,9 @@
 package com.ulasoft.lanterncorpsacademy;
 
 import nextapp.echo.app.Alignment;
+import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
+import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
@@ -9,6 +11,7 @@ import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
+import nextapp.echo.app.Row;
 import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
@@ -156,13 +159,20 @@ public class Desktop extends ContentPane {
 
 	public void setWindowPaneEmergente(String texto) {
 		Column col = new Column();
+		Row row = new Row();
 		windowPane = new WindowPane();
 		windowPane.setStyle(GUIStyles.DEFAULT_STYLE);
 		windowPane.setTitle("Informacion");
 		windowPane.setModal(true);
-		windowPane.setHeight(new Extent(200));
+		windowPane.setHeight(new Extent(100));
 		windowPane.setWidth(new Extent(200));
-		col.add(new Label(texto));
+		windowPane.setTitleBackground(new Color(0x32, 0xCD, 0x32));
+		windowPane.setBackground(Color.WHITE);
+		Label txt = new Label(texto);
+		txt.setTextAlignment(Alignment.ALIGN_CENTER);
+		row.add(txt);
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		col.add(row);
 		Button btnOk = new Button("Ok");
 		btnOk.setStyle(GUIStyles.STYLE2);
 		btnOk.addActionListener(new ActionListener() {
@@ -171,7 +181,10 @@ public class Desktop extends ContentPane {
 				remove(windowPane);
 			}
 		});
-		col.add(btnOk);
+		row = new Row();
+		row.add(btnOk);
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		col.add(row);
 		windowPane.add(col);
 		add(windowPane);
 	}
