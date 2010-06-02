@@ -1622,6 +1622,7 @@ public class InicializarBD {
 			objetivoDO[0].setNumeroDeNpc(2);
 			refpl = new Reference<IPlanetaDO>();
 			refpl.setRefIdent(PlanetaDO[30].getId());
+			objetivoDO[0].setPlanetaRef(refpl);
 			ObjetivoDAO.insert(objetivoDO[0]);
 			
 			IOrdenDO ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
@@ -1639,6 +1640,7 @@ public class InicializarBD {
 			objetivoDO[1].setNumeroDeNpc(1);
 			refpl = new Reference<IPlanetaDO>();
 			refpl.setRefIdent(PlanetaDO[26].getId());
+			objetivoDO[1].setPlanetaRef(refpl);
 			ObjetivoDAO.insert(objetivoDO[1]);
 			
 			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
@@ -1656,6 +1658,7 @@ public class InicializarBD {
 			objetivoDO[3].setNumeroDeNpc(2);
 			refpl = new Reference<IPlanetaDO>();
 			refpl.setRefIdent(PlanetaDO[31].getId());
+			objetivoDO[3].setPlanetaRef(refpl);
 			ObjetivoDAO.insert(objetivoDO[3]);
 			
 			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
@@ -1685,6 +1688,7 @@ public class InicializarBD {
 			objetivoDO[4].setNumeroDeNpc(2);
 			refpl = new Reference<IPlanetaDO>();
 			refpl.setRefIdent(PlanetaDO[16].getId());
+			objetivoDO[4].setPlanetaRef(refpl);
 			ObjetivoDAO.insert(objetivoDO[4]);
 
 			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
@@ -1712,6 +1716,7 @@ public class InicializarBD {
 			objetivoDO[5].setNumeroDeNpc(2);
 			refpl = new Reference<IPlanetaDO>();
 			refpl.setRefIdent(PlanetaDO[22].getId());
+			objetivoDO[5].setPlanetaRef(refpl);
 			ObjetivoDAO.insert(objetivoDO[5]);
 			
 			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
