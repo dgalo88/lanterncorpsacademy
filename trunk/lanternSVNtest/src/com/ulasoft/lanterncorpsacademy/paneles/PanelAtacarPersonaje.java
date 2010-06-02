@@ -2,7 +2,6 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 
 import java.util.List;
 
-import lcaInterfaceDAO.INpcDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -36,18 +35,18 @@ import com.ulasoft.lanterncorpsacademy.logic.Atacar;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 
 @SuppressWarnings("serial")
-public class PanelAtacarNPC extends Panel {
+public class PanelAtacarPersonaje extends Panel {
 
 	private TestTableModel tableDtaModel;
-	List<INpcDO> personajes;
+	List<IPersonajeDO> personajes;
 	ButtonGroup btnGroupClases = new ButtonGroup();
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 	LanternCorpsAcademyApp.getActive();
-	INpcDO personajeAtacar;
+	IPersonajeDO personajeAtacar;
 	
 	
 	
-	public PanelAtacarNPC() {
+	public PanelAtacarPersonaje() {
 		
 		setInsets(new Insets(2, 2, 2, 2));
 		Column col = new Column();
@@ -70,8 +69,12 @@ public class PanelAtacarNPC extends Panel {
 		// ----------------------------------------
 		
 		Atributos atrr = app.getAtributos();
-		personajes = Atacar.obtenerContrincantesNPC(atrr.getPersonaje());
-		tableDtaModel = Atacar.asignarRankingNPC(tableDtaModel, personajes);
+		try {
+			personajes = Atacar.obtenerContrincantes(atrr.getPersonaje());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tableDtaModel = Atacar.asignarRanking(tableDtaModel, personajes);
 		// ----------------------------------------
 		// The table
 		// ----------------------------------------
@@ -107,7 +110,6 @@ public class PanelAtacarNPC extends Panel {
 		row.add(btnAtacar);
 		row.setAlignment(Alignment.ALIGN_CENTER);
 		col.add(row);
-		
 		add(col);
 	}
 
@@ -126,7 +128,7 @@ public class PanelAtacarNPC extends Panel {
 	private Row initTopRow() {
 		Row row = new Row();
 		row.setCellSpacing(new Extent(5));
-		row.add(new Label("Lista de Contrincantes NPC"));
+		row.add(new Label("Lista de Contrincantes"));
 		row.setAlignment(new Alignment(Alignment.CENTER, Alignment.CENTER));
 		return row;
 	}
@@ -141,8 +143,8 @@ public class PanelAtacarNPC extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				INpcDO personaje = (INpcDO) element;
-				return personaje.getNombre();
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return personaje.getAlias();
 			}
 		};
 		tableColumn.setWidth(new Extent(50));
@@ -154,7 +156,7 @@ public class PanelAtacarNPC extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				INpcDO personaje = (INpcDO) element;
+				IPersonajeDO personaje = (IPersonajeDO) element;
 				return personaje.getNivel();
 			}
 		};
@@ -167,8 +169,9 @@ public class PanelAtacarNPC extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				INpcDO personaje = (INpcDO) element;
-				return personaje.getColor();
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return Atacar.determinarClase((personaje.getClaseLinternaRef())
+						.getRefIdent());
 			}
 		};
 
