@@ -6,8 +6,6 @@ import java.util.List;
 import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IGrupoDO;
 import lcaInterfaceDAO.IPersonajeDO;
-
-import dao.api.DataObject;
 import dao.api.Reference;
 
 public class GrupoDO implements IGrupoDO {
