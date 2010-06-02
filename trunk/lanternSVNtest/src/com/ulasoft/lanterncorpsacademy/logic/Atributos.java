@@ -110,6 +110,7 @@ public class Atributos {
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
 		
 		System.err.println("PLANETA ID en atts main:" + planeta.getId());
+		main.getLblAlias().setText(personaje.getAlias());
 		main.getLblPlanetaValue().setText(planeta.getNombre());
 		main.getLblSectorValue().setText(planeta.getSector());
 		main.getLblFechaValue().setText(personaje.getUltimaFechaIngreso().toString());
