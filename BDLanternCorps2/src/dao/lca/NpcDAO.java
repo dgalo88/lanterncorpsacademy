@@ -330,9 +330,9 @@ public class NpcDAO extends BaseDAO implements INpcDAO {
 	    strbuf.append(id);
 	    strbuf.append(" AND ");
 	    strbuf.append(getTableName()+"."+NpcDO.COLOR);
-	    strbuf.append(" = ");
+	    strbuf.append(" <> ");
 	    strbuf.append(claseLinternaDAO.getTableName());
-	    strbuf.append("."+ClaseLinternaDO.COLOR+"");
+	    strbuf.append("."+ClaseLinternaDO.COLOR);
 	    	    
 	    
 	    System.err.println(strbuf.toString());
