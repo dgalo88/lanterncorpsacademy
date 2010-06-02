@@ -417,9 +417,15 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO {
 		strbuf.append(" AND ");
 		strbuf.append(personajeDAO.getTableName());
 		strbuf.append("." + PersonajeDO.ID);
-		strbuf.append(" <> ");
+		strbuf.append(" = ");
 		strbuf.append(habilidadActivaDAO.getTableName());
 		strbuf.append("." + HabilidadActivaDO.PERSONAJE_ID);
+		strbuf.append(" AND ");
+		strbuf.append(getTableName());
+		strbuf.append("." + HabilidadDO.ID);
+		strbuf.append(" <> ");
+		strbuf.append(habilidadActivaDAO.getTableName());
+		strbuf.append("." + HabilidadActivaDO.HABILIDAD_ID);
 
 
 
