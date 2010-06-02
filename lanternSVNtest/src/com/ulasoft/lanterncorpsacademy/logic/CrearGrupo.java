@@ -45,6 +45,7 @@ public class CrearGrupo {
 				IPersonajeDAO.class, connectionBean);
 		h = person.listByClaseLinternaId(personaje.getClaseLinternaRef()
 				.getRefIdent());
+		connectionBean.getConnection().close();
 		return h;
 	}
 
@@ -54,7 +55,7 @@ public class CrearGrupo {
 			if((personajes.get(posicion).getId() == personaje.getId())){
 				continue;
 			}
-			(personajes.get(posicion)).setId(posicion + 1);
+//			(personajes.get(posicion)).setId(posicion + 1);
 			tableDtaModel.add(personajes.get(posicion));
 		}
 		return tableDtaModel;
@@ -86,6 +87,7 @@ public class CrearGrupo {
 			personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO( //
 					IPersonajeDAO.class, connectionBean);
 		}
+		connectionBean.getConnection().close();
 	}
 	
 	public static boolean checkNombreGrupo(TextField txtGrupo){
