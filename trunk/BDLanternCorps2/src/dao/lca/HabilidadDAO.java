@@ -389,7 +389,7 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO {
 		
 		StringBuffer strbuf = new StringBuffer();
 
-		strbuf.append("SELECT distinct" + getTableName() + ".* FROM ");
+		strbuf.append("SELECT distinct " + getTableName() + ".* FROM ");
 		strbuf.append(personajeDAO.getTableName());
 		strbuf.append(", ");
 		strbuf.append(habilidadClaseLinternaDAO.getTableName());
