@@ -49,7 +49,19 @@ public class NpcDAO extends BaseDAO implements INpcDAO {
 		connection.createStatement().execute(strbuf.toString());
 
 		// ----------------------------------------
+		
+	    strbuf = new StringBuffer();
 
+	    strbuf.append("DROP SEQUENCE IF EXISTS ");
+	    strbuf.append("seq_");
+	    strbuf.append(getTableName());
+
+	    System.err.println(strbuf.toString());
+
+	    connection.createStatement().execute(strbuf.toString());
+		
+		
+		// ----------------------------------------
 		strbuf = new StringBuffer();
 
 		strbuf.append("CREATE TABLE ");
@@ -138,6 +150,7 @@ public class NpcDAO extends BaseDAO implements INpcDAO {
 
 	private int getNextId() throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
+	   
 	    strbuf.append("SELECT nextval(");
 	    strbuf.append(singleQuotes("seq_" + getTableName()));
 	    strbuf.append(")");
