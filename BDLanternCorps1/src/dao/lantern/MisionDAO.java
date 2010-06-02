@@ -342,7 +342,7 @@ public class MisionDAO extends BaseDAO implements IMisionDAO{
   }
   
 //--------------------------------------------------------------------------------
-  public List<IMisionDO> listPlayable(int id) throws Exception {
+  public List<IMisionDO> listPlayable(int idpersonaje) throws Exception {
 		
 		StringBuffer strbuf = new StringBuffer();
 		
@@ -353,7 +353,7 @@ public class MisionDAO extends BaseDAO implements IMisionDAO{
 		
 		strbuf.append("personajedao.id");
 		strbuf.append(" = ");
-		strbuf.append(id);
+		strbuf.append(idpersonaje);
 		strbuf.append(" AND ");
 		strbuf.append(" misionpersonajedao.personajeid");
 		strbuf.append(" = ");
@@ -367,9 +367,9 @@ public class MisionDAO extends BaseDAO implements IMisionDAO{
 		strbuf.append(" = ");
 		strbuf.append("misionclaselinternadao.misionid ");
 		strbuf.append(" AND ");
-		strbuf.append(MisionDO.ID);
-		strbuf.append(" <> ");
 		strbuf.append("misionpersonajedao.misionid");
+		strbuf.append(" <> ");
+		strbuf.append(MisionDO.ID);
 		
 		
 		System.err.println(strbuf.toString());
