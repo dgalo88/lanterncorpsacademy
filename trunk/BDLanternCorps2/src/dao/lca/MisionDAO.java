@@ -57,7 +57,7 @@ public class MisionDAO extends BaseDAO implements IMisionDAO{
 		strbuf.append(MisionDO.NOMBRE);
 		strbuf.append(" VARCHAR(100) UNIQUE NOT NULL,    ");
 		strbuf.append(MisionDO.DESCRIPCION);
-		strbuf.append(" VARCHAR(100) NOT NULL,     ");
+		strbuf.append(" VARCHAR(512) NOT NULL,     ");
 		strbuf.append(MisionDO.EXPERIENCIA_GANADA);
 		strbuf.append(" INT CHECK(" + MisionDO.EXPERIENCIA_GANADA +" > 0 ),     ");
 		strbuf.append(MisionDO.PUNTOS_DE_ENTRENAMIENTO_GANADOS);
