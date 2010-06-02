@@ -19,7 +19,7 @@ public class ImgLoad {
 		case 6:
 			return "com/ulasoft/lanterncorpsacademy/imagenes/tribuindigo.jpg";
 		case 7:
-			return "com/ulasoft/lanterncorpsacademy/imagenes/startsaphirre.jpg";
+			return "com/ulasoft/lanterncorpsacademy/imagenes/stars.jpg";
 		default:
 			break;
 		}
@@ -42,6 +42,28 @@ public class ImgLoad {
 			return "com/ulasoft/lanterncorpsacademy/imagenes/lantern_indigo.png";
 		case 7:
 			return "com/ulasoft/lanterncorpsacademy/imagenes/lantern_star.png";
+		default:
+			break;
+		}
+		return "";
+	}
+	
+	public static String panelRecarga(IPersonajeDO personaje) {
+		switch (personaje.getClaseLinternaRef().getRefIdent()) {
+		case 1:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/jim-lee-green-lantern.jpg";
+		case 2:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/sinestro_recarga.png";
+		case 3:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/red_recarga.jpg";
+		case 4:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/black_recarga.jpg";
+		case 5:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/blue_recarga.jpg";
+		case 6:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/indigo_recarga.jpg";
+		case 7:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/startsaphirre.jpg";
 		default:
 			break;
 		}
