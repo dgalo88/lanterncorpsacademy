@@ -40,7 +40,7 @@ public class PanelSelectAtacar extends Panel {
 		});
 		
 		
-		Button btnAtacarNPC = new Button("ATACAR Personaje");
+		Button btnAtacarNPC = new Button("ATACAR NPC");
 		btnAtacarNPC.setStyle(GUIStyles.DEFAULT_STYLE);
 		btnAtacarNPC.addActionListener(new ActionListener() {
 			@Override
