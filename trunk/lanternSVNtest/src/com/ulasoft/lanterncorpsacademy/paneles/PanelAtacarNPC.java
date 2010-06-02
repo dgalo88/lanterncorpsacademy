@@ -3,7 +3,6 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.util.List;
 
 import lcaInterfaceDAO.INpcDO;
-import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -47,7 +46,7 @@ public class PanelAtacarNPC extends Panel {
 	
 	
 	
-	public PanelAtacarNPC() {
+	public PanelAtacarNPC() throws Exception {
 		
 		setInsets(new Insets(2, 2, 2, 2));
 		Column col = new Column();
@@ -115,7 +114,7 @@ public class PanelAtacarNPC extends Panel {
 		if(personajeAtacar == null){
 			return;
 		}
-		Atacar.combate(personajeAtacar);
+		Atacar.atacarNPC(personajeAtacar);
 		Desktop d = app.getDesktop();
 		PanelMain pnlMain = new PanelMain();
 		d.setPanelCentral(pnlMain);
