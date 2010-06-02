@@ -1,7 +1,9 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IGrupoDO;
 import lcaInterfaceDAO.IHabilidadActivaDAO;
 import lcaInterfaceDAO.IHabilidadActivaDO;
 import lcaInterfaceDAO.IHabilidadDAO;
@@ -13,9 +15,11 @@ import lcaInterfaceDAO.IPersonajeDO;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 
 import dao.api.DataObject;
+import dao.api.Reference;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
 import factory.GlobalDAOFactory;
+import factory.GlobalDOFactory;
 
 public class HabilidadesAnillo {
 
@@ -107,9 +111,38 @@ public class HabilidadesAnillo {
 		connectionBean.getConnection().close();
 		return false;
 	}
-	public static boolean adquirirHabilidades(){
-		
+	public static boolean adquirirHabilidades(List<Integer> seleccion, IPersonajeDO personaje) throws Exception {
+		int costo=0;
+		List<DataObject> hab;
+		List<IHabilidadDO> hab1 = new ArrayList<IHabilidadDO>();
+		IHabilidadActivaDO habact = (IHabilidadActivaDO) GlobalDOFactory.getDO( //
+				IHabilidadActivaDO.class);
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+		IHabilidadDAO habilidad= (IHabilidadDAO) GlobalDAOFactory.getDAO( //
+				IHabilidadDAO.class, connectionBean);
+		IHabilidadActivaDAO habilidadActiva= (IHabilidadActivaDAO) GlobalDAOFactory.getDAO( //
+				IHabilidadActivaDAO.class, connectionBean);
+		hab = habilidad.listToBuy(personaje.getId());
+		for(int pos=0;pos<hab.size();pos++){
+			hab1.add((IHabilidadDO) hab.get(pos));
+		}
+		for(int pos=0;pos<seleccion.size();pos++){
+			costo+=hab1.get(seleccion.get(pos)).getCosto_de_aprendizaje();
+			
+		}
+		if(costo>personaje.getPuntosDeEntrenamiento()){
+			return true;
+		}
+		Reference<IPersonajeDO> personRef = new Reference<IPersonajeDO>();
+		personRef.setRefIdent(personaje.getId());
+		Reference<IHabilidadDO> habilidadRef = new Reference<IHabilidadDO>();
+		for(int pos=0;pos<seleccion.size();pos++){
+			habilidadRef.setRefIdent(hab1.get(seleccion.get(pos)).getId());
+			habact.setNivel_habilidad(1);
+			habact.setPersonajeRef(personRef);
+			habact.setHabilidadRef(habilidadRef);
+			habilidadActiva.insert(habact);
+		}
 		return false;
-		
 	}
 }

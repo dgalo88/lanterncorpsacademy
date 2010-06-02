@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.IPersonajeDO;
 
 import com.minotauro.echo.table.base.ETable;
 import com.minotauro.echo.table.base.ETableNavigation;
@@ -84,9 +85,24 @@ public class PanelAdquirirHabilidades extends Panel {
 	
 		protected void btnAdquirirHabilidadClicked() {
 			if(seleccion.isEmpty()){
-				d.setWindowPaneEmergente("No ha Seleccionado Ningun Personaje para que Forme Parte de su Grupo, NO se Agregara Nadie al Grupo");
+				d.setWindowPaneEmergente("No ha Seleccionado Ningun Hablidad para Adquirir, NO se Adquiere Nada");
 				return;
 			}
+			 
+		Atributos atrr=app.getAtributos();
+		IPersonajeDO person= atrr.getPersonaje();
+		try {
+			if(HabilidadesAnillo.adquirirHabilidades(seleccion,person)){
+				d.setWindowPaneEmergente("No se Poseen Suficientes Puntos de Entrenamiento, NO se Adquiere Nada");
+				return;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		atrr.setPersonaje(person);
+		d.setWindowPaneEmergente("Se han Adquirido las Habilidades con Exito");
+		return;
 		}
 
 		protected void btnAtrasClicked() {
