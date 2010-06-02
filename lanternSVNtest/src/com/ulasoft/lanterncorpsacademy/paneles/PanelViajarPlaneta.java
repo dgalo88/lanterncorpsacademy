@@ -19,7 +19,7 @@ import echopoint.ImageMap;
 
 public class PanelViajarPlaneta extends Panel{
 
-	private Label lblSelected;
+	private Label lblActual;
 	LanternCorpsAcademyApp aplicacion = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 
 	@SuppressWarnings("serial")
@@ -29,9 +29,8 @@ public class PanelViajarPlaneta extends Panel{
 		Label lblTitle = new Label("Seleccione un Planeta");
 		lblTitle.setBackground(Color.WHITE);
 		col.add(lblTitle);
-		lblSelected = new Label("nothing selected");
-		lblSelected.setStyle(GUIStyles.STYLE2);
-		col.add(lblSelected);		
+		lblActual = new Label("nothing selected");
+		lblActual.setStyle(GUIStyles.STYLE2);
 
 		
 		ImageMap imageMap = new ImageMap(new ResourceImageReference(
@@ -42,7 +41,7 @@ public class PanelViajarPlaneta extends Panel{
 	    imageMap.setHeight(new Extent(500));
 
 	    try {
-	    	imageMap.addSections(Viajar.cargarPlanetas());
+	    	imageMap.addSections(Viajar.cargarPlanetas(this));
 	    } catch (Exception e) {
 	    	e.printStackTrace();
 	    }
@@ -66,11 +65,12 @@ public class PanelViajarPlaneta extends Panel{
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				lblSelected.setText("Voy a:"+evt.getActionCommand());
+				lblActual.setText("Voy a:"+evt.getActionCommand());
 			
 			}
 		});
 
+		col.add(lblActual);		
 		
 		col.add(imageMap);
 				
@@ -84,5 +84,13 @@ public class PanelViajarPlaneta extends Panel{
 		Desktop d = app.getDesktop();				
 		d.setPanelCentral(pnlMain);
 		
+	}
+
+	public Label getLblActual() {
+		return lblActual;
+	}
+
+	public void setLblActual(Label lblActual) {
+		this.lblActual = lblActual;
 	}
 }

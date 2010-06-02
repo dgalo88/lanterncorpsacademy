@@ -6,6 +6,7 @@ import lcaInterfaceDAO.IPlanetaDO;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Font;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -22,6 +23,13 @@ public class PanelMain extends Panel {
 
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
 			.getActive();
+	private Label lblAlias;
+	private IPlanetaDO planeta;
+	private Date fecha;
+	private Label lblFechaValue;
+	private Label lblMisionesValue;
+	private Label lblSectorValue;
+	private Label lblPlanetaValue;
 
 	public PanelMain() {
 		Row row = new Row();
@@ -36,7 +44,11 @@ public class PanelMain extends Panel {
 				, new Extent(236), new Extent(360)));
 		grid.add(lblImagen);
 		Column col = new Column();
+		lblAlias = new Label("alias");
+		lblAlias.set(PROPERTY_FONT, Font.BOLD);
+		lblAlias.set(PROPERTY_FONT, Color.BLACK);
 
+	
 		lblPlanetaValue = new Label("PL");
 		lblSectorValue = new Label("00");
 		lblFechaValue = new Label("Ult Ing");
@@ -51,7 +63,8 @@ public class PanelMain extends Panel {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-
+		
+		col.add(lblAlias);
 		col.add(new Label("Ubicación"));
 		col.add(new Label("Planeta:"));
 		col.add(lblPlanetaValue);
@@ -76,12 +89,7 @@ public class PanelMain extends Panel {
 		// setHeight(new Extent(500));
 	}
 
-	private IPlanetaDO planeta;
-	private Date fecha;
-	private Label lblFechaValue;
-	private Label lblMisionesValue;
-	private Label lblSectorValue;
-	private Label lblPlanetaValue;
+
 
 	// public PanelMain() {
 	//
@@ -143,6 +151,18 @@ public class PanelMain extends Panel {
 	// add(splitPane);
 	//		
 	// }
+
+	public Label getLblAlias() {
+		return lblAlias;
+	}
+
+
+
+	public void setLblAlias(Label lblAlias) {
+		this.lblAlias = lblAlias;
+	}
+
+
 
 	public IPlanetaDO getPlaneta() {
 		return planeta;

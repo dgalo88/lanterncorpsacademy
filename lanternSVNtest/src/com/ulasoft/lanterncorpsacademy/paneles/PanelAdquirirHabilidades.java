@@ -1,6 +1,21 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
 import lcaInterfaceDAO.IHabilidadDO;
+
+import com.minotauro.echo.table.base.ETable;
+import com.minotauro.echo.table.base.ETableNavigation;
+import com.minotauro.echo.table.base.TableColModel;
+import com.minotauro.echo.table.base.TableColumn;
+import com.minotauro.echo.table.base.TableSelModel;
+import com.minotauro.echo.table.renderer.BaseCellRenderer;
+import com.minotauro.echo.table.renderer.LabelCellRenderer;
+import com.minotauro.echo.table.renderer.NestedCellRenderer;
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.TestTableModel;
+import com.ulasoft.lanterncorpsacademy.logic.Atributos;
+import com.ulasoft.lanterncorpsacademy.logic.VerHabilidadesAnillo;
+
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -16,30 +31,14 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
-import com.minotauro.echo.table.base.ETable;
-import com.minotauro.echo.table.base.ETableNavigation;
-import com.minotauro.echo.table.base.TableColModel;
-import com.minotauro.echo.table.base.TableColumn;
-import com.minotauro.echo.table.base.TableSelModel;
-import com.minotauro.echo.table.renderer.BaseCellRenderer;
-import com.minotauro.echo.table.renderer.LabelCellRenderer;
-import com.minotauro.echo.table.renderer.NestedCellRenderer;
-import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
-import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.TestTableModel;
-import com.ulasoft.lanterncorpsacademy.logic.Atributos;
-import com.ulasoft.lanterncorpsacademy.logic.VerHabilidadesAnillo;
-
-@SuppressWarnings("serial")
-public class PanelVerHabilidadesAnillo extends Panel{
+public class PanelAdquirirHabilidades extends Panel {
 
 	private TestTableModel tableDtaModel;
 	int rowpos;
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 		LanternCorpsAcademyApp.getActive();
 	
-	public PanelVerHabilidadesAnillo() {
+	public PanelAdquirirHabilidades() {
 		Column col = new Column();
 
 	    col.add(initTopRow());
@@ -47,9 +46,10 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		col.add(initTable());
 		
 		Row row = new Row();
-		Button btnAdquirirHabilidad = new Button("Adquirir Nueva Habilidad");
+		Button btnAdquirirHabilidad = new Button("Adquirir Habilidad");
 		btnAdquirirHabilidad.setStyle(GUIStyles.STYLE2);
 		btnAdquirirHabilidad.setWidth(new Extent(200));
+		btnAdquirirHabilidad.setAlignment(Alignment.ALIGN_CENTER);
 		btnAdquirirHabilidad.addActionListener(new ActionListener() {
 	      @Override
 	      public void actionPerformed(ActionEvent arg0) {
@@ -58,26 +58,24 @@ public class PanelVerHabilidadesAnillo extends Panel{
 	    });
 	    row.add(btnAdquirirHabilidad);
 	    
-	    Button btnEntrenarHabilidad = new Button("Entrenar Habilidad");
-	    btnEntrenarHabilidad.setStyle(GUIStyles.STYLE2);
-	    btnEntrenarHabilidad.setWidth(new Extent(160));
-	    btnEntrenarHabilidad.addActionListener(new ActionListener() {
-	      @Override
-	      public void actionPerformed(ActionEvent arg0) {
-	    	  btnEntrenarHabilidadClicked();
-	      }
-	    });
-	    
-	    row.add(btnEntrenarHabilidad);
-	    row.setAlignment(Alignment.ALIGN_CENTER);
+//	    Button btnEntrenarHabilidad = new Button("Entrenar Habilidad");
+//	    btnEntrenarHabilidad.setStyle(GUIStyles.STYLE2);
+//	    btnEntrenarHabilidad.setWidth(new Extent(160));
+//	    btnEntrenarHabilidad.addActionListener(new ActionListener() {
+//	      @Override
+//	      public void actionPerformed(ActionEvent arg0) {
+//	    	  btnEntrenarHabilidadClicked();
+//	      }
+//	    });
+//	    
+//	    row.add(btnEntrenarHabilidad);
+//	    row.setAlignment(Alignment.ALIGN_CENTER);
 	    col.add(row);
 		add(col);
 		}
 
 		protected void btnAdquirirHabilidadClicked() {
-			PanelAdquirirHabilidades pnlAdq = new PanelAdquirirHabilidades();
-			Desktop d =app.getDesktop();
-			d.setPanelCentral(pnlAdq);
+			
 			
 		}
 
@@ -135,7 +133,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		}
 		private Row initTopRow() {
 		    Row row = new Row();
-		    Label lblTitle = new Label("Habilidades que Posee");
+		    Label lblTitle = new Label("Habilidades Disponibles");
 			row.add(lblTitle);
 			row.setStyle(GUIStyles.DEFAULT_STYLE);
 		    return row;
@@ -207,7 +205,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 			    };
 			    
 		    tableColumn.setWidth(new Extent(25));
-		    tableColumn.setHeadValue("Costo de Entrenar");
+		    tableColumn.setHeadValue("Costo de Adquisición");
 		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		    tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		    tableColModel.getTableColumnList().add(tableColumn);
@@ -259,5 +257,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		  private void btnRadioClicked(int row) {
 			  rowpos = row;
 		  }
-		
+	
+	
+	
 }

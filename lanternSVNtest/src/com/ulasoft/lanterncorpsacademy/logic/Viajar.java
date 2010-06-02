@@ -18,6 +18,7 @@ import lcaInterfaceDAO.IPlanetaDO;
 import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 
 import dao.api.DataObject;
 import dao.connection.ConnectionBean;
@@ -40,14 +41,20 @@ public class Viajar {
 	protected static final int INDIGO = 6;
 	protected static final int VIOLETA = 7;
 
-	public static List<MapSection> cargarPlanetas() throws Exception {
+	public static List<MapSection> cargarPlanetas(PanelViajarPlaneta panel) throws Exception {
 		
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 		IPlanetaDAO planetDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
 
 		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 		Atributos atts = app.getAtributos();
-				
+
+		IPlanetaDO origen = (IPlanetaDO) planetDAO.loadById(atts
+				.getPersonaje().getPlanetaRef().getRefIdent());
+		
+		panel.getLblActual().setText("Estás en: "+origen.getNombre()+", Sector: "+origen.getSector());
+		
+		
 		List<DataObject> planetasDOList = planetDAO.listAll();
 		
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
