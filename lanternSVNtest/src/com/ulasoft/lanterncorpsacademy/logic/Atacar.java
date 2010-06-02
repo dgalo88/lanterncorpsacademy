@@ -42,7 +42,7 @@ public class Atacar {
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 		INpcDAO personaje = (INpcDAO) GlobalDAOFactory.getDAO(
 		INpcDAO.class, connectionBean);
-		personajes = personaje.listNpc(person.getPlanetaRef().getRefIdent());
+		personajes = personaje.listNpc(person.getClaseLinternaRef().getRefIdent());
 		connectionBean.getConnection().close();
 		return personajes;
 	}
@@ -304,7 +304,13 @@ public class Atacar {
 				desktop.setWindowPaneEmergente("Perdiste el combate:");
 			}
 		}
-
+		
+		if(atacante.getExperiencia() >= (150*2^(atacante.getNivel()-1))){
+			atacante.setNivel((atacante.getNivel()+1));
+		}
+		if(contrincante.getExperiencia() >= (150*2^(contrincante.getNivel()-1))){
+			contrincante.setNivel((contrincante.getNivel()+1));
+		}
 		atts.setPersonaje(atacante);
 		atts.guardarAtts();
 		atts.updateMenud(desktop.getMenud());
@@ -456,7 +462,10 @@ public class Atacar {
 			desktop.setWindowPaneEmergente("Perdiste el combate:");
 
 		}
-
+		
+		if(atacante.getExperiencia() >= (150*2^(atacante.getNivel()-1))){
+			atacante.setNivel((atacante.getNivel()+1));
+		}
 		atts.setPersonaje(atacante);
 		atts.guardarAtts();
 		atts.updateMenud(desktop.getMenud());
