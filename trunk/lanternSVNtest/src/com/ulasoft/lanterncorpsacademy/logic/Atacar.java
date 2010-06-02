@@ -151,7 +151,8 @@ public class Atacar {
 			efectividadContrincante = NivelHabilidadContricante
 					.getEfectividad();
 
-			if (contrincante.getEnergiaDelAnillo() >= NivelHabilidadContricante.getCosto_de_energia()) {
+			if (contrincante.getEnergiaDelAnillo() >= NivelHabilidadContricante
+					.getCosto_de_energia()) {
 				System.err.println("contrincante "
 						+ habilidadContricante.getNombre());
 				if (tipoB == 2) {
