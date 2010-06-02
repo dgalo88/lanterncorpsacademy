@@ -13,13 +13,14 @@ import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacarPersonaje;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelForo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMedia;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMisiones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelSelectAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 
 @SuppressWarnings("serial")
@@ -200,7 +201,7 @@ public class MenuHead2 extends Panel {
 
 	protected void btnAtacarClicked() {
 
-		PanelAtacar pnlMain = new PanelAtacar();
+		PanelSelectAtacar pnlMain = new PanelSelectAtacar();
 		d.setPanelCentral(pnlMain);
 	}
 

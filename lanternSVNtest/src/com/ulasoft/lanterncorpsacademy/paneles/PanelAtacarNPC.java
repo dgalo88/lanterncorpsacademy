@@ -2,6 +2,7 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 
 import java.util.List;
 
+import lcaInterfaceDAO.INpcDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -35,18 +36,18 @@ import com.ulasoft.lanterncorpsacademy.logic.Atacar;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 
 @SuppressWarnings("serial")
-public class PanelAtacar extends Panel {
+public class PanelAtacarNPC extends Panel {
 
 	private TestTableModel tableDtaModel;
-	List<IPersonajeDO> personajes;
+	List<INpcDO> personajes;
 	ButtonGroup btnGroupClases = new ButtonGroup();
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 	LanternCorpsAcademyApp.getActive();
-	IPersonajeDO personajeAtacar;
+	INpcDO personajeAtacar;
 	
 	
 	
-	public PanelAtacar() {
+	public PanelAtacarNPC() {
 		
 		setInsets(new Insets(2, 2, 2, 2));
 		Column col = new Column();
@@ -69,12 +70,8 @@ public class PanelAtacar extends Panel {
 		// ----------------------------------------
 		
 		Atributos atrr = app.getAtributos();
-		try {
-			personajes = Atacar.obtenerContrincantes(atrr.getPersonaje());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		tableDtaModel = Atacar.asignarRanking(tableDtaModel, personajes);
+		personajes = Atacar.obtenerContrincantesNPC(atrr.getPersonaje());
+		tableDtaModel = Atacar.asignarRankingNPC(tableDtaModel, personajes);
 		// ----------------------------------------
 		// The table
 		// ----------------------------------------
@@ -124,7 +121,7 @@ public class PanelAtacar extends Panel {
 	private Row initTopRow() {
 		Row row = new Row();
 		row.setCellSpacing(new Extent(5));
-		row.add(new Label("Lista de Contrincantes"));
+		row.add(new Label("Lista de Contrincantes NPC"));
 		row.setAlignment(new Alignment(Alignment.CENTER, Alignment.CENTER));
 		return row;
 	}
@@ -139,8 +136,8 @@ public class PanelAtacar extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
-				return personaje.getAlias();
+				INpcDO personaje = (INpcDO) element;
+				return personaje.getNombre();
 			}
 		};
 		tableColumn.setWidth(new Extent(50));
@@ -152,7 +149,7 @@ public class PanelAtacar extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
+				INpcDO personaje = (INpcDO) element;
 				return personaje.getNivel();
 			}
 		};
@@ -165,9 +162,8 @@ public class PanelAtacar extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
-				return Atacar.determinarClase((personaje.getClaseLinternaRef())
-						.getRefIdent());
+				INpcDO personaje = (INpcDO) element;
+				return personaje.getColor();
 			}
 		};
 
