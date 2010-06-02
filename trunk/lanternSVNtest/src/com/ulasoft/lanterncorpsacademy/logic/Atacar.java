@@ -307,9 +307,11 @@ public class Atacar {
 		
 		if(atacante.getExperiencia() >= (150*2^(atacante.getNivel()-1))){
 			atacante.setNivel((atacante.getNivel()+1));
+			atacante.setExperiencia(0);
 		}
 		if(contrincante.getExperiencia() >= (150*2^(contrincante.getNivel()-1))){
 			contrincante.setNivel((contrincante.getNivel()+1));
+			contrincante.setExperiencia(0);
 		}
 		atts.setPersonaje(atacante);
 		atts.guardarAtts();
@@ -421,9 +423,7 @@ public class Atacar {
 							.getEnergiaDelAnillo() - NivelHabilidadAtacante
 							.getCosto_de_energia()));
 
-				} else {
-					tipoA = 2;
-				}
+				} 
 			}
 
 		}
@@ -451,7 +451,7 @@ public class Atacar {
 
 			if (atacante.getPuntosDeEntrenamiento() != 0) {
 				puntosA = (100 + (50 * (npc.getNivel() - 1))) / 2;
-				if (atacante.getPuntosDeEntrenamiento() < puntosA) {
+				if (atacante.getPuntosDeEntrenamiento() > puntosA) {
 					atacante.setPuntosDeEntrenamiento(0);
 				} else {
 					atacante.setPuntosDeEntrenamiento((int) (atacante
@@ -465,7 +465,9 @@ public class Atacar {
 		
 		if(atacante.getExperiencia() >= (150*2^(atacante.getNivel()-1))){
 			atacante.setNivel((atacante.getNivel()+1));
+			atacante.setExperiencia(0);
 		}
+
 		atts.setPersonaje(atacante);
 		atts.guardarAtts();
 		atts.updateMenud(desktop.getMenud());
