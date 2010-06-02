@@ -1,40 +1,27 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
+import nextapp.echo.app.Alignment;
+import nextapp.echo.app.Border;
+import nextapp.echo.app.Color;
+import nextapp.echo.app.Column;
+import nextapp.echo.app.Extent;
+import nextapp.echo.app.Insets;
+import nextapp.echo.app.Label;
+import nextapp.echo.app.Panel;
+import nextapp.echo.app.Row;
 
 import com.minotauro.echo.table.base.ETable;
 import com.minotauro.echo.table.base.ETableNavigation;
 import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
 import com.minotauro.echo.table.base.TableSelModel;
-import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
-import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
-import com.ulasoft.lanterncorpsacademy.PersonBean;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Ranking;
-
-import dao.api.DataObject;
-
-import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Border;
-import nextapp.echo.app.Button;
-import nextapp.echo.app.Color;
-import nextapp.echo.app.Column;
-import nextapp.echo.app.Component;
-import nextapp.echo.app.Extent;
-import nextapp.echo.app.Insets;
-import nextapp.echo.app.Label;
-import nextapp.echo.app.Panel;
-import nextapp.echo.app.RadioButton;
-import nextapp.echo.app.Row;
-import nextapp.echo.app.event.ActionEvent;
-import nextapp.echo.app.event.ActionListener;
 
 
 @SuppressWarnings("serial")
