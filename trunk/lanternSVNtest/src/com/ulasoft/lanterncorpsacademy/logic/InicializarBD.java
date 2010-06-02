@@ -14,8 +14,11 @@ import lcaInterfaceDAO.IMisionPersonajeDAO;
 import lcaInterfaceDAO.INivelHabilidadDAO;
 import lcaInterfaceDAO.INivelHabilidadDO;
 import lcaInterfaceDAO.INpcDAO;
+import lcaInterfaceDAO.INpcDO;
 import lcaInterfaceDAO.IObjetivoDAO;
+import lcaInterfaceDAO.IObjetivoDO;
 import lcaInterfaceDAO.IOrdenDAO;
+import lcaInterfaceDAO.IOrdenDO;
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
@@ -1325,24 +1328,439 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 			
-//			IMisionDO misionDO = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
-//			misionDO.setNombre("Combatir con los ManHunter.");
-//			misionDO.setNivel_necesario(1);
-//			misionDO.setExperiencia_ganada();
-//			misionDO.setPuntos_de_entrenamiento_ganados();
-//			misionDO.setDescripcion("");
-//			IMisionClaseLinternaDO misionClaseLinternaDO;
-//			Reference<IMisionDO> refmis;
-//			refmis = new Reference<IMisionDO>();
-//			refmis.setRefIdent(misionDO.getId());
-//			for(int i=0;i<7;i++){
-//				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
-//				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
-//				misionClaseLinternaDO.setMisionRef(refmis);
-//				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
-//			}
+			//NPC
 			
+			INpcDO npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Abin Sur");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Verde");
+			NpcDAO.insert(npcDO);
+			
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Barreer WoT");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Verde");
+			NpcDAO.insert(npcDO);
+			
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Fentara Rrab");
+			npcDO.setNivel(2);
+			npcDO.setSalud(200);
+			npcDO.setDano(20);
+			npcDO.setColor("Verde");
+			NpcDAO.insert(npcDO);
+			
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Bizarro Green Lantern");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Amarillo");
+			NpcDAO.insert(npcDO);
 
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Maash");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Amarillo");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Tekik");
+			npcDO.setNivel(2);
+			npcDO.setSalud(200);
+			npcDO.setDano(20);
+			npcDO.setColor("Amarillo");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Bleez");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Rojo");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Mera");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Rojo");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Dex-Starr");
+			npcDO.setNivel(2);
+			npcDO.setSalud(200);
+			npcDO.setDano(20);
+			npcDO.setColor("Rojo");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Diamalon");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Negro");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Katma Tui");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Negro");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Terrence Long");
+			npcDO.setNivel(2);
+			npcDO.setSalud(200);
+			npcDO.setDano(20);
+			npcDO.setColor("Negro");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Hymn");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Azul");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Sercy");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Azul");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Barry Allen");
+			npcDO.setNivel(2);
+			npcDO.setSalud(200);
+			npcDO.setDano(20);
+			npcDO.setColor("Azul");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Indigo-1");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Indigo");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Munk");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Indigo");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Ray Palmer");
+			npcDO.setNivel(2);
+			npcDO.setSalud(200);
+			npcDO.setDano(20);
+			npcDO.setColor("Indigo");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Cowgirl");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Violeta");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Dela Pharon");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Violeta");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Jillian Pearlman");
+			npcDO.setNivel(2);
+			npcDO.setSalud(200);
+			npcDO.setDano(20);
+			npcDO.setColor("Violeta");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Paul Kirk");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Neutral");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("clon de Paul Kirk");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Neutral");
+			NpcDAO.insert(npcDO);
+
+			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
+			npcDO.setNombre("Kate Spencer");
+			npcDO.setNivel(1);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
+			npcDO.setColor("Neutral");
+			NpcDAO.insert(npcDO);
+
+			//MISIONES
+			
+			IMisionDO misionDO[]=new IMisionDO[5]; 
+			misionDO[0] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
+			misionDO[0].setNombre("Combatir con los ManHunter.");
+			misionDO[0].setNivel_necesario(1);
+			misionDO[0].setExperiencia_ganada(10);
+			misionDO[0].setPuntos_de_entrenamiento_ganados(100);
+			misionDO[0].setDescripcion("Los Manhunters son unos androides guerreros creados antiguamente por los guardianes del universo.\nUna falla en su progrmación provocó que se rebelaran y se propusieran aniquilar toda la vida del\nuniverso. Su código, \"Ningún hombre escapa a los Manhunters\".\nEl objetivo es luchar contra estos androides para proteger la vida inteligente del universo.");
+			IMisionClaseLinternaDO misionClaseLinternaDO;
+			Reference<IMisionDO> refmis;
+			refmis = new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[0].getId());
+			for(int i=0;i<7;i++){
+				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
+				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+				misionClaseLinternaDO.setMisionRef(refmis);
+				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
+			}
+			MisionDAO.insert(misionDO[0]);
+
+			misionDO[1] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
+			misionDO[1].setNombre("Asegurar la bateria central.");
+			misionDO[1].setNivel_necesario(1);
+			misionDO[1].setExperiencia_ganada(10);
+			misionDO[1].setPuntos_de_entrenamiento_ganados(100);
+			misionDO[1].setDescripcion("El rasgo más destacado es la Batería de Poder Central, una versión gigantesca de las baterías de poder\nde los Linternas, que canaliza la energía de los Guardianes y amplifica, alimentando las baterías individuales.\nLa entidad del miedo conocida como Parallax fue encerrada en el centro de la Batería Central.\nEs vital conservar a salvo este artefacto ya que cualquier daño mayor podría impedir recargar los anillos\nde poder y así eliminar el arma principal de los linternas.");
+			refmis = new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[1].getId());
+			for(int i=0;i<7;i++){
+				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
+				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+				misionClaseLinternaDO.setMisionRef(refmis);
+				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
+			}
+			MisionDAO.insert(misionDO[1]);
+
+			misionDO[2] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
+			misionDO[2].setNombre("Rescatar un compañero en black mercy.");
+			misionDO[2].setNivel_necesario(1);
+			misionDO[2].setExperiencia_ganada(10);
+			misionDO[2].setPuntos_de_entrenamiento_ganados(100);
+			misionDO[2].setDescripcion("Un compañero linterna no ha respondido en dias luego de ser enviado al sector 2261,\n revisa el sector, especificamente el planeta black mercy, sospechamos que se encuentra atrapado alli.");
+			refmis = new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[2].getId());
+			for(int i=0;i<7;i++){
+				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
+				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+				misionClaseLinternaDO.setMisionRef(refmis);
+				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
+			}
+			MisionDAO.insert(misionDO[2]);
+
+			misionDO[4] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
+			misionDO[4].setNombre("Defender la tierra de Mongul.");
+			misionDO[4].setNivel_necesario(2);
+			misionDO[4].setExperiencia_ganada(20);
+			misionDO[4].setPuntos_de_entrenamiento_ganados(200);
+			misionDO[4].setDescripcion("Mogul como gobernante del planeta belicoso llamado Warworld, Mongul conquistó y esclavizo la población\nde incontables mundos. Ya sea forzados a alimentar las gigantescas unidades de propulsión del planeta\no participando de luchas de gladiadores,  Por esto la tierra debe de ser protegida de este gobernante.");
+			refmis = new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[4].getId());
+			for(int i=0;i<7;i++){
+				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
+				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+				misionClaseLinternaDO.setMisionRef(refmis);
+				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
+			}
+			MisionDAO.insert(misionDO[4]);
+
+			misionDO[3] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
+			misionDO[3].setNombre("Proteger Planetas de los Manhunter.");
+			misionDO[3].setNivel_necesario(2);
+			misionDO[3].setExperiencia_ganada(10);
+			misionDO[3].setPuntos_de_entrenamiento_ganados(200);
+			misionDO[3].setDescripcion("Para ejecutar su voluntad y evitar amenazas alienígenas de todo tipo, los Guardianes crearon una legión de robots\ncentinelas llamados Manhunters. Sin embargo, con el tiempo el resentimiento creció entre los Manhunters y fueron\nvistos como fracasos debido a su incapacidad para reconocer y/o sentir miedo. Finalmente se rebelaron contra los\nGuardianes, alejándose de ellos y formando su propia sociedad automatizada donde podían perseguir sus propias metas\ny una de ellas es atacar planetas.");
+			refmis = new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[3].getId());
+			for(int i=0;i<7;i++){
+				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
+				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+				misionClaseLinternaDO.setMisionRef(refmis);
+				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
+			}
+			MisionDAO.insert(misionDO[3]);
+			
+			//OBJETIVOS
+			
+			IObjetivoDO objetivoDO[] = new IObjetivoDO[6];
+			objetivoDO[0] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
+			objetivoDO[0].setDescripcion("Atravezar Bolovax Vik.");
+			objetivoDO[0].setNumeroDeNpc(2);
+			refpl = new Reference<IPlanetaDO>();
+			refpl.setRefIdent(PlanetaDO[30].getId());
+			ObjetivoDAO.insert(objetivoDO[0]);
+			
+			IOrdenDO ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+			refmis =new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[2].getId());
+			Reference<IObjetivoDO> refobj= new Reference<IObjetivoDO>();
+			refobj.setRefIdent(objetivoDO[0].getId());
+			ordenDO.setMisionRef(refmis);
+			ordenDO.setObjetivoRef(refobj);
+			ordenDO.setPrioridad(1);
+			OrdenDAO.insert(ordenDO);
+			
+			objetivoDO[1] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
+			objetivoDO[1].setDescripcion("Rescatar a compañero linterna.");
+			objetivoDO[1].setNumeroDeNpc(1);
+			refpl = new Reference<IPlanetaDO>();
+			refpl.setRefIdent(PlanetaDO[26].getId());
+			ObjetivoDAO.insert(objetivoDO[1]);
+			
+			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+			refobj= new Reference<IObjetivoDO>();
+			refobj.setRefIdent(objetivoDO[1].getId());
+			ordenDO.setMisionRef(refmis);
+			ordenDO.setObjetivoRef(refobj);
+			ordenDO.setPrioridad(2);
+			OrdenDAO.insert(ordenDO);
+			
+			//
+			
+			objetivoDO[3] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
+			objetivoDO[3].setDescripcion("Luchar contra los Pacredo.");
+			objetivoDO[3].setNumeroDeNpc(2);
+			refpl = new Reference<IPlanetaDO>();
+			refpl.setRefIdent(PlanetaDO[31].getId());
+			ObjetivoDAO.insert(objetivoDO[3]);
+			
+			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+			refmis =new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[0].getId());
+			refobj= new Reference<IObjetivoDO>();
+			refobj.setRefIdent(objetivoDO[0].getId());
+			ordenDO.setMisionRef(refmis);
+			ordenDO.setObjetivoRef(refobj);
+			ordenDO.setPrioridad(1);
+			OrdenDAO.insert(ordenDO);
+			
+			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+			refmis =new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[0].getId());
+			refobj= new Reference<IObjetivoDO>();
+			refobj.setRefIdent(objetivoDO[3].getId());
+			ordenDO.setMisionRef(refmis);
+			ordenDO.setObjetivoRef(refobj);
+			ordenDO.setPrioridad(2);
+			OrdenDAO.insert(ordenDO);
+			
+			//
+			
+			objetivoDO[4] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
+			objetivoDO[4].setDescripcion("Defender Hunamos en la Tierra.");
+			objetivoDO[4].setNumeroDeNpc(2);
+			refpl = new Reference<IPlanetaDO>();
+			refpl.setRefIdent(PlanetaDO[16].getId());
+			ObjetivoDAO.insert(objetivoDO[4]);
+
+			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+			refmis =new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[4].getId());
+			refobj= new Reference<IObjetivoDO>();
+			refobj.setRefIdent(objetivoDO[3].getId());
+			ordenDO.setMisionRef(refmis);
+			ordenDO.setObjetivoRef(refobj);
+			ordenDO.setPrioridad(1);
+			OrdenDAO.insert(ordenDO);
+			
+			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+			refmis =new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[4].getId());
+			refobj= new Reference<IObjetivoDO>();
+			refobj.setRefIdent(objetivoDO[4].getId());
+			ordenDO.setMisionRef(refmis);
+			ordenDO.setObjetivoRef(refobj);
+			ordenDO.setPrioridad(2);
+			OrdenDAO.insert(ordenDO);
+			
+			objetivoDO[5] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
+			objetivoDO[5].setDescripcion("Evitar destrucion de Korugar.");
+			objetivoDO[5].setNumeroDeNpc(2);
+			refpl = new Reference<IPlanetaDO>();
+			refpl.setRefIdent(PlanetaDO[22].getId());
+			ObjetivoDAO.insert(objetivoDO[5]);
+			
+			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+			refmis =new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[4].getId());
+			refobj= new Reference<IObjetivoDO>();
+			refobj.setRefIdent(objetivoDO[5].getId());
+			ordenDO.setMisionRef(refmis);
+			ordenDO.setObjetivoRef(refobj);
+			ordenDO.setPrioridad(3);
+			OrdenDAO.insert(ordenDO);
+			
+			//
+			
+			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+			refmis =new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[3].getId());
+			refobj= new Reference<IObjetivoDO>();
+			refobj.setRefIdent(objetivoDO[3].getId());
+			ordenDO.setMisionRef(refmis);
+			ordenDO.setObjetivoRef(refobj);
+			ordenDO.setPrioridad(1);
+			OrdenDAO.insert(ordenDO);
+			
+			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+			refmis =new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[3].getId());
+			refobj= new Reference<IObjetivoDO>();
+			refobj.setRefIdent(objetivoDO[4].getId());
+			ordenDO.setMisionRef(refmis);
+			ordenDO.setObjetivoRef(refobj);
+			ordenDO.setPrioridad(2);
+			OrdenDAO.insert(ordenDO);
+			
+			//
+			
+			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+			refmis =new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[1].getId());
+			refobj= new Reference<IObjetivoDO>();
+			refobj.setRefIdent(objetivoDO[0].getId());
+			ordenDO.setMisionRef(refmis);
+			ordenDO.setObjetivoRef(refobj);
+			ordenDO.setPrioridad(1);
+			OrdenDAO.insert(ordenDO);
+			
+			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+			refmis =new Reference<IMisionDO>();
+			refmis.setRefIdent(misionDO[1].getId());
+			refobj= new Reference<IObjetivoDO>();
+			refobj.setRefIdent(objetivoDO[5].getId());
+			ordenDO.setMisionRef(refmis);
+			ordenDO.setObjetivoRef(refobj);
+			ordenDO.setPrioridad(2);
+			OrdenDAO.insert(ordenDO);
+			
 		} finally {
 			// Cerramos la Conexion
 			ConnectionFactory.closeConnection(conn.getConnection());
