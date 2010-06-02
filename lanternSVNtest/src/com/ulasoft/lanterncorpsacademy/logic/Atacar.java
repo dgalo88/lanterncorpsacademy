@@ -36,13 +36,13 @@ public class Atacar {
 		connectionBean.getConnection().close();
 		return personajes;
 	}
-	public static List<IPersonajeDO> obtenerContrincantesNPC(IPersonajeDO person)
+	public static List<INpcDO> obtenerContrincantesNPC(IPersonajeDO person)
 	throws Exception {
 		List<INpcDO> personajes;
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 		INpcDAO personaje = (INpcDAO) GlobalDAOFactory.getDAO(
 		INpcDAO.class, connectionBean);
-		personajes = INpcDAO.listNpc(person.getPlanetaRef().getRefIdent());
+		personajes = personaje.listNpc(person.getPlanetaRef().getRefIdent());
 		connectionBean.getConnection().close();
 		return personajes;
 	}
@@ -125,14 +125,11 @@ public class Atacar {
 				.getCosto_de_energia()) {
 			contrincante
 					.setSalud((int) (contrincante.getSalud() - efectividadAtacante));
-			if (NivelHabilidadAtacante.getCosto_de_energia() <= atacante
-					.getEnergiaDelAnillo()) {
-				atacante.setEnergiaDelAnillo((int) (atacante
-						.getEnergiaDelAnillo() - NivelHabilidadAtacante
-						.getCosto_de_energia()));
-			} else {
-				atacante.setEnergiaDelAnillo(0);
-			}
+
+			atacante
+					.setEnergiaDelAnillo((int) (atacante.getEnergiaDelAnillo() - NivelHabilidadAtacante
+							.getCosto_de_energia()));
+
 			System.err.println("atacante " + habilidadAtacante.getNombre());
 		} else {
 			tipoA = 2;
@@ -312,6 +309,157 @@ public class Atacar {
 		atts.guardarAtts();
 		atts.updateMenud(desktop.getMenud());
 		personajeDAO.update(contrincante);
+
+	}
+
+	public static void atacarNPC(INpcDO npc) throws Exception {
+
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+				.getActive();
+		Desktop desktop;
+
+		IHabilidadDAO habilidadDAO = (IHabilidadDAO) GlobalDAOFactory.getDAO(
+				IHabilidadDAO.class, connectionBean);
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(
+				IPersonajeDAO.class, connectionBean);
+		INivelHabilidadDAO nivHabilidadDAO = (INivelHabilidadDAO) GlobalDAOFactory
+				.getDAO(INivelHabilidadDAO.class, connectionBean);
+
+		Atributos atts = app.getAtributos();
+		IPersonajeDO atacante = atts.getPersonaje();
+
+		personajeDAO.loadHabilidadActivaList(atacante);
+
+		System.err.println(atacante.getHabilidadActivaList().size());
+
+		List<DataObject> habilidadesAtacante = new ArrayList<DataObject>();
+
+		for (int i = 0; i < (atacante.getHabilidadActivaList().size()); i++) {
+			habilidadesAtacante.add(habilidadDAO.loadById(atacante
+					.getHabilidadActivaList().get(i).getHabilidadRef()
+					.getRefIdent()));
+		}
+
+		List<DataObject> NivelHabilidadAtacantes = new ArrayList<DataObject>();
+
+		for (int i = 0; i < (atacante.getHabilidadActivaList().size()); i++) {
+			NivelHabilidadAtacantes.add(nivHabilidadDAO.loadNivelHabStats(
+					atacante.getHabilidadActivaList().get(i).getHabilidadRef()
+							.getRefIdent(), atacante.getHabilidadActivaList()
+							.get(i).getNivel_habilidad()));
+		}
+
+		IHabilidadDO habilidadAtacante;
+		INivelHabilidadDO NivelHabilidadAtacante;
+		int x, tipoA;
+		float efectividadAtacante;
+
+		do {
+			x = (int) (Math.random() * habilidadesAtacante.size());
+			habilidadAtacante = (IHabilidadDO) habilidadesAtacante.get(x);
+		} while (habilidadAtacante.getTipo() != 1);
+
+		tipoA = habilidadAtacante.getTipo();
+		NivelHabilidadAtacante = nivHabilidadDAO.loadNivelHabStats(
+				habilidadAtacante.getId(), atacante.getHabilidadActivaList()
+						.get(x).getNivel_habilidad());
+		efectividadAtacante = NivelHabilidadAtacante.getEfectividad();
+
+		if (atacante.getEnergiaDelAnillo() >= NivelHabilidadAtacante
+				.getCosto_de_energia()) {
+			npc.setSalud((int) (npc.getSalud() - efectividadAtacante));
+
+			atacante
+					.setEnergiaDelAnillo((int) (atacante.getEnergiaDelAnillo() - NivelHabilidadAtacante
+							.getCosto_de_energia()));
+
+			System.err.println("atacante " + habilidadAtacante.getNombre());
+		}
+		double alea;
+		while (atacante.getSalud() > 0 && npc.getSalud() > 0) {
+
+			alea = Math.random();
+			if (alea > 0.5) {
+				atacante.setSalud((int) (atacante.getSalud() - npc.getDano()));
+			}
+
+			if (atacante.getSalud() > 0) {
+
+				do {
+					x = (int) (Math.random() * habilidadesAtacante.size());
+					habilidadAtacante = (IHabilidadDO) habilidadesAtacante
+							.get(x);
+				} while (habilidadAtacante.getTipo() == 4);
+
+				tipoA = habilidadAtacante.getTipo();
+				NivelHabilidadAtacante = nivHabilidadDAO.loadNivelHabStats(
+						habilidadAtacante.getId(), atacante
+								.getHabilidadActivaList().get(x)
+								.getNivel_habilidad());
+				efectividadAtacante = NivelHabilidadAtacante.getEfectividad();
+
+				if (atacante.getEnergiaDelAnillo() >= NivelHabilidadAtacante
+						.getCosto_de_energia()) {
+
+					if (tipoA == 2) {
+						atacante
+								.setSalud((int) (atacante.getSalud() + (efectividadAtacante
+										* npc.getDano() / 100)));
+					} else {
+						npc
+								.setSalud((int) (npc.getSalud() - efectividadAtacante));
+					}
+
+					atacante.setEnergiaDelAnillo((int) (atacante
+							.getEnergiaDelAnillo() - NivelHabilidadAtacante
+							.getCosto_de_energia()));
+
+				} else {
+					tipoA = 2;
+				}
+			}
+
+		}
+		double expA = 10;
+
+		double puntosA;
+		desktop = app.getDesktop();
+
+		if (atacante.getSalud() > 0) {
+
+			puntosA = (100 + (50 * (npc.getNivel() - 1)));
+			atacante.setPuntosDeEntrenamiento((int) (atacante
+					.getPuntosDeEntrenamiento() + puntosA));
+
+			for (int i = 1; i < atacante.getNivel(); i++) {
+				expA = expA + (expA * 0.5);
+			}
+			atacante.setExperiencia((int) (atacante.getExperiencia() + expA));
+			desktop.setWindowPaneEmergente("Ganaste el combate:");
+			
+		} else {
+			atacante.setSalud((200 + (50 * (atacante.getNivel() - 1))));
+			atacante.getPlanetaRef().setRefIdent(
+					atacante.getClaseLinternaRef().getRefIdent());
+
+			if (atacante.getPuntosDeEntrenamiento() != 0) {
+				puntosA = (100 + (50 * (npc.getNivel() - 1))) / 2;
+				if (atacante.getPuntosDeEntrenamiento() < puntosA) {
+					atacante.setPuntosDeEntrenamiento(0);
+				} else {
+					atacante.setPuntosDeEntrenamiento((int) (atacante
+							.getPuntosDeEntrenamiento() - puntosA));
+				}
+
+			}
+			desktop.setWindowPaneEmergente("Perdiste el combate:");
+
+		}
+
+		atts.setPersonaje(atacante);
+		atts.guardarAtts();
+		atts.updateMenud(desktop.getMenud());
 
 	}
 
