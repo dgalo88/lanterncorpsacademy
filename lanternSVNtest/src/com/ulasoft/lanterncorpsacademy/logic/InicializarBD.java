@@ -9,7 +9,9 @@ import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
 import lcaInterfaceDAO.IHabilidadDAO;
 import lcaInterfaceDAO.IHabilidadDO;
 import lcaInterfaceDAO.IMisionClaseLinternaDAO;
+import lcaInterfaceDAO.IMisionClaseLinternaDO;
 import lcaInterfaceDAO.IMisionDAO;
+import lcaInterfaceDAO.IMisionDO;
 import lcaInterfaceDAO.IMisionPersonajeDAO;
 import lcaInterfaceDAO.INivelHabilidadDAO;
 import lcaInterfaceDAO.INivelHabilidadDO;
@@ -1237,7 +1239,7 @@ public class InicializarBD {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
 						.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
-				NivelHabilidadDO[i].setEfectividad(0.2 + i * 3);
+				NivelHabilidadDO[i].setEfectividad(20 + i * 3);
 				NivelHabilidadDO[i].setCosto_de_energia(0.4 - i * 0.03);
 				NivelHabilidadDO[i].setHabilidadRef(refhab);
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
@@ -1289,7 +1291,7 @@ public class InicializarBD {
 						.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
-				NivelHabilidadDO[i].setCosto_de_energia((20 - i);
+				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
 				NivelHabilidadDO[i].setHabilidadRef(refhab);
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
@@ -1325,9 +1327,22 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 			
-			IMisionDO misionDO = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
-			
-			misionDO.|
+//			IMisionDO misionDO = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
+//			misionDO.setNombre("Combatir con los ManHunter.");
+//			misionDO.setNivel_necesario(1);
+//			misionDO.setExperiencia_ganada();
+//			misionDO.setPuntos_de_entrenamiento_ganados();
+//			misionDO.setDescripcion("");
+//			IMisionClaseLinternaDO misionClaseLinternaDO;
+//			Reference<IMisionDO> refmis;
+//			refmis = new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO.getId());
+//			for(int i=0;i<7;i++){
+//				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
+//				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+//				misionClaseLinternaDO.setMisionRef(refmis);
+//				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
+//			}
 			
 
 		} finally {
