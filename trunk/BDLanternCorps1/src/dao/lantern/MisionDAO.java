@@ -342,14 +342,56 @@ public class MisionDAO extends BaseDAO implements IMisionDAO{
   }
   
 //--------------------------------------------------------------------------------
+  public List<IMisionDO> listPlayable(int id) throws Exception {
+		
+		StringBuffer strbuf = new StringBuffer();
+		
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+		strbuf.append(", personajedao, misionclaselinternadao, misionpersonajedao");
+		strbuf.append(" WHERE ");
+		
+		strbuf.append("personajedao.id");
+		strbuf.append(" = ");
+		strbuf.append(id);
+		
+		strbuf.append(" misionpersonajedao.personajeid");
+		strbuf.append(" = ");
+		strbuf.append("personajedao.id");
+	
+		strbuf.append(" personajedao.claselinternaid");
+		strbuf.append(" = ");
+		strbuf.append("misionclaselinternadao.claselinternaid ");
+		
+		strbuf.append(MisionDO.ID);
+		strbuf.append(" = ");
+		strbuf.append("misionclaselinternadao.misionid ");
 
-//  public void loadMisionCLaseLinternaList(IMisionDO misionDO) throws Exception {
-//    checkCache(misionDO, CHECK_UPDATE);
-//
-//    MisionClaseLinternaDAO misionClaseLinternaDAO = (MisionClaseLinternaDAO) FactoryDAO.getDAO(//
-//    		MisionClaseLinternaDAO.class, connectionBean);
-//
-//    misionDO.setMisionClaselinternaList(misionClaseLinternaDAO.listByMisionId(misionDO.getId()));
-//  }
+		strbuf.append(MisionDO.ID);
+		strbuf.append(" <> ");
+		strbuf.append("isionpersonajedao..misionid");
+		
+		
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<IMisionDO> ret = new ArrayList<IMisionDO>();
+		MisionDO mision;
+
+		while (rs.next()) {
+			
+			mision = (MisionDO) dtaSession.getDtaByKey(MisionDO.class, rs.getInt(MisionDO.ID));
+
+			if (mision == null) {
+				mision = (MisionDO) dtaSession.add(resultSetToDO(rs));
+			}
+
+			ret.add(mision);
+		}
+
+		return ret;
+	}
 
 }
