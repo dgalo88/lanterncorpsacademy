@@ -6,7 +6,6 @@ import nextapp.echo.app.Extent;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
-import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
@@ -17,12 +16,13 @@ import com.ulasoft.lanterncorpsacademy.logic.Viajar;
 
 import echopoint.ImageMap;
 
+@SuppressWarnings("serial")
 public class PanelViajarPlaneta extends Panel{
 
 	private Label lblActual;
 	LanternCorpsAcademyApp aplicacion = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 
-	@SuppressWarnings("serial")
+
 	public PanelViajarPlaneta() {
 				
 		Column col = new Column();

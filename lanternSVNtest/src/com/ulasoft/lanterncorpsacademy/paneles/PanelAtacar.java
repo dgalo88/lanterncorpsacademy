@@ -27,6 +27,7 @@ import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
@@ -42,7 +43,7 @@ public class PanelAtacar extends Panel {
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 	LanternCorpsAcademyApp.getActive();
 	IPersonajeDO personajeAtacar;
-
+	
 	
 	
 	public PanelAtacar() {
@@ -113,6 +114,9 @@ public class PanelAtacar extends Panel {
 			return;
 		}
 		Atacar.combate(personajeAtacar);
+		Desktop d = app.getDesktop();
+		PanelMain pnlMain = new PanelMain();
+		d.setPanelCentral(pnlMain);
 	}
 
 	// --------------------------------------------------------------------------------
