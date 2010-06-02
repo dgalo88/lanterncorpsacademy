@@ -1,5 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.IPersonajeDO;
@@ -42,7 +43,9 @@ public class PanelCrearGrupo extends Panel {
 	List<IPersonajeDO> personajes;
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
 			.getActive();
-
+	List<Integer> seleccion = new ArrayList<Integer>();
+	TextField txtGrupo;
+	
 	public PanelCrearGrupo() {
 		Column col = new Column();
 
@@ -52,7 +55,7 @@ public class PanelCrearGrupo extends Panel {
 		Label lblCorreo = new Label("Nombre del Grupo");
 		// lblCorreo.
 		grid.add(lblCorreo);
-		TextField txtGrupo = new TextField();
+		txtGrupo = new TextField();
 		txtGrupo.setWidth(new Extent(300));
 		// txtCorreo.validate();
 		try {
@@ -101,8 +104,23 @@ public class PanelCrearGrupo extends Panel {
 	Desktop d = app.getDesktop();
 
 	protected void btnCrearGrupoClicked() {
-		// TODO Auto-generated method stub
-
+		if(CrearGrupo.checkNombreGrupo(txtGrupo)){
+			d.setWindowPaneEmergente("El Campo Nombre de Grupo se encuentran Vacio, NO se Creara el Grupo");
+			return;
+		}
+		if(seleccion.isEmpty()){
+			d.setWindowPaneEmergente("No ha Seleccionado Ningun Personaje para que Forme Parte de su Grupo, NO se Creara el Grupo");
+			return;
+		}
+		try {
+			CrearGrupo.crearGrupo(app.getAtributos()
+					.getPersonaje(), personajes, seleccion, txtGrupo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		d.setWindowPaneEmergente("El Grupo se ha Crearado con Exito!");
+		PanelMain pnlMain = new PanelMain();
+		d.setPanelCentral(pnlMain);
 	}
 
 	protected void btnSalirClicked() {
@@ -251,7 +269,7 @@ public class PanelCrearGrupo extends Panel {
 
 				ret.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						btnRadioClicked(row);
+						btnCheckBoxClicked(row);
 					}
 				});
 				return ret;
@@ -263,7 +281,14 @@ public class PanelCrearGrupo extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private void btnRadioClicked(int row) {
-		// TODO Auto-generated method stub
+	private void btnCheckBoxClicked(int row) {
+		Integer e = new Integer(row);
+		for(int pos=0;pos<seleccion.size();pos++){
+			if(seleccion.get(pos).equals(e)){
+				seleccion.remove(pos);
+				return;
+			}
+		}
+		seleccion.add(e);
 	}
 }
