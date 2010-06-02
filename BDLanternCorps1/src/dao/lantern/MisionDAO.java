@@ -354,22 +354,22 @@ public class MisionDAO extends BaseDAO implements IMisionDAO{
 		strbuf.append("personajedao.id");
 		strbuf.append(" = ");
 		strbuf.append(id);
-		
+		strbuf.append(" AND ");
 		strbuf.append(" misionpersonajedao.personajeid");
 		strbuf.append(" = ");
 		strbuf.append("personajedao.id");
-	
+		strbuf.append(" AND ");
 		strbuf.append(" personajedao.claselinternaid");
 		strbuf.append(" = ");
 		strbuf.append("misionclaselinternadao.claselinternaid ");
-		
+		strbuf.append(" AND ");
 		strbuf.append(MisionDO.ID);
 		strbuf.append(" = ");
 		strbuf.append("misionclaselinternadao.misionid ");
-
+		strbuf.append(" AND ");
 		strbuf.append(MisionDO.ID);
 		strbuf.append(" <> ");
-		strbuf.append("isionpersonajedao..misionid");
+		strbuf.append("misionpersonajedao.misionid");
 		
 		
 		System.err.println(strbuf.toString());
