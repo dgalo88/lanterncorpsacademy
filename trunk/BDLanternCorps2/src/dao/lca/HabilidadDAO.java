@@ -420,7 +420,7 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO {
 		strbuf.append(habilidadClaseLinternaDAO.getTableName());
 		strbuf.append("." + HabilidadClaseLinternaDO.HABILIDAD_ID);
 
-		strbuf.append(" RIGHT JOIN  ");
+		strbuf.append(" LEFT JOIN  ");
 		strbuf.append(habilidadActivaDAO.getTableName());
 		strbuf.append(" ON ");
 		strbuf.append(personajeDAO.getTableName());
