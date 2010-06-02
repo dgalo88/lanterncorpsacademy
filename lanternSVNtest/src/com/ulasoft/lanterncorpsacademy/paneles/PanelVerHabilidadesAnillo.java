@@ -225,7 +225,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 			    	  IHabilidadDO habilidad = (IHabilidadDO) element;
 			    	  Atributos atr=app.getAtributos();		    	  
 			    	  try {
-						return (Math.pow(2, HabilidadesAnillo.obtenerNivel(atr.getPersonaje().getId(),habilidad))*100);
+						return (int)(Math.pow(2, HabilidadesAnillo.obtenerNivel(atr.getPersonaje().getId(),habilidad))*100);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
