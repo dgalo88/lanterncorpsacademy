@@ -28,9 +28,14 @@ public class CrearGrupo {
 		IGrupoDAO grupoDAO = (IGrupoDAO) GlobalDAOFactory.getDAO( //
 				IGrupoDAO.class, connectionBean);
 		IGrupoDO grupodo;
-		grupodo = (IGrupoDO) grupoDAO.loadById(personaje.getGrupoRef()
-				.getRefIdent());
-		if (grupodo == null) {
+		if(personaje.getGrupoRef().getRefIdent()!=0){
+			grupodo = (IGrupoDO) grupoDAO.loadById(personaje.getGrupoRef()
+					.getRefIdent());
+			if (grupodo == null) {
+				return "";
+			}
+		}
+		else{
 			return "";
 		}
 		connectionBean.getConnection().close();
