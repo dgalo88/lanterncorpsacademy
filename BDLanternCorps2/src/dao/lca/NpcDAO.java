@@ -8,6 +8,7 @@ import java.util.List;
 import lcaInterfaceDAO.INpcDAO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+import dao.api.FactoryDAO;
 
 public class NpcDAO extends BaseDAO implements INpcDAO {
 
@@ -306,4 +307,44 @@ public class NpcDAO extends BaseDAO implements INpcDAO {
 		
 		return (NpcDO) dtaSession.add(ret);
 	}
+
+	public List<DataObject> ListNpc(int id) throws ClassNotFoundException, Exception {
+		
+		ClaseLinternaDAO claseLinternaDAO= (ClaseLinternaDAO) FactoryDAO.getDAO(ClaseLinternaDAO.class, connectionBean);
+		StringBuffer strbuf = new StringBuffer();
+	    
+	    strbuf.append("SELECT ");
+	    strbuf.append(getTableName());
+	    strbuf.append(".* ");
+	    
+	    strbuf.append("FROM ");
+	    strbuf.append(getTableName());
+	    strbuf.append(", ");   
+	    strbuf.append(claseLinternaDAO.getTableName());
+
+	    strbuf.append(" WHERE ");
+	    strbuf.append(claseLinternaDAO.getTableName());
+	    strbuf.append("."+ClaseLinternaDO.ID);
+	    strbuf.append(" = ");
+	    strbuf.append(id);
+	    strbuf.append(" AND ");
+	    strbuf.append(getTableName()+"."+NpcDO.COLOR);
+	    strbuf.append(" = ");
+	    strbuf.append(claseLinternaDAO.getTableName());
+	    strbuf.append("."+ClaseLinternaDO.COLOR+"");
+	    	    
+	    
+	    System.err.println(strbuf.toString());
+
+	    ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
+	    
+		
+	    List<DataObject> ret = new ArrayList<DataObject>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+		return ret;
+	}	
+	
 }
