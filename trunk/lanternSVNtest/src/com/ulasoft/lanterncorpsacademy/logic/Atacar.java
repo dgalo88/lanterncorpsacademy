@@ -151,8 +151,7 @@ public class Atacar {
 			efectividadContrincante = NivelHabilidadContricante
 					.getEfectividad();
 
-			if (contrincante.getEnergiaDelAnillo() >= NivelHabilidadAtacante
-					.getCosto_de_energia()) {
+			if (contrincante.getEnergiaDelAnillo() >= NivelHabilidadContricante.getCosto_de_energia()) {
 				System.err.println("contrincante "
 						+ habilidadContricante.getNombre());
 				if (tipoB == 2) {
@@ -163,14 +162,11 @@ public class Atacar {
 					atacante
 							.setSalud((int) (atacante.getSalud() - efectividadContrincante));
 				}
-				if (NivelHabilidadContricante.getCosto_de_energia() <= contrincante
-						.getEnergiaDelAnillo()) {
-					contrincante.setEnergiaDelAnillo((int) (contrincante
-							.getEnergiaDelAnillo() - NivelHabilidadContricante
-							.getCosto_de_energia()));
-				} else {
-					contrincante.setEnergiaDelAnillo(0);
-				}
+
+				contrincante.setEnergiaDelAnillo((int) (contrincante
+						.getEnergiaDelAnillo() - NivelHabilidadContricante
+						.getCosto_de_energia()));
+
 			} else {
 				tipoB = 2;
 			}
@@ -197,7 +193,7 @@ public class Atacar {
 								.getHabilidadActivaList().get(x)
 								.getNivel_habilidad());
 				efectividadAtacante = NivelHabilidadAtacante.getEfectividad();
-				if (contrincante.getEnergiaDelAnillo() >= NivelHabilidadAtacante
+				if (atacante.getEnergiaDelAnillo() >= NivelHabilidadAtacante
 						.getCosto_de_energia()) {
 					System.err.println("atacante "
 							+ habilidadAtacante.getNombre());
