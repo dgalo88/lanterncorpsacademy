@@ -128,7 +128,7 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO{
 	
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
-		checkCache(dataObject, CHECK_UPDATE);
+		//checkCache(dataObject, CHECK_UPDATE);
 	    checkClass(dataObject, UsuarioDO.class, CHECK_UPDATE);
 
 	    UsuarioDO usuarioDO = (UsuarioDO) dataObject;

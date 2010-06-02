@@ -368,7 +368,7 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO{
     }
     
     public void loadNivelHabilidadList(IHabilidadDO habilidadDO) throws Exception {
-        checkCache(habilidadDO, CHECK_UPDATE);
+        //checkCache(habilidadDO, CHECK_UPDATE);
 
         NivelHabilidadDAO nivelHabilidadDAO = (NivelHabilidadDAO) FactoryDAO.getDAO( //
         NivelHabilidadDAO.class, connectionBean);

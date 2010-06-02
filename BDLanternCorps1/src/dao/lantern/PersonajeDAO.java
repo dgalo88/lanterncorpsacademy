@@ -614,7 +614,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	  // --------------------------------------------------------------------------------
 
 	  public void loadHabilidadActivaList(IPersonajeDO personajeDO) throws Exception {
-	    checkCache(personajeDO, CHECK_UPDATE);
+	    //checkCache(personajeDO, CHECK_UPDATE);
 
 	    HabilidadActivaDAO habilidadActivaDAO = (HabilidadActivaDAO) FactoryDAO.getDAO( //
 	    		HabilidadActivaDAO.class, connectionBean);
