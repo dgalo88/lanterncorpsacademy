@@ -1,7 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import lcaInterfaceDAO.IHabilidadActivaDAO;
@@ -15,7 +14,6 @@ import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
 
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
