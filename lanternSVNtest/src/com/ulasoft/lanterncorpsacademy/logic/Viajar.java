@@ -74,42 +74,63 @@ public class Viajar {
 			if (i < 7) {
 				
 				switch (planeta.getId()) {
-				case VERDE: 
+				case VERDE:
+					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+						continue;
+					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
 							+ planeta.getSector() + " - "
 							+ "Base de los Green Lantern Corps");
 					break;
 				
 				case AMARILLO:
+					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+						continue;
+					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
 							+ planeta.getSector() + " - "
 							+ "Base de los Sinestro Corps");
 					break;
-				case ROJO: 
+				case ROJO:
+					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+						continue;
+					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
 							+ planeta.getSector() + " - "
 							+ "Base de los Red Lantern Corps");
 					break;
 				
-				case NEGRO: 
+				case NEGRO:
+					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+						continue;
+					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
 							+ planeta.getSector() + " - "
 							+ "Base de los Black Lantern Corps");
 					break;
 				
-				case AZUL: 
+				case AZUL:
+					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+						continue;
+					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
 							+ planeta.getSector() + " - "
 							+ "Base de los Blue Lantern Corps");
 					break;
 				
-				case INDIGO: 
+				case INDIGO:
+					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+						continue;
+					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
 							+ planeta.getSector() + " - "
 							+ "Base de la Tribu Indigo");
 					break;
 				
-				case VIOLETA: 
+				case VIOLETA:
+					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+						continue;
+					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
 							+ planeta.getSector() + " - "
 							+ "Base de las Star Sapphires");
@@ -122,11 +143,13 @@ public class Viajar {
 				pl.setAltText(planeta.getNombre() + " - Sector: "
 			+ planeta.getSector() + "."); 
 			}
-		if (atts.getPersonaje().getPlanetaRef().getRefIdent() != planeta.getId()) {
-			System.err.println("PLANETA ID:"+planeta.getId());
-			planetas.add(pl);
-			}
- }
+			
+			if ((atts.getPersonaje().getPlanetaRef().getRefIdent() != planeta.getId())) {
+				System.err.println("PLANETA ID:"+planeta.getId());
+				planetas.add(pl);				
+				}
+				
+	}
  
  return planetas;
 
