@@ -380,4 +380,74 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO {
 	    return null;
 	}
 
+	public List<DataObject> listToBuy(int id)throws ClassNotFoundException, Exception{
+		HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO
+		.getDAO( //
+				HabilidadClaseLinternaDAO.class, connectionBean);
+		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO(PersonajeDAO.class, connectionBean);
+		ClaseLinternaDAO claseLinternaDAO= (ClaseLinternaDAO) FactoryDAO.getDAO(ClaseLinternaDAO.class, connectionBean);
+		HabilidadActivaDAO habilidadActivaDAO=(HabilidadActivaDAO) FactoryDAO.getDAO(HabilidadActivaDAO.class, connectionBean);
+		
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT " + getTableName() + ".* FROM ");
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append(" JOIN  ");
+		strbuf.append(claseLinternaDAO.getTableName());
+		strbuf.append(" ON ");
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append("." + PersonajeDO.CLASE_LINTERNA_ID);
+		strbuf.append(" = ");
+		strbuf.append(claseLinternaDAO.getTableName());
+		strbuf.append("." + ClaseLinternaDO.ID);
+		
+
+		strbuf.append(" JOIN  ");
+		strbuf.append(habilidadClaseLinternaDAO.getTableName());
+		strbuf.append(" ON ");
+		strbuf.append(claseLinternaDAO.getTableName());
+		strbuf.append("." + ClaseLinternaDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(habilidadClaseLinternaDAO.getTableName());
+		strbuf.append("." + HabilidadClaseLinternaDO.CLASE_LINTERNA_ID);
+
+		strbuf.append(" JOIN  ");
+		strbuf.append(getTableName());
+		strbuf.append(" ON ");
+		strbuf.append(getTableName());
+		strbuf.append("." + HabilidadDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(habilidadClaseLinternaDAO.getTableName());
+		strbuf.append("." + HabilidadClaseLinternaDO.HABILIDAD_ID);
+
+		strbuf.append("RIGHT JOIN  ");
+		strbuf.append(habilidadActivaDAO.getTableName());
+		strbuf.append(" ON ");
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append("." + PersonajeDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(habilidadActivaDAO.getTableName());
+		strbuf.append("." + HabilidadActivaDO.PERSONAJE_ID);
+		
+
+		strbuf.append(" WHERE ");
+		strbuf.append(HabilidadActivaDO.ID);
+		strbuf.append(" IS NULL AND ");
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append("." + PersonajeDO.ID);
+		strbuf.append(" = '");
+		strbuf.append(id + "'");
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+		System.err.println(strbuf.toString());
+
+		List<DataObject> ret = new ArrayList<DataObject>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+		return ret;
+		
+	}
 }
