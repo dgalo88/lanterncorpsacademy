@@ -359,7 +359,7 @@ public class MisionDAO extends BaseDAO implements IMisionDAO{
 		misionDO.setMisionPersonajeList(misionPersonajeDAO.listByMisionId(misionDO.getId()));
 	}
 	
-	public List<IMisionDO> listPlayable(int id) throws Exception {
+	public List<IMisionDO> listPlayable(int idpersonaje) throws Exception {
 		
 		StringBuffer strbuf = new StringBuffer();
 		
@@ -370,24 +370,27 @@ public class MisionDAO extends BaseDAO implements IMisionDAO{
 		
 		strbuf.append("personajedao.id");
 		strbuf.append(" = ");
-		strbuf.append(id);
-		
+		strbuf.append(idpersonaje);
+		strbuf.append(" AND ");
 		strbuf.append(" misionpersonajedao.personajeid");
 		strbuf.append(" = ");
 		strbuf.append("personajedao.id");
-	
+		strbuf.append(" AND ");
 		strbuf.append(" personajedao.claselinternaid");
 		strbuf.append(" = ");
 		strbuf.append("misionclaselinternadao.claselinternaid ");
-		
-		strbuf.append(MisionDO.ID);
+		strbuf.append(" AND ");
+		strbuf.append("misiondao.id");
 		strbuf.append(" = ");
 		strbuf.append("misionclaselinternadao.misionid ");
-
-		strbuf.append(MisionDO.ID);
+		strbuf.append(" AND ");
+		strbuf.append("misionpersonajedao.misionid");
 		strbuf.append(" <> ");
-		strbuf.append("isionpersonajedao..misionid");
-		
+		strbuf.append("misiondao.id");
+		strbuf.append(" AND ");
+		strbuf.append(MisionDO.NIVEL_NECESARIO);
+		strbuf.append(" <= ");
+		strbuf.append("personajedao.nivel");
 		
 		System.err.println(strbuf.toString());
 
@@ -410,5 +413,6 @@ public class MisionDAO extends BaseDAO implements IMisionDAO{
 
 		return ret;
 	}
+
 
 }
