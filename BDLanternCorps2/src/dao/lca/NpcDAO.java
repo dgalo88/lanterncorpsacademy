@@ -84,6 +84,16 @@ public class NpcDAO extends BaseDAO implements INpcDAO {
 		System.err.println(strbuf.toString());
 
 		connection.createStatement().execute(strbuf.toString());
+		
+		strbuf = new StringBuffer();
+
+		strbuf.append("CREATE SEQUENCE ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
 
 	}
 
