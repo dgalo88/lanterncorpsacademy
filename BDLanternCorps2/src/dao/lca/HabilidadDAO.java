@@ -431,12 +431,13 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO {
 		
 
 		strbuf.append(" WHERE ");
-		strbuf.append(HabilidadActivaDO.ID);
+		strbuf.append(habilidadActivaDAO.getTableName());
+		strbuf.append("." + HabilidadActivaDO.ID);
 		strbuf.append(" IS NULL AND ");
 		strbuf.append(personajeDAO.getTableName());
 		strbuf.append("." + PersonajeDO.ID);
-		strbuf.append(" = '");
-		strbuf.append(id + "'");
+		strbuf.append(" = ");
+		strbuf.append(id);
 
 		ResultSet rs = //
 		connection.createStatement().executeQuery(strbuf.toString());
