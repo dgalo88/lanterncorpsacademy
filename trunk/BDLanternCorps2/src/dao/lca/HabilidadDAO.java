@@ -380,7 +380,7 @@ public class HabilidadDAO extends BaseDAO implements IHabilidadDAO {
 	    return null;
 	}
 
-	public List<DataObject> listToBuy(int id)throws ClassNotFoundException, Exception{
+	public List<DataObject> listToBuy(int id) throws  Exception{
 		HabilidadClaseLinternaDAO habilidadClaseLinternaDAO = (HabilidadClaseLinternaDAO) FactoryDAO
 		.getDAO( //
 				HabilidadClaseLinternaDAO.class, connectionBean);
