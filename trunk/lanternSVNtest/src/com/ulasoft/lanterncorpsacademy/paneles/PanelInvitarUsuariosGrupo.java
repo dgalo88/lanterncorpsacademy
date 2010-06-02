@@ -1,11 +1,13 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
+import nextapp.echo.app.CheckBox;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
@@ -15,6 +17,7 @@ import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.Row;
+import nextapp.echo.app.TextField;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
@@ -23,90 +26,72 @@ import com.minotauro.echo.table.base.ETableNavigation;
 import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
 import com.minotauro.echo.table.base.TableSelModel;
+import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
+import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.CrearGrupo;
-import com.ulasoft.lanterncorpsacademy.logic.MiGrupo;
+import com.ulasoft.lanterncorpsacademy.logic.InvitarUsuariosGrupo;
 
 @SuppressWarnings("serial")
-public class PanelMiGrupo extends Panel {
+public class PanelInvitarUsuariosGrupo extends Panel {
 
 	private TestTableModel tableDtaModel;
 	List<IPersonajeDO> personajes;
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
 			.getActive();
-
-	public PanelMiGrupo() {
+	List<Integer> seleccion = new ArrayList<Integer>();
+	Label txtGrupo;
+	
+	public PanelInvitarUsuariosGrupo() {
 		Column col = new Column();
-		int flg = 0;
+
 		Grid grid = new Grid(2);
 		grid.setStyle(GUIStyles.DEFAULT_STYLE);
 		grid.setWidth(new Extent(500));
-		Label lblNombreGrupo = new Label("Nombre del Grupo:");
+		Label lblCorreo = new Label("Nombre del Grupo");
 		// lblCorreo.
-		grid.add(lblNombreGrupo);
-
-		Label lblNombreGrupoValue = new Label();
+		grid.add(lblCorreo);
+		txtGrupo = new Label();
+//		txtGrupo.setWidth(new Extent(300));
+		// txtCorreo.validate();
 		try {
-			lblNombreGrupoValue = new Label(CrearGrupo.obtenerNombreGrupo(app
-					.getAtributos().getPersonaje()));
+			txtGrupo.setText(CrearGrupo.obtenerNombreGrupo(app.getAtributos()
+					.getPersonaje()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (lblNombreGrupoValue.getText().equals("")) {
-			flg = 1;
-			lblNombreGrupoValue.setText("Ninguno");
-		}
 
-		grid.add(lblNombreGrupoValue);
+		grid.add(txtGrupo);
 		col.add(grid);
 
 		col.add(initTable());
 
 		Row row = new Row();
-		Button btnInvitarNuevoIntegrante = new Button(
-				"Invitar Nuevo Integrante");
-		btnInvitarNuevoIntegrante.setStyle(GUIStyles.STYLE2);
-		btnInvitarNuevoIntegrante.setWidth(new Extent(200));
-		btnInvitarNuevoIntegrante.addActionListener(new ActionListener() {
+		Button btnAtras = new Button("Atras");
+		btnAtras.setStyle(GUIStyles.STYLE2);
+		btnAtras.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				btnInvitarNuevoIntegranteClicked();
+				btnAtrasClicked();
 			}
 		});
 
-		Button btnAbandonarGrupo = new Button("Abandonar Grupo");
-		btnAbandonarGrupo.setStyle(GUIStyles.STYLE2);
-		btnAbandonarGrupo.setWidth(new Extent(200));
-		btnAbandonarGrupo.addActionListener(new ActionListener() {
+		Button btnInvitarUsuarios = new Button("Invitar Usuarios al Grupo");
+		btnInvitarUsuarios.setStyle(GUIStyles.STYLE2);
+		btnInvitarUsuarios.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				btnAbandonarGrupoClicked();
+				btnInvitarUsuariosGrupoClicked();
 			}
 		});
 
-		Button btnMensaje = new Button("Mensaje");
-		btnMensaje.setStyle(GUIStyles.STYLE2);
-		btnMensaje.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				btnMensajeClicked();
-			}
-		});
-
-		if (flg == 1) {
-			btnInvitarNuevoIntegrante.setEnabled(false);
-			btnAbandonarGrupo.setEnabled(false);
-			btnMensaje.setEnabled(false);
-		}
-
-		row.add(btnInvitarNuevoIntegrante);
-		row.add(btnAbandonarGrupo);
-		row.add(btnMensaje);
+		row.add(btnAtras);
+		row.add(btnInvitarUsuarios);
 		row.setAlignment(Alignment.ALIGN_CENTER);
 		col.add(row);
 		add(col);
@@ -114,35 +99,25 @@ public class PanelMiGrupo extends Panel {
 
 	Desktop d = app.getDesktop();
 
-	protected void btnMensajeClicked() {
-		PanelMensaje pnlMain = new PanelMensaje();
-		d.setPanelCentral(pnlMain);
-
-	}
-
-	protected void btnAbandonarGrupoClicked() {
-		String cad = "";
+	protected void btnInvitarUsuariosGrupoClicked() {
+		if(seleccion.isEmpty()){
+			d.setWindowPaneEmergente("No ha Seleccionado Ningun Personaje para que Forme Parte de su Grupo, NO se Agregara Nadie al Grupo");
+			return;
+		}
 		try {
-			int  flg =MiGrupo.abandonarGrupo(app
-					.getAtributos().getPersonaje());
-			if(flg==1){
-				cad = " y el Grupo se Encuentra Inactivo por tener solo 1 Participante";
-			}
-			else if (flg==0) {
-				cad = " y el Grupo se ha Eliminado por No tener Participantes";
-			}
+			InvitarUsuariosGrupo.agregarUsuarios(app.getAtributos()
+					.getPersonaje(), personajes, seleccion);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		d.setWindowPaneEmergente("Has Abandonado el Grupo Exitosamente"+ cad);
+		d.setWindowPaneEmergente("Se han Agregado los Usuarios al Grupo con Exito!");
 		PanelMain pnlMain = new PanelMain();
 		d.setPanelCentral(pnlMain);
 	}
 
-	protected void btnInvitarNuevoIntegranteClicked() {
-		PanelInvitarUsuariosGrupo pnlMain = new PanelInvitarUsuariosGrupo();
+	protected void btnAtrasClicked() {
+		PanelMiGrupo pnlMain = new PanelMiGrupo();
 		d.setPanelCentral(pnlMain);
-
 	}
 
 	private Component initTable() {
@@ -167,11 +142,11 @@ public class PanelMiGrupo extends Panel {
 
 		Atributos atrr = app.getAtributos();
 		try {
-			personajes = MiGrupo.obtenerPersonClase(atrr.getPersonaje());
+			personajes = InvitarUsuariosGrupo.obtenerPersonasClase(atrr.getPersonaje());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		tableDtaModel = MiGrupo.asignarPersonaje(tableDtaModel, personajes);
+		tableDtaModel = CrearGrupo.asignarPersonaje(tableDtaModel, personajes, atrr.getPersonaje());
 
 		// ----------------------------------------
 		// The table
@@ -253,6 +228,59 @@ public class PanelMiGrupo extends Panel {
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
+		tableColumn = new TableColumn();
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Actions");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(initNestedCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+
 		return tableColModel;
+	}
+
+	// --------------------------------------------------------------------------------
+	// Setup command bar renderer
+	// --------------------------------------------------------------------------------
+
+	private NestedCellRenderer initNestedCellRenderer() {
+		NestedCellRenderer nestedCellRenderer = new NestedCellRenderer();
+		nestedCellRenderer.getCellRendererList().add(new BaseCellRenderer() {
+			@Override
+			public Component getCellRenderer(
+					//
+					final ETable table, final Object value, final int col,
+					final int row) {
+
+				boolean editable = ((TestTableModel) table.getTableDtaModel())
+						.getEditable();
+
+				CheckBox ret = new CheckBox();
+				// ret.setStyle(GUIStyles.DEFAULT_STYLE);
+				ret.setEnabled(editable);
+				ret.setToolTipText("Seleccion");
+
+				ret.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						btnCheckBoxClicked(row);
+					}
+				});
+				return ret;
+			}
+		});
+
+		return nestedCellRenderer;
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnCheckBoxClicked(int row) {
+		Integer e = new Integer(row);
+		for(int pos=0;pos<seleccion.size();pos++){
+			if(seleccion.get(pos).equals(e)){
+				seleccion.remove(pos);
+				return;
+			}
+		}
+		seleccion.add(e);
 	}
 }

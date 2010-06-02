@@ -26,12 +26,14 @@ public class MiGrupo {
 				IPersonajeDAO.class, connectionBean);
 		h = ((PersonajeDAO) person).listByGrupoId((personaje
 				.getGrupoRef().getRefIdent()));
+		connectionBean.getConnection().close();
 		return h;
 	}
 
 	public static TestTableModel asignarPersonaje(TestTableModel tableDtaModel,
 			List<IPersonajeDO> personajes) {
 		for (int posicion = 0; posicion < personajes.size(); posicion++) {
+			(personajes.get(posicion)).setId(posicion + 1);
 			tableDtaModel.add(personajes.get(posicion));
 
 		}
@@ -53,7 +55,7 @@ public class MiGrupo {
 		grupoRef.setRefIdent(0);
 		personaje.setGrupoRef(grupoRef);
 		person.update(personaje);
-		
+		connectionBean.getConnection().close();
 		if(h.size()==1){
 			grupoDAO.delete(grupodo);
 			return 0;
