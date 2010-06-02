@@ -1,17 +1,10 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import com.minotauro.echo.table.base.ETable;
-import com.minotauro.echo.table.base.ETableNavigation;
-import com.minotauro.echo.table.base.TableColModel;
-import com.minotauro.echo.table.base.TableColumn;
-import com.minotauro.echo.table.base.TableSelModel;
-import com.minotauro.echo.table.renderer.BaseCellRenderer;
-import com.minotauro.echo.table.renderer.LabelCellRenderer;
-import com.minotauro.echo.table.renderer.NestedCellRenderer;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
-import com.ulasoft.lanterncorpsacademy.PersonBean;
-import com.ulasoft.lanterncorpsacademy.TestTableModel;
+import java.util.List;
 
+import lcaInterfaceDAO.IMisionDO;
+import lcaInterfaceDAO.IPersonajeDO;
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -24,28 +17,42 @@ import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.RadioButton;
 import nextapp.echo.app.Row;
+import nextapp.echo.app.button.ButtonGroup;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
+
+import com.minotauro.echo.table.base.ETable;
+import com.minotauro.echo.table.base.ETableNavigation;
+import com.minotauro.echo.table.base.TableColModel;
+import com.minotauro.echo.table.base.TableColumn;
+import com.minotauro.echo.table.base.TableSelModel;
+import com.minotauro.echo.table.renderer.BaseCellRenderer;
+import com.minotauro.echo.table.renderer.LabelCellRenderer;
+import com.minotauro.echo.table.renderer.NestedCellRenderer;
+import com.ulasoft.lanterncorpsacademy.Desktop;
+import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.PersonBean;
+import com.ulasoft.lanterncorpsacademy.TestTableModel;
+import com.ulasoft.lanterncorpsacademy.logic.Mision;
 
 public class PanelMisiones extends Panel {
 
 	private TestTableModel tableDtaModel;
+	ButtonGroup btnGroupClases = new ButtonGroup();
+	List<IMisionDO> mision;
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+	.getActive();
 
 	public PanelMisiones() {
-		
+
 		Row row1 = new Row();
 		row1.setStyle(GUIStyles.STYLE3);
-		
+
 		Column col = new Column();
 		col.setInsets(new Insets(5, 5, 5, 5));
 		col.setCellSpacing(new Extent(10));
 		col.setBackground(Color.WHITE);
-		
-		Label lblTitle = new Label("Lista de Misiones");
-		lblTitle.set(PROPERTY_FONT, Font.ARIAL);
-		lblTitle.set(PROPERTY_FONT, Color.BLACK);
-		
-		col.add(lblTitle);
 
 		col.add(initTable());
 
@@ -81,7 +88,10 @@ public class PanelMisiones extends Panel {
 		});
 
 		row.add(btnRealizarMision);
+		row.setAlignment(Alignment.ALIGN_CENTER);
 		col.add(row);
+		col.setBorder(new Border(3, new Color(0x00, 0x00, 0x00),
+				Border.STYLE_SOLID));
 		row1.add(col);
 		add(row1);
 	}
@@ -95,7 +105,9 @@ public class PanelMisiones extends Panel {
 	}
 
 	protected void btnSalirClicked() {
-
+		PanelMain pnlMain = new PanelMain();
+		Desktop d = app.getDesktop();
+		d.setPanelCentral(pnlMain);
 	}
 
 	private Component initTable() {
@@ -116,8 +128,14 @@ public class PanelMisiones extends Panel {
 
 		tableDtaModel = new TestTableModel();
 		tableDtaModel.setEditable(true);
-		tableDtaModel.setPageSize(3);
+		tableDtaModel.setPageSize(10);
 
+		try {
+			mision=Mision.obtenerMisiones(app.getAtributos().getPersonaje());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		// ----------------------------------------
 		// The table
 		// ----------------------------------------
@@ -145,6 +163,12 @@ public class PanelMisiones extends Panel {
 	private Row initTopRow() {
 		Row row = new Row();
 		row.setCellSpacing(new Extent(5));
+		Label lblTitle = new Label("Lista de Misiones");
+		lblTitle.set(PROPERTY_FONT, Font.ARIAL);
+		lblTitle.set(PROPERTY_FONT, Color.BLACK);
+
+		row.add(lblTitle);
+		row.setAlignment(Alignment.ALIGN_CENTER);
 
 		return row;
 	}
@@ -156,18 +180,11 @@ public class PanelMisiones extends Panel {
 
 		TableColumn tableColumn;
 
-		tableColumn = new TableColumn();
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("");
-		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		tableColumn.setDataCellRenderer(initNestedCellRenderer());
-		tableColModel.getTableColumnList().add(tableColumn);
-
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				PersonBean personaBean = (PersonBean) element;
-				return personaBean.getFrstName();
+				IMisionDO mision = (IMisionDO) element;
+				return mision.getNombre();
 			}
 		};
 
@@ -180,8 +197,8 @@ public class PanelMisiones extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				PersonBean personaBean = (PersonBean) element;
-				return personaBean.getFrstName();
+				IMisionDO mision = (IMisionDO) element;
+				return mision.getPuntos_de_entrenamiento_ganados();
 			}
 		};
 
@@ -194,14 +211,21 @@ public class PanelMisiones extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				PersonBean personaBean = (PersonBean) element;
-				return personaBean.getLastName();
+				IMisionDO mision = (IMisionDO) element;
+				return mision.getExperiencia_ganada();
 			}
 		};
 		tableColumn.setWidth(new Extent(50));
 		tableColumn.setHeadValue("Experiencia Obtenida");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+		
+		tableColumn = new TableColumn();
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Actions");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(initNestedCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
 		return tableColModel;
@@ -224,8 +248,9 @@ public class PanelMisiones extends Panel {
 						.getEditable();
 
 				RadioButton ret = new RadioButton();
-				ret.setStyle(GUIStyles.DEFAULT_STYLE);
+//				ret.setStyle(GUIStyles.DEFAULT_STYLE);
 				ret.setEnabled(editable);
+				ret.setGroup(btnGroupClases);
 				ret.setToolTipText("Seleccion");
 
 				ret.addActionListener(new ActionListener() {
