@@ -9,7 +9,9 @@ import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
 import lcaInterfaceDAO.IHabilidadDAO;
 import lcaInterfaceDAO.IHabilidadDO;
 import lcaInterfaceDAO.IMisionClaseLinternaDAO;
+import lcaInterfaceDAO.IMisionClaseLinternaDO;
 import lcaInterfaceDAO.IMisionDAO;
+import lcaInterfaceDAO.IMisionDO;
 import lcaInterfaceDAO.IMisionPersonajeDAO;
 import lcaInterfaceDAO.INivelHabilidadDAO;
 import lcaInterfaceDAO.INivelHabilidadDO;
@@ -1531,6 +1533,7 @@ public class InicializarBD {
 			misionDO[0].setExperiencia_ganada(10);
 			misionDO[0].setPuntos_de_entrenamiento_ganados(100);
 			misionDO[0].setDescripcion("Los Manhunters son unos androides guerreros creados antiguamente por los guardianes del universo.\nUna falla en su progrmación provocó que se rebelaran y se propusieran aniquilar toda la vida del\nuniverso. Su código, \"Ningún hombre escapa a los Manhunters\".\nEl objetivo es luchar contra estos androides para proteger la vida inteligente del universo.");
+			MisionDAO.insert(misionDO[0]);
 			IMisionClaseLinternaDO misionClaseLinternaDO;
 			Reference<IMisionDO> refmis;
 			refmis = new Reference<IMisionDO>();
@@ -1541,7 +1544,7 @@ public class InicializarBD {
 				misionClaseLinternaDO.setMisionRef(refmis);
 				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
 			}
-			MisionDAO.insert(misionDO[0]);
+			
 
 			misionDO[1] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
 			misionDO[1].setNombre("Asegurar la bateria central.");
@@ -1549,6 +1552,7 @@ public class InicializarBD {
 			misionDO[1].setExperiencia_ganada(10);
 			misionDO[1].setPuntos_de_entrenamiento_ganados(100);
 			misionDO[1].setDescripcion("El rasgo más destacado es la Batería de Poder Central, una versión gigantesca de las baterías de poder\nde los Linternas, que canaliza la energía de los Guardianes y amplifica, alimentando las baterías individuales.\nLa entidad del miedo conocida como Parallax fue encerrada en el centro de la Batería Central.\nEs vital conservar a salvo este artefacto ya que cualquier daño mayor podría impedir recargar los anillos\nde poder y así eliminar el arma principal de los linternas.");
+			MisionDAO.insert(misionDO[1]);
 			refmis = new Reference<IMisionDO>();
 			refmis.setRefIdent(misionDO[1].getId());
 			for(int i=0;i<7;i++){
@@ -1557,7 +1561,7 @@ public class InicializarBD {
 				misionClaseLinternaDO.setMisionRef(refmis);
 				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
 			}
-			MisionDAO.insert(misionDO[1]);
+			
 
 			misionDO[2] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
 			misionDO[2].setNombre("Rescatar un compañero en black mercy.");
@@ -1565,6 +1569,7 @@ public class InicializarBD {
 			misionDO[2].setExperiencia_ganada(10);
 			misionDO[2].setPuntos_de_entrenamiento_ganados(100);
 			misionDO[2].setDescripcion("Un compañero linterna no ha respondido en dias luego de ser enviado al sector 2261,\n revisa el sector, especificamente el planeta black mercy, sospechamos que se encuentra atrapado alli.");
+			MisionDAO.insert(misionDO[2]);
 			refmis = new Reference<IMisionDO>();
 			refmis.setRefIdent(misionDO[2].getId());
 			for(int i=0;i<7;i++){
@@ -1573,7 +1578,7 @@ public class InicializarBD {
 				misionClaseLinternaDO.setMisionRef(refmis);
 				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
 			}
-			MisionDAO.insert(misionDO[2]);
+			
 
 			misionDO[4] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
 			misionDO[4].setNombre("Defender la tierra de Mongul.");
@@ -1581,6 +1586,7 @@ public class InicializarBD {
 			misionDO[4].setExperiencia_ganada(20);
 			misionDO[4].setPuntos_de_entrenamiento_ganados(200);
 			misionDO[4].setDescripcion("Mogul como gobernante del planeta belicoso llamado Warworld, Mongul conquistó y esclavizo la población\nde incontables mundos. Ya sea forzados a alimentar las gigantescas unidades de propulsión del planeta\no participando de luchas de gladiadores,  Por esto la tierra debe de ser protegida de este gobernante.");
+			MisionDAO.insert(misionDO[4]);
 			refmis = new Reference<IMisionDO>();
 			refmis.setRefIdent(misionDO[4].getId());
 			for(int i=0;i<7;i++){
@@ -1589,7 +1595,7 @@ public class InicializarBD {
 				misionClaseLinternaDO.setMisionRef(refmis);
 				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
 			}
-			MisionDAO.insert(misionDO[4]);
+			
 
 			misionDO[3] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
 			misionDO[3].setNombre("Proteger Planetas de los Manhunter.");
@@ -1597,6 +1603,7 @@ public class InicializarBD {
 			misionDO[3].setExperiencia_ganada(10);
 			misionDO[3].setPuntos_de_entrenamiento_ganados(200);
 			misionDO[3].setDescripcion("Para ejecutar su voluntad y evitar amenazas alienígenas de todo tipo, los Guardianes crearon una legión de robots\ncentinelas llamados Manhunters. Sin embargo, con el tiempo el resentimiento creció entre los Manhunters y fueron\nvistos como fracasos debido a su incapacidad para reconocer y/o sentir miedo. Finalmente se rebelaron contra los\nGuardianes, alejándose de ellos y formando su propia sociedad automatizada donde podían perseguir sus propias metas\ny una de ellas es atacar planetas.");
+			MisionDAO.insert(misionDO[3]);
 			refmis = new Reference<IMisionDO>();
 			refmis.setRefIdent(misionDO[3].getId());
 			for(int i=0;i<7;i++){
@@ -1605,7 +1612,7 @@ public class InicializarBD {
 				misionClaseLinternaDO.setMisionRef(refmis);
 				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
 			}
-			MisionDAO.insert(misionDO[3]);
+			
 			
 			//OBJETIVOS
 			
