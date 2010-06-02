@@ -1,5 +1,8 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lcaInterfaceDAO.IHabilidadDO;
 
 import com.minotauro.echo.table.base.ETable;
@@ -10,11 +13,12 @@ import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
-import com.ulasoft.lanterncorpsacademy.logic.VerHabilidadesAnillo;
+import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -34,7 +38,7 @@ import nextapp.echo.app.event.ActionListener;
 public class PanelAdquirirHabilidades extends Panel {
 
 	private TestTableModel tableDtaModel;
-	int rowpos;
+	List<Integer> seleccion = new ArrayList<Integer>();
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 		LanternCorpsAcademyApp.getActive();
 	
@@ -46,6 +50,19 @@ public class PanelAdquirirHabilidades extends Panel {
 		col.add(initTable());
 		
 		Row row = new Row();
+		
+		Button btnAtras = new Button("Atras");
+	    btnAtras.setStyle(GUIStyles.STYLE2);
+	    btnAtras.setWidth(new Extent(160));
+	    btnAtras.addActionListener(new ActionListener() {
+	      @Override
+	      public void actionPerformed(ActionEvent arg0) {
+	    	  btnAtrasClicked();
+	      }
+	    });
+	    
+	    row.add(btnAtras);
+	    
 		Button btnAdquirirHabilidad = new Button("Adquirir Habilidad");
 		btnAdquirirHabilidad.setStyle(GUIStyles.STYLE2);
 		btnAdquirirHabilidad.setWidth(new Extent(200));
@@ -58,30 +75,23 @@ public class PanelAdquirirHabilidades extends Panel {
 	    });
 	    row.add(btnAdquirirHabilidad);
 	    
-//	    Button btnEntrenarHabilidad = new Button("Entrenar Habilidad");
-//	    btnEntrenarHabilidad.setStyle(GUIStyles.STYLE2);
-//	    btnEntrenarHabilidad.setWidth(new Extent(160));
-//	    btnEntrenarHabilidad.addActionListener(new ActionListener() {
-//	      @Override
-//	      public void actionPerformed(ActionEvent arg0) {
-//	    	  btnEntrenarHabilidadClicked();
-//	      }
-//	    });
-//	    
-//	    row.add(btnEntrenarHabilidad);
-//	    row.setAlignment(Alignment.ALIGN_CENTER);
+	    row.setAlignment(Alignment.ALIGN_CENTER);
 	    col.add(row);
 		add(col);
 		}
 
+	Desktop d = app.getDesktop();
+	
 		protected void btnAdquirirHabilidadClicked() {
-			
-			
+			if(seleccion.isEmpty()){
+				d.setWindowPaneEmergente("No ha Seleccionado Ningun Personaje para que Forme Parte de su Grupo, NO se Agregara Nadie al Grupo");
+				return;
+			}
 		}
 
-		protected void btnEntrenarHabilidadClicked() {
-			Atributos atrr=app.getAtributos();
-			atrr.getPersonaje();
+		protected void btnAtrasClicked() {
+			PanelVerHabilidadesAnillo pnlMain = new PanelVerHabilidadesAnillo();
+			d.setPanelCentral(pnlMain);
 		}
 
 		private Component initTable() {
@@ -104,7 +114,7 @@ public class PanelAdquirirHabilidades extends Panel {
 		    
 		    Atributos atrr=app.getAtributos();
 		    try {
-		    	tableDtaModel= VerHabilidadesAnillo.obtenerHabilidades(atrr.getPersonaje(), tableDtaModel);
+		    	tableDtaModel= HabilidadesAnillo.obtenerHabilidadesCompra(atrr.getPersonaje(), tableDtaModel);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -168,7 +178,7 @@ public class PanelAdquirirHabilidades extends Panel {
 		    	  IHabilidadDO habilidad = (IHabilidadDO) element;
 		    	  Atributos atr=app.getAtributos();		    	  
 		    	  try {
-					return VerHabilidadesAnillo.obtenerNivel(atr.getPersonaje().getId(),habilidad);
+					return HabilidadesAnillo.obtenerNivel(atr.getPersonaje().getId(),habilidad);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -186,7 +196,7 @@ public class PanelAdquirirHabilidades extends Panel {
 			      @Override
 			      public Object getValue(ETable table, Object element) {
 			    	  IHabilidadDO habilidad = (IHabilidadDO) element;
-			        return VerHabilidadesAnillo.determinarTipo(habilidad.getTipo());
+			        return HabilidadesAnillo.determinarTipo(habilidad.getTipo());
 			      }
 			    };
 		    
@@ -255,7 +265,14 @@ public class PanelAdquirirHabilidades extends Panel {
 		  // --------------------------------------------------------------------------------
 
 		  private void btnRadioClicked(int row) {
-			  rowpos = row;
+			  Integer e = new Integer(row);
+				for(int pos=0;pos<seleccion.size();pos++){
+					if(seleccion.get(pos).equals(e)){
+						seleccion.remove(pos);
+						return;
+					}
+				}
+				seleccion.add(e);
 		  }
 	
 	

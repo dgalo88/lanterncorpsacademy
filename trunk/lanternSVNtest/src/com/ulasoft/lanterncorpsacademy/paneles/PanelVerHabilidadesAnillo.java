@@ -1,6 +1,10 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -29,13 +33,13 @@ import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
-import com.ulasoft.lanterncorpsacademy.logic.VerHabilidadesAnillo;
+import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
 
 @SuppressWarnings("serial")
 public class PanelVerHabilidadesAnillo extends Panel{
 
 	private TestTableModel tableDtaModel;
-	int rowpos;
+	List<Integer> seleccion = new ArrayList<Integer>();
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 		LanternCorpsAcademyApp.getActive();
 	
@@ -74,16 +78,33 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		add(col);
 		}
 
+	Desktop d =app.getDesktop();
+	
 		protected void btnAdquirirHabilidadClicked() {
-			PanelAdquirirHabilidades pnlAdq = new PanelAdquirirHabilidades();
-			Desktop d =app.getDesktop();
+			PanelAdquirirHabilidades pnlAdq = new PanelAdquirirHabilidades();		
 			d.setPanelCentral(pnlAdq);
 			
 		}
 
 		protected void btnEntrenarHabilidadClicked() {
+			if(seleccion.isEmpty()){
+				d.setWindowPaneEmergente("No ha Seleccionado Ningun Hablidad para Entrenar, NO se Entrenara Nada");
+				return;
+			}
 			Atributos atrr=app.getAtributos();
-			atrr.getPersonaje();
+			IPersonajeDO person= atrr.getPersonaje();
+			try {
+				if(HabilidadesAnillo.entrenarHabilidades(seleccion,person)){
+					d.setWindowPaneEmergente("No se Poseen Suficientes Puntos de Entrenamiento, NO se Entrenara Nada");
+					return;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			atrr.setPersonaje(person);
+			d.setWindowPaneEmergente("Se han Entrenado las Habilidades con Exito");
+			return;
 		}
 
 		private Component initTable() {
@@ -106,7 +127,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		    
 		    Atributos atrr=app.getAtributos();
 		    try {
-		    	tableDtaModel= VerHabilidadesAnillo.obtenerHabilidades(atrr.getPersonaje(), tableDtaModel);
+		    	tableDtaModel= HabilidadesAnillo.obtenerHabilidades(atrr.getPersonaje(), tableDtaModel);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -170,7 +191,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		    	  IHabilidadDO habilidad = (IHabilidadDO) element;
 		    	  Atributos atr=app.getAtributos();		    	  
 		    	  try {
-					return VerHabilidadesAnillo.obtenerNivel(atr.getPersonaje().getId(),habilidad);
+					return HabilidadesAnillo.obtenerNivel(atr.getPersonaje().getId(),habilidad);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -188,7 +209,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 			      @Override
 			      public Object getValue(ETable table, Object element) {
 			    	  IHabilidadDO habilidad = (IHabilidadDO) element;
-			        return VerHabilidadesAnillo.determinarTipo(habilidad.getTipo());
+			        return HabilidadesAnillo.determinarTipo(habilidad.getTipo());
 			      }
 			    };
 		    
@@ -202,7 +223,13 @@ public class PanelVerHabilidadesAnillo extends Panel{
 			      @Override
 			      public Object getValue(ETable table, Object element) {
 			    	  IHabilidadDO habilidad = (IHabilidadDO) element;
-			        return habilidad.getCosto_de_aprendizaje();
+			    	  Atributos atr=app.getAtributos();		    	  
+			    	  try {
+						return (Math.pow(2, HabilidadesAnillo.obtenerNivel(atr.getPersonaje().getId(),habilidad))*100);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return 0;
 			      }
 			    };
 			    
@@ -257,7 +284,14 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		  // --------------------------------------------------------------------------------
 
 		  private void btnRadioClicked(int row) {
-			  rowpos = row;
+			  Integer e = new Integer(row);
+				for(int pos=0;pos<seleccion.size();pos++){
+					if(seleccion.get(pos).equals(e)){
+						seleccion.remove(pos);
+						return;
+					}
+				}
+				seleccion.add(e);
 		  }
 		
 }
