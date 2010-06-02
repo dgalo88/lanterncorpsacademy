@@ -7,6 +7,8 @@ import lcaInterfaceDAO.IHabilidadDAO;
 import lcaInterfaceDAO.IHabilidadDO;
 import lcaInterfaceDAO.INivelHabilidadDAO;
 import lcaInterfaceDAO.INivelHabilidadDO;
+import lcaInterfaceDAO.INpcDAO;
+import lcaInterfaceDAO.INpcDO;
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
 
@@ -31,6 +33,16 @@ public class Atacar {
 		personajes = personaje.listContrincantes(person.getId(), (person
 				.getClaseLinternaRef()).getRefIdent(), (person.getPlanetaRef())
 				.getRefIdent());
+		connectionBean.getConnection().close();
+		return personajes;
+	}
+	public static List<IPersonajeDO> obtenerContrincantesNPC(IPersonajeDO person)
+	throws Exception {
+		List<INpcDO> personajes;
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+		INpcDAO personaje = (INpcDAO) GlobalDAOFactory.getDAO(
+		INpcDAO.class, connectionBean);
+		personajes = INpcDAO.listNpc(person.getPlanetaRef().getRefIdent());
 		connectionBean.getConnection().close();
 		return personajes;
 	}
@@ -312,6 +324,17 @@ public class Atacar {
 		}
 		return tableDtaModel;
 	}
+	
+	public static TestTableModel asignarRankingNPC(TestTableModel tableDtaModel,
+			List<INpcDO> personajes) {
+
+		for (int posicion = 0; posicion < personajes.size(); posicion++) {
+			tableDtaModel.add(personajes.get(posicion));
+
+		}
+		return tableDtaModel;
+	}
+
 
 	public static String determinarClase(int clase) {
 		switch (clase) {
