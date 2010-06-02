@@ -37,8 +37,9 @@ public class PanelMiGrupo extends Panel {
 
 	private TestTableModel tableDtaModel;
 	List<IPersonajeDO> personajes;
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
-	
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+			.getActive();
+
 	public PanelMiGrupo() {
 		Column col = new Column();
 		int flg = 0;
@@ -46,195 +47,211 @@ public class PanelMiGrupo extends Panel {
 		grid.setStyle(GUIStyles.DEFAULT_STYLE);
 		grid.setWidth(new Extent(500));
 		Label lblNombreGrupo = new Label("Nombre del Grupo:");
-		//lblCorreo.
-	    grid.add(lblNombreGrupo);
-	    
-	    Label lblNombreGrupoValue = new Label();
+		// lblCorreo.
+		grid.add(lblNombreGrupo);
+
+		Label lblNombreGrupoValue = new Label();
 		try {
-			lblNombreGrupoValue = new Label(CrearGrupo.obtenerNombreGrupo(app.getAtributos().getPersonaje()));
+			lblNombreGrupoValue = new Label(CrearGrupo.obtenerNombreGrupo(app
+					.getAtributos().getPersonaje()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(lblNombreGrupoValue.getText().equals("")){
-			flg =1;
+		if (lblNombreGrupoValue.getText().equals("")) {
+			flg = 1;
 			lblNombreGrupoValue.setText("Ninguno");
 		}
-		
-	    grid.add(lblNombreGrupoValue);
+
+		grid.add(lblNombreGrupoValue);
 		col.add(grid);
-		
+
 		col.add(initTable());
-		
+
 		Row row = new Row();
-		Button btnInvitarNuevoIntegrante = new Button("Invitar Nuevo Integrante");
+		Button btnInvitarNuevoIntegrante = new Button(
+				"Invitar Nuevo Integrante");
 		btnInvitarNuevoIntegrante.setStyle(GUIStyles.STYLE2);
 		btnInvitarNuevoIntegrante.setWidth(new Extent(200));
 		btnInvitarNuevoIntegrante.addActionListener(new ActionListener() {
-	      @Override
-	      public void actionPerformed(ActionEvent arg0) {
-	    	  btnInvitarNuevoIntegranteClicked();
-	      }
-	    });
-			    
-	    Button btnAbandonarGrupo = new Button("Abandonar Grupo");
-	    btnAbandonarGrupo.setStyle(GUIStyles.STYLE2);
-	    btnAbandonarGrupo.setWidth(new Extent(200));
-	    btnAbandonarGrupo.addActionListener(new ActionListener() {
-	      @Override
-	      public void actionPerformed(ActionEvent arg0) {
-	    	  btnAbandonarGrupoClicked();
-	      }
-	    });
-	    
-	    
-	    Button btnMensaje = new Button("Mensaje");
-	    btnMensaje.setStyle(GUIStyles.STYLE2);
-	    btnMensaje.addActionListener(new ActionListener() {
-	      @Override
-	      public void actionPerformed(ActionEvent arg0) {
-	    	  btnMensajeClicked();
-	      }
-	    });
-	    
-	    if(flg == 1){
-	    	btnInvitarNuevoIntegrante.setEnabled(false);
-	    	btnAbandonarGrupo.setEnabled(false);
-	    	btnMensaje.setEnabled(false);
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				btnInvitarNuevoIntegranteClicked();
+			}
+		});
+
+		Button btnAbandonarGrupo = new Button("Abandonar Grupo");
+		btnAbandonarGrupo.setStyle(GUIStyles.STYLE2);
+		btnAbandonarGrupo.setWidth(new Extent(200));
+		btnAbandonarGrupo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				btnAbandonarGrupoClicked();
+			}
+		});
+
+		Button btnMensaje = new Button("Mensaje");
+		btnMensaje.setStyle(GUIStyles.STYLE2);
+		btnMensaje.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				btnMensajeClicked();
+			}
+		});
+
+		if (flg == 1) {
+			btnInvitarNuevoIntegrante.setEnabled(false);
+			btnAbandonarGrupo.setEnabled(false);
+			btnMensaje.setEnabled(false);
 		}
-	    
-	    row.add(btnInvitarNuevoIntegrante);
-	    row.add(btnAbandonarGrupo);
-	    row.add(btnMensaje);
-	    row.setAlignment(Alignment.ALIGN_CENTER);
-	    col.add(row);
+
+		row.add(btnInvitarNuevoIntegrante);
+		row.add(btnAbandonarGrupo);
+		row.add(btnMensaje);
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		col.add(row);
 		add(col);
-		}
-	
+	}
+
 	Desktop d = app.getDesktop();
 
-		protected void btnMensajeClicked() {
-			PanelMensaje pnlMain = new PanelMensaje();
-			d.setPanelCentral(pnlMain);
-		
+	protected void btnMensajeClicked() {
+		PanelMensaje pnlMain = new PanelMensaje();
+		d.setPanelCentral(pnlMain);
+
 	}
 
-		protected void btnAbandonarGrupoClicked() {
-			// TODO Auto-generated method stub
-			
-	}
-
-		protected void btnInvitarNuevoIntegranteClicked() {
-			// TODO Auto-generated method stub
-			
-	}
-
-		private Component initTable() {
-			setInsets(new Insets(2, 2, 2, 2));
-
-		    Column col = new Column();
-		    //col.setCellSpacing(new Extent(1));
-		    col.setBackground(Color.WHITE);
-
-		    col.add(initTopRow());
-
-		    // ----------------------------------------
-		    // The table models
-		    // ----------------------------------------
-
-		    TableColModel tableColModel = initTableColModel();
-		    TableSelModel tableSelModel = new TableSelModel();
-
-		    tableDtaModel = new TestTableModel();
-		    tableDtaModel.setEditable(true);
-		    tableDtaModel.setPageSize(10);
-		    
-		    Atributos atrr = app.getAtributos();
-			try {
-				personajes = MiGrupo.obtenerPersonClase(atrr.getPersonaje());
-			} catch (Exception e) {
-				e.printStackTrace();
+	protected void btnAbandonarGrupoClicked() {
+		String cad = "";
+		try {
+			int  flg =MiGrupo.abandonarGrupo(app
+					.getAtributos().getPersonaje());
+			if(flg==1){
+				cad = " y el Grupo se Encuentra Inactivo por tener solo 1 Participante";
 			}
-			tableDtaModel = MiGrupo.asignarPersonaje(tableDtaModel, personajes);
-		    
-		    // ----------------------------------------
-		    // The table
-		    // ----------------------------------------
-
-		    ETable table = new ETable();
-		    table.setTableDtaModel(tableDtaModel);
-		    table.setTableColModel(tableColModel);
-		    table.setTableSelModel(tableSelModel);
-
-		    table.setEasyview(true);
-
-		    table.setBorder(new Border(1, Color.BLACK, Border.STYLE_NONE));
-		    table.setInsets(new Insets(5, 2, 5, 2));
-		    col.add(table);
-
-		    // ----------------------------------------
-		    // The navigation control
-		    // ----------------------------------------
-
-		    ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
-		    col.add(tableNavigation);
-			return col;
+			else if (flg==0) {
+				cad = " y el Grupo se ha Eliminado por No tener Participantes";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		d.setWindowPaneEmergente("Has Abandonado el Grupo Exitosamente"+ cad);
+		PanelMain pnlMain = new PanelMain();
+		d.setPanelCentral(pnlMain);
 	}
-		private Row initTopRow() {
-		    Row row = new Row();
-		    row.setCellSpacing(new Extent(5));
 
-		    return row;
-		  }
+	protected void btnInvitarNuevoIntegranteClicked() {
+		// TODO Auto-generated method stub
 
-		  // --------------------------------------------------------------------------------
+	}
 
-		  private TableColModel initTableColModel() {
-		    TableColModel tableColModel = new TableColModel();
-		    
-		    TableColumn tableColumn;
+	private Component initTable() {
+		setInsets(new Insets(2, 2, 2, 2));
 
-		    tableColumn = new TableColumn() {
-		      @Override
-		      public Object getValue(ETable table, Object element) {
-		    	  IPersonajeDO personaje = (IPersonajeDO) element; 
-		        return personaje.getId();
-		      }
-		    };
-		    	    
-		    tableColumn.setWidth(new Extent(50));
-		    tableColumn.setHeadValue("Posicion");
-		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		    tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		    tableColModel.getTableColumnList().add(tableColumn);
-		    
-		    tableColumn = new TableColumn() {
-		    	@Override
-		    	public Object getValue(ETable table, Object element) {
-		    		IPersonajeDO personaje = (IPersonajeDO) element;
-		    	  return personaje.getAlias();
-		    	}
-		    };
-		    
-		    tableColumn.setWidth(new Extent(50));
-		    tableColumn.setHeadValue("Nombre");
-		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		    tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		    tableColModel.getTableColumnList().add(tableColumn);
+		Column col = new Column();
+		// col.setCellSpacing(new Extent(1));
+		col.setBackground(Color.WHITE);
 
-		    tableColumn = new TableColumn() {
-		      @Override
-		      public Object getValue(ETable table, Object element) {
-		    	  IPersonajeDO personaje = (IPersonajeDO) element;
-		        return personaje.getNivel();
-		      }
-		    };
-		    
-		    tableColumn.setWidth(new Extent(50));
-		    tableColumn.setHeadValue("Nivel");
-		    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		    tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		    tableColModel.getTableColumnList().add(tableColumn);
+		col.add(initTopRow());
 
-		    return tableColModel;
-		  }
+		// ----------------------------------------
+		// The table models
+		// ----------------------------------------
+
+		TableColModel tableColModel = initTableColModel();
+		TableSelModel tableSelModel = new TableSelModel();
+
+		tableDtaModel = new TestTableModel();
+		tableDtaModel.setEditable(true);
+		tableDtaModel.setPageSize(10);
+
+		Atributos atrr = app.getAtributos();
+		try {
+			personajes = MiGrupo.obtenerPersonClase(atrr.getPersonaje());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tableDtaModel = MiGrupo.asignarPersonaje(tableDtaModel, personajes);
+
+		// ----------------------------------------
+		// The table
+		// ----------------------------------------
+
+		ETable table = new ETable();
+		table.setTableDtaModel(tableDtaModel);
+		table.setTableColModel(tableColModel);
+		table.setTableSelModel(tableSelModel);
+
+		table.setEasyview(true);
+
+		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_NONE));
+		table.setInsets(new Insets(5, 2, 5, 2));
+		col.add(table);
+
+		// ----------------------------------------
+		// The navigation control
+		// ----------------------------------------
+
+		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
+		col.add(tableNavigation);
+		return col;
+	}
+
+	private Row initTopRow() {
+		Row row = new Row();
+		row.setCellSpacing(new Extent(5));
+
+		return row;
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private TableColModel initTableColModel() {
+		TableColModel tableColModel = new TableColModel();
+
+		TableColumn tableColumn;
+
+		tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return personaje.getId();
+			}
+		};
+
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Posicion");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+
+		tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return personaje.getAlias();
+			}
+		};
+
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Nombre");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+
+		tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return personaje.getNivel();
+			}
+		};
+
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Nivel");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+
+		return tableColModel;
+	}
 }
