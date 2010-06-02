@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.INpcDAO;
+import lcaInterfaceDAO.INpcDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
@@ -308,7 +309,7 @@ public class NpcDAO extends BaseDAO implements INpcDAO {
 		return (NpcDO) dtaSession.add(ret);
 	}
 
-	public List<DataObject> ListNpc(int id) throws ClassNotFoundException, Exception {
+	public List<INpcDO> listNpc(int id) throws ClassNotFoundException, Exception {
 		
 		ClaseLinternaDAO claseLinternaDAO= (ClaseLinternaDAO) FactoryDAO.getDAO(ClaseLinternaDAO.class, connectionBean);
 		StringBuffer strbuf = new StringBuffer();
@@ -339,7 +340,7 @@ public class NpcDAO extends BaseDAO implements INpcDAO {
 	    ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
 	    
 		
-	    List<DataObject> ret = new ArrayList<DataObject>();
+	    List<INpcDO> ret = new ArrayList<INpcDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
