@@ -41,11 +41,13 @@ public class PanelAtacar extends Panel {
 	ButtonGroup btnGroupClases = new ButtonGroup();
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 	LanternCorpsAcademyApp.getActive();
+	IPersonajeDO personajeAtacar;
 
+	
+	
 	public PanelAtacar() {
 		
 		setInsets(new Insets(2, 2, 2, 2));
-
 		Column col = new Column();
 		col.setBackground(Color.WHITE);
 		add(col);
@@ -91,22 +93,26 @@ public class PanelAtacar extends Panel {
 
 		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
 		col.add(tableNavigation);
-		
 		Button btnAtacar = new Button("ATACAR");
 		btnAtacar.setStyle(GUIStyles.DEFAULT_STYLE);
 		btnAtacar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				btnAtacarClicked();
+				try {
+					btnAtacarClicked();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
-		Row row = new Row();
-		row.add(btnAtacar);
-		row.setAlignment(Alignment.ALIGN_CENTER);
-		col.add(row);
+		col.add(btnAtacar);
 	}
 
-	protected void btnAtacarClicked() {
+	protected void btnAtacarClicked() throws Exception {
+		if(personajeAtacar == null){
+			return;
+		}
+		Atacar.combate(personajeAtacar);
 	}
 
 	// --------------------------------------------------------------------------------
@@ -198,6 +204,7 @@ public class PanelAtacar extends Panel {
 				ret.setEnabled(editable);
 				ret.setToolTipText("Seleccion");
 				ret.setGroup(btnGroupClases);
+
 				ret.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						btnRadioClicked(row);
@@ -213,9 +220,7 @@ public class PanelAtacar extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnRadioClicked(int row) {
-
-		
-		
+		personajeAtacar = personajes.get(row);
 	}
 
 	// --------------------------------------------------------------------------------
