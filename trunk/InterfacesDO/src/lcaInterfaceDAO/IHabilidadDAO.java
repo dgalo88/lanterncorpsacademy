@@ -21,5 +21,7 @@ public interface IHabilidadDAO extends InterfaceDAO{
 			throws Exception;
 
 	IHabilidadDO loadByNombre(String nombre) throws SQLException;
+	
+	public List<DataObject> listToBuy(int id) throws  Exception;
 
 }
