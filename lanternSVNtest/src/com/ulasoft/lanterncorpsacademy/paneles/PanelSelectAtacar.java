@@ -78,8 +78,11 @@ public class PanelSelectAtacar extends Panel {
 			row.setStyle(GUIStyles.DEFAULT_STYLE);
 			col.add(row);
 		}
-		col.add(btnAtacarNPC);
-		col.add(btnAtacar);
+		Row row = new Row();
+		row.add(btnAtacarNPC);
+		row.add(btnAtacar);
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		col.add(row);
 		add(col);
 	}
 
