@@ -1,5 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.IGrupoDAO;
@@ -20,7 +21,10 @@ public class MiGrupo {
 
 	public static List<IPersonajeDO> obtenerPersonClase(IPersonajeDO personaje)
 			throws Exception {
-		List<IPersonajeDO> h;
+		List<IPersonajeDO> h = new ArrayList<IPersonajeDO>();
+		if(personaje.getGrupoRef().getRefIdent()==0){
+			return h;
+		}
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 		IPersonajeDAO person = (IPersonajeDAO) GlobalDAOFactory.getDAO( //
 				IPersonajeDAO.class, connectionBean);
@@ -32,6 +36,9 @@ public class MiGrupo {
 
 	public static TestTableModel asignarPersonaje(TestTableModel tableDtaModel,
 			List<IPersonajeDO> personajes) {
+		if (personajes.isEmpty()){
+			return tableDtaModel;
+		}
 		for (int posicion = 0; posicion < personajes.size(); posicion++) {
 			(personajes.get(posicion)).setId(posicion + 1);
 			tableDtaModel.add(personajes.get(posicion));
