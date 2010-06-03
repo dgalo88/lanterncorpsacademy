@@ -14,10 +14,11 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 public class PanelRecargarAnillo extends Panel {
 
@@ -55,7 +56,7 @@ public class PanelRecargarAnillo extends Panel {
 		// row.add(btnCargarBatPrin);
 
 		Button btnCargarBatPort = new Button("Cargar con Bateria Portatil");
-		btnCargarBatPort.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnCargarBatPort.setStyle(Estilo.getDefaultStyleColor(lca.getAtributos()));
 		btnCargarBatPort.setWidth(new Extent(300));
 		btnCargarBatPort.addActionListener(new ActionListener() {
 			@Override

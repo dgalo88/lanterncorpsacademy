@@ -15,11 +15,12 @@ import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -53,7 +54,7 @@ public class PanelAdquirirHabilidades extends Panel {
 		Row row = new Row();
 		
 		Button btnAtras = new Button("Atras");
-	    btnAtras.setStyle(GUIStyles.STYLE2);
+	    btnAtras.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 	    btnAtras.setWidth(new Extent(160));
 	    btnAtras.addActionListener(new ActionListener() {
 	      @Override
@@ -65,7 +66,7 @@ public class PanelAdquirirHabilidades extends Panel {
 	    row.add(btnAtras);
 	    
 		Button btnAdquirirHabilidad = new Button("Adquirir Habilidad");
-		btnAdquirirHabilidad.setStyle(GUIStyles.STYLE2);
+		btnAdquirirHabilidad.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnAdquirirHabilidad.setWidth(new Extent(200));
 		btnAdquirirHabilidad.setAlignment(Alignment.ALIGN_CENTER);
 		btnAdquirirHabilidad.addActionListener(new ActionListener() {
@@ -161,7 +162,7 @@ public class PanelAdquirirHabilidades extends Panel {
 		    Row row = new Row();
 		    Label lblTitle = new Label("Habilidades Disponibles");
 			row.add(lblTitle);
-			row.setStyle(GUIStyles.DEFAULT_STYLE);
+			row.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		    return row;
 		  }
 

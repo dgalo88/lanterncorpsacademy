@@ -28,11 +28,12 @@ import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atacar;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelAtacarPersonaje extends Panel {
@@ -95,7 +96,7 @@ public class PanelAtacarPersonaje extends Panel {
 		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
 		col.add(tableNavigation);
 		Button btnAtacar = new Button("ATACAR");
-		btnAtacar.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnAtacar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

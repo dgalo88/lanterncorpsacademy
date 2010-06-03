@@ -30,11 +30,12 @@ import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.CrearGrupo;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelCrearGrupo extends Panel {
@@ -50,7 +51,7 @@ public class PanelCrearGrupo extends Panel {
 		Column col = new Column();
 
 		Grid grid = new Grid(2);
-		grid.setStyle(GUIStyles.DEFAULT_STYLE);
+		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		grid.setWidth(new Extent(500));
 		Label lblCorreo = new Label("Nombre del Grupo");
 		// lblCorreo.
@@ -72,7 +73,7 @@ public class PanelCrearGrupo extends Panel {
 
 		Row row = new Row();
 		Button btnSalir = new Button("Cancelar");
-		btnSalir.setStyle(GUIStyles.STYLE2);
+		btnSalir.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnSalir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -81,7 +82,7 @@ public class PanelCrearGrupo extends Panel {
 		});
 
 		Button btnCrearGrupo = new Button("Crear Grupo");
-		btnCrearGrupo.setStyle(GUIStyles.STYLE2);
+		btnCrearGrupo.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnCrearGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

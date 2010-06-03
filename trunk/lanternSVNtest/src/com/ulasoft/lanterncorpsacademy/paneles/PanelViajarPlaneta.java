@@ -10,9 +10,10 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Viajar;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 import echopoint.ImageMap;
 
@@ -30,7 +31,7 @@ public class PanelViajarPlaneta extends Panel{
 		lblTitle.setBackground(Color.WHITE);
 		col.add(lblTitle);
 		lblActual = new Label("nothing selected");
-		lblActual.setStyle(GUIStyles.STYLE2);
+		lblActual.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 
 		
 		ImageMap imageMap = new ImageMap(new ResourceImageReference(

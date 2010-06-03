@@ -19,7 +19,7 @@ import dao.api.DataObject;
 import factory.BD.Grupo;
 
 public class GlobalDOFactory {
-	
+
 	private static Grupo grupo = BD.GRUPO;
 
 	// ----------------------------------------------------------------------

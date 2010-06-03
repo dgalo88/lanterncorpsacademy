@@ -25,12 +25,13 @@ import com.minotauro.echo.table.base.TableColumn;
 import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.CrearGrupo;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.MiGrupo;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelMiGrupo extends Panel {
@@ -44,7 +45,7 @@ public class PanelMiGrupo extends Panel {
 		Column col = new Column();
 		int flg = 0;
 		Grid grid = new Grid(2);
-		grid.setStyle(GUIStyles.DEFAULT_STYLE);
+		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		grid.setWidth(new Extent(500));
 		Label lblNombreGrupo = new Label("Nombre del Grupo:");
 		// lblCorreo.
@@ -70,7 +71,7 @@ public class PanelMiGrupo extends Panel {
 		Row row = new Row();
 		Button btnInvitarNuevoIntegrante = new Button(
 				"Invitar Nuevo Integrante");
-		btnInvitarNuevoIntegrante.setStyle(GUIStyles.STYLE2);
+		btnInvitarNuevoIntegrante.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnInvitarNuevoIntegrante.setWidth(new Extent(200));
 		btnInvitarNuevoIntegrante.addActionListener(new ActionListener() {
 			@Override
@@ -80,7 +81,7 @@ public class PanelMiGrupo extends Panel {
 		});
 
 		Button btnAbandonarGrupo = new Button("Abandonar Grupo");
-		btnAbandonarGrupo.setStyle(GUIStyles.STYLE2);
+		btnAbandonarGrupo.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnAbandonarGrupo.setWidth(new Extent(200));
 		btnAbandonarGrupo.addActionListener(new ActionListener() {
 			@Override
@@ -90,7 +91,7 @@ public class PanelMiGrupo extends Panel {
 		});
 
 		Button btnMensaje = new Button("Mensaje");
-		btnMensaje.setStyle(GUIStyles.STYLE2);
+		btnMensaje.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnMensaje.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

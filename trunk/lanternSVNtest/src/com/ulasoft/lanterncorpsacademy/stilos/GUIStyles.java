@@ -1,4 +1,4 @@
-package com.ulasoft.lanterncorpsacademy;
+package com.ulasoft.lanterncorpsacademy.stilos;
 
 import java.awt.Font;
 
@@ -24,9 +24,6 @@ public class GUIStyles {
 	public static final Color COLORINDIGO = new Color(148,71,148);
 	public static final Color COLORVIOLETA = new Color(255, 0, 255);
 	
-
-	
-
 	public static final Style DEFAULT_STYLE;
 
 	  static {
@@ -39,8 +36,8 @@ public class GUIStyles {
 	    style.set(Button.PROPERTY_FONT, Font.DIALOG);
 
 	    style.set(Button.PROPERTY_FOCUSED_ENABLED,true);
-	    style.set(Button.PROPERTY_FOCUSED_BACKGROUND, new Color(0x32, 0xCD, 0x32));
-	    style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, Color.GREEN, Border.STYLE_SOLID));
+	  //Aqui hay que cambiar el color para cada clase
+	    
 
 	    style.set(Button.PROPERTY_HEIGHT, new Extent(30));
 	    style.set(Button.PROPERTY_WIDTH, new Extent(200));
@@ -70,8 +67,7 @@ public class GUIStyles {
 	    style.set(Button.PROPERTY_BORDER, new Border(1, new Color(0xD6, 0xD3, 0xCE), Border.STYLE_SOLID));
 
 	    style.set(Button.PROPERTY_ROLLOVER_ENABLED, true);
-	    style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(0x32, 0xCD, 0x32));
-	    style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.GREEN, Border.STYLE_SOLID));
+	  //Aqui hay que cambiar el color para cada clase
 
 	    style.set(Button.PROPERTY_INSETS, new Insets(3));
 	    //style.set(Button.PROPERTY_OUTSETS, new Insets(1));
@@ -99,12 +95,12 @@ public class GUIStyles {
 		    style.set(Button.PROPERTY_FONT, Font.DIALOG);
 		    
 		    style.set(Button.PROPERTY_FOCUSED_ENABLED,true);
-		    style.set(Button.PROPERTY_FOCUSED_BACKGROUND, new Color(0x32, 0xCD, 0x32));
-		    style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, Color.GREEN, Border.STYLE_SOLID));
+		  //Aqui hay que cambiar el color para cada clase
+		    
 		    
 		    style.set(Button.PROPERTY_ROLLOVER_ENABLED, true);
-		    style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(139, 232, 141));
-		    style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.BLACK, Border.STYLE_SOLID));
+		  //Aqui hay que cambiar el color para cada clase
+		    
 
 		    style.set(Button.PROPERTY_INSETS, new Insets(2,2,2,2));
 		    //style.set(Button.PROPERTY_OUTSETS, new Insets(1));
@@ -119,13 +115,12 @@ public class GUIStyles {
 
 		    style.set(Button.PROPERTY_DISABLED_FOREGROUND, Color.LIGHTGRAY);
 		    style.set(Button.PROPERTY_TEXT_POSITION, new Alignment(Alignment.CENTER, Alignment.CENTER));
-		    style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, Color.GREEN, Border.STYLE_SOLID));
 
 
 	    STYLE2 = style;
 	  }
 	  
-	  public static final Style STYLE3;
+	  public static final Style STYLECENTERROW;
 
 	  static {
 		  MutableStyle style = new MutableStyle();
@@ -134,17 +129,16 @@ public class GUIStyles {
 		  style.set(Row.PROPERTY_FONT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 		  
 	
-	    STYLE3 = style;
+	    STYLECENTERROW = style;
 	  }
 	  
-	  public static final Style STYLE4;
+	  public static final Style STYLEMENUI;
 	  static {
 		  MutableStyle style = new MutableStyle();
 		  style.set(Row.PROPERTY_ALIGNMENT, new Alignment(Alignment.LEFT, Alignment.DEFAULT));
 		  style.set(Column.PROPERTY_CELL_SPACING, new Extent(1));
 		  style.set(Column.PROPERTY_INSETS, new Insets(2,2,2,2));
 		  
-	    STYLE4 = style;
+	    STYLEMENUI = style;
 	  }
-
 }

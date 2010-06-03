@@ -1,30 +1,29 @@
 package com.ulasoft.lanterncorpsacademy;
 
 import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.FillImage;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
-import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead2;
 import com.ulasoft.lanterncorpsacademy.menus.MenuI;
 import com.ulasoft.lanterncorpsacademy.menus.Menud;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
@@ -42,6 +41,8 @@ public class Desktop extends ContentPane {
 	private WindowPane windowPane;
 	//private IPersonajeDO personajeDO;
 	private Menud menud;
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+	LanternCorpsAcademyApp.getActive();
 
 	// --------------------------------------------------------------------------------
 
@@ -166,12 +167,12 @@ public class Desktop extends ContentPane {
 		Column col = new Column();
 		Row row = new Row();
 		windowPane = new WindowPane();
-		windowPane.setStyle(GUIStyles.DEFAULT_STYLE);
+		windowPane.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		windowPane.setTitle("Informacion");
 		windowPane.setModal(true);
 		windowPane.setHeight(new Extent(150));
 		windowPane.setWidth(new Extent(300));
-		windowPane.setTitleBackground(new Color(0x32, 0xCD, 0x32));
+		windowPane.setTitleBackground(Estilo.getColor(app.getAtributos()));
 		windowPane.setBackground(Color.WHITE);
 		Label txt = new Label(texto);
 		txt.setTextAlignment(Alignment.ALIGN_CENTER);
@@ -179,7 +180,7 @@ public class Desktop extends ContentPane {
 		row.setAlignment(Alignment.ALIGN_CENTER);
 		col.add(row);
 		Button btnOk = new Button("Ok");
-		btnOk.setStyle(GUIStyles.STYLE2);
+		btnOk.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

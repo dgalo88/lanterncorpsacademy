@@ -8,27 +8,30 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelForo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMedia;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class MenuHead extends Panel {
 
-	public LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
-//	public Desktop d = app.getDesktop();
-	
+	public LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+			.getActive();
+
+	// public Desktop d = app.getDesktop();
+
 	public MenuHead() {
 		Row row = new Row();
-		row.setStyle(GUIStyles.STYLE3);
-	//	row.setInsets(new Insets(125, 1, 1, 1));
+		row.setStyle(GUIStyles.STYLECENTERROW);
+		// row.setInsets(new Insets(125, 1, 1, 1));
 
 		Button btnRanking = new Button("Ver Clasificacion");
-		btnRanking.setStyle(GUIStyles.STYLE2);
+		btnRanking.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnRanking.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -38,7 +41,7 @@ public class MenuHead extends Panel {
 		row.add(btnRanking);
 
 		Button btnAboutGame = new Button("Acerca del Juego");
-		btnAboutGame.setStyle(GUIStyles.STYLE2);
+		btnAboutGame.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnAboutGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -63,7 +66,7 @@ public class MenuHead extends Panel {
 		row.add(btnRing);
 
 		Button btnForo = new Button("Foro");
-		btnForo.setStyle(GUIStyles.STYLE2);
+		btnForo.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnForo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -73,7 +76,7 @@ public class MenuHead extends Panel {
 		row.add(btnForo);
 
 		Button btnMedia = new Button("Multimedia");
-		btnMedia.setStyle(GUIStyles.STYLE2);
+		btnMedia.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnMedia.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -89,7 +92,7 @@ public class MenuHead extends Panel {
 	private void btnRankingClicked() {
 
 		PanelRanking pnlMain = new PanelRanking();
-		Desktop d = app.getDesktop(); 
+		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
 
 	}
@@ -132,6 +135,4 @@ public class MenuHead extends Panel {
 		d.setPanelCentral(pnlMain);
 	}
 
-	
-	
 }

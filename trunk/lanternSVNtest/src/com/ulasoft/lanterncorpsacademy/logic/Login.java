@@ -11,40 +11,45 @@ import factory.GlobalDOFactory;
 
 public class Login {
 
-	public static IUsuarioDO verificarLogin(String txtCorreo, String fldPass) throws Exception {
+	public static IUsuarioDO verificarLogin(String txtCorreo, String fldPass)
+			throws Exception {
 
-        IUsuarioDO usDO = (IUsuarioDO) GlobalDOFactory.getDO(IUsuarioDO.class);
-        
-        ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-        IUsuarioDAO usDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(IUsuarioDAO.class, connectionBean);
-        usDO = usDAO.loadByCorreo(txtCorreo);
-        ConnectionFactory.closeConnection(connectionBean.getConnection());
-        
-    if (usDO == null) {
-    return null;
-}
+		IUsuarioDO usDO = (IUsuarioDO) GlobalDOFactory.getDO(IUsuarioDO.class);
 
-if (fldPass.equals(usDO.getClave())) {
-    return usDO;
-}
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+		IUsuarioDAO usDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(
+				IUsuarioDAO.class, connectionBean);
+		usDO = usDAO.loadByCorreo(txtCorreo);
+		ConnectionFactory.closeConnection(connectionBean.getConnection());
 
-return null;
+		if (usDO == null) {
+			return null;
+		}
 
-}
+		if (fldPass.equals(usDO.getClave())) {
+			return usDO;
+		}
 
-public static IPersonajeDO cargarPersonaje(int personajeid) throws Exception {
-        
-        IPersonajeDO personDO = (IPersonajeDO) GlobalDOFactory.getDO(IPersonajeDO.class);
-        
-        ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-        IPersonajeDAO personDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
-        personDO = (IPersonajeDO) personDAO.loadById(personajeid);
-        ConnectionFactory.closeConnection(connectionBean.getConnection());
-        
-    if (personDO == null) {
-    return null;
-}
-        
-        return personDO;
-}
+		return null;
+
+	}
+
+	public static IPersonajeDO cargarPersonaje(int personajeid)
+			throws Exception {
+
+		IPersonajeDO personDO = (IPersonajeDO) GlobalDOFactory
+				.getDO(IPersonajeDO.class);
+
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+		IPersonajeDAO personDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(
+				IPersonajeDAO.class, connectionBean);
+		personDO = (IPersonajeDO) personDAO.loadById(personajeid);
+		ConnectionFactory.closeConnection(connectionBean.getConnection());
+
+		if (personDO == null) {
+			return null;
+		}
+
+		return personDO;
+	}
 }

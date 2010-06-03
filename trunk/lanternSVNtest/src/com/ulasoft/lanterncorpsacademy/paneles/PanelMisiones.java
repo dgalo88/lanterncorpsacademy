@@ -3,7 +3,6 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.util.List;
 
 import lcaInterfaceDAO.IMisionDO;
-import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -30,11 +29,11 @@ import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.PersonBean;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Mision;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 public class PanelMisiones extends Panel {
 
@@ -47,7 +46,7 @@ public class PanelMisiones extends Panel {
 	public PanelMisiones() {
 
 		Row row1 = new Row();
-		row1.setStyle(GUIStyles.STYLE3);
+		row1.setStyle(GUIStyles.STYLECENTERROW);
 
 		Column col = new Column();
 		col.setInsets(new Insets(5, 5, 5, 5));
@@ -58,7 +57,7 @@ public class PanelMisiones extends Panel {
 
 		Row row = new Row();
 		Button btnSalir = new Button("SALIR");
-		btnSalir.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnSalir.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnSalir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -68,7 +67,7 @@ public class PanelMisiones extends Panel {
 		row.add(btnSalir);
 
 		Button btnDescripcion = new Button("Descripcion");
-		btnDescripcion.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnDescripcion.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnDescripcion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -79,7 +78,7 @@ public class PanelMisiones extends Panel {
 		row.add(btnDescripcion);
 
 		Button btnRealizarMision = new Button("Realizar Mision");
-		btnRealizarMision.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnRealizarMision.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnRealizarMision.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

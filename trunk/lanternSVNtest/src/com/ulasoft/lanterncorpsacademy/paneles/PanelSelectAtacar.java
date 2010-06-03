@@ -12,8 +12,9 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelSelectAtacar extends Panel {
@@ -31,7 +32,7 @@ public class PanelSelectAtacar extends Panel {
 		
 
 		Button btnAtacar = new Button("ATACAR Personaje");
-		btnAtacar.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnAtacar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -41,7 +42,7 @@ public class PanelSelectAtacar extends Panel {
 		
 		
 		Button btnAtacarNPC = new Button("ATACAR NPC");
-		btnAtacarNPC.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnAtacarNPC.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnAtacarNPC.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -60,7 +61,7 @@ public class PanelSelectAtacar extends Panel {
 		    Label lblTitle = new Label("No Puedes Atacar por que Te Encuentras en el Planeta Base");
 		    d.setWindowPaneEmergente("No Puedes Atacar por que Te Encuentras en el Planeta Base");
 			row.add(lblTitle);
-			row.setStyle(GUIStyles.DEFAULT_STYLE);
+			row.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 			col.add(row);
 		}
 		Row row = new Row();
