@@ -21,15 +21,22 @@ import factory.GlobalDAOFactory;
 import factory.GlobalDOFactory;
 
 public class Registro {
-	
-	public static void guardarUsuario(IUsuarioDO usuario, IPersonajeDO personaje, String optClase) throws ClassNotFoundException, Exception {
-		
+
+	public static void guardarUsuario(IUsuarioDO usuario,
+			IPersonajeDO personaje, String optClase)
+			throws ClassNotFoundException, Exception {
+
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-		IUsuarioDAO usDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(IUsuarioDAO.class, connectionBean);
-		IPersonajeDAO perDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
-		IClaseLinternaDAO clDAO = (IClaseLinternaDAO) GlobalDAOFactory.getDAO(IClaseLinternaDAO.class, connectionBean);
-		IHabilidadDAO habDAO = (IHabilidadDAO) GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
-		IHabilidadActivaDAO habActDAO = (IHabilidadActivaDAO) GlobalDAOFactory.getDAO(IHabilidadActivaDAO.class, connectionBean);
+		IUsuarioDAO usDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(
+				IUsuarioDAO.class, connectionBean);
+		IPersonajeDAO perDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(
+				IPersonajeDAO.class, connectionBean);
+		IClaseLinternaDAO clDAO = (IClaseLinternaDAO) GlobalDAOFactory.getDAO(
+				IClaseLinternaDAO.class, connectionBean);
+		IHabilidadDAO habDAO = (IHabilidadDAO) GlobalDAOFactory.getDAO(
+				IHabilidadDAO.class, connectionBean);
+		IHabilidadActivaDAO habActDAO = (IHabilidadActivaDAO) GlobalDAOFactory
+				.getDAO(IHabilidadActivaDAO.class, connectionBean);
 
 		Reference<IClaseLinternaDO> refc = new Reference<IClaseLinternaDO>();
 
@@ -37,7 +44,6 @@ public class Registro {
 
 		refc.setRefIdent(clase.getId());
 
-		
 		personaje.setClaseLinternaRef(refc);
 		personaje.setPlanetaRef(clase.getPlanetaRef());
 
@@ -46,36 +52,35 @@ public class Registro {
 		IPersonajeDO pers = perDAO.loadByAlias(personaje.getAlias());
 		Reference<IPersonajeDO> refper = new Reference<IPersonajeDO>();
 		refper.setRefIdent(pers.getId());
-		
+
 		// Relacionando al personaje con sus habilidades iniciales.
 		List<DataObject> habInic = habDAO.listHabIniciales(clase.getId());
-		
+
 		for (int i = 0; i < (habInic.size()); i++) {
-			
+
 			IHabilidadActivaDO habActiva = (IHabilidadActivaDO) GlobalDOFactory
-			.getDO(IHabilidadActivaDO.class);
-			
+					.getDO(IHabilidadActivaDO.class);
+
 			habActiva.setNivel_habilidad(1);
 			Reference<IHabilidadDO> href = new Reference<IHabilidadDO>();
 			href.setRefIdent(habInic.get(i).getId());
 			habActiva.setHabilidadRef(href);
-//			Reference<IPersonajeDO> persoRef = new Reference<IPersonajeDO>();
-//			persoRef.setRefIdent(personaje.getId());
+			// Reference<IPersonajeDO> persoRef = new Reference<IPersonajeDO>();
+			// persoRef.setRefIdent(personaje.getId());
 			habActiva.setPersonajeRef(refper);
-			
+
 			habActDAO.insert(habActiva);
-			
+
 			personaje.getHabilidadActivaList().add(habActiva);
-			
+
 		}
 		usuario.setPersonajeRef(refper);
 		usDAO.insert(usuario);
-		
+
 		connectionBean.getConnection().close();
 
-
 	}
-	
+
 	public static boolean verificarAlias(String alias) throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
@@ -96,21 +101,21 @@ public class Registro {
 		return false;
 
 	}
-	
-	public static boolean verificarCorreo (String correo) throws Exception {
-		
+
+	public static boolean verificarCorreo(String correo) throws Exception {
+
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
-		IUsuarioDAO usuarioDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(IUsuarioDAO.class, connectionBean);
+		IUsuarioDAO usuarioDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(
+				IUsuarioDAO.class, connectionBean);
 
 		try {
 
 			if (usuarioDAO.checkIfUsuarioExists(correo)) {
 				return true;
-			}
-			else 
+			} else
 				return false;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

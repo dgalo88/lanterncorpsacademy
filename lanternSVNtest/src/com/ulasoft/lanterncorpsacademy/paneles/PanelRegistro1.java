@@ -21,9 +21,10 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Registro;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 import echopoint.layout.HtmlLayoutData;
 
@@ -54,7 +55,7 @@ public class PanelRegistro1 extends Panel {
 		personaje = personajeNuevo;
 
 		Row row1 = new Row();
-		row1.setStyle(GUIStyles.STYLE3);
+		row1.setStyle(GUIStyles.STYLECENTERROW);
 
 		col = new Column();
 		col.setInsets(new Insets(5, 5, 5, 5));
@@ -66,7 +67,7 @@ public class PanelRegistro1 extends Panel {
 		col.add(lblTitle);
 
 		grid = new Grid();
-		grid.setStyle(GUIStyles.DEFAULT_STYLE);
+		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 
 		Label lblNombre = new Label("Nombre");
 		grid.add(lblNombre);
@@ -100,7 +101,7 @@ public class PanelRegistro1 extends Panel {
 		Row row = new Row();
 		row.setCellSpacing(new Extent(10));
 		Button btnNext = new Button("Siguiente");
-		btnNext.setStyle(GUIStyles.STYLE);
+		btnNext.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnNext.setAlignment(Alignment.ALIGN_RIGHT);
 		row.add(btnNext);
 		col.add(row);
@@ -130,7 +131,6 @@ public class PanelRegistro1 extends Panel {
 
 		usuario.setNombre(txtNombre.getText());
 		usuario.setCorreo(txtCorreo.getText());
-		
 
 		if (!(fldConfirmPass.getText().equals(fldPass.getText()))) { // JUL:defensive..
 			if (col.getComponentCount() > 3) {

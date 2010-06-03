@@ -30,12 +30,13 @@ import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.CrearGrupo;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.InvitarUsuariosGrupo;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelInvitarUsuariosGrupo extends Panel {
@@ -51,7 +52,7 @@ public class PanelInvitarUsuariosGrupo extends Panel {
 		Column col = new Column();
 
 		Grid grid = new Grid(2);
-		grid.setStyle(GUIStyles.DEFAULT_STYLE);
+		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		grid.setWidth(new Extent(500));
 		Label lblCorreo = new Label("Nombre del Grupo");
 		// lblCorreo.
@@ -73,7 +74,7 @@ public class PanelInvitarUsuariosGrupo extends Panel {
 
 		Row row = new Row();
 		Button btnAtras = new Button("Atras");
-		btnAtras.setStyle(GUIStyles.STYLE2);
+		btnAtras.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnAtras.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -82,7 +83,7 @@ public class PanelInvitarUsuariosGrupo extends Panel {
 		});
 
 		Button btnInvitarUsuarios = new Button("Invitar Usuarios al Grupo");
-		btnInvitarUsuarios.setStyle(GUIStyles.STYLE2);
+		btnInvitarUsuarios.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnInvitarUsuarios.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

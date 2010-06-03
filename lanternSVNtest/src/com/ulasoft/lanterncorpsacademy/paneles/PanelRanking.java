@@ -19,9 +19,9 @@ import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
 import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Ranking;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 
 @SuppressWarnings("serial")
@@ -81,7 +81,7 @@ public class PanelRanking extends Panel {
 
 	  private Row initTopRow() {
 	    Row row = new Row();
-	    row.setStyle(GUIStyles.STYLE3);
+	    row.setStyle(GUIStyles.STYLECENTERROW);
 	    //row.setCellSpacing(new Extent(5));
 	    row.add(new Label("Lista de Mejores Jugadores"));
 	    row.setAlignment(new Alignment(Alignment.CENTER, Alignment.CENTER));

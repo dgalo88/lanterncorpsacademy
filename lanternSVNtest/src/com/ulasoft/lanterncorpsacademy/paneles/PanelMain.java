@@ -13,10 +13,10 @@ import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelMain extends Panel {
@@ -33,7 +33,7 @@ public class PanelMain extends Panel {
 
 	public PanelMain() {
 		Row row = new Row();
-		row.setStyle(GUIStyles.STYLE3);
+		row.setStyle(GUIStyles.STYLECENTERROW);
 		// row.setCellSpacing(new Extent(250));
 		// row.add(new Label(""));
 		Grid grid = new Grid(2);

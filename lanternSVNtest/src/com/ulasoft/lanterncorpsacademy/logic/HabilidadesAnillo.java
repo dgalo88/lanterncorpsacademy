@@ -70,6 +70,9 @@ public class HabilidadesAnillo {
 //  	  		}
 //  	  	}
   	  connectionBean.getConnection().close();
+  	  if(habAct.getNivel_habilidad()==0){
+  		 return 0;
+  	  }
       return c=habAct.getNivel_habilidad();
 	}
 

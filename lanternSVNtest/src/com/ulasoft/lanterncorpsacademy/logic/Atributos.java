@@ -9,10 +9,10 @@ import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.menus.Menud;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;

@@ -21,10 +21,9 @@ import dao.connection.ConnectionBean;
 import factory.BD.Grupo;
 
 public class GlobalDAOFactory {
- 
-	
+
 	private static Grupo grupo = BD.GRUPO;
-	
+
 	// ----------------------------------------------------------------------
 
 	public static InterfaceDAO getDAO(Class<? extends InterfaceDAO> clazz,

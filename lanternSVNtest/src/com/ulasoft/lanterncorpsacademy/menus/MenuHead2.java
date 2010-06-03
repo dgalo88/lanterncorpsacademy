@@ -9,11 +9,10 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacarPersonaje;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelForo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMedia;
@@ -22,6 +21,7 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelSelectAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class MenuHead2 extends Panel {
@@ -31,11 +31,11 @@ public class MenuHead2 extends Panel {
 	
 	public MenuHead2() {
 		Row row = new Row();
-		row.setStyle(GUIStyles.STYLE3);
+		row.setStyle(GUIStyles.STYLECENTERROW);
 		// row.setInsets(new Insets(30, 1, 1, 1));
 
 		Button btnMisiones = new Button("Misiones");
-		btnMisiones.setStyle(GUIStyles.STYLE2);
+		btnMisiones.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		// btnMisiones.setWidth(new Extent(100));
 		btnMisiones.addActionListener(new ActionListener() {
 			@Override
@@ -46,7 +46,7 @@ public class MenuHead2 extends Panel {
 		row.add(btnMisiones);
 
 		Button btnAtacar = new Button("Atacar");
-		btnAtacar.setStyle(GUIStyles.STYLE2);
+		btnAtacar.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnAtacar.setWidth(new Extent(100));
 		// btnAtacar.setWidth(new Extent(100));
 		btnAtacar.addActionListener(new ActionListener() {
@@ -58,7 +58,7 @@ public class MenuHead2 extends Panel {
 		row.add(btnAtacar);
 
 		Button btnRecargarAnillo = new Button("Recargar Anillo");
-		btnRecargarAnillo.setStyle(GUIStyles.STYLE2);
+		btnRecargarAnillo.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnRecargarAnillo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -68,7 +68,7 @@ public class MenuHead2 extends Panel {
 		row.add(btnRecargarAnillo);
 
 		Button btnViajarPlaneta = new Button("Viajar a Otro Planeta");
-		btnViajarPlaneta.setStyle(GUIStyles.STYLE2);
+		btnViajarPlaneta.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnViajarPlaneta.setWidth(new Extent(160));
 		btnViajarPlaneta.addActionListener(new ActionListener() {
 			@Override
@@ -86,7 +86,8 @@ public class MenuHead2 extends Panel {
 		// ResourceImageReference("com/ulasoft/lanterncorpsacademy/linterna.png"));
 		btnRing.setIcon(new ResourceImageReference(ImgLoad.menuHead(app
 				.getAtributos().getPersonaje())));
-		// btnRing.setStyle(GUIStyles.STYLE);s
+		
+		// btnRing.setStyle(GUIStyles.STYLE);
 		btnRing.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -96,7 +97,7 @@ public class MenuHead2 extends Panel {
 		row.add(btnRing);
 
 		Button btnRanking = new Button("Ver Clasificacion");
-		btnRanking.setStyle(GUIStyles.STYLE2);
+		btnRanking.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnRanking.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -106,7 +107,7 @@ public class MenuHead2 extends Panel {
 		row.add(btnRanking);
 
 		Button btnAboutGame = new Button("Acerca del Juego");
-		btnAboutGame.setStyle(GUIStyles.STYLE2);
+		btnAboutGame.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnAboutGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -116,7 +117,7 @@ public class MenuHead2 extends Panel {
 		row.add(btnAboutGame);
 
 		Button btnForo = new Button("Foro");
-		btnForo.setStyle(GUIStyles.STYLE2);
+		btnForo.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnForo.setWidth(new Extent(100));
 		btnForo.addActionListener(new ActionListener() {
 			@Override
@@ -127,7 +128,7 @@ public class MenuHead2 extends Panel {
 		row.add(btnForo);
 
 		Button btnMedia = new Button("Multimedia");
-		btnMedia.setStyle(GUIStyles.STYLE2);
+		btnMedia.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnMedia.setWidth(new Extent(100));
 		btnMedia.addActionListener(new ActionListener() {
 			@Override

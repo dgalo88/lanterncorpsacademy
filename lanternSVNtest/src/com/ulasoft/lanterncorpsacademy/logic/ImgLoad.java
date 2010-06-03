@@ -1,5 +1,9 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
+import nextapp.echo.app.Color;
+
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
+
 import lcaInterfaceDAO.IPersonajeDO;
 
 public class ImgLoad {

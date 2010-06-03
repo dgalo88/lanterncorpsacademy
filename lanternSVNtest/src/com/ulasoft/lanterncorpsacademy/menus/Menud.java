@@ -7,8 +7,10 @@ import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.ProgressBar;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class Menud extends Panel {
@@ -19,6 +21,8 @@ public class Menud extends Panel {
 	private Label lblTrainsValue;
 	private Label lblNiveLabelValue;
 	private IPersonajeDO personaje;
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+	LanternCorpsAcademyApp.getActive();
 
 	public Menud(){
 		Grid grid = new Grid(2);
@@ -53,7 +57,7 @@ public class Menud extends Panel {
 		grid.add(lblNivel);
 		grid.add(lblNiveLabelValue);
 		
-		grid.setStyle(GUIStyles.DEFAULT_STYLE);
+		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		grid.setHeight(new Extent(315));
 
 		add(grid);

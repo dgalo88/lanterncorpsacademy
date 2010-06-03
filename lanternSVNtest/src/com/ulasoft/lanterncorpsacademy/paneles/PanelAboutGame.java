@@ -12,8 +12,9 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
@@ -35,14 +36,14 @@ public class PanelAboutGame extends Panel {
 		}
 		hld = new HtmlLayoutData("title");
 		Component lbltitle = new Label();
-		lbltitle.setStyle(GUIStyles.DEFAULT_STYLE);
+		lbltitle.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		lbltitle.setLayoutData(hld);
 		lbltitle.setBackground(Color.LIGHTGRAY);
 		htmlLayout.add(lbltitle);
 
 		hld = new HtmlLayoutData("main");
 		Component lbltext = new Label();
-		lbltext.setStyle(GUIStyles.DEFAULT_STYLE);
+		lbltext.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		lbltext.setLayoutData(hld);
 		lbltitle.setBackground(Color.WHITE);
 		htmlLayout.add(lbltext);
@@ -50,7 +51,7 @@ public class PanelAboutGame extends Panel {
 		Row row = new Row();
 
 		Button btnAtras = new Button("Atras");
-		btnAtras.setStyle(GUIStyles.STYLE2);
+		btnAtras.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnAtras.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -60,7 +61,7 @@ public class PanelAboutGame extends Panel {
 		row.add(btnAtras);
 
 		Button btnSiguiente = new Button("Siguiente");
-		btnSiguiente.setStyle(GUIStyles.STYLE2);
+		btnSiguiente.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnSiguiente.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

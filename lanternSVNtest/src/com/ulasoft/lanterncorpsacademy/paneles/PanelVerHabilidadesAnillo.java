@@ -29,11 +29,12 @@ import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelVerHabilidadesAnillo extends Panel{
@@ -52,7 +53,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		
 		Row row = new Row();
 		Button btnAdquirirHabilidad = new Button("Adquirir Nueva Habilidad");
-		btnAdquirirHabilidad.setStyle(GUIStyles.STYLE2);
+		btnAdquirirHabilidad.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnAdquirirHabilidad.setWidth(new Extent(200));
 		btnAdquirirHabilidad.addActionListener(new ActionListener() {
 	      @Override
@@ -63,7 +64,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 	    row.add(btnAdquirirHabilidad);
 	    
 	    Button btnEntrenarHabilidad = new Button("Entrenar Habilidad");
-	    btnEntrenarHabilidad.setStyle(GUIStyles.STYLE2);
+	    btnEntrenarHabilidad.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 	    btnEntrenarHabilidad.setWidth(new Extent(160));
 	    btnEntrenarHabilidad.addActionListener(new ActionListener() {
 	      @Override
@@ -158,7 +159,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		    Row row = new Row();
 		    Label lblTitle = new Label("Habilidades que Posee");
 			row.add(lblTitle);
-			row.setStyle(GUIStyles.DEFAULT_STYLE);
+			row.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		    return row;
 		  }
 

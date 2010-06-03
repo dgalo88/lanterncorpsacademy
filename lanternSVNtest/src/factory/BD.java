@@ -1,27 +1,26 @@
 package factory;
 
-
 public class BD {
-	
+
 	public enum Grupo {
 		LCA, LANTERN
 	}
 
 	// ----------------------------------------------------------------------
 
-	public static final Grupo GRUPO = Grupo.LANTERN;
-	
+	public static final Grupo GRUPO = Grupo.LCA;
+
 	// ----------------------------------------------------------------------
 
 	public static String nombreBD() throws Exception {
 
-			switch (GRUPO) {
-			case LCA:
-				return "lca";
-			case LANTERN:
-				return "lantern";
-			}
-			throw new IllegalStateException();
+		switch (GRUPO) {
+		case LCA:
+			return "lca";
+		case LANTERN:
+			return "lantern";
+		}
+		throw new IllegalStateException();
 	}
 
 }

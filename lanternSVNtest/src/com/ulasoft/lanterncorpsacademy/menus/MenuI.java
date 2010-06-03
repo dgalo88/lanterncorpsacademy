@@ -8,31 +8,35 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelInvitarNuevosUsuarios;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class MenuI extends Panel {
-	
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+			.getActive();
 	Desktop d = app.getDesktop();
-	//JUL: en estos si se puede usar esta variable porque con certeza el desktop ya fue cargado.
-	
-	public MenuI(){
-		
+
+	// JUL: en estos si se puede usar esta variable porque con certeza el
+	// desktop ya fue cargado.
+
+	public MenuI() {
+
 		Row row = new Row();
-		row.setStyle(GUIStyles.STYLE4);
-				
+		row.setStyle(GUIStyles.STYLEMENUI);
+
 		Column col = new Column();
-		col.setStyle(GUIStyles.STYLE4);
+		col.setStyle(GUIStyles.STYLEMENUI);
 		Button btnMiGrupo = new Button("Mi Grupo");
-		btnMiGrupo.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnMiGrupo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnMiGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -42,7 +46,7 @@ public class MenuI extends Panel {
 		col.add(btnMiGrupo);
 
 		Button btnCrearGrupo = new Button("Crear Grupo");
-		btnCrearGrupo.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnCrearGrupo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnCrearGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -52,7 +56,7 @@ public class MenuI extends Panel {
 		col.add(btnCrearGrupo);
 
 		Button btnVerInvitaciones = new Button("Ver Invitaciones");
-		btnVerInvitaciones.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnVerInvitaciones.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnVerInvitaciones.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -62,7 +66,7 @@ public class MenuI extends Panel {
 		col.add(btnVerInvitaciones);
 
 		Button btnInvitarNuevosUsuarios = new Button("Invitar Nuevos Usuarios");
-		btnInvitarNuevosUsuarios.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnInvitarNuevosUsuarios.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnInvitarNuevosUsuarios.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -73,7 +77,7 @@ public class MenuI extends Panel {
 
 		Button btnVerHabilidadesAnillo = new Button(
 				"Ver Habilidades del Anillo");
-		btnVerHabilidadesAnillo.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnVerHabilidadesAnillo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnVerHabilidadesAnillo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -83,7 +87,7 @@ public class MenuI extends Panel {
 		col.add(btnVerHabilidadesAnillo);
 
 		Button btnEditarDatosUsuario = new Button("Editar Datos del Usuario");
-		btnEditarDatosUsuario.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnEditarDatosUsuario.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnEditarDatosUsuario.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -93,7 +97,7 @@ public class MenuI extends Panel {
 		col.add(btnEditarDatosUsuario);
 
 		Button btnExit = new Button("Exit");
-		btnExit.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnExit.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -101,11 +105,11 @@ public class MenuI extends Panel {
 			}
 		});
 		col.add(btnExit);
-		
+
 		row.add(col);
 
 		add(row);
-		
+
 	}
 
 	// --------------------------------------------------------------------------------
@@ -168,8 +172,9 @@ public class MenuI extends Panel {
 		Desktop desktop = app.getDesktop();
 		d.removeAll();
 		d.add(desktop.initTemplate1());
-//		LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-//				.getActive();
+		// LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp)
+		// LanternCorpsAcademyApp
+		// .getActive();
 		// El usuario está haciendo logout, asi que ponemos los atributos a null
 		// en la aplicacion
 		// despues de guardarlos en BD..
@@ -182,5 +187,3 @@ public class MenuI extends Panel {
 		app.setAtributos(null);
 	}
 }
-
-

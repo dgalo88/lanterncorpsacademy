@@ -24,9 +24,10 @@ import nextapp.echo.extras.app.AccordionPane;
 import nextapp.echo.extras.app.layout.AccordionPaneLayoutData;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
-import com.ulasoft.lanterncorpsacademy.GUIStyles;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Registro;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelRegistro2 extends Panel {
@@ -48,35 +49,37 @@ public class PanelRegistro2 extends Panel {
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
 			.getActive();
 
-	public PanelRegistro2(IUsuarioDO usuarioNuevo, IPersonajeDO personajeNuevo) throws Exception {
+	public PanelRegistro2(IUsuarioDO usuarioNuevo, IPersonajeDO personajeNuevo)
+			throws Exception {
 
 		usuario = usuarioNuevo;
 		personaje = personajeNuevo;
 
 		setInsets(new Insets(100, 0, 100, 0));
-		
+
 		Row rgistroRow = new Row();
 		Label lblTitle = new Label("REGISTRO");
 		rgistroRow.add(lblTitle);
 		rgistroRow.setBackground(Color.WHITE);
-		rgistroRow.setStyle(GUIStyles.DEFAULT_STYLE);
-		
+		rgistroRow.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+
 		// ------------------------------------------------------------------------------
-		
+
 		Row aliasRow = new Row();
 		Label lblAlias = new Label("Alias");
 		aliasRow.add(lblAlias);
 		txtAlias = new TextField();
-		txtAlias.setToolTipText("Nombre con el que otros jugadores te verán en el universo.");
+		txtAlias
+				.setToolTipText("Nombre con el que otros jugadores te verán en el universo.");
 		txtAlias.setWidth(new Extent(200));
 		txtAlias.setText(personaje.getAlias());
 		aliasRow.add(txtAlias);
-		aliasRow.setStyle(GUIStyles.DEFAULT_STYLE);
+		aliasRow.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 
 		// ------------------------------------------------------------------------------
 
 		Button btnBack = new Button("Atras");
-		btnBack.setStyle(GUIStyles.STYLE);
+		btnBack.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnBack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -91,7 +94,7 @@ public class PanelRegistro2 extends Panel {
 		// ------------------------------------------------------------------------------
 
 		Button btnSend = new Button("Enviar");
-		btnSend.setStyle(GUIStyles.STYLE);
+		btnSend.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnSend.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -111,25 +114,27 @@ public class PanelRegistro2 extends Panel {
 		row.add(btnBack);
 		row.add(btnSend);
 		row.setCellSpacing(new Extent(10));
-		row.setStyle(GUIStyles.DEFAULT_STYLE);
-		//row.setAlignment(Alignment.ALIGN_RIGHT);
+		row.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		// row.setAlignment(Alignment.ALIGN_RIGHT);
 		row.setBackground(Color.WHITE);
 
 		// ------------------------------------------------------------------------------
 
 		Row row1 = initgroup();
-		row.setStyle(GUIStyles.DEFAULT_STYLE);
+		row.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		row1.setBackground(Color.WHITE);
 
 		// ------------------------------------------------------------------------------
 
-		SplitPane sp = new SplitPane(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(31));
+		SplitPane sp = new SplitPane(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM,
+				new Extent(31));
 		sp.add(aliasRow);
 		sp.add(row1);
 
 		// ------------------------------------------------------------------------------
 
-		SplitPane sp1 = new SplitPane(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM,new Extent(53));
+		SplitPane sp1 = new SplitPane(
+				SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(53));
 		sp1.add(sp);
 		sp1.add(new initclases());
 
@@ -140,13 +145,15 @@ public class PanelRegistro2 extends Panel {
 
 		// ------------------------------------------------------------------------------
 
-		SplitPane sp2 = new SplitPane(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(350));
+		SplitPane sp2 = new SplitPane(
+				SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(350));
 		sp2.add(cp);
 		sp2.add(row);
 
 		// ------------------------------------------------------------------------------
 
-		SplitPane sp3 = new SplitPane(SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(20));
+		SplitPane sp3 = new SplitPane(
+				SplitPane.ORIENTATION_VERTICAL_TOP_BOTTOM, new Extent(20));
 		sp3.add(rgistroRow);
 		sp3.add(sp2);
 
@@ -314,32 +321,35 @@ public class PanelRegistro2 extends Panel {
 					"com/ulasoft/lanterncorpsacademy/imagenes/greenIcon.png",
 					new Extent(20), new Extent(20)));
 			cp.setLayoutData(acc);
-			
+
 			Column c = new Column();
-			Label label1 = new Label("Descripcion: Agrupados en los Green Lantern Corps. Representando voluntad.");
+			Label label1 = new Label(
+					"Descripcion: Agrupados en los Green Lantern Corps. Representando voluntad.");
 			Label label2 = new Label("Planeta Base: Oa, Sector 0");
-			Label label3 = new Label("Habilidad: Golpe de Mazo: el linterna manifiesta un mazo para ocasionar gran daño a sus oponentes.");
+			Label label3 = new Label(
+					"Habilidad: Golpe de Mazo: el linterna manifiesta un mazo para ocasionar gran daño a sus oponentes.");
 			label1.set(PROPERTY_FONT, new Extent(0));
 			label2.set(PROPERTY_FONT, new Extent(0));
 			label3.set(PROPERTY_FONT, new Extent(0));
 			c.add(label1);
 			c.add(label2);
 			c.add(label3);
-			c.setInsets(new Insets(0, 15, 0 , 0));
-			
+			c.setInsets(new Insets(0, 15, 0, 0));
+
 			Label lblImagen = new Label("");
-			lblImagen
-					.setIcon(new ResourceImageReference(
-							"com/ulasoft/lanterncorpsacademy/imagenes/anilloverde.jpg",
-							new Extent(90), new Extent(92)));
-			
+			lblImagen.setIcon(new ResourceImageReference(
+					"com/ulasoft/lanterncorpsacademy/imagenes/anilloverde.jpg",
+					new Extent(90), new Extent(92)));
+
 			Column c1 = new Column();
 			c1.add(lblImagen);
 
-			SplitPane sp = new SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT, new Extent(110));
+			SplitPane sp = new SplitPane(
+					SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT,
+					new Extent(110));
 			sp.add(c1);
 			sp.add(c);
-			
+
 			cp.add(sp);
 			cp.setBackground(new Color(0x32, 0xCD, 0x32));
 			return cp;
@@ -356,37 +366,41 @@ public class PanelRegistro2 extends Panel {
 					"com/ulasoft/lanterncorpsacademy/imagenes/yellowIcon.png",
 					new Extent(20), new Extent(20)));
 			cp.setLayoutData(acc);
-			
-			
+
 			Column c = new Column();
-			Label label1 = new Label("Descripcion: Agrupados en los Sinestro Corps. Representando el miedo.");
-			Label label2 = new Label("Qward, Sector -1 (“Universo Antimateria”).");
-			Label label3 = new Label("Habilidad: Construcción: el linterna atrapa al oponente impidiéndole atacar y causándole daño continuo.");
+			Label label1 = new Label(
+					"Descripcion: Agrupados en los Sinestro Corps. Representando el miedo.");
+			Label label2 = new Label(
+					"Qward, Sector -1 (“Universo Antimateria”).");
+			Label label3 = new Label(
+					"Habilidad: Construcción: el linterna atrapa al oponente impidiéndole atacar y causándole daño continuo.");
 			label1.set(PROPERTY_FONT, new Extent(0));
 			label2.set(PROPERTY_FONT, new Extent(0));
 			label3.set(PROPERTY_FONT, new Extent(0));
 			c.add(label1);
 			c.add(label2);
 			c.add(label3);
-			c.setInsets(new Insets(0, 15, 0 , 0));
-			
+			c.setInsets(new Insets(0, 15, 0, 0));
+
 			Label lblImagen = new Label("");
 			lblImagen
 					.setIcon(new ResourceImageReference(
 							"com/ulasoft/lanterncorpsacademy/imagenes/anilloamarillo.jpg",
 							new Extent(90), new Extent(92)));
-			
+
 			Column c1 = new Column();
 			c1.add(lblImagen);
 
-			SplitPane sp = new SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT, new Extent(110));
+			SplitPane sp = new SplitPane(
+					SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT,
+					new Extent(110));
 			sp.add(c1);
 			sp.add(c);
-			
+
 			cp.add(sp);
-			cp.setBackground(new Color(238,255,58));
+			cp.setBackground(new Color(238, 255, 58));
 			return cp;
-			
+
 		}
 
 		// ------------------------------------------------------------------------------
@@ -400,11 +414,14 @@ public class PanelRegistro2 extends Panel {
 					"com/ulasoft/lanterncorpsacademy/imagenes/blackIcon.png",
 					new Extent(20), new Extent(20)));
 			cp.setLayoutData(acc);
-			
+
 			Column c = new Column();
-			Label label1 = new Label("Descripcion: Agrupados en los Black Lantern Corps. Representando la Muerte.");
-			Label label2 = new Label("Planeta Base:El Mundo Muerto de Ryut, Sector 665.");
-			Label label3 = new Label("Habilidad: Robo de Salud: el linterna puede robar puntos de salud a un oponente para aumentar los propios.");
+			Label label1 = new Label(
+					"Descripcion: Agrupados en los Black Lantern Corps. Representando la Muerte.");
+			Label label2 = new Label(
+					"Planeta Base:El Mundo Muerto de Ryut, Sector 665.");
+			Label label3 = new Label(
+					"Habilidad: Robo de Salud: el linterna puede robar puntos de salud a un oponente para aumentar los propios.");
 			label1.set(PROPERTY_FOREGROUND, Color.WHITE);
 			label2.set(PROPERTY_FOREGROUND, Color.WHITE);
 			label3.set(PROPERTY_FOREGROUND, Color.WHITE);
@@ -414,23 +431,24 @@ public class PanelRegistro2 extends Panel {
 			c.add(label1);
 			c.add(label2);
 			c.add(label3);
-			c.setInsets(new Insets(0, 15, 0 , 0));
-			
+			c.setInsets(new Insets(0, 15, 0, 0));
+
 			Label lblImagen = new Label("");
-			lblImagen
-					.setIcon(new ResourceImageReference(
-							"com/ulasoft/lanterncorpsacademy/imagenes/anillonegro.jpg",
-							new Extent(90), new Extent(92)));
-			
+			lblImagen.setIcon(new ResourceImageReference(
+					"com/ulasoft/lanterncorpsacademy/imagenes/anillonegro.jpg",
+					new Extent(90), new Extent(92)));
+
 			Column c1 = new Column();
 			c1.add(lblImagen);
 
-			SplitPane sp = new SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT, new Extent(110));
+			SplitPane sp = new SplitPane(
+					SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT,
+					new Extent(110));
 			sp.add(c1);
 			sp.add(c);
-			
+
 			cp.add(sp);
-			cp.setBackground(new Color(0,0,0));
+			cp.setBackground(new Color(0, 0, 0));
 			return cp;
 		}
 
@@ -445,34 +463,37 @@ public class PanelRegistro2 extends Panel {
 					new Extent(20), new Extent(20)));
 			acc.setTitle("Rojo - Red Lantern Corps");
 			cp.setLayoutData(acc);
-			
+
 			Column c = new Column();
-			Label label1 = new Label("Descripcion: Agrupados en los Red Lantern Corps. Representando la ira.");
+			Label label1 = new Label(
+					"Descripcion: Agrupados en los Red Lantern Corps. Representando la ira.");
 			Label label2 = new Label("Planeta Base: Ysmault, Sector 666.");
-			Label label3 = new Label("Habilidad: Puño Luminoso: el linterna concentra energía en su puño para infligir un golpe de alto daño.");
+			Label label3 = new Label(
+					"Habilidad: Puño Luminoso: el linterna concentra energía en su puño para infligir un golpe de alto daño.");
 			label1.set(PROPERTY_FONT, new Extent(0));
 			label2.set(PROPERTY_FONT, new Extent(0));
 			label3.set(PROPERTY_FONT, new Extent(0));
 			c.add(label1);
 			c.add(label2);
 			c.add(label3);
-			c.setInsets(new Insets(0, 15, 0 , 0));
-			
+			c.setInsets(new Insets(0, 15, 0, 0));
+
 			Label lblImagen = new Label("");
-			lblImagen
-					.setIcon(new ResourceImageReference(
-							"com/ulasoft/lanterncorpsacademy/imagenes/anillorojo.jpg",
-							new Extent(90), new Extent(92)));
-			
+			lblImagen.setIcon(new ResourceImageReference(
+					"com/ulasoft/lanterncorpsacademy/imagenes/anillorojo.jpg",
+					new Extent(90), new Extent(92)));
+
 			Column c1 = new Column();
 			c1.add(lblImagen);
 
-			SplitPane sp = new SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT, new Extent(110));
+			SplitPane sp = new SplitPane(
+					SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT,
+					new Extent(110));
 			sp.add(c1);
 			sp.add(c);
-			
+
 			cp.add(sp);
-			cp.setBackground(new Color(255,0,0));
+			cp.setBackground(new Color(255, 0, 0));
 			return cp;
 		}
 
@@ -487,34 +508,37 @@ public class PanelRegistro2 extends Panel {
 					"com/ulasoft/lanterncorpsacademy/imagenes/blueIcon.png",
 					new Extent(20), new Extent(20)));
 			cp.setLayoutData(acc);
-			
+
 			Column c = new Column();
-			Label label1 = new Label("Descripcion: Agrupados en los Blue Lantern Corps. Representado la esperanza.");
+			Label label1 = new Label(
+					"Descripcion: Agrupados en los Blue Lantern Corps. Representado la esperanza.");
 			Label label2 = new Label("Planeta Base: Odym, Sector 1.");
-			Label label3 = new Label("Habilidad: Curación: puede usar el anillo para restaurar sus puntos de salud.");
+			Label label3 = new Label(
+					"Habilidad: Curación: puede usar el anillo para restaurar sus puntos de salud.");
 			label1.set(PROPERTY_FONT, new Extent(0));
 			label2.set(PROPERTY_FONT, new Extent(0));
 			label3.set(PROPERTY_FONT, new Extent(0));
 			c.add(label1);
 			c.add(label2);
 			c.add(label3);
-			c.setInsets(new Insets(0, 15, 0 , 0));
-			
+			c.setInsets(new Insets(0, 15, 0, 0));
+
 			Label lblImagen = new Label("");
-			lblImagen
-					.setIcon(new ResourceImageReference(
-							"com/ulasoft/lanterncorpsacademy/imagenes/anilloazul.jpg",
-							new Extent(90), new Extent(92)));
-			
+			lblImagen.setIcon(new ResourceImageReference(
+					"com/ulasoft/lanterncorpsacademy/imagenes/anilloazul.jpg",
+					new Extent(90), new Extent(92)));
+
 			Column c1 = new Column();
 			c1.add(lblImagen);
 
-			SplitPane sp = new SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT, new Extent(110));
+			SplitPane sp = new SplitPane(
+					SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT,
+					new Extent(110));
 			sp.add(c1);
 			sp.add(c);
-			
+
 			cp.add(sp);
-			cp.setBackground(new Color(0,153,255));
+			cp.setBackground(new Color(0, 153, 255));
 			return cp;
 		}
 
@@ -529,34 +553,38 @@ public class PanelRegistro2 extends Panel {
 					"com/ulasoft/lanterncorpsacademy/imagenes/indigoIcon.png",
 					new Extent(20), new Extent(20)));
 			cp.setLayoutData(acc);
-			
+
 			Column c = new Column();
-			Label label1 = new Label("Descripcion:  Agrupados en la Tribu Indigo. Representando la compasión.");
+			Label label1 = new Label(
+					"Descripcion:  Agrupados en la Tribu Indigo. Representando la compasión.");
 			Label label2 = new Label("Planeta Base: desconocido, Sector 3.");
-			Label label3 = new Label("Habilidad:  Evasión de combate: el portador puede escapar de una batalla.");
+			Label label3 = new Label(
+					"Habilidad:  Evasión de combate: el portador puede escapar de una batalla.");
 			label1.set(PROPERTY_FONT, new Extent(0));
 			label2.set(PROPERTY_FONT, new Extent(0));
 			label3.set(PROPERTY_FONT, new Extent(0));
 			c.add(label1);
 			c.add(label2);
 			c.add(label3);
-			c.setInsets(new Insets(0, 15, 0 , 0));
-			
+			c.setInsets(new Insets(0, 15, 0, 0));
+
 			Label lblImagen = new Label("");
 			lblImagen
 					.setIcon(new ResourceImageReference(
 							"com/ulasoft/lanterncorpsacademy/imagenes/anilloindigo.jpg",
 							new Extent(90), new Extent(92)));
-			
+
 			Column c1 = new Column();
 			c1.add(lblImagen);
 
-			SplitPane sp = new SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT, new Extent(110));
+			SplitPane sp = new SplitPane(
+					SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT,
+					new Extent(110));
 			sp.add(c1);
 			sp.add(c);
-			
+
 			cp.add(sp);
-			cp.setBackground(new Color(148,71,148));
+			cp.setBackground(new Color(148, 71, 148));
 			return cp;
 		}
 
@@ -572,32 +600,36 @@ public class PanelRegistro2 extends Panel {
 			acc.setTitle("Violeta - Star Sapphires");
 			cp.setLayoutData(acc);
 			Column c = new Column();
-			Label label1 = new Label("Descripcion: Agrupados en los Star Sapphires. Representando el amor.");
+			Label label1 = new Label(
+					"Descripcion: Agrupados en los Star Sapphires. Representando el amor.");
 			Label label2 = new Label("Planeta Base: Zamaron, Sector 1412.");
-			Label label3 = new Label("Habilidad: Confusión: puede disminuir la efectividad de los ataques del oponente.");
+			Label label3 = new Label(
+					"Habilidad: Confusión: puede disminuir la efectividad de los ataques del oponente.");
 			label1.set(PROPERTY_FONT, new Extent(0));
 			label2.set(PROPERTY_FONT, new Extent(0));
 			label3.set(PROPERTY_FONT, new Extent(0));
 			c.add(label1);
 			c.add(label2);
 			c.add(label3);
-			c.setInsets(new Insets(0, 15, 0 , 0));
-			
+			c.setInsets(new Insets(0, 15, 0, 0));
+
 			Label lblImagen = new Label("");
 			lblImagen
 					.setIcon(new ResourceImageReference(
 							"com/ulasoft/lanterncorpsacademy/imagenes/anillovioleta.jpg",
 							new Extent(90), new Extent(92)));
-			
+
 			Column c1 = new Column();
 			c1.add(lblImagen);
 
-			SplitPane sp = new SplitPane(SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT, new Extent(110));
+			SplitPane sp = new SplitPane(
+					SplitPane.ORIENTATION_HORIZONTAL_LEFT_RIGHT,
+					new Extent(110));
 			sp.add(c1);
 			sp.add(c);
-			
+
 			cp.add(sp);
-			cp.setBackground(new Color(255,0,255));
+			cp.setBackground(new Color(255, 0, 255));
 			return cp;
 		}
 
