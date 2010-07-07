@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.INpcDAO;
+import lcaInterfaceDAO.INpcDO;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
@@ -315,6 +316,9 @@ public class NpcDAO extends BaseDAO implements INpcDAO {
 	}
 
 	
-
-	
+	// TODO:
+	@Override
+	public List<INpcDO> listNpc(int id) throws ClassNotFoundException, Exception {
+	  throw new UnsupportedOperationException();
+	}
 }

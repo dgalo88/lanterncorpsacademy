@@ -109,14 +109,14 @@ public class MisionClaseLinternaDAO extends BaseDAO implements IMisionClaseLinte
     strbuf.append(misionClaseLinternaDO.getId());
     strbuf.append(", ");
 
+    Reference<IClaseLinternaDO> refCl = misionClaseLinternaDO.getClaseLinternaRef();
+    refCl.checkInsert();
+    strbuf.append(refCl.getIdAsString());
+
     Reference<IMisionDO> refM = misionClaseLinternaDO.getMisionRef();
     refM.checkInsert();
     strbuf.append(refM.getIdAsString());
     strbuf.append(", ");
-
-    Reference<IClaseLinternaDO> refCl = misionClaseLinternaDO.getClaseLinternaRef();
-    refCl.checkInsert();
-    strbuf.append(refCl.getIdAsString());
 
     strbuf.append(")");
 
