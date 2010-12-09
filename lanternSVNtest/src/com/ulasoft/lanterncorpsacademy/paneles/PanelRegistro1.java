@@ -34,6 +34,7 @@ public class PanelRegistro1 extends Panel {
 	public HtmlLayoutData hld = new HtmlLayoutData("main");
 	private IUsuarioDO usuario;
 	private IPersonajeDO personaje;
+	private TextField txtAlias;
 	private TextField txtNombre;
 	private TextField txtCorreo;
 	private PasswordField fldPass;
@@ -68,6 +69,14 @@ public class PanelRegistro1 extends Panel {
 
 		grid = new Grid();
 		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+
+		Label lblAlias = new Label("Nombre de Usuario");
+		grid.add(lblAlias);
+		txtAlias = new TextField();
+		txtAlias.setToolTipText("Nombre con el que otros jugadores te verán en el universo.");
+		txtAlias.setWidth(new Extent(400));
+		txtAlias.setText(personaje.getAlias());
+		grid.add(txtAlias);
 
 		Label lblNombre = new Label("Nombre");
 		grid.add(lblNombre);
@@ -165,7 +174,7 @@ public class PanelRegistro1 extends Panel {
 			e.printStackTrace();
 		}
 
-		// Si no hay campos vacios proceder a la siguiente etapa del registro
+		// Si no hay campos vacíos proceder a la siguiente etapa del registro
 
 		if (!(checkEmptyFields())) {
 			usuario.setClave(fldPass.getText());

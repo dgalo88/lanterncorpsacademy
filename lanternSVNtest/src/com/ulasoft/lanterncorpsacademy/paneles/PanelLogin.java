@@ -79,7 +79,7 @@ public class PanelLogin extends Panel {
 		});
 		row.add(btnClickToEnter);
 
-		Button btnClickToRegister = new Button("Regístrarse");
+		Button btnClickToRegister = new Button("Registrarse");
 		btnClickToRegister.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnClickToRegister.addActionListener(new ActionListener() {
 			@Override
@@ -115,14 +115,13 @@ public class PanelLogin extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnClickToEnterClicked() throws Exception {
-		// TODO: verif campos vacios antes de enviar...
+		// TODO: verifica campos vacíos antes de enviar...
 
 		usuario = Login.verificarLogin(txtCorreo.getText(), fldPass.getText());
 		desktop = app.getDesktop();
 
 		if (usuario == null) {
-			desktop
-					.setWindowPaneEmergente("La informacion de correo o Contraseña proporcionada no es Correcta.");
+			desktop.setWindowPaneEmergente("La informacion de correo o Contraseña proporcionada no es Correcta.");
 			return;
 		}
 		personaje = Login.cargarPersonaje(usuario.getPersonajeRef()
@@ -134,7 +133,7 @@ public class PanelLogin extends Panel {
 		atts.setUsuario(usuario);
 		app.setAtributos(atts);
 		desktop.removeAll();
-		desktop.add(desktop.initTemplate2());
+		desktop.add(desktop.initTemplate2(0));
 	}
 
 }

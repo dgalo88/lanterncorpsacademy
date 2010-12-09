@@ -14,7 +14,6 @@ import nextapp.echo.app.event.ActionListener;
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
@@ -38,14 +37,14 @@ public class PanelAboutGame extends Panel {
 		Component lbltitle = new Label();
 		lbltitle.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		lbltitle.setLayoutData(hld);
-		lbltitle.setBackground(Color.LIGHTGRAY);
+//		lbltitle.setBackground(Color.LIGHTGRAY);
 		htmlLayout.add(lbltitle);
 
 		hld = new HtmlLayoutData("main");
 		Component lbltext = new Label();
 		lbltext.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		lbltext.setLayoutData(hld);
-		lbltitle.setBackground(Color.WHITE);
+//		lbltitle.setBackground(Color.WHITE);
 		htmlLayout.add(lbltext);
 
 		Row row = new Row();
@@ -91,7 +90,6 @@ public class PanelAboutGame extends Panel {
 		}
 		PanelAboutGame pnlMain = new PanelAboutGame(String.valueOf(paginaInt));
 		d.setPanelCentral(pnlMain);
-
 	}
 
 	protected void btnAtrasClicked() {

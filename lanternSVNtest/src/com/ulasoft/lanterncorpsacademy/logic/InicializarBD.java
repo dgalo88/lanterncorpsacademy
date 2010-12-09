@@ -43,14 +43,12 @@ public class InicializarBD {
 	protected static final int INDIGO = 5;
 	protected static final int VIOLETA = 6;
 
-
-		
 	@SuppressWarnings("unchecked")
 	public static void main(String[] nada) throws Exception {
 		
 		StringBuffer strbuf;
 	
-		// Obtenemos la Conexion
+		// Obtenemos la Conexión
 		
 		ConnectionBean connCreateDB = ConnectionFactory.getConnectionBean("connection_create_db.properties");
 		strbuf = new StringBuffer();
@@ -104,10 +102,8 @@ public class InicializarBD {
 			
 			//PLANETAS
 
-			
 			IPlanetaDO PlanetaDO[] = new IPlanetaDO[48];
-			
-			
+
 			for (int i = 0; i < 48; i++) {
 				PlanetaDO[i] = (IPlanetaDO) GlobalDOFactory.getDO(IPlanetaDO.class);
 			}
