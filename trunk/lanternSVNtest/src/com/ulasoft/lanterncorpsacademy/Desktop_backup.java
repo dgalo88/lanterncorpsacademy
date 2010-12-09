@@ -20,6 +20,7 @@ import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.menus.Menu;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead2;
+import com.ulasoft.lanterncorpsacademy.menus.MenuI;
 import com.ulasoft.lanterncorpsacademy.menus.MenuInicial;
 import com.ulasoft.lanterncorpsacademy.menus.Menud;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
@@ -29,22 +30,26 @@ import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
 
 /**
- * @author Donato Galo
+ * @author typson julian Jose
+ * 
+ * Update 07/12/2010 -> Donato Galo
  * 
  */
 
 @SuppressWarnings("serial")
-public class Desktop extends ContentPane {
+public class Desktop_backup extends ContentPane {
+
 	private HtmlLayout htmlLayout;
 	private HtmlLayoutData hld;
 	private WindowPane windowPane;
+	//private IPersonajeDO personajeDO;
 	private Menud menud;
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 	LanternCorpsAcademyApp.getActive();
 
 	// --------------------------------------------------------------------------------
 
-	public Desktop() {
+	public Desktop_backup() {
 		initGUI();
 	}
 
@@ -72,10 +77,11 @@ public class Desktop extends ContentPane {
 
 		hld = new HtmlLayoutData("title");
 		Component lbltitle = new Label();
+//		lbltitle.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		lbltitle.setLayoutData(hld);
 		htmlLayout.add(lbltitle);
 
-		hld = new HtmlLayoutData("menu");
+		hld = new HtmlLayoutData("menui");
 		MenuInicial menuInicial = new MenuInicial();
 		menuInicial.setLayoutData(hld);
 		htmlLayout.add(menuInicial);
@@ -93,7 +99,7 @@ public class Desktop extends ContentPane {
 
 	// --------------------------------------------------------------------------------
 
-		public Component initTemplate2(int ctl) {
+		public Component initTemplate2() {
 			try {
 				htmlLayout = new HtmlLayout( //
 						getClass().getResourceAsStream(
@@ -111,15 +117,15 @@ public class Desktop extends ContentPane {
 		htmlLayout.add(menuHead);
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
 
-		hld = new HtmlLayoutData("menu");
-		Menu menu = new Menu(ctl);
-		menu.setId("menu");
-		menu.setLayoutData(hld);
-		htmlLayout.add(menu);
+		hld = new HtmlLayoutData("menui");
+		Menu menui = new Menu(0);
+		menui.setLayoutData(hld);
+		htmlLayout.add(menui);
 
 		PanelMain main = new PanelMain();
 		hld = new HtmlLayoutData("main");
 		main.setId("main");
+
 		main.setLayoutData(hld);
 		htmlLayout.add(main);
 
@@ -137,6 +143,71 @@ public class Desktop extends ContentPane {
 		return htmlLayout;
 	}
 
+	  // --------------------------------------------------------------------------------
+
+//  // XXX: DMI: Ya no necesito pasar atrib, porque lo puedo sacar de la aplicación. Claro,
+//  // asumiendo que el usuario ya hizo login. Si la application retorna nulo para el atrib
+//  // entonces quiere decir que el usuario no ha hecho login
+//  // public Component initTemplate2(IPersonajeDO personaje, IUsuarioDO usuario, Atributos atrib) {
+//  public Component initTemplate2() {
+//		try {
+//			htmlLayout = new HtmlLayout( //
+//					getClass().getResourceAsStream(
+//							"templatehtml/template2.html"), "UTF-8");
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//		}
+//		
+//    // De esta forma se puede acceder universalmente a la aplicacion desde cualquier caso
+//    // Recordar que como es una aplicacion WEB, cada sesion o conexión de usuario (cliente)
+//    // tiene su propia App
+//		LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+//		Atributos atrib = lca.getAtributos();
+//		
+//
+//
+//		//Atributos atts= new Atributos();
+////		atrib.setPersonaje(personaje);
+////		atrib.setUsuario(usuario);
+//		
+//		hld = new HtmlLayoutData("head");
+//		MenuHead2 menuHead = new MenuHead2();
+//		menuHead.setLayoutData(hld);
+//		htmlLayout.add(menuHead);
+//		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
+//
+//		hld = new HtmlLayoutData("menui");
+//		MenuI menui = new MenuI();
+//		menui.setLayoutData(hld);
+//		htmlLayout.add(menui);
+//
+//		PanelMain main = new PanelMain();
+//		hld = new HtmlLayoutData("main");
+//		main.setId("main");
+////		try {
+////			atrib.updatePanelMain (main);
+////		} catch (Exception e1) {
+////			e1.printStackTrace();
+////		}
+//		main.setLayoutData(hld);
+//		htmlLayout.add(main);
+//
+//		//System.err.println("PERSONAJE ID en desk:"+personaje.getId());
+//		hld = new HtmlLayoutData("menud");
+//		menud = new Menud();
+//		try {
+//			atrib.updateMenud(menud);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+////		menud.setPersonaje(personaje);
+//		menud.setLayoutData(hld);
+//		htmlLayout.add(menud);
+//
+//		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
+//		return htmlLayout;
+//	}
+
 	// --------------------------------------------------------------------------------
 
 	public void setPanelCentral(Panel panel) {
@@ -145,18 +216,6 @@ public class Desktop extends ContentPane {
 		panel.setLayoutData(hld);
 		// Remueve componente anterior del htmlLayout
 		htmlLayout.remove(htmlLayout.getComponent("main"));
-		htmlLayout.add(panel);
-
-	}
-
-	// --------------------------------------------------------------------------------
-
-	public void setPanelLeft(Panel panel) {
-		hld = new HtmlLayoutData("menu");
-		panel.setId("menu");
-		panel.setLayoutData(hld);
-		// Remueve componente anterior del htmlLayout
-		htmlLayout.remove(htmlLayout.getComponent("menu"));
 		htmlLayout.add(panel);
 
 	}
@@ -202,5 +261,13 @@ public class Desktop extends ContentPane {
 	public void setMenud(Menud menud) {
 		this.menud = menud;
 	}
+
+//	public IPersonajeDO getPersonajeDO() {
+//		return personajeDO;
+//	}
+//
+//	public void setPersonajeDO(IPersonajeDO personajeDO) {
+//		this.personajeDO = personajeDO;
+//	}
 
 }
