@@ -1,12 +1,14 @@
 package com.ulasoft.lanterncorpsacademy.menus;
 
 import nextapp.echo.app.Button;
+import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
+import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
@@ -17,12 +19,14 @@ import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelSelectAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
@@ -149,15 +153,21 @@ public class Menu extends Panel {
 		});
 		col.add(btnAboutGame);
 
-		Button btnExit = new Button("Exit");
-		btnExit.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnExit.addActionListener(new ActionListener() {
+		Label lblMiniMapa = new Label();
+		lblMiniMapa.setIcon(new ResourceImageReference(
+				"com/ulasoft/lanterncorpsacademy/imagenes/miniMapa.png",
+				new Extent(185), new Extent(184)));
+		col.add(lblMiniMapa);
+
+		Button btnVerMapa = new Button("Ver mapa");
+		btnVerMapa.setForeground(new Color (255, 255, 255));
+		btnVerMapa.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				btnExitClicked();
+				btnViajarPlanetaClicked();
 			}
 		});
-		col.add(btnExit);
+		col.add(btnVerMapa);
 
 		row.add(col);
 		add(row);
@@ -167,10 +177,6 @@ public class Menu extends Panel {
 
 	private Component menuPersonaje() {
 		Column col = new Column();
-		Grid [] grid = new Grid [5]; 
-		for (int i = 0; i < grid.length; i++) {
-			grid[i] = new Grid();
-		}
 
 		Button btnVerDatos = new Button("Ver Mis Datos");
 		btnVerDatos.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
@@ -180,10 +186,7 @@ public class Menu extends Panel {
 				btnVerDatosClicked();
 			}
 		});
-		col.add(grid[0]);
-		grid[0].add(new Label());
-		
-		grid[0].add(btnVerDatos);
+		col.add(btnVerDatos);
 
 		Button btnEditarDatos = new Button("Editar Mis Datos");
 		btnEditarDatos.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
@@ -193,10 +196,7 @@ public class Menu extends Panel {
 				btnEditarDatosClicked();
 			}
 		});
-		col.add(grid[1]);
-		grid[1].add(new Label());
-		grid[1].setColumnWidth(0, new Extent(50));
-		grid[1].add(btnEditarDatos);
+		col.add(btnEditarDatos);
 
 		Button btnVerHabilidades = new Button("Ver Habilidades");
 		btnVerHabilidades.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
@@ -206,9 +206,7 @@ public class Menu extends Panel {
 				btnVerHabilidadesClicked();
 			}
 		});
-		col.add(grid[2]);
-		grid[2].add(new Label());
-		grid[2].add(btnVerHabilidades);
+		col.add(btnVerHabilidades);
 		
 		Button btnRecargarAnillo = new Button("Recargar Anillo");
 		btnRecargarAnillo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
@@ -218,22 +216,7 @@ public class Menu extends Panel {
 				btnRecargarAnilloClicked();
 			}
 		});
-		col.add(grid[3]);
-		grid[3].add(new Label());
-		grid[3].add(btnRecargarAnillo);
-
-		Button btnR = new Button("Recargar Anillo");
-		btnR.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnR.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-//				btnRecargarAnilloClicked();
-			}
-		});
-		col.add(grid[4]);
-		grid[4].add(new Label("._._."));
-		grid[4].add(btnR);
-		grid[4].setEnabled(false);
+		col.add(btnRecargarAnillo);
 
 		return col;
 	}
@@ -292,7 +275,7 @@ public class Menu extends Panel {
 			}
 		});
 		col.add(grid[3]);
-		grid[3].add(new Label());
+		grid[3].add(new Label("._._."));
 		grid[3].add(btnReparar);
 
 		return col;
@@ -446,7 +429,7 @@ public class Menu extends Panel {
 
 	private void setMenu(int ctl) {
 		Menu menu = new Menu(ctl);
-		d.setPanelLeft(menu);
+		d.setPanelMenu(menu);
 	}
 
 	// --------------------------------------------------------------------------------
@@ -456,6 +439,8 @@ public class Menu extends Panel {
 		int ctl;
 		ctl = (c == 1 ? 0 : 1 );
 		setMenu(ctl);
+		PanelMain pnlMain = new PanelMain();
+		d.setPanelCentral(pnlMain);
 
 	}
 
@@ -466,6 +451,8 @@ public class Menu extends Panel {
 		int ctl;
 		ctl = (c == 2 ? 0 : 2 );
 		setMenu(ctl);
+		PanelMain pnlMain = new PanelMain();
+		d.setPanelCentral(pnlMain);
 
 	}
 
@@ -476,6 +463,8 @@ public class Menu extends Panel {
 		int ctl;
 		ctl = (c == 3 ? 0 : 3 );
 		setMenu(ctl);
+		PanelMain pnlMain = new PanelMain();
+		d.setPanelCentral(pnlMain);
 
 	}
 
@@ -486,6 +475,8 @@ public class Menu extends Panel {
 		int ctl;
 		ctl = (c == 4 ? 0 : 4 );
 		setMenu(ctl);
+		PanelMain pnlMain = new PanelMain();
+		d.setPanelCentral(pnlMain);
 
 	}
 
@@ -496,6 +487,8 @@ public class Menu extends Panel {
 		int ctl;
 		ctl = (c == 5 ? 0 : 5 );
 		setMenu(ctl);
+		PanelMain pnlMain = new PanelMain();
+		d.setPanelCentral(pnlMain);
 
 	}
 
@@ -598,20 +591,11 @@ public class Menu extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private void btnExitClicked() {
-		Desktop desktop = app.getDesktop();
-		d.removeAll();
-		d.add(desktop.initTemplate1());
+	protected void btnViajarPlanetaClicked() {
 
-		// El usuario está haciendo logout, así que ponemos los atributos a null
-		// en la aplicación
-		// después de guardarlos en BD..
-		try {
-			app.getAtributos().guardarAtts();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		PanelViajarPlaneta pnlMain = new PanelViajarPlaneta();
+		d.setPanelCentral(pnlMain);
 
-		app.setAtributos(null);
 	}
+
 }

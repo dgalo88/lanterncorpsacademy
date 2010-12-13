@@ -10,6 +10,7 @@ import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
+import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
@@ -17,9 +18,10 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
+import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.menus.Menu;
+import com.ulasoft.lanterncorpsacademy.menus.MenuButton;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
-import com.ulasoft.lanterncorpsacademy.menus.MenuHead2;
 import com.ulasoft.lanterncorpsacademy.menus.MenuInicial;
 import com.ulasoft.lanterncorpsacademy.menus.Menud;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
@@ -40,7 +42,7 @@ public class Desktop extends ContentPane {
 	private WindowPane windowPane;
 	private Menud menud;
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
-	LanternCorpsAcademyApp.getActive();
+		LanternCorpsAcademyApp.getActive();
 
 	// --------------------------------------------------------------------------------
 
@@ -64,9 +66,10 @@ public class Desktop extends ContentPane {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+		htmlLayout.setBackground(new Color (0, 0, 0));
 
 		hld = new HtmlLayoutData("head");
-		MenuHead menuHead = new MenuHead();
+		MenuHead menuHead = new MenuHead(false);
 		menuHead.setLayoutData(hld);
 		htmlLayout.add(menuHead);
 
@@ -105,33 +108,45 @@ public class Desktop extends ContentPane {
 		LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
 		Atributos atrib = lca.getAtributos();
 
+		htmlLayout.setBackground(new Color (0, 0, 0));
+		htmlLayout.setBackgroundImage(new ResourceImageReference(ImgLoad.fondo(lca
+				.getAtributos().getPersonaje())));
+
 		hld = new HtmlLayoutData("head");
-		MenuHead2 menuHead = new MenuHead2();
+		MenuHead menuHead = new MenuHead(true);
 		menuHead.setLayoutData(hld);
 		htmlLayout.add(menuHead);
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
+
+		hld = new HtmlLayoutData("headStatus");
+		menud = new Menud();
+		try {
+			atrib.updateMenud(menud);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		menud.setLayoutData(hld);
+		htmlLayout.add(menud);
+		htmlLayout.setAlignment(Alignment.ALIGN_LEFT);
+
+		hld = new HtmlLayoutData("headButton");
+		MenuButton menuButton = new MenuButton();
+		menuButton.setLayoutData(hld);
+		htmlLayout.add(menuButton);
+		htmlLayout.setAlignment(Alignment.ALIGN_RIGHT);
 
 		hld = new HtmlLayoutData("menu");
 		Menu menu = new Menu(ctl);
 		menu.setId("menu");
 		menu.setLayoutData(hld);
 		htmlLayout.add(menu);
+		htmlLayout.setAlignment(Alignment.ALIGN_RIGHT);
 
 		PanelMain main = new PanelMain();
 		hld = new HtmlLayoutData("main");
 		main.setId("main");
 		main.setLayoutData(hld);
 		htmlLayout.add(main);
-
-//		hld = new HtmlLayoutData("menud");
-//		menud = new Menud();
-//		try {
-//			atrib.updateMenud(menud);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		menud.setLayoutData(hld);
-//		htmlLayout.add(menud);
 
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
 		return htmlLayout;
@@ -145,18 +160,20 @@ public class Desktop extends ContentPane {
 		panel.setLayoutData(hld);
 		// Remueve componente anterior del htmlLayout
 		htmlLayout.remove(htmlLayout.getComponent("main"));
+		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
 		htmlLayout.add(panel);
 
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setPanelLeft(Panel panel) {
+	public void setPanelMenu(Panel panel) {
 		hld = new HtmlLayoutData("menu");
 		panel.setId("menu");
 		panel.setLayoutData(hld);
 		// Remueve componente anterior del htmlLayout
 		htmlLayout.remove(htmlLayout.getComponent("menu"));
+		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
 		htmlLayout.add(panel);
 
 	}

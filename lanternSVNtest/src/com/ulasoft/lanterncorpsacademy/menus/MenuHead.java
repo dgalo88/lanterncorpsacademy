@@ -9,27 +9,33 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class MenuHead extends Panel {
 
-	public LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+		.getActive();
 
-
-	public MenuHead() {
+	public MenuHead(final boolean loged) {
 		Row row = new Row();
-		row.setStyle(GUIStyles.STYLEMENUI);
+		row.setStyle(GUIStyles.STYLECENTERROW);
 
 		Button btnRing = new Button();
-		btnRing.setIcon(new ResourceImageReference(
-				"com/ulasoft/lanterncorpsacademy/imagenes/linterna.png"));
+		if (loged) {
+			btnRing.setIcon(new ResourceImageReference(ImgLoad.menuHead(app
+					.getAtributos().getPersonaje())));
+		} else {
+			btnRing.setIcon(new ResourceImageReference(
+					"com/ulasoft/lanterncorpsacademy/imagenes/linterna.png"));
+		}
 		btnRing.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				btnRingClicked();
+				btnRingClicked(loged);
 			}
 		});
 		row.add(btnRing);
@@ -37,14 +43,21 @@ public class MenuHead extends Panel {
 		add(row);
 	}
 
-
-
 	// -------------------------------------------------------------------------------
 
-	private void btnRingClicked() {
-		PanelLogin pnlMain = new PanelLogin();
+	private void btnRingClicked(final boolean loged) {
+
 		Desktop d = app.getDesktop();
-		d.setPanelCentral(pnlMain);
+		if (loged) {
+			PanelMain pnlMain = new PanelMain();
+			d.setPanelCentral(pnlMain);
+			Menu menu = new Menu(0);
+			d.setPanelMenu(menu);
+		} else {
+			PanelLogin pnlMain = new PanelLogin();
+			d.setPanelCentral(pnlMain);
+		}
+
 	}
 
 }

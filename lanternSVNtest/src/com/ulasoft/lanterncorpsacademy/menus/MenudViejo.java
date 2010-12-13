@@ -9,10 +9,11 @@ import nextapp.echo.app.Panel;
 
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.ProgressBar;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
-public class Menud extends Panel {
+public class MenudViejo extends Panel {
 	
 	private ProgressBar salud;
 	private ProgressBar energia;
@@ -23,33 +24,41 @@ public class Menud extends Panel {
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 	LanternCorpsAcademyApp.getActive();
 
-	public Menud(){
+	public MenudViejo(){
 		Grid grid = new Grid(2);
-		grid.setStyle(GUIStyles.STYLEMENUI);
 
 		Label lblSalud = new Label("Salud");
-		salud = new ProgressBar(15, 180, 0, null);
+
+		salud = new ProgressBar(17, 180, 0, null);
 
 		Label lblEnergia = new Label("Energia del Anillo");
-		energia = new ProgressBar(15, 180, 1, null);
+
+		energia = new ProgressBar(17, 180, 1, null);
 
 		Label lblExperiencia = new Label("Experiencia");
-		experiencia = new ProgressBar(15, 180, 2, null);
 
-//		Label lblTrains = new Label("Puntos de Entrenamiento:");
+		experiencia = new ProgressBar(17, 180, 2, null);
+
+		Label lblTrains = new Label("Puntos de Entrenamiento:");
 		lblTrainsValue = new Label("XX");
-//		Label lblNivel = new Label("Nivel");
+		Label lblNivel = new Label("Nivel");
 		lblNiveLabelValue = new Label("XX");
+		
 
-		grid.add(salud);
+
 		grid.add(lblSalud);
-		grid.add(energia);
+		grid.add(salud);
 		grid.add(lblEnergia);
-		grid.add(experiencia);
+		grid.add(energia);
 		grid.add(lblExperiencia);
-
-		grid.setForeground(new Color (255, 255, 255));
-		grid.setHeight(new Extent(50));
+		grid.add(experiencia);
+		grid.add(lblTrains);
+		grid.add(lblTrainsValue);
+		grid.add(lblNivel);
+		grid.add(lblNiveLabelValue);
+		
+		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		grid.setHeight(new Extent(315));
 
 		add(grid);
 	}

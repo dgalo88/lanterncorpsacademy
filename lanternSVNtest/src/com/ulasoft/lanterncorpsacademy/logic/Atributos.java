@@ -151,11 +151,8 @@ public class Atributos {
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
 
 	}
-	
-	
-	
-	
-	
+
+
 	public IPersonajeDO getPersonaje() {
 		return personaje;
 	}
@@ -171,11 +168,6 @@ public class Atributos {
 	public void setUsuario(IUsuarioDO usuario) {
 		this.usuario = usuario;
 	}
-
-	
-
-	
-
 
 
 }

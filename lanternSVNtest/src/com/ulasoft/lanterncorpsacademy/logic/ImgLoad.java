@@ -1,9 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
-import nextapp.echo.app.Color;
-
-import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
-
 import lcaInterfaceDAO.IPersonajeDO;
 
 public class ImgLoad {
@@ -68,6 +64,28 @@ public class ImgLoad {
 			return "com/ulasoft/lanterncorpsacademy/imagenes/indigo_recarga.jpg";
 		case 7:
 			return "com/ulasoft/lanterncorpsacademy/imagenes/startsaphirre.jpg";
+		default:
+			break;
+		}
+		return "";
+	}
+
+	public static String fondo(IPersonajeDO personaje) {
+		switch (personaje.getClaseLinternaRef().getRefIdent()) {
+		case 1:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/fondoLCAVerde.jpg";
+		case 2:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/fondoLCAAmarillo.jpg";
+		case 3:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/fondoLCARojo.jpg";
+		case 4:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/fondoLCANegro.jpg";
+		case 5:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/fondoLCAAzul.jpg";
+		case 6:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/fondoLCAIndigo.jpg";
+		case 7:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/fondoLCARosado.jpg";
 		default:
 			break;
 		}
