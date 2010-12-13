@@ -39,8 +39,8 @@ public class GUIStyles {
 	  //Aqui hay que cambiar el color para cada clase
 	    
 
-	    style.set(Button.PROPERTY_HEIGHT, new Extent(30));
-	    style.set(Button.PROPERTY_WIDTH, new Extent(200));
+	    style.set(Button.PROPERTY_HEIGHT, new Extent(20));
+	    style.set(Button.PROPERTY_WIDTH, new Extent(190));
 	    
 	    style.set(Button.PROPERTY_INSETS, new Insets(2,2,2,2));
 	    style.set(Button.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
@@ -106,8 +106,8 @@ public class GUIStyles {
 		    //style.set(Button.PROPERTY_OUTSETS, new Insets(1));
 		    
 		    style.set(Button.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
-		    style.set(Button.PROPERTY_HEIGHT, new Extent(25));
-		    style.set(Button.PROPERTY_WIDTH, new Extent(130));
+		    style.set(Button.PROPERTY_HEIGHT, new Extent(20));
+		    style.set(Button.PROPERTY_WIDTH, new Extent(190));
 		    style.set(Button.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 		    style.set(Button.PROPERTY_ICON_TEXT_MARGIN, new Extent(3));
 		    //style.set(Button.PROPERTY_MOUSE_CURSOR, CURSOR_POINTER);
@@ -124,12 +124,10 @@ public class GUIStyles {
 
 	  static {
 		  MutableStyle style = new MutableStyle();
-
 		  style.set(Row.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 		  style.set(Row.PROPERTY_FONT, new Alignment(Alignment.CENTER, Alignment.CENTER));
-		  
-	
-	    STYLECENTERROW = style;
+
+		  STYLECENTERROW = style;
 	  }
 	  
 	  public static final Style STYLEMENUI;
@@ -140,5 +138,15 @@ public class GUIStyles {
 		  style.set(Column.PROPERTY_INSETS, new Insets(2,2,2,2));
 		  
 	    STYLEMENUI = style;
+	  }
+
+	  public static final Style STYLEBUTTON;
+	  static {
+		  MutableStyle style = new MutableStyle();
+		  style.set(Row.PROPERTY_ALIGNMENT, new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
+		  style.set(Column.PROPERTY_CELL_SPACING, new Extent(1));
+		  style.set(Column.PROPERTY_INSETS, new Insets(2,2,2,2));
+		  
+	    STYLEBUTTON = style;
 	  }
 }

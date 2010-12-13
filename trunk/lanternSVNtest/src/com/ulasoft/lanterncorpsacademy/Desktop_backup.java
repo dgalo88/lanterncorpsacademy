@@ -18,9 +18,8 @@ import nextapp.echo.app.event.ActionListener;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.menus.Menu;
+import com.ulasoft.lanterncorpsacademy.menus.MenuButton;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
-import com.ulasoft.lanterncorpsacademy.menus.MenuHead2;
-import com.ulasoft.lanterncorpsacademy.menus.MenuI;
 import com.ulasoft.lanterncorpsacademy.menus.MenuInicial;
 import com.ulasoft.lanterncorpsacademy.menus.Menud;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
@@ -71,7 +70,7 @@ public class Desktop_backup extends ContentPane {
 		}
 
 		hld = new HtmlLayoutData("head");
-		MenuHead menuHead = new MenuHead();
+		MenuHead menuHead = new MenuHead(false);
 		menuHead.setLayoutData(hld);
 		htmlLayout.add(menuHead);
 
@@ -109,10 +108,11 @@ public class Desktop_backup extends ContentPane {
 			}
 
 		LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+		@SuppressWarnings("unused")
 		Atributos atrib = lca.getAtributos();
 
 		hld = new HtmlLayoutData("head");
-		MenuHead2 menuHead = new MenuHead2();
+		MenuButton menuHead = new MenuButton();
 		menuHead.setLayoutData(hld);
 		htmlLayout.add(menuHead);
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
