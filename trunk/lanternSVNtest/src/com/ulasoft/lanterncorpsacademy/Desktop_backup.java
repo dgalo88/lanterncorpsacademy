@@ -118,7 +118,7 @@ public class Desktop_backup extends ContentPane {
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
 
 		hld = new HtmlLayoutData("menui");
-		Menu menui = new Menu(0);
+		Menu menui = new Menu();
 		menui.setLayoutData(hld);
 		htmlLayout.add(menui);
 

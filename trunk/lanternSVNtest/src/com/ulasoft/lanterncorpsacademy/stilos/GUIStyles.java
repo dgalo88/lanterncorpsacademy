@@ -140,6 +140,16 @@ public class GUIStyles {
 	    STYLEMENUI = style;
 	  }
 
+	  public static final Style STYLEMENUD;
+	  static {
+		  MutableStyle style = new MutableStyle();
+		  style.set(Row.PROPERTY_ALIGNMENT, new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
+		  style.set(Column.PROPERTY_CELL_SPACING, new Extent(1));
+		  style.set(Column.PROPERTY_INSETS, new Insets(2,2,2,2));
+		  
+	    STYLEMENUD = style;
+	  }
+
 	  public static final Style STYLEBUTTON;
 	  static {
 		  MutableStyle style = new MutableStyle();
