@@ -136,7 +136,7 @@ public class Desktop extends ContentPane {
 		htmlLayout.setAlignment(Alignment.ALIGN_RIGHT);
 
 		hld = new HtmlLayoutData("menu");
-		Menu menu = new Menu(ctl);
+		Menu menu = new Menu();
 		menu.setId("menu");
 		menu.setLayoutData(hld);
 		htmlLayout.add(menu);

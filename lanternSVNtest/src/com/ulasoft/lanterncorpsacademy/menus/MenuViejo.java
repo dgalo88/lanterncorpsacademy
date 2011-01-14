@@ -15,8 +15,6 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.extras.Accordion;
-import com.ulasoft.lanterncorpsacademy.extras.AccordionSection;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
@@ -31,48 +29,69 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
-public class Menu extends Panel {
+public class MenuViejo extends Panel {
+
+	private int c;
 
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
 			.getActive();
 	Desktop d = app.getDesktop();
 
-	public Menu() {
+	public MenuViejo(int ctl) {
+
+		c = ctl;
 
 		Row row = new Row();
 		row.setStyle(GUIStyles.STYLEMENUI);
 
-		Accordion acc = new Accordion();
-		acc.setStyle(GUIStyles.STYLEMENUI);
+		Column col = new Column();
+		col.setStyle(GUIStyles.STYLEMENUI);
 
-		// Menu Personaje
-		AccordionSection personaje = new AccordionSection("Personaje");
-		personaje.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
+		Button btnPersonaje = new Button("Personaje");
+		btnPersonaje.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnPersonaje.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnPersonajeClicked();
+			}
+		});
+		col.add(btnPersonaje);
 
-		Component menuPersonaje = menuPersonaje();
-		personaje.addItem(menuPersonaje);
+		if (ctl == 1) {
+			Component menuPersonaje = menuPersonaje();
+			col.add(menuPersonaje);
+		}
 
-		acc.addSection(personaje);
+		Button btnArmeria = new Button("Armeria");
+		btnArmeria.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnArmeria.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnArmeriaClicked();
+			}
+		});
+		col.add(btnArmeria);
 
-		// Menu Armería
-		AccordionSection armeria = new AccordionSection("Armería");
-		armeria.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
-		
-		Component menuArmeria = menuArmeria();
-		armeria.addItem(menuArmeria);
+		if (ctl == 2) {
+			Component menuArmeria = menuArmeria();
+			col.add(menuArmeria);
+		}
 
-		acc.addSection(armeria);
+		Button btnAtacarConquistar = new Button("Atacar & Conquistar");
+		btnAtacarConquistar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnAtacarConquistar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnAtacarConquistarClicked();
+			}
+		});
+		col.add(btnAtacarConquistar);
 
-		// Atacar & Conquistar
-		AccordionSection atacarConquistar = new AccordionSection("Atacar & Conquistar");
-		atacarConquistar.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
+		if (ctl == 3) {
+			Component menuAtacarConquistar = menuAtacarConquistar();
+			col.add(menuAtacarConquistar);
+		}
 
-		Component menuAtacarConquistar = menuAtacarConquistar();
-		atacarConquistar.addItem(menuAtacarConquistar);
-
-		acc.addSection(atacarConquistar);
-
-		// Recolectar
 		Button btnRecolectar = new Button("Recolectar");
 		btnRecolectar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnRecolectar.addActionListener(new ActionListener() {
@@ -81,29 +100,38 @@ public class Menu extends Panel {
 				btnRecolectarClicked();
 			}
 		});
-		AccordionSection recolectar = new AccordionSection(btnRecolectar);
-		recolectar.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
-		acc.addSection(recolectar);
+		col.add(btnRecolectar);
 
-		// Comerciar
-		AccordionSection comerciar = new AccordionSection("Comerciar");
-		comerciar.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
+		Button btnComerciar = new Button("Comerciar");
+		btnComerciar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnComerciar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnComerciarClicked();
+			}
+		});
+		col.add(btnComerciar);
 
-		Component menuComerciar = menuComerciar();
-		comerciar.addItem(menuComerciar);
+		if (ctl == 4) {
+			Component menuComerciar = menuComerciar();
+			col.add(menuComerciar);
+		}
 
-		acc.addSection(comerciar);
+		Button btnGrupos = new Button("Grupos");
+		btnGrupos.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnGrupos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnGruposClicked();
+			}
+		});
+		col.add(btnGrupos);
 
-		// Grupos
-		AccordionSection grupos = new AccordionSection("Grupos");
-		grupos.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
+		if (ctl == 5) {
+			Component menuGrupos = menuGrupos();
+			col.add(menuGrupos);
+		}
 
-		Component menuGrupos = menuGrupos();
-		grupos.addItem(menuGrupos);
-		
-		acc.addSection(grupos);
-
-		// Ver Clasificación
 		Button btnRanking = new Button("Ver Clasificacion");
 		btnRanking.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnRanking.addActionListener(new ActionListener() {
@@ -112,11 +140,8 @@ public class Menu extends Panel {
 				btnRankingClicked();
 			}
 		});
-		AccordionSection ranking = new AccordionSection(btnRanking);
-		ranking.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
-		acc.addSection(ranking);
+		col.add(btnRanking);
 
-		// Acerca del Juego
 		Button btnAboutGame = new Button("Acerca del Juego");
 		btnAboutGame.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnAboutGame.addActionListener(new ActionListener() {
@@ -125,18 +150,14 @@ public class Menu extends Panel {
 				btnAboutGameClicked();
 			}
 		});
-		AccordionSection aboutGame = new AccordionSection(btnAboutGame);
-		aboutGame.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
-		acc.addSection(aboutGame);
+		col.add(btnAboutGame);
 
-		// Mini Mapa
 		Label lblMiniMapa = new Label();
 		lblMiniMapa.setIcon(new ResourceImageReference(
 				"com/ulasoft/lanterncorpsacademy/imagenes/miniMapa.png",
 				new Extent(185), new Extent(184)));
-		acc.add(lblMiniMapa);
+		col.add(lblMiniMapa);
 
-		// Ver Mapa
 		Button btnVerMapa = new Button("Ver mapa");
 		btnVerMapa.setForeground(new Color (255, 255, 255));
 		btnVerMapa.addActionListener(new ActionListener() {
@@ -145,20 +166,15 @@ public class Menu extends Panel {
 				btnViajarPlanetaClicked();
 			}
 		});
-		AccordionSection verMapa = new AccordionSection(btnVerMapa);
-//		verMapa.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
-		acc.addSection(verMapa);
+		col.add(btnVerMapa);
 
-		row.add(acc);
+		row.add(col);
 		add(row);
 	}
 
-
 	// --------------------------------------------------------------------------------
 
-
 	private Component menuPersonaje() {
-
 		Column col = new Column();
 		Label [] lblImagen = new Label [4];
 		Grid [] grid = new Grid [4]; 
@@ -217,14 +233,13 @@ public class Menu extends Panel {
 		grid[3].add(btnRecargarAnillo);
 
 		return col;
-
 	}
+
 
 	// --------------------------------------------------------------------------------
 
 
 	private Component menuArmeria() {
-
 		Column col = new Column();
 		Label [] lblImagen = new Label [4];
 		Grid [] grid = new Grid [4]; 
@@ -289,7 +304,6 @@ public class Menu extends Panel {
 
 
 	private Component menuAtacarConquistar() {
-
 		Column col = new Column();
 		Label [] lblImagen = new Label [3];
 		Grid [] grid = new Grid [3]; 
@@ -343,7 +357,6 @@ public class Menu extends Panel {
 
 
 	private Component menuComerciar() {
-
 		Column col = new Column();
 		Label [] lblImagen = new Label [2];
 		Grid [] grid = new Grid [2]; 
@@ -385,7 +398,6 @@ public class Menu extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private Component menuGrupos() {
-
 		Column col = new Column();
 		Label [] lblImagen = new Label [4];
 		Grid [] grid = new Grid [4]; 
@@ -447,6 +459,73 @@ public class Menu extends Panel {
 
 	// --------------------------------------------------------------------------------
 
+	private void setMenu(int ctl) {
+		MenuViejo menu = new MenuViejo(ctl);
+		d.setPanelMenu(menu);
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnPersonajeClicked() {
+
+		int ctl;
+		ctl = (c == 1 ? 0 : 1 );
+		setMenu(ctl);
+//		PanelMain pnlMain = new PanelMain();
+//		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnArmeriaClicked() {
+
+		int ctl;
+		ctl = (c == 2 ? 0 : 2 );
+		setMenu(ctl);
+//		PanelMain pnlMain = new PanelMain();
+//		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnAtacarConquistarClicked() {
+
+		int ctl;
+		ctl = (c == 3 ? 0 : 3 );
+		setMenu(ctl);
+//		PanelMain pnlMain = new PanelMain();
+//		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnComerciarClicked() {
+
+		int ctl;
+		ctl = (c == 4 ? 0 : 4 );
+		setMenu(ctl);
+//		PanelMain pnlMain = new PanelMain();
+//		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnGruposClicked() {
+
+		int ctl;
+		ctl = (c == 5 ? 0 : 5 );
+		setMenu(ctl);
+//		PanelMain pnlMain = new PanelMain();
+//		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
 	private void btnVerDatosClicked() {
 
 //		PanelVerDatos pnlMain = new PanelVerDatos();
@@ -491,7 +570,8 @@ public class Menu extends Panel {
 
 	private void btnRecolectarClicked() {
 
-		//
+		
+		setMenu(0);
 
 	}
 
@@ -527,6 +607,7 @@ public class Menu extends Panel {
 	private void btnRankingClicked() {
 
 		PanelRanking pnlMain = new PanelRanking();
+		setMenu(0);
 		d.setPanelCentral(pnlMain);
 
 	}
@@ -534,8 +615,8 @@ public class Menu extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnAboutGameClicked() {
-
 		PanelAboutGame pnlMain = new PanelAboutGame("1");
+		setMenu(0);
 		d.setPanelCentral(pnlMain);
 
 	}

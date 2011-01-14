@@ -29,6 +29,7 @@ public class MenuInicial extends Panel {
 
 		Column col = new Column();
 		col.setStyle(GUIStyles.STYLECENTERROW);
+
 		Button btnRanking = new Button("Ver Clasificación");
 		btnRanking.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnRanking.addActionListener(new ActionListener() {
@@ -65,7 +66,7 @@ public class MenuInicial extends Panel {
 
 	}
 
-	// --------------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------
 
 	private void btnRankingClicked() {
 		PanelRanking pnlMain = new PanelRanking();

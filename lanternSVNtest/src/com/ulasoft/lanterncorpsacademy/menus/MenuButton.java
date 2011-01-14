@@ -59,7 +59,7 @@ public class MenuButton extends Panel {
 
 		PanelInvitarNuevosUsuarios pnlMain = new PanelInvitarNuevosUsuarios();
 		d.setPanelCentral(pnlMain);
-		Menu menu = new Menu(0);
+		Menu menu = new Menu();
 		d.setPanelMenu(menu);
 
 	}

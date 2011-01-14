@@ -2,10 +2,7 @@ package com.ulasoft.lanterncorpsacademy.menus;
 
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
-import nextapp.echo.app.Column;
-import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
@@ -31,13 +28,13 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
-public class Menu extends Panel {
+public class MenuRespaldoRows extends Panel {
 
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
 			.getActive();
 	Desktop d = app.getDesktop();
 
-	public Menu() {
+	public MenuRespaldoRows() {
 
 		Row row = new Row();
 		row.setStyle(GUIStyles.STYLEMENUI);
@@ -49,8 +46,45 @@ public class Menu extends Panel {
 		AccordionSection personaje = new AccordionSection("Personaje");
 		personaje.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
 
-		Component menuPersonaje = menuPersonaje();
-		personaje.addItem(menuPersonaje);
+		Button btnVerDatos = new Button("Ver Mis Datos");
+		btnVerDatos.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnVerDatos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnVerDatosClicked();
+			}
+		});
+		personaje.addItem(btnVerDatos);
+		
+		Button btnEditarDatos = new Button("Editar Mis Datos");
+		btnEditarDatos.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnEditarDatos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnEditarDatosClicked();
+			}
+		});
+		personaje.addItem(btnEditarDatos);
+
+		Button btnVerHabilidades = new Button("Ver Habilidades");
+		btnVerHabilidades.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnVerHabilidades.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnVerHabilidadesClicked();
+			}
+		});
+		personaje.addItem(btnVerHabilidades);
+		
+		Button btnRecargarAnillo = new Button("Recargar Anillo");
+		btnRecargarAnillo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnRecargarAnillo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnRecargarAnilloClicked();
+			}
+		});
+		personaje.addItem(btnRecargarAnillo);
 
 		acc.addSection(personaje);
 
@@ -58,17 +92,81 @@ public class Menu extends Panel {
 		AccordionSection armeria = new AccordionSection("Armería");
 		armeria.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
 		
-		Component menuArmeria = menuArmeria();
-		armeria.addItem(menuArmeria);
+		Button btnVerUnidades = new Button("Ver Unidades");
+		btnVerUnidades.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnVerUnidades.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+//				btnVerUnidadesClicked();
+			}
+		});
+		armeria.addItem(btnVerUnidades);
 
+		Button btnAdquirirTecnologia = new Button("Adquirir Tecnologia");
+		btnAdquirirTecnologia.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnAdquirirTecnologia.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+//				btnAdquirirTecnologiaClicked();
+			}
+		});
+		armeria.addItem(btnAdquirirTecnologia);
+
+		Button btnConstruir = new Button("Construir");
+		btnConstruir.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnConstruir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+//				btnConstruirClicked();
+			}
+		});
+		armeria.addItem(btnConstruir);
+		
+		Button btnReparar = new Button("Reparar");
+		btnReparar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnReparar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+//				btnRepararClicked();
+			}
+		});
+		armeria.addItem(btnReparar);
+		
 		acc.addSection(armeria);
 
 		// Atacar & Conquistar
 		AccordionSection atacarConquistar = new AccordionSection("Atacar & Conquistar");
 		atacarConquistar.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
 
-		Component menuAtacarConquistar = menuAtacarConquistar();
-		atacarConquistar.addItem(menuAtacarConquistar);
+		Button btnAtacar = new Button("Atacar");
+		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnAtacar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnAtacarClicked();
+			}
+		});
+		atacarConquistar.addItem(btnAtacar);
+
+		Button btnConquistar = new Button("Conquistar");
+		btnConquistar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnConquistar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+//				btnConquistarClicked();
+			}
+		});
+		atacarConquistar.addItem(btnConquistar);
+
+		Button btnSabotear = new Button("Sabotear");
+		btnSabotear.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnSabotear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+//				btnSabotearClicked();
+			}
+		});
+		atacarConquistar.addItem(btnSabotear);
 
 		acc.addSection(atacarConquistar);
 
@@ -89,8 +187,25 @@ public class Menu extends Panel {
 		AccordionSection comerciar = new AccordionSection("Comerciar");
 		comerciar.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
 
-		Component menuComerciar = menuComerciar();
-		comerciar.addItem(menuComerciar);
+		Button btnOfertar = new Button("Ofertar");
+		btnOfertar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnOfertar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+//				btnOfertarClicked();
+			}
+		});
+		comerciar.addItem(btnOfertar);
+
+		Button btnIntercambiar = new Button("Intercambiar");
+		btnIntercambiar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnIntercambiar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+//				btnIntercambiarClicked();
+			}
+		});
+		comerciar.addItem(btnIntercambiar);
 
 		acc.addSection(comerciar);
 
@@ -98,8 +213,45 @@ public class Menu extends Panel {
 		AccordionSection grupos = new AccordionSection("Grupos");
 		grupos.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
 
-		Component menuGrupos = menuGrupos();
-		grupos.addItem(menuGrupos);
+		Button btnCrearGrupo = new Button("Crear Grupo");
+		btnCrearGrupo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnCrearGrupo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnCrearGrupoClicked();
+			}
+		});
+		grupos.addItem(btnCrearGrupo);
+
+		Button btnMiGrupo = new Button("Mi Grupo");
+		btnMiGrupo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnMiGrupo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnMiGrupoClicked();
+			}
+		});
+		grupos.addItem(btnMiGrupo);
+
+		Button btnVerInvitaciones = new Button("Ver Invitaciones");
+		btnVerInvitaciones.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnVerInvitaciones.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnVerInvitacionesClicked();
+			}
+		});
+		grupos.addItem(btnVerInvitaciones);
+
+		Button btnVerMensajes = new Button("Ver Mensajes");
+		btnVerMensajes.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnVerMensajes.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+//				btnVerMensajesClicked();
+			}
+		});
+		grupos.addItem(btnVerMensajes);
 		
 		acc.addSection(grupos);
 
@@ -151,298 +303,6 @@ public class Menu extends Panel {
 
 		row.add(acc);
 		add(row);
-	}
-
-
-	// --------------------------------------------------------------------------------
-
-
-	private Component menuPersonaje() {
-
-		Column col = new Column();
-		Label [] lblImagen = new Label [4];
-		Grid [] grid = new Grid [4]; 
-		for (int i = 0; i < grid.length; i++) {
-			lblImagen[i] = new Label();
-			lblImagen[i].setIcon(new ResourceImageReference(
-					"com/ulasoft/lanterncorpsacademy/imagenes/btnPer.gif",
-					new Extent(20), new Extent(20)));
-			grid[i] = new Grid();
-			grid[i].add(lblImagen[i]);
-		}
-
-		Button btnVerDatos = new Button("Ver Mis Datos");
-		btnVerDatos.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnVerDatos.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnVerDatosClicked();
-			}
-		});
-		col.add(grid[0]);
-		grid[0].add(btnVerDatos);
-		
-
-		Button btnEditarDatos = new Button("Editar Mis Datos");
-		btnEditarDatos.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnEditarDatos.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnEditarDatosClicked();
-			}
-		});
-		col.add(grid[1]);
-		grid[1].add(btnEditarDatos);
-
-		Button btnVerHabilidades = new Button("Ver Habilidades");
-		btnVerHabilidades.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnVerHabilidades.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnVerHabilidadesClicked();
-			}
-		});
-		col.add(grid[2]);
-		grid[2].add(btnVerHabilidades);
-		
-		Button btnRecargarAnillo = new Button("Recargar Anillo");
-		btnRecargarAnillo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnRecargarAnillo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnRecargarAnilloClicked();
-			}
-		});
-		col.add(grid[3]);
-		grid[3].add(btnRecargarAnillo);
-
-		return col;
-
-	}
-
-	// --------------------------------------------------------------------------------
-
-
-	private Component menuArmeria() {
-
-		Column col = new Column();
-		Label [] lblImagen = new Label [4];
-		Grid [] grid = new Grid [4]; 
-		for (int i = 0; i < grid.length; i++) {
-			lblImagen[i] = new Label();
-			lblImagen[i].setIcon(new ResourceImageReference(
-					"com/ulasoft/lanterncorpsacademy/imagenes/btnArm.gif",
-					new Extent(20), new Extent(20)));
-			grid[i] = new Grid();
-			grid[i].add(lblImagen[i]);
-		}
-
-		Button btnVerUnidades = new Button("Ver Unidades");
-		btnVerUnidades.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnVerUnidades.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-//				btnVerUnidadesClicked();
-			}
-		});
-		col.add(grid[0]);
-		grid[0].add(btnVerUnidades);
-
-		Button btnAdquirirTecnologia = new Button("Adquirir Tecnologia");
-		btnAdquirirTecnologia.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnAdquirirTecnologia.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-//				btnAdquirirTecnologiaClicked();
-			}
-		});
-		col.add(grid[1]);
-		grid[1].add(btnAdquirirTecnologia);
-
-		Button btnConstruir = new Button("Construir");
-		btnConstruir.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnConstruir.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-//				btnConstruirClicked();
-			}
-		});
-		col.add(grid[2]);
-		grid[2].add(btnConstruir);
-		
-		Button btnReparar = new Button("Reparar");
-		btnReparar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnReparar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-//				btnRepararClicked();
-			}
-		});
-		col.add(grid[3]);
-		grid[3].add(btnReparar);
-
-		return col;
-	}
-
-
-	// --------------------------------------------------------------------------------
-
-
-	private Component menuAtacarConquistar() {
-
-		Column col = new Column();
-		Label [] lblImagen = new Label [3];
-		Grid [] grid = new Grid [3]; 
-		for (int i = 0; i < grid.length; i++) {
-			lblImagen[i] = new Label();
-			lblImagen[i].setIcon(new ResourceImageReference(
-					"com/ulasoft/lanterncorpsacademy/imagenes/btnAC.gif",
-					new Extent(20), new Extent(20)));
-			grid[i] = new Grid();
-			grid[i].add(lblImagen[i]);
-		}
-
-		Button btnAtacar = new Button("Atacar");
-		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnAtacar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnAtacarClicked();
-			}
-		});
-		col.add(grid[0]);
-		grid[0].add(btnAtacar);
-
-		Button btnConquistar = new Button("Conquistar");
-		btnConquistar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnConquistar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-//				btnConquistarClicked();
-			}
-		});
-		col.add(grid[1]);
-		grid[1].add(btnConquistar);
-
-		Button btnSabotear = new Button("Sabotear");
-		btnSabotear.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnSabotear.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-//				btnSabotearClicked();
-			}
-		});
-		col.add(grid[2]);
-		grid[2].add(btnSabotear);
-
-		return col;
-	}
-
-
-	// --------------------------------------------------------------------------------
-
-
-	private Component menuComerciar() {
-
-		Column col = new Column();
-		Label [] lblImagen = new Label [2];
-		Grid [] grid = new Grid [2]; 
-		for (int i = 0; i < grid.length; i++) {
-			lblImagen[i] = new Label();
-			lblImagen[i].setIcon(new ResourceImageReference(
-					"com/ulasoft/lanterncorpsacademy/imagenes/btnCom.gif",
-					new Extent(20), new Extent(20)));
-			grid[i] = new Grid();
-			grid[i].add(lblImagen[i]);
-		}
-
-		Button btnOfertar = new Button("Ofertar");
-		btnOfertar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnOfertar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-//				btnOfertarClicked();
-			}
-		});
-		col.add(grid[0]);
-		grid[0].add(btnOfertar);
-
-		Button btnIntercambiar = new Button("Intercambiar");
-		btnIntercambiar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnIntercambiar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-//				btnIntercambiarClicked();
-			}
-		});
-		col.add(grid[1]);
-		grid[1].add(btnIntercambiar);
-
-		return col;
-	}
-
-
-	// --------------------------------------------------------------------------------
-
-	private Component menuGrupos() {
-
-		Column col = new Column();
-		Label [] lblImagen = new Label [4];
-		Grid [] grid = new Grid [4]; 
-		for (int i = 0; i < grid.length; i++) {
-			lblImagen[i] = new Label();
-			lblImagen[i].setIcon(new ResourceImageReference(
-					"com/ulasoft/lanterncorpsacademy/imagenes/btnGr.gif",
-					new Extent(20), new Extent(20)));
-			grid[i] = new Grid();
-			grid[i].add(lblImagen[i]);
-		}
-
-		Button btnCrearGrupo = new Button("Crear Grupo");
-		btnCrearGrupo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnCrearGrupo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnCrearGrupoClicked();
-			}
-		});
-		col.add(grid[0]);
-		grid[0].add(btnCrearGrupo);
-
-		Button btnMiGrupo = new Button("Mi Grupo");
-		btnMiGrupo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnMiGrupo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnMiGrupoClicked();
-			}
-		});
-		col.add(grid[1]);
-		grid[1].add(btnMiGrupo);
-
-		Button btnVerInvitaciones = new Button("Ver Invitaciones");
-		btnVerInvitaciones.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnVerInvitaciones.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnVerInvitacionesClicked();
-			}
-		});
-		col.add(grid[2]);
-		grid[2].add(btnVerInvitaciones);
-
-		Button btnVerMensajes = new Button("Ver Mensajes");
-		btnVerMensajes.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnVerMensajes.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-//				btnVerMensajesClicked();
-			}
-		});
-		col.add(grid[3]);
-		grid[3].add(btnVerMensajes);
-
-		return col;
 	}
 
 	// --------------------------------------------------------------------------------
