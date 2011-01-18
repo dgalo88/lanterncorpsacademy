@@ -12,8 +12,6 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.extras.Accordion;
-import com.ulasoft.lanterncorpsacademy.extras.AccordionSection;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
@@ -26,6 +24,8 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
+import com.valkirye.lanterncorpsacademy.extras.Accordion;
+import com.valkirye.lanterncorpsacademy.extras.AccordionSection;
 
 @SuppressWarnings("serial")
 public class MenuRespaldoRows extends Panel {
