@@ -17,6 +17,7 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.extras.Accordion;
 import com.ulasoft.lanterncorpsacademy.extras.AccordionSection;
+import com.ulasoft.lanterncorpsacademy.extras.VerDatos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
@@ -449,8 +450,8 @@ public class Menu extends Panel {
 
 	private void btnVerDatosClicked() {
 
-//		PanelVerDatos pnlMain = new PanelVerDatos();
-//		d.setPanelCentral(pnlMain);
+		VerDatos verDatos = new VerDatos(app.atributos.getUsuario(), app.atributos.getPersonaje());
+		d.windowData(verDatos.getDatos());
 
 	}
 

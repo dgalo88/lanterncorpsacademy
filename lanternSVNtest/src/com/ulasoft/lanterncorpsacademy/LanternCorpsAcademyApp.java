@@ -27,7 +27,7 @@ public class LanternCorpsAcademyApp extends ApplicationInstance {
 	// Esto funciona como una especie de "singleton" pero en lugar
 	// de ser para todo el programa es una especie de "singleton"
 	// por cada usuario, es decir, tiene una instancia de atributos
-	// para cada usuario segun corresponda (o null si no ha hecho login,
+	// para cada usuario según corresponda (o null si no ha hecho login,
 	// ver panel login)
 	public Atributos getAtributos() {
 		return atributos;

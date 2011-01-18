@@ -29,7 +29,7 @@ import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 import echopoint.layout.HtmlLayoutData;
 
 @SuppressWarnings("serial")
-public class PanelRegistro1 extends Panel {
+public class PanelRegistro1Viejo extends Panel {
 
 	public HtmlLayoutData hld = new HtmlLayoutData("main");
 	private IUsuarioDO usuario;
@@ -49,7 +49,7 @@ public class PanelRegistro1 extends Panel {
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	public PanelRegistro1(IUsuarioDO usuarioNuevo, IPersonajeDO personajeNuevo)
+	public PanelRegistro1Viejo(IUsuarioDO usuarioNuevo, IPersonajeDO personajeNuevo)
 			throws Exception {
 
 		usuario = usuarioNuevo;
@@ -60,17 +60,12 @@ public class PanelRegistro1 extends Panel {
 
 		col = new Column();
 		col.setInsets(new Insets(5, 5, 5, 5));
-		col.setCellSpacing(new Extent(20));
+		col.setCellSpacing(new Extent(50));
 		col.setBackground(Color.WHITE);
-		col.setStyle(GUIStyles.STYLECENTERROW);
 
-		Label lblTitle = new Label("REGISTRO DE USUARIO");
+		Label lblTitle = new Label("REGISTRO");
 		lblTitle.setTextAlignment(Alignment.ALIGN_CENTER);
 		col.add(lblTitle);
-
-		Label lblSubTitle = new Label("Datos Personales:");
-		lblSubTitle.setTextAlignment(Alignment.ALIGN_CENTER);
-		col.add(lblSubTitle);
 
 		grid = new Grid();
 		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
@@ -109,15 +104,17 @@ public class PanelRegistro1 extends Panel {
 		fldConfirmPass.setWidth(new Extent(400));
 		grid.add(fldConfirmPass);
 
-		grid.setColumnWidth(1, new Extent(800));
+		grid.setColumnWidth(1, new Extent(600));
 		col.add(grid);
 
 		Row row = new Row();
 		row.setCellSpacing(new Extent(10));
-		row.setAlignment(Alignment.ALIGN_CENTER);
-
 		Button btnNext = new Button("Siguiente");
 		btnNext.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnNext.setAlignment(Alignment.ALIGN_RIGHT);
+		row.add(btnNext);
+		col.add(row);
+
 		btnNext.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -129,20 +126,8 @@ public class PanelRegistro1 extends Panel {
 					e.printStackTrace();
 				}
 			}
-		});
 
-		Button btnCancel = new Button("Cancelar");
-		btnCancel.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnCancel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				btnCancelClicked();
-			}
 		});
-
-		row.add(btnCancel);
-		row.add(btnNext);
-		col.add(row);
 
 		row1.add(col);
 		add(row1);
@@ -155,20 +140,6 @@ public class PanelRegistro1 extends Panel {
 
 		usuario.setNombre(txtNombre.getText());
 		usuario.setCorreo(txtCorreo.getText());
-
-		if ((txtAlias.getText()) == "") {
-			Desktop d = app.getDesktop();
-			d.setWindowPaneEmergente("Escoge el Alias para tu Personaje!");
-			return;
-		}
-
-		personaje.setAlias(txtAlias.getText());
-
-		if (Registro.verificarAlias(personaje.getAlias())) {
-			Desktop d = app.getDesktop();
-			d.setWindowPaneEmergente("Ya existe un jugador con ese Alias.");
-			return;
-		}
 
 		if (!(fldConfirmPass.getText().equals(fldPass.getText()))) { // JUL:defensive..
 			if (col.getComponentCount() > 3) {
@@ -216,24 +187,9 @@ public class PanelRegistro1 extends Panel {
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	private void btnCancelClicked() {
-
-		Desktop d = app.getDesktop();
-		PanelLogin pnlMain = new PanelLogin();
-		d.setPanelCentral(pnlMain);
-
-	}
-
-	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 	private boolean checkEmptyFields() {
 
 		boolean flg = false;
-		if (txtAlias.getText() == "") {
-			txtAlias.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
-			flg = true;
-		}
-
 		if (txtNombre.getText() == "") {
 			txtNombre.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
 			flg = true;
