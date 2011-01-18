@@ -7,6 +7,7 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.FillImageBorder;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -30,16 +31,12 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
 
-/**
- * @author Donato Galo
- * 
- */
-
 @SuppressWarnings("serial")
 public class Desktop extends ContentPane {
 	private HtmlLayout htmlLayout;
 	private HtmlLayoutData hld;
 	private WindowPane windowPane;
+	private WindowPane windowData;
 	private Menud menud;
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 		LanternCorpsAcademyApp.getActive();
@@ -98,6 +95,7 @@ public class Desktop extends ContentPane {
 
 		public Component initTemplate2(int ctl) {
 			try {
+				setInsets(new Insets(2, 2, 2, 2));
 				htmlLayout = new HtmlLayout( //
 						getClass().getResourceAsStream(
 							"templatehtml/template2.html"), "UTF-8");
@@ -183,18 +181,16 @@ public class Desktop extends ContentPane {
 	public void setWindowPaneEmergente(String texto) {
 		Column col = new Column();
 		Row row = new Row();
-		windowPane = new WindowPane();
+		windowPane = new WindowPane("Informacion", new Extent(300), new Extent(150));
 		windowPane.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		windowPane.setTitle("Informacion");
 		windowPane.setModal(true);
-		windowPane.setHeight(new Extent(150));
-		windowPane.setWidth(new Extent(300));
 		windowPane.setTitleBackground(Estilo.getColor(app.getAtributos()));
 		windowPane.setBackground(Color.WHITE);
 		Label txt = new Label(texto);
 		txt.setTextAlignment(Alignment.ALIGN_CENTER);
 		row.add(txt);
 		row.setAlignment(Alignment.ALIGN_CENTER);
+		row.setInsets(new Insets(10, 10, 10, 10));
 		col.add(row);
 		Button btnOk = new Button("Ok");
 		btnOk.setStyle(Estilo.getStyle2Color(app.getAtributos()));
@@ -211,6 +207,44 @@ public class Desktop extends ContentPane {
 		windowPane.add(col);
 		add(windowPane);
 	}
+
+	// --------------------------------------------------------------------------------
+
+	public void windowData(Component component) {
+
+		Column col = new Column();
+		Row row = new Row();
+		windowData = new WindowPane("Informacion", new Extent(600), new Extent(250));
+		windowData.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		windowData.setModal(false);
+		windowData.setTitleBackground(Estilo.getColor(app.getAtributos()));
+		windowData.setBackground(Color.WHITE);
+		windowData.setBorder(new FillImageBorder(Color.BLACK, new Insets(2), new Insets(2)));
+//		Label txt = new Label(texto);
+//		txt.setTextAlignment(Alignment.ALIGN_CENTER);
+//		row.add(txt);
+		row.add(component);
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		row.setInsets(new Insets(10, 10, 10, 10));
+		col.add(row);
+		Button btnOk = new Button("Ok");
+		btnOk.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnOk.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				remove(windowData);
+			}
+		});
+		row = new Row();
+		row.add(btnOk);
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		col.add(row);
+		windowData.add(col);
+		add(windowData);
+
+	}
+
+	// --------------------------------------------------------------------------------
 
 	public Menud getMenud() {
 		return menud;

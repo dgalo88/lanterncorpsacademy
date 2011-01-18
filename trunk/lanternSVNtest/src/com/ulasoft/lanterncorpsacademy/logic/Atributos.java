@@ -1,6 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
-import lcaInterfaceDAO.IMisionPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDAO;
@@ -102,11 +101,11 @@ public class Atributos {
 		ConnectionBean connectionBean=ConnectionFactory.getConnectionBean();
 		IPlanetaDAO planetaDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
 		//IPlanetaDO planeta = (IPlanetaDO) GlobalDOFactory.getDO(IPlanetaDO.class);
-		IMisionPersonajeDAO misionPersonDAO = (IMisionPersonajeDAO) GlobalDAOFactory
-				.getDAO(IMisionPersonajeDAO.class, connectionBean);
+//		IMisionPersonajeDAO misionPersonDAO = (IMisionPersonajeDAO) GlobalDAOFactory
+//				.getDAO(IMisionPersonajeDAO.class, connectionBean);
 		
 		IPlanetaDO planeta= (IPlanetaDO) planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
-		int misionCount= misionPersonDAO.countByPersonajeId(personaje.getId());
+//		int misionCount= misionPersonDAO.countByPersonajeId(personaje.getId());
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
 		
 		System.err.println("PLANETA ID en atts main:" + planeta.getId());
@@ -114,7 +113,7 @@ public class Atributos {
 		main.getLblPlanetaValue().setText(planeta.getNombre());
 		main.getLblSectorValue().setText(planeta.getSector());
 		main.getLblFechaValue().setText(personaje.getUltimaFechaIngreso().toString());
-		main.getLblMisionesValue().setText(Integer.toString(misionCount));
+//		main.getLblMisionesValue().setText(Integer.toString(misionCount));
 		
 	}
 
