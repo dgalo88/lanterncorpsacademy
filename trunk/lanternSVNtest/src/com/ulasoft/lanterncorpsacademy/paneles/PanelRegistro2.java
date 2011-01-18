@@ -18,11 +18,11 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.extras.ClassSelect;
-import com.ulasoft.lanterncorpsacademy.extras.ClassSelectSection;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Registro;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
+import com.valkirye.lanterncorpsacademy.components.ClassSelect;
+import com.valkirye.lanterncorpsacademy.components.ClassSelectSection;
 
 @SuppressWarnings("serial")
 public class PanelRegistro2 extends Panel {
@@ -141,8 +141,6 @@ public class PanelRegistro2 extends Panel {
 
 	private ClassSelectSection verde() {
 
-		Column cp = new Column();
-
 		RadioButton btnRadioVerde = new RadioButton("Verde - Green Lantern");
 		btnRadioVerde.setIcon(new ResourceImageReference(
 				"com/ulasoft/lanterncorpsacademy/imagenes/greenIcon.png",
@@ -154,27 +152,14 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		Label label1 = new Label(
-				"Descripcion:");
-		Label label2 = new Label(
-				"Agrupados en los Green Lantern Corps. Representando voluntad.");
-		Label label3 = new Label("Planeta Base: Oa, Sector 0.");
-		Label label4 = new Label(
-				"Habilidad: Golpe de Mazo, el linterna manifiesta un mazo para ocasionar gran daño a sus oponentes.");
+		String string = "Descripcion: Agrupados en los Green Lantern Corps.\n" +
+			"\nRepresentan: Voluntad.\n"+
+			"\nPlaneta Base: Oa, Sector 0.\n"+
+			"\nHabilidad: Golpe de Mazo, el linterna manifiesta un mazo para ocasionar gran daño a sus oponentes.\n";
 
-		label1.set(PROPERTY_FONT, new Extent(0));
-		label2.set(PROPERTY_FONT, new Extent(0));
-		label3.set(PROPERTY_FONT, new Extent(0));
-		label4.set(PROPERTY_FONT, new Extent(0));
-
-		cp.add(label1);
-		cp.add(label2);
-		cp.add(label3);
-		cp.add(label4);
-		cp.setBackground(new Color(0x32, 0xCD, 0x32));
-
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioVerde, cp);
-
+		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioVerde, string);
+		classSelectSection.setBackgroundTextArea(new Color(0x32, 0xCD, 0x32));
+		
 		return classSelectSection;
 	}
 
@@ -193,28 +178,13 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		Column cp = new Column();
+		String string = "Descripcion: Agrupados en los Sinestro Corps.\n" +
+			"\nRepresentan: El Miedo.\n" +
+			"\nPlaneta Base: Qward, Sector -1 (“Universo Antimateria”).\n" +
+			"\nHabilidad: Construcción, el linterna atrapa al oponente impidiéndole atacar y causándole daño continuo.\n";
 
-		Label label1 = new Label(
-				"Descripcion:");
-		Label label2 = new Label(
-				"Agrupados en los Sinestro Corps. Representando el miedo.");
-		Label label3 = new Label("Planeta Base: Qward, Sector -1 (“Universo Antimateria”).");
-		Label label4 = new Label(
-				"Habilidad: Construcción, el linterna atrapa al oponente impidiéndole atacar y causándole daño continuo.");
-
-		label1.set(PROPERTY_FONT, new Extent(0));
-		label2.set(PROPERTY_FONT, new Extent(0));
-		label3.set(PROPERTY_FONT, new Extent(0));
-		label4.set(PROPERTY_FONT, new Extent(0));
-
-		cp.add(label1);
-		cp.add(label2);
-		cp.add(label3);
-		cp.add(label4);
-		cp.setBackground(new Color(238, 255, 58));
-
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioAmarillo, cp);
+		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioAmarillo, string);
+		classSelectSection.setBackgroundTextArea(new Color(238, 255, 58));
 
 		return classSelectSection;
 
@@ -235,29 +205,14 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		Column cp = new Column();
+		String string = "Descripcion: Agrupados en los Black Lantern Corps.\n" +
+			"\nRepresentan: La Muerte.\n" +
+			"\nPlaneta Base: El Mundo Muerto de Ryut, Sector 665.\n" +
+			"\nHabilidad: Robo de Salud, el linterna puede robar puntos de salud a un oponente para aumentar los propios.\n";
 
-		Label label1 = new Label(
-				"Descripcion:");
-		Label label2 = new Label(
-				"Agrupados en los Black Lantern Corps. Representando la Muerte.");
-		Label label3 = new Label("El Mundo Muerto de Ryut, Sector 665.");
-		Label label4 = new Label(
-				"Habilidad: Robo de Salud, el linterna puede robar puntos de salud a un oponente para aumentar los propios.");
-
-		label1.set(PROPERTY_FONT, new Extent(0));
-		label2.set(PROPERTY_FONT, new Extent(0));
-		label3.set(PROPERTY_FONT, new Extent(0));
-		label4.set(PROPERTY_FONT, new Extent(0));
-
-		cp.add(label1);
-		cp.add(label2);
-		cp.add(label3);
-		cp.add(label4);
-		cp.setBackground(new Color(0, 0, 0));
-		cp.setForeground(new Color (255, 255, 255));
-
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioNegro, cp);
+		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioNegro, string);
+		classSelectSection.setBackgroundTextArea(new Color(0, 0, 0));
+		classSelectSection.setForegroundTextArea(new Color (255, 255, 255));
 
 		return classSelectSection;
 
@@ -278,28 +233,14 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		Column cp = new Column();
+		String string = "Descripcion: Agrupados en los Red Lantern Corps.\n" +
+			"\nRepresentan: La Ira.\n" +
+			"\nPlaneta Base: Ysmault, Sector 666.\n" +
+			"\nHabilidad: Puño Luminoso, el linterna concentra energía en su puño para infligir un golpe de alto daño.\n";
 
-		Label label1 = new Label(
-				"Descripcion:");
-		Label label2 = new Label(
-				"Agrupados en los Red Lantern Corps. Representando la ira.");
-		Label label3 = new Label("Planeta Base: Ysmault, Sector 666.");
-		Label label4 = new Label(
-				"Habilidad: Puño Luminoso, el linterna concentra energía en su puño para infligir un golpe de alto daño.");
-
-		label1.set(PROPERTY_FONT, new Extent(0));
-		label2.set(PROPERTY_FONT, new Extent(0));
-		label3.set(PROPERTY_FONT, new Extent(0));
-		label4.set(PROPERTY_FONT, new Extent(0));
-
-		cp.add(label1);
-		cp.add(label2);
-		cp.add(label3);
-		cp.add(label4);
-		cp.setBackground(new Color(175, 0, 0));
-
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioRojo, cp);
+		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioRojo, string);
+		classSelectSection.setBackgroundTextArea(new Color(175, 0, 0));
+		classSelectSection.setForegroundTextArea(new Color (255, 255, 255));
 
 		return classSelectSection;
 
@@ -320,28 +261,13 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		Column cp = new Column();
+		String string = "Descripcion: Agrupados en los Blue Lantern Corps.\n" +
+			"\nRepresentan: La Esperanza.\n" +
+			"\nPlaneta Base: Odym, Sector 1.\n" +
+			"\nHabilidad: Curación, puede usar el anillo para restaurar sus puntos de salud.\n";
 
-		Label label1 = new Label(
-				"Descripcion:");
-		Label label2 = new Label(
-				"Agrupados en los Blue Lantern Corps. Representado la esperanza.");
-		Label label3 = new Label("Planeta Base: Odym, Sector 1.");
-		Label label4 = new Label(
-				"Habilidad: Curación, puede usar el anillo para restaurar sus puntos de salud.");
-
-		label1.set(PROPERTY_FONT, new Extent(0));
-		label2.set(PROPERTY_FONT, new Extent(0));
-		label3.set(PROPERTY_FONT, new Extent(0));
-		label4.set(PROPERTY_FONT, new Extent(0));
-
-		cp.add(label1);
-		cp.add(label2);
-		cp.add(label3);
-		cp.add(label4);
-		cp.setBackground(new Color(0, 153, 255));
-
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioAzul, cp);
+		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioAzul, string);
+		classSelectSection.setBackgroundTextArea(new Color(0, 153, 255));
 
 		return classSelectSection;
 
@@ -362,28 +288,13 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		Column cp = new Column();
+		String string = "Descripcion: Agrupados en la Tribu Indigo.\n" +
+			"\nRepresentan: La Compasión.\n" +
+			"\nPlaneta Base: desconocido, Sector 3.\n" +
+			"\nHabilidad: Evasión de combate, el portador puede escapar de una batalla.\n";
 
-		Label label1 = new Label(
-				"Descripcion:");
-		Label label2 = new Label(
-				"Agrupados en la Tribu Indigo. Representando la compasión.");
-		Label label3 = new Label("Planeta Base: desconocido, Sector 3.");
-		Label label4 = new Label(
-				"Habilidad: Evasión de combate, el portador puede escapar de una batalla.");
-
-		label1.set(PROPERTY_FONT, new Extent(0));
-		label2.set(PROPERTY_FONT, new Extent(0));
-		label3.set(PROPERTY_FONT, new Extent(0));
-		label4.set(PROPERTY_FONT, new Extent(0));
-
-		cp.add(label1);
-		cp.add(label2);
-		cp.add(label3);
-		cp.add(label4);
-		cp.setBackground(new Color(148, 71, 148));
-
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioIndigo, cp);
+		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioIndigo, string);
+		classSelectSection.setBackgroundTextArea(new Color(148, 71, 148));
 
 		return classSelectSection;
 
@@ -404,34 +315,19 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		Column cp = new Column();
+		String string = "Descripcion: Agrupados en los Star Sapphires.\n" +
+			"\nRepresentan: El Amor.\n" +
+			"\nPlaneta Base: Zamaron, Sector 1412.\n" +
+			"\nHabilidad: Confusión, puede disminuir la efectividad de los ataques del oponente.\n";
 
-		Label label1 = new Label(
-				"Descripcion:");
-		Label label2 = new Label(
-				"Agrupados en los Star Sapphires. Representando el amor.");
-		Label label3 = new Label("Planeta Base: Zamaron, Sector 1412.");
-		Label label4 = new Label(
-				"Habilidad: Confusión, puede disminuir la efectividad de los ataques del oponente.");
-
-		label1.set(PROPERTY_FONT, new Extent(0));
-		label2.set(PROPERTY_FONT, new Extent(0));
-		label3.set(PROPERTY_FONT, new Extent(0));
-		label4.set(PROPERTY_FONT, new Extent(0));
-
-		cp.add(label1);
-		cp.add(label2);
-		cp.add(label3);
-		cp.add(label4);
-		cp.setBackground(new Color(255, 0, 255));
-
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioVioleta, cp);
+		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioVioleta, string);
+		classSelectSection.setBackgroundTextArea(new Color(255, 0, 255));
 
 		return classSelectSection;
 
 	}
 
-	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// ------------------------------------------------------------------------------
 
 	protected void btnBackClicked() throws Exception {
 		PanelRegistro1 pnlregistro1 = new PanelRegistro1(usuario, personaje);
@@ -439,14 +335,14 @@ public class PanelRegistro2 extends Panel {
 		desktop.setPanelCentral(pnlregistro1);
 	}
 
-	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// ------------------------------------------------------------------------------
 
 	protected void btnSendClicked() throws ClassNotFoundException, Exception {
 
 		Registro.guardarUsuario(usuario, personaje, optClase);
 
 		desktop = app.getDesktop();
-		desktop.setWindowPaneEmergente("Has Completado EL Registro Satisfactoriamente");
+		desktop.setWindowPaneEmergente("Has Completado el Registro Satisfactoriamente");
 		PanelLogin pnlMain = new PanelLogin();
 		desktop.setPanelCentral(pnlMain);
 
