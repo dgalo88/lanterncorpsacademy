@@ -17,6 +17,7 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
@@ -319,7 +320,7 @@ public class Menu extends Panel {
 		btnConquistar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-//				btnConquistarClicked();
+				btnConquistarClicked();
 			}
 		});
 		col.add(grid[1]);
@@ -485,6 +486,13 @@ public class Menu extends Panel {
 	protected void btnAtacarClicked() {
 
 		PanelSelectAtacar pnlMain = new PanelSelectAtacar();
+		d.setPanelCentral(pnlMain);
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnConquistarClicked() {
+		PanelConquistar pnlMain = new PanelConquistar();
 		d.setPanelCentral(pnlMain);
 	}
 
