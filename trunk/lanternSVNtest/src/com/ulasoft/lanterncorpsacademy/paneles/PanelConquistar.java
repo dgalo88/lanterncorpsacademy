@@ -7,7 +7,6 @@ import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Font;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -17,13 +16,12 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
-public class PanelMain extends Panel {
+public class PanelConquistar extends Panel {
 
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
 		.getActive();
@@ -34,13 +32,8 @@ public class PanelMain extends Panel {
 //	private Label lblMisionesValue;
 	private Label lblSectorValue;
 	private Label lblPlanetaValue;
-	private Label lblUbicacion;
-	private Label lblEstadisticas;
-	private Label lblFecha;
 
-	public PanelMain() {
-
-		Atributos atrib = app.getAtributos();
+	public PanelConquistar() {
 
 		Row row = new Row();
 		row.setStyle(GUIStyles.STYLECENTERROW);
@@ -54,49 +47,29 @@ public class PanelMain extends Panel {
 		Column colInf = new Column();
 
 		Label lblImagen = new Label();
-		lblImagen.setIcon(new ResourceImageReference(ImgLoad.panelMain(app
-				.getAtributos().getPersonaje())//
-				, new Extent(236), new Extent(360)));
+		lblImagen.setIcon(new ResourceImageReference(
+				ImgLoad.panelMain(app.getAtributos().getPersonaje()),
+				new Extent(236), new Extent(360)));
 		grid.add(lblImagen);
 
 		lblPlanetaValue = new Label("PL");
 		lblSectorValue = new Label("00");
 		lblFechaValue = new Label("Ult Ing");
 
-		try {
-			atrib.updatePanelMain(this);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-
 //		lblAlias = new Label("alias");
 //		lblAlias.setForeground(new Color(255, 255, 255));
 //		lblAlias.set(PROPERTY_FONT, Font.BOLD);
 //		col.add(lblAlias);
 
-		lblUbicacion = new Label("UBICACIÓN ACTUAL");
-		lblUbicacion.set(PROPERTY_FONT, Font.BOLD);
-		colInf.add(lblUbicacion);
-		colInf.add(new Label("Planeta:"));
-		colInf.add(lblPlanetaValue);
-		colInf.add(new Label("Sector:"));
-		colInf.add(lblSectorValue);
-		colInf.add(new Label("Dueño:"));
+		colInf.add(new Label("DUEÑO DEL PLANETA"));
+		colInf.add(new Label("$Nombre"));
+		colInf.add(new Label("Clase: XXX"));
+		colInf.add(new Label("Nivel: XX"));
 
-		lblEstadisticas = new Label("ESTADÍSTICAS");
-		colInf.add(lblEstadisticas);
-		lblEstadisticas.set(PROPERTY_FONT, Font.BOLD);
-		colInf.add(lblEstadisticas);
+		colInf.add(new Label("ESTADÍSTICAS"));
 		colInf.add(new Label("Combates Ganados:"));
 		colInf.add(new Label("Combates Perdidos:"));
 		colInf.add(new Label("Planetas Conquistados:"));
-
-		lblFecha = new Label("ÚLTIMO ACCESO");
-		colInf.add(lblFecha);
-		lblFecha.set(PROPERTY_FONT, Font.BOLD);
-		colInf.add(lblFecha);
-		colInf.add(new Label("Fecha:"));
-		colInf.add(lblFechaValue);
 
 		grid.add(colInf);
 		col.add(grid);
@@ -105,25 +78,25 @@ public class PanelMain extends Panel {
 		rowBotones.setStyle(GUIStyles.STYLECENTERROW);
 		rowBotones.setCellSpacing(new Extent(10));
 
-		Button btnPlanetaCasa = new Button("Definir Planeta Casa");
-		btnPlanetaCasa.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnPlanetaCasa.addActionListener(new ActionListener() {
+		Button btnSalir = new Button("Salir");
+		btnSalir.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnSalir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-//				btnPlanetaCasaClicked();
+//				btnSalirClicked();
 			}
 		});
-		rowBotones.add(btnPlanetaCasa);
+		rowBotones.add(btnSalir);
 
-		Button btnAsignarDefensas = new Button("Asignar Defensas");
-		btnAsignarDefensas.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnAsignarDefensas.addActionListener(new ActionListener() {
+		Button btnConquistar = new Button("Conquistar");
+		btnConquistar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnConquistar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-		//		btnAsignarDefensasClicked();
+		//		btnConquistarClicked();
 			}
 		});
-		rowBotones.add(btnAsignarDefensas);
+		rowBotones.add(btnConquistar);
 
 		col.add(rowBotones);
 		row.add(col);
