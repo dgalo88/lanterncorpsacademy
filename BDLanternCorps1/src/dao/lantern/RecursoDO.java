@@ -3,12 +3,12 @@ package dao.lantern;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IAndroideDO;
-import lcaInterfaceDAO.IOfertaDO;
-import lcaInterfaceDAO.IPersonajeDO;
-import lcaInterfaceDAO.IPlanetaDAO;
+import lcaInterfaceDAO.IAndroideRecursoDO;
 import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IRecursoDO;
+import lcaInterfaceDAO.IRecursoOfertaCompraDO;
+import lcaInterfaceDAO.IRecursoOfertaVentaDO;
+import lcaInterfaceDAO.IRecursoPersonajeDO;
 import lcaInterfaceDAO.ITecnologiaDO;
 import lcaInterfaceDAO.IUnidadBasicaDO;
 
@@ -26,20 +26,23 @@ public class RecursoDO implements IRecursoDO{ //Porque me pide que la clase sea 
 	private String nombre;
 	//--------------------------------------------------------------
 	
-	private List<IPersonajeDO> personajeList = //
-		new ArrayList<IPersonajeDO>();
+	private List<IRecursoPersonajeDO> recursoPersonajeList = //
+		new ArrayList<IRecursoPersonajeDO>();
 	
 	private List<IUnidadBasicaDO> unidadBasicaList =//
 		new ArrayList<IUnidadBasicaDO>();
 	
-	private List<IAndroideDO> androideList =//
-		new ArrayList<IAndroideDO>();
+	private List<IAndroideRecursoDO> androideRecursoList =//
+		new ArrayList<IAndroideRecursoDO>();
 	
 	private List<ITecnologiaDO> tecnologiaList =//
 		new ArrayList<ITecnologiaDO>();
 	
-	private List<IOfertaDO> ofertaList =//
-		new ArrayList<IOfertaDO>();
+	private List<IRecursoOfertaCompraDO> recursoOfertaCompraList =//
+		new ArrayList<IRecursoOfertaCompraDO>();
+	
+	private List<IRecursoOfertaVentaDO> recursoOfertaVentaList =//
+		new ArrayList<IRecursoOfertaVentaDO>();
 	
 	private List<IPlanetaDO> planetaList =//
 		new ArrayList<IPlanetaDO>();
@@ -82,13 +85,13 @@ public class RecursoDO implements IRecursoDO{ //Porque me pide que la clase sea 
 	
 	// --------------------------------------------------------------------------------
 	
-	public List<IPersonajeDO> getPersonajeList() {
-		return personajeList;
+	public List<IRecursoPersonajeDO> getRecursoPersonajeList() {
+		return recursoPersonajeList;
 	}
 	
 	
-	public void setPersonajeList(List<IPersonajeDO> personajeList) {
-		this.personajeList = personajeList;
+	public void setRecursoPersonajeList(List<IRecursoPersonajeDO> recursoPersonajeList) {
+		this.recursoPersonajeList = recursoPersonajeList;
 	}
 	//--------------------------------------------------------------------------------------
 	
@@ -102,13 +105,13 @@ public class RecursoDO implements IRecursoDO{ //Porque me pide que la clase sea 
 	}
 	//--------------------------------------------------------------------------------------
 	
-	public List<IAndroideDO> getAndroideList() {
-		return androideList;
+	public List<IAndroideRecursoDO> getAndroideRecursoList() {
+		return androideRecursoList;
 	}
 	
 	
-	public void setAndroideList(List<IAndroideDO> androideList) {
-		this.androideList = androideList;
+	public void setAndroideList(List<IAndroideRecursoDO> androideRecursoList) {
+		this.androideRecursoList = androideRecursoList;
 	}
 	//--------------------------------------------------------------------------------------
 	
@@ -122,16 +125,24 @@ public class RecursoDO implements IRecursoDO{ //Porque me pide que la clase sea 
 	}
 	//--------------------------------------------------------------------------------------
 
-	public List<IOfertaDO> getOfertaList() {
-		return ofertaList;
+	public List<IRecursoOfertaCompraDO> getRecursoOfertaCompraList() {
+		return recursoOfertaCompraList;
 	}
 	
 	
-	public void setOfertaList(List<IOfertaDO> ofertaList) {
-		this.ofertaList = ofertaList;
+	public void setRecursoOfertaCompraList(List<IRecursoOfertaCompraDO> recursoOfertaCompraList) {
+		this.recursoOfertaCompraList = recursoOfertaCompraList;
 	}
 	//--------------------------------------------------------------------------------------
+	public List<IRecursoOfertaVentaDO> getRecursoOfertaVentaList() {
+		return recursoOfertaVentaList;
+	}
 	
+	
+	public void setRecursoOfertaVentaList(List<IRecursoOfertaVentaDO> recursoOfertaVentaList) {
+		this.recursoOfertaVentaList = recursoOfertaVentaList;
+	}
+	//---------------------------------------------------------------------------------------
 	public List<IPlanetaDO> getPlanetaList() {
 		return planetaList;
 	}

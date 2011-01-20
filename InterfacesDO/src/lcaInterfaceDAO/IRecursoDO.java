@@ -16,26 +16,31 @@ public interface IRecursoDO extends DataObject{
 	
 	public abstract void setNombre(String nombre);
 	
-	public abstract List<IPersonajeDO> getPersonajeList();
+	//------------------------------------------------------------------------------------------
+	public abstract List<IRecursoPersonajeDO> getRecursoPersonajeList();
 	
-	public abstract void setPersonajeList(List<IPersonajeDO> personajeList);
-	
+	public abstract  void setRecursoPersonajeList(List<IRecursoPersonajeDO> recursoPersonajeList);
+	//-----------------------------------------------------------------------------------------
 	public abstract List<IUnidadBasicaDO> getUnidadBasicaList();
 	
 	public abstract void setUnidadBasicaList(List<IUnidadBasicaDO> unidadBasicaList);
+	//------------------------------------------------------------------------------------------
+	public abstract List<IAndroideRecursoDO> getAndroideRecursoList();
 	
-	public abstract List<IAndroideDO> getAndroideList();
-	
-	public abstract void setAndroideList(List<IAndroideDO> androideList);
-	
+	public abstract void setAndroideList(List<IAndroideRecursoDO> androideRecursoList);
+	//-----------------------------------------------------------------------------------------
 	public abstract List<ITecnologiaDO> getTecnologiaList();
 	
 	public abstract void setTecnologiaList(List<ITecnologiaDO> tecnologiaList);
+	//-------------------------------------------------------------------------------------
+	public abstract List<IRecursoOfertaCompraDO> getRecursoOfertaCompraList();
 	
-	public abstract List<IOfertaDO> getOfertaList();
+	public abstract void setRecursoOfertaCompraList(List<IRecursoOfertaCompraDO> recursoOfertaCompraList);
+	//---------------------------------------------------------------------------------------
+	public abstract List<IRecursoOfertaVentaDO> getRecursoOfertaVentaList();
 	
-	public abstract void setOfertaList(List<IOfertaDO> ofertaList);
-	
+	public abstract void setRecursoOfertaVentaList(List<IRecursoOfertaVentaDO> recursoOfertaVentaList);
+	//---------------------------------------------------------------------------------------
 	public abstract List<IPlanetaDO> getPlanetaList();
 	
 	public abstract void setPlanetaList(List<IPlanetaDO> planetaList);

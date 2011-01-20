@@ -60,7 +60,16 @@ public interface IPersonajeDO extends DataObject {
 
 	public void setPlanetaRef(Reference<IPlanetaDO> planetaRef);
 
+	//---------------------------------------------------------------------------------------
+	public List<IRecursoPersonajeDO> getRecursoPersonajeList();
+
+	public void setRecursoPersonajeList(List<IRecursoPersonajeDO> recursoPersonajeList);
 	// --------------------------------------------------------------------------------
+	
+	public abstract List<ITecnologiaPersonajeDO> getTecnologiaPersonajeList();
+	
+	public abstract void setTecnologiaPersonajeList(List<ITecnologiaPersonajeDO> tecnologiaPersonajeList);
+	//-----------------------------------------------------------------------------------------
 
 	public List<IHabilidadActivaDO> getHabilidadActivaList();
 
