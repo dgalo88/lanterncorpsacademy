@@ -75,7 +75,7 @@ public class ClaseLinternaDO implements IClaseLinternaDO {
 	}
 	
 	public void setNombre_de_cuerpo_linterna(String nombreDeCuerpoLinterna) {
-		nombre_de_cuerpo_linterna = nombreDeCuerpoLinterna;
+		this.nombre_de_cuerpo_linterna = nombreDeCuerpoLinterna;
 	}
 	
 	// --------------------------------------------------------------------------------
