@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IEjercitoPersonajeDO;
 import lcaInterfaceDAO.IGrupoDO;
 import lcaInterfaceDAO.IHabilidadActivaDO;
 import lcaInterfaceDAO.IMisionPersonajeDO;
@@ -54,6 +55,9 @@ public class PersonajeDO implements IPersonajeDO {
 
 	private List<IMisionPersonajeDO> misionPersonajeList = //
 		new ArrayList<IMisionPersonajeDO>();
+	
+	private List<IEjercitoPersonajeDO> ejercitoPersonajeList = //
+		new ArrayList<IEjercitoPersonajeDO>();
 	
 		// --------------------------------------------------------------------------------
 
@@ -152,6 +156,16 @@ public class PersonajeDO implements IPersonajeDO {
 		this.planetaRef = planetaRef;
 	}
 
+	//---------------------------------------------------------------------------------------
+	
+	public List<IEjercitoPersonajeDO> getEjercitoPersonajeList(){
+		return ejercitoPersonajeList;
+	}
+	
+	public void setEjercitoPersonajeList(List<IEjercitoPersonajeDO> ejercitoPersonajeList){
+		this.ejercitoPersonajeList=ejercitoPersonajeList; 
+	}
+	
 	// --------------------------------------------------------------------------------
 
 	public Reference<IGrupoDO> getGrupoRef() {

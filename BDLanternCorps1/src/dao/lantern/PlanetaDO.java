@@ -32,7 +32,7 @@ public class PlanetaDO implements IPlanetaDO {
 	// --------------------------------------------------------------------------------
 
 	private List<IPersonajeDO> personajeList = //
-	new ArrayList<IPersonajeDO>();
+		new ArrayList<IPersonajeDO>();
 
 
 	private List<IObjetivoDO> objetivoList = //
