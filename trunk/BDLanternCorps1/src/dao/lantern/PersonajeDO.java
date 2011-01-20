@@ -11,6 +11,8 @@ import lcaInterfaceDAO.IHabilidadActivaDO;
 import lcaInterfaceDAO.IMisionPersonajeDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
+import lcaInterfaceDAO.IRecursoPersonajeDO;
+import lcaInterfaceDAO.ITecnologiaPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDO;
 import dao.api.Reference;
 
@@ -56,8 +58,14 @@ public class PersonajeDO implements IPersonajeDO {
 	private List<IMisionPersonajeDO> misionPersonajeList = //
 		new ArrayList<IMisionPersonajeDO>();
 	
+	private List<IRecursoPersonajeDO> recursoPersonajeList = //
+		new ArrayList<IRecursoPersonajeDO>();
+	
 	private List<IEjercitoPersonajeDO> ejercitoPersonajeList = //
 		new ArrayList<IEjercitoPersonajeDO>();
+	
+	private List<ITecnologiaPersonajeDO> tecnologiaPersonajeList = //
+		new ArrayList<ITecnologiaPersonajeDO>();
 	
 		// --------------------------------------------------------------------------------
 
@@ -147,6 +155,29 @@ public class PersonajeDO implements IPersonajeDO {
 	}
 
 	// --------------------------------------------------------------------------------
+	public List<IRecursoPersonajeDO> getRecursoPersonajeList(){
+		
+		return recursoPersonajeList;
+	}
+
+	public void setRecursoPersonajeList(List<IRecursoPersonajeDO> recursoPersonajeList){
+		
+		this.recursoPersonajeList=recursoPersonajeList;
+	}
+
+	//-----------------------------------------------------------------------------------
+	public  List<ITecnologiaPersonajeDO> getTecnologiaPersonajeList()
+	{
+		return tecnologiaPersonajeList;
+	}
+	
+	public void setTecnologiaPersonajeList(List<ITecnologiaPersonajeDO> tecnologiaPersonajeList)
+	{
+		this. tecnologiaPersonajeList=tecnologiaPersonajeList;
+		
+	}
+	
+	//----------------------------------------------------------------------------------------
 
 	public Reference<IPlanetaDO> getPlanetaRef() {
 		return  planetaRef;
