@@ -48,6 +48,12 @@ public interface IPersonajeDO extends DataObject {
 
 	public void setUltimaFechaIngreso(Date ultimaFechaIngreso);
 
+	
+	//-----------------------------------------------------------------------------------------
+	
+	public abstract List<IEjercitoPersonajeDO> getEjercitoPersonajeList();
+	
+	public abstract void setEjercitoPersonajeList(List<IEjercitoPersonajeDO> ejercitoPersonaList);
 	// --------------------------------------------------------------------------------
 
 	public Reference<IPlanetaDO> getPlanetaRef();
@@ -66,7 +72,7 @@ public interface IPersonajeDO extends DataObject {
 	
 	public void setMisionPersonajelist(List<IMisionPersonajeDO> misionPersonajeList);
 	
-	// --------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
 
 	public Reference<IGrupoDO> getGrupoRef();
 
