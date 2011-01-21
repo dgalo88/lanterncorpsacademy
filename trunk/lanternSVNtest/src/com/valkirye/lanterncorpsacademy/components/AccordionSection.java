@@ -1,4 +1,4 @@
-package com.valkirye.lanterncorpsacademy.extras;
+package com.valkirye.lanterncorpsacademy.components;
 
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;

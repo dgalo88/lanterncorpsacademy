@@ -1,4 +1,5 @@
-package com.valkirye.lanterncorpsacademy.components;
+package com.valkirye.lanterncorpsacademy.extras;
+
 
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDO;

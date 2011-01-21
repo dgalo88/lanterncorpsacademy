@@ -1,4 +1,4 @@
-package com.valkirye.lanterncorpsacademy.components;
+package com.valkirye.lanterncorpsacademy.extras;
 
 public class DatosClases {
 
