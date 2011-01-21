@@ -1,4 +1,4 @@
-package com.valkirye.lanterncorpsacademy.extras;
+package com.valkirye.lanterncorpsacademy.components;
 
 import java.util.ArrayList;
 import java.util.List;

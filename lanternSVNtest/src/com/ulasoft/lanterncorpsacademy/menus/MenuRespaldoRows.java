@@ -24,8 +24,8 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
-import com.valkirye.lanterncorpsacademy.extras.Accordion;
-import com.valkirye.lanterncorpsacademy.extras.AccordionSection;
+import com.valkirye.lanterncorpsacademy.components.Accordion;
+import com.valkirye.lanterncorpsacademy.components.AccordionSection;
 
 @SuppressWarnings("serial")
 public class MenuRespaldoRows extends Panel {

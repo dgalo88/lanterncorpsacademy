@@ -1,6 +1,7 @@
-package com.valkirye.lanterncorpsacademy.components;
+package com.valkirye.lanterncorpsacademy.extras;
 
-import com.valkirye.lanterncorpsacademy.extras.ActionListenerProxy;
+
+import com.valkirye.lanterncorpsacademy.components.ActionListenerProxy;
 
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Color;
@@ -27,6 +28,8 @@ public class ClassSelectSection extends Column {
 
 	public ClassSelectSection(RadioButton radioBtn, String string) {
 
+		colLeft.setInsets(new Insets(5, 5, 5, 5));
+
 		radioButton = radioBtn;
 		radioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -34,7 +37,6 @@ public class ClassSelectSection extends Column {
 			}
 		});
 		colLeft.add(radioButton);
-		colLeft.setInsets(new Insets(5, 5, 5, 5));
 
 		textArea.setText(string);
 		textArea.setBorder(new Border(1, new Color(0, 0, 0), Border.STYLE_SOLID));

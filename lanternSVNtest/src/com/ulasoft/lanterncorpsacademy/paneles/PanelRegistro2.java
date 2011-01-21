@@ -21,8 +21,8 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Registro;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
-import com.valkirye.lanterncorpsacademy.components.ClassSelect;
-import com.valkirye.lanterncorpsacademy.components.ClassSelectSection;
+import com.valkirye.lanterncorpsacademy.extras.ClassSelect;
+import com.valkirye.lanterncorpsacademy.extras.ClassSelectSection;
 
 @SuppressWarnings("serial")
 public class PanelRegistro2 extends Panel {

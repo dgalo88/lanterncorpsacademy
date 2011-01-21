@@ -1,4 +1,4 @@
-package com.valkirye.lanterncorpsacademy.components;
+package com.valkirye.lanterncorpsacademy.extras;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,13 +53,8 @@ public class ClassSelect extends Grid {
 		ClassSelectSection acSection = (ClassSelectSection) evt.getSource();
 
 		if (acSection == selected) {
-			if (selected.isActive()){
-				selected.hide();
-				remove(selected.getTextArea());
-			} else {
-				selected.show();
-				add(selected.getTextArea());
-			}
+			selected.show();
+			add(selected.getTextArea());
 		} else {
 			if (selected.isActive()){
 				selected.hide();

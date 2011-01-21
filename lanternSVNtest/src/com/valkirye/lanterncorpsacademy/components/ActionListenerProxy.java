@@ -1,4 +1,4 @@
-package com.valkirye.lanterncorpsacademy.extras;
+package com.valkirye.lanterncorpsacademy.components;
 
 /*
  * Created on 27/08/2008
