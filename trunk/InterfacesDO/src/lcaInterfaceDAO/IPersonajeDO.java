@@ -43,7 +43,7 @@ public interface IPersonajeDO extends DataObject {
 	public void setNivel(int nivel);
 
 	// --------------------------------------------------------------------------------
-	
+
 	public Date getUltimaFechaIngreso();
 
 	public void setUltimaFechaIngreso(Date ultimaFechaIngreso);
