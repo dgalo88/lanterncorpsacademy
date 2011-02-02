@@ -8,7 +8,7 @@ import lcaInterfaceDAO.IPersonajeDO;
 public class AndroidePersonajeDO implements IAndroidePersonajeDO{
 
 	
-	public static  final String VIDA_NAXIMA="vidaMaxima";
+	public static  final String VIDA_MAXIMA="vidaMaxima";
 	public static  final String VIDA_ACTUAL="vidaActual";
 	
 	public static  final String PERSONAJE_ID="personajeId";

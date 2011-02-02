@@ -72,7 +72,7 @@ public class TecnologiaPersonajeDO implements ITecnologiaPersonajeDO{
 
 	public Reference<ITecnologiaDO> getTecnologiaRef(){
 		
-		return tecnologiaRef=tecnologiaRef;
+		return tecnologiaRef;
 	}
 	
 	public void setTecnologiaRef(Reference<ITecnologiaDO> tecnologiaRef)
