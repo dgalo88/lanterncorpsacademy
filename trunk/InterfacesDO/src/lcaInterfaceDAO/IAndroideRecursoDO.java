@@ -1,6 +1,5 @@
 package lcaInterfaceDAO;
 
-import java.util.List;
 
 import dao.api.DataObject;
 import dao.api.Reference;
