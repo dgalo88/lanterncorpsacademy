@@ -5,8 +5,7 @@ import java.util.List;
 
 import dao.api.Reference;
 
-import lcaInterfaceDAO.IPersonajeDO;
-import lcaInterfaceDAO.IRecursoDO;
+
 import lcaInterfaceDAO.ITecnologiaDO;
 import lcaInterfaceDAO.IUnidadBasicaDO;
 import lcaInterfaceDAO.IUnidadBasicaPersonajeDO;
@@ -15,10 +14,10 @@ import lcaInterfaceDAO.IUnidadEjercitoDO;
 
 public class UnidadBasicaDO implements IUnidadBasicaDO {
 
-	private static final String NOMBRE ="nombre";
-	private static final String DEFENSA="defensa";
-	private static final String ATAQUE="ataque";
-	private static final String TIPO="tipo";
+	public static final String NOMBRE ="nombre";
+	public static final String DEFENSA="defensa";
+	public static final String ATAQUE="ataque";
+	public static final String TIPO="tipo";
 	
 	public static final String UNIDAD_EJERCITO_ARMA_ID ="unidadEjercitoArma";
 	

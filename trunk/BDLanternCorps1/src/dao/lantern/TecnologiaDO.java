@@ -12,13 +12,13 @@ import lcaInterfaceDAO.IUnidadBasicaDO;
 
 public class TecnologiaDO implements ITecnologiaDO{
 
-	private static final String NOMBRE="nombre";
+	public static final String NOMBRE="nombre";
 	
-	private static final String UNIDAD_BASICA_ID="unidadBasicaId";
+	public static final String UNIDAD_BASICA_ID="unidadBasicaId";
 	
-	private static final String TECNOLOGIA_PERSONAJE_ID="tecnologiaPersonajeId";
+	public static final String TECNOLOGIA_PERSONAJE_ID="tecnologiaPersonajeId";
 	
-	private static final String TECNOLOGIA_RECURSO_ID="tecnologiaRecursoId";
+	public static final String TECNOLOGIA_RECURSO_ID="tecnologiaRecursoId";
 	
 	//-------------------------------------------------------------------------------------------------
 	
@@ -86,7 +86,7 @@ public class TecnologiaDO implements ITecnologiaDO{
 		return androideList;
 	}
 	
-	public  void setAndroideList(List<IAndroideDO> andoideList){
+	public  void setAndroideList(List<IAndroideDO> androideList){
 		
 		this.androideList=androideList;
 	}
