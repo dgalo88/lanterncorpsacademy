@@ -1,5 +1,8 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDO;
 import nextapp.echo.app.Button;
@@ -22,6 +25,9 @@ import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Login;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
+import com.valkirye.lanterncorpsacademy.extras.ObjectSelect;
+import com.valkirye.lanterncorpsacademy.extras.ObjectSelectScrolling;
+import com.valkirye.lanterncorpsacademy.extras.itemPrb;
 
 import factory.GlobalDOFactory;
 

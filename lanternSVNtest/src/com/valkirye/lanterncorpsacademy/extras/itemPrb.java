@@ -16,7 +16,7 @@ public class itemPrb extends Column{
 		setCellSpacing(new Extent(2));
 
 		CheckBox checkBox = new CheckBox(new ResourceImageReference(
-				"anilloverde.jpg",
+				"com/ulasoft/lanterncorpsacademy/imagenes/anilloverde.jpg",
 				new Extent(40), new Extent(40)));
 		row.add(checkBox);
 

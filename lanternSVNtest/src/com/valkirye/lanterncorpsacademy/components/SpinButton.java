@@ -32,7 +32,7 @@ public class SpinButton extends Column {
 
 		box.setText("0");
 		box.setBackgroundImage(new FillImage(new ResourceImageReference(
-					"com.valkirye.lanterncorpsacademy.components.images/spBox01.png")));
+					"com/valkirye/lanterncorpsacademy/components/images/spBox01.png")));
 		box.setWidth(new Extent(36));
 		box.setHeight(new Extent(18));
 		box.setEditable(true);
@@ -45,7 +45,7 @@ public class SpinButton extends Column {
 		col = new Column();
 
 		btnUp = new Button(new ResourceImageReference(
-					"com.valkirye.lanterncorpsacademy.components.images/spBtnUp01.png",
+					"com/valkirye/lanterncorpsacademy/components/images/spBtnUp01.png",
 					new Extent(13), new Extent(10)));
 		btnUp.setWidth(new Extent(13));
 		btnUp.setHeight(new Extent(10));
@@ -58,7 +58,7 @@ public class SpinButton extends Column {
 		col.add(btnUp);
 
 		btnDown = new Button(new ResourceImageReference(
-					"com.valkirye.lanterncorpsacademy.components.images/spBtnDown01.png",
+					"com/valkirye/lanterncorpsacademy/components/images/spBtnDown01.png",
 					new Extent(13), new Extent(10)));
 		btnUp.setWidth(new Extent(13));
 		btnUp.setHeight(new Extent(10));
