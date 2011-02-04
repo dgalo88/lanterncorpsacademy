@@ -1,8 +1,6 @@
 package com.valkirye.lanterncorpsacademy.extras;
-
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
-import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.ResourceImageReference;
@@ -11,48 +9,48 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 import nextapp.echo.app.event.EventListenerList;
 
-import com.valkirye.lanterncorpsacademy.components.ActionListenerProxy;
-
 @SuppressWarnings("serial")
-public class ObjectSelect extends Component{
+public class ObjectSelect extends Row{
 
 	private ActionListenerProxy actionListenerProxy = new ActionListenerProxy(
 			new EventListenerList());
 
-	private Row row;
-//	private Column col;
+//	private Row row;
+	private Column col = new Column();
 	
 	public ObjectSelect(String string) {
 
-		row = new Row();
+//		row = new Row();
 
-		Button btn = new Button(string);
+//		Button btn = new Button(string);
 //		btn.setStyle(ButtonStyle.NORMAL_STYLE);
-		btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				objectClicked();
-			}
-		});
+//		btn.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent evt) {
+//				objectClicked();
+//			}
+//		});
 
-		row.add(btn);
+		Button btn = new item();
+		col.add(btn);
+		add(col);
 
 	}
 
 	public class item extends Button{
 
-		public item() {
+		public item(){
 
 			Row rowI = new Row();
 			Column colI = new Column();
 
 			Label lblImagen = new Label();
 			lblImagen.setIcon(new ResourceImageReference(
-					"/com/ulasoft/lanterncorpsacademy/imagenes/anilloverde.jpg",
+					"anilloverde.jpg",
 					new Extent(30), new Extent(30)));
-			colI.add(lblImagen);
-			rowI.add(colI);
+//			colI.add(lblImagen);
+			rowI.add(lblImagen);
 
-			colI = new Column();
+//			colI = new Column();
 
 			Label lblTitulo = new Label("$Nombre");
 			Label lblAtaque = new Label("Ataque: AA");
@@ -80,8 +78,8 @@ public class ObjectSelect extends Component{
 		return actionListenerProxy;
 	}
 
-	public Component getItem() {
-		return row;
-	}
+//	public Component getItem() {
+//		return row;
+//	}
 
 }

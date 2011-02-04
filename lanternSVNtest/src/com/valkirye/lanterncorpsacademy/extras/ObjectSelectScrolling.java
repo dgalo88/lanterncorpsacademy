@@ -1,13 +1,10 @@
 package com.valkirye.lanterncorpsacademy.extras;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Grid;
-import nextapp.echo.app.Label;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
@@ -15,10 +12,9 @@ import nextapp.echo.app.event.ActionListener;
 @SuppressWarnings("serial")
 public class ObjectSelectScrolling extends Column{
 
+	private Row row = new Row();
 	private Button btnLeft;
 	private Button btnRight;
-	private Column col = new Column();
-	private Grid [] grid = new Grid[3];
 
 	private ObjectSelect selected;
 	private List<ObjectSelect> objects = new ArrayList<ObjectSelect>();
@@ -43,49 +39,38 @@ public class ObjectSelectScrolling extends Column{
 			}
 		});
 
-		Row row = new Row();
-		for (int i = 0; i < grid.length; i++) {
-			grid[i] = new Grid();
-			
-		}
+		row.add(btnLeft);
+		row.add(btnRight);
 
-		grid[0].add(btnLeft);
-		grid[1].add(new Label("Lista Vacía"));
-		grid[2].add(btnRight);
-
-		for (int i = 0; i < grid.length; i++) {
-			row.add(grid[i]);
-		}
-		col.add(row);
-		add(col);
+		add(row);
 
 	}
 
 	public void addSection(ObjectSelect object){
 
+		row.remove(btnRight);
+
 		if(objects.isEmpty()){
 			selected = object;
-		}	
-
+		}
 		objects.add(object);
 
-		object.getActionListenerProxy().addActionListener(new ActionListener() {	
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				sectionClicked(evt);
-			}
-		});
+//		object.getActionListenerProxy().addActionListener(new ActionListener() {	
+//			@Override
+//			public void actionPerformed(ActionEvent evt) {
+//				sectionClicked(evt);
+//			}
+//		});
 
-		grid[1].removeAll();
-		grid[1].add(object);
+		row.add(object);
+		row.add(btnRight);
 
 	}
 
 	private void sectionClicked(ActionEvent evt) {
 
-		ObjectSelect objectSelect = (ObjectSelect) evt.getSource();
-
-		selected = objectSelect;
+		ObjectSelect objectSelected = (ObjectSelect) evt.getSource();
+		selected = objectSelected;
 		
 	}
 
@@ -100,12 +85,5 @@ public class ObjectSelectScrolling extends Column{
 	private void btnRightClicked() {
 //		selected = objects.get(getComponentCount()+1);
 	}
-
-//	private void putObjects(ObjectSelect object){
-//
-//		grid[1].removeAll();
-//		grid[1].add(object);
-//
-//	}
 
 }
