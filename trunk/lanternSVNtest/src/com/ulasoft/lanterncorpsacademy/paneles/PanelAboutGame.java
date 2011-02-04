@@ -20,9 +20,14 @@ import echopoint.layout.HtmlLayoutData;
 
 @SuppressWarnings("serial")
 public class PanelAboutGame extends Panel {
+
 	private HtmlLayout htmlLayout;
 	private HtmlLayoutData hld;
 	private String pagina;
+
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+		.getActive();
+	Desktop d = app.getDesktop();
 
 	public PanelAboutGame(String pag) {
 		pagina = pag;
@@ -46,6 +51,7 @@ public class PanelAboutGame extends Panel {
 		lbltext.setLayoutData(hld);
 //		lbltitle.setBackground(Color.WHITE);
 		htmlLayout.add(lbltext);
+		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
 
 		Row row = new Row();
 
@@ -76,10 +82,6 @@ public class PanelAboutGame extends Panel {
 				Border.STYLE_SOLID));
 		add(htmlLayout);
 	}
-
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
-	Desktop d = app.getDesktop();
 
 	protected void btnSiguienteClicked() {
 		int paginaInt = Integer.parseInt(pagina);
