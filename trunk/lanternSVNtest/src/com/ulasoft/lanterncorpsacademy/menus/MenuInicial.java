@@ -39,7 +39,7 @@ public class MenuInicial extends Panel {
 			}
 		});
 		col.add(btnRanking);
-
+		
 		Button btnMedia = new Button("Multimedia");
 		btnMedia.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnMedia.addActionListener(new ActionListener() {
@@ -63,7 +63,7 @@ public class MenuInicial extends Panel {
 		row.add(col);
 
 		add(row);
-
+		
 	}
 
 	// ------------------------------------------------------------------------------
