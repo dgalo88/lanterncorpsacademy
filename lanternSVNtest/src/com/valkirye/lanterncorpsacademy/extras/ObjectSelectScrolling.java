@@ -7,8 +7,14 @@ import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
+import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
+
 @SuppressWarnings("serial")
 public class ObjectSelectScrolling extends Column{
+
+	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+		.getActive();
 
 	private Row row = new Row();
 	private Button btnLeft;
@@ -19,7 +25,7 @@ public class ObjectSelectScrolling extends Column{
 
 		btnLeft = new Button("<");
 		btnLeft.setWidth(new Extent(20));
-//		btnLeft.setStyle(ButtonStyle.MENU_STYLE);
+		btnLeft.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				btnLeftClicked();
@@ -28,7 +34,7 @@ public class ObjectSelectScrolling extends Column{
 
 		btnRight = new Button(">");
 		btnRight.setWidth(new Extent(20));
-//		btnRight.setStyle(ButtonStyle.MENU_STYLE);
+		btnRight.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				btnRightClicked();
@@ -46,11 +52,17 @@ public class ObjectSelectScrolling extends Column{
 	}
 
 	private void btnLeftClicked() {
-//		selected = objects.get(getComponentCount()-1);
+
+		obSelect.setCurrPage(obSelect.getCurrPage()-1);
+		obSelect.currPageChanged();
+
 	}
 
 	private void btnRightClicked() {
-//		selected = objects.get(getComponentCount()+1);
+
+		obSelect.setCurrPage(obSelect.getCurrPage()+1);
+		obSelect.currPageChanged();
+
 	}
 
 }

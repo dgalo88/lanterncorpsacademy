@@ -9,13 +9,15 @@ import nextapp.echo.app.Row;
 @SuppressWarnings("serial")
 public class itemPrb extends Column{
 
+	private CheckBox checkBox;
+
 	public itemPrb(){
 
 		Row row = new Row();
 		Column col = new Column();
 		setCellSpacing(new Extent(2));
 
-		CheckBox checkBox = new CheckBox(new ResourceImageReference(
+		checkBox = new CheckBox(new ResourceImageReference(
 				"com/ulasoft/lanterncorpsacademy/imagenes/anilloverde.jpg",
 				new Extent(40), new Extent(40)));
 		row.add(checkBox);
@@ -31,4 +33,9 @@ public class itemPrb extends Column{
 		add(row);
 
 	}
+
+	public boolean isSelected() {
+		return checkBox.isSelected();
+	}
+
 }

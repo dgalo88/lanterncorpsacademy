@@ -6,29 +6,98 @@ import java.util.List;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.EventListenerList;
 
-@SuppressWarnings("serial")
-public class ObjectSelect extends Row{
+import com.minotauro.echo.table.base.PageableModel;
+import com.minotauro.echo.table.event.PageableModelEvtProxy;
 
-	private ActionListenerProxy actionListenerProxy = new ActionListenerProxy(
-			new EventListenerList());
+@SuppressWarnings("serial")
+public class ObjectSelect extends Row implements PageableModel{
+
+	protected PageableModelEvtProxy pageableModelEvtProxy = //
+		new PageableModelEvtProxy(new EventListenerList());
+	protected int pageSize = 3;
+	protected int currPage = 0;
 
 	private List<itemPrb> selected = new ArrayList<itemPrb>();
-	private List<itemPrb> objects = new ArrayList<itemPrb>();
-	
+	private List<itemPrb> objectList;
+
 	public ObjectSelect(List<itemPrb> list) {
 
-		for (int i = 0; i < list.size(); i++) {
-			add(list.get(i));
+		objectList = list;
+
+		for (int i = 0; i < objectList.size(); i++) {
+			add(objectList.get(i));
+		}
+		setSelected();
+
+	}
+
+	public List<itemPrb> getSelected() {
+		return selected;
+	}
+
+	public void setSelected() {
+		for (int i = 0; i < objectList.size(); i++) {
+			if (objectList.get(i).isSelected()) {
+				selected.add(objectList.get(i));
+			}
+		}
+	}
+
+	public int getSize() {
+		return objectList.size();
+	}
+
+	public void currPageChanged() {
+
+		if (getCurrPage() + 1 >= getTotalPages()) {
+			setCurrPage(getTotalPages() - 1);
+		}
+		setCurrPage( //
+		getCurrPage() >= 0 ? getCurrPage() : 0);
+
+	}
+
+	public int getCurrPage() {
+		return currPage;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public PageableModelEvtProxy getPageableModelEvtProxy() {
+		return pageableModelEvtProxy;
+	}
+
+	public int getPagedFromRealRow(int arg0) {
+		return getCurrPage() * getPageSize() + arg0;
+	}
+
+	public int getRealFromPagedRow(int arg0) {
+		throw new UnsupportedOperationException();
+	}
+
+	public int getTotalPages() {
+
+		if (getTotalObjects() == 0) {
+			return 1;
 		}
 
+		return (int) Math.ceil( //
+				((double) getTotalObjects() / getPageSize()));
+
 	}
 
-	public ActionListenerProxy getActionListenerProxy() {
-		return actionListenerProxy;
+	public int getTotalObjects() {
+		return objectList.size();
 	}
 
-	public void addObject(itemPrb item) {
-		objects.add(item);
+	public void setCurrPage(int currPage) {
+		this.currPage = currPage;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 
 }
