@@ -163,15 +163,8 @@ public class Menu extends Panel {
 
 		Column col = new Column();
 		Label [] lblImagen = new Label [4];
-		Grid [] grid = new Grid [4]; 
-		for (int i = 0; i < grid.length; i++) {
-			lblImagen[i] = new Label();
-			lblImagen[i].setIcon(new ResourceImageReference(
-					"com/ulasoft/lanterncorpsacademy/imagenes/btnPer.gif",
-					new Extent(20), new Extent(20)));
-			grid[i] = new Grid();
-			grid[i].add(lblImagen[i]);
-		}
+		Grid [] grid = new Grid [4];
+		setArray(grid, lblImagen, "com/ulasoft/lanterncorpsacademy/imagenes/btnPer.gif");
 
 		Button btnVerDatos = new Button("Ver Mis Datos");
 		btnVerDatos.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
@@ -229,15 +222,8 @@ public class Menu extends Panel {
 
 		Column col = new Column();
 		Label [] lblImagen = new Label [4];
-		Grid [] grid = new Grid [4]; 
-		for (int i = 0; i < grid.length; i++) {
-			lblImagen[i] = new Label();
-			lblImagen[i].setIcon(new ResourceImageReference(
-					"com/ulasoft/lanterncorpsacademy/imagenes/btnArm.gif",
-					new Extent(20), new Extent(20)));
-			grid[i] = new Grid();
-			grid[i].add(lblImagen[i]);
-		}
+		Grid [] grid = new Grid [4];
+		setArray(grid, lblImagen, "com/ulasoft/lanterncorpsacademy/imagenes/btnArm.gif");
 
 		Button btnVerUnidades = new Button("Ver Unidades");
 		btnVerUnidades.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
@@ -294,15 +280,8 @@ public class Menu extends Panel {
 
 		Column col = new Column();
 		Label [] lblImagen = new Label [3];
-		Grid [] grid = new Grid [3]; 
-		for (int i = 0; i < grid.length; i++) {
-			lblImagen[i] = new Label();
-			lblImagen[i].setIcon(new ResourceImageReference(
-					"com/ulasoft/lanterncorpsacademy/imagenes/btnAC.gif",
-					new Extent(20), new Extent(20)));
-			grid[i] = new Grid();
-			grid[i].add(lblImagen[i]);
-		}
+		Grid [] grid = new Grid [3];
+		setArray(grid, lblImagen, "com/ulasoft/lanterncorpsacademy/imagenes/btnAC.gif");
 
 		Button btnAtacar = new Button("Atacar");
 		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
@@ -348,15 +327,8 @@ public class Menu extends Panel {
 
 		Column col = new Column();
 		Label [] lblImagen = new Label [2];
-		Grid [] grid = new Grid [2]; 
-		for (int i = 0; i < grid.length; i++) {
-			lblImagen[i] = new Label();
-			lblImagen[i].setIcon(new ResourceImageReference(
-					"com/ulasoft/lanterncorpsacademy/imagenes/btnCom.gif",
-					new Extent(20), new Extent(20)));
-			grid[i] = new Grid();
-			grid[i].add(lblImagen[i]);
-		}
+		Grid [] grid = new Grid [2];
+		setArray(grid, lblImagen, "com/ulasoft/lanterncorpsacademy/imagenes/btnCom.gif");
 
 		Button btnOfertar = new Button("Ofertar");
 		btnOfertar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
@@ -390,15 +362,9 @@ public class Menu extends Panel {
 
 		Column col = new Column();
 		Label [] lblImagen = new Label [4];
-		Grid [] grid = new Grid [4]; 
-		for (int i = 0; i < grid.length; i++) {
-			lblImagen[i] = new Label();
-			lblImagen[i].setIcon(new ResourceImageReference(
-					"com/ulasoft/lanterncorpsacademy/imagenes/btnGr.gif",
-					new Extent(20), new Extent(20)));
-			grid[i] = new Grid();
-			grid[i].add(lblImagen[i]);
-		}
+		Grid [] grid = new Grid [4];
+		setArray(grid, lblImagen, "com/ulasoft/lanterncorpsacademy/imagenes/btnGr.gif");
+
 
 		Button btnCrearGrupo = new Button("Crear Grupo");
 		btnCrearGrupo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
@@ -449,10 +415,23 @@ public class Menu extends Panel {
 
 	// --------------------------------------------------------------------------------
 
+	private void setArray(Grid [] grid, Label [] lblImagen, String image) {
+
+		for (int i = 0; i < grid.length; i++) {
+			lblImagen[i] = new Label();
+			lblImagen[i].setIcon(new ResourceImageReference(image,
+					new Extent(20), new Extent(20)));
+			grid[i] = new Grid();
+			grid[i].add(lblImagen[i]);
+		}
+	}
+
+	// --------------------------------------------------------------------------------
+
 	private void btnVerDatosClicked() {
 
 		VerDatos verDatos = new VerDatos(app.atributos.getUsuario(), app.atributos.getPersonaje());
-		d.windowData(verDatos.getDatos());
+		d.setWindowData(verDatos.getDatos());
 
 	}
 

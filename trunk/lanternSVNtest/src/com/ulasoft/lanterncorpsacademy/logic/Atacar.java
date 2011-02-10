@@ -315,7 +315,7 @@ public class Atacar {
 		}
 		atts.setPersonaje(atacante);
 		atts.guardarAtts();
-		atts.updateMenud(desktop.getMenud());
+		atts.updateMenuStatus(desktop.getMenuStatus());
 		personajeDAO.update(contrincante);
 
 	}
@@ -470,7 +470,7 @@ public class Atacar {
 
 		atts.setPersonaje(atacante);
 		atts.guardarAtts();
-		atts.updateMenud(desktop.getMenud());
+		atts.updateMenuStatus(desktop.getMenuStatus());
 
 	}
 

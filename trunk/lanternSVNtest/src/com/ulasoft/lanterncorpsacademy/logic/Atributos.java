@@ -9,7 +9,7 @@ import lcaInterfaceDAO.IUsuarioDO;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.menus.Menud;
+import com.ulasoft.lanterncorpsacademy.menus.MenuStatus;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
@@ -45,54 +45,54 @@ public class Atributos {
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
 	}
 	
-	public void updateMenud(Menud menud) throws Exception {
+	public void updateMenuStatus(MenuStatus menuStatus) throws Exception {
 		
 
-		System.err.println("PERSONAJE ID en atts menud:" + personaje.getId());
-		System.err.println("PERSONAJE salud en atts menud:"
+		System.err.println("PERSONAJE ID en atts menuStatus:" + personaje.getId());
+		System.err.println("PERSONAJE salud en atts menuStatus:"
 				+ personaje.getSalud());
 
-		menud.getSalud().setCurrValue(
+		menuStatus.getSalud().setCurrValue(
 				(personaje.getSalud()) * 100
 						/ (200 + 50 * (personaje.getNivel() - 1)));
-		menud.getEnergia().setCurrValue(
+		menuStatus.getEnergia().setCurrValue(
 				personaje.getEnergiaDelAnillo() * 100
 						/ (100 + 10 * (personaje.getNivel() - 1)));
-		menud.getExperiencia().setCurrValue(
+		menuStatus.getExperiencia().setCurrValue(
 				personaje.getExperiencia() * 100 / 15 * 
 				 2^(personaje.getNivel() - 1));
-		menud.getLblTrainsValue().setText(
+		menuStatus.getLblTrainsValue().setText(
 				Integer.toString(personaje.getPuntosDeEntrenamiento()));
-		menud.getLblNiveLabelValue().setText(
+		menuStatus.getLblNiveLabelValue().setText(
 				Integer.toString(personaje.getNivel()));
 		
 		switch (personaje.getClaseLinternaRef().getRefIdent()) {
 			case 1:
-				menud.getEnergia().setColor(GUIStyles.COLORVERDE);
+				menuStatus.getEnergia().setColor(GUIStyles.COLORVERDE);
 				break;
 			case 2: 
-				menud.getEnergia().setColor(GUIStyles.COLORAMARILLO);
+				menuStatus.getEnergia().setColor(GUIStyles.COLORAMARILLO);
 				break;
 			case 3:
-				menud.getEnergia().setColor(GUIStyles.COLORROJOBAR);
+				menuStatus.getEnergia().setColor(GUIStyles.COLORROJOBAR);
 				break;
 			case 4: 
-				menud.getEnergia().setColor(GUIStyles.COLORNEGRO);
+				menuStatus.getEnergia().setColor(GUIStyles.COLORNEGRO);
 				break;
 			case 5:
-				menud.getEnergia().setColor(GUIStyles.COLORAZUL);
+				menuStatus.getEnergia().setColor(GUIStyles.COLORAZUL);
 				break;
 			case 6:
-				menud.getEnergia().setColor(GUIStyles.COLORINDIGO);
+				menuStatus.getEnergia().setColor(GUIStyles.COLORINDIGO);
 				break;
 			case 7:
-				menud.getEnergia().setColor(GUIStyles.COLORVIOLETA);
+				menuStatus.getEnergia().setColor(GUIStyles.COLORVIOLETA);
 				break;
 			default:
 				break;
 		}
 
-		System.err.println("PERSONAJE ID en atts menud2:" + personaje.getId());
+		System.err.println("PERSONAJE ID en atts menuStatus2:" + personaje.getId());
 		
 	}
 
@@ -143,7 +143,7 @@ public class Atributos {
 		personajeDAO.update(personaje);
 
 		Desktop d = lca.getDesktop();
-		updateMenud(d.getMenud());
+		updateMenuStatus(d.getMenuStatus());
 
 		System.err.println("PERSONAJE ID en atts save:" + personaje.getId());
 

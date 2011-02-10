@@ -12,7 +12,7 @@ import com.ulasoft.lanterncorpsacademy.ProgressBar;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
-public class Menud extends Panel {
+public class MenuStatus extends Panel {
 	
 	private ProgressBar salud;
 	private ProgressBar energia;
@@ -21,9 +21,10 @@ public class Menud extends Panel {
 	private Label lblNiveLabelValue;
 	private IPersonajeDO personaje;
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
-	LanternCorpsAcademyApp.getActive();
+		LanternCorpsAcademyApp.getActive();
 
-	public Menud(){
+	public MenuStatus(){
+
 		Grid grid = new Grid(2);
 		grid.setStyle(GUIStyles.STYLEMENUI);
 

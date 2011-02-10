@@ -1,23 +1,21 @@
 package com.valkirye.lanterncorpsacademy.extras;
-import nextapp.echo.app.Column;
 
-@SuppressWarnings("serial")
-public class ItemPrb extends Column{
+public class ItemPrb {
 
-  private String name;
+	private String name;
 
-  public ItemPrb() {
-    // TODO Auto-generated constructor stub
-  }
-  
-  public String getName() {
-    return name;
-  }
+	public ItemPrb() {
+		// TODO Auto-generated constructor stub
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
-  
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 //	private CheckBox checkBox;
 //
 //	public itemPrb(){

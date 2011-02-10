@@ -24,7 +24,7 @@ import com.ulasoft.lanterncorpsacademy.menus.Menu;
 import com.ulasoft.lanterncorpsacademy.menus.MenuButton;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
 import com.ulasoft.lanterncorpsacademy.menus.MenuInicial;
-import com.ulasoft.lanterncorpsacademy.menus.Menud;
+import com.ulasoft.lanterncorpsacademy.menus.MenuStatus;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 
@@ -33,12 +33,13 @@ import echopoint.layout.HtmlLayoutData;
 
 @SuppressWarnings("serial")
 public class Desktop extends ContentPane {
+
 	private HtmlLayout htmlLayout;
 	private HtmlLayoutData hld;
 	private WindowPane windowPane;
 	private WindowPane windowData;
-	private Menud menud;
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+	private MenuStatus menuStatus;
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 		LanternCorpsAcademyApp.getActive();
 
 	// --------------------------------------------------------------------------------
@@ -93,21 +94,19 @@ public class Desktop extends ContentPane {
 
 	// --------------------------------------------------------------------------------
 
-		public Component initTemplate2(int ctl) {
-			try {
-				setInsets(new Insets(2, 2, 2, 2));
-				htmlLayout = new HtmlLayout( //
-						getClass().getResourceAsStream(
-							"templatehtml/template2.html"), "UTF-8");
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
+	public Component initTemplate2() {
+		try {
+			setInsets(new Insets(2, 2, 2, 2));
+			htmlLayout = new HtmlLayout(getClass().getResourceAsStream(
+					"templatehtml/template2.html"), "UTF-8");
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 
-		LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
-		Atributos atrib = lca.getAtributos();
+		Atributos atrib = app.getAtributos();
 
 		htmlLayout.setBackground(new Color (0, 0, 0));
-		htmlLayout.setBackgroundImage(new ResourceImageReference(ImgLoad.fondo(lca
+		htmlLayout.setBackgroundImage(new ResourceImageReference(ImgLoad.fondo(app
 				.getAtributos().getPersonaje())));
 
 		hld = new HtmlLayoutData("head");
@@ -117,14 +116,14 @@ public class Desktop extends ContentPane {
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
 
 		hld = new HtmlLayoutData("headStatus");
-		menud = new Menud();
+		menuStatus = new MenuStatus();
 		try {
-			atrib.updateMenud(menud);
+			atrib.updateMenuStatus(menuStatus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		menud.setLayoutData(hld);
-		htmlLayout.add(menud);
+		menuStatus.setLayoutData(hld);
+		htmlLayout.add(menuStatus);
 		htmlLayout.setAlignment(Alignment.ALIGN_LEFT);
 
 		hld = new HtmlLayoutData("headButton");
@@ -165,33 +164,24 @@ public class Desktop extends ContentPane {
 
 	// --------------------------------------------------------------------------------
 
-	public void setPanelMenu(Panel panel) {
-		hld = new HtmlLayoutData("menu");
-		panel.setId("menu");
-		panel.setLayoutData(hld);
-		// Remueve componente anterior del htmlLayout
-		htmlLayout.remove(htmlLayout.getComponent("menu"));
-		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
-		htmlLayout.add(panel);
-
-	}
-
-	// --------------------------------------------------------------------------------
-
 	public void setWindowPaneEmergente(String texto) {
+
 		Column col = new Column();
 		Row row = new Row();
-		windowPane = new WindowPane("Informacion", new Extent(300), new Extent(150));
-		windowPane.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		windowPane = new WindowPane("Información", new Extent(300), new Extent(150));
 		windowPane.setModal(true);
+		windowPane.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		windowPane.setTitleBackground(Estilo.getColor(app.getAtributos()));
 		windowPane.setBackground(Color.WHITE);
+		windowPane.setBorder(new FillImageBorder(Color.BLACK, new Insets(2), new Insets(2)));
+
 		Label txt = new Label(texto);
 		txt.setTextAlignment(Alignment.ALIGN_CENTER);
 		row.add(txt);
 		row.setAlignment(Alignment.ALIGN_CENTER);
 		row.setInsets(new Insets(10, 10, 10, 10));
 		col.add(row);
+
 		Button btnOk = new Button("Ok");
 		btnOk.setStyle(Estilo.getStyle2Color(app.getAtributos()));
 		btnOk.addActionListener(new ActionListener() {
@@ -206,38 +196,26 @@ public class Desktop extends ContentPane {
 		col.add(row);
 		windowPane.add(col);
 		add(windowPane);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void windowData(Component component) {
+	public void setWindowData(Component component) {
 
 		Column col = new Column();
 		Row row = new Row();
-		windowData = new WindowPane("Informacion", new Extent(600), new Extent(250));
-		windowData.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		windowData = new WindowPane("Mis Datos", new Extent(600), new Extent(250));
 		windowData.setModal(false);
+		windowData.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		windowData.setTitleBackground(Estilo.getColor(app.getAtributos()));
 		windowData.setBackground(Color.WHITE);
 		windowData.setBorder(new FillImageBorder(Color.BLACK, new Insets(2), new Insets(2)));
-//		Label txt = new Label(texto);
-//		txt.setTextAlignment(Alignment.ALIGN_CENTER);
-//		row.add(txt);
+
 		row.add(component);
 		row.setAlignment(Alignment.ALIGN_CENTER);
 		row.setInsets(new Insets(10, 10, 10, 10));
-		col.add(row);
-		Button btnOk = new Button("Ok");
-		btnOk.setStyle(Estilo.getStyle2Color(app.getAtributos()));
-		btnOk.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				remove(windowData);
-			}
-		});
-		row = new Row();
-		row.add(btnOk);
-		row.setAlignment(Alignment.ALIGN_CENTER);
+
 		col.add(row);
 		windowData.add(col);
 		add(windowData);
@@ -246,12 +224,12 @@ public class Desktop extends ContentPane {
 
 	// --------------------------------------------------------------------------------
 
-	public Menud getMenud() {
-		return menud;
+	public MenuStatus getMenuStatus() {
+		return menuStatus;
 	}
 
-	public void setMenud(Menud menud) {
-		this.menud = menud;
+	public void setMenud(MenuStatus menuStatus) {
+		this.menuStatus = menuStatus;
 	}
 
 }

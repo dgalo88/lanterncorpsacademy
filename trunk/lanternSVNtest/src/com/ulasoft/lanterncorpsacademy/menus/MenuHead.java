@@ -51,8 +51,6 @@ public class MenuHead extends Panel {
 		if (loged) {
 			PanelMain pnlMain = new PanelMain();
 			d.setPanelCentral(pnlMain);
-//			Menu menu = new Menu();
-//			d.setPanelMenu(menu);
 		} else {
 			PanelLogin pnlMain = new PanelLogin();
 			d.setPanelCentral(pnlMain);

@@ -25,9 +25,11 @@ import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Login;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
+import com.valkirye.lanterncorpsacademy.extras.ItemPrb;
 import com.valkirye.lanterncorpsacademy.extras.ObjectSelect;
+import com.valkirye.lanterncorpsacademy.extras.ObjectSelectModel;
 import com.valkirye.lanterncorpsacademy.extras.ObjectSelectScrolling;
-import com.valkirye.lanterncorpsacademy.extras.itemPrb;
+import com.valkirye.lanterncorpsacademy.extras.TestCellRenderer;
 
 import factory.GlobalDOFactory;
 
@@ -100,7 +102,38 @@ public class PanelLogin extends Panel {
 		row.add(btnClickToRegister);
 
 		row.setCellSpacing(new Extent(10));
+
 		col.add(row);
+
+//		List<ItemPrb> list = new ArrayList<ItemPrb>();
+//
+//		ItemPrb item0 = new ItemPrb();
+//		ItemPrb item1 = new ItemPrb();
+//		ItemPrb item2 = new ItemPrb();
+//		ItemPrb item3 = new ItemPrb();
+//		ItemPrb item4 = new ItemPrb();
+//		ItemPrb item5 = new ItemPrb();
+//		ItemPrb item6 = new ItemPrb();
+//		ItemPrb item7 = new ItemPrb();
+//		ItemPrb item8 = new ItemPrb();
+//		ItemPrb item9 = new ItemPrb();
+//
+//		list.add(item0);
+//		list.add(item1);
+//		list.add(item2);
+//		list.add(item3);
+//		list.add(item4);
+//		list.add(item5);
+//		list.add(item6);
+//		list.add(item7);
+//		list.add(item8);
+//		list.add(item9);
+//
+//		ObjectSelectModel oModel = new ObjectSelectModel(list);
+//		ObjectSelect obSel = new ObjectSelect(oModel, new TestCellRenderer());
+//		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(obSel);
+//		col.add(oSelectScrolling);
+
 		row1.add(col);
 		add(row1);
 
@@ -139,7 +172,7 @@ public class PanelLogin extends Panel {
 		atts.setUsuario(usuario);
 		app.setAtributos(atts);
 		desktop.removeAll();
-		desktop.add(desktop.initTemplate2(0));
+		desktop.add(desktop.initTemplate2());
 	}
 
 }
