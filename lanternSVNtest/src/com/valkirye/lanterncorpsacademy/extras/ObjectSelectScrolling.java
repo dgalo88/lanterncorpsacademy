@@ -1,30 +1,52 @@
 package com.valkirye.lanterncorpsacademy.extras;
 
 import nextapp.echo.app.Button;
-import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
+import com.minotauro.echo.table.base.PageableModel;
+import com.minotauro.echo.table.event.PageableModelEvent;
+import com.minotauro.echo.table.event.PageableModelListener;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 
 @SuppressWarnings("serial")
-public class ObjectSelectScrolling extends Column{
+public class ObjectSelectScrolling extends Row{
 
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
 		.getActive();
 
-	private Row row = new Row();
-	private Button btnLeft;
-	private Button btnRight;
-	private ObjectSelect obSelect;
+	protected PageableModel pageableModel;
+	protected ObjectSelect obSelect;
 
-	public ObjectSelectScrolling(ObjectSelect obSel) {
+	protected Button btnLeft;
+	protected Button btnRight;
+
+	public ObjectSelectScrolling(ObjectSelect objectSelect) {
+
+		obSelect = objectSelect;
+		this.pageableModel = obSelect.getObjectSelectModel();
+
+		pageableModel.getPageableModelEvtProxy().addPageableModelListener( //
+				new PageableModelListener() {
+					public void pageChanged(PageableModelEvent evt) {
+						updateState();
+					}
+				});
+
+		initGUI();
+		updateState();
+	}
+
+	protected void initGUI() {
+
+		setCellSpacing(new Extent(5));
 
 		btnLeft = new Button("<");
 		btnLeft.setWidth(new Extent(20));
+		btnLeft.setHeight(new Extent(40));
 		btnLeft.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -34,6 +56,7 @@ public class ObjectSelectScrolling extends Column{
 
 		btnRight = new Button(">");
 		btnRight.setWidth(new Extent(20));
+		btnRight.setHeight(new Extent(40));
 		btnRight.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -41,28 +64,36 @@ public class ObjectSelectScrolling extends Column{
 			}
 		});
 
-		obSelect = obSel;
+		add(btnLeft);
+		add(obSelect);
+		add(btnRight);
+	}
 
-		row.add(btnLeft);
-		row.add(obSelect);
-		row.add(btnRight);
+	protected void btnLeftClicked() {
 
-		add(row);
+		pageableModel.setCurrPage(pageableModel.getCurrPage() - 1);
+		pageableModel.currPageChanged();
+		updateState();
 
 	}
 
-	private void btnLeftClicked() {
+	protected void btnRightClicked() {
 
-		obSelect.setCurrPage(obSelect.getCurrPage()-1);
-		obSelect.currPageChanged();
+		pageableModel.setCurrPage(pageableModel.getCurrPage() + 1);
+		pageableModel.currPageChanged();
+		updateState();
 
 	}
 
-	private void btnRightClicked() {
+	protected void updateState() {
 
-		obSelect.setCurrPage(obSelect.getCurrPage()+1);
-		obSelect.currPageChanged();
+		int page = pageableModel.getCurrPage() + 1;
 
+		boolean beg = page == 1;
+		boolean end = page == pageableModel.getTotalPages();
+
+		btnLeft.setEnabled(!beg);
+		btnRight.setEnabled(!end);
 	}
 
 }

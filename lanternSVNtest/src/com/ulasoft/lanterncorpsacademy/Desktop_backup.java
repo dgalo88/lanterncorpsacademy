@@ -21,7 +21,7 @@ import com.ulasoft.lanterncorpsacademy.menus.Menu;
 import com.ulasoft.lanterncorpsacademy.menus.MenuButton;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
 import com.ulasoft.lanterncorpsacademy.menus.MenuInicial;
-import com.ulasoft.lanterncorpsacademy.menus.Menud;
+import com.ulasoft.lanterncorpsacademy.menus.MenuStatus;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 
@@ -42,7 +42,7 @@ public class Desktop_backup extends ContentPane {
 	private HtmlLayoutData hld;
 	private WindowPane windowPane;
 	//private IPersonajeDO personajeDO;
-	private Menud menud;
+	private MenuStatus menud;
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 	LanternCorpsAcademyApp.getActive();
 
@@ -254,11 +254,11 @@ public class Desktop_backup extends ContentPane {
 		add(windowPane);
 	}
 
-	public Menud getMenud() {
+	public MenuStatus getMenud() {
 		return menud;
 	}
 
-	public void setMenud(Menud menud) {
+	public void setMenud(MenuStatus menud) {
 		this.menud = menud;
 	}
 

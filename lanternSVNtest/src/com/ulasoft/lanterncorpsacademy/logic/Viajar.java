@@ -26,9 +26,6 @@ import echopoint.model.MapSection;
 import factory.GlobalDAOFactory;
 import factory.GlobalDOFactory;
 
-
-
-
 public class Viajar {
 	
 	protected static final int VERDE = 1;
@@ -209,7 +206,7 @@ public class Viajar {
 			
 			Desktop d =app.getDesktop();
 			atts.setPersonaje(personaje);
-			atts.updateMenud(d.getMenud());
+			atts.updateMenuStatus(d.getMenuStatus());
 						
 			personajeDAO.update(personaje);
 			
