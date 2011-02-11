@@ -11,10 +11,10 @@ import nextapp.echo.app.layout.GridLayoutData;
  */
 public interface CellRenderer {
 
-  public Component getCellRenderer( //
-      ObjectSelect objectSelect, Object value, int pos);
+	public Component getCellRenderer( //
+			ObjectSelect objectSelect, Object value, int pos);
 
-  // --------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------
 
-  public GridLayoutData getGridLayoutData();
+	public GridLayoutData getGridLayoutData();
 }

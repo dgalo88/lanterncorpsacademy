@@ -25,7 +25,7 @@ public class GreenStyles {
 		style.set(Button.PROPERTY_FOCUSED_BACKGROUND, GUIStyles.COLORVERDE);
 		style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, GUIStyles.BORDEVERDE, Border.STYLE_SOLID));
 
-		style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(115, 200, 115));
+		style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, GUIStyles.ROLLOVERVERDE);
 		style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.BLACK, Border.STYLE_SOLID));
 
 		STYLE_GREEN = style;
