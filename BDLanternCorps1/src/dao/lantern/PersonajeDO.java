@@ -30,6 +30,7 @@ public class PersonajeDO implements IPersonajeDO {
 	public static final String PLANETA_ID = "planetaId";
 	public static final String GRUPO_ID = "grupoId";
 	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
+	public static final String TECNOLOGIA_ID = "tecnologiaId";
 
 	
 	// --------------------------------------------------------------------------------

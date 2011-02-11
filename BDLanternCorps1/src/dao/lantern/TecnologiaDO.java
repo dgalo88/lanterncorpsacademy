@@ -19,6 +19,8 @@ public class TecnologiaDO implements ITecnologiaDO{
 	public static final String TECNOLOGIA_PERSONAJE_ID="tecnologiaPersonajeId";
 	
 	public static final String TECNOLOGIA_RECURSO_ID="tecnologiaRecursoId";
+
+	public static final String COSTO_DE_TECNOLOGIA = "costoDeTecnologia";
 	
 	//-------------------------------------------------------------------------------------------------
 	
@@ -113,6 +115,11 @@ public class TecnologiaDO implements ITecnologiaDO{
 	public void setTecnologiaPersonajeList(List<ITecnologiaPersonajeDO> tecnologiaPersonajeList){
 		
 		this.tecnologiaPersonajeList=tecnologiaPersonajeList;
+	}
+
+	public void setCosto_de_tecnologia(int i) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	//---------------------------------------------------------------------------------------------------------
