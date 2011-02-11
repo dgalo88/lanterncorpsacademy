@@ -9,7 +9,7 @@ import com.minotauro.echo.table.base.PageableModel;
 import com.minotauro.echo.table.event.PageableModelEvent;
 import com.minotauro.echo.table.event.PageableModelEvtProxy;
 
-public class ObjectSelectModel implements PageableModel{
+public class ObjectSelectModel implements PageableModel {
 
 	protected PageableModelEvtProxy pageableModelEvtProxy = //
 		new PageableModelEvtProxy(new EventListenerList());
@@ -19,24 +19,41 @@ public class ObjectSelectModel implements PageableModel{
 	protected int pageSize = 3;
 	protected int currPage = 0;
 
-	private List<ItemPrb> selected = new ArrayList<ItemPrb>();
-	private List<ItemPrb> objectList;
+	private List<ObjectLca> selected = new ArrayList<ObjectLca>();
+	private List<ObjectLca> objectList;
 
-	public ObjectSelectModel(List<ItemPrb> list) {
+	public ObjectSelectModel(List<ObjectLca> list) {
 		objectList = list;
 	}
 
-	public List<ItemPrb> getSelected() {
+	// --------------------------------------------------------------------------------
+
+	public List<ObjectLca> getSelected() {
 		return selected;
 	}
 
-//	public void setSelected() {
-//		for (int i = 0; i < objectList.size(); i++) {
-//			if (objectList.get(i).isSelected()) {
-//				selected.add(objectList.get(i));
-//			}
-//		}
-//	}
+	public void setSelected() {
+		for (int i = 0; i < objectList.size(); i++) {
+			if (objectList.get(i).isSelected()) {
+				selected.add(objectList.get(i));
+			}
+		}
+	}
+
+	// --------------------------------------------------------------------------------
+
+	public PageableModelEvtProxy getPageableModelEvtProxy() {
+		return pageableModelEvtProxy;
+	}
+
+	public void currPageChanged() {
+		tableDtaModelEvtProxy.fireActionEvent( //
+				new TableDtaModelEvent(this));
+		pageableModelEvtProxy.fireActionEvent( //
+				new PageableModelEvent(this));
+	}
+
+	// --------------------------------------------------------------------------------
 
 	public int getObjectsCount() {
 		return Math.min(objectList.size() - getRealFromPagedRow(0), pageSize);
@@ -47,24 +64,6 @@ public class ObjectSelectModel implements PageableModel{
 		return objectList.get(pos);
 	}
 
-//	public void currPageChanged() {
-//
-//		if (getCurrPage() + 1 >= getTotalPages()) {
-//			setCurrPage(getTotalPages() - 1);
-//		}
-//		setCurrPage( //
-//		getCurrPage() >= 0 ? getCurrPage() : 0);
-//
-//	}
-
-	public void currPageChanged() {
-		//updateCurrPage();
-		tableDtaModelEvtProxy.fireActionEvent( //
-				new TableDtaModelEvent(this));
-		pageableModelEvtProxy.fireActionEvent( //
-				new PageableModelEvent(this));
-	}
-
 	public int getCurrPage() {
 		return currPage;
 	}
@@ -73,19 +72,17 @@ public class ObjectSelectModel implements PageableModel{
 		return pageSize;
 	}
 
-	public PageableModelEvtProxy getPageableModelEvtProxy() {
-		return pageableModelEvtProxy;
-	}
+	// --------------------------------------------------------------------------------
 
 	public int getPagedFromRealRow(int row) {
 		throw new UnsupportedOperationException();
-//		return getCurrPage() * getPageSize() + row;
 	}
 
 	public int getRealFromPagedRow(int row) {
 		return getCurrPage() * getPageSize() + row;
-		
 	}
+
+	// --------------------------------------------------------------------------------
 
 	public int getTotalPages() {
 
@@ -94,7 +91,6 @@ public class ObjectSelectModel implements PageableModel{
 		}
 		return (int) Math.ceil( //
 				((double) getTotalObjects() / getPageSize()));
-
 	}
 
 	public int getTotalObjects() {

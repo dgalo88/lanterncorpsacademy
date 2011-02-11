@@ -31,7 +31,6 @@ public class Accordion extends Column {
 			public void actionPerformed(ActionEvent evt) {
 				sectionClicked(evt);
 			}
-
 		});
 		this.add(acSection);
 
@@ -54,7 +53,6 @@ public class Accordion extends Column {
 			selected = acSection;
 			selected.show();
 		}
-
 	}
 
 }

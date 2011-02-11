@@ -25,7 +25,7 @@ public class VioletStyles {
 		style.set(Button.PROPERTY_FOCUSED_BACKGROUND, GUIStyles.COLORVIOLETA);
 		style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, GUIStyles.BORDEVIOLETA, Border.STYLE_SOLID));
 
-		style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(230, 160, 235));
+		style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, GUIStyles.ROLLOVERVIOLETA);
 		style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.BLACK, Border.STYLE_SOLID));
 
 		STYLE_VIOLETA = style;

@@ -9,7 +9,7 @@ public class ObjectSelect extends Row {
 	private ObjectSelectModel objectSelectModel;
 	private CellRenderer cellRenderer;
 
-	public ObjectSelect(ObjectSelectModel objectSelectModel,
+	public ObjectSelect(ObjectSelectModel objectSelectModel, //
 			CellRenderer cellRenderer) {
 
 		this.objectSelectModel = objectSelectModel;
@@ -19,19 +19,14 @@ public class ObjectSelect extends Row {
 	}
 
 	protected void initElements() {
+
 		removeAll();
 		for (int i = 0; i < objectSelectModel.getObjectsCount(); i++) {
-
-			Component component = cellRenderer.getCellRenderer(this,
+			Component component = cellRenderer.getCellRenderer(this, //
 					objectSelectModel.getElementAt(i), i);
-
-			// component.setLayoutData(cellRenderer.getGridLayoutData());
-
+		
 			add(component);
 		}
 	}
 
-	public ObjectSelectModel getObjectSelectModel() {
-		return this.objectSelectModel;
-	}
 }

@@ -25,8 +25,7 @@ import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Login;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
-import com.valkirye.lanterncorpsacademy.extras.ItemPrb;
-import com.valkirye.lanterncorpsacademy.extras.ObjectSelect;
+import com.valkirye.lanterncorpsacademy.extras.ObjectLca;
 import com.valkirye.lanterncorpsacademy.extras.ObjectSelectModel;
 import com.valkirye.lanterncorpsacademy.extras.ObjectSelectScrolling;
 import com.valkirye.lanterncorpsacademy.extras.TestCellRenderer;
@@ -36,24 +35,28 @@ import factory.GlobalDOFactory;
 @SuppressWarnings("serial")
 public class PanelLogin extends Panel {
 
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
+	private Desktop desktop;
+
 	private IUsuarioDO usuario;
 	private IPersonajeDO personaje;
 	private TextField txtCorreo;
 	private PasswordField fldPass;
-	Desktop desktop;
 
 	public PanelLogin() {
 
 		Row row1 = new Row();
 		row1.setStyle(GUIStyles.STYLECENTERROW);
+
 		Column col = new Column();
 		col.setInsets(new Insets(5, 5, 5, 5));
 		col.setCellSpacing(new Extent(10));
 		col.setBackground(Color.WHITE);
+
 		Label lblTitle = new Label("Ingresar al Sistema");
 		col.add(lblTitle);
+
 		Grid grid = new Grid();
 		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 
@@ -73,74 +76,49 @@ public class PanelLogin extends Panel {
 
 		Row row = new Row();
 
-		Button btnClickToEnter = new Button("Entrar");
-		btnClickToEnter.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnClickToEnter.addActionListener(new ActionListener() {
+		Button btnEnter = new Button("Entrar");
+		btnEnter.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnEnter.setWidth(new Extent(80));
+		btnEnter.setHeight(new Extent(20));
+		btnEnter.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent evt) {
 				try {
-					btnClickToEnterClicked();
+					btnEnterClicked();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		row.add(btnClickToEnter);
+		row.add(btnEnter);
 
-		Button btnClickToRegister = new Button("Registrarse");
-		btnClickToRegister.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnClickToRegister.addActionListener(new ActionListener() {
+		Button btnRegister = new Button("Registrarse");
+		btnRegister.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnRegister.setWidth(new Extent(80));
+		btnRegister.setHeight(new Extent(20));
+		btnRegister.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent evt) {
 				try {
-					btnClickToRegisterClicked();
+					btnRegisterClicked();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		row.add(btnClickToRegister);
+		row.add(btnRegister);
 
 		row.setCellSpacing(new Extent(10));
 
 		col.add(row);
 
-		List<ItemPrb> list = new ArrayList<ItemPrb>();
-
-		ItemPrb item0 = new ItemPrb();
-		item0.setName("0");
-		ItemPrb item1 = new ItemPrb();
-		item1.setName("1");
-		ItemPrb item2 = new ItemPrb();
-		item2.setName("2");
-		ItemPrb item3 = new ItemPrb();
-		item3.setName("3");
-		ItemPrb item4 = new ItemPrb();
-		item4.setName("4");
-		ItemPrb item5 = new ItemPrb();
-		item5.setName("5");
-		ItemPrb item6 = new ItemPrb();
-		item6.setName("6");
-		ItemPrb item7 = new ItemPrb();
-		item7.setName("7");
-		ItemPrb item8 = new ItemPrb();
-		item8.setName("8");
-		ItemPrb item9 = new ItemPrb();
-		item9.setName("9");
-
-		list.add(item0);
-		list.add(item1);
-		list.add(item2);
-		list.add(item3);
-		list.add(item4);
-		list.add(item5);
-		list.add(item6);
-		list.add(item7);
-		list.add(item8);
-		list.add(item9);
+		List<ObjectLca> list = new ArrayList<ObjectLca>();
+		for (int i = 0; i < 10; i++) {
+			ObjectLca item = new ObjectLca(i);
+			list.add(item);
+		}
 
 		ObjectSelectModel oModel = new ObjectSelectModel(list);
-//		ObjectSelect obSel = new ObjectSelect(oModel, new TestCellRenderer());
 		TestCellRenderer tcr = new TestCellRenderer();
 		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
 		col.add(oSelectScrolling);
@@ -152,11 +130,11 @@ public class PanelLogin extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	protected void btnClickToRegisterClicked() throws Exception {
+	protected void btnRegisterClicked() throws Exception {
 		IUsuarioDO usuario = (IUsuarioDO) GlobalDOFactory
-				.getDO(IUsuarioDO.class);
+		.getDO(IUsuarioDO.class);
 		IPersonajeDO personaje = (IPersonajeDO) GlobalDOFactory
-				.getDO(IPersonajeDO.class);
+		.getDO(IPersonajeDO.class);
 		PanelRegistro1 pnlregistro1 = new PanelRegistro1(usuario, personaje);
 		desktop = app.getDesktop();
 		desktop.setPanelCentral(pnlregistro1);
@@ -164,7 +142,7 @@ public class PanelLogin extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private void btnClickToEnterClicked() throws Exception {
+	private void btnEnterClicked() throws Exception {
 		// TODO: verifica campos vacíos antes de enviar...
 
 		usuario = Login.verificarLogin(txtCorreo.getText(), fldPass.getText());

@@ -1,5 +1,8 @@
 package com.ulasoft.lanterncorpsacademy.menus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
@@ -30,6 +33,10 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 import com.valkirye.lanterncorpsacademy.components.Accordion;
 import com.valkirye.lanterncorpsacademy.components.AccordionSection;
+import com.valkirye.lanterncorpsacademy.extras.ObjectLca;
+import com.valkirye.lanterncorpsacademy.extras.ObjectSelectModel;
+import com.valkirye.lanterncorpsacademy.extras.ObjectSelectScrolling;
+import com.valkirye.lanterncorpsacademy.extras.TestCellRenderer;
 import com.valkirye.lanterncorpsacademy.extras.VerDatos;
 
 @SuppressWarnings("serial")
@@ -230,7 +237,7 @@ public class Menu extends Panel {
 		btnVerUnidades.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-//				btnVerUnidadesClicked();
+				btnVerUnidadesClicked();
 			}
 		});
 		col.add(grid[0]);
@@ -467,6 +474,24 @@ public class Menu extends Panel {
 
 		PanelSelectAtacar pnlMain = new PanelSelectAtacar();
 		d.setPanelCentral(pnlMain);
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnVerUnidadesClicked() {
+
+		List<ObjectLca> list = new ArrayList<ObjectLca>();
+		for (int i = 0; i < 10; i++) {
+			ObjectLca item = new ObjectLca(i);
+			list.add(item);
+		}
+
+		ObjectSelectModel oModel = new ObjectSelectModel(list);
+		TestCellRenderer tcr = new TestCellRenderer();
+		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
+
+		d.setWindowData(oSelectScrolling);
+
 	}
 
 	// --------------------------------------------------------------------------------

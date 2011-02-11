@@ -39,6 +39,31 @@ public class Estilo {
 		return GUIStyles.COLORDEFAULT;
 	}
 
+	public static Color getRolloverColor(Atributos atrr) {
+		if(atrr==null || atrr.getPersonaje()==null){
+			return GUIStyles.ROLLOVERDEFAULT;
+		}
+		switch (atrr.getPersonaje().getClaseLinternaRef().getRefIdent()) {
+		case 1:
+			return GUIStyles.ROLLOVERVERDE;
+		case 2:
+			return GUIStyles.ROLLOVERAMARILLO;
+		case 3:
+			return GUIStyles.ROLLOVERROJO;
+		case 4:
+			return GUIStyles.ROLLOVERNEGRO;
+		case 5:
+			return GUIStyles.ROLLOVERAZUL;
+		case 6:
+			return GUIStyles.ROLLOVERINDIGO;
+		case 7:
+			return GUIStyles.ROLLOVERVIOLETA;
+		default:
+			break;
+		}
+		return GUIStyles.ROLLOVERDEFAULT;
+	}
+
 	public static Style getDefaultStyleColor (Atributos atrr) {
 		if(atrr==null){
 			return GUIStyles.DEFAULT_STYLE;

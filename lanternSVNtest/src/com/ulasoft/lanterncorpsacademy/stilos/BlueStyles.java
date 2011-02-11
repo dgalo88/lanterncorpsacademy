@@ -25,7 +25,7 @@ public class BlueStyles {
 		style.set(Button.PROPERTY_FOCUSED_BACKGROUND, GUIStyles.COLORAZUL);
 		style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, GUIStyles.BORDEAZUL, Border.STYLE_SOLID));
 
-		style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(140, 175, 205));
+		style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, GUIStyles.ROLLOVERAZUL);
 		style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.BLACK, Border.STYLE_SOLID));
 
 		STYLE_AZUL = style;

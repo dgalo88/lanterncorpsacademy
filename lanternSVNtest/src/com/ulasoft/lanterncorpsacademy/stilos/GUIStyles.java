@@ -34,6 +34,15 @@ public class GUIStyles {
 	public static final Color BORDEINDIGO = new Color(95, 95, 150);
 	public static final Color BORDEVIOLETA = new Color(160, 75, 170);
 
+	public static final Color ROLLOVERDEFAULT = new Color(135, 135, 140);
+	public static final Color ROLLOVERVERDE = new Color(115, 200, 115);
+	public static final Color ROLLOVERAMARILLO = new Color(245, 255, 105);
+	public static final Color ROLLOVERROJO = new Color (245, 105, 105);
+	public static final Color ROLLOVERNEGRO = new Color(200, 200, 205);
+	public static final Color ROLLOVERAZUL = new Color(140, 175, 205);
+	public static final Color ROLLOVERINDIGO = new Color(160, 160, 205);
+	public static final Color ROLLOVERVIOLETA = new Color(230, 160, 235);
+
 	public static final Style DEFAULT_STYLE;
 	static {
 		MutableStyle style = new MutableStyle();
@@ -91,7 +100,7 @@ public class GUIStyles {
 
 		//Aquí hay que cambiar el color para cada clase
 		style.set(Button.PROPERTY_ROLLOVER_ENABLED, true);
-		style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(135, 135, 140));
+		style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, ROLLOVERDEFAULT);
 		style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.BLACK, Border.STYLE_SOLID));
 
 		STYLE = style;

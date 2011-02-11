@@ -11,8 +11,8 @@ import nextapp.echo.app.event.EventListenerList;
 @SuppressWarnings("serial")
 public class AccordionSection extends Column {
 
-	private ActionListenerProxy actionListenerProxy = new ActionListenerProxy(
-			new EventListenerList());
+	private ActionListenerProxy actionListenerProxy = //
+		new ActionListenerProxy(new EventListenerList());
 
 	private Button button;
 	private Column col;
@@ -25,11 +25,11 @@ public class AccordionSection extends Column {
 				buttonClicked();
 			}
 		});
-		this.add(button);
+		add(button);
 
 		col = new Column();
 		col.setVisible(false);
-		this.add(col);
+		add(col);
 
 	}
 
@@ -41,10 +41,10 @@ public class AccordionSection extends Column {
 				buttonClicked();
 			}
 		});
-		this.add(button);
+		add(button);
 
 		col = new Column();
-		this.add(col);
+		add(col);
 
 	}
 
@@ -71,7 +71,7 @@ public class AccordionSection extends Column {
 	public void addItem(Component component){
 		col.add(component);
 	}
-	
+
 	public void setStyleButton(Style style) {
 		button.setStyle(style);
 	}
