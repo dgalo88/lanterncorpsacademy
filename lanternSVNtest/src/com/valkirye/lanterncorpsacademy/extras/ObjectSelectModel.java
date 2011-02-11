@@ -78,11 +78,13 @@ public class ObjectSelectModel implements PageableModel{
 	}
 
 	public int getPagedFromRealRow(int row) {
-		return getCurrPage() * getPageSize() + row;
+		throw new UnsupportedOperationException();
+//		return getCurrPage() * getPageSize() + row;
 	}
 
 	public int getRealFromPagedRow(int row) {
-		throw new UnsupportedOperationException();
+		return getCurrPage() * getPageSize() + row;
+		
 	}
 
 	public int getTotalPages() {
