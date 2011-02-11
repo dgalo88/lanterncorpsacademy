@@ -1,7 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.menus;
 
 import lcaInterfaceDAO.IPersonajeDO;
-import nextapp.echo.app.Color;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
@@ -10,7 +9,6 @@ import nextapp.echo.app.Panel;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.ProgressBar;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class MenudViejo extends Panel {

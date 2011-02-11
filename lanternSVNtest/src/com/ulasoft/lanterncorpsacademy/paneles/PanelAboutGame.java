@@ -56,7 +56,7 @@ public class PanelAboutGame extends Panel {
 		Row row = new Row();
 
 		Button btnAtras = new Button("Atras");
-		btnAtras.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnAtras.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnAtras.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -66,7 +66,7 @@ public class PanelAboutGame extends Panel {
 		row.add(btnAtras);
 
 		Button btnSiguiente = new Button("Siguiente");
-		btnSiguiente.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnSiguiente.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnSiguiente.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

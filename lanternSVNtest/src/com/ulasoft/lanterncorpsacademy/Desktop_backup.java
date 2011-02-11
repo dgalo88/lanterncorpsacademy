@@ -239,7 +239,7 @@ public class Desktop_backup extends ContentPane {
 		row.setAlignment(Alignment.ALIGN_CENTER);
 		col.add(row);
 		Button btnOk = new Button("Ok");
-		btnOk.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnOk.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

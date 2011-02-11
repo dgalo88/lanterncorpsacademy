@@ -8,33 +8,26 @@ import nextapp.echo.app.Style;
 
 public class RedStyles {
 
-	  public static final Style DEFAULT_STYLE_ROJOBAR;
-	  static {
-		  MutableStyle style = (MutableStyle) GUIStyles.DEFAULT_STYLE;
-		  style.set(Button.PROPERTY_FOCUSED_BACKGROUND, GUIStyles.COLORROJOBAR);
-		  style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, Color.RED, Border.STYLE_SOLID));
+	public static final Style DEFAULT_STYLE_ROJO;
+	static {
+		MutableStyle style = (MutableStyle) GUIStyles.DEFAULT_STYLE;
 
-		  DEFAULT_STYLE_ROJOBAR = style;
-	  }
-	  
-	  public static final Style STYLE_ROJOBAR;
+		style.set(Button.PROPERTY_FOCUSED_BACKGROUND, GUIStyles.COLORROJO);
+		style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, GUIStyles.BORDEROJO, Border.STYLE_SOLID));
 
-	  static {
-		  MutableStyle style = (MutableStyle) GUIStyles.STYLE;
-		  style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, GUIStyles.COLORROJOBAR);
-		  style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.RED, Border.STYLE_SOLID));
-		  
-		  STYLE_ROJOBAR = style;
-	  }
-	  
-	  public static final Style STYLE2_ROJOBAR;
+		DEFAULT_STYLE_ROJO = style;
+	}
 
-	  static {
-		  
-		  MutableStyle style = (MutableStyle) GUIStyles.STYLE2;
-		  style.set(Button.PROPERTY_FOCUSED_BACKGROUND, GUIStyles.COLORROJOBAR);
-		  style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, Color.RED, Border.STYLE_SOLID));
-		  
-		  STYLE2_ROJOBAR = style;
-	  }
+	public static final Style STYLE_ROJO;
+	static {
+		MutableStyle style = (MutableStyle) GUIStyles.STYLE;
+
+		style.set(Button.PROPERTY_FOCUSED_BACKGROUND, GUIStyles.COLORROJO);
+		style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, GUIStyles.BORDEROJO, Border.STYLE_SOLID));
+
+		style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, new Color(245, 105, 105));
+		style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.BLACK, Border.STYLE_SOLID));
+
+		STYLE_ROJO = style;
+	}
 }

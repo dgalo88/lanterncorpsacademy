@@ -80,7 +80,7 @@ public class PanelEditarDatosUsuario extends Panel {
 
 		row = new Row();
 		Button btnGuardar = new Button("Guardar");
-		btnGuardar.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnGuardar.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnGuardar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

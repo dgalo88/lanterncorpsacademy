@@ -66,7 +66,7 @@ public class PanelInvitarNuevosUsuarios extends Panel {
 		col.add(row);
 		row = new Row();
 		Button btnEnviarInvitacion = new Button("Enviar Invitacion");
-		btnEnviarInvitacion.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnEnviarInvitacion.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnEnviarInvitacion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

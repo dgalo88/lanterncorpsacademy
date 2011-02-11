@@ -46,7 +46,7 @@ public class PanelMensaje extends Panel {
 		Row row = new Row();
 
 		Button btnAtras = new Button("Atras");
-		btnAtras.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnAtras.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnAtras.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -57,7 +57,7 @@ public class PanelMensaje extends Panel {
 		row.add(btnAtras);
 
 		Button btnBorrarSeleccionado = new Button("Borrar Seleccionado");
-		btnBorrarSeleccionado.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnBorrarSeleccionado.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnBorrarSeleccionado.setWidth(new Extent(200));
 		btnBorrarSeleccionado.addActionListener(new ActionListener() {
 			@Override
@@ -68,7 +68,7 @@ public class PanelMensaje extends Panel {
 		row.add(btnBorrarSeleccionado);
 
 		Button btnBorrarTodo = new Button("Borrar Todo");
-		btnBorrarTodo.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnBorrarTodo.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnBorrarTodo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -79,7 +79,7 @@ public class PanelMensaje extends Panel {
 		row.add(btnBorrarTodo);
 
 		Button btnEnviarMensaje = new Button("Enviar Mensaje");
-		btnEnviarMensaje.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnEnviarMensaje.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnEnviarMensaje.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

@@ -9,7 +9,6 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMedia;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
@@ -18,9 +17,8 @@ import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 @SuppressWarnings("serial")
 public class MenuInicial extends Panel {
 
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
-	Desktop d = app.getDesktop();
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
 
 	public MenuInicial() {
 
@@ -31,7 +29,7 @@ public class MenuInicial extends Panel {
 		col.setStyle(GUIStyles.STYLECENTERROW);
 
 		Button btnRanking = new Button("Ver Clasificación");
-		btnRanking.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnRanking.setStyle(GUIStyles.DEFAULT_STYLE);
 		btnRanking.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -41,7 +39,7 @@ public class MenuInicial extends Panel {
 		col.add(btnRanking);
 		
 		Button btnMedia = new Button("Multimedia");
-		btnMedia.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnMedia.setStyle(GUIStyles.DEFAULT_STYLE);
 		btnMedia.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -51,7 +49,7 @@ public class MenuInicial extends Panel {
 		col.add(btnMedia);
 
 		Button btnAboutGame = new Button("Acerca del Juego");
-		btnAboutGame.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnAboutGame.setStyle(GUIStyles.DEFAULT_STYLE);
 		btnAboutGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -61,7 +59,6 @@ public class MenuInicial extends Panel {
 		col.add(btnAboutGame);
 
 		row.add(col);
-
 		add(row);
 		
 	}
@@ -69,6 +66,7 @@ public class MenuInicial extends Panel {
 	// ------------------------------------------------------------------------------
 
 	private void btnRankingClicked() {
+
 		PanelRanking pnlMain = new PanelRanking();
 		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
@@ -78,6 +76,7 @@ public class MenuInicial extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnMediaClicked() {
+
 		PanelMedia pnlMain = new PanelMedia();
 		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
@@ -87,6 +86,7 @@ public class MenuInicial extends Panel {
 	// --------------------------------------------------------------------------------
 	
 	private void btnAboutGameClicked() {
+
 		PanelAboutGame pnlMain = new PanelAboutGame("1");
 		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);

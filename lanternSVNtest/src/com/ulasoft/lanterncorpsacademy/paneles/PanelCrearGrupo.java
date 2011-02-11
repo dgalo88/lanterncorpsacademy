@@ -73,7 +73,7 @@ public class PanelCrearGrupo extends Panel {
 
 		Row row = new Row();
 		Button btnSalir = new Button("Cancelar");
-		btnSalir.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnSalir.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnSalir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -82,7 +82,7 @@ public class PanelCrearGrupo extends Panel {
 		});
 
 		Button btnCrearGrupo = new Button("Crear Grupo");
-		btnCrearGrupo.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnCrearGrupo.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnCrearGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

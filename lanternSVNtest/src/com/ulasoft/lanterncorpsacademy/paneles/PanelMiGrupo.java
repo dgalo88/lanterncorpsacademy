@@ -71,7 +71,7 @@ public class PanelMiGrupo extends Panel {
 		Row row = new Row();
 		Button btnInvitarNuevoIntegrante = new Button(
 				"Invitar Nuevo Integrante");
-		btnInvitarNuevoIntegrante.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnInvitarNuevoIntegrante.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnInvitarNuevoIntegrante.setWidth(new Extent(200));
 		btnInvitarNuevoIntegrante.addActionListener(new ActionListener() {
 			@Override
@@ -81,7 +81,7 @@ public class PanelMiGrupo extends Panel {
 		});
 
 		Button btnAbandonarGrupo = new Button("Abandonar Grupo");
-		btnAbandonarGrupo.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnAbandonarGrupo.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnAbandonarGrupo.setWidth(new Extent(200));
 		btnAbandonarGrupo.addActionListener(new ActionListener() {
 			@Override
@@ -91,7 +91,7 @@ public class PanelMiGrupo extends Panel {
 		});
 
 		Button btnMensaje = new Button("Mensaje");
-		btnMensaje.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnMensaje.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnMensaje.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

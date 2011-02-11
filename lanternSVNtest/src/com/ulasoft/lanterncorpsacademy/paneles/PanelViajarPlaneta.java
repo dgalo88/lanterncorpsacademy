@@ -31,7 +31,7 @@ public class PanelViajarPlaneta extends Panel{
 		lblTitle.setBackground(Color.WHITE);
 		col.add(lblTitle);
 		lblActual = new Label("nothing selected");
-		lblActual.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		lblActual.setStyle(Estilo.getStyleColor(app.getAtributos()));
 
 		
 		ImageMap imageMap = new ImageMap(new ResourceImageReference(

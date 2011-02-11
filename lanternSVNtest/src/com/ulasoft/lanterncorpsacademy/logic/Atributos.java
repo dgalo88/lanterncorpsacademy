@@ -74,7 +74,7 @@ public class Atributos {
 				menuStatus.getEnergia().setColor(GUIStyles.COLORAMARILLO);
 				break;
 			case 3:
-				menuStatus.getEnergia().setColor(GUIStyles.COLORROJOBAR);
+				menuStatus.getEnergia().setColor(GUIStyles.COLORROJO);
 				break;
 			case 4: 
 				menuStatus.getEnergia().setColor(GUIStyles.COLORNEGRO);

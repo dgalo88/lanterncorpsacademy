@@ -130,7 +130,7 @@ public class Atacar {
 					.setEnergiaDelAnillo((int) (atacante.getEnergiaDelAnillo() - NivelHabilidadAtacante
 							.getCosto_de_energia()));
 
-			System.err.println("atacante " + habilidadAtacante.getNombre());
+			System.err.println("Atacante " + habilidadAtacante.getNombre());
 		} else {
 			tipoA = 2;
 		}
@@ -162,7 +162,7 @@ public class Atacar {
 
 			if (contrincante.getEnergiaDelAnillo() >= NivelHabilidadContricante
 					.getCosto_de_energia()) {
-				System.err.println("contrincante "
+				System.err.println("Contrincante "
 						+ habilidadContricante.getNombre());
 				if (tipoB == 2) {
 					contrincante
@@ -205,7 +205,7 @@ public class Atacar {
 				efectividadAtacante = NivelHabilidadAtacante.getEfectividad();
 				if (atacante.getEnergiaDelAnillo() >= NivelHabilidadAtacante
 						.getCosto_de_energia()) {
-					System.err.println("atacante "
+					System.err.println("Atacante "
 							+ habilidadAtacante.getNombre());
 					if (tipoA == 2) {
 						atacante
@@ -249,7 +249,7 @@ public class Atacar {
 					atacante.getClaseLinternaRef().getRefIdent());
 			contrincante.getPlanetaRef().setRefIdent(
 					contrincante.getClaseLinternaRef().getRefIdent());
-			desktop.setWindowPaneEmergente("El Combate a resultado un empate:");
+			desktop.setWindowPaneEmergente("El Combate ha resultado un Empate:");
 		} else {
 			if (atacante.getSalud() > 0) {
 				contrincante
@@ -276,7 +276,7 @@ public class Atacar {
 					}
 
 				}
-				desktop.setWindowPaneEmergente("Ganaste el combate:");
+				desktop.setWindowPaneEmergente("Ganaste el Combate:");
 			} else {
 				atacante.setSalud((200 + (50 * (atacante.getNivel() - 1))));
 				atacante.getPlanetaRef().setRefIdent(
@@ -301,7 +301,7 @@ public class Atacar {
 					}
 
 				}
-				desktop.setWindowPaneEmergente("Perdiste el combate:");
+				desktop.setWindowPaneEmergente("Perdiste el Combate:");
 			}
 		}
 		
@@ -382,7 +382,7 @@ public class Atacar {
 					.setEnergiaDelAnillo((int) (atacante.getEnergiaDelAnillo() - NivelHabilidadAtacante
 							.getCosto_de_energia()));
 
-			System.err.println("atacante " + habilidadAtacante.getNombre());
+			System.err.println("Atacante " + habilidadAtacante.getNombre());
 		}
 		double alea;
 		while (atacante.getSalud() > 0 && npc.getSalud() > 0) {
@@ -442,7 +442,7 @@ public class Atacar {
 				expA = expA + (expA * 0.5);
 			}
 			atacante.setExperiencia((int) (atacante.getExperiencia() + expA));
-			desktop.setWindowPaneEmergente("Ganaste el combate:");
+			desktop.setWindowPaneEmergente("Ganaste el Combate:");
 			
 		} else {
 			atacante.setSalud((200 + (50 * (atacante.getNivel() - 1))));
@@ -459,7 +459,7 @@ public class Atacar {
 				}
 
 			}
-			desktop.setWindowPaneEmergente("Perdiste el combate:");
+			desktop.setWindowPaneEmergente("Perdiste el Combate:");
 
 		}
 		
