@@ -7,16 +7,25 @@ import nextapp.echo.app.Row;
 public class ObjectSelect extends Row {
 
 	private ObjectSelectModel objectSelectModel;
+	private CellRenderer cellRenderer;
 
-	public ObjectSelect(ObjectSelectModel objectSelectModel, CellRenderer cellRenderer) {
+	public ObjectSelect(ObjectSelectModel objectSelectModel,
+			CellRenderer cellRenderer) {
 
 		this.objectSelectModel = objectSelectModel;
+		this.cellRenderer = cellRenderer;
 
+		initElements();
+	}
+
+	protected void initElements() {
+		removeAll();
 		for (int i = 0; i < objectSelectModel.getObjectsCount(); i++) {
 
-			Component component = cellRenderer.getCellRenderer(this, objectSelectModel.getElementAt(i), i);
+			Component component = cellRenderer.getCellRenderer(this,
+					objectSelectModel.getElementAt(i), i);
 
-			//component.setLayoutData(cellRenderer.getGridLayoutData());
+			// component.setLayoutData(cellRenderer.getGridLayoutData());
 
 			add(component);
 		}

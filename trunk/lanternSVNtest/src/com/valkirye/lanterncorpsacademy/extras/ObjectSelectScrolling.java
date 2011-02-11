@@ -13,10 +13,10 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 
 @SuppressWarnings("serial")
-public class ObjectSelectScrolling extends Row{
+public class ObjectSelectScrolling extends Row {
 
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-		.getActive();
+			.getActive();
 
 	protected PageableModel pageableModel;
 	protected ObjectSelect obSelect;
@@ -24,14 +24,18 @@ public class ObjectSelectScrolling extends Row{
 	protected Button btnLeft;
 	protected Button btnRight;
 
-	public ObjectSelectScrolling(ObjectSelect objectSelect) {
+	// public ObjectSelectScrolling(ObjectSelect objectSelect) {
+	public ObjectSelectScrolling(ObjectSelectModel objectSelectModel,
+			CellRenderer cellRenderer) {
 
-		obSelect = objectSelect;
-		this.pageableModel = obSelect.getObjectSelectModel();
+		this.pageableModel = objectSelectModel;
+
+		obSelect = new ObjectSelect(objectSelectModel, cellRenderer);
 
 		pageableModel.getPageableModelEvtProxy().addPageableModelListener( //
 				new PageableModelListener() {
 					public void pageChanged(PageableModelEvent evt) {
+						obSelect.initElements();
 						updateState();
 					}
 				});

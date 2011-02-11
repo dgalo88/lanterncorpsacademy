@@ -39,9 +39,9 @@ public class PanelRegistro2 extends Panel {
 	private IPersonajeDO personaje;
 	private String optClase;
 
-	Desktop desktop;
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
+	private Desktop desktop;
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
 
 	public PanelRegistro2(IUsuarioDO usuarioNuevo, IPersonajeDO personajeNuevo)
 			throws Exception {
@@ -158,7 +158,7 @@ public class PanelRegistro2 extends Panel {
 			"\nHabilidad: Golpe de Mazo, el linterna manifiesta un mazo para ocasionar gran daño a sus oponentes.\n";
 
 		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioVerde, string);
-		classSelectSection.setBackgroundTextArea(new Color(0x32, 0xCD, 0x32));
+		classSelectSection.setBackgroundTextArea(GUIStyles.COLORVERDE);
 		
 		return classSelectSection;
 	}
@@ -184,7 +184,7 @@ public class PanelRegistro2 extends Panel {
 			"\nHabilidad: Construcción, el linterna atrapa al oponente impidiéndole atacar y causándole daño continuo.\n";
 
 		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioAmarillo, string);
-		classSelectSection.setBackgroundTextArea(new Color(238, 255, 58));
+		classSelectSection.setBackgroundTextArea(GUIStyles.COLORAMARILLO);
 
 		return classSelectSection;
 
@@ -211,8 +211,7 @@ public class PanelRegistro2 extends Panel {
 			"\nHabilidad: Robo de Salud, el linterna puede robar puntos de salud a un oponente para aumentar los propios.\n";
 
 		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioNegro, string);
-		classSelectSection.setBackgroundTextArea(new Color(0, 0, 0));
-		classSelectSection.setForegroundTextArea(new Color (255, 255, 255));
+		classSelectSection.setBackgroundTextArea(GUIStyles.COLORNEGRO);
 
 		return classSelectSection;
 
@@ -239,8 +238,7 @@ public class PanelRegistro2 extends Panel {
 			"\nHabilidad: Puño Luminoso, el linterna concentra energía en su puño para infligir un golpe de alto daño.\n";
 
 		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioRojo, string);
-		classSelectSection.setBackgroundTextArea(new Color(175, 0, 0));
-		classSelectSection.setForegroundTextArea(new Color (255, 255, 255));
+		classSelectSection.setBackgroundTextArea(GUIStyles.COLORROJO);
 
 		return classSelectSection;
 
@@ -267,7 +265,7 @@ public class PanelRegistro2 extends Panel {
 			"\nHabilidad: Curación, puede usar el anillo para restaurar sus puntos de salud.\n";
 
 		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioAzul, string);
-		classSelectSection.setBackgroundTextArea(new Color(0, 153, 255));
+		classSelectSection.setBackgroundTextArea(GUIStyles.COLORAZUL);
 
 		return classSelectSection;
 
@@ -294,7 +292,7 @@ public class PanelRegistro2 extends Panel {
 			"\nHabilidad: Evasión de combate, el portador puede escapar de una batalla.\n";
 
 		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioIndigo, string);
-		classSelectSection.setBackgroundTextArea(new Color(148, 71, 148));
+		classSelectSection.setBackgroundTextArea(GUIStyles.COLORINDIGO);
 
 		return classSelectSection;
 
@@ -321,7 +319,7 @@ public class PanelRegistro2 extends Panel {
 			"\nHabilidad: Confusión, puede disminuir la efectividad de los ataques del oponente.\n";
 
 		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioVioleta, string);
-		classSelectSection.setBackgroundTextArea(new Color(255, 0, 255));
+		classSelectSection.setBackgroundTextArea(GUIStyles.COLORVIOLETA);
 
 		return classSelectSection;
 

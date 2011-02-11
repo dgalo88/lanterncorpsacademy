@@ -105,34 +105,45 @@ public class PanelLogin extends Panel {
 
 		col.add(row);
 
-//		List<ItemPrb> list = new ArrayList<ItemPrb>();
-//
-//		ItemPrb item0 = new ItemPrb();
-//		ItemPrb item1 = new ItemPrb();
-//		ItemPrb item2 = new ItemPrb();
-//		ItemPrb item3 = new ItemPrb();
-//		ItemPrb item4 = new ItemPrb();
-//		ItemPrb item5 = new ItemPrb();
-//		ItemPrb item6 = new ItemPrb();
-//		ItemPrb item7 = new ItemPrb();
-//		ItemPrb item8 = new ItemPrb();
-//		ItemPrb item9 = new ItemPrb();
-//
-//		list.add(item0);
-//		list.add(item1);
-//		list.add(item2);
-//		list.add(item3);
-//		list.add(item4);
-//		list.add(item5);
-//		list.add(item6);
-//		list.add(item7);
-//		list.add(item8);
-//		list.add(item9);
-//
-//		ObjectSelectModel oModel = new ObjectSelectModel(list);
+		List<ItemPrb> list = new ArrayList<ItemPrb>();
+
+		ItemPrb item0 = new ItemPrb();
+		item0.setName("0");
+		ItemPrb item1 = new ItemPrb();
+		item1.setName("1");
+		ItemPrb item2 = new ItemPrb();
+		item2.setName("2");
+		ItemPrb item3 = new ItemPrb();
+		item3.setName("3");
+		ItemPrb item4 = new ItemPrb();
+		item4.setName("4");
+		ItemPrb item5 = new ItemPrb();
+		item5.setName("5");
+		ItemPrb item6 = new ItemPrb();
+		item6.setName("6");
+		ItemPrb item7 = new ItemPrb();
+		item7.setName("7");
+		ItemPrb item8 = new ItemPrb();
+		item8.setName("8");
+		ItemPrb item9 = new ItemPrb();
+		item9.setName("9");
+
+		list.add(item0);
+		list.add(item1);
+		list.add(item2);
+		list.add(item3);
+		list.add(item4);
+		list.add(item5);
+		list.add(item6);
+		list.add(item7);
+		list.add(item8);
+		list.add(item9);
+
+		ObjectSelectModel oModel = new ObjectSelectModel(list);
 //		ObjectSelect obSel = new ObjectSelect(oModel, new TestCellRenderer());
-//		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(obSel);
-//		col.add(oSelectScrolling);
+		TestCellRenderer tcr = new TestCellRenderer();
+		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
+		col.add(oSelectScrolling);
 
 		row1.add(col);
 		add(row1);
