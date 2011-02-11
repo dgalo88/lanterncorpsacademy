@@ -46,7 +46,7 @@ public class PanelEnviarMensaje extends Panel {
 		Row row = new Row();
 
 		Button btnCancelar = new Button("Cancelar");
-		btnCancelar.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -57,7 +57,7 @@ public class PanelEnviarMensaje extends Panel {
 		row.add(btnCancelar);
 
 		Button btnEnviar = new Button("Enviar");
-		btnEnviar.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnEnviar.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnEnviar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

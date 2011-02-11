@@ -13,10 +13,10 @@ import com.ulasoft.lanterncorpsacademy.stilos.VioletStyles;
 import com.ulasoft.lanterncorpsacademy.stilos.YellowStyles;
 
 public class Estilo {
-	
+
 	public static Color getColor(Atributos atrr) {
 		if(atrr==null || atrr.getPersonaje()==null){
-			return GUIStyles.COLORVERDE;
+			return GUIStyles.COLORDEFAULT;
 		}
 		switch (atrr.getPersonaje().getClaseLinternaRef().getRefIdent()) {
 		case 1:
@@ -24,7 +24,7 @@ public class Estilo {
 		case 2:
 			return GUIStyles.COLORAMARILLO;
 		case 3:
-			return GUIStyles.COLORROJOBAR;
+			return GUIStyles.COLORROJO;
 		case 4:
 			return GUIStyles.COLORNEGRO;
 		case 5:
@@ -36,12 +36,12 @@ public class Estilo {
 		default:
 			break;
 		}
-		return GUIStyles.COLORVERDE;
+		return GUIStyles.COLORDEFAULT;
 	}
-	
+
 	public static Style getDefaultStyleColor (Atributos atrr) {
 		if(atrr==null){
-			return GreenStyles.DEFAULT_STYLE_GREEN;
+			return GUIStyles.DEFAULT_STYLE;
 		}
 		switch (atrr.getPersonaje().getClaseLinternaRef().getRefIdent()) {
 		case 1:
@@ -49,7 +49,7 @@ public class Estilo {
 		case 2:
 			return YellowStyles.DEFAULT_STYLE_AMARILLO;
 		case 3:
-			return RedStyles.DEFAULT_STYLE_ROJOBAR;
+			return RedStyles.DEFAULT_STYLE_ROJO;
 		case 4:
 			return BlackStyles.DEFAULT_STYLE_BLACK;
 		case 5:
@@ -61,12 +61,12 @@ public class Estilo {
 		default:
 			break;
 		}
-		return GreenStyles.DEFAULT_STYLE_GREEN;
+		return GUIStyles.DEFAULT_STYLE;
 	}
-	
+
 	public static Style getStyleColor (Atributos atrr) {
 		if(atrr==null){
-			return GreenStyles.STYLE_GREEN;
+			return GUIStyles.STYLE;
 		}
 		switch (atrr.getPersonaje().getClaseLinternaRef().getRefIdent()) {
 		case 1:
@@ -74,7 +74,7 @@ public class Estilo {
 		case 2:
 			return YellowStyles.STYLE_AMARILLO;
 		case 3:
-			return RedStyles.STYLE_ROJOBAR;
+			return RedStyles.STYLE_ROJO;
 		case 4:
 			return BlackStyles.STYLE_BLACK;
 		case 5:
@@ -86,32 +86,7 @@ public class Estilo {
 		default:
 			break;
 		}
-		return GreenStyles.STYLE_GREEN;
+		return GUIStyles.STYLE;
 	}
-	
-	public static Style getStyle2Color (Atributos atrr) {
-		if(atrr==null){
-			return GreenStyles.STYLE2_GREEN;
-		}
-		switch (atrr.getPersonaje().getClaseLinternaRef().getRefIdent()) {
-		case 1:
-			return GreenStyles.STYLE2_GREEN;
-		case 2:
-			return YellowStyles.STYLE2_AMARILLO;
-		case 3:
-			return RedStyles.STYLE2_ROJOBAR;
-		case 4:
-			return BlackStyles.STYLE2_BLACK;
-		case 5:
-			return BlueStyles.STYLE2_AZUL;
-		case 6:
-			return IndigoStyles.STYLE2_INDIGO;
-		case 7:
-			return VioletStyles.STYLE2_VIOLETA;
-		default:
-			break;
-		}
-		return GreenStyles.STYLE2_GREEN;
-	}
-	
+
 }

@@ -35,9 +35,9 @@ import com.valkirye.lanterncorpsacademy.extras.VerDatos;
 @SuppressWarnings("serial")
 public class Menu extends Panel {
 
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
-	Desktop d = app.getDesktop();
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
+	private Desktop d = app.getDesktop();
 
 	public Menu() {
 
@@ -419,7 +419,7 @@ public class Menu extends Panel {
 
 		for (int i = 0; i < grid.length; i++) {
 			lblImagen[i] = new Label();
-			lblImagen[i].setIcon(new ResourceImageReference(image,
+			lblImagen[i].setIcon(new ResourceImageReference(image, //
 					new Extent(20), new Extent(20)));
 			grid[i] = new Grid();
 			grid[i].add(lblImagen[i]);
@@ -430,7 +430,8 @@ public class Menu extends Panel {
 
 	private void btnVerDatosClicked() {
 
-		VerDatos verDatos = new VerDatos(app.atributos.getUsuario(), app.atributos.getPersonaje());
+		VerDatos verDatos = new VerDatos( //
+				app.atributos.getUsuario(), app.atributos.getPersonaje());
 		d.setWindowData(verDatos.getDatos());
 
 	}
@@ -471,6 +472,7 @@ public class Menu extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnConquistarClicked() {
+
 		PanelConquistar pnlMain = new PanelConquistar();
 		d.setPanelCentral(pnlMain);
 	}
@@ -479,7 +481,8 @@ public class Menu extends Panel {
 
 	private void btnRecolectarClicked() {
 
-		//
+//		PanelRecolectar pnlMain = new PanelRecolectar();
+//		d.setPanelCentral(pnlMain);
 
 	}
 

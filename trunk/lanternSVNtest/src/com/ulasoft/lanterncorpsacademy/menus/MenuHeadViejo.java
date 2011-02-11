@@ -1,7 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.menus;
 
 import nextapp.echo.app.Button;
-import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
@@ -10,12 +9,7 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelForo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelMedia;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")

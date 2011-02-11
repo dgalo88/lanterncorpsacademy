@@ -52,7 +52,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		
 		Row row = new Row();
 		Button btnAdquirirHabilidad = new Button("Adquirir Nueva Habilidad");
-		btnAdquirirHabilidad.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnAdquirirHabilidad.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnAdquirirHabilidad.setWidth(new Extent(200));
 		btnAdquirirHabilidad.addActionListener(new ActionListener() {
 	      @Override
@@ -63,7 +63,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 	    row.add(btnAdquirirHabilidad);
 	    
 	    Button btnEntrenarHabilidad = new Button("Entrenar Habilidad");
-	    btnEntrenarHabilidad.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+	    btnEntrenarHabilidad.setStyle(Estilo.getStyleColor(app.getAtributos()));
 	    btnEntrenarHabilidad.setWidth(new Extent(160));
 	    btnEntrenarHabilidad.addActionListener(new ActionListener() {
 	      @Override

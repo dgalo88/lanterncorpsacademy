@@ -17,10 +17,11 @@ import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 @SuppressWarnings("serial")
 public class MenuHead extends Panel {
 
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-		.getActive();
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
 
 	public MenuHead(final boolean loged) {
+
 		Row row = new Row();
 		row.setStyle(GUIStyles.STYLECENTERROW);
 
@@ -48,13 +49,9 @@ public class MenuHead extends Panel {
 	private void btnRingClicked(final boolean loged) {
 
 		Desktop d = app.getDesktop();
-		if (loged) {
-			PanelMain pnlMain = new PanelMain();
-			d.setPanelCentral(pnlMain);
-		} else {
-			PanelLogin pnlMain = new PanelLogin();
-			d.setPanelCentral(pnlMain);
-		}
+		Panel pnlMain;
+		pnlMain = loged ? new PanelMain() : new PanelLogin();
+		d.setPanelCentral(pnlMain);
 
 	}
 

@@ -72,7 +72,7 @@ public class PanelInvitarUsuariosGrupo extends Panel {
 
 		Row row = new Row();
 		Button btnAtras = new Button("Atras");
-		btnAtras.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnAtras.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnAtras.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -81,7 +81,7 @@ public class PanelInvitarUsuariosGrupo extends Panel {
 		});
 
 		Button btnInvitarUsuarios = new Button("Invitar Usuarios al Grupo");
-		btnInvitarUsuarios.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnInvitarUsuarios.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnInvitarUsuarios.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

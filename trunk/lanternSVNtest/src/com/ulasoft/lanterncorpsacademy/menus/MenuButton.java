@@ -10,7 +10,6 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelInvitarNuevosUsuarios;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
@@ -18,10 +17,9 @@ import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 @SuppressWarnings("serial")
 public class MenuButton extends Panel {
 	
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
 		.getActive();
-	Desktop d = app.getDesktop();
-	Atributos atrib = app.getAtributos();
+	private Desktop d = app.getDesktop();
 	
 	public MenuButton() {
 		Row row = new Row();
@@ -59,8 +57,6 @@ public class MenuButton extends Panel {
 
 		PanelInvitarNuevosUsuarios pnlMain = new PanelInvitarNuevosUsuarios();
 		d.setPanelCentral(pnlMain);
-//		Menu menu = new Menu();
-//		d.setPanelMenu(menu);
 
 	}
 

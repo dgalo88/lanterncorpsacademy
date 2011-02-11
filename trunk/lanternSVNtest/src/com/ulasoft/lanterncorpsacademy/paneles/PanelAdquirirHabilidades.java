@@ -54,7 +54,7 @@ public class PanelAdquirirHabilidades extends Panel {
 		Row row = new Row();
 		
 		Button btnAtras = new Button("Atras");
-	    btnAtras.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+	    btnAtras.setStyle(Estilo.getStyleColor(app.getAtributos()));
 	    btnAtras.setWidth(new Extent(160));
 	    btnAtras.addActionListener(new ActionListener() {
 	      @Override
@@ -66,7 +66,7 @@ public class PanelAdquirirHabilidades extends Panel {
 	    row.add(btnAtras);
 	    
 		Button btnAdquirirHabilidad = new Button("Adquirir Habilidad");
-		btnAdquirirHabilidad.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnAdquirirHabilidad.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnAdquirirHabilidad.setWidth(new Extent(200));
 		btnAdquirirHabilidad.setAlignment(Alignment.ALIGN_CENTER);
 		btnAdquirirHabilidad.addActionListener(new ActionListener() {

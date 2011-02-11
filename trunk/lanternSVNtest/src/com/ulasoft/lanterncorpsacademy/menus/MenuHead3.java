@@ -35,7 +35,7 @@ public class MenuHead3 extends Panel {
 		// row.setInsets(new Insets(30, 1, 1, 1));
 
 		Button btnMisiones = new Button("Misiones");
-		btnMisiones.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnMisiones.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		// btnMisiones.setWidth(new Extent(100));
 		btnMisiones.addActionListener(new ActionListener() {
 			@Override
@@ -46,7 +46,7 @@ public class MenuHead3 extends Panel {
 		row.add(btnMisiones);
 
 		Button btnAtacar = new Button("Atacar");
-		btnAtacar.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnAtacar.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnAtacar.setWidth(new Extent(100));
 		// btnAtacar.setWidth(new Extent(100));
 		btnAtacar.addActionListener(new ActionListener() {
@@ -58,7 +58,7 @@ public class MenuHead3 extends Panel {
 		row.add(btnAtacar);
 
 		Button btnRecargarAnillo = new Button("Recargar Anillo");
-		btnRecargarAnillo.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnRecargarAnillo.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnRecargarAnillo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -68,7 +68,7 @@ public class MenuHead3 extends Panel {
 		row.add(btnRecargarAnillo);
 
 		Button btnViajarPlaneta = new Button("Viajar a Otro Planeta");
-		btnViajarPlaneta.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnViajarPlaneta.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnViajarPlaneta.setWidth(new Extent(160));
 		btnViajarPlaneta.addActionListener(new ActionListener() {
 			@Override
@@ -97,7 +97,7 @@ public class MenuHead3 extends Panel {
 		row.add(btnRing);
 
 		Button btnRanking = new Button("Ver Clasificacion");
-		btnRanking.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnRanking.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnRanking.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -107,7 +107,7 @@ public class MenuHead3 extends Panel {
 		row.add(btnRanking);
 
 		Button btnAboutGame = new Button("Acerca del Juego");
-		btnAboutGame.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnAboutGame.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnAboutGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -117,7 +117,7 @@ public class MenuHead3 extends Panel {
 		row.add(btnAboutGame);
 
 		Button btnForo = new Button("Foro");
-		btnForo.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnForo.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnForo.setWidth(new Extent(100));
 		btnForo.addActionListener(new ActionListener() {
 			@Override
@@ -128,7 +128,7 @@ public class MenuHead3 extends Panel {
 		row.add(btnForo);
 
 		Button btnMedia = new Button("Multimedia");
-		btnMedia.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnMedia.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnMedia.setWidth(new Extent(100));
 		btnMedia.addActionListener(new ActionListener() {
 			@Override

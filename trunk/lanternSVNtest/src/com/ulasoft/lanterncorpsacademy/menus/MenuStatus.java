@@ -7,7 +7,6 @@ import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 
-import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.ProgressBar;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
@@ -20,8 +19,6 @@ public class MenuStatus extends Panel {
 	private Label lblTrainsValue;
 	private Label lblNiveLabelValue;
 	private IPersonajeDO personaje;
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
-		LanternCorpsAcademyApp.getActive();
 
 	public MenuStatus(){
 

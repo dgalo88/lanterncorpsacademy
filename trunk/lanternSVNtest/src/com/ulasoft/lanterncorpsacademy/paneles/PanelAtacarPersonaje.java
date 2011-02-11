@@ -33,7 +33,6 @@ import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atacar;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelAtacarPersonaje extends Panel {
@@ -42,7 +41,7 @@ public class PanelAtacarPersonaje extends Panel {
 	List<IPersonajeDO> personajes;
 	ButtonGroup btnGroupClases = new ButtonGroup();
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
-	LanternCorpsAcademyApp.getActive();
+			LanternCorpsAcademyApp.getActive();
 	IPersonajeDO personajeAtacar;
 	
 	
@@ -76,6 +75,7 @@ public class PanelAtacarPersonaje extends Panel {
 			e.printStackTrace();
 		}
 		tableDtaModel = Atacar.asignarRanking(tableDtaModel, personajes);
+
 		// ----------------------------------------
 		// The table
 		// ----------------------------------------
@@ -200,8 +200,7 @@ public class PanelAtacarPersonaje extends Panel {
 		NestedCellRenderer nestedCellRenderer = new NestedCellRenderer();
 		nestedCellRenderer.getCellRendererList().add(new BaseCellRenderer() {
 			@Override
-			public Component getCellRenderer(
-					//
+			public Component getCellRenderer( //
 					final ETable table, final Object value, final int col,
 					final int row) {
 
@@ -209,7 +208,6 @@ public class PanelAtacarPersonaje extends Panel {
 						.getEditable();
 
 				RadioButton ret = new RadioButton();
-				// ret.setStyle(GUIStyles.DEFAULT_STYLE);
 				ret.setEnabled(editable);
 				ret.setToolTipText("Seleccion");
 				ret.setGroup(btnGroupClases);

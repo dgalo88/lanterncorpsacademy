@@ -59,7 +59,7 @@ public class Desktop extends ContentPane {
 	public Component initTemplate1() {
 		try {
 			setInsets(new Insets(2, 2, 2, 2));
-			htmlLayout = new HtmlLayout(getClass().getResourceAsStream(
+			htmlLayout = new HtmlLayout(getClass().getResourceAsStream( //
 					"templatehtml/template1.html"), "UTF-8");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -97,7 +97,7 @@ public class Desktop extends ContentPane {
 	public Component initTemplate2() {
 		try {
 			setInsets(new Insets(2, 2, 2, 2));
-			htmlLayout = new HtmlLayout(getClass().getResourceAsStream(
+			htmlLayout = new HtmlLayout(getClass().getResourceAsStream( //
 					"templatehtml/template2.html"), "UTF-8");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -152,6 +152,7 @@ public class Desktop extends ContentPane {
 	// --------------------------------------------------------------------------------
 
 	public void setPanelCentral(Panel panel) {
+
 		hld = new HtmlLayoutData("main");
 		panel.setId("main");
 		panel.setLayoutData(hld);
@@ -183,7 +184,7 @@ public class Desktop extends ContentPane {
 		col.add(row);
 
 		Button btnOk = new Button("Ok");
-		btnOk.setStyle(Estilo.getStyle2Color(app.getAtributos()));
+		btnOk.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
