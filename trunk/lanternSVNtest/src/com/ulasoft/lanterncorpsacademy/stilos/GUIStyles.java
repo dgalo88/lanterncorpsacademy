@@ -10,6 +10,7 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
+import nextapp.echo.app.Label;
 import nextapp.echo.app.MutableStyle;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.Style;
@@ -42,6 +43,12 @@ public class GUIStyles {
 	public static final Color ROLLOVERAZUL = new Color(140, 175, 205);
 	public static final Color ROLLOVERINDIGO = new Color(160, 160, 205);
 	public static final Color ROLLOVERVIOLETA = new Color(230, 160, 235);
+
+	public static final int NORMAL = 0;
+	public static final int BOLD = 1;
+	public static final int ITALIC = 2;
+	public static final int UNDERLINE = 3;
+	public static final int OVERLINE = 4;
 
 	public static final Style DEFAULT_STYLE;
 	static {
@@ -104,6 +111,28 @@ public class GUIStyles {
 		style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.BLACK, Border.STYLE_SOLID));
 
 		STYLE = style;
+	}
+
+	public static final Style STYLE_LABEL_BOLD;
+	static {
+		MutableStyle style = new MutableStyle();
+
+		style.set(Label.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+		style.set(Label.PROPERTY_FONT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+		style.set(Label.PROPERTY_FONT, Font.BOLD);
+
+		STYLE_LABEL_BOLD = style;
+	}
+
+	public static final Style STYLE_LABEL_NORMAL;
+	static {
+		MutableStyle style = new MutableStyle();
+
+		style.set(Label.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+		style.set(Label.PROPERTY_FONT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+		style.set(Label.PROPERTY_FONT, Font.PLAIN);
+
+		STYLE_LABEL_NORMAL = style;
 	}
 
 	public static final Style STYLECENTERROW;

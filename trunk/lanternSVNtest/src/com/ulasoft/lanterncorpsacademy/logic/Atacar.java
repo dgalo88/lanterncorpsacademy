@@ -23,6 +23,12 @@ import factory.GlobalDAOFactory;
 
 public class Atacar {
 
+	private static int result;
+
+	private static final int EMPATE = 0;
+	private static final int VICTORIA = 1;
+	private static final int DERROTA = 2;
+
 	public static List<IPersonajeDO> obtenerContrincantes(IPersonajeDO person)
 			throws Exception {
 		List<IPersonajeDO> personajes;
@@ -47,7 +53,7 @@ public class Atacar {
 		return personajes;
 	}
 
-	public static void combate(IPersonajeDO contrincante) throws Exception {
+	public static int combate(IPersonajeDO contrincante) throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
@@ -249,7 +255,9 @@ public class Atacar {
 					atacante.getClaseLinternaRef().getRefIdent());
 			contrincante.getPlanetaRef().setRefIdent(
 					contrincante.getClaseLinternaRef().getRefIdent());
-			desktop.setWindowPaneEmergente("El Combate ha resultado un Empate:");
+
+			result = EMPATE;
+
 		} else {
 			if (atacante.getSalud() > 0) {
 				contrincante
@@ -276,7 +284,9 @@ public class Atacar {
 					}
 
 				}
-				desktop.setWindowPaneEmergente("Ganaste el Combate:");
+
+				result = VICTORIA;
+
 			} else {
 				atacante.setSalud((200 + (50 * (atacante.getNivel() - 1))));
 				atacante.getPlanetaRef().setRefIdent(
@@ -301,7 +311,9 @@ public class Atacar {
 					}
 
 				}
-				desktop.setWindowPaneEmergente("Perdiste el Combate:");
+
+				result = DERROTA;
+
 			}
 		}
 		
@@ -318,9 +330,10 @@ public class Atacar {
 		atts.updateMenuStatus(desktop.getMenuStatus());
 		personajeDAO.update(contrincante);
 
+		return result;
 	}
 
-	public static void atacarNPC(INpcDO npc) throws Exception {
+	public static int atacarNPC(INpcDO npc) throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
@@ -442,8 +455,9 @@ public class Atacar {
 				expA = expA + (expA * 0.5);
 			}
 			atacante.setExperiencia((int) (atacante.getExperiencia() + expA));
-			desktop.setWindowPaneEmergente("Ganaste el Combate:");
-			
+
+			result = VICTORIA;
+
 		} else {
 			atacante.setSalud((200 + (50 * (atacante.getNivel() - 1))));
 			atacante.getPlanetaRef().setRefIdent(
@@ -459,7 +473,8 @@ public class Atacar {
 				}
 
 			}
-			desktop.setWindowPaneEmergente("Perdiste el Combate:");
+
+			result = DERROTA;
 
 		}
 		
@@ -472,6 +487,7 @@ public class Atacar {
 		atts.guardarAtts();
 		atts.updateMenuStatus(desktop.getMenuStatus());
 
+		return result;
 	}
 
 	public static TestTableModel asignarRanking(TestTableModel tableDtaModel,

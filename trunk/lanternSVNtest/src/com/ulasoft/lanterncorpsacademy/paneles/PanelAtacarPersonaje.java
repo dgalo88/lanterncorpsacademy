@@ -37,21 +37,21 @@ import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 @SuppressWarnings("serial")
 public class PanelAtacarPersonaje extends Panel {
 
-	private TestTableModel tableDtaModel;
-	List<IPersonajeDO> personajes;
-	ButtonGroup btnGroupClases = new ButtonGroup();
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
-	IPersonajeDO personajeAtacar;
-	
-	
-	
+
+	private TestTableModel tableDtaModel;
+	private List<IPersonajeDO> personajes;
+	private IPersonajeDO personajeAtacar;
+
+	private ButtonGroup btnGroupClases = new ButtonGroup();
+
 	public PanelAtacarPersonaje() {
-		
+
 		setInsets(new Insets(2, 2, 2, 2));
 		Column col = new Column();
 		col.setBackground(Color.WHITE);
-		
+
 		col.add(initTopRow());
 
 		// ----------------------------------------
@@ -67,7 +67,7 @@ public class PanelAtacarPersonaje extends Panel {
 		// ----------------------------------------
 		// Carga a los Contrincantes
 		// ----------------------------------------
-		
+
 		Atributos atrr = app.getAtributos();
 		try {
 			personajes = Atacar.obtenerContrincantes(atrr.getPersonaje());
@@ -79,7 +79,7 @@ public class PanelAtacarPersonaje extends Panel {
 		// ----------------------------------------
 		// The table
 		// ----------------------------------------
-		
+
 		ETable table = new ETable();
 		table.setTableDtaModel(tableDtaModel);
 		table.setTableColModel(tableColModel);
@@ -95,6 +95,7 @@ public class PanelAtacarPersonaje extends Panel {
 
 		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
 		col.add(tableNavigation);
+
 		Button btnAtacar = new Button("ATACAR");
 		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnAtacar.addActionListener(new ActionListener() {
@@ -115,13 +116,30 @@ public class PanelAtacarPersonaje extends Panel {
 	}
 
 	protected void btnAtacarClicked() throws Exception {
+
 		if(personajeAtacar == null){
 			return;
 		}
-		Atacar.combate(personajeAtacar);
+
 		Desktop d = app.getDesktop();
+
+		switch (Atacar.combate(personajeAtacar)) {
+		case 0:
+			d.setWindowPaneEmergente("El Combate ha resultado un Empate");			
+			break;
+		case 1:
+			d.setWindowPaneEmergente("Ganaste el Combate");			
+			break;
+		case 2:
+			d.setWindowPaneEmergente("Perdiste el Combate");			
+			break;
+		default:
+			break;
+		}
+
 		PanelMain pnlMain = new PanelMain();
 		d.setPanelCentral(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
@@ -201,11 +219,11 @@ public class PanelAtacarPersonaje extends Panel {
 		nestedCellRenderer.getCellRendererList().add(new BaseCellRenderer() {
 			@Override
 			public Component getCellRenderer( //
-					final ETable table, final Object value, final int col,
+					final ETable table, final Object value, final int col, //
 					final int row) {
 
 				boolean editable = ((TestTableModel) table.getTableDtaModel())
-						.getEditable();
+				.getEditable();
 
 				RadioButton ret = new RadioButton();
 				ret.setEnabled(editable);

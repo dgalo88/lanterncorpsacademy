@@ -112,16 +112,16 @@ public class PanelLogin extends Panel {
 
 		col.add(row);
 
-		List<ObjectLca> list = new ArrayList<ObjectLca>();
-		for (int i = 0; i < 10; i++) {
-			ObjectLca item = new ObjectLca(i);
-			list.add(item);
-		}
-
-		ObjectSelectModel oModel = new ObjectSelectModel(list);
-		TestCellRenderer tcr = new TestCellRenderer();
-		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
-		col.add(oSelectScrolling);
+//		List<ObjectLca> list = new ArrayList<ObjectLca>();
+//		for (int i = 0; i < 10; i++) {
+//			ObjectLca item = new ObjectLca(i);
+//			list.add(item);
+//		}
+//
+//		ObjectSelectModel oModel = new ObjectSelectModel(list);
+//		TestCellRenderer tcr = new TestCellRenderer();
+//		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
+//		col.add(oSelectScrolling);
 
 		row1.add(col);
 		add(row1);

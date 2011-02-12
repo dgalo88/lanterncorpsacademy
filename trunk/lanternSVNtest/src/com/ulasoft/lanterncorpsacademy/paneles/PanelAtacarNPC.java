@@ -37,21 +37,21 @@ import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 @SuppressWarnings("serial")
 public class PanelAtacarNPC extends Panel {
 
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
+
 	private TestTableModel tableDtaModel;
-	List<INpcDO> personajes;
-	ButtonGroup btnGroupClases = new ButtonGroup();
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
-	LanternCorpsAcademyApp.getActive();
-	INpcDO personajeAtacar;
-	
-	
-	
+	private List<INpcDO> personajes;
+	private INpcDO personajeAtacar;
+
+	private ButtonGroup btnGroupClases = new ButtonGroup();	
+
 	public PanelAtacarNPC() throws Exception {
-		
+
 		setInsets(new Insets(2, 2, 2, 2));
 		Column col = new Column();
 		col.setBackground(Color.WHITE);
-		
+
 		col.add(initTopRow());
 
 		// ----------------------------------------
@@ -67,14 +67,15 @@ public class PanelAtacarNPC extends Panel {
 		// ----------------------------------------
 		// Carga a los Contrincantes
 		// ----------------------------------------
-		
+
 		Atributos atrr = app.getAtributos();
 		personajes = Atacar.obtenerContrincantesNPC(atrr.getPersonaje());
 		tableDtaModel = Atacar.asignarRankingNPC(tableDtaModel, personajes);
+
 		// ----------------------------------------
 		// The table
 		// ----------------------------------------
-		
+
 		ETable table = new ETable();
 		table.setTableDtaModel(tableDtaModel);
 		table.setTableColModel(tableColModel);
@@ -90,6 +91,7 @@ public class PanelAtacarNPC extends Panel {
 
 		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
 		col.add(tableNavigation);
+
 		Button btnAtacar = new Button("ATACAR");
 		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnAtacar.addActionListener(new ActionListener() {
@@ -106,18 +108,32 @@ public class PanelAtacarNPC extends Panel {
 		row.add(btnAtacar);
 		row.setAlignment(Alignment.ALIGN_CENTER);
 		col.add(row);
-		
+
 		add(col);
 	}
 
 	protected void btnAtacarClicked() throws Exception {
+
 		if(personajeAtacar == null){
 			return;
 		}
-		Atacar.atacarNPC(personajeAtacar);
+
 		Desktop d = app.getDesktop();
+
+		switch (Atacar.atacarNPC(personajeAtacar)) {
+		case 1:
+			d.setWindowPaneEmergente("Ganaste el Combate");			
+			break;
+		case 2:
+			d.setWindowPaneEmergente("Perdiste el Combate");			
+			break;
+		default:
+			break;
+		}
+
 		PanelMain pnlMain = new PanelMain();
 		d.setPanelCentral(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
@@ -195,16 +211,14 @@ public class PanelAtacarNPC extends Panel {
 		NestedCellRenderer nestedCellRenderer = new NestedCellRenderer();
 		nestedCellRenderer.getCellRendererList().add(new BaseCellRenderer() {
 			@Override
-			public Component getCellRenderer(
-					//
-					final ETable table, final Object value, final int col,
+			public Component getCellRenderer( //
+					final ETable table, final Object value, final int col, //
 					final int row) {
 
 				boolean editable = ((TestTableModel) table.getTableDtaModel())
-						.getEditable();
+				.getEditable();
 
 				RadioButton ret = new RadioButton();
-				// ret.setStyle(GUIStyles.DEFAULT_STYLE);
 				ret.setEnabled(editable);
 				ret.setToolTipText("Seleccion");
 				ret.setGroup(btnGroupClases);
