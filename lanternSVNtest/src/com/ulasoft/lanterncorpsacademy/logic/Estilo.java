@@ -1,7 +1,11 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
 import nextapp.echo.app.Color;
+import nextapp.echo.app.Component;
+import nextapp.echo.app.Extent;
+import nextapp.echo.app.Font;
 import nextapp.echo.app.Style;
+import nextapp.echo.app.Font.Typeface;
 
 import com.ulasoft.lanterncorpsacademy.stilos.BlackStyles;
 import com.ulasoft.lanterncorpsacademy.stilos.BlueStyles;
@@ -112,6 +116,32 @@ public class Estilo {
 			break;
 		}
 		return GUIStyles.STYLE;
+	}
+
+	public static void setFont(Component component, int font) {
+
+		int size = 13;
+		Typeface typeface = Font.VERDANA;
+
+		switch (font) {
+		case 0:
+			component.setFont(new Font(typeface, Font.PLAIN, new Extent(size)));
+			break;
+		case 1:
+			component.setFont(new Font(typeface, Font.BOLD, new Extent(size)));
+			break;
+		case 2:
+			component.setFont(new Font(typeface, Font.ITALIC, new Extent(size)));
+			break;
+		case 3:
+			component.setFont(new Font(typeface, Font.UNDERLINE, new Extent(size)));
+			break;
+		case 4:
+			component.setFont(new Font(typeface, Font.OVERLINE, new Extent(size)));
+			break;
+		default:
+			break;
+		}
 	}
 
 }

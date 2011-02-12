@@ -18,8 +18,8 @@ import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 @SuppressWarnings("serial")
 public class PanelSelectAtacar extends Panel {
 
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
-	LanternCorpsAcademyApp.getActive();
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
 
 	public PanelSelectAtacar() {
 
@@ -27,35 +27,37 @@ public class PanelSelectAtacar extends Panel {
 		Column col = new Column();
 		col.setBackground(Color.WHITE);
 
-		Button btnAtacar = new Button("ATACAR Personaje");
-		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnAtacar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-					btnAtacarClicked();
-			}
-		});
-
 		Button btnAtacarNPC = new Button("ATACAR NPC");
 		btnAtacarNPC.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnAtacarNPC.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-					try {
-						btnAtacarNPCClicked();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+				try {
+					btnAtacarNPCClicked();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 
-		if(app.getAtributos().getPersonaje().getPlanetaRef().getRefIdent() == app.getAtributos().getPersonaje().getClaseLinternaRef().getRefIdent()){
+		Button btnAtacar = new Button("ATACAR Personaje");
+		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnAtacar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				btnAtacarClicked();
+			}
+		});
+
+		if(app.getAtributos().getPersonaje().getPlanetaRef().getRefIdent() == //
+			app.getAtributos().getPersonaje().getClaseLinternaRef().getRefIdent()){
+
 			Desktop d = app.getDesktop();
 			btnAtacarNPC.setEnabled(false);
 			btnAtacar.setEnabled(false);
 			Row row = new Row();
-		    Label lblTitle = new Label("No Puedes Atacar por que Te Encuentras en el Planeta Base");
-		    d.setWindowPaneEmergente("No Puedes Atacar por que Te Encuentras en el Planeta Base");
+			Label lblTitle = new Label("No Puedes Atacar");
+			d.setWindowPaneEmergente("No Puedes Atacar porque te encuentras en el Planeta Base");
 			row.add(lblTitle);
 			row.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 			col.add(row);
