@@ -15,9 +15,6 @@ public class PlanetaDO implements IPlanetaDO {
 	public static final String SECTOR = "sector";
 	public static final String COORDENADA_EN_X = "coordenada_en_x";
 	public static final String COORDENADA_EN_Y = "coordenada_en_y";
-
-	
-
 	
 	// --------------------------------------------------------------------------------
 
@@ -29,6 +26,7 @@ public class PlanetaDO implements IPlanetaDO {
 	private float coordenada_en_y;
 
 	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
+
 	// --------------------------------------------------------------------------------
 
 	private List<IPersonajeDO> personajeList = //
@@ -114,7 +112,6 @@ public class PlanetaDO implements IPlanetaDO {
 	public void setPersonajeList(List<IPersonajeDO> personajeList) {
 		this.personajeList = personajeList;
 	}
-
 
 	// --------------------------------------------------------------------------------
 
