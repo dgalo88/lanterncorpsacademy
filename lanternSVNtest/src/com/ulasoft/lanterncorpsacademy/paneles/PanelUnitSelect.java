@@ -3,7 +3,6 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IHabilidadDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -14,7 +13,6 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
-import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
@@ -28,97 +26,38 @@ import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
-import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
-import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
+import com.ulasoft.lanterncorpsacademy.logic.Ranking;
+
 
 @SuppressWarnings("serial")
-public class PanelAdquirirHabilidades extends Panel {
+public class PanelUnitSelect extends Panel {
 
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
-	private Desktop d = app.getDesktop();
 
 	private TestTableModel tableDtaModel;
-	private List<Integer> seleccion = new ArrayList<Integer>();
+	private List<IPersonajeDO> personajes;
+	int pos=0;
 
-	public PanelAdquirirHabilidades() {
-
-		Column col = new Column();
-		col.add(initTopRow());
-		col.add(initTable());
-
-		Row row = new Row();
-		row.setAlignment(Alignment.ALIGN_CENTER);
-
-		Button btnAtras = new Button("Atras");
-		btnAtras.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnAtras.setWidth(new Extent(160));
-		btnAtras.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				btnAtrasClicked();
-			}
-		});
-		row.add(btnAtras);
-
-		Button btnAdquirirHabilidad = new Button("Adquirir Habilidad");
-		btnAdquirirHabilidad.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnAdquirirHabilidad.setWidth(new Extent(200));
-		btnAdquirirHabilidad.setAlignment(Alignment.ALIGN_CENTER);
-		btnAdquirirHabilidad.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				btnAdquirirHabilidadClicked();
-			}
-		});
-		row.add(btnAdquirirHabilidad);
-
-		col.add(row);
-		add(col);
-	}
-
-	protected void btnAdquirirHabilidadClicked() {
-
-		if(seleccion.isEmpty()){
-			d.setWindowPaneEmergente( //
-					"No ha Seleccionado Ninguna Hablidad para Adquirir, No se Adquiere Nada");
-			return;
-		}
-
-		Atributos atrib = app.getAtributos();
-		IPersonajeDO person = atrib.getPersonaje();
-		try {
-			if(HabilidadesAnillo.adquirirHabilidades(seleccion,person)){
-				d.setWindowPaneEmergente( //
-						"No se Poseen Suficientes Puntos de Entrenamiento, No se Adquiere Nada");
-				return;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		atrib.setPersonaje(person);
-		d.setWindowPaneEmergente("Se han Adquirido las Habilidades con Éxito");
-		return;
-
-	}
-
-	protected void btnAtrasClicked() {
-
-		PanelVerHabilidadesAnillo pnlMain = new PanelVerHabilidadesAnillo();
-		d.setPanelCentral(pnlMain);
-
-	}
-
-	private Component initTable() {
+	public PanelUnitSelect() {
 
 		setInsets(new Insets(2, 2, 2, 2));
 
+		Row row = new Row();
+		row.setAlignment(Alignment.ALIGN_CENTER);
 		Column col = new Column();
+		col.setCellSpacing(new Extent(1));
 		col.setBackground(Color.WHITE);
+		add(col);
+
+		try {
+			personajes = Ranking.obtenerRanking();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		// ----------------------------------------
 		// The table models
@@ -126,18 +65,11 @@ public class PanelAdquirirHabilidades extends Panel {
 
 		TableColModel tableColModel = initTableColModel();
 		TableSelModel tableSelModel = new TableSelModel();
-
 		tableDtaModel = new TestTableModel();
 		tableDtaModel.setEditable(true);
 		tableDtaModel.setPageSize(10);
 
-		Atributos atrr=app.getAtributos();
-		try {
-			tableDtaModel = HabilidadesAnillo.obtenerHabilidadesCompra( //
-					atrr.getPersonaje(), tableDtaModel);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		tableDtaModel = Ranking.asignarRanking(tableDtaModel, personajes);
 
 		// ----------------------------------------
 		// The table
@@ -147,11 +79,9 @@ public class PanelAdquirirHabilidades extends Panel {
 		table.setTableDtaModel(tableDtaModel);
 		table.setTableColModel(tableColModel);
 		table.setTableSelModel(tableSelModel);
-
 		table.setEasyview(true);
-
-		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_NONE));
-		table.setInsets(new Insets(5, 2, 5, 2));
+		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_SOLID));
+		table.setInsets(new Insets(4, 2, 4, 2));
 		col.add(table);
 
 		// ----------------------------------------
@@ -161,17 +91,35 @@ public class PanelAdquirirHabilidades extends Panel {
 		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
 		col.add(tableNavigation);
 
-		return col;
+		// ----------------------------------------
+		// Buttons
+		// ----------------------------------------
 
-	}
+		Button btnCancel = new Button("Cancelar");
+		btnCancel.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnCancel.setWidth(new Extent(80));
+		btnCancel.setHeight(new Extent(20));
+		btnCancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnCancelClicked();
+			}
+		});
+		row.add(btnCancel);
 
-	private Row initTopRow() {
+		Button btnAcept = new Button("Aceptar");
+		btnAcept.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnAcept.setWidth(new Extent(80));
+		btnAcept.setHeight(new Extent(20));
+		btnAcept.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnAceptClicked();
+			}
+		});
+		row.add(btnAcept);
 
-		Row row = new Row();
-		Label lblTitle = new Label("Habilidades Disponibles");
-		row.add(lblTitle);
-		row.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		return row;
+		col.add(row);
 
 	}
 
@@ -185,8 +133,8 @@ public class PanelAdquirirHabilidades extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				return habilidad.getNombre();
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return personaje.getAlias();
 			}
 		};
 		tableColumn.setWidth(new Extent(50));
@@ -198,32 +146,11 @@ public class PanelAdquirirHabilidades extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				Atributos atr=app.getAtributos();		    	  
-				try {
-					return HabilidadesAnillo.obtenerNivel( //
-							atr.getPersonaje().getId(),habilidad);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return 0;
+				IPersonajeDO personaje = (IPersonajeDO) element; 
+				return personaje.getId();
 			}
 		};
-		tableColumn.setWidth(new Extent(25));
-		tableColumn.setHeadValue("Nivel");
-		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		tableColModel.getTableColumnList().add(tableColumn);
-
-
-		tableColumn = new TableColumn() {
-			@Override
-			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				return HabilidadesAnillo.determinarTipo(habilidad.getTipo());
-			}
-		};
-		tableColumn.setWidth(new Extent(25));
+		tableColumn.setWidth(new Extent(50));
 		tableColumn.setHeadValue("Tipo");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -232,18 +159,44 @@ public class PanelAdquirirHabilidades extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				return habilidad.getCosto_de_aprendizaje();
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return personaje.getNivel();
 			}
 		};
-		tableColumn.setWidth(new Extent(25));
-		tableColumn.setHeadValue("Costo de Adquisición");
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Nivel");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+
+		tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return personaje.getId();
+			}
+		};
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Ataque");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+
+		tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return personaje.getId();
+			}
+		};
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Defensa");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn();
-		tableColumn.setWidth(new Extent(25));
+		tableColumn.setWidth(new Extent(50));
 		tableColumn.setHeadValue("");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(initNestedCellRenderer());
@@ -285,6 +238,9 @@ public class PanelAdquirirHabilidades extends Panel {
 
 	// --------------------------------------------------------------------------------
 
+	// TODO: Cambiar por lista de Unidades
+	private List<Integer> seleccion = new ArrayList<Integer>();
+
 	private void btnRadioClicked(int row) {
 
 		Integer e = new Integer(row);
@@ -295,6 +251,16 @@ public class PanelAdquirirHabilidades extends Panel {
 			}
 		}
 		seleccion.add(e);
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnCancelClicked() {
+		// Empty
+	}
+
+	private void btnAceptClicked() {
+		// Empty
 	}
 
 }
