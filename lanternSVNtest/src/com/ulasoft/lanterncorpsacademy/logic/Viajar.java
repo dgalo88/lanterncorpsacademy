@@ -206,7 +206,7 @@ public class Viajar {
 			
 			Desktop d =app.getDesktop();
 			atts.setPersonaje(personaje);
-			atts.updateMenuStatus(d.getMenuStatus());
+			atts.updateMenuStatus(d.getMenuHead().getMenuStatus());
 						
 			personajeDAO.update(personaje);
 			

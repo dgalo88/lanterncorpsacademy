@@ -32,6 +32,7 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atacar;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
+import com.ulasoft.lanterncorpsacademy.logic.DatosClases;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 
 @SuppressWarnings("serial")
@@ -189,8 +190,7 @@ public class PanelAtacarPersonaje extends Panel {
 			@Override
 			public Object getValue(ETable table, Object element) {
 				IPersonajeDO personaje = (IPersonajeDO) element;
-				return Atacar.determinarClase((personaje.getClaseLinternaRef())
-						.getRefIdent());
+				return DatosClases.getClase((personaje.getClaseLinternaRef()).getRefIdent());
 			}
 		};
 
@@ -219,11 +219,11 @@ public class PanelAtacarPersonaje extends Panel {
 		nestedCellRenderer.getCellRendererList().add(new BaseCellRenderer() {
 			@Override
 			public Component getCellRenderer( //
-					final ETable table, final Object value, final int col, //
-					final int row) {
+					final ETable table, final Object value, //
+					final int col, final int row) {
 
-				boolean editable = ((TestTableModel) table.getTableDtaModel())
-				.getEditable();
+				boolean editable = ((TestTableModel) //
+						table.getTableDtaModel()).getEditable();
 
 				RadioButton ret = new RadioButton();
 				ret.setEnabled(editable);

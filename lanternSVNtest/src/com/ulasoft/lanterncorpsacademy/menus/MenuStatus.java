@@ -26,13 +26,13 @@ public class MenuStatus extends Panel {
 		grid.setStyle(GUIStyles.STYLEMENUI);
 
 		Label lblSalud = new Label("Salud");
-		salud = new ProgressBar(15, 180, 0, null);
+		salud = new ProgressBar(13, 150, 0, null);
 
 		Label lblEnergia = new Label("Energia del Anillo");
-		energia = new ProgressBar(15, 180, 1, null);
+		energia = new ProgressBar(13, 150, 1, null);
 
 		Label lblExperiencia = new Label("Experiencia");
-		experiencia = new ProgressBar(15, 180, 2, null);
+		experiencia = new ProgressBar(13, 150, 2, null);
 
 //		Label lblTrains = new Label("Puntos de Entrenamiento:");
 		lblTrainsValue = new Label("XX");
@@ -48,6 +48,7 @@ public class MenuStatus extends Panel {
 
 		grid.setForeground(new Color (255, 255, 255));
 		grid.setHeight(new Extent(50));
+		grid.setWidth(new Extent(275));
 
 		add(grid);
 	}

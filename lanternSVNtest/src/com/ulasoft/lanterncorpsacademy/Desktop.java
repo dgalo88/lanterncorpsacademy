@@ -1,32 +1,24 @@
 package com.ulasoft.lanterncorpsacademy;
 
 import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
-import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
-import nextapp.echo.app.Extent;
-import nextapp.echo.app.FillImageBorder;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
-import nextapp.echo.app.Row;
 import nextapp.echo.app.WindowPane;
-import nextapp.echo.app.event.ActionEvent;
-import nextapp.echo.app.event.ActionListener;
 
-import com.ulasoft.lanterncorpsacademy.logic.Atributos;
-import com.ulasoft.lanterncorpsacademy.logic.Estilo;
+import com.minotauro.echo.table.base.ETable;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.menus.Menu;
 import com.ulasoft.lanterncorpsacademy.menus.MenuButton;
 import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
 import com.ulasoft.lanterncorpsacademy.menus.MenuInicial;
-import com.ulasoft.lanterncorpsacademy.menus.MenuStatus;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
+import com.valkirye.lanterncorpsacademy.extras.WindowLca;
 
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
@@ -34,13 +26,13 @@ import echopoint.layout.HtmlLayoutData;
 @SuppressWarnings("serial")
 public class Desktop extends ContentPane {
 
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
+
 	private HtmlLayout htmlLayout;
 	private HtmlLayoutData hld;
+	private MenuHead menuHead;
 	private WindowPane windowPane;
-	private WindowPane windowData;
-	private MenuStatus menuStatus;
-	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
-		LanternCorpsAcademyApp.getActive();
 
 	// --------------------------------------------------------------------------------
 
@@ -67,7 +59,7 @@ public class Desktop extends ContentPane {
 		htmlLayout.setBackground(new Color (0, 0, 0));
 
 		hld = new HtmlLayoutData("head");
-		MenuHead menuHead = new MenuHead(false);
+		menuHead = new MenuHead(false);
 		menuHead.setLayoutData(hld);
 		htmlLayout.add(menuHead);
 
@@ -103,28 +95,15 @@ public class Desktop extends ContentPane {
 			throw new RuntimeException(e);
 		}
 
-		Atributos atrib = app.getAtributos();
-
 		htmlLayout.setBackground(new Color (0, 0, 0));
 		htmlLayout.setBackgroundImage(new ResourceImageReference(ImgLoad.fondo(app
 				.getAtributos().getPersonaje())));
 
 		hld = new HtmlLayoutData("head");
-		MenuHead menuHead = new MenuHead(true);
+		menuHead = new MenuHead(true);
 		menuHead.setLayoutData(hld);
 		htmlLayout.add(menuHead);
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
-
-		hld = new HtmlLayoutData("headStatus");
-		menuStatus = new MenuStatus();
-		try {
-			atrib.updateMenuStatus(menuStatus);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		menuStatus.setLayoutData(hld);
-		htmlLayout.add(menuStatus);
-		htmlLayout.setAlignment(Alignment.ALIGN_LEFT);
 
 		hld = new HtmlLayoutData("headButton");
 		MenuButton menuButton = new MenuButton();
@@ -166,71 +145,28 @@ public class Desktop extends ContentPane {
 	// --------------------------------------------------------------------------------
 
 	public void setWindowPaneEmergente(String texto) {
-
-		Column col = new Column();
-		Row row = new Row();
-		windowPane = new WindowPane("Información", new Extent(300), new Extent(150));
-		windowPane.setModal(true);
-		windowPane.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		windowPane.setTitleBackground(Estilo.getColor(app.getAtributos()));
-		windowPane.setBackground(Color.WHITE);
-		windowPane.setBorder(new FillImageBorder(Color.BLACK, new Insets(2), new Insets(2)));
-
-		Label txt = new Label(texto);
-		txt.setTextAlignment(Alignment.ALIGN_CENTER);
-		row.add(txt);
-		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.setInsets(new Insets(10, 10, 10, 10));
-		col.add(row);
-
-		Button btnOk = new Button("Ok");
-		btnOk.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnOk.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				remove(windowPane);
-			}
-		});
-		row = new Row();
-		row.add(btnOk);
-		row.setAlignment(Alignment.ALIGN_CENTER);
-		col.add(row);
-		windowPane.add(col);
+		windowPane = new WindowLca(texto);
 		add(windowPane);
+	}
 
+	public void setWindowData(Component component, String titulo) {
+		windowPane = new WindowLca(component, titulo);
+		add(windowPane);
+	}
+
+	public void setWindowUnitSelect(ETable table) {
+		windowPane = new WindowLca(table);
+		add(windowPane);
 	}
 
 	// --------------------------------------------------------------------------------
 
-	public void setWindowData(Component component) {
-
-		Column col = new Column();
-		Row row = new Row();
-		windowData = new WindowPane("Mis Datos", new Extent(600), new Extent(250));
-		windowData.setModal(false);
-		windowData.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		windowData.setTitleBackground(Estilo.getColor(app.getAtributos()));
-		windowData.setBackground(Color.WHITE);
-		windowData.setBorder(new FillImageBorder(Color.BLACK, new Insets(2), new Insets(2)));
-
-		row.add(component);
-		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.setInsets(new Insets(10, 10, 10, 10));
-
-		col.add(row);
-		windowData.add(col);
-		add(windowData);
-
+	public MenuHead getMenuHead() {
+		return menuHead;
 	}
 
-	// --------------------------------------------------------------------------------
-
-	public MenuStatus getMenuStatus() {
-		return menuStatus;
-	}
-
-	public void setMenud(MenuStatus menuStatus) {
-		this.menuStatus = menuStatus;
+	public WindowPane getWindowPane() {
+		return windowPane;
 	}
 
 }

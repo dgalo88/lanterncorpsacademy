@@ -439,7 +439,7 @@ public class Menu extends Panel {
 
 		VerDatos verDatos = new VerDatos( //
 				app.atributos.getUsuario(), app.atributos.getPersonaje());
-		d.setWindowData(verDatos.getDatos());
+		d.setWindowData(verDatos.getDatos(), "Mis Datos");
 
 	}
 
@@ -490,7 +490,7 @@ public class Menu extends Panel {
 		TestCellRenderer tcr = new TestCellRenderer();
 		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
 
-		d.setWindowData(oSelectScrolling);
+		d.setWindowData(oSelectScrolling, "Inventario de Unidades");
 
 	}
 

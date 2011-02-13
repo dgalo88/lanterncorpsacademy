@@ -327,7 +327,7 @@ public class Atacar {
 		}
 		atts.setPersonaje(atacante);
 		atts.guardarAtts();
-		atts.updateMenuStatus(desktop.getMenuStatus());
+		atts.updateMenuStatus(desktop.getMenuHead().getMenuStatus());
 		personajeDAO.update(contrincante);
 
 		return result;
@@ -485,7 +485,7 @@ public class Atacar {
 
 		atts.setPersonaje(atacante);
 		atts.guardarAtts();
-		atts.updateMenuStatus(desktop.getMenuStatus());
+		atts.updateMenuStatus(desktop.getMenuHead().getMenuStatus());
 
 		return result;
 	}
@@ -510,26 +510,4 @@ public class Atacar {
 		return tableDtaModel;
 	}
 
-
-	public static String determinarClase(int clase) {
-		switch (clase) {
-		case 1:
-			return "Green Lantern Corps";
-		case 2:
-			return "Siniestro Corps";
-		case 3:
-			return "Red Lantern Corps";
-		case 4:
-			return "Black Lantern Corps";
-		case 5:
-			return "Blue Lantern Corps";
-		case 6:
-			return "Tribu Indigo";
-		case 7:
-			return "Star Saphirre";
-		default:
-			break;
-		}
-		return "";
-	}
 }
