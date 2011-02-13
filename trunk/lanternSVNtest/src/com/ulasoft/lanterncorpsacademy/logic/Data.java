@@ -1,6 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
-public class DatosClases {
+public class Data {
 
 	public static String getClase(int ref) {
 		switch (ref) {
@@ -40,6 +40,30 @@ public class DatosClases {
 			return "Aku";
 		case 7:
 			return "Zamaron";
+		default:
+			break;
+		}
+		return "";
+	}
+
+	public static String getRecurso(int ref) {
+		switch (ref) {
+		case 1:
+			return "Plomo";
+		case 2:
+			return "Hierro";
+		case 3:
+			return "Acero";
+		case 4:
+			return "Uranio";
+		case 5:
+			return "Titanio";
+		case 6:
+			return "Cristalo";
+		case 7:
+			return "Adamantium";
+		case 8:
+			return "Vibratium";
 		default:
 			break;
 		}

@@ -2,7 +2,7 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 
 import java.util.List;
 
-import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IRecursoDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -27,7 +27,6 @@ import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.logic.Ranking;
 import com.valkirye.lanterncorpsacademy.components.SpinButton;
 
 
@@ -39,7 +38,9 @@ public class PanelAsignarPrecio extends Panel {
 
 	private TestTableModel tableDtaModel;
 	private ETable table;
-	private List<IPersonajeDO> personajes;
+	private List<IRecursoDO> recursos;
+//	private List<String> recursos = new ArrayList<String>();
+//	private List<IPersonajeDO> personajes;
 	int pos=0;
 
 	public PanelAsignarPrecio() {
@@ -53,11 +54,11 @@ public class PanelAsignarPrecio extends Panel {
 		col.setBackground(Color.WHITE);
 		add(col);
 
-		try {
-			personajes = Ranking.obtenerRanking();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			recursos = Recursos.obtenerRecursos();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
 		// ----------------------------------------
 		// The table models
@@ -69,7 +70,7 @@ public class PanelAsignarPrecio extends Panel {
 		tableDtaModel.setEditable(true);
 		tableDtaModel.setPageSize(10);
 
-		tableDtaModel = Ranking.asignarRanking(tableDtaModel, personajes);
+//		tableDtaModel = Recursos.asignarRecursos(tableDtaModel, recursos);
 
 		// ----------------------------------------
 		// The table
@@ -121,8 +122,8 @@ public class PanelAsignarPrecio extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
-				return personaje.getAlias();
+				IRecursoDO recurso = (IRecursoDO) element;
+				return recurso.getNombre();
 			}
 		};
 		tableColumn.setWidth(new Extent(50));

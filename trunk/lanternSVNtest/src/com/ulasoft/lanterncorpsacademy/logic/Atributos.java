@@ -128,7 +128,7 @@ public class Atributos {
 
 		System.err.println("PLANETA ID en atts main:" + planeta.getId());
 		conquistar.getLblAlias().setText(personaje.getAlias());
-		conquistar.getLblClase().setText(DatosClases.getClase(personaje.getClaseLinternaRef().getRefIdent()));
+		conquistar.getLblClase().setText(Data.getClase(personaje.getClaseLinternaRef().getRefIdent()));
 		conquistar.getLblNivel().setText(Integer.toString(personaje.getNivel()));
 
 	}

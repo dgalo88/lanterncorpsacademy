@@ -1,7 +1,7 @@
 package com.valkirye.lanterncorpsacademy.extras;
 
 
-import com.ulasoft.lanterncorpsacademy.logic.DatosClases;
+import com.ulasoft.lanterncorpsacademy.logic.Data;
 
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDO;
@@ -57,12 +57,12 @@ public class VerDatos extends Row {
 
 		grid = new Grid();
 		grid.add(new Label("Clase: "));
-		grid.add(new Label(DatosClases.getClase(personaje.getClaseLinternaRef().getRefIdent())));
+		grid.add(new Label(Data.getClase(personaje.getClaseLinternaRef().getRefIdent())));
 		col.add(grid);
 
 		grid = new Grid();
 		grid.add(new Label("Planeta Casa:"));
-		grid.add(new Label(DatosClases.getPlanetaBase(personaje.getClaseLinternaRef().getRefIdent())));
+		grid.add(new Label(Data.getPlanetaBase(personaje.getClaseLinternaRef().getRefIdent())));
 		col.add(grid);
 
 		grid = new Grid();

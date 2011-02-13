@@ -32,7 +32,7 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atacar;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
-import com.ulasoft.lanterncorpsacademy.logic.DatosClases;
+import com.ulasoft.lanterncorpsacademy.logic.Data;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 
 @SuppressWarnings("serial")
@@ -190,7 +190,7 @@ public class PanelAtacarPersonaje extends Panel {
 			@Override
 			public Object getValue(ETable table, Object element) {
 				IPersonajeDO personaje = (IPersonajeDO) element;
-				return DatosClases.getClase((personaje.getClaseLinternaRef()).getRefIdent());
+				return Data.getClase((personaje.getClaseLinternaRef()).getRefIdent());
 			}
 		};
 
