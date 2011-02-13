@@ -10,7 +10,6 @@ import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.WindowPane;
 
-import com.minotauro.echo.table.base.ETable;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.menus.Menu;
 import com.ulasoft.lanterncorpsacademy.menus.MenuButton;
@@ -149,13 +148,8 @@ public class Desktop extends ContentPane {
 		add(windowPane);
 	}
 
-	public void setWindowData(Component component, String titulo) {
-		windowPane = new WindowLca(component, titulo);
-		add(windowPane);
-	}
-
-	public void setWindowUnitSelect(ETable table) {
-		windowPane = new WindowLca(table);
+	public void setWindowData(Component component, String titulo, int width, int height) {
+		windowPane = new WindowLca(component, titulo, width, height);
 		add(windowPane);
 	}
 
