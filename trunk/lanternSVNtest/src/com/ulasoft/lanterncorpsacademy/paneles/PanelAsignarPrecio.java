@@ -38,6 +38,7 @@ public class PanelAsignarPrecio extends Panel {
 			LanternCorpsAcademyApp.getActive();
 
 	private TestTableModel tableDtaModel;
+	private ETable table;
 	private List<IPersonajeDO> personajes;
 	int pos=0;
 
@@ -74,7 +75,7 @@ public class PanelAsignarPrecio extends Panel {
 		// The table
 		// ----------------------------------------
 
-		ETable table = new ETable();
+		table = new ETable();
 		table.setTableDtaModel(tableDtaModel);
 		table.setTableColModel(tableColModel);
 		table.setTableSelModel(tableSelModel);
@@ -165,6 +166,10 @@ public class PanelAsignarPrecio extends Panel {
 
 	private void btnAceptClicked() {
 		// Empty
+	}
+
+	public ETable getTable() {
+		return table;
 	}
 
 }

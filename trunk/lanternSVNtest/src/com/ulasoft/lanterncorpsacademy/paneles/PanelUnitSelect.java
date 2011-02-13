@@ -39,6 +39,7 @@ public class PanelUnitSelect extends Panel {
 			LanternCorpsAcademyApp.getActive();
 
 	private TestTableModel tableDtaModel;
+	private ETable table;
 	private List<IPersonajeDO> personajes;
 	int pos=0;
 
@@ -75,7 +76,7 @@ public class PanelUnitSelect extends Panel {
 		// The table
 		// ----------------------------------------
 
-		ETable table = new ETable();
+		table = new ETable();
 		table.setTableDtaModel(tableDtaModel);
 		table.setTableColModel(tableColModel);
 		table.setTableSelModel(tableSelModel);
@@ -263,4 +264,7 @@ public class PanelUnitSelect extends Panel {
 		// Empty
 	}
 
+	public ETable getTable() {
+		return table;
+	}
 }

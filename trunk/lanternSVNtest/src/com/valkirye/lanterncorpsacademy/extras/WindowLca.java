@@ -14,7 +14,6 @@ import nextapp.echo.app.WindowPane;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
-import com.minotauro.echo.table.base.ETable;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 
@@ -63,16 +62,15 @@ public class WindowLca extends WindowPane {
 
 	// --------------------------------------------------------------------------------
 
-	public WindowLca(Component component, String titulo) {
+	public WindowLca(Component component, String titulo, int width, int height) {
 
 		Column col = new Column();
 		Row row = new Row();
 
 		setTitle(titulo);
-		setWidth(new Extent(600));
-		setHeight(new Extent(230));
-		setModal(false);
-		setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		setWidth(new Extent(width));
+		setHeight(new Extent(height));
+		setModal(true);
 		setTitleBackground(Estilo.getColor(app.getAtributos()));
 		setBackground(Color.WHITE);
 		setBorder(new FillImageBorder(Color.BLACK, new Insets(2), new Insets(2)));
@@ -87,27 +85,4 @@ public class WindowLca extends WindowPane {
 
 	}
 
-	public WindowLca(ETable table) {
-
-		Column col = new Column();
-		Row row = new Row();
-
-		setTitle("Mis Datos");
-		setWidth(new Extent(500));
-		setHeight(new Extent(600));
-		setModal(true);
-		setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		setTitleBackground(Estilo.getColor(app.getAtributos()));
-		setBackground(Color.WHITE);
-		setBorder(new FillImageBorder(Color.BLACK, new Insets(2), new Insets(2)));
-		setResizable(false);
-
-		row.add(table);
-		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.setInsets(new Insets(10, 10, 10, 10));
-
-		col.add(row);
-		add(col);
-
-	}
 }
