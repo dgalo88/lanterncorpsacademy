@@ -74,15 +74,9 @@ public class PanelMain extends Panel {
 		Estilo.setFont(lblUbicacion, GUIStyles.BOLD);
 		colInf[0].add(lblUbicacion);
 
-		Label lblPlaneta = new Label("Planeta:");
-		Estilo.setFont(lblPlaneta, GUIStyles.NORMAL);
-		colInf[0].add(lblPlaneta);
 		Estilo.setFont(lblPlanetaValue, GUIStyles.NORMAL);
 		colInf[0].add(lblPlanetaValue);
 
-		Label lblSector = new Label("Sector:");
-		Estilo.setFont(lblSector, GUIStyles.NORMAL);
-		colInf[0].add(lblSector);
 		Estilo.setFont(lblSectorValue, GUIStyles.NORMAL);
 		colInf[0].add(lblSectorValue);
 
@@ -114,9 +108,6 @@ public class PanelMain extends Panel {
 		Estilo.setFont(lblUltimoAcceso, GUIStyles.BOLD);
 		colInf[2].add(lblUltimoAcceso);
 
-		Label lblFecha = new Label("Fecha:");
-		Estilo.setFont(lblFecha, GUIStyles.NORMAL);
-		colInf[2].add(lblFecha);
 		Estilo.setFont(lblFechaValue, GUIStyles.NORMAL);
 		colInf[2].add(lblFechaValue);
 

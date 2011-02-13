@@ -1,8 +1,8 @@
-package com.valkirye.lanterncorpsacademy.extras;
+package com.ulasoft.lanterncorpsacademy.logic;
 
 public class DatosClases {
 
-	public static String clase(int ref) {
+	public static String getClase(int ref) {
 		switch (ref) {
 		case 1:
 			return "Green Lantern Corps";
@@ -24,7 +24,7 @@ public class DatosClases {
 		return "";
 	}
 
-	public static String planetaCasa(int ref) {
+	public static String getPlanetaBase(int ref) {
 		switch (ref) {
 		case 1:
 			return "Oa";
