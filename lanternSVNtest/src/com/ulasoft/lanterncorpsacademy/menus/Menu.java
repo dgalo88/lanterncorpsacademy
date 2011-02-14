@@ -25,6 +25,7 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelMisDatos;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelSelectAtacar;
@@ -38,7 +39,6 @@ import com.valkirye.lanterncorpsacademy.extras.ObjectLca;
 import com.valkirye.lanterncorpsacademy.extras.ObjectSelectModel;
 import com.valkirye.lanterncorpsacademy.extras.ObjectSelectScrolling;
 import com.valkirye.lanterncorpsacademy.extras.TestCellRenderer;
-import com.valkirye.lanterncorpsacademy.extras.VerDatos;
 
 @SuppressWarnings("serial")
 public class Menu extends Panel {
@@ -438,10 +438,8 @@ public class Menu extends Panel {
 
 	private void btnVerDatosClicked() {
 
-		VerDatos verDatos = new VerDatos( //
-				app.getAtributos().getUsuario(), //
-				app.getAtributos().getPersonaje());
-		d.setWindowData(verDatos.getDatos(), "Mis Datos", 600, 230);
+		PanelMisDatos pnlMain = new PanelMisDatos();
+		d.setWindowData(pnlMain, "Mis Datos", 650, 260);
 
 	}
 

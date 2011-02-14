@@ -12,6 +12,7 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.menus.MenuStatus;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelMisDatos;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 import dao.connection.ConnectionBean;
@@ -98,13 +99,13 @@ public class Atributos {
 
 	public void updatePanelMain(PanelMain main) throws Exception {
 
-		ConnectionBean connectionBean=ConnectionFactory.getConnectionBean();
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 		IPlanetaDAO planetaDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
 		//IPlanetaDO planeta = (IPlanetaDO) GlobalDOFactory.getDO(IPlanetaDO.class);
 //		IMisionPersonajeDAO misionPersonDAO = (IMisionPersonajeDAO) GlobalDAOFactory
 //				.getDAO(IMisionPersonajeDAO.class, connectionBean);
-		
-		IPlanetaDO planeta= (IPlanetaDO) planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
+
+		IPlanetaDO planeta = (IPlanetaDO) planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
 //		int misionCount= misionPersonDAO.countByPersonajeId(personaje.getId());
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
 
@@ -119,10 +120,10 @@ public class Atributos {
 
 	public void updatePanelConquistar(PanelConquistar conquistar) throws Exception {
 
-		ConnectionBean connectionBean=ConnectionFactory.getConnectionBean();
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
 		IPlanetaDAO planetaDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
-		IPlanetaDO planeta= (IPlanetaDO) planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
+		IPlanetaDO planeta = (IPlanetaDO) planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
 
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
 
@@ -130,6 +131,40 @@ public class Atributos {
 		conquistar.getLblAlias().setText(personaje.getAlias());
 		conquistar.getLblClase().setText(Data.getClase(personaje.getClaseLinternaRef().getRefIdent()));
 		conquistar.getLblNivel().setText(Integer.toString(personaje.getNivel()));
+
+	}
+
+	public void updatePanelMisDatos(PanelMisDatos misDatos) throws Exception {
+
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+
+		IPlanetaDAO planetaDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
+		IPlanetaDO planeta = (IPlanetaDO) planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
+
+		ConnectionFactory.closeConnection(connectionBean.getConnection());
+
+		System.err.println("PLANETA ID en atts main:" + planeta.getId());
+		misDatos.getLblNombre().setText("Nombre: " + usuario.getNombre());
+		misDatos.getLblCorreo().setText("Correo: " + usuario.getCorreo());
+		misDatos.getLblAlias().setText("Alias: " + personaje.getAlias());
+		misDatos.getLblPlanetaValue().setText("Planeta Casa: " //
+				+ Data.getPlanetaBase(personaje.getClaseLinternaRef().getRefIdent()));
+		misDatos.getLblClase().setText("Clase: " + Data.getClase( //
+				personaje.getClaseLinternaRef().getRefIdent()));
+		misDatos.getLblNivel().setText("Nivel: " + //
+				Integer.toString(personaje.getNivel()));
+		misDatos.getLblPuntosEntrenamiento().setText("Puntos de Entrenamiento: " //
+				+ Integer.toString(personaje.getPuntosDeEntrenamiento()));
+		misDatos.getLblOfertas().setText("Ofertas: 00");
+
+		misDatos.getLblPlomo().setText("Plomo: 00");
+		misDatos.getLblHierro().setText("Hierro: 00");
+		misDatos.getLblAcero().setText("Acero: 00");
+		misDatos.getLblUranio().setText("Uranio: 00");
+		misDatos.getLblTitanio().setText("Titanio: 00");
+		misDatos.getLblCristalo().setText("Crstalo: 00");
+		misDatos.getLblAdamantium().setText("Adamantium: 00");
+		misDatos.getLblVibratium().setText("Vibratium: 00");
 
 	}
 
