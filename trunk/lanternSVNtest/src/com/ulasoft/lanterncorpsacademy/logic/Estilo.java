@@ -144,4 +144,29 @@ public class Estilo {
 		}
 	}
 
+	public static void setFont(Component component, int font, int size) {
+
+		Typeface typeface = Font.VERDANA;
+
+		switch (font) {
+		case 0:
+			component.setFont(new Font(typeface, Font.PLAIN, new Extent(size)));
+			break;
+		case 1:
+			component.setFont(new Font(typeface, Font.BOLD, new Extent(size)));
+			break;
+		case 2:
+			component.setFont(new Font(typeface, Font.ITALIC, new Extent(size)));
+			break;
+		case 3:
+			component.setFont(new Font(typeface, Font.UNDERLINE, new Extent(size)));
+			break;
+		case 4:
+			component.setFont(new Font(typeface, Font.OVERLINE, new Extent(size)));
+			break;
+		default:
+			break;
+		}
+	}
+
 }

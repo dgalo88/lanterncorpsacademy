@@ -37,6 +37,9 @@ public class WindowLca extends WindowPane {
 		setBackground(Color.WHITE);
 		setBorder(new FillImageBorder(Color.BLACK, new Insets(2), new Insets(2)));
 
+		col.setInsets(new Insets(10, 10, 10, 10));
+		col.setCellSpacing(new Extent(10));
+
 		Label txt = new Label(texto);
 		row.add(txt);
 		row.setAlignment(Alignment.ALIGN_CENTER);
@@ -55,8 +58,7 @@ public class WindowLca extends WindowPane {
 		row = new Row();
 		row.add(btnOk);
 		row.setAlignment(Alignment.ALIGN_CENTER);
-		col.setInsets(new Insets(10, 10, 10, 10));
-		col.setCellSpacing(new Extent(5));
+
 		col.add(row);
 		add(col);
 
@@ -66,9 +68,6 @@ public class WindowLca extends WindowPane {
 
 	public WindowLca(Component component, String titulo, int width, int height) {
 
-		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.setInsets(new Insets(10, 10, 10, 10));
-
 		setTitle(titulo);
 		setWidth(new Extent(width));
 		setHeight(new Extent(height));
@@ -77,6 +76,9 @@ public class WindowLca extends WindowPane {
 		setBackground(Color.WHITE);
 		setBorder(new FillImageBorder(Color.BLACK, new Insets(2), new Insets(2)));
 		setResizable(false);
+
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		row.setInsets(new Insets(5, 5, 5, 5));
 
 		row.add(component);
 		col.add(row);
