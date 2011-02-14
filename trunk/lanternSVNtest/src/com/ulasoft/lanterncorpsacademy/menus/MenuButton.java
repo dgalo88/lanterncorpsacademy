@@ -25,7 +25,7 @@ public class MenuButton extends Panel {
 		Row row = new Row();
 		row.setStyle(GUIStyles.STYLEBUTTON);
 
-		Button btnInvitarNuevosUsuarios = new Button("Invitar Nuevos Usuarios");
+		Button btnInvitarNuevosUsuarios = new Button("Invitar Amigo");
 		btnInvitarNuevosUsuarios.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnInvitarNuevosUsuarios.addActionListener(new ActionListener() {
 			@Override
@@ -36,7 +36,7 @@ public class MenuButton extends Panel {
 		btnInvitarNuevosUsuarios.setAlignment(Alignment.ALIGN_RIGHT);
 		row.add(btnInvitarNuevosUsuarios);
 
-		Button btnExit = new Button("Exit");
+		Button btnExit = new Button("Salir");
 		btnExit.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnExit.setWidth(new Extent(60));
 		btnExit.addActionListener(new ActionListener() {

@@ -20,6 +20,7 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelAdquirirTecnologia;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
@@ -248,7 +249,7 @@ public class Menu extends Panel {
 		btnAdquirirTecnologia.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-//				btnAdquirirTecnologiaClicked();
+				btnAdquirirTecnologiaClicked();
 			}
 		});
 		col.add(grid[1]);
@@ -567,5 +568,12 @@ public class Menu extends Panel {
 		d.setPanelCentral(pnlMain);
 
 	}
+	// --------------------------------------------------------------------------------
 
+	protected void btnAdquirirTecnologiaClicked() {
+
+		PanelAdquirirTecnologia pnlMain = new PanelAdquirirTecnologia();
+		d.setPanelCentral(pnlMain);
+
+	}
 }
