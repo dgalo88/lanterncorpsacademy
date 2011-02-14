@@ -41,11 +41,8 @@ public class PanelUnitSelect extends Panel {
 	private TestTableModel tableDtaModel;
 	private ETable table;
 	private List<IPersonajeDO> personajes;
-	int pos=0;
 
 	public PanelUnitSelect() {
-
-		setInsets(new Insets(2, 2, 2, 2));
 
 		Row row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
@@ -138,7 +135,7 @@ public class PanelUnitSelect extends Panel {
 				return personaje.getAlias();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Nombre");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -264,7 +261,4 @@ public class PanelUnitSelect extends Panel {
 		// Empty
 	}
 
-	public ETable getTable() {
-		return table;
-	}
 }

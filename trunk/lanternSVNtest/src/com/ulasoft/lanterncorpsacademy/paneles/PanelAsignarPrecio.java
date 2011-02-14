@@ -1,8 +1,8 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IRecursoDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -17,7 +17,6 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.minotauro.echo.table.base.ETable;
-import com.minotauro.echo.table.base.ETableNavigation;
 import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
 import com.minotauro.echo.table.base.TableSelModel;
@@ -27,8 +26,8 @@ import com.minotauro.echo.table.renderer.NestedCellRenderer;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
+import com.ulasoft.lanterncorpsacademy.logic.Recursos;
 import com.valkirye.lanterncorpsacademy.components.SpinButton;
-
 
 @SuppressWarnings("serial")
 public class PanelAsignarPrecio extends Panel {
@@ -38,27 +37,26 @@ public class PanelAsignarPrecio extends Panel {
 
 	private TestTableModel tableDtaModel;
 	private ETable table;
-	private List<IRecursoDO> recursos;
-//	private List<String> recursos = new ArrayList<String>();
-//	private List<IPersonajeDO> personajes;
-	int pos=0;
+//	private List<IRecursoDO> recursos;
+	private List<Recursos> recursos = new ArrayList<Recursos>();
+	private Recursos recurso;
 
 	public PanelAsignarPrecio() {
-
-		setInsets(new Insets(2, 2, 2, 2));
 
 		Row row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
 		Column col = new Column();
-		col.setCellSpacing(new Extent(1));
+		col.setCellSpacing(new Extent(10));
 		col.setBackground(Color.WHITE);
-		add(col);
 
-//		try {
-//			recursos = Recursos.obtenerRecursos();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			for (int i = 0; i < 8; i++) {
+				recurso = new Recursos(i);
+				recursos.add(recurso);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		// ----------------------------------------
 		// The table models
@@ -68,9 +66,9 @@ public class PanelAsignarPrecio extends Panel {
 		TableSelModel tableSelModel = new TableSelModel();
 		tableDtaModel = new TestTableModel();
 		tableDtaModel.setEditable(true);
-		tableDtaModel.setPageSize(10);
 
 //		tableDtaModel = Recursos.asignarRecursos(tableDtaModel, recursos);
+		tableDtaModel = Recursos.asignarRec(tableDtaModel, recursos);
 
 		// ----------------------------------------
 		// The table
@@ -86,19 +84,12 @@ public class PanelAsignarPrecio extends Panel {
 		col.add(table);
 
 		// ----------------------------------------
-		// The navigation control
-		// ----------------------------------------
-
-		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
-		col.add(tableNavigation);
-
-		// ----------------------------------------
 		// Buttons
 		// ----------------------------------------
 
 		Button btnAcept = new Button("Aceptar");
 		btnAcept.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnAcept.setWidth(new Extent(80));
+		btnAcept.setWidth(new Extent(90));
 		btnAcept.setHeight(new Extent(20));
 		btnAcept.addActionListener(new ActionListener() {
 			@Override
@@ -109,6 +100,7 @@ public class PanelAsignarPrecio extends Panel {
 		row.add(btnAcept);
 
 		col.add(row);
+		add(col);
 
 	}
 
@@ -122,7 +114,7 @@ public class PanelAsignarPrecio extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IRecursoDO recurso = (IRecursoDO) element;
+				Recursos recurso = (Recursos) element;
 				return recurso.getNombre();
 			}
 		};
@@ -167,10 +159,6 @@ public class PanelAsignarPrecio extends Panel {
 
 	private void btnAceptClicked() {
 		// Empty
-	}
-
-	public ETable getTable() {
-		return table;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDO;
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
@@ -46,8 +47,8 @@ public class PanelLogin extends Panel {
 
 	public PanelLogin() {
 
-		Row row1 = new Row();
-		row1.setStyle(GUIStyles.STYLECENTERROW);
+		Row row = new Row();
+		row.setStyle(GUIStyles.STYLECENTERROW);
 
 		Column col = new Column();
 		col.setInsets(new Insets(5, 5, 5, 5));
@@ -55,29 +56,37 @@ public class PanelLogin extends Panel {
 		col.setBackground(Color.WHITE);
 
 		Label lblTitle = new Label("Ingresar al Sistema");
-		col.add(lblTitle);
+		Estilo.setFont(lblTitle, GUIStyles.BOLD);
+		row.add(lblTitle);
+		col.add(row);
 
 		Grid grid = new Grid();
 		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 
 		Label lblCorreo = new Label("Correo");
+		Estilo.setFont(lblCorreo, GUIStyles.BOLD);
 		grid.add(lblCorreo);
 		txtCorreo = new TextField();
 		txtCorreo.setWidth(new Extent(300));
 		txtCorreo.setText("");
+		Estilo.setFont(lblCorreo, GUIStyles.NORMAL);
 		grid.add(txtCorreo);
 
 		Label lblPass = new Label("Contraseña");
+		Estilo.setFont(lblPass, GUIStyles.BOLD);
 		grid.add(lblPass);
 		fldPass = new PasswordField();
 		fldPass.setWidth(new Extent(300));
 		grid.add(fldPass);
 		col.add(grid);
 
-		Row row = new Row();
+		row = new Row();
+		row.setCellSpacing(new Extent(10));
+		row.setStyle(GUIStyles.STYLECENTERROW);
 
 		Button btnEnter = new Button("Entrar");
 		btnEnter.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		Estilo.setFont(btnEnter, GUIStyles.NORMAL);
 		btnEnter.setWidth(new Extent(80));
 		btnEnter.setHeight(new Extent(20));
 		btnEnter.addActionListener(new ActionListener() {
@@ -94,6 +103,7 @@ public class PanelLogin extends Panel {
 
 		Button btnRegister = new Button("Registrarse");
 		btnRegister.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		Estilo.setFont(btnRegister, GUIStyles.NORMAL);
 		btnRegister.setWidth(new Extent(80));
 		btnRegister.setHeight(new Extent(20));
 		btnRegister.addActionListener(new ActionListener() {
@@ -108,8 +118,6 @@ public class PanelLogin extends Panel {
 		});
 		row.add(btnRegister);
 
-		row.setCellSpacing(new Extent(10));
-
 		col.add(row);
 
 //		List<ObjectLca> list = new ArrayList<ObjectLca>();
@@ -123,43 +131,51 @@ public class PanelLogin extends Panel {
 //		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
 //		col.add(oSelectScrolling);
 
-		row1.add(col);
-		add(row1);
+		row = new Row();
+		row.setStyle(GUIStyles.STYLECENTERROW);
+
+		row.add(col);
+		add(row);
 
 	}
 
 	// --------------------------------------------------------------------------------
 
 	protected void btnRegisterClicked() throws Exception {
-		IUsuarioDO usuario = (IUsuarioDO) GlobalDOFactory
-		.getDO(IUsuarioDO.class);
-		IPersonajeDO personaje = (IPersonajeDO) GlobalDOFactory
-		.getDO(IPersonajeDO.class);
-		PanelRegistro1 pnlregistro1 = new PanelRegistro1(usuario, personaje);
+
+		IUsuarioDO usuario = (IUsuarioDO) //
+			GlobalDOFactory.getDO(IUsuarioDO.class);
+		IPersonajeDO personaje = (IPersonajeDO) //
+			GlobalDOFactory.getDO(IPersonajeDO.class);
+
+		PanelRegistro1 pnlMain = new PanelRegistro1(usuario, personaje);
 		desktop = app.getDesktop();
-		desktop.setPanelCentral(pnlregistro1);
+		desktop.setPanelCentral(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnEnterClicked() throws Exception {
-		// TODO: verifica campos vacíos antes de enviar...
 
+		// TODO: verifica campos vacíos antes de enviar...
 		usuario = Login.verificarLogin(txtCorreo.getText(), fldPass.getText());
 		desktop = app.getDesktop();
 
 		if (usuario == null) {
-			desktop.setWindowPaneEmergente("La informacion de correo o Contraseña proporcionada no es Correcta.");
+			desktop.setWindowPaneEmergente( //
+					"La informacion de correo o Contraseña proporcionada no es Correcta.");
 			return;
 		}
-		personaje = Login.cargarPersonaje(usuario.getPersonajeRef()
-				.getRefIdent());
-		System.err.println("PERSONAJE ID en PLogin:" + personaje.getId());
 
-		Atributos atts = new Atributos(); // FIXME: FIXMEEEEEEEEE
-		atts.setPersonaje(personaje);
-		atts.setUsuario(usuario);
-		app.setAtributos(atts);
+		personaje = Login.cargarPersonaje( //
+				usuario.getPersonajeRef().getRefIdent());
+		System.err.println("PERSONAJE ID en PanelLogin: " + personaje.getId());
+
+		Atributos atrib = new Atributos(); // FIXME: FIXMEEEEEEEEE
+		atrib.setPersonaje(personaje);
+		atrib.setUsuario(usuario);
+		app.setAtributos(atrib);
 		desktop.removeAll();
 		desktop.add(desktop.initTemplate2());
 	}

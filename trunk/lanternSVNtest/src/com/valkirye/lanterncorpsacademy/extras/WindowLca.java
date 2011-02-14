@@ -23,10 +23,10 @@ public class WindowLca extends WindowPane {
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
 
-	public WindowLca(String texto) {
+	private Column col = new Column();
+	private Row row = new Row();
 
-		Column col = new Column();
-		Row row = new Row();
+	public WindowLca(String texto) {
 
 		setTitle("Información");
 		setWidth(new Extent(300));
@@ -38,13 +38,13 @@ public class WindowLca extends WindowPane {
 		setBorder(new FillImageBorder(Color.BLACK, new Insets(2), new Insets(2)));
 
 		Label txt = new Label(texto);
-		txt.setTextAlignment(Alignment.ALIGN_CENTER);
 		row.add(txt);
 		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.setInsets(new Insets(10, 10, 10, 10));
 		col.add(row);
 
 		Button btnOk = new Button("Ok");
+		btnOk.setWidth(new Extent(80));
+		btnOk.setHeight(new Extent(20));
 		btnOk.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnOk.addActionListener(new ActionListener() {
 			@Override
@@ -55,6 +55,8 @@ public class WindowLca extends WindowPane {
 		row = new Row();
 		row.add(btnOk);
 		row.setAlignment(Alignment.ALIGN_CENTER);
+		col.setInsets(new Insets(10, 10, 10, 10));
+		col.setCellSpacing(new Extent(5));
 		col.add(row);
 		add(col);
 
@@ -64,8 +66,8 @@ public class WindowLca extends WindowPane {
 
 	public WindowLca(Component component, String titulo, int width, int height) {
 
-		Column col = new Column();
-		Row row = new Row();
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		row.setInsets(new Insets(10, 10, 10, 10));
 
 		setTitle(titulo);
 		setWidth(new Extent(width));
@@ -77,9 +79,6 @@ public class WindowLca extends WindowPane {
 		setResizable(false);
 
 		row.add(component);
-		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.setInsets(new Insets(10, 10, 10, 10));
-
 		col.add(row);
 		add(col);
 

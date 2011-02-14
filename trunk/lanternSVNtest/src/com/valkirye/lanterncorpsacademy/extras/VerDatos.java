@@ -1,6 +1,9 @@
 package com.valkirye.lanterncorpsacademy.extras;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ulasoft.lanterncorpsacademy.logic.Data;
 
 import lcaInterfaceDAO.IPersonajeDO;
@@ -83,6 +86,26 @@ public class VerDatos extends Row {
 		row.add(col);
 
 	}
+
+	// --------------------------------------------------------------------------------
+
+	public static ObjectSelectScrolling getUnidades() {
+
+		List<ObjectLca> list = new ArrayList<ObjectLca>();
+		for (int i = 0; i < 10; i++) {
+			ObjectLca item = new ObjectLca(i);
+			list.add(item);
+		}
+
+		ObjectSelectModel oModel = new ObjectSelectModel(list);
+		TestCellRenderer tcr = new TestCellRenderer();
+		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
+
+		return oSelectScrolling;
+
+	}
+
+	// --------------------------------------------------------------------------------
 
 	public Row getDatos (){
 		return row;

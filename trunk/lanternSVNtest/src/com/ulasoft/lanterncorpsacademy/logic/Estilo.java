@@ -120,7 +120,7 @@ public class Estilo {
 
 	public static void setFont(Component component, int font) {
 
-		int size = 13;
+		int size = 14;
 		Typeface typeface = Font.VERDANA;
 
 		switch (font) {

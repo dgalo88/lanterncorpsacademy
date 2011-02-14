@@ -8,9 +8,9 @@ import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 @SuppressWarnings("serial")
 public class LanternCorpsAcademyApp extends ApplicationInstance {
 
-	public Desktop desktop;
+	private Desktop desktop;
 
-	public Atributos atributos;
+	private Atributos atributos;
 
 	public Window init() {
 		Window window = new Window();
