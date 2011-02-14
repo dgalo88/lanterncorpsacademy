@@ -1,8 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.util.Random;
-
-import lcaInterfaceDAO.IPlanetaDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -19,25 +16,24 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
-public class PanelConquistar extends Panel {
+public class PanelAtacarDuenoPlaneta extends Panel {
 
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
 
-	private IPlanetaDO planeta;
-	private Label lblAlias;
-	private Label lblClase;
-	private Label lblNivel;
+//	private IPlanetaDO planeta;
+	private Label lblAlias = new Label("Dueño de Planeta");
+	private Label lblClase = new Label("Black Lantern Corp");
+	private Label lblNivel = new Label("50000");
 
-	public PanelConquistar() {
+	public PanelAtacarDuenoPlaneta() {
 
-		Atributos atrib = app.getAtributos();
+//		Atributos atrib = app.getAtributos();
 
 		Row row = new Row();
 		Row rowBotones = new Row();
@@ -62,15 +58,15 @@ public class PanelConquistar extends Panel {
 				new Extent(200), new Extent(325)));
 		grid.add(lblImagen);
 
-		lblAlias = new Label("");
-		lblClase = new Label("");
-		lblNivel = new Label("");
+//		lblAlias = new Label("");
+//		lblClase = new Label("");
+//		lblNivel = new Label("");
 
-		try {
-			atrib.updatePanelConquistar(this);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			atrib.updatePanelConquistar(this);
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//		}
 
 		Label lblDuenoPlaneta = new Label("Dueño del Planeta:");
 		Estilo.setFont(lblDuenoPlaneta, GUIStyles.BOLD);
@@ -129,21 +125,21 @@ public class PanelConquistar extends Panel {
 		});
 		rowBotones.add(btnCancelar);
 
-		Button btnConquistar = new Button("Conquistar");
-		btnConquistar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnConquistar.setWidth(new Extent(160));
-		btnConquistar.setHeight(new Extent(20));
-		btnConquistar.addActionListener(new ActionListener() {
+		Button btnAtacar = new Button("Atacar");
+		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnAtacar.setWidth(new Extent(160));
+		btnAtacar.setHeight(new Extent(20));
+		btnAtacar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					btnConquistarClicked();
+					btnAtacarClicked();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		rowBotones.add(btnConquistar);
+		rowBotones.add(btnAtacar);
 
 		col.add(rowBotones);
 		row.add(col);
@@ -153,37 +149,37 @@ public class PanelConquistar extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	public IPlanetaDO getPlaneta() {
-		return planeta;
-	}
-
-	public void setPlaneta(IPlanetaDO planeta) {
-		this.planeta = planeta;
-	}
-
-	public void setLblAlias(Label lblAlias) {
-		this.lblAlias = lblAlias;
-	}
-
-	public Label getLblAlias() {
-		return lblAlias;
-	}
-
-	public void setLblClase(Label lblClase) {
-		this.lblClase = lblClase;
-	}
-
-	public Label getLblClase() {
-		return lblClase;
-	}
-
-	public void setLblNivel(Label lblNivel) {
-		this.lblNivel = lblNivel;
-	}
-
-	public Label getLblNivel() {
-		return lblNivel;
-	}
+//	public IPlanetaDO getPlaneta() {
+//		return planeta;
+//	}
+//
+//	public void setPlaneta(IPlanetaDO planeta) {
+//		this.planeta = planeta;
+//	}
+//
+//	public void setLblAlias(Label lblAlias) {
+//		this.lblAlias = lblAlias;
+//	}
+//
+//	public Label getLblAlias() {
+//		return lblAlias;
+//	}
+//
+//	public void setLblClase(Label lblClase) {
+//		this.lblClase = lblClase;
+//	}
+//
+//	public Label getLblClase() {
+//		return lblClase;
+//	}
+//
+//	public void setLblNivel(Label lblNivel) {
+//		this.lblNivel = lblNivel;
+//	}
+//
+//	public Label getLblNivel() {
+//		return lblNivel;
+//	}
 
 	// --------------------------------------------------------------------------------
 
@@ -197,11 +193,9 @@ public class PanelConquistar extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private void btnConquistarClicked() throws Exception {
+	private void btnAtacarClicked() throws Exception {
 
-		Random i = new Random();
-		Panel pnlMain;
-		pnlMain = i.nextInt() % 2 == 0 ? new PanelAtacarEjercito() : new PanelAtacarNPC();
+		PanelMain pnlMain = new PanelMain();
 		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
 

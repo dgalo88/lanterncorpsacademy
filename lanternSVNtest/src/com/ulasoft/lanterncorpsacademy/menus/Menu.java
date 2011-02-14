@@ -438,7 +438,8 @@ public class Menu extends Panel {
 	private void btnVerDatosClicked() {
 
 		VerDatos verDatos = new VerDatos( //
-				app.atributos.getUsuario(), app.atributos.getPersonaje());
+				app.getAtributos().getUsuario(), //
+				app.getAtributos().getPersonaje());
 		d.setWindowData(verDatos.getDatos(), "Mis Datos", 600, 230);
 
 	}
@@ -479,6 +480,8 @@ public class Menu extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnVerUnidadesClicked() {
+
+		// XXX: Inventario
 
 		List<ObjectLca> list = new ArrayList<ObjectLca>();
 		for (int i = 0; i < 10; i++) {

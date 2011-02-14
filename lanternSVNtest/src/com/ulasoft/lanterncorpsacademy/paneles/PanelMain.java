@@ -9,6 +9,7 @@ import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
+import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
@@ -44,7 +45,9 @@ public class PanelMain extends Panel {
 		rowBotones.setCellSpacing(new Extent(5));
 
 		Column col = new Column();
+		col.setCellSpacing(new Extent(10));
 		Column colPane = new Column();
+		colPane.setInsets(new Insets(10, 10, 10, 10));
 		colPane.setCellSpacing(new Extent(10));
 		Column colInf [] = new Column [3];
 		for (int i = 0; i < colInf.length; i++) {

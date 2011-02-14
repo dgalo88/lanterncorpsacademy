@@ -108,7 +108,7 @@ public class MenuInicial extends Panel {
 
 		PanelAsignarPrecio pnlMain = new PanelAsignarPrecio();
 		Desktop d = app.getDesktop();
-		d.setWindowData(pnlMain.getTable(), "Asignar Precio", 300, 400);
+		d.setWindowData(pnlMain, "Asignar Precio", 250, 370);
 
 	}
 

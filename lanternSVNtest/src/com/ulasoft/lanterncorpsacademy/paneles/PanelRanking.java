@@ -20,96 +20,95 @@ import com.minotauro.echo.table.base.TableColumn;
 import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
+import com.ulasoft.lanterncorpsacademy.logic.Data;
 import com.ulasoft.lanterncorpsacademy.logic.Ranking;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
-
 @SuppressWarnings("serial")
 public class PanelRanking extends Panel {
-	
+
 	private TestTableModel tableDtaModel;
-	List<IPersonajeDO> personajes;
-	int pos=0;
+	private List<IPersonajeDO> personajes;
 
 	public PanelRanking() {
-		
+
 		setInsets(new Insets(2, 2, 2, 2));
-	    Column col = new Column();
-	    col.setCellSpacing(new Extent(1));
-	    col.setBackground(Color.WHITE);
-	    add(col);
-	    col.add(initTopRow());
-	    try {
+		Column col = new Column();
+		col.setCellSpacing(new Extent(1));
+		col.setBackground(Color.WHITE);
+		add(col);
+		col.add(initTopRow());
+		try {
 			personajes = Ranking.obtenerRanking();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-	    // ----------------------------------------
-	    // The table models
-	    // ----------------------------------------
+		// ----------------------------------------
+		// The table models
+		// ----------------------------------------
 
-	    TableColModel tableColModel = initTableColModel();
-	    TableSelModel tableSelModel = new TableSelModel();
-	    tableDtaModel = new TestTableModel();
-	    tableDtaModel.setEditable(true);
-	    tableDtaModel.setPageSize(10);
-	    
-	    tableDtaModel=Ranking.asignarRanking(tableDtaModel, personajes);
-	    // ----------------------------------------
-	    // The table
-	    // ----------------------------------------
+		TableColModel tableColModel = initTableColModel();
+		TableSelModel tableSelModel = new TableSelModel();
+		tableDtaModel = new TestTableModel();
+		tableDtaModel.setEditable(true);
+		tableDtaModel.setPageSize(10);
 
-	    ETable table = new ETable();
-	    table.setTableDtaModel(tableDtaModel);
-	    table.setTableColModel(tableColModel);
-	    table.setTableSelModel(tableSelModel);
-	    table.setEasyview(true);
-	    table.setBorder(new Border(1, Color.BLACK, Border.STYLE_SOLID));
-	    table.setInsets(new Insets(5, 2, 5, 2));
-	    col.add(table);
+		tableDtaModel = Ranking.asignarRanking(tableDtaModel, personajes);
 
-	    // ----------------------------------------
-	    // The navigation control
-	    // ----------------------------------------
+		// ----------------------------------------
+		// The table
+		// ----------------------------------------
 
-	    ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
-	    col.add(tableNavigation);
-	  }
+		ETable table = new ETable();
+		table.setTableDtaModel(tableDtaModel);
+		table.setTableColModel(tableColModel);
+		table.setTableSelModel(tableSelModel);
+		table.setEasyview(true);
+		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_SOLID));
+		table.setInsets(new Insets(5, 2, 5, 2));
+		col.add(table);
+
+		// ----------------------------------------
+		// The navigation control
+		// ----------------------------------------
+
+		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
+		col.add(tableNavigation);
+	}
 
 	// --------------------------------------------------------------------------------
 
-	  private Row initTopRow() {
-	    Row row = new Row();
-	    row.setStyle(GUIStyles.STYLECENTERROW);
-	    //row.setCellSpacing(new Extent(5));
-	    row.add(new Label("Lista de Mejores Jugadores"));
-	    row.setAlignment(new Alignment(Alignment.CENTER, Alignment.CENTER));
-	    return row;
-	  }
+	private Row initTopRow() {
 
-	  // --------------------------------------------------------------------------------
+		Row row = new Row();
+		row.setStyle(GUIStyles.STYLECENTERROW);
+		row.add(new Label("Lista de Mejores Jugadores"));
+		row.setAlignment(new Alignment(Alignment.CENTER, Alignment.CENTER));
+		return row;
 
-	  private TableColModel initTableColModel() {
-	   
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private TableColModel initTableColModel() {
+
 		TableColModel tableColModel = new TableColModel();
-		
-	    TableColumn tableColumn;
-	    
-	    tableColumn = new TableColumn() {
-	      @Override
-	      public Object getValue(ETable table, Object element) {
-	    	  IPersonajeDO personaje = (IPersonajeDO) element; 
-	        return personaje.getId();
-	      }
-	    };
-	    
-	    tableColumn.setWidth(new Extent(50));
-	    tableColumn.setHeadValue("Posicion");
-	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
-	    tableColModel.getTableColumnList().add(tableColumn);
-	    
+		TableColumn tableColumn;
+
+		tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				IPersonajeDO personaje = (IPersonajeDO) element; 
+				return personaje.getId();
+			}
+		};
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Posicion");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
@@ -117,42 +116,39 @@ public class PanelRanking extends Panel {
 				return personaje.getAlias();
 			}
 		};
-	    
-	    tableColumn.setWidth(new Extent(50));
-	    tableColumn.setHeadValue("Nombre");
-	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
-	    tableColModel.getTableColumnList().add(tableColumn);
-
-	    tableColumn = new TableColumn() {
-	      @Override
-	      public Object getValue(ETable table, Object element) {
-	    	  IPersonajeDO personaje = (IPersonajeDO) element;
-	        return personaje.getNivel();
-	      }
-	    };
-	    
-	    tableColumn.setWidth(new Extent(50));
-	    tableColumn.setHeadValue("Nivel");
-	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
-	    tableColModel.getTableColumnList().add(tableColumn);
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Nombre");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
 				IPersonajeDO personaje = (IPersonajeDO) element;
-				return Ranking.determinarClase((personaje.getClaseLinternaRef()).getRefIdent());
+				return personaje.getNivel();
 			}
 		};
-	    
-	    tableColumn.setWidth(new Extent(50));
-	    tableColumn.setHeadValue("Clase");
-	    tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-	    tableColumn.setDataCellRenderer(new LabelCellRenderer());
-	    tableColModel.getTableColumnList().add(tableColumn);
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Nivel");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
 
-	    return tableColModel;
-	  }
+		tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return Data.getClase((personaje.getClaseLinternaRef()).getRefIdent());
+			}
+		};
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Clase");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+
+		return tableColModel;
+	}
 
 }
