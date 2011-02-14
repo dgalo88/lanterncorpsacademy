@@ -36,7 +36,7 @@ public class PanelInvitarNuevosUsuarios extends Panel {
 		col.setCellSpacing(new Extent(10));
 		col.setBackground(Color.WHITE);
 
-		Label lblTitle = new Label("Invitar Nuevos Usuarios");
+		Label lblTitle = new Label("Invitar Amigo");
 		col.add(lblTitle);
 		Grid grid = new Grid();
 		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
