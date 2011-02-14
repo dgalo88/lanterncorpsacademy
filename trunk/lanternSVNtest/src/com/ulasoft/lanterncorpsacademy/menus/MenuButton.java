@@ -1,6 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.menus;
 
-import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Panel;
@@ -25,27 +24,26 @@ public class MenuButton extends Panel {
 		Row row = new Row();
 		row.setStyle(GUIStyles.STYLEBUTTON);
 
-		Button btnInvitarNuevosUsuarios = new Button("Invitar Amigo");
-		btnInvitarNuevosUsuarios.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnInvitarNuevosUsuarios.addActionListener(new ActionListener() {
+		Button btnAmigo = new Button("Invitar Amigo");
+		btnAmigo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnAmigo.setWidth(new Extent(120));
+		btnAmigo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				btnInvitarNuevosUsuariosClicked();
 			}
 		});
-		btnInvitarNuevosUsuarios.setAlignment(Alignment.ALIGN_RIGHT);
-		row.add(btnInvitarNuevosUsuarios);
+		row.add(btnAmigo);
 
 		Button btnExit = new Button("Salir");
 		btnExit.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnExit.setWidth(new Extent(60));
+		btnExit.setWidth(new Extent(120));
 		btnExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				btnExitClicked();
 			}
 		});
-		btnInvitarNuevosUsuarios.setAlignment(Alignment.ALIGN_RIGHT);
 		row.add(btnExit);
 
 		add(row);
