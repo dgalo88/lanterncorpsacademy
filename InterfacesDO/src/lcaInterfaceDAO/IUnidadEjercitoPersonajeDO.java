@@ -3,13 +3,17 @@ package lcaInterfaceDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-public interface IUnidadEjercitoOfertaDO extends DataObject {
+public interface IUnidadEjercitoPersonajeDO extends DataObject {
 
 	// ---------------------------------------------------------------------------------------
 
-	public abstract int getCantidad();
+	public abstract int getVidaMaxima();
 
-	public abstract void setCantidad(int cantidad);
+	public abstract void setVidaMaxima(int vidaMaxima);
+
+	public abstract int getVidaMinima();
+
+	public abstract void setVidaMinima(int vidaMinima);
 
 	// ---------------------------------------------------------------------------------------
 
@@ -20,10 +24,9 @@ public interface IUnidadEjercitoOfertaDO extends DataObject {
 
 	// -----------------------------------------------------------------------------------------
 
-	public abstract Reference<IOfertaDO> getOfertaRef();
+	public abstract Reference<IPersonajeDO> getPersonajeRef();
 
-	public abstract void setOfertaRef(Reference<IOfertaDO> ofertaRef);
+	public abstract void setPersonajeRef(Reference<IPersonajeDO> personajeRef);
 
 	// ----------------------------------------------------------------------------------------
-
 }
