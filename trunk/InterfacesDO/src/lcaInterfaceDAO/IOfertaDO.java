@@ -4,26 +4,30 @@ import java.util.List;
 
 import dao.api.DataObject;
 
-
-
 public interface IOfertaDO extends DataObject {
-	
+
 	public abstract String getArticulo();
-	
-	//public abstract int getID(); Verificar si se ha de colocar aca o en OfertaDO
+
 	public abstract void setArticulo(String articulo);
-	
-	public abstract List<IRecursoDO> getRecursoList();
-	
-	public abstract void setRecursoList(List<IRecursoDO>recursoList);
-	
-	public abstract List<IPersonajeDO> getPersonajeList();
-	
-	public abstract void setPersonajeList(List<IPersonajeDO> personajeList);
-	
-	public abstract List<IUnidadEjercitoDO> getUnidadEjercitoList();
-	
-	public abstract void setUnidadEjercito(List<IUnidadEjercitoDO> unidadEjercitoList);
-		
+
+	public abstract List<IRecursoOfertaCompraDO> getRecursoOfertaCompraList();
+
+	public abstract void setRecursoOfertaCompraList(
+			List<IRecursoOfertaCompraDO> RecursoOfertaCompraList);
+
+	public abstract List<IRecursoOfertaVentaDO> getRecursoOfertaVentaList();
+
+	public abstract void setRecursoOfertaVentaList(
+			List<IRecursoOfertaVentaDO> RecursoOfertaVentaList);
+
+	public abstract List<IOfertaPersonajeDO> getOfertaPersonajeList();
+
+	public abstract void setOfertaPersonajeList(
+			List<IOfertaPersonajeDO> OfertaPersonajeList);
+
+	public abstract List<IUnidadEjercitoOfertaDO> getUnidadEjercitoOfertaList();
+
+	public abstract void setUnidadEjercitoOfertaList(
+			List<IUnidadEjercitoOfertaDO> unidadEjercitoOfertaList);
 
 }

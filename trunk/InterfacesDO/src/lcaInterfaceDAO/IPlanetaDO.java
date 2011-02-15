@@ -30,4 +30,9 @@ public interface IPlanetaDO extends DataObject {
 
 	public abstract void setObjetivoList(List<IObjetivoDO> objetivoList);
 
+	public abstract List<IRecursoPlanetaDO> getRecursoPlanetaList();
+
+	public abstract void setRecursoPlanetaList(
+			List<IRecursoPlanetaDO> recursoPlanetaList);
+
 }
