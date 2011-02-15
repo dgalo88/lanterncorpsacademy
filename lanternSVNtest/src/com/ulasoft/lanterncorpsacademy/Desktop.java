@@ -143,6 +143,15 @@ public class Desktop extends ContentPane {
 
 	// --------------------------------------------------------------------------------
 
+	public void btnCancelarClicked() {
+
+		PanelMain pnlMain = new PanelMain();
+		setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
 	public void setWindowPaneEmergente(String texto) {
 		windowPane = new WindowLca(texto);
 		add(windowPane);

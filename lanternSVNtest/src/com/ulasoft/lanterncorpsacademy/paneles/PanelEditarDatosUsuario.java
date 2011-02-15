@@ -1,7 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
 import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
@@ -26,20 +25,23 @@ import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 @SuppressWarnings("serial")
 public class PanelEditarDatosUsuario extends Panel {
 
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
+
 	private TextField txtNombre;
 	private PasswordField fldOldPass;
 	private PasswordField fldNewPass;
 	private PasswordField fldConfirPass;
 
 	public PanelEditarDatosUsuario() {
+
 		Column col = new Column();
 		col.setInsets(new Insets(5, 5, 5, 5));
 		col.setCellSpacing(new Extent(10));
 		col.setBackground(Color.WHITE);
 
 		Label lblTitle = new Label("Editar Datos del Usuario");
+		Estilo.setFont(lblTitle, GUIStyles.BOLD);
 		col.add(lblTitle);
 
 		Grid grid = new Grid();
@@ -79,6 +81,17 @@ public class PanelEditarDatosUsuario extends Panel {
 		col.add(row);
 
 		row = new Row();
+
+		Button btnCancelar = new Button("Cancelar");
+		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnCancelar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				app.getDesktop().btnCancelarClicked();
+			}
+		});
+		row.add(btnCancelar);
+
 		Button btnGuardar = new Button("Guardar");
 		btnGuardar.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnGuardar.addActionListener(new ActionListener() {
@@ -88,46 +101,50 @@ public class PanelEditarDatosUsuario extends Panel {
 			}
 		});
 		row.add(btnGuardar);
+
 		row.setCellSpacing(new Extent(10));
 		row.setAlignment(Alignment.ALIGN_CENTER);
 		col.add(row);
-		col.setBorder(new Border(3, new Color(0x00, 0x00, 0x00),
-				Border.STYLE_SOLID));
 		add(col);
+
 	}
 
+	// --------------------------------------------------------------------------------
+
 	protected void btnGuardarClicked() {
+
 		Desktop d = app.getDesktop();
-		if (EditarDatosUsuario.allEmptyFields(txtNombre, fldOldPass,
+		Atributos atrib = app.getAtributos();
+
+		if (EditarDatosUsuario.allEmptyFields(txtNombre, fldOldPass, //
 				fldNewPass, fldConfirPass)) {
-			d
-					.setWindowPaneEmergente("Todos los Campos se encuentran Vacios no se Actualizara ninguna Información");
+			d.setWindowPaneEmergente( //
+					"Todos los Campos se encuentran Vacios no se Actualizará ninguna Información");
 			return;
 		}
 		if (!EditarDatosUsuario.checkNewPassFields(fldConfirPass, fldNewPass)) {
-			d
-					.setWindowPaneEmergente("Los Campos de la Nueva Clave No concuerdan");
+			d.setWindowPaneEmergente("Los Campos de la Nueva Clave No concuerdan");
 			fldNewPass.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
 			fldConfirPass.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
 			return;
 		}
-		Atributos atrr = app.getAtributos();
-		if (!EditarDatosUsuario
-				.checkOldPassField(fldOldPass, atrr.getUsuario())) {
-			d
-					.setWindowPaneEmergente("El Campo de la Clave Antigua No concuerda con su Clave Actual");
+		if (!EditarDatosUsuario.checkOldPassField(fldOldPass, atrib.getUsuario())) {
+			d.setWindowPaneEmergente( //
+					"El Campo de la Clave Antigua No concuerda con su Clave Actual");
 			fldNewPass.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
 			return;
 		}
 		try {
-			EditarDatosUsuario.updateDatosBD(EditarDatosUsuario.updateDatos(
-					atrr.getUsuario(), txtNombre, fldNewPass));
+			EditarDatosUsuario.updateDatosBD(EditarDatosUsuario.updateDatos( //
+					atrib.getUsuario(), txtNombre, fldNewPass));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		PanelMain pnlMain = new PanelMain();
 		d.setWindowPaneEmergente("Los Datos se han Actualizado Correctamente");
 		d.setPanelCentral(pnlMain);
 
 	}
+
 }
