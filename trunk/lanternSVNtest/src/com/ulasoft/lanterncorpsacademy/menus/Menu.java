@@ -28,6 +28,7 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMisDatos;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarRecursos;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelSelectAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
@@ -508,8 +509,8 @@ public class Menu extends Panel {
 
 	private void btnRecolectarClicked() {
 
-//		PanelRecolectar pnlMain = new PanelRecolectar();
-//		d.setPanelCentral(pnlMain);
+		PanelRecolectarRecursos pnlMain = new PanelRecolectarRecursos();
+		d.setPanelCentral(pnlMain);
 
 	}
 
