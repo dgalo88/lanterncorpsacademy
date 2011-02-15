@@ -7,6 +7,7 @@ import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IObjetivoDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
+import lcaInterfaceDAO.IRecursoPlanetaDO;
 import dao.api.Reference;
 
 public class PlanetaDO implements IPlanetaDO {
@@ -15,7 +16,7 @@ public class PlanetaDO implements IPlanetaDO {
 	public static final String SECTOR = "sector";
 	public static final String COORDENADA_EN_X = "coordenada_en_x";
 	public static final String COORDENADA_EN_Y = "coordenada_en_y";
-	
+
 	// --------------------------------------------------------------------------------
 
 	private int id;
@@ -26,16 +27,17 @@ public class PlanetaDO implements IPlanetaDO {
 	private float coordenada_en_y;
 
 	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
-
 	// --------------------------------------------------------------------------------
 
 	private List<IPersonajeDO> personajeList = //
-		new ArrayList<IPersonajeDO>();
-
+	new ArrayList<IPersonajeDO>();
 
 	private List<IObjetivoDO> objetivoList = //
-		new ArrayList<IObjetivoDO>();
-	
+	new ArrayList<IObjetivoDO>();
+
+	private List<IRecursoPlanetaDO> recursoPlanetaList = //
+	new ArrayList<IRecursoPlanetaDO>();
+
 	// --------------------------------------------------------------------------------
 
 	public PlanetaDO() {
@@ -72,7 +74,7 @@ public class PlanetaDO implements IPlanetaDO {
 	public void setSector(String sector) {
 		this.sector = sector;
 	}
-	
+
 	// --------------------------------------------------------------------------------
 
 	public float getCoordenadaEnX() {
@@ -92,7 +94,7 @@ public class PlanetaDO implements IPlanetaDO {
 	public void setCoordenadaEnY(float coordenada_en_y) {
 		this.coordenada_en_y = coordenada_en_y;
 	}
-	
+
 	// --------------------------------------------------------------------------------
 
 	public Reference<IClaseLinternaDO> getClaseLinternaRef() {
@@ -102,7 +104,7 @@ public class PlanetaDO implements IPlanetaDO {
 	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
 		this.claseLinternaRef = claseLinternaRef;
 	}
-	
+
 	// --------------------------------------------------------------------------------
 
 	public List<IPersonajeDO> getPersonajeList() {
@@ -121,6 +123,17 @@ public class PlanetaDO implements IPlanetaDO {
 
 	public void setObjetivoList(List<IObjetivoDO> objetivoList) {
 		this.objetivoList = objetivoList;
+	}
+
+	// --------------------------------------------------------------------------------------
+
+	public List<IRecursoPlanetaDO> getRecursoPlanetaList() {
+		return recursoPlanetaList;
+	}
+
+	public void setRecursoPlanetaList(List<IRecursoPlanetaDO> recursoPlanetaList) {
+		this.recursoPlanetaList = recursoPlanetaList;
+
 	}
 
 }
