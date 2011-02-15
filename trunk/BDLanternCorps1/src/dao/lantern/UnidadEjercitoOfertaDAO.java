@@ -1,23 +1,26 @@
 package dao.lantern;
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.IOfertaDO;
-import lcaInterfaceDAO.IOfertaPersonajeDAO;
-import lcaInterfaceDAO.IOfertaPersonajeDO;
-import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IUnidadEjercitoDO;
+import lcaInterfaceDAO.IUnidadEjercitoOfertaDAO;
+import lcaInterfaceDAO.IUnidadEjercitoOfertaDO;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 
-public class OfertaPersonajeDAO extends BaseDAO implements IOfertaPersonajeDAO {
+public class UnidadEjercitoOfertaDAO extends BaseDAO implements
+		IUnidadEjercitoOfertaDAO {
 
 	@Override
 	public int countAll() throws SQLException {
+
 		StringBuffer strbuf = new StringBuffer();
 
 		strbuf.append("SELECT COUNT(*) FROM ");
@@ -66,23 +69,27 @@ public class OfertaPersonajeDAO extends BaseDAO implements IOfertaPersonajeDAO {
 		OfertaDAO ofertaDAO = new OfertaDAO(); // Used to make the FK
 		ofertaDAO.init(connectionBean);
 
-		PersonajeDAO personajeDAO = new PersonajeDAO(); // Used to make the FK
-		personajeDAO.init(connectionBean);
+		UnidadEjercitoDAO unidadEjercitoDAO = new UnidadEjercitoDAO(); // Used
+		// to
+		// make
+		// the
+		// FK
+		unidadEjercitoDAO.init(connectionBean);
 
 		strbuf = new StringBuffer();
 
 		strbuf.append("CREATE TABLE ");
 		strbuf.append(getTableName());
 		strbuf.append(" (");
-		strbuf.append(OfertaPersonajeDO.ID);
+		strbuf.append(UnidadEjercitoOfertaDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
 
-		strbuf.append(OfertaPersonajeDO.OFERTA_ID);
+		strbuf.append(UnidadEjercitoOfertaDO.OFERTA_ID);
 		strbuf.append(" INT NOT NULL REFERENCES   ");
 		strbuf.append(ofertaDAO.getTableName() + ", ");
-		strbuf.append(OfertaPersonajeDO.PERSONAJE_ID);
+		strbuf.append(UnidadEjercitoOfertaDO.UNIDAD_EJERCITO_ID);
 		strbuf.append(" INT NOT NULL REFERENCES   ");
-		strbuf.append(personajeDAO.getTableName());
+		strbuf.append(unidadEjercitoDAO.getTableName());
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
@@ -108,9 +115,9 @@ public class OfertaPersonajeDAO extends BaseDAO implements IOfertaPersonajeDAO {
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_DELETE);
-		checkClass(dataObject, OfertaDO.class, CHECK_DELETE);
+		checkClass(dataObject, UnidadEjercitoDO.class, CHECK_DELETE);
 
-		OfertaPersonajeDO ofertaPersonajeDO = (OfertaPersonajeDO) dataObject;
+		UnidadEjercitoOfertaDO unidadEjercitoOfertaDO = (UnidadEjercitoOfertaDO) dataObject;
 
 		StringBuffer strbuf = new StringBuffer();
 
@@ -118,9 +125,9 @@ public class OfertaPersonajeDAO extends BaseDAO implements IOfertaPersonajeDAO {
 		strbuf.append(getTableName());
 
 		strbuf.append(" WHERE ");
-		strbuf.append(OfertaPersonajeDO.ID);
+		strbuf.append(UnidadEjercitoOfertaDO.ID);
 		strbuf.append(" = ");
-		strbuf.append(ofertaPersonajeDO.getId());
+		strbuf.append(unidadEjercitoOfertaDO.getId());
 
 		System.err.println(strbuf.toString());
 
@@ -135,29 +142,30 @@ public class OfertaPersonajeDAO extends BaseDAO implements IOfertaPersonajeDAO {
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_INSERT);
-		checkClass(dataObject, OfertaPersonajeDO.class, CHECK_INSERT);
+		checkClass(dataObject, UnidadEjercitoOfertaDO.class, CHECK_INSERT);
 
-		OfertaPersonajeDO ofertaPersonajeDO = (OfertaPersonajeDO) dataObject;
+		UnidadEjercitoOfertaDO unidadEjercitoOfertaDO = (UnidadEjercitoOfertaDO) dataObject;
 
-		ofertaPersonajeDO.setId(getNextId());
+		unidadEjercitoOfertaDO.setId(getNextId());
 
 		StringBuffer strbuf = new StringBuffer();
 
 		strbuf.append("INSERT INTO ");
 		strbuf.append(getTableName());
 		strbuf.append(" VALUES (");
-		strbuf.append(ofertaPersonajeDO.getId());
+		strbuf.append(unidadEjercitoOfertaDO.getId());
 		strbuf.append(", ");
 
-		Reference<IOfertaDO> refof = ofertaPersonajeDO.getOfertaRef();
+		Reference<IOfertaDO> refof = unidadEjercitoOfertaDO.getOfertaRef();
 		refof.checkInsert();
 		strbuf.append(refof.getIdAsString());
 
 		strbuf.append(", ");
 
-		Reference<IPersonajeDO> refp = ofertaPersonajeDO.getPersonajeRef();
-		refp.checkInsert();
-		strbuf.append(refp.getIdAsString());
+		Reference<IUnidadEjercitoDO> refe = unidadEjercitoOfertaDO
+				.getUnidadEjercitoRef();
+		refe.checkInsert();
+		strbuf.append(refe.getIdAsString());
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
@@ -221,104 +229,49 @@ public class OfertaPersonajeDAO extends BaseDAO implements IOfertaPersonajeDAO {
 
 	// ----------------------------------------
 
-	private OfertaPersonajeDO resultSetToDO(ResultSet rs) throws SQLException {
-		OfertaPersonajeDO ret = //
-		(OfertaPersonajeDO) dtaSession.getDtaByKey( //
-				OfertaPersonajeDO.class, rs.getInt(OfertaPersonajeDO.ID));
+	private UnidadEjercitoOfertaDO resultSetToDO(ResultSet rs)
+			throws SQLException {
+		UnidadEjercitoOfertaDO ret = //
+		(UnidadEjercitoOfertaDO) dtaSession.getDtaByKey( //
+				UnidadEjercitoOfertaDO.class, rs
+						.getInt(UnidadEjercitoOfertaDO.ID));
 
 		if (ret != null) {
 			return ret;
 		}
 
-		ret = new OfertaPersonajeDO();
+		ret = new UnidadEjercitoOfertaDO();
 
-		ret.setId/*     */(rs.getInt(OfertaPersonajeDO.ID));
+		ret.setId/*     */(rs.getInt(UnidadEjercitoOfertaDO.ID));
 
 		Reference<IOfertaDO> refOf = new Reference<IOfertaDO>();
-		refOf.setRefIdent(rs.getInt(OfertaPersonajeDO.OFERTA_ID));
+		refOf.setRefIdent(rs.getInt(UnidadEjercitoOfertaDO.OFERTA_ID));
 		ret.setOfertaRef(refOf);
 
-		Reference<IPersonajeDO> refP = new Reference<IPersonajeDO>();
-		refP.setRefIdent(rs.getInt(OfertaPersonajeDO.PERSONAJE_ID));
-		ret.setPersonajeRef(refP);
+		Reference<IUnidadEjercitoDO> refe = new Reference<IUnidadEjercitoDO>();
+		refe.setRefIdent(rs.getInt(UnidadEjercitoOfertaDO.UNIDAD_EJERCITO_ID));
+		ret.setUnidadEjercitoRef(refe);
 
-		return (OfertaPersonajeDO) dtaSession.add(ret);
+		return (UnidadEjercitoOfertaDO) dtaSession.add(ret);
 	}
 
 	// ----------------------------------------
 
 	@Override
 	public List<DataObject> listAll() throws SQLException {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<IOfertaPersonajeDO> listByPersonajeId(int personajeId)
-			throws SQLException {
-		StringBuffer strbuf = new StringBuffer();
-
-		strbuf.append("SELECT * FROM ");
-		strbuf.append(getTableName());
-
-		strbuf.append(" WHERE ");
-		strbuf.append(OfertaPersonajeDO.PERSONAJE_ID);
-		strbuf.append(" = ");
-		strbuf.append(personajeId);
-
-		System.err.println(strbuf.toString());
-
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
-
-		List<IOfertaPersonajeDO> ret = new ArrayList<IOfertaPersonajeDO>();
-
-		while (rs.next()) {
-			ret.add(resultSetToDO(rs));
-		}
-
-		return ret;
-	}
-
-	// ----------------------------------------
-
-	public List<IOfertaPersonajeDO> listByOfertaId(int ofertaId)
-			throws SQLException {
-		StringBuffer strbuf = new StringBuffer();
-
-		strbuf.append("SELECT * FROM ");
-		strbuf.append(getTableName());
-
-		strbuf.append(" WHERE ");
-		strbuf.append(OfertaPersonajeDO.OFERTA_ID);
-		strbuf.append(" = ");
-		strbuf.append(ofertaId);
-
-		System.err.println(strbuf.toString());
-
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
-
-		List<IOfertaPersonajeDO> ret = new ArrayList<IOfertaPersonajeDO>();
-
-		while (rs.next()) {
-			ret.add(resultSetToDO(rs));
-		}
-
-		return ret;
-	}
-
-	// ----------------------------------------
-
 	@Override
 	public DataObject loadById(int id) throws SQLException {
-
 		StringBuffer strbuf = new StringBuffer();
 
 		strbuf.append("SELECT * FROM ");
 		strbuf.append(getTableName());
 
 		strbuf.append(" WHERE ");
-		strbuf.append(OfertaPersonajeDO.ID);
+		strbuf.append(UnidadEjercitoOfertaDO.ID);
 		strbuf.append(" = ");
 		strbuf.append(id);
 
@@ -335,54 +288,14 @@ public class OfertaPersonajeDAO extends BaseDAO implements IOfertaPersonajeDAO {
 
 	}
 
-	// --------------------------------------------------------------------------------
-	public void loadPersonajeRef(IOfertaPersonajeDO ofertaPersonajeDO)
-			throws SQLException {
-		checkClass(ofertaPersonajeDO, OfertaPersonajeDO.class, CHECK_UPDATE);
-
-		PersonajeDAO personajeDAO = new PersonajeDAO();
-		personajeDAO.init(connectionBean);
-
-		Reference<IPersonajeDO> ref = ofertaPersonajeDO.getPersonajeRef();
-
-		if (ref.getRefIdent() == 0) {
-			return;
-		}
-
-		PersonajeDO personajeDO = //
-		(PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
-
-		ref.setRefValue(personajeDO);
-	}
-
-	// --------------------------------------------------------------------------------
-
-	public void loadOfertaRef(IOfertaPersonajeDO ofertaPersonajeDO)
-			throws SQLException {
-
-		checkClass(ofertaPersonajeDO, OfertaPersonajeDO.class, CHECK_UPDATE);
-
-		OfertaDAO ofertaDAO = new OfertaDAO();
-		ofertaDAO.init(connectionBean);
-
-		Reference<IOfertaDO> ref = ofertaPersonajeDO.getOfertaRef();
-
-		if (ref.getRefIdent() == 0) {
-			return;
-		}
-
-		OfertaDO ofertaDO = //
-		(OfertaDO) ofertaDAO.loadById(ref.getRefIdent());
-
-		ref.setRefValue(ofertaDO);
-	}
+	// -----------------------------------------------------------------------
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
-		checkClass(dataObject, OfertaPersonajeDO.class, CHECK_UPDATE);
+		checkClass(dataObject, UnidadEjercitoOfertaDO.class, CHECK_UPDATE);
 
-		OfertaPersonajeDO ofertaPersonajeDO = (OfertaPersonajeDO) dataObject;
+		UnidadEjercitoOfertaDO unidadEjercitoOfertaDO = (UnidadEjercitoOfertaDO) dataObject;
 
 		StringBuffer strbuf = new StringBuffer();
 
@@ -390,29 +303,86 @@ public class OfertaPersonajeDAO extends BaseDAO implements IOfertaPersonajeDAO {
 		strbuf.append(getTableName());
 		strbuf.append(" SET ");
 
-		strbuf.append(OfertaPersonajeDO.OFERTA_ID);
+		strbuf.append(UnidadEjercitoOfertaDO.OFERTA_ID);
 		strbuf.append(" = ");
-		Reference<IOfertaDO> refOf = ofertaPersonajeDO.getOfertaRef();
+		Reference<IOfertaDO> refOf = unidadEjercitoOfertaDO.getOfertaRef();
 		refOf.checkUpdate();
 		strbuf.append(refOf.getIdAsString());
 
 		strbuf.append(", ");
 
-		strbuf.append(OfertaPersonajeDO.PERSONAJE_ID);
+		strbuf.append(UnidadEjercitoOfertaDO.UNIDAD_EJERCITO_ID);
 		strbuf.append(" = ");
-		Reference<IPersonajeDO> refP = ofertaPersonajeDO.getPersonajeRef();
-		refP.checkUpdate();
-		strbuf.append(refP.getIdAsString());
+		Reference<IUnidadEjercitoDO> refe = unidadEjercitoOfertaDO
+				.getUnidadEjercitoRef();
+		refe.checkUpdate();
+		strbuf.append(refe.getIdAsString());
 
 		strbuf.append(" WHERE ");
-		strbuf.append(OfertaPersonajeDO.ID);
+		strbuf.append(UnidadEjercitoOfertaDO.ID);
 		strbuf.append(" = ");
-		strbuf.append(ofertaPersonajeDO.getId());
+		strbuf.append(unidadEjercitoOfertaDO.getId());
 
 		System.err.println(strbuf.toString());
 
 		connection.createStatement().execute(strbuf.toString());
 
+	}
+
+	@Override
+	public List<IUnidadEjercitoOfertaDO> listByOfertaId(int ofertaId)
+			throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(UnidadEjercitoOfertaDO.OFERTA_ID);
+		strbuf.append(" = ");
+		strbuf.append(ofertaId);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<IUnidadEjercitoOfertaDO> ret = new ArrayList<IUnidadEjercitoOfertaDO>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+
+		return ret;
+	}
+
+	// ----------------------------------------
+
+	@Override
+	public List<IUnidadEjercitoOfertaDO> listByUnidadEjercitoId(
+			int unidadEjercitoId) throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(UnidadEjercitoOfertaDO.UNIDAD_EJERCITO_ID);
+		strbuf.append(" = ");
+		strbuf.append(unidadEjercitoId);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<IUnidadEjercitoOfertaDO> ret = new ArrayList<IUnidadEjercitoOfertaDO>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+
+		return ret;
 	}
 
 }

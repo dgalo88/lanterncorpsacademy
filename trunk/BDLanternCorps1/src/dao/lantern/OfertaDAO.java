@@ -186,7 +186,7 @@ public class OfertaDAO extends BaseDAO implements IOfertaDAO {
 
 	@Override
 	public List<DataObject> listAll() throws SQLException {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
@@ -307,10 +307,9 @@ public class OfertaDAO extends BaseDAO implements IOfertaDAO {
 		checkCache(ofertaDO, CHECK_UPDATE);
 
 		OfertaPersonajeDAO ofertaPersonajeDAO = (OfertaPersonajeDAO) FactoryDAO
-				.getDAO( //
-						OfertaPersonajeDAO.class, connectionBean);
+				.getDAO(OfertaPersonajeDAO.class, connectionBean);
 
-		ofertaDO.setOfertaPersonajeList(OfertaPersonajeDAO
+		ofertaDO.setOfertaPersonajeList(ofertaPersonajeDAO
 				.listByOfertaId(ofertaDO.getId()));
 
 	}
@@ -324,20 +323,20 @@ public class OfertaDAO extends BaseDAO implements IOfertaDAO {
 				.getDAO( //
 						UnidadEjercitoOfertaDAO.class, connectionBean);
 
-		ofertaDO.setUnidadEjercitoOfertaList(UnidadEjercitoOfertaDAO
+		ofertaDO.setUnidadEjercitoOfertaList(unidadEjercitoOfertaDAO
 				.listByOfertaId(ofertaDO.getId()));
 
 	}
 
 	@Override
 	public List<IOfertaDO> listPlayable(int id) throws Exception {
-		// TODO Auto-generated method stub
+		// Empty
 		return null;
 	}
 
 	@Override
 	public IRecursoDO loadByNombre(String nombre) throws SQLException {
-		// TODO Auto-generated method stub
+		// Empty
 		return null;
 	}
 

@@ -65,8 +65,8 @@ public class RecursoDAO extends BaseDAO implements IRecursoDAO {
 		RecursoPersonajeDAO recursoPersonajeDAO = new RecursoPersonajeDAO();
 		recursoPersonajeDAO.init(connectionBean);
 
-		PlanetaDAO planetaDAO = new PlanetaDAO();
-		planetaDAO.init(connectionBean);
+		RecursoPlanetaDAO recursoPlanetaDAO = new RecursoPlanetaDAO();
+		recursoPlanetaDAO.init(connectionBean);
 
 		RecursoOfertaCompraDAO recursoOfertaCompraDAO = new RecursoOfertaCompraDAO();
 		recursoOfertaCompraDAO.init(connectionBean);
@@ -371,18 +371,6 @@ public class RecursoDAO extends BaseDAO implements IRecursoDAO {
 
 		recursoDO.setRecursoOfertaVentaList(recursoOfertaVentaDAO
 				.listByRecursoId(recursoDO.getId()));
-	}
-
-	@Override
-	public List<IRecursoDO> listPlayable(int id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<DataObject> listToBuy(int id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

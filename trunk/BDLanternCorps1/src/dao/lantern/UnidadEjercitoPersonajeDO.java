@@ -1,32 +1,34 @@
 package dao.lantern;
 
-import dao.api.Reference;
-import lcaInterfaceDAO.IOfertaDO;
+import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUnidadEjercitoDO;
-import lcaInterfaceDAO.IUnidadEjercitoOfertaDO;
+import lcaInterfaceDAO.IUnidadEjercitoPersonajeDO;
+import dao.api.Reference;
 
-public class UnidadEjercitoOfertaDO implements IUnidadEjercitoOfertaDO {
+public class UnidadEjercitoPersonajeDO implements IUnidadEjercitoPersonajeDO {
 
-	public static final String CANTIDAD = "cantidad";
+	public static final String VIDA_MAXIMA = "vidaMaxima";
+	public static final String VIDA_MINIMA = "vidaMinima";
 	public static final String UNIDAD_EJERCITO_ID = "unidadEjercitoId";
-	public static final String OFERTA_ID = "ofertaId";
+	public static final String PERSONAJE_ID = "personajeId";
 
 	// ------------------------------------------------------------------------------------------
 
 	private int id;
-	private int cantidad;
+	private int vidaMaxima;
+	private int vidaMinima;
 
 	// -----------------------------------------------------------------------------------------
+
+	private Reference<IPersonajeDO> personajeRef = //
+	new Reference<IPersonajeDO>();
 
 	private Reference<IUnidadEjercitoDO> unidadEjercitoRef = //
 	new Reference<IUnidadEjercitoDO>();
 
-	private Reference<IOfertaDO> ofertaRef = //
-	new Reference<IOfertaDO>();
-
 	// --------------------------------------------------------------------------------------------
 
-	public UnidadEjercitoOfertaDO() {
+	public UnidadEjercitoPersonajeDO() {
 
 		// empty
 	}
@@ -43,12 +45,20 @@ public class UnidadEjercitoOfertaDO implements IUnidadEjercitoOfertaDO {
 
 	// -----------------------------------------------------------------------------------------
 
-	public int getCantidad() {
-		return cantidad;
+	public int getVidaMaxima() {
+		return vidaMaxima;
 	}
 
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
+	public void setVidaMaxima(int vidaMaxima) {
+		this.vidaMaxima = vidaMaxima;
+	}
+
+	public int getVidaMinima() {
+		return vidaMinima;
+	}
+
+	public void setVidaMinima(int vidaMinima) {
+		this.vidaMinima = vidaMinima;
 	}
 
 	// ---------------------------------------------------------------------------------------
@@ -64,13 +74,14 @@ public class UnidadEjercitoOfertaDO implements IUnidadEjercitoOfertaDO {
 
 	// -----------------------------------------------------------------------------------------
 
-	public Reference<IOfertaDO> getOfertaRef() {
-		return ofertaRef;
+	public Reference<IPersonajeDO> getPersonajeRef() {
+		return personajeRef;
 	}
 
-	public void setOfertaRef(Reference<IOfertaDO> ofertaRef) {
+	public void setPersonajeRef(Reference<IPersonajeDO> personajeRef) {
 
-		this.ofertaRef = ofertaRef;
+		this.personajeRef = personajeRef;
 	}
 
+	// ----------------------------------------------------------------------------------------
 }
