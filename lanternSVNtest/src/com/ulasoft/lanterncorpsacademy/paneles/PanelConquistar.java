@@ -1,7 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.util.Random;
-
 import lcaInterfaceDAO.IPlanetaDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
@@ -19,7 +17,6 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
@@ -37,12 +34,10 @@ public class PanelConquistar extends Panel {
 
 	public PanelConquistar() {
 
-		Atributos atrib = app.getAtributos();
-
 		Row row = new Row();
 		Row rowBotones = new Row();
 		rowBotones.setAlignment(Alignment.ALIGN_CENTER);
-		rowBotones.setCellSpacing(new Extent(5));
+		rowBotones.setCellSpacing(new Extent(10));
 
 		Column col = new Column();
 		col.setCellSpacing(new Extent(10));
@@ -58,7 +53,8 @@ public class PanelConquistar extends Panel {
 		grid.setBackground(Color.WHITE);
 
 		Label lblImagen = new Label();
-		lblImagen.setIcon(new ResourceImageReference(ImgLoad.panelConquistar(4), //
+		lblImagen.setIcon(new ResourceImageReference( //
+				ImgLoad.panelConquistar(4), //
 				new Extent(200), new Extent(325)));
 		grid.add(lblImagen);
 
@@ -67,7 +63,7 @@ public class PanelConquistar extends Panel {
 		lblNivel = new Label("");
 
 		try {
-			atrib.updatePanelConquistar(this);
+			app.getAtributos().updatePanelConquistar(this);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -118,21 +114,19 @@ public class PanelConquistar extends Panel {
 		col.add(grid);
 
 		Button btnCancelar = new Button("Cancelar");
-		btnCancelar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnCancelar.setWidth(new Extent(160));
-		btnCancelar.setHeight(new Extent(20));
+		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnCancelar.setWidth(new Extent(120));
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				btnCancelarClicked();
+				app.getDesktop().btnCancelarClicked();
 			}
 		});
 		rowBotones.add(btnCancelar);
 
 		Button btnConquistar = new Button("Conquistar");
-		btnConquistar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnConquistar.setWidth(new Extent(160));
-		btnConquistar.setHeight(new Extent(20));
+		btnConquistar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnConquistar.setWidth(new Extent(120));
 		btnConquistar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -187,21 +181,11 @@ public class PanelConquistar extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private void btnCancelarClicked() {
-
-		PanelMain pnlMain = new PanelMain();
-		Desktop d = app.getDesktop();
-		d.setPanelCentral(pnlMain);
-
-	}
-
-	// --------------------------------------------------------------------------------
-
 	private void btnConquistarClicked() throws Exception {
 
-		Random i = new Random();
-		Panel pnlMain;
-		pnlMain = i.nextInt() % 2 == 0 ? new PanelAtacarEjercito() : new PanelAtacarNPC();
+//		Random i = new Random();
+		Panel pnlMain = new PanelAtacarEjercito();
+//		pnlMain = i.nextInt() % 2 == 0 ? new PanelAtacarEjercito() : new PanelAtacarNPC();
 		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
 

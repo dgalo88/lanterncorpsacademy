@@ -122,8 +122,8 @@ public class Desktop extends ContentPane {
 		main.setId("main");
 		main.setLayoutData(hld);
 		htmlLayout.add(main);
-
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
+
 		return htmlLayout;
 	}
 

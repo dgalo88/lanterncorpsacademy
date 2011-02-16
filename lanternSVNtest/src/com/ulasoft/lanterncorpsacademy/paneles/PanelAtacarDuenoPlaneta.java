@@ -120,7 +120,7 @@ public class PanelAtacarDuenoPlaneta extends Panel {
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				btnCancelarClicked();
+				app.getDesktop().btnCancelarClicked();
 			}
 		});
 		rowBotones.add(btnCancelar);
@@ -180,16 +180,6 @@ public class PanelAtacarDuenoPlaneta extends Panel {
 //	public Label getLblNivel() {
 //		return lblNivel;
 //	}
-
-	// --------------------------------------------------------------------------------
-
-	private void btnCancelarClicked() {
-
-		PanelMain pnlMain = new PanelMain();
-		Desktop d = app.getDesktop();
-		d.setPanelCentral(pnlMain);
-
-	}
 
 	// --------------------------------------------------------------------------------
 

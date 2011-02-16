@@ -21,6 +21,7 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAdquirirTecnologia;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
@@ -29,7 +30,6 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelMisDatos;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarRecursos;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelSelectAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
@@ -440,7 +440,7 @@ public class Menu extends Panel {
 	private void btnVerDatosClicked() {
 
 		PanelMisDatos pnlMain = new PanelMisDatos();
-		d.setWindowData(pnlMain, "Mis Datos", 650, 260);
+		d.setWindowData(pnlMain, "Mis Datos", 650, 280);
 
 	}
 
@@ -473,7 +473,8 @@ public class Menu extends Panel {
 
 	protected void btnAtacarClicked() {
 
-		PanelSelectAtacar pnlMain = new PanelSelectAtacar();
+//		PanelSelectAtacar pnlMain = new PanelSelectAtacar();
+		PanelAtacar pnlMain = new PanelAtacar();
 		d.setPanelCentral(pnlMain);
 	}
 
@@ -485,7 +486,7 @@ public class Menu extends Panel {
 
 		List<ObjectLca> list = new ArrayList<ObjectLca>();
 		for (int i = 0; i < 10; i++) {
-			ObjectLca item = new ObjectLca(i);
+			ObjectLca item = new ObjectLca(false, i);
 			list.add(item);
 		}
 
@@ -493,7 +494,7 @@ public class Menu extends Panel {
 		TestCellRenderer tcr = new TestCellRenderer();
 		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
 
-		d.setWindowData(oSelectScrolling, "Inventario de Unidades", 600, 230);
+		d.setWindowData(oSelectScrolling, "Inventario de Unidades", 600, 200);
 
 	}
 

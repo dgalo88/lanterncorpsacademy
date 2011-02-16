@@ -1,8 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDO;
 import nextapp.echo.app.Alignment;
@@ -26,10 +23,6 @@ import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Login;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
-import com.valkirye.lanterncorpsacademy.extras.ObjectLca;
-import com.valkirye.lanterncorpsacademy.extras.ObjectSelectModel;
-import com.valkirye.lanterncorpsacademy.extras.ObjectSelectScrolling;
-import com.valkirye.lanterncorpsacademy.extras.TestCellRenderer;
 
 import factory.GlobalDOFactory;
 
@@ -48,20 +41,24 @@ public class PanelLogin extends Panel {
 	public PanelLogin() {
 
 		Row row = new Row();
-		row.setStyle(GUIStyles.STYLECENTERROW);
+		row.setAlignment(Alignment.ALIGN_CENTER);
 
 		Column col = new Column();
-		col.setInsets(new Insets(5, 5, 5, 5));
+		col.setInsets(new Insets(10, 10, 10, 10));
 		col.setCellSpacing(new Extent(10));
 		col.setBackground(Color.WHITE);
 
-		Label lblTitle = new Label("Ingresar al Sistema");
-		Estilo.setFont(lblTitle, GUIStyles.BOLD);
-		row.add(lblTitle);
-		col.add(row);
+		Grid gridPane = new Grid(1);
+		gridPane.setHeight(new Extent(100));
+		gridPane.setInsets(new Insets(10, 10, 10, 10));
+		gridPane.setBackground(Color.WHITE);
 
 		Grid grid = new Grid();
+		grid.setWidth(new Extent(410));
+		grid.setHeight(new Extent(25));
 		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+
+		col.add(initTopRow());
 
 		Label lblCorreo = new Label("Correo");
 		Estilo.setFont(lblCorreo, GUIStyles.BOLD);
@@ -78,11 +75,13 @@ public class PanelLogin extends Panel {
 		fldPass = new PasswordField();
 		fldPass.setWidth(new Extent(300));
 		grid.add(fldPass);
-		col.add(grid);
 
-		row = new Row();
-		row.setCellSpacing(new Extent(10));
-		row.setStyle(GUIStyles.STYLECENTERROW);
+		gridPane.add(grid);
+		col.add(gridPane);
+
+		Row rowBotones = new Row();
+		rowBotones.setCellSpacing(new Extent(10));
+		rowBotones.setAlignment(Alignment.ALIGN_CENTER);
 
 		Button btnEnter = new Button("Entrar");
 		btnEnter.setStyle(Estilo.getStyleColor(app.getAtributos()));
@@ -99,7 +98,7 @@ public class PanelLogin extends Panel {
 				}
 			}
 		});
-		row.add(btnEnter);
+		rowBotones.add(btnEnter);
 
 		Button btnRegister = new Button("Registrarse");
 		btnRegister.setStyle(Estilo.getStyleColor(app.getAtributos()));
@@ -116,26 +115,26 @@ public class PanelLogin extends Panel {
 				}
 			}
 		});
-		row.add(btnRegister);
+		rowBotones.add(btnRegister);
 
-		col.add(row);
-
-//		List<ObjectLca> list = new ArrayList<ObjectLca>();
-//		for (int i = 0; i < 10; i++) {
-//			ObjectLca item = new ObjectLca(i);
-//			list.add(item);
-//		}
-//
-//		ObjectSelectModel oModel = new ObjectSelectModel(list);
-//		TestCellRenderer tcr = new TestCellRenderer();
-//		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
-//		col.add(oSelectScrolling);
-
-		row = new Row();
-		row.setStyle(GUIStyles.STYLECENTERROW);
-
+		col.add(rowBotones);
 		row.add(col);
 		add(row);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private Row initTopRow() {
+
+		Row row = new Row();
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		Label lblTitle = new Label("Ingresar al Sistema");
+		lblTitle.setForeground(Color.BLACK);
+		Estilo.setFont(lblTitle, GUIStyles.BOLD, 16);
+		row.add(lblTitle);
+		return row;
 
 	}
 
@@ -164,7 +163,7 @@ public class PanelLogin extends Panel {
 
 		if (usuario == null) {
 			desktop.setWindowPaneEmergente( //
-					"La informacion de correo o Contraseña proporcionada no es Correcta.");
+					"La información de correo o contraseña proporcionada no es correcta.");
 			return;
 		}
 

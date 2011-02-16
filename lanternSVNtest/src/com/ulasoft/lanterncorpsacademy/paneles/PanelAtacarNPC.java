@@ -68,8 +68,8 @@ public class PanelAtacarNPC extends Panel {
 		// Carga a los Contrincantes
 		// ----------------------------------------
 
-		Atributos atrr = app.getAtributos();
-		personajes = Atacar.obtenerContrincantesNPC(atrr.getPersonaje());
+		Atributos atrib = app.getAtributos();
+		personajes = Atacar.obtenerContrincantesNPC(atrib.getPersonaje());
 		tableDtaModel = Atacar.asignarRankingNPC(tableDtaModel, personajes);
 
 		// ----------------------------------------
@@ -110,30 +110,6 @@ public class PanelAtacarNPC extends Panel {
 		col.add(row);
 
 		add(col);
-	}
-
-	protected void btnAtacarClicked() throws Exception {
-
-		if(personajeAtacar == null){
-			return;
-		}
-
-		Desktop d = app.getDesktop();
-
-		switch (Atacar.atacarNPC(personajeAtacar)) {
-		case 1:
-			d.setWindowPaneEmergente("Ganaste el Combate");			
-			break;
-		case 2:
-			d.setWindowPaneEmergente("Perdiste el Combate");			
-			break;
-		default:
-			break;
-		}
-
-		PanelMain pnlMain = new PanelMain();
-		d.setPanelCentral(pnlMain);
-
 	}
 
 	// --------------------------------------------------------------------------------
@@ -242,5 +218,29 @@ public class PanelAtacarNPC extends Panel {
 	}
 
 	// --------------------------------------------------------------------------------
+
+	protected void btnAtacarClicked() throws Exception {
+
+		if(personajeAtacar == null){
+			return;
+		}
+
+		Desktop d = app.getDesktop();
+
+		switch (Atacar.atacarNPC(personajeAtacar)) {
+		case 1:
+			d.setWindowPaneEmergente("Ganaste el Combate");			
+			break;
+		case 2:
+			d.setWindowPaneEmergente("Perdiste el Combate");			
+			break;
+		default:
+			break;
+		}
+
+		PanelMain pnlMain = new PanelMain();
+		d.setPanelCentral(pnlMain);
+
+	}
 
 }

@@ -89,11 +89,11 @@ public class VerDatos extends Row {
 
 	// --------------------------------------------------------------------------------
 
-	public static ObjectSelectScrolling getUnidades() {
+	public static ObjectSelectScrolling getUnidades(boolean selectable) {
 
 		List<ObjectLca> list = new ArrayList<ObjectLca>();
 		for (int i = 0; i < 10; i++) {
-			ObjectLca item = new ObjectLca(i);
+			ObjectLca item = new ObjectLca(selectable, i);
 			list.add(item);
 		}
 
