@@ -495,7 +495,6 @@ public class Atacar {
 
 		for (int posicion = 0; posicion < personajes.size(); posicion++) {
 			tableDtaModel.add(personajes.get(posicion));
-
 		}
 		return tableDtaModel;
 	}
@@ -505,8 +504,20 @@ public class Atacar {
 
 		for (int posicion = 0; posicion < personajes.size(); posicion++) {
 			tableDtaModel.add(personajes.get(posicion));
-
 		}
+		return tableDtaModel;
+	}
+
+	public static TestTableModel asignarRankingNpcPersonaje(TestTableModel tableDtaModel,
+			List<IPersonajeDO> personajes, List<INpcDO> npcList) {
+
+		for (int i = 0; i < personajes.size(); i++) {
+			tableDtaModel.add(personajes.get(i));
+		}
+		for (int j = 0; j < npcList.size(); j++) {
+			tableDtaModel.add(npcList.get(j));
+		}
+
 		return tableDtaModel;
 	}
 

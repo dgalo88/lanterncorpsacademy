@@ -46,6 +46,16 @@ public class Data {
 		return "";
 	}
 
+	public static String getTipo(Class<?> clase) {
+
+		if (clase.toString().equals("class dao.lca.PersonajeDO")) {
+			return "Jugador";
+		} else {
+			return "NPC";
+		}
+
+	}
+
 	public static String getRecurso(int ref) {
 		switch (ref) {
 		case 1:

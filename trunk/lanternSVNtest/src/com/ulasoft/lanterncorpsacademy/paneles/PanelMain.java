@@ -18,7 +18,6 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
@@ -36,8 +35,6 @@ public class PanelMain extends Panel {
 	private Label lblPlanetaValue;
 
 	public PanelMain() {
-
-		Atributos atrib = app.getAtributos();
 
 		Row row = new Row();
 		Row rowBotones = new Row();
@@ -68,7 +65,7 @@ public class PanelMain extends Panel {
 		lblFechaValue = new Label("Ult Ing");
 
 		try {
-			atrib.updatePanelMain(this);
+			app.getAtributos().updatePanelMain(this);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -120,7 +117,7 @@ public class PanelMain extends Panel {
 		col.add(grid);
 
 		Button btnPlanetaCasa = new Button("Definir Planeta Casa");
-		btnPlanetaCasa.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnPlanetaCasa.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnPlanetaCasa.setWidth(new Extent(160));
 		btnPlanetaCasa.setHeight(new Extent(20));
 		btnPlanetaCasa.addActionListener(new ActionListener() {
@@ -132,7 +129,7 @@ public class PanelMain extends Panel {
 		rowBotones.add(btnPlanetaCasa);
 
 		Button btnAsignarDefensas = new Button("Asignar Defensas");
-		btnAsignarDefensas.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnAsignarDefensas.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnAsignarDefensas.setWidth(new Extent(160));
 		btnAsignarDefensas.setHeight(new Extent(20));
 		btnAsignarDefensas.addActionListener(new ActionListener() {

@@ -5,7 +5,7 @@ import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Font;
+import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -30,30 +30,28 @@ public class PanelAtacarEjercito extends Panel {
 	public PanelAtacarEjercito() {
 
 		Column col = new Column();
-		col.setInsets(new Insets(15, 15, 15, 15));
-		col.setCellSpacing(new Extent(30));
-		col.setBackground(Color.WHITE);
+		col.setInsets(new Insets(10, 10, 10, 10));
+		col.setCellSpacing(new Extent(10));
+
+		Grid grid = new Grid(1);
+		grid.setInsets(new Insets(20, 20, 20, 20));
+		grid.setBackground(Color.WHITE);
 
 		Row row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
-		Label lblAtacarEjercito = new Label( //
-				"Atacar Ejército");
-		lblAtacarEjercito.setFont(new Font(Font.VERDANA, Font.BOLD, new Extent(16)));
-		row.add(lblAtacarEjercito);
-		col.add(row);
 
-		row = new Row();
-		row.setAlignment(Alignment.ALIGN_CENTER);
+		col.add(initTopRow());
+
 		Label lblUnidadesAtacante = new Label( //
 				"Unidades de Ejército Seleccionadas");
 		Estilo.setFont(lblUnidadesAtacante, GUIStyles.ITALIC);
 		row.add(lblUnidadesAtacante);
-		col.add(row);
+		grid.add(row);
 
 		row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.add(VerDatos.getUnidades());
-		col.add(row);
+		row.add(VerDatos.getUnidades(false));
+		grid.add(row);
 
 		row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
@@ -61,30 +59,33 @@ public class PanelAtacarEjercito extends Panel {
 				"Unidades de Ejército del Dueño del Planeta");
 		Estilo.setFont(lblUnidadesDueno, GUIStyles.ITALIC);
 		row.add(lblUnidadesDueno);
-		col.add(row);
+		grid.add(row);
 
 		row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.add(VerDatos.getUnidades());
-		col.add(row);
+		row.add(VerDatos.getUnidades(false));
+		grid.add(row);
+
+		col.add(grid);
 
 		row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
+		row.setCellSpacing(new Extent(10));
 
 		Button btnCancelar = new Button("Cancelar");
-		btnCancelar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnCancelar.setWidth(new Extent(160));
-		btnCancelar.setHeight(new Extent(20));
+		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnCancelar.setWidth(new Extent(100));
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				btnCancelarClicked();
+				app.getDesktop().btnCancelarClicked();
 			}
 		});
 		row.add(btnCancelar);
 
 		Button btnAtacar = new Button("Atacar");
-		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnAtacar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnAtacar.setWidth(new Extent(100));
 		btnAtacar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -95,6 +96,21 @@ public class PanelAtacarEjercito extends Panel {
 
 		col.add(row);
 		add(col);
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private Row initTopRow() {
+
+		Row row = new Row();
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		Label lblTitle = new Label("Atacar Ejército");
+		lblTitle.setForeground(Color.WHITE);
+		Estilo.setFont(lblTitle, GUIStyles.BOLD, 16);
+		row.add(lblTitle);
+		return row;
+
 	}
 
 	// --------------------------------------------------------------------------------
@@ -117,16 +133,6 @@ public class PanelAtacarEjercito extends Panel {
 //		}
 
 		PanelAtacarDuenoPlaneta pnlMain = new PanelAtacarDuenoPlaneta();
-		Desktop d = app.getDesktop();
-		d.setPanelCentral(pnlMain);
-
-	}
-
-	// --------------------------------------------------------------------------------
-
-	private void btnCancelarClicked() {
-
-		PanelMain pnlMain = new PanelMain();
 		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
 
