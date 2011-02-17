@@ -9,13 +9,8 @@ import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 import dao.api.Reference;
-import lcaInterfaceDAO.IAndroideDO;
-import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IHabilidadDO;
-import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.ITecnologiaDAO;
 import lcaInterfaceDAO.ITecnologiaDO;
-import lcaInterfaceDAO.ITecnologiaPersonajeDO;
 import lcaInterfaceDAO.IUnidadBasicaDO;
 
 public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
@@ -67,11 +62,7 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		// ----------------------------------------
 
 		TecnologiaPersonajeDAO tecnologiaPersonajeDAO = new TecnologiaPersonajeDAO();
-		TecnologiaRecursoDAO tecnologiaRecursoDAO = new TecnologiaRecursoDAO(); // Used
-																					// to
-																					// make
-																					// the
-																					// FK
+	//	TecnologiaRecursoDAO tecnologiaRecursoDAO = new TecnologiaRecursoDAO(); 
 		tecnologiaPersonajeDAO.init(connectionBean);
 
 		
@@ -80,7 +71,7 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		AndroideDAO androideDAO = new AndroideDAO();
 		androideDAO.init(connectionBean);
 
-		UnidadBasicaDAO unidadBasicaDAO = new UnidadBadicaDAO();
+		UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
 		unidadBasicaDAO.init(connectionBean);
 
 		strbuf = new StringBuffer();
@@ -172,6 +163,28 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		dtaSession.add(dataObject);
 
 	}
+	
+	//--------------------------------------------------------------------------------------------------------------
+	
+	public  void loadUnidadBasicaRef(ITecnologiaDO tecnologiaDO)  throws SQLException{
+		
+		checkClass(tecnologiaDO, TecnologiaDO.class, CHECK_UPDATE);
+		
+		UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+		unidadBasicaDAO.init(connectionBean);
+		
+		
+		Reference<IUnidadBasicaDO> ref = tecnologiaDO.getUnidadBasicaRef();
+		
+		if(ref.getRefIdent()==0)
+		{
+			return;
+		}
+		
+		UnidadBasicaDO unidadBasicaDO = (UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
+		ref.setRefValue(unidadBasicaDO);
+	}
+	//--------------------------------------------------------------------------------------------------------------
 
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
@@ -212,13 +225,11 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 
 		TecnologiaPersonajeDAO tecnologiaPersonajeDAO = (TecnologiaPersonajeDAO) FactoryDAO
 				.getDAO(TecnologiaPersonajeDAO.class, connectionBean);
-		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO(
-				PersonajeDAO.class, connectionBean);
-		TecnologiaRecursoDAO tecnologiaRecursoDAO = (TecnologiaRecursoDAO) FactoryDAO
-				.getDAO( //
-						TecnologiaRecursoDAO.class, connectionBean);
-		TecnologiaDAO tecnologiaDAO = (TecnologiaDAO) FactoryDAO.getDAO(
-				TecnologiaDAO.class, connectionBean);
+		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO(PersonajeDAO.class, connectionBean);
+		TecnologiaRecursoDAO tecnologiaRecursoDAO = (TecnologiaRecursoDAO) FactoryDAO//
+		.getDAO(TecnologiaRecursoDAO.class, connectionBean);
+		RecursoDAO recursoDAO = (RecursoDAO) FactoryDAO.getDAO(
+				RecursoDAO.class, connectionBean);
 
 		StringBuffer strbuf = new StringBuffer();
 
@@ -227,10 +238,10 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		strbuf.append(" JOIN  ");
 		strbuf.append(tecnologiaPersonajeDAO.getTableName());
 		strbuf.append(" ON ");
-		strbuf.append(tecnologiaPersonajeDAO.getTableName());
-		strbuf.append("." + TecnologiaPersonajeDO.TECNOLOGIA_ID);
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append("." + PersonajeDO.TECNOLOGIA_ID);
 		strbuf.append(" = ");
-		strbuf.append(tecnologiaDAO.getTableName());
+		strbuf.append(tecnologiaPersonajeDAO.getTableName());
 		strbuf.append("." + TecnologiaDO.ID);
 
 		//strbuf.append(" JOIN  ");
@@ -252,20 +263,20 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		//strbuf.append("." + TecnologiaPersonajeDO.TECNOLOGIA_ID);
 
 		strbuf.append(" RIGHT JOIN  ");
-		strbuf.append(tecnologiaDAO .getTableName());
+		strbuf.append(tecnologiaRecursoDAO .getTableName());
 		strbuf.append(" ON ");
-		strbuf.append(tecnologiaPersonajeDAO.getTableName());
-		strbuf.append("." + TecnologiaPersonajeDO.PERSONAJE_ID);
+		strbuf.append(recursoDAO.getTableName());
+		strbuf.append("." + RecursoDO.ID);
 		strbuf.append(" = ");
-		strbuf.append(tecnologiaPersonajeDAO .getTableName());
-		strbuf.append("." + TecnologiaPersonajeDO .PERSONAJE_ID);
+		strbuf.append(tecnologiaRecursoDAO .getTableName());
+		strbuf.append("." + TecnologiaRecursoDO .RECURSO_ID);
 
 		strbuf.append(" WHERE ");
-		strbuf.append(tecnologiaPersonajeDAO.getTableName());
-		strbuf.append("." + TecnologiaPersonajeDO.ID);
+		strbuf.append(tecnologiaRecursoDAO.getTableName());
+		strbuf.append("." + TecnologiaRecursoDO.ID);
 		strbuf.append(" IS NULL AND ");
-		strbuf.append(personajeDAO.getTableName());
-		strbuf.append("." + PersonajeDO.ID);
+		strbuf.append(recursoDAO.getTableName());
+		strbuf.append("." + RecursoDO.ID);
 		strbuf.append(" = ");
 		strbuf.append(id);
 
@@ -376,6 +387,10 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		return null;
 
 	}
+	
+	//public  List<ITecnologiaDO> listByAndroideId(int androideId) throws SQLException{
+		
+	//}
 
 	@Override
 	public void update(DataObject dataObject) throws SQLException {

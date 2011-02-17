@@ -95,13 +95,14 @@ public class TecnologiaDO implements ITecnologiaDO{
 	
 	//---------------------------------------------------------------------------------------------------
 	
-	public List<ITecnologiaRecursoDO> getTecnologiaRecursoList(){
-		
+	public List<ITecnologiaRecursoDO> getTecnologiaRecursoList()
+	{	
 		return tecnologiaRecursoList;
 	}
 	
-	public void setAdroideTecnologiaList(List<ITecnologiaRecursoDO> tecnologiaRecursoList){
-		
+	
+	public void setTecnologiaRecursoList (List<ITecnologiaRecursoDO> tecnologiaRecursoList)
+	{
 		this.tecnologiaRecursoList=tecnologiaRecursoList;
 	}
 	
@@ -117,6 +118,9 @@ public class TecnologiaDO implements ITecnologiaDO{
 		this.tecnologiaPersonajeList=tecnologiaPersonajeList;
 	}
 
+	//-----------------------------------------------------------------------------------------------------------------	
+
+	
 	public void setCosto_de_tecnologia(int i) {
 		// TODO Auto-generated method stub
 		
