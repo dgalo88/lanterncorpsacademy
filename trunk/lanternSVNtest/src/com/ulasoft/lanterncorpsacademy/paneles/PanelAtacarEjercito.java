@@ -40,7 +40,7 @@ public class PanelAtacarEjercito extends Panel {
 		Row row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
 
-		col.add(initTopRow());
+		col.add(PanelConstructor.initTopRow("Atacar Ejército"));
 
 		Label lblUnidadesAtacante = new Label( //
 				"Unidades de Ejército Seleccionadas");
@@ -74,7 +74,7 @@ public class PanelAtacarEjercito extends Panel {
 
 		Button btnCancelar = new Button("Cancelar");
 		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnCancelar.setWidth(new Extent(100));
+		btnCancelar.setWidth(new Extent(120));
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -85,7 +85,7 @@ public class PanelAtacarEjercito extends Panel {
 
 		Button btnAtacar = new Button("Atacar");
 		btnAtacar.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnAtacar.setWidth(new Extent(100));
+		btnAtacar.setWidth(new Extent(120));
 		btnAtacar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -96,21 +96,6 @@ public class PanelAtacarEjercito extends Panel {
 
 		col.add(row);
 		add(col);
-	}
-
-	// --------------------------------------------------------------------------------
-
-	private Row initTopRow() {
-
-		Row row = new Row();
-		row.setCellSpacing(new Extent(10));
-		row.setAlignment(Alignment.ALIGN_CENTER);
-		Label lblTitle = new Label("Atacar Ejército");
-		lblTitle.setForeground(Color.WHITE);
-		Estilo.setFont(lblTitle, GUIStyles.BOLD, 16);
-		row.add(lblTitle);
-		return row;
-
 	}
 
 	// --------------------------------------------------------------------------------

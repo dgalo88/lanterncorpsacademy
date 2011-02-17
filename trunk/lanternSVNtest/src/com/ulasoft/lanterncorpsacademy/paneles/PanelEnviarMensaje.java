@@ -17,7 +17,6 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.EnviarMensaje;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelEnviarMensaje extends Panel {
@@ -25,6 +24,7 @@ public class PanelEnviarMensaje extends Panel {
 	private TextArea texArea;
 
 	public PanelEnviarMensaje() {
+
 		Column col = new Column();
 		Row row1 = new Row();
 		row1.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
@@ -72,13 +72,13 @@ public class PanelEnviarMensaje extends Panel {
 	}
 
 	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
+	.getActive();
 	Desktop d = app.getDesktop();
 
 	protected void btnEnviarClicked() {
 		if (EnviarMensaje.checkMensaje(texArea)) {
 			d
-					.setWindowPaneEmergente("El Campo Mensaje se Encuentra Vacio no se Enviara el Mensaje al Grupo");
+			.setWindowPaneEmergente("El Campo Mensaje se Encuentra Vacio no se Enviara el Mensaje al Grupo");
 			texArea.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
 		}
 	}

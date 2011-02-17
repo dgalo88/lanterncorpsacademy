@@ -43,6 +43,10 @@ public class PanelLogin extends Panel {
 		Row row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
 
+		Row rowBotones = new Row();
+		rowBotones.setCellSpacing(new Extent(10));
+		rowBotones.setAlignment(Alignment.ALIGN_CENTER);
+
 		Column col = new Column();
 		col.setInsets(new Insets(10, 10, 10, 10));
 		col.setCellSpacing(new Extent(10));
@@ -63,25 +67,22 @@ public class PanelLogin extends Panel {
 		Label lblCorreo = new Label("Correo");
 		Estilo.setFont(lblCorreo, GUIStyles.BOLD);
 		grid.add(lblCorreo);
+
 		txtCorreo = new TextField();
 		txtCorreo.setWidth(new Extent(300));
 		txtCorreo.setText("");
-		Estilo.setFont(lblCorreo, GUIStyles.NORMAL);
 		grid.add(txtCorreo);
 
 		Label lblPass = new Label("Contraseña");
 		Estilo.setFont(lblPass, GUIStyles.BOLD);
 		grid.add(lblPass);
+
 		fldPass = new PasswordField();
 		fldPass.setWidth(new Extent(300));
 		grid.add(fldPass);
 
 		gridPane.add(grid);
 		col.add(gridPane);
-
-		Row rowBotones = new Row();
-		rowBotones.setCellSpacing(new Extent(10));
-		rowBotones.setAlignment(Alignment.ALIGN_CENTER);
 
 		Button btnEnter = new Button("Entrar");
 		btnEnter.setStyle(Estilo.getStyleColor(app.getAtributos()));

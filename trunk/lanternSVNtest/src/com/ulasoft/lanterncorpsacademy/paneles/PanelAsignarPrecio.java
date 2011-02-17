@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Insets;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
@@ -19,7 +17,6 @@ import nextapp.echo.app.event.ActionListener;
 import com.minotauro.echo.table.base.ETable;
 import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
-import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
@@ -36,19 +33,20 @@ public class PanelAsignarPrecio extends Panel {
 			LanternCorpsAcademyApp.getActive();
 
 	private TestTableModel tableDtaModel;
-	private ETable table;
 //	private List<IRecursoDO> recursos;
 	private List<Recursos> recursos = new ArrayList<Recursos>();
 	private Recursos recurso;
 
 	public PanelAsignarPrecio() {
 
-		Row row = new Row();
-		row.setAlignment(Alignment.ALIGN_CENTER);
 		Column col = new Column();
 		col.setCellSpacing(new Extent(10));
 		col.setBackground(Color.WHITE);
 
+		Row row = new Row();
+		row.setAlignment(Alignment.ALIGN_CENTER);
+
+		tableDtaModel = new TestTableModel();
 		try {
 			for (int i = 0; i < 8; i++) {
 				recurso = new Recursos(i);
@@ -57,31 +55,10 @@ public class PanelAsignarPrecio extends Panel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		// ----------------------------------------
-		// The table models
-		// ----------------------------------------
-
-		TableColModel tableColModel = initTableColModel();
-		TableSelModel tableSelModel = new TableSelModel();
-		tableDtaModel = new TestTableModel();
-		tableDtaModel.setEditable(true);
-
 //		tableDtaModel = Recursos.asignarRecursos(tableDtaModel, recursos);
 		tableDtaModel = Recursos.asignarRec(tableDtaModel, recursos);
 
-		// ----------------------------------------
-		// The table
-		// ----------------------------------------
-
-		table = new ETable();
-		table.setTableDtaModel(tableDtaModel);
-		table.setTableColModel(tableColModel);
-		table.setTableSelModel(tableSelModel);
-		table.setEasyview(true);
-		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_SOLID));
-		table.setInsets(new Insets(4, 2, 4, 2));
-		col.add(table);
+		col.add(PanelConstructor.initTable(tableDtaModel, initTableColModel(), false));
 
 		// ----------------------------------------
 		// Buttons
@@ -101,7 +78,6 @@ public class PanelAsignarPrecio extends Panel {
 
 		col.add(row);
 		add(col);
-
 	}
 
 	// --------------------------------------------------------------------------------

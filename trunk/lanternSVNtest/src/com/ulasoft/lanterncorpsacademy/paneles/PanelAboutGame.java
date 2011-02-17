@@ -5,6 +5,7 @@ import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Component;
+import nextapp.echo.app.Extent;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.Row;
@@ -25,38 +26,39 @@ public class PanelAboutGame extends Panel {
 	private HtmlLayoutData hld;
 	private String pagina;
 
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-		.getActive();
-	Desktop d = app.getDesktop();
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
+	private Desktop d = app.getDesktop();
 
 	public PanelAboutGame(String pag) {
+
 		pagina = pag;
 		try {
 			htmlLayout = new HtmlLayout( //
-					getClass().getResourceAsStream(
+					getClass().getResourceAsStream( //
 							"reglashtml/reglas" + pag + ".html"), "UTF-8");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+
 		hld = new HtmlLayoutData("title");
 		Component lbltitle = new Label();
-		lbltitle.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		lbltitle.setLayoutData(hld);
-//		lbltitle.setBackground(Color.LIGHTGRAY);
 		htmlLayout.add(lbltitle);
 
 		hld = new HtmlLayoutData("main");
 		Component lbltext = new Label();
-		lbltext.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		lbltext.setLayoutData(hld);
-//		lbltitle.setBackground(Color.WHITE);
 		htmlLayout.add(lbltext);
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
 
 		Row row = new Row();
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_CENTER);
 
-		Button btnAtras = new Button("Atras");
+		Button btnAtras = new Button("Atrás");
 		btnAtras.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnAtras.setWidth(new Extent(100));
 		btnAtras.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -67,6 +69,7 @@ public class PanelAboutGame extends Panel {
 
 		Button btnSiguiente = new Button("Siguiente");
 		btnSiguiente.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnSiguiente.setWidth(new Extent(100));
 		btnSiguiente.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -74,34 +77,42 @@ public class PanelAboutGame extends Panel {
 			}
 		});
 		row.add(btnSiguiente);
-		row.setAlignment(Alignment.ALIGN_CENTER);
+
 		hld = new HtmlLayoutData("footer");
 		row.setLayoutData(hld);
 		htmlLayout.add(row);
-		htmlLayout.setBorder(new Border(3, new Color(0x00, 0x00, 0x00),
-				Border.STYLE_SOLID));
+		htmlLayout.setBorder(new Border(2, Color.BLACK, Border.STYLE_SOLID));
+
 		add(htmlLayout);
+
 	}
 
 	protected void btnSiguienteClicked() {
+
 		int paginaInt = Integer.parseInt(pagina);
-		paginaInt += 1;
+		paginaInt++;
+
 		if (paginaInt > 6) {
-			d.setWindowPaneEmergente("Esta es la Ultima Pagina de las Reglas");
+			d.setWindowPaneEmergente("Esta es la última página de las reglas");
 			return;
 		}
+
 		PanelAboutGame pnlMain = new PanelAboutGame(String.valueOf(paginaInt));
 		d.setPanelCentral(pnlMain);
 	}
 
 	protected void btnAtrasClicked() {
+
 		int paginaInt = Integer.parseInt(pagina);
-		paginaInt -= 1;
+		paginaInt--;
+
 		if (paginaInt < 1) {
-			d.setWindowPaneEmergente("Esta es la Primera Pagina de las Reglas");
+			d.setWindowPaneEmergente("Esta es la primera página de las reglas");
 			return;
 		}
+
 		PanelAboutGame pnlMain = new PanelAboutGame(String.valueOf(paginaInt));
 		d.setPanelCentral(pnlMain);
+
 	}
 }

@@ -36,7 +36,7 @@ public class PanelEditarDatosUsuario extends Panel {
 	public PanelEditarDatosUsuario() {
 
 		Column col = new Column();
-		col.setInsets(new Insets(5, 5, 5, 5));
+		col.setInsets(new Insets(10, 10, 10, 10));
 		col.setCellSpacing(new Extent(10));
 
 		Grid gridPane = new Grid(1);

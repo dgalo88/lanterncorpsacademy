@@ -34,13 +34,9 @@ public class PanelConquistar extends Panel {
 
 	public PanelConquistar() {
 
-		Row row = new Row();
-		Row rowBotones = new Row();
-		rowBotones.setAlignment(Alignment.ALIGN_CENTER);
-		rowBotones.setCellSpacing(new Extent(10));
-
 		Column col = new Column();
 		col.setCellSpacing(new Extent(10));
+
 		Column colPane = new Column();
 		colPane.setInsets(new Insets(10, 10, 10, 10));
 		colPane.setCellSpacing(new Extent(10));
@@ -48,6 +44,10 @@ public class PanelConquistar extends Panel {
 		for (int i = 0; i < colInf.length; i++) {
 			colInf[i] = new Column();
 		}
+
+		Row row = new Row();
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		row.setCellSpacing(new Extent(10));
 
 		Grid grid = new Grid(2);
 		grid.setBackground(Color.WHITE);
@@ -122,7 +122,7 @@ public class PanelConquistar extends Panel {
 				app.getDesktop().btnCancelarClicked();
 			}
 		});
-		rowBotones.add(btnCancelar);
+		row.add(btnCancelar);
 
 		Button btnConquistar = new Button("Conquistar");
 		btnConquistar.setStyle(Estilo.getStyleColor(app.getAtributos()));
@@ -137,12 +137,10 @@ public class PanelConquistar extends Panel {
 				}
 			}
 		});
-		rowBotones.add(btnConquistar);
+		row.add(btnConquistar);
 
-		col.add(rowBotones);
-		row.add(col);
-		add(row);
-
+		col.add(row);
+		add(col);
 	}
 
 	// --------------------------------------------------------------------------------
