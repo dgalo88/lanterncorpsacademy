@@ -27,6 +27,8 @@ public class UnidadBasicaDO implements IUnidadBasicaDO {
 	
 	public static final String UNIDAD_EJERCITO_BALA_ID ="unidadEjercitoBala";
 	
+	public static final String TECNOLOGIA_ID ="tecnologiaId";
+	
 	
 	private int id;
 	
@@ -157,7 +159,7 @@ public class UnidadBasicaDO implements IUnidadBasicaDO {
 	
 	//-------------------------------------------------------------------------------------------------------
 	
-	public Reference<IUnidadEjercitoDO> getUidadEjercitoArmaRef(){
+	public Reference<IUnidadEjercitoDO> getUnidadEjercitoArmaRef(){
 		
 		return unidadEjercitoArmaRef;
 	}
