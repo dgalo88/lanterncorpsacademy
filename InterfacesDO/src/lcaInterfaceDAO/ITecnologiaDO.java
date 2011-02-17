@@ -29,7 +29,7 @@ public interface ITecnologiaDO extends DataObject {
 	
 	public abstract List<ITecnologiaRecursoDO> getTecnologiaRecursoList();
 	
-	public abstract void setAdroideTecnologiaList(List<ITecnologiaRecursoDO> tecnologiaRecursoList);
+	public abstract void setTecnologiaRecursoList (List<ITecnologiaRecursoDO> tecnologiaRecursoList);
 	
 	//------------------------------------------------------------------------------------------------------
 	
