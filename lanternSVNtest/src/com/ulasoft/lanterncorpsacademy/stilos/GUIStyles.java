@@ -57,8 +57,8 @@ public class GUIStyles {
 		style.set(Grid.PROPERTY_WIDTH, new Extent(500));
 		style.set(Row.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 
-		style.set(Button.PROPERTY_HEIGHT, new Extent(20));
 		style.set(Button.PROPERTY_WIDTH, new Extent(190));
+		style.set(Button.PROPERTY_HEIGHT, new Extent(20));
 		style.set(Button.PROPERTY_INSETS, new Insets(2,2,2,2));
 		style.set(Button.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 
@@ -85,8 +85,8 @@ public class GUIStyles {
 	static {
 		MutableStyle style = new MutableStyle();
 
+		style.set(Button.PROPERTY_WIDTH, new Extent(160));
 		style.set(Button.PROPERTY_HEIGHT, new Extent(20));
-		style.set(Button.PROPERTY_WIDTH, new Extent(190));
 		style.set(Button.PROPERTY_INSETS, new Insets(3));
 		style.set(Button.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 

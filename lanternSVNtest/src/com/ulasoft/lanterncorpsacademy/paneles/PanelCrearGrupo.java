@@ -5,7 +5,6 @@ import java.util.List;
 
 import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.CheckBox;
 import nextapp.echo.app.Color;
@@ -22,10 +21,8 @@ import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.minotauro.echo.table.base.ETable;
-import com.minotauro.echo.table.base.ETableNavigation;
 import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
-import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
@@ -40,174 +37,99 @@ import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 @SuppressWarnings("serial")
 public class PanelCrearGrupo extends Panel {
 
-	private TestTableModel tableDtaModel;
-	List<IPersonajeDO> personajes;
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
-	List<Integer> seleccion = new ArrayList<Integer>();
-	TextField txtGrupo;
-	
-	public PanelCrearGrupo() {
-		Column col = new Column();
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
+	private Desktop d = app.getDesktop();
+	private Atributos atrib = app.getAtributos();
 
-		Grid grid = new Grid(2);
-		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+	private TestTableModel tableDtaModel;
+	private List<IPersonajeDO> personajes;
+	private List<IPersonajeDO> listPersonajes;
+	private List<Integer> seleccion = new ArrayList<Integer>();
+	private TextField txtGrupo;
+
+	public PanelCrearGrupo() {
+
+		Column col = new Column();
+		col.setInsets(new Insets(10, 10, 10, 10));
+		col.setCellSpacing(new Extent(10));
+
+		Row row = new Row();
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_CENTER);
+
+		Grid gridPane = new Grid(1);
+		gridPane.setInsets(new Insets(10));
+		gridPane.setBackground(Color.WHITE);
+
+		Grid grid = new Grid();
+		grid.setStyle(Estilo.getDefaultStyleColor(atrib));
 		grid.setWidth(new Extent(500));
-		Label lblCorreo = new Label("Nombre del Grupo");
-		// lblCorreo.
+
+		col.add(PanelConstructor.initTopRow("Crear Grupo"));
+
+		Label lblCorreo = new Label("Nombre del Grupo:");
+		Estilo.setFont(lblCorreo, GUIStyles.BOLD);
 		grid.add(lblCorreo);
+
 		txtGrupo = new TextField();
 		txtGrupo.setWidth(new Extent(300));
-		// txtCorreo.validate();
 		try {
-			txtGrupo.setText(CrearGrupo.obtenerNombreGrupo(app.getAtributos()
-					.getPersonaje()));
+			txtGrupo.setText(CrearGrupo.obtenerNombreGrupo( //
+					atrib.getPersonaje()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		grid.add(txtGrupo);
-		col.add(grid);
+		gridPane.add(grid);
 
-		col.add(initTable());
+		// ----------------------------------------
+		// Carga de los Personajes
+		// ----------------------------------------
 
-		Row row = new Row();
-		Button btnSalir = new Button("Cancelar");
-		btnSalir.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnSalir.addActionListener(new ActionListener() {
+		listPersonajes = new ArrayList<IPersonajeDO>();
+		listPersonajes.add(atrib.getPersonaje());
+		tableDtaModel = new TestTableModel();
+		try {
+			personajes = CrearGrupo.obtenerPersonajesClase(atrib.getPersonaje());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tableDtaModel = CrearGrupo.asignarPersonaje(tableDtaModel, personajes, atrib.getPersonaje());
+
+		gridPane.add(PanelConstructor.initTable(tableDtaModel, initTableColModel(), true));
+		col.add(gridPane);
+
+		Button btnCancelar = new Button("Cancelar");
+		btnCancelar.setStyle(Estilo.getStyleColor(atrib));
+		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				btnSalirClicked();
+				d.btnCancelarClicked();
 			}
 		});
+		row.add(btnCancelar);
 
 		Button btnCrearGrupo = new Button("Crear Grupo");
-		btnCrearGrupo.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnCrearGrupo.setStyle(Estilo.getStyleColor(atrib));
 		btnCrearGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				btnCrearGrupoClicked();
 			}
 		});
-
-		if (!txtGrupo.getText().equals("")) {
-			btnSalir.setEnabled(false);
-			btnCrearGrupo.setEnabled(false);
-		}
-
-		row.add(btnSalir);
 		row.add(btnCrearGrupo);
-		row.setAlignment(Alignment.ALIGN_CENTER);
+
 		col.add(row);
 		add(col);
-	}
-
-	Desktop d = app.getDesktop();
-
-	protected void btnCrearGrupoClicked() {
-		if(CrearGrupo.checkNombreGrupo(txtGrupo)){
-			d.setWindowPaneEmergente("El Campo Nombre de Grupo se encuentran Vacio, NO se Creara el Grupo");
-			return;
-		}
-		if(seleccion.isEmpty()){
-			d.setWindowPaneEmergente("No ha Seleccionado Ningun Personaje para que Forme Parte de su Grupo, NO se Creara el Grupo");
-			return;
-		}
-		try {
-			CrearGrupo.crearGrupo(app.getAtributos()
-					.getPersonaje(), personajes, seleccion, txtGrupo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		d.setWindowPaneEmergente("El Grupo se ha Crearado con Exito!");
-		PanelMain pnlMain = new PanelMain();
-		d.setPanelCentral(pnlMain);
-	}
-
-	protected void btnSalirClicked() {
-		PanelMain pnlMain = new PanelMain();
-		d.setPanelCentral(pnlMain);
-	}
-
-	private Component initTable() {
-		setInsets(new Insets(2, 2, 2, 2));
-
-		Column col = new Column();
-		// col.setCellSpacing(new Extent(1));
-		col.setBackground(Color.WHITE);
-
-		col.add(initTopRow());
-
-		// ----------------------------------------
-		// The table models
-		// ----------------------------------------
-
-		TableColModel tableColModel = initTableColModel();
-		TableSelModel tableSelModel = new TableSelModel();
-
-		tableDtaModel = new TestTableModel();
-		tableDtaModel.setEditable(true);
-		tableDtaModel.setPageSize(10);
-
-		Atributos atrr = app.getAtributos();
-		try {
-			personajes = CrearGrupo.obtenerPersonasClase(atrr.getPersonaje());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		tableDtaModel = CrearGrupo.asignarPersonaje(tableDtaModel, personajes, atrr.getPersonaje());
-
-		// ----------------------------------------
-		// The table
-		// ----------------------------------------
-
-		ETable table = new ETable();
-		table.setTableDtaModel(tableDtaModel);
-		table.setTableColModel(tableColModel);
-		table.setTableSelModel(tableSelModel);
-
-		table.setEasyview(true);
-
-		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_NONE));
-		table.setInsets(new Insets(5, 2, 5, 2));
-		col.add(table);
-
-		// ----------------------------------------
-		// The navigation control
-		// ----------------------------------------
-
-		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
-		col.add(tableNavigation);
-		return col;
-	}
-
-	private Row initTopRow() {
-		Row row = new Row();
-		row.setCellSpacing(new Extent(5));
-
-		return row;
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private TableColModel initTableColModel() {
+
 		TableColModel tableColModel = new TableColModel();
-
 		TableColumn tableColumn;
-
-		tableColumn = new TableColumn() {
-			@Override
-			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
-				return personaje.getId();
-			}
-		};
-
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Posicion");
-		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn() {
 			@Override
@@ -216,9 +138,8 @@ public class PanelCrearGrupo extends Panel {
 				return personaje.getAlias();
 			}
 		};
-
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Nombre");
+		tableColumn.setWidth(new Extent(100));
+		tableColumn.setHeadValue("Alias");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
@@ -230,21 +151,34 @@ public class PanelCrearGrupo extends Panel {
 				return personaje.getNivel();
 			}
 		};
-
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(40));
 		tableColumn.setHeadValue("Nivel");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
-		tableColumn = new TableColumn();
+		tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return personaje.getId();
+			}
+		};
 		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Actions");
+		tableColumn.setHeadValue("Ranking");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+
+		tableColumn = new TableColumn();
+		tableColumn.setWidth(new Extent(20));
+		tableColumn.setHeadValue("");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(initNestedCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
 		return tableColModel;
+
 	}
 
 	// --------------------------------------------------------------------------------
@@ -252,28 +186,27 @@ public class PanelCrearGrupo extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private NestedCellRenderer initNestedCellRenderer() {
+
 		NestedCellRenderer nestedCellRenderer = new NestedCellRenderer();
 		nestedCellRenderer.getCellRendererList().add(new BaseCellRenderer() {
 			@Override
-			public Component getCellRenderer(
-					//
-					final ETable table, final Object value, final int col,
-					final int row) {
+			public Component getCellRenderer( //
+					final ETable table, final Object value, //
+					final int col, final int row) {
 
-				boolean editable = ((TestTableModel) table.getTableDtaModel())
+				boolean editable = ((TestTableModel) table.getTableDtaModel())//
 						.getEditable();
 
-				CheckBox ret = new CheckBox();
-				// ret.setStyle(GUIStyles.DEFAULT_STYLE);
-				ret.setEnabled(editable);
-				ret.setToolTipText("Seleccion");
+				CheckBox checkBox = new CheckBox();
+				checkBox.setEnabled(editable);
+				checkBox.setToolTipText("Selección");
 
-				ret.addActionListener(new ActionListener() {
+				checkBox.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						btnCheckBoxClicked(row);
 					}
 				});
-				return ret;
+				return checkBox;
 			}
 		});
 
@@ -283,13 +216,58 @@ public class PanelCrearGrupo extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnCheckBoxClicked(int row) {
+
 		Integer e = new Integer(row);
-		for(int pos=0;pos<seleccion.size();pos++){
-			if(seleccion.get(pos).equals(e)){
+		for(int pos = 0; pos < seleccion.size(); pos++) {
+			if(seleccion.get(pos).equals(e)) {
 				seleccion.remove(pos);
 				return;
 			}
 		}
 		seleccion.add(e);
+
+		IPersonajeDO personaje = personajes.get(row);
+
+		for (int i = 0; i < listPersonajes.size(); i++) {
+			if (listPersonajes.get(i).equals(personaje)) {
+				listPersonajes.remove(i);
+				return;
+			}
+		}
+		listPersonajes.add(personaje);
+
 	}
+
+	protected void btnCrearGrupoClicked() {
+
+		if(CrearGrupo.checkNombreGrupoIsEmpty(txtGrupo)) {
+			d.setWindowPaneEmergente( //
+					"El campo nombre de grupo se encuentran vacío, No se creará el grupo");
+			return;
+		}
+		if(seleccion.isEmpty()) {
+			d.setWindowPaneEmergente( //
+					"No ha seleccionado ningun personaje para que forme parte del grupo, No se creará el grupo");
+			return;
+		}
+
+//		try {
+//			CrearGrupo.crearGrupo( //
+//					atrib.getPersonaje(), personajes, seleccion, txtGrupo);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+
+		try {
+			CrearGrupo.crearGrupo2(listPersonajes, txtGrupo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		d.setWindowPaneEmergente("El grupo se ha creado con éxito!");
+		PanelMain pnlMain = new PanelMain();
+		d.setPanelCentral(pnlMain);
+
+	}
+
 }

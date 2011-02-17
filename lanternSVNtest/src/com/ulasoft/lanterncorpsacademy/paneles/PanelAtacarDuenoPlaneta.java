@@ -27,21 +27,15 @@ public class PanelAtacarDuenoPlaneta extends Panel {
 			LanternCorpsAcademyApp.getActive();
 
 //	private IPlanetaDO planeta;
-	private Label lblAlias = new Label("Dueño de Planeta");
-	private Label lblClase = new Label("Black Lantern Corp");
-	private Label lblNivel = new Label("50000");
+	private Label lblAlias;
+	private Label lblClase;
+	private Label lblNivel;
 
 	public PanelAtacarDuenoPlaneta() {
 
-//		Atributos atrib = app.getAtributos();
-
-		Row row = new Row();
-		Row rowBotones = new Row();
-		rowBotones.setAlignment(Alignment.ALIGN_CENTER);
-		rowBotones.setCellSpacing(new Extent(5));
-
 		Column col = new Column();
 		col.setCellSpacing(new Extent(10));
+
 		Column colPane = new Column();
 		colPane.setInsets(new Insets(10, 10, 10, 10));
 		colPane.setCellSpacing(new Extent(10));
@@ -50,7 +44,11 @@ public class PanelAtacarDuenoPlaneta extends Panel {
 			colInf[i] = new Column();
 		}
 
-		Grid grid = new Grid(2);
+		Row row = new Row();
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		row.setCellSpacing(new Extent(5));
+
+		Grid grid = new Grid();
 		grid.setBackground(Color.WHITE);
 
 		Label lblImagen = new Label();
@@ -58,15 +56,17 @@ public class PanelAtacarDuenoPlaneta extends Panel {
 				new Extent(200), new Extent(325)));
 		grid.add(lblImagen);
 
-//		lblAlias = new Label("");
-//		lblClase = new Label("");
-//		lblNivel = new Label("");
+		lblAlias = new Label("Dueño de Planeta");
+		lblClase = new Label("Black Lantern Corp");
+		lblNivel = new Label("50000");
 
 //		try {
 //			atrib.updatePanelConquistar(this);
 //		} catch (Exception e1) {
 //			e1.printStackTrace();
 //		}
+
+		col.add(PanelConstructor.initTopRow("Atacar Dueño de Planeta"));
 
 		Label lblDuenoPlaneta = new Label("Dueño del Planeta:");
 		Estilo.setFont(lblDuenoPlaneta, GUIStyles.BOLD);
@@ -114,21 +114,19 @@ public class PanelAtacarDuenoPlaneta extends Panel {
 		col.add(grid);
 
 		Button btnCancelar = new Button("Cancelar");
-		btnCancelar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnCancelar.setWidth(new Extent(160));
-		btnCancelar.setHeight(new Extent(20));
+		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnCancelar.setWidth(new Extent(120));
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				app.getDesktop().btnCancelarClicked();
 			}
 		});
-		rowBotones.add(btnCancelar);
+		row.add(btnCancelar);
 
 		Button btnAtacar = new Button("Atacar");
-		btnAtacar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnAtacar.setWidth(new Extent(160));
-		btnAtacar.setHeight(new Extent(20));
+		btnAtacar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnAtacar.setWidth(new Extent(120));
 		btnAtacar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -139,12 +137,10 @@ public class PanelAtacarDuenoPlaneta extends Panel {
 				}
 			}
 		});
-		rowBotones.add(btnAtacar);
+		row.add(btnAtacar);
 
-		col.add(rowBotones);
-		row.add(col);
-		add(row);
-
+		col.add(row);
+		add(col);
 	}
 
 	// --------------------------------------------------------------------------------

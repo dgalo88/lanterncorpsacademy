@@ -6,25 +6,20 @@ import java.util.List;
 import lcaInterfaceDAO.IHabilidadDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.CheckBox;
-import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
-import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.minotauro.echo.table.base.ETable;
-import com.minotauro.echo.table.base.ETableNavigation;
 import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
-import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
@@ -34,7 +29,6 @@ import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
-import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelAdquirirHabilidades extends Panel {
@@ -50,13 +44,27 @@ public class PanelAdquirirHabilidades extends Panel {
 	public PanelAdquirirHabilidades() {
 
 		Column col = new Column();
+		col.setInsets(new Insets(10, 10, 10, 10));
 		col.setCellSpacing(new Extent(10));
-		col.add(initTopRow());
-		col.add(initTable());
 
 		Row row = new Row();
 		row.setCellSpacing(new Extent(10));
 		row.setAlignment(Alignment.ALIGN_CENTER);
+
+		// ----------------------------------------
+		// Carga las Habilidades Disponibles
+		// ----------------------------------------
+
+		tableDtaModel = new TestTableModel();
+		try {
+			tableDtaModel = HabilidadesAnillo.obtenerHabilidadesCompra( //
+					atrib.getPersonaje(), tableDtaModel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		col.add(PanelConstructor.initTopRow("Habilidades Disponibles"));
+		col.add(PanelConstructor.initTable(tableDtaModel, initTableColModel(), true));
 
 		Button btnAtras = new Button("Atrás");
 		btnAtras.setStyle(Estilo.getStyleColor(app.getAtributos()));
@@ -87,67 +95,69 @@ public class PanelAdquirirHabilidades extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private Component initTable() {
-
-		setInsets(new Insets(2, 2, 2, 2));
-
-		Column col = new Column();
-		col.setCellSpacing(new Extent(10));
-		col.setBackground(Color.WHITE);
-
-		// ----------------------------------------
-		// The table models
-		// ----------------------------------------
-
-		TableColModel tableColModel = initTableColModel();
-		TableSelModel tableSelModel = new TableSelModel();
-		tableDtaModel = new TestTableModel();
-		tableDtaModel.setEditable(true);
-		tableDtaModel.setPageSize(10);
-
-		try {
-			tableDtaModel = HabilidadesAnillo.obtenerHabilidadesCompra( //
-					atrib.getPersonaje(), tableDtaModel);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// ----------------------------------------
-		// The table
-		// ----------------------------------------
-
-		ETable table = new ETable();
-		table.setTableDtaModel(tableDtaModel);
-		table.setTableColModel(tableColModel);
-		table.setTableSelModel(tableSelModel);
-		table.setEasyview(true);
-		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_NONE));
-		table.setInsets(new Insets(5, 2, 5, 2));
-		Estilo.setFont(table, GUIStyles.NORMAL);
-		col.add(table);
-
-		// ----------------------------------------
-		// The navigation control
-		// ----------------------------------------
-
-		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
-		col.add(tableNavigation);
-
-		return col;
-
-	}
-
-	private Row initTopRow() {
-
-		Row row = new Row();
-		Label lblTitle = new Label("Habilidades Disponibles");
-		lblTitle.setForeground(Color.WHITE);
-		Estilo.setFont(lblTitle, GUIStyles.BOLD, 16);
-		row.add(lblTitle);
-		row.setAlignment(Alignment.ALIGN_CENTER);
-		return row;
-
-	}
+//	private Row initTopRow() {
+//
+//		Row row = new Row();
+//		Label lblTitle = new Label("Habilidades Disponibles");
+//		lblTitle.setForeground(Color.WHITE);
+//		Estilo.setFont(lblTitle, GUIStyles.BOLD, 16);
+//		row.add(lblTitle);
+//		row.setAlignment(Alignment.ALIGN_CENTER);
+//		return row;
+//
+//	}
+//
+//	// --------------------------------------------------------------------------------
+//
+//	private Component initTable() {
+//
+//		setInsets(new Insets(2, 2, 2, 2));
+//
+//		Column col = new Column();
+//		col.setCellSpacing(new Extent(10));
+//		col.setBackground(Color.WHITE);
+//
+//		// ----------------------------------------
+//		// The table models
+//		// ----------------------------------------
+//
+//		TableColModel tableColModel = initTableColModel();
+//		TableSelModel tableSelModel = new TableSelModel();
+//		tableDtaModel = new TestTableModel();
+//		tableDtaModel.setEditable(true);
+//		tableDtaModel.setPageSize(10);
+//
+//		try {
+//			tableDtaModel = HabilidadesAnillo.obtenerHabilidadesCompra( //
+//					atrib.getPersonaje(), tableDtaModel);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		// ----------------------------------------
+//		// The table
+//		// ----------------------------------------
+//
+//		ETable table = new ETable();
+//		table.setTableDtaModel(tableDtaModel);
+//		table.setTableColModel(tableColModel);
+//		table.setTableSelModel(tableSelModel);
+//		table.setEasyview(true);
+//		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_NONE));
+//		table.setInsets(new Insets(5, 2, 5, 2));
+//		Estilo.setFont(table, GUIStyles.NORMAL);
+//		col.add(table);
+//
+//		// ----------------------------------------
+//		// The navigation control
+//		// ----------------------------------------
+//
+//		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
+//		col.add(tableNavigation);
+//
+//		return col;
+//
+//	}
 
 	// --------------------------------------------------------------------------------
 

@@ -1,7 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
 import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
@@ -20,52 +19,80 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.InvitarNuevosUsuarios;
+import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class PanelInvitarNuevosUsuarios extends Panel {
 
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
+
 	private TextField txtCorreo;
 	private TextField txtNombre;
-	private TextArea fldComentarios;
+	private TextArea txtComentarios;
 
 	public PanelInvitarNuevosUsuarios() {
-		Column col = new Column();
-		col.setInsets(new Insets(5, 5, 5, 5));
-		col.setCellSpacing(new Extent(10));
-		col.setBackground(Color.WHITE);
 
-		Label lblTitle = new Label("Invitar Amigo");
-		col.add(lblTitle);
+		Row row = new Row();
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_CENTER);
+
+		Column col = new Column();
+		col.setInsets(new Insets(10, 10, 10, 10));
+		col.setCellSpacing(new Extent(10));
+
+		Grid gridPane = new Grid(1);
+		gridPane.setInsets(new Insets(20, 20, 20, 20));
+		gridPane.setBackground(Color.WHITE);
+
 		Grid grid = new Grid();
-		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		grid.setWidth(new Extent(420));
+
+		col.add(PanelConstructor.initTopRow("Invitar Amigo"));
+
 		Label lblNombre = new Label("Nombre");
+		Estilo.setFont(lblNombre, GUIStyles.BOLD);
 		grid.add(lblNombre);
 
 		txtNombre = new TextField();
-		txtNombre.setWidth(new Extent(300));
+		txtNombre.setWidth(new Extent(390));
+		txtNombre.setText("");
 		grid.add(txtNombre);
 
-		Label lblPass = new Label("Correo");
-		grid.add(lblPass);
+		Label lblCorreo = new Label("Correo");
+		Estilo.setFont(lblCorreo, GUIStyles.BOLD);
+		grid.add(lblCorreo);
 
 		txtCorreo = new TextField();
-		txtCorreo.setWidth(new Extent(300));
+		txtCorreo.setWidth(new Extent(390));
+		txtCorreo.setText("");
 		grid.add(txtCorreo);
 
-		Label lblComentarios = new Label("Comentarios");
-		grid.add(lblComentarios);
+		Label lblMensaje = new Label("Comentarios");
+		Estilo.setFont(lblMensaje, GUIStyles.BOLD);
+		grid.add(lblMensaje);
 
-		fldComentarios = new TextArea();
-		fldComentarios.setWidth(new Extent(300));
-		grid.add(fldComentarios);
-		Row row = new Row();
-		row.add(grid);
-		row.setAlignment(Alignment.ALIGN_CENTER);
-		col.add(row);
-		row = new Row();
-		Button btnEnviarInvitacion = new Button("Enviar Invitacion");
+		txtComentarios = new TextArea();
+		txtComentarios.setWidth(new Extent(390));
+		txtComentarios.setHeight(new Extent(150));
+		txtComentarios.setText("");
+		Estilo.setFont(txtComentarios, GUIStyles.NORMAL, 13);
+		grid.add(txtComentarios);
+
+		gridPane.add(grid);
+		col.add(gridPane);
+
+		Button btnLimpiarCampos = new Button("Limpiar Campos");
+		btnLimpiarCampos.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnLimpiarCampos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				limpiarCampos();
+			}
+		});
+		row.add(btnLimpiarCampos);
+
+		Button btnEnviarInvitacion = new Button("Enviar Invitación");
 		btnEnviarInvitacion.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnEnviarInvitacion.addActionListener(new ActionListener() {
 			@Override
@@ -74,21 +101,33 @@ public class PanelInvitarNuevosUsuarios extends Panel {
 			}
 		});
 		row.add(btnEnviarInvitacion);
-		row.setCellSpacing(new Extent(10));
-		row.setAlignment(Alignment.ALIGN_CENTER);
+
 		col.add(row);
-		col.setBorder(new Border(3, new Color(0x00, 0x00, 0x00),
-				Border.STYLE_SOLID));
 		add(col);
 	}
 
-	protected void btnEnviarInvitacionClicked() {
-		Desktop d = app.getDesktop();
-		String campo = InvitarNuevosUsuarios.checkEmptyFields(txtCorreo,
-				txtNombre, fldComentarios);
-		if (campo != null) {
-			d.setWindowPaneEmergente(campo);
-			return;
-		}
+	private void limpiarCampos() {
+
+		txtCorreo.setText("");
+		txtNombre.setText("");
+		txtComentarios.setText("");
+
 	}
+
+	protected void btnEnviarInvitacionClicked() {
+
+		Desktop d = app.getDesktop();
+		String campo;
+
+		try {
+			campo = InvitarNuevosUsuarios.enviarMensaje(txtNombre.getText(), //
+					txtCorreo.getText(), txtComentarios.getText());
+		} catch (Exception e) {
+			campo = "Se ha producido un error al intentar enviar la invitación";
+			e.printStackTrace();
+		}
+
+		d.setWindowPaneEmergente(campo);
+	}
+
 }

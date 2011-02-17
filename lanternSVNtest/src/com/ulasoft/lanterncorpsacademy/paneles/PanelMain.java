@@ -36,13 +36,9 @@ public class PanelMain extends Panel {
 
 	public PanelMain() {
 
-		Row row = new Row();
-		Row rowBotones = new Row();
-		rowBotones.setAlignment(Alignment.ALIGN_CENTER);
-		rowBotones.setCellSpacing(new Extent(5));
-
 		Column col = new Column();
 		col.setCellSpacing(new Extent(10));
+
 		Column colPane = new Column();
 		colPane.setInsets(new Insets(10, 10, 10, 10));
 		colPane.setCellSpacing(new Extent(10));
@@ -50,6 +46,10 @@ public class PanelMain extends Panel {
 		for (int i = 0; i < colInf.length; i++) {
 			colInf[i] = new Column();
 		}
+
+		Row row = new Row();
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		row.setCellSpacing(new Extent(10));
 
 		Grid grid = new Grid(2);
 		grid.setBackground(Color.WHITE);
@@ -126,7 +126,7 @@ public class PanelMain extends Panel {
 //				btnPlanetaCasaClicked();
 			}
 		});
-		rowBotones.add(btnPlanetaCasa);
+		row.add(btnPlanetaCasa);
 
 		Button btnAsignarDefensas = new Button("Asignar Defensas");
 		btnAsignarDefensas.setStyle(Estilo.getStyleColor(app.getAtributos()));
@@ -138,11 +138,10 @@ public class PanelMain extends Panel {
 //				btnAsignarDefensasClicked();
 			}
 		});
-		rowBotones.add(btnAsignarDefensas);
+		row.add(btnAsignarDefensas);
 
-		col.add(rowBotones);
-		row.add(col);
-		add(row);
+		col.add(row);
+		add(col);
 
 	}
 

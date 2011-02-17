@@ -1,5 +1,7 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
+import lcaInterfaceDAO.IClaseLinternaDAO;
+import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDAO;
@@ -7,7 +9,6 @@ import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
 
-import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.menus.MenuStatus;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
@@ -26,23 +27,28 @@ public class Atributos {
 
 	}
 
-	private LanternCorpsAcademyApp lca = (LanternCorpsAcademyApp) //
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
 
 	private IPersonajeDO personaje;
 	private IUsuarioDO usuario;
 	
 	public void updateAtts () throws Exception {
-		ConnectionBean connectionBean=ConnectionFactory.getConnectionBean();
+
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+
 		personaje = (IPersonajeDO) GlobalDOFactory.getDO(IPersonajeDO.class);
 		usuario = (IUsuarioDO) GlobalDOFactory.getDO(IUsuarioDO.class);
         
-		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
-        IUsuarioDAO usDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(IUsuarioDAO.class, connectionBean);
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
+        IUsuarioDAO usDAO = (IUsuarioDAO) //
+        		GlobalDAOFactory.getDAO(IUsuarioDAO.class, connectionBean);
+
         usuario = (IUsuarioDO) usDAO.loadById(usuario.getId());
         personaje= (IPersonajeDO) personajeDAO.loadById(personaje.getId());
 		
-		System.err.println("PERSONAJE ID en atts:"+personaje.getId());
+		System.err.println("PERSONAJE ID en atts:" + personaje.getId());
 		
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
 	}
@@ -53,18 +59,19 @@ public class Atributos {
 		System.err.println("PERSONAJE salud en atts menuStatus:"
 				+ personaje.getSalud());
 
-		menuStatus.getSalud().setCurrValue(
-				(personaje.getSalud()) * 100
-						/ (200 + 50 * (personaje.getNivel() - 1)));
-		menuStatus.getEnergia().setCurrValue(
-				personaje.getEnergiaDelAnillo() * 100
-						/ (100 + 10 * (personaje.getNivel() - 1)));
-		menuStatus.getExperiencia().setCurrValue(
-				personaje.getExperiencia() * 100 / 15 * 
-				 2^(personaje.getNivel() - 1));
-		menuStatus.getLblTrainsValue().setText(
+		menuStatus.getSalud().setCurrValue( //
+				(personaje.getSalud()) * 100 / (200 + 50 * (personaje.getNivel() - 1)));
+
+		menuStatus.getEnergia().setCurrValue( //
+				personaje.getEnergiaDelAnillo() * 100 / (100 + 10 * (personaje.getNivel() - 1)));
+
+		menuStatus.getExperiencia().setCurrValue( //
+				personaje.getExperiencia() * 100 / 15 * 2^(personaje.getNivel() - 1));
+
+		menuStatus.getLblTrainsValue().setText( //
 				Integer.toString(personaje.getPuntosDeEntrenamiento()));
-		menuStatus.getLblNiveLabelValue().setText(
+
+		menuStatus.getLblNiveLabelValue().setText( //
 				Integer.toString(personaje.getNivel()));
 
 		switch (personaje.getClaseLinternaRef().getRefIdent()) {
@@ -122,14 +129,20 @@ public class Atributos {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
-		IPlanetaDAO planetaDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
-		IPlanetaDO planeta = (IPlanetaDO) planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
+		IPlanetaDAO planetaDAO = (IPlanetaDAO) //
+				GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
+		IPlanetaDO planeta = (IPlanetaDO) //
+				planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
+		IClaseLinternaDAO claseLinternaDAO = (IClaseLinternaDAO) //
+				GlobalDAOFactory.getDAO(IClaseLinternaDAO.class, connectionBean);
+		IClaseLinternaDO claseLinterna = (IClaseLinternaDO) //
+				claseLinternaDAO.loadById(personaje.getClaseLinternaRef().getRefIdent());
 
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
 
 		System.err.println("PLANETA ID en atts main:" + planeta.getId());
 		conquistar.getLblAlias().setText(personaje.getAlias());
-		conquistar.getLblClase().setText(Data.getClase(personaje.getClaseLinternaRef().getRefIdent()));
+		conquistar.getLblClase().setText(claseLinterna.getNombre_de_cuerpo_linterna());
 		conquistar.getLblNivel().setText(Integer.toString(personaje.getNivel()));
 
 	}
@@ -138,8 +151,18 @@ public class Atributos {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
-		IPlanetaDAO planetaDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
-		IPlanetaDO planeta = (IPlanetaDO) planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
+		IPlanetaDAO planetaDAO = (IPlanetaDAO) //
+				GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
+		IPlanetaDO planeta = (IPlanetaDO) //
+				planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
+		IClaseLinternaDAO claseLinternaDAO = (IClaseLinternaDAO) //
+				GlobalDAOFactory.getDAO(IClaseLinternaDAO.class, connectionBean);
+		IClaseLinternaDO claseLinterna = (IClaseLinternaDO) //
+				claseLinternaDAO.loadById(personaje.getClaseLinternaRef().getRefIdent());
+
+		// TODO: Arreglar Referencia
+		IPlanetaDO planetaCasa = (IPlanetaDO) //
+				planetaDAO.loadById(personaje.getClaseLinternaRef().getRefIdent());
 
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
 
@@ -147,10 +170,10 @@ public class Atributos {
 		misDatos.getLblNombre().setText("Nombre: " + usuario.getNombre());
 		misDatos.getLblCorreo().setText("Correo: " + usuario.getCorreo());
 		misDatos.getLblAlias().setText("Alias: " + personaje.getAlias());
-		misDatos.getLblPlanetaValue().setText("Planeta Casa: " //
-				+ Data.getPlanetaBase(personaje.getClaseLinternaRef().getRefIdent()));
-		misDatos.getLblClase().setText("Clase: " + Data.getClase( //
-				personaje.getClaseLinternaRef().getRefIdent()));
+//		misDatos.getLblPlanetaValue().setText("Planeta Casa: " //
+//				+ Data.getPlanetaBase(personaje.getClaseLinternaRef().getRefIdent()));
+		misDatos.getLblPlanetaValue().setText("Planeta Casa: " + planetaCasa.getNombre());
+		misDatos.getLblClase().setText("Clase: " + claseLinterna.getNombre_de_cuerpo_linterna());
 		misDatos.getLblNivel().setText("Nivel: " + //
 				Integer.toString(personaje.getNivel()));
 		misDatos.getLblPuntosEntrenamiento().setText("Puntos de Entrenamiento: " //
@@ -194,8 +217,7 @@ public class Atributos {
 
 		personajeDAO.update(personaje);
 
-		Desktop d = lca.getDesktop();
-		updateMenuStatus(d.getMenuHead().getMenuStatus());
+		updateMenuStatus(app.getDesktop().getMenuHead().getMenuStatus());
 
 		System.err.println("PERSONAJE ID en atts save:" + personaje.getId());
 
