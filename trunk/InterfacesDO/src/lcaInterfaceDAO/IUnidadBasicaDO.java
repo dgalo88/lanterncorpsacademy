@@ -51,7 +51,7 @@ public interface IUnidadBasicaDO extends DataObject{
 	
 	//-------------------------------------------------------------------------------------------------------
 	
-	public abstract Reference<IUnidadEjercitoDO> getUidadEjercitoArmaRef();
+	public abstract Reference<IUnidadEjercitoDO> getUnidadEjercitoArmaRef();
 	
 	public abstract void setUnidadEjercitoArma(Reference<IUnidadEjercitoDO> unidadEjercitoArmaRef);
 	
