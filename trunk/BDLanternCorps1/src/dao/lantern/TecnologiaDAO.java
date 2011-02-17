@@ -66,14 +66,15 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 
 		// ----------------------------------------
 
-		TecnologiaRecursoDAO tecnologiaPersonajeDAO = new TecnologiaRecursoDAO(); // Used
+		TecnologiaPersonajeDAO tecnologiaPersonajeDAO = new TecnologiaPersonajeDAO();
+		TecnologiaRecursoDAO tecnologiaRecursoDAO = new TecnologiaRecursoDAO(); // Used
 																					// to
 																					// make
 																					// the
 																					// FK
 		tecnologiaPersonajeDAO.init(connectionBean);
 
-		TecnologiaPersonajeDAO tecnologiaPersonajeDAO = new TecnologiaPersonajeDAO();
+		
 		tecnologiaPersonajeDAO.init(connectionBean);
 
 		AndroideDAO androideDAO = new AndroideDAO();
@@ -92,16 +93,8 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		strbuf.append(TecnologiaDO.NOMBRE);
 		strbuf.append(" VARCHAR(100),    ");
 		strbuf.append(TecnologiaDO.TECNOLOGIA_PERSONAJE_ID);
-		strbuf.append("INT REFERENCES ");
-		strbuf.append(TecnologiaPersonajeDAO.getTableName());
-		strbuf.append(", ");
-		strbuf.append(TecnologiaDO.TECNOLOGIA_RECURSO_ID);
-		strbuf.append("INT REFERENCES ");
-		strbuf.append(TecnologiaRecursoDAO.getTableName());
 		strbuf.append(", ");
 		strbuf.append(TecnologiaDO.UNIDAD_BASICA_ID);
-		strbuf.append("INT REFERENCES ");
-		strbuf.append(UnidadBasicaDAO.getTableName());
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
@@ -221,7 +214,7 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 				.getDAO(TecnologiaPersonajeDAO.class, connectionBean);
 		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO(
 				PersonajeDAO.class, connectionBean);
-		TecnologiaRecursoDAO tecnologiaRecursoDAO = (TecnologiaReursoDAO) FactoryDAO
+		TecnologiaRecursoDAO tecnologiaRecursoDAO = (TecnologiaRecursoDAO) FactoryDAO
 				.getDAO( //
 						TecnologiaRecursoDAO.class, connectionBean);
 		TecnologiaDAO tecnologiaDAO = (TecnologiaDAO) FactoryDAO.getDAO(
@@ -301,7 +294,7 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		strbuf.append("SELECT " + getTableName() + ".* FROM ");
 		strbuf.append(getTableName());
 		strbuf.append(" RIGHT JOIN  ");
-		strbuf.append(TecnologiaPersonajeDAO.getTableName());
+		strbuf.append(tecnologiaPersonajeDAO.getTableName());
 		strbuf.append(" ON ");
 		strbuf.append(getTableName());
 		strbuf.append("." + PersonajeDO.ID);
@@ -456,22 +449,20 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 
 		ret.setId/*     */(rs.getInt(TecnologiaDO.ID));
 		ret.setNombre/*   */(rs.getString(TecnologiaDO.NOMBRE));
-		ret.setCosto_de_tecnologia((rs
-				.getInt(TecnologiaDO.COSTO_DE_TECNOLOGIA)));
-		ret.setNombre(rs.getInt(TecnologiaDO.NOMBRE));
+		
 
 		return (TecnologiaDO) dtaSession.add(ret);
 	}
 
 	public void loadTecnologiaPersonajeList(ITecnologiaDO tecnologiaDO)
 			throws Exception {
-		// checkCache(habilidadDO, CHECK_UPDATE);
+		 checkCache(tecnologiaDO, CHECK_UPDATE);
 
 		TecnologiaPersonajeDAO tecnologiaPersonajeDAO = (TecnologiaPersonajeDAO) FactoryDAO
 				.getDAO( //
 						TecnologiaPersonajeDAO.class, connectionBean);
 
-		tecnologiaDO.setTecnologiaPersonajeList(TecnologiaPersonajeDAO
+		tecnologiaDO.setTecnologiaPersonajeList(tecnologiaPersonajeDAO
 				.listByTecnologiaId(tecnologiaDO.getId()));
 	}
 
@@ -483,7 +474,7 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 				.getDAO( //
 						TecnologiaRecursoDAO.class, connectionBean);
 
-		tecnologiaDO.setHabilidadClaseLinternaList(tecnologiaRecursoDAO
+		tecnologiaDO.setTecnologiaRecursoList(tecnologiaRecursoDAO
 				.listByRecursoId(tecnologiaDO.getId()));
 	}
 
