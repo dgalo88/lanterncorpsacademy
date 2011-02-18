@@ -3,6 +3,7 @@ package com.ulasoft.lanterncorpsacademy.menus;
 import java.util.ArrayList;
 import java.util.List;
 
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
@@ -29,11 +30,11 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMisDatos;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarRecursos;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarConquistado;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarNeutro;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
-import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 import com.valkirye.lanterncorpsacademy.components.Accordion;
 import com.valkirye.lanterncorpsacademy.components.AccordionSection;
 import com.valkirye.lanterncorpsacademy.extras.ObjectLca;
@@ -51,10 +52,9 @@ public class Menu extends Panel {
 	public Menu() {
 
 		Row row = new Row();
-		row.setStyle(GUIStyles.STYLEMENUI);
+		row.setAlignment(Alignment.ALIGN_LEFT);
 
 		Accordion acc = new Accordion();
-		acc.setStyle(GUIStyles.STYLEMENUI);
 
 		// Menu Personaje
 		AccordionSection personaje = new AccordionSection("Personaje");
@@ -115,7 +115,7 @@ public class Menu extends Panel {
 		acc.addSection(grupos);
 
 		// Ver Clasificación
-		Button btnRanking = new Button("Ver Clasificacion");
+		Button btnRanking = new Button("Ver Clasificación");
 		btnRanking.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnRanking.addActionListener(new ActionListener() {
 			@Override
@@ -149,6 +149,7 @@ public class Menu extends Panel {
 
 		// Ver Mapa
 		Button btnVerMapa = new Button("Ver mapa");
+		btnVerMapa.setTextAlignment(Alignment.ALIGN_CENTER);
 		btnVerMapa.setForeground(new Color (255, 255, 255));
 		btnVerMapa.addActionListener(new ActionListener() {
 			@Override
@@ -157,7 +158,6 @@ public class Menu extends Panel {
 			}
 		});
 		AccordionSection verMapa = new AccordionSection(btnVerMapa);
-//		verMapa.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
 		acc.addSection(verMapa);
 
 		row.add(acc);
@@ -245,7 +245,7 @@ public class Menu extends Panel {
 		col.add(grid[0]);
 		grid[0].add(btnVerUnidades);
 
-		Button btnAdquirirTecnologia = new Button("Adquirir Tecnologia");
+		Button btnAdquirirTecnologia = new Button("Adquirir Tecnología");
 		btnAdquirirTecnologia.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
 		btnAdquirirTecnologia.addActionListener(new ActionListener() {
 			@Override
@@ -504,13 +504,25 @@ public class Menu extends Panel {
 
 		PanelConquistar pnlMain = new PanelConquistar();
 		d.setPanelCentral(pnlMain);
+
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private void btnRecolectarClicked() {
 
-		PanelRecolectarRecursos pnlMain = new PanelRecolectarRecursos();
+		// TODO: Arreglar Recolectar
+
+		Panel pnlMain;
+
+		int planetaActual = app.getAtributos().getPersonaje() //
+				.getPlanetaRef().getRefIdent();
+		int planetaCasa = app.getAtributos().getPersonaje() //
+				.getClaseLinternaRef().getRefIdent();
+
+		pnlMain = (planetaActual == planetaCasa) ? //
+				new PanelRecolectarConquistado() : new PanelRecolectarNeutro();
+
 		d.setPanelCentral(pnlMain);
 
 	}

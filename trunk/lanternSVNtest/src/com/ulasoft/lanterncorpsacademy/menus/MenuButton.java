@@ -1,5 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.menus;
 
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Panel;
@@ -16,42 +17,48 @@ import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 @SuppressWarnings("serial")
 public class MenuButton extends Panel {
 	
-	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-		.getActive();
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
 	private Desktop d = app.getDesktop();
 	
 	public MenuButton() {
+
 		Row row = new Row();
-		row.setStyle(GUIStyles.STYLEBUTTON);
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_RIGHT);
 
-		Button btnAmigo = new Button("Invitar Amigo");
-		btnAmigo.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnAmigo.setWidth(new Extent(120));
-		btnAmigo.addActionListener(new ActionListener() {
+		Button btnInvitarAmigo = new Button("Invitar Amigo");
+		btnInvitarAmigo.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		Estilo.setFont(btnInvitarAmigo, GUIStyles.BOLD, 12);
+		btnInvitarAmigo.setWidth(new Extent(110));
+		btnInvitarAmigo.setHeight(new Extent(15));
+		btnInvitarAmigo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				btnInvitarNuevosUsuariosClicked();
+				btnInvitarAmigoClicked();
 			}
 		});
-		row.add(btnAmigo);
+		row.add(btnInvitarAmigo);
 
-		Button btnExit = new Button("Salir");
-		btnExit.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnExit.setWidth(new Extent(120));
-		btnExit.addActionListener(new ActionListener() {
+		Button btnSalir = new Button("Salir");
+		btnSalir.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		Estilo.setFont(btnSalir, GUIStyles.BOLD, 12);
+		btnSalir.setWidth(new Extent(110));
+		btnSalir.setHeight(new Extent(15));
+		btnSalir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				btnExitClicked();
+				btnSalirClicked();
 			}
 		});
-		row.add(btnExit);
+		row.add(btnSalir);
 
 		add(row);
 	}
 
 	// --------------------------------------------------------------------------------
 
-	private void btnInvitarNuevosUsuariosClicked() {
+	private void btnInvitarAmigoClicked() {
 
 		PanelInvitarNuevosUsuarios pnlMain = new PanelInvitarNuevosUsuarios();
 		d.setPanelCentral(pnlMain);
@@ -60,11 +67,11 @@ public class MenuButton extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private void btnExitClicked() {
+	private void btnSalirClicked() {
 
-		// El usuario está haciendo logout, así que ponemos los atributos a null
-		// en la aplicación
-		// después de guardarlos en BD..
+		// El usuario está haciendo logout,
+		// así que ponemos los atributos a null
+		// en la aplicación después de guardarlos en BD.
 		try {
 			app.getAtributos().guardarAtts();
 		} catch (Exception e) {
@@ -72,8 +79,8 @@ public class MenuButton extends Panel {
 		}
 		app.setAtributos(null);
 
-		Desktop desktop = app.getDesktop();
 		d.removeAll();
+		Desktop desktop = app.getDesktop();
 		d.add(desktop.initTemplate1());
 	}
 

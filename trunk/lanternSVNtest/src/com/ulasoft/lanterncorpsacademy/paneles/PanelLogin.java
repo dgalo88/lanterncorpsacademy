@@ -55,7 +55,6 @@ public class PanelLogin extends Panel {
 		Grid gridPane = new Grid(1);
 		gridPane.setHeight(new Extent(100));
 		gridPane.setInsets(new Insets(10, 10, 10, 10));
-		gridPane.setBackground(Color.WHITE);
 
 		Grid grid = new Grid();
 		grid.setWidth(new Extent(410));
@@ -86,9 +85,8 @@ public class PanelLogin extends Panel {
 
 		Button btnEnter = new Button("Entrar");
 		btnEnter.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		Estilo.setFont(btnEnter, GUIStyles.NORMAL);
-		btnEnter.setWidth(new Extent(80));
-		btnEnter.setHeight(new Extent(20));
+		Estilo.setFont(btnEnter, GUIStyles.BOLD);
+		btnEnter.setWidth(new Extent(120));
 		btnEnter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -103,9 +101,8 @@ public class PanelLogin extends Panel {
 
 		Button btnRegister = new Button("Registrarse");
 		btnRegister.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		Estilo.setFont(btnRegister, GUIStyles.NORMAL);
-		btnRegister.setWidth(new Extent(80));
-		btnRegister.setHeight(new Extent(20));
+		Estilo.setFont(btnRegister, GUIStyles.BOLD);
+		btnRegister.setWidth(new Extent(120));
 		btnRegister.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {

@@ -34,9 +34,9 @@ public class InvitarNuevosUsuarios {
 			return campo;
 		}
 
-		String miCorreo = "valkiryelca@gmail.com";
-		String miPass = "Valkirye2011";
-		String miMensaje = "Valkirye te invita a jugar Lantern Corps Academy!!!\n\n" //
+		String miCorreo = "valkyrielca@gmail.com";
+		String miPass = "Valkyrie2011";
+		String miMensaje = "Valkyrie te invita a jugar Lantern Corps Academy!!!\n\n" //
 			+ "Descripción: Juego multijugador en línea con interfaz web basada en el navegador. " //
 			+ "El juego explota la dinámica y equilibrio característicos de un Juego de Rol Multijugador Masivo, " //
 			+ "basando su temática en las sagas de historietas del grupo Green Lantern Corps " //

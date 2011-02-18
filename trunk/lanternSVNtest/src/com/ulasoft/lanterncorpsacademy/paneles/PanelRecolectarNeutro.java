@@ -3,16 +3,17 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IHabilidadDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
-import nextapp.echo.app.CheckBox;
-import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Insets;
 import nextapp.echo.app.Panel;
+import nextapp.echo.app.RadioButton;
 import nextapp.echo.app.Row;
+import nextapp.echo.app.button.ButtonGroup;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
@@ -22,68 +23,67 @@ import com.minotauro.echo.table.base.TableColumn;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
+import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.logic.Ranking;
+import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
 
 @SuppressWarnings("serial")
-public class PanelUnitSelect extends Panel {
+public class PanelRecolectarNeutro extends Panel {
 
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
+	private Desktop d = app.getDesktop();
 
 	private TestTableModel tableDtaModel;
-	private List<IPersonajeDO> personajes;
-	private String titulo = "Seleccionar Unidades";
+	private List<Integer> seleccion = new ArrayList<Integer>();
+	private ButtonGroup btnGroupRecursos = new ButtonGroup();
 
-	public PanelUnitSelect() {
+	public PanelRecolectarNeutro() {
 
 		Column col = new Column();
+		col.setInsets(new Insets(10, 10, 10, 10));
 		col.setCellSpacing(new Extent(10));
-		col.setBackground(Color.WHITE);
 
 		Row row = new Row();
 		row.setCellSpacing(new Extent(10));
 		row.setAlignment(Alignment.ALIGN_CENTER);
 
 		// ----------------------------------------
-		// Carga las Unidades
+		// TODO: Carga los Recursos Disponibles
 		// ----------------------------------------
 		tableDtaModel = new TestTableModel();
 		try {
-			personajes = Ranking.obtenerRanking();
+			tableDtaModel = HabilidadesAnillo.obtenerHabilidadesCompra( //
+					app.getAtributos().getPersonaje(), tableDtaModel);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		tableDtaModel = Ranking.asignarRanking(tableDtaModel, personajes);
 
+		col.add(PanelConstructor.initTopRow("Lista de Recursos Disponibles"));
 		col.add(PanelConstructor.initTable( //
-				tableDtaModel, initTableColModel(), true, 5));
+				tableDtaModel, initTableColModel(), false, 2));
 
 		Button btnCancelar = new Button("Cancelar");
 		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnCancelar.setWidth(new Extent(80));
-		btnCancelar.setHeight(new Extent(20));
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnCancelarClicked();
+			public void actionPerformed(ActionEvent arg0) {
+				d.btnCancelarClicked();
 			}
 		});
 		row.add(btnCancelar);
 
-		Button btnAcept = new Button("Aceptar");
-		btnAcept.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnAcept.setWidth(new Extent(80));
-		btnAcept.setHeight(new Extent(20));
-		btnAcept.addActionListener(new ActionListener() {
+		Button btnRecolectar = new Button("Recolectar");
+		btnRecolectar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnRecolectar.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnAceptClicked();
+			public void actionPerformed(ActionEvent arg0) {
+				btnRecolectarClicked();
 			}
 		});
-		row.add(btnAcept);
+		row.add(btnRecolectar);
 
 		col.add(row);
 		add(col);
@@ -99,8 +99,9 @@ public class PanelUnitSelect extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
-				return personaje.getAlias();
+				IHabilidadDO habilidad = (IHabilidadDO) element;
+				return habilidad.getNombre();
+				
 			}
 		};
 		tableColumn.setWidth(new Extent(150));
@@ -112,57 +113,18 @@ public class PanelUnitSelect extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element; 
-				return personaje.getId();
+				IHabilidadDO habilidad = (IHabilidadDO) element;
+				return habilidad.getCosto_de_aprendizaje();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Tipo");
-		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		tableColModel.getTableColumnList().add(tableColumn);
-
-		tableColumn = new TableColumn() {
-			@Override
-			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
-				return personaje.getNivel();
-			}
-		};
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Nivel");
-		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		tableColModel.getTableColumnList().add(tableColumn);
-
-		tableColumn = new TableColumn() {
-			@Override
-			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
-				return personaje.getId();
-			}
-		};
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Ataque");
-		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		tableColModel.getTableColumnList().add(tableColumn);
-
-		tableColumn = new TableColumn() {
-			@Override
-			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
-				return personaje.getId();
-			}
-		};
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Defensa");
+		tableColumn.setWidth(new Extent(25));
+		tableColumn.setHeadValue("Cantidad Máxima Disponible");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn();
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(25));
 		tableColumn.setHeadValue("");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(initNestedCellRenderer());
@@ -186,16 +148,17 @@ public class PanelUnitSelect extends Panel {
 
 				boolean editable = ((TestTableModel) table.getTableDtaModel()).getEditable();
 
-				CheckBox checkBox = new CheckBox();
-				checkBox.setEnabled(editable);
-				checkBox.setToolTipText("Selección");
+				RadioButton radioButton = new RadioButton();
+				radioButton.setEnabled(editable);
+				radioButton.setToolTipText("Selección");
+				radioButton.setGroup(btnGroupRecursos);
 
-				checkBox.addActionListener(new ActionListener() {
+				radioButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						btnRadioClicked(row);
 					}
 				});
-				return checkBox;
+				return radioButton;
 			}
 		});
 
@@ -203,9 +166,6 @@ public class PanelUnitSelect extends Panel {
 	}
 
 	// --------------------------------------------------------------------------------
-
-	// TODO: Cambiar por lista de Unidades
-	private List<Integer> seleccion = new ArrayList<Integer>();
 
 	private void btnRadioClicked(int row) {
 
@@ -219,20 +179,29 @@ public class PanelUnitSelect extends Panel {
 		seleccion.add(e);
 	}
 
-	// --------------------------------------------------------------------------------
+	private void btnRecolectarClicked() {
 
-	private void btnCancelarClicked() {
-		// Empty
-	}
+		if(seleccion.isEmpty()){
+			d.setWindowPaneEmergente( //
+					"No hay selección");
+			return;
+		}
+//
+//		Atributos atrib = app.getAtributos();
+//		IPersonajeDO person = atrib.getPersonaje();
+//		try {
+//			if(HabilidadesAnillo.adquirirHabilidades(seleccion,person)) {
+//				d.setWindowPaneEmergente( //
+//						"No se Poseen Suficientes Puntos de Entrenamiento, No se Adquiere Nada");
+//				return;
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		atrib.setPersonaje(person);
+		d.setWindowPaneEmergente("En construcción");
+		return;
 
-	private void btnAceptClicked() {
-		// Empty
-	}
-
-	// --------------------------------------------------------------------------------
-
-	public String getTitulo() {
-		return titulo;
 	}
 
 }
