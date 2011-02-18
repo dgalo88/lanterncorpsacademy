@@ -1,6 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.util.Calendar;
+import java.sql.Date;
 
 import lcaInterfaceDAO.IPlanetaDO;
 import nextapp.echo.app.Alignment;
@@ -29,7 +29,7 @@ public class PanelMain extends Panel {
 			LanternCorpsAcademyApp.getActive();
 
 	private IPlanetaDO planeta;
-	private Calendar fecha;
+	private Date fecha;
 	private Label lblFechaValue;
 	private Label lblSectorValue;
 	private Label lblPlanetaValue;
@@ -140,9 +140,15 @@ public class PanelMain extends Panel {
 		});
 		row.add(btnAsignarDefensas);
 
+		if (lblPlanetaValue.getText().equals("Planeta: " + getPlaneta().getNombre())) {
+
+			btnPlanetaCasa.setEnabled(false);
+			btnAsignarDefensas.setEnabled(false);
+
+		}
+
 		col.add(row);
 		add(col);
-
 	}
 
 	// --------------------------------------------------------------------------------
@@ -155,11 +161,11 @@ public class PanelMain extends Panel {
 		this.planeta = planeta;
 	}
 
-	public Calendar getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Calendar fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

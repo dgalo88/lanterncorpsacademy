@@ -35,44 +35,58 @@ public class PanelRegistro2 extends Panel {
 	protected static final String INDIGO = "Indigo";
 	protected static final String VIOLETA = "Violeta";
 
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
+	private Desktop d = app.getDesktop();
+
 	private IUsuarioDO usuario;
 	private IPersonajeDO personaje;
 	private String optClase;
 
-	private Desktop desktop;
-	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
-			LanternCorpsAcademyApp.getActive();
-
-	public PanelRegistro2(IUsuarioDO usuarioNuevo, IPersonajeDO personajeNuevo)
+	public PanelRegistro2(IUsuarioDO usuarioNuevo, IPersonajeDO personajeNuevo) //
 			throws Exception {
 
 		usuario = usuarioNuevo;
 		personaje = personajeNuevo;
 
-		// ------------------------------------------------------------------------------
+		Row row = new Row();
+		row.setAlignment(Alignment.ALIGN_CENTER);
 
-		Button btnBack = new Button("Atras");
-		btnBack.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnBack.addActionListener(new ActionListener() {
+		Row rowBotones = new Row();
+		rowBotones.setCellSpacing(new Extent(10));
+		rowBotones.setAlignment(Alignment.ALIGN_CENTER);
+
+		Column col = new Column();
+		col.setInsets(new Insets(10, 10, 0, 10));
+		col.setCellSpacing(new Extent(10));
+		col.setBackground(Color.WHITE);
+
+		col.add(initTopRow("Registro de Usuario", 16));
+		col.add(initTopRow("Elegir Clase:", 14));
+
+		col.add(clases());
+
+		Button btnAtras = new Button("Atrás");
+		btnAtras.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnAtras.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					btnBackClicked();
+					btnAtrasClicked();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		rowBotones.add(btnAtras);
 
-		// ------------------------------------------------------------------------------
-
-		Button btnSend = new Button("Enviar");
-		btnSend.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnSend.addActionListener(new ActionListener() {
+		Button btnEnviar = new Button("Enviar");
+		btnEnviar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnEnviar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					btnSendClicked();
+					btnEnviarClicked();
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				} catch (Exception e) {
@@ -80,42 +94,25 @@ public class PanelRegistro2 extends Panel {
 				}
 			}
 		});
+		rowBotones.add(btnEnviar);
 
-		// ------------------------------------------------------------------------------
-
-		Row row = new Row();
-		row.setStyle(GUIStyles.STYLECENTERROW);
-
-		Column col = new Column();
-		col.setStyle(GUIStyles.STYLECENTERROW);
-
-		Column colTitle = new Column();
-		colTitle.setInsets(new Insets(5, 5, 5, 15));
-		colTitle.setCellSpacing(new Extent(20));
-		colTitle.setBackground(Color.WHITE);
-		colTitle.setStyle(GUIStyles.STYLECENTERROW);
-
-		Label lblTitle = new Label("REGISTRO DE USUARIO");
-		lblTitle.setTextAlignment(Alignment.ALIGN_CENTER);
-		colTitle.add(lblTitle);
-
-		Label lblSubTitle = new Label("Elegir Clase:");
-		lblSubTitle.setTextAlignment(Alignment.ALIGN_CENTER);
-		colTitle.add(lblSubTitle);
-		
-		col.add(colTitle);
-		col.add(clases());
-
-		Row rowFeet = new Row();
-		rowFeet.add(btnBack);
-		rowFeet.add(btnSend);
-		rowFeet.setCellSpacing(new Extent(10));
-		rowFeet.setAlignment(Alignment.ALIGN_CENTER);
-		rowFeet.setBackground(Color.WHITE);
-		col.add(rowFeet);
-
+		col.add(rowBotones);
 		row.add(col);
 		add(row);
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private Row initTopRow(String texto, int size) {
+
+		Row row = new Row();
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		Label lblTitle = new Label(texto);
+		lblTitle.setForeground(Color.BLACK);
+		Estilo.setFont(lblTitle, GUIStyles.BOLD, size);
+		row.add(lblTitle);
+		return row;
 
 	}
 
@@ -142,8 +139,8 @@ public class PanelRegistro2 extends Panel {
 	private ClassSelectSection verde() {
 
 		RadioButton btnRadioVerde = new RadioButton("Verde - Green Lantern");
-		btnRadioVerde.setIcon(new ResourceImageReference(
-				"com/ulasoft/lanterncorpsacademy/imagenes/greenIcon.png",
+		btnRadioVerde.setIcon(new ResourceImageReference( //
+				"com/ulasoft/lanterncorpsacademy/imagenes/greenIcon.png", //
 				new Extent(20), new Extent(20)));
 		btnRadioVerde.addActionListener(new ActionListener() {
 			@Override
@@ -152,12 +149,14 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		String string = "Descripcion: Agrupados en los Green Lantern Corps.\n" +
-			"\nRepresentan: Voluntad.\n"+
-			"\nPlaneta Base: Oa, Sector 0.\n"+
-			"\nHabilidad: Golpe de Mazo, el linterna manifiesta un mazo para ocasionar gran daño a sus oponentes.\n";
+		String string = "Descripción: Agrupados en los Green Lantern Corps.\n" //
+			+ "\nRepresentan: Voluntad.\n" //
+			+ "\nPlaneta Base: Oa, Sector 0.\n" //
+			+ "\nHabilidad: Golpe de Mazo, el linterna manifiesta " //
+			+ "un mazo para ocasionar gran daño a sus oponentes.\n";
 
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioVerde, string);
+		ClassSelectSection classSelectSection = //
+			new ClassSelectSection(btnRadioVerde, string);
 		classSelectSection.setBackgroundTextArea(GUIStyles.COLORVERDE);
 		
 		return classSelectSection;
@@ -168,8 +167,8 @@ public class PanelRegistro2 extends Panel {
 	private ClassSelectSection amarillo() {
 		
 		RadioButton btnRadioAmarillo = new RadioButton("Amarillo - Sinistro Lantern");
-		btnRadioAmarillo.setIcon(new ResourceImageReference(
-				"com/ulasoft/lanterncorpsacademy/imagenes/yellowIcon.png",
+		btnRadioAmarillo.setIcon(new ResourceImageReference( //
+				"com/ulasoft/lanterncorpsacademy/imagenes/yellowIcon.png", //
 				new Extent(20), new Extent(20)));
 		btnRadioAmarillo.addActionListener(new ActionListener() {
 			@Override
@@ -178,12 +177,14 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		String string = "Descripcion: Agrupados en los Sinestro Corps.\n" +
-			"\nRepresentan: El Miedo.\n" +
-			"\nPlaneta Base: Qward, Sector -1 (“Universo Antimateria”).\n" +
-			"\nHabilidad: Construcción, el linterna atrapa al oponente impidiéndole atacar y causándole daño continuo.\n";
+		String string = "Descripción: Agrupados en los Sinestro Corps.\n" //
+			+ "\nRepresentan: El Miedo.\n" //
+			+ "\nPlaneta Base: Qward, Sector -1 (“Universo Antimateria”).\n" //
+			+ "\nHabilidad: Construcción, el linterna atrapa al oponente " //
+			+ "impidiéndole atacar y causándole daño continuo.\n";
 
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioAmarillo, string);
+		ClassSelectSection classSelectSection = //
+			new ClassSelectSection(btnRadioAmarillo, string);
 		classSelectSection.setBackgroundTextArea(GUIStyles.COLORAMARILLO);
 
 		return classSelectSection;
@@ -195,8 +196,8 @@ public class PanelRegistro2 extends Panel {
 	private ClassSelectSection negro() {
 		
 		RadioButton btnRadioNegro = new RadioButton("Negro - Black Lantern");
-		btnRadioNegro.setIcon(new ResourceImageReference(
-				"com/ulasoft/lanterncorpsacademy/imagenes/blackIcon.png",
+		btnRadioNegro.setIcon(new ResourceImageReference( //
+				"com/ulasoft/lanterncorpsacademy/imagenes/blackIcon.png", //
 				new Extent(20), new Extent(20)));
 		btnRadioNegro.addActionListener(new ActionListener() {
 			@Override
@@ -205,12 +206,14 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		String string = "Descripcion: Agrupados en los Black Lantern Corps.\n" +
-			"\nRepresentan: La Muerte.\n" +
-			"\nPlaneta Base: El Mundo Muerto de Ryut, Sector 665.\n" +
-			"\nHabilidad: Robo de Salud, el linterna puede robar puntos de salud a un oponente para aumentar los propios.\n";
+		String string = "Descripción: Agrupados en los Black Lantern Corps.\n" //
+			+ "\nRepresentan: La Muerte.\n" //
+			+ "\nPlaneta Base: El Mundo Muerto de Ryut, Sector 665.\n" //
+			+ "\nHabilidad: Robo de Salud, el linterna puede robar " //
+			+ "puntos de salud a un oponente para aumentar los propios.\n";
 
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioNegro, string);
+		ClassSelectSection classSelectSection = //
+			new ClassSelectSection(btnRadioNegro, string);
 		classSelectSection.setBackgroundTextArea(GUIStyles.COLORNEGRO);
 
 		return classSelectSection;
@@ -222,8 +225,8 @@ public class PanelRegistro2 extends Panel {
 	private ClassSelectSection rojo() {
 
 		RadioButton btnRadioRojo = new RadioButton("Rojo - Red Lantern");
-		btnRadioRojo.setIcon(new ResourceImageReference(
-				"com/ulasoft/lanterncorpsacademy/imagenes/redIcon.png",
+		btnRadioRojo.setIcon(new ResourceImageReference( //
+				"com/ulasoft/lanterncorpsacademy/imagenes/redIcon.png", //
 				new Extent(20), new Extent(20)));
 		btnRadioRojo.addActionListener(new ActionListener() {
 			@Override
@@ -232,12 +235,14 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		String string = "Descripcion: Agrupados en los Red Lantern Corps.\n" +
-			"\nRepresentan: La Ira.\n" +
-			"\nPlaneta Base: Ysmault, Sector 666.\n" +
-			"\nHabilidad: Puño Luminoso, el linterna concentra energía en su puño para infligir un golpe de alto daño.\n";
+		String string = "Descripción: Agrupados en los Red Lantern Corps.\n" //
+			+ "\nRepresentan: La Ira.\n" //
+			+ "\nPlaneta Base: Ysmault, Sector 666.\n" //
+			+ "\nHabilidad: Puño Luminoso, el linterna concentra energía " //
+			+ "en su puño para infligir un golpe de alto daño.\n";
 
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioRojo, string);
+		ClassSelectSection classSelectSection = //
+			new ClassSelectSection(btnRadioRojo, string);
 		classSelectSection.setBackgroundTextArea(GUIStyles.COLORROJO);
 
 		return classSelectSection;
@@ -249,8 +254,8 @@ public class PanelRegistro2 extends Panel {
 	private ClassSelectSection azul() {
 
 		RadioButton btnRadioAzul = new RadioButton("Azul - Blue Lantern");
-		btnRadioAzul.setIcon(new ResourceImageReference(
-				"com/ulasoft/lanterncorpsacademy/imagenes/blueIcon.png",
+		btnRadioAzul.setIcon(new ResourceImageReference( //
+				"com/ulasoft/lanterncorpsacademy/imagenes/blueIcon.png", //
 				new Extent(20), new Extent(20)));
 		btnRadioAzul.addActionListener(new ActionListener() {
 			@Override
@@ -259,12 +264,14 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		String string = "Descripcion: Agrupados en los Blue Lantern Corps.\n" +
-			"\nRepresentan: La Esperanza.\n" +
-			"\nPlaneta Base: Odym, Sector 1.\n" +
-			"\nHabilidad: Curación, puede usar el anillo para restaurar sus puntos de salud.\n";
+		String string = "Descripción: Agrupados en los Blue Lantern Corps.\n" //
+			+ "\nRepresentan: La Esperanza.\n" //
+			+ "\nPlaneta Base: Odym, Sector 1.\n" //
+			+ "\nHabilidad: Curación, puede usar el anillo " //
+			+ "para restaurar sus puntos de salud.\n";
 
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioAzul, string);
+		ClassSelectSection classSelectSection = //
+			new ClassSelectSection(btnRadioAzul, string);
 		classSelectSection.setBackgroundTextArea(GUIStyles.COLORAZUL);
 
 		return classSelectSection;
@@ -276,8 +283,8 @@ public class PanelRegistro2 extends Panel {
 	private ClassSelectSection indigo() {
 
 		RadioButton btnRadioIndigo = new RadioButton("Indigo - Indigo Lantern");
-		btnRadioIndigo.setIcon(new ResourceImageReference(
-				"com/ulasoft/lanterncorpsacademy/imagenes/indigoIcon.png",
+		btnRadioIndigo.setIcon(new ResourceImageReference( //
+				"com/ulasoft/lanterncorpsacademy/imagenes/indigoIcon.png", //
 				new Extent(20), new Extent(20)));
 		btnRadioIndigo.addActionListener(new ActionListener() {
 			@Override
@@ -286,12 +293,14 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		String string = "Descripcion: Agrupados en la Tribu Indigo.\n" +
-			"\nRepresentan: La Compasión.\n" +
-			"\nPlaneta Base: desconocido, Sector 3.\n" +
-			"\nHabilidad: Evasión de combate, el portador puede escapar de una batalla.\n";
+		String string = "Descripción: Agrupados en la Tribu Indigo.\n" //
+			+ "\nRepresentan: La Compasión.\n" //
+			+ "\nPlaneta Base: desconocido, Sector 3.\n" //
+			+ "\nHabilidad: Evasión de combate, " //
+			+ "el portador puede escapar de una batalla.\n";
 
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioIndigo, string);
+		ClassSelectSection classSelectSection = //
+			new ClassSelectSection(btnRadioIndigo, string);
 		classSelectSection.setBackgroundTextArea(GUIStyles.COLORINDIGO);
 
 		return classSelectSection;
@@ -303,8 +312,8 @@ public class PanelRegistro2 extends Panel {
 	private ClassSelectSection violeta() {
 
 		RadioButton btnRadioVioleta = new RadioButton("Violeta - Star Sapphire");
-		btnRadioVioleta.setIcon(new ResourceImageReference(
-				"com/ulasoft/lanterncorpsacademy/imagenes/violetIcon.png",
+		btnRadioVioleta.setIcon(new ResourceImageReference( //
+				"com/ulasoft/lanterncorpsacademy/imagenes/violetIcon.png", //
 				new Extent(20), new Extent(20)));
 		btnRadioVioleta.addActionListener(new ActionListener() {
 			@Override
@@ -313,12 +322,14 @@ public class PanelRegistro2 extends Panel {
 			}
 		});
 
-		String string = "Descripcion: Agrupados en los Star Sapphires.\n" +
-			"\nRepresentan: El Amor.\n" +
-			"\nPlaneta Base: Zamaron, Sector 1412.\n" +
-			"\nHabilidad: Confusión, puede disminuir la efectividad de los ataques del oponente.\n";
+		String string = "Descripción: Agrupados en los Star Sapphires.\n" //
+			+ "\nRepresentan: El Amor.\n" //
+			+ "\nPlaneta Base: Zamaron, Sector 1412.\n" //
+			+ "\nHabilidad: Confusión, puede disminuir " //
+			+ "la efectividad de los ataques del oponente.\n";
 
-		ClassSelectSection classSelectSection = new ClassSelectSection(btnRadioVioleta, string);
+		ClassSelectSection classSelectSection = //
+			new ClassSelectSection(btnRadioVioleta, string);
 		classSelectSection.setBackgroundTextArea(GUIStyles.COLORVIOLETA);
 
 		return classSelectSection;
@@ -327,22 +338,21 @@ public class PanelRegistro2 extends Panel {
 
 	// ------------------------------------------------------------------------------
 
-	protected void btnBackClicked() throws Exception {
+	protected void btnAtrasClicked() throws Exception {
+
 		PanelRegistro1 pnlregistro1 = new PanelRegistro1(usuario, personaje);
-		desktop = app.getDesktop();
-		desktop.setPanelCentral(pnlregistro1);
+		d.setPanelCentral(pnlregistro1);
+
 	}
 
 	// ------------------------------------------------------------------------------
 
-	protected void btnSendClicked() throws ClassNotFoundException, Exception {
+	protected void btnEnviarClicked() throws ClassNotFoundException, Exception {
 
 		Registro.guardarUsuario(usuario, personaje, optClase);
-
-		desktop = app.getDesktop();
-		desktop.setWindowPaneEmergente("Has Completado el Registro Satisfactoriamente");
+		d.setWindowPaneEmergente("Has completado el registro satisfactoriamente");
 		PanelLogin pnlMain = new PanelLogin();
-		desktop.setPanelCentral(pnlMain);
+		d.setPanelCentral(pnlMain);
 
 	}
 

@@ -1,6 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.awt.Font;
 import java.sql.SQLException;
 
 import lcaInterfaceDAO.IPersonajeDO;
@@ -26,95 +25,110 @@ import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Registro;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
-import echopoint.layout.HtmlLayoutData;
-
 @SuppressWarnings("serial")
 public class PanelRegistro1 extends Panel {
 
-	public HtmlLayoutData hld = new HtmlLayoutData("main");
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
+	private Desktop d = app.getDesktop();
+
 	private IUsuarioDO usuario;
 	private IPersonajeDO personaje;
+
 	private TextField txtAlias;
 	private TextField txtNombre;
 	private TextField txtCorreo;
 	private PasswordField fldPass;
 	private PasswordField fldConfirmPass;
-	private Grid grid;
+
 	private Column col;
 	private Row errorRow;
 
-	Desktop desktop;
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
-
-	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-	public PanelRegistro1(IUsuarioDO usuarioNuevo, IPersonajeDO personajeNuevo)
+	public PanelRegistro1(IUsuarioDO usuarioNuevo, IPersonajeDO personajeNuevo) //
 			throws Exception {
 
 		usuario = usuarioNuevo;
 		personaje = personajeNuevo;
 
-		Row row1 = new Row();
-		row1.setStyle(GUIStyles.STYLECENTERROW);
+		Row row = new Row();
+		row.setAlignment(Alignment.ALIGN_CENTER);
+
+		Row rowBotones = new Row();
+		rowBotones.setCellSpacing(new Extent(10));
+		rowBotones.setAlignment(Alignment.ALIGN_CENTER);
 
 		col = new Column();
-		col.setInsets(new Insets(5, 5, 5, 5));
-		col.setCellSpacing(new Extent(20));
+		col.setInsets(new Insets(10, 10, 10, 10));
+		col.setCellSpacing(new Extent(10));
 		col.setBackground(Color.WHITE);
-		col.setStyle(GUIStyles.STYLECENTERROW);
 
-		Label lblTitle = new Label("REGISTRO DE USUARIO");
-		lblTitle.setTextAlignment(Alignment.ALIGN_CENTER);
-		col.add(lblTitle);
+		Grid gridPane = new Grid(1);
+		gridPane.setHeight(new Extent(100));
+		gridPane.setInsets(new Insets(10, 10, 10, 10));
 
-		Label lblSubTitle = new Label("Datos Personales:");
-		lblSubTitle.setTextAlignment(Alignment.ALIGN_CENTER);
-		col.add(lblSubTitle);
-
-		grid = new Grid();
+		Grid grid = new Grid();
 		grid.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		grid.setWidth(new Extent(500));
+
+		col.add(initTopRow("Registro de Usuario", 16));
+		col.add(initTopRow("Datos Personales:", 14));
 
 		Label lblAlias = new Label("Nombre de Usuario");
+		Estilo.setFont(lblAlias, GUIStyles.NORMAL);
 		grid.add(lblAlias);
+
 		txtAlias = new TextField();
 		txtAlias.setToolTipText("Nombre con el que otros jugadores te verán en el universo.");
-		txtAlias.setWidth(new Extent(400));
+		txtAlias.setWidth(new Extent(300));
 		txtAlias.setText(personaje.getAlias());
 		grid.add(txtAlias);
 
 		Label lblNombre = new Label("Nombre");
+		Estilo.setFont(lblNombre, GUIStyles.NORMAL);
 		grid.add(lblNombre);
+
 		txtNombre = new TextField();
-		txtNombre.setWidth(new Extent(400));
+		txtNombre.setWidth(new Extent(300));
 		txtNombre.setText(usuario.getNombre());
 		grid.add(txtNombre);
 
 		Label lblCorreo = new Label("Correo");
+		Estilo.setFont(lblCorreo, GUIStyles.NORMAL);
 		grid.add(lblCorreo);
+
 		txtCorreo = new TextField();
-		txtCorreo.setWidth(new Extent(400));
+		txtCorreo.setWidth(new Extent(300));
 		txtCorreo.setText(usuario.getCorreo());
 		grid.add(txtCorreo);
 
 		Label lblPass = new Label("Contraseña");
+		Estilo.setFont(lblPass, GUIStyles.NORMAL);
 		grid.add(lblPass);
+
 		fldPass = new PasswordField();
-		fldPass.setWidth(new Extent(400));
+		fldPass.setWidth(new Extent(300));
 		grid.add(fldPass);
 
 		Label lblConfirmPass = new Label("Confirmar Contraseña");
+		Estilo.setFont(lblConfirmPass, GUIStyles.NORMAL);
 		grid.add(lblConfirmPass);
+
 		fldConfirmPass = new PasswordField();
-		fldConfirmPass.setWidth(new Extent(400));
+		fldConfirmPass.setWidth(new Extent(300));
 		grid.add(fldConfirmPass);
 
-		grid.setColumnWidth(1, new Extent(800));
-		col.add(grid);
+		gridPane.add(grid);
+		col.add(gridPane);
 
-		Row row = new Row();
-		row.setCellSpacing(new Extent(10));
-		row.setAlignment(Alignment.ALIGN_CENTER);
+		Button btnCancelar = new Button("Cancelar");
+		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnCancelar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				btnCancelarClicked();
+			}
+		});
+		rowBotones.add(btnCancelar);
 
 		Button btnNext = new Button("Siguiente");
 		btnNext.setStyle(Estilo.getStyleColor(app.getAtributos()));
@@ -130,26 +144,37 @@ public class PanelRegistro1 extends Panel {
 				}
 			}
 		});
+		rowBotones.add(btnNext);
 
-		Button btnCancel = new Button("Cancelar");
-		btnCancel.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnCancel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				btnCancelClicked();
-			}
-		});
-
-		row.add(btnCancel);
-		row.add(btnNext);
-		col.add(row);
-
-		row1.add(col);
-		add(row1);
+		col.add(rowBotones);
+		row.add(col);
+		add(row);
 
 	}
 
-	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// --------------------------------------------------------------------------------
+
+	private Row initTopRow(String texto, int size) {
+
+		Row row = new Row();
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		Label lblTitle = new Label(texto);
+		lblTitle.setForeground(Color.BLACK);
+		Estilo.setFont(lblTitle, GUIStyles.BOLD, size);
+		row.add(lblTitle);
+		return row;
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnCancelarClicked() {
+
+		PanelLogin pnlMain = new PanelLogin();
+		d.setPanelCentral(pnlMain);
+
+	}
 
 	private void btnNextClicked() throws ClassNotFoundException, Exception {
 
@@ -157,16 +182,14 @@ public class PanelRegistro1 extends Panel {
 		usuario.setCorreo(txtCorreo.getText());
 
 		if ((txtAlias.getText()) == "") {
-			Desktop d = app.getDesktop();
-			d.setWindowPaneEmergente("Escoge el Alias para tu Personaje!");
+			d.setWindowPaneEmergente("Escoge el alias para tu personaje!");
 			return;
 		}
 
 		personaje.setAlias(txtAlias.getText());
 
 		if (Registro.verificarAlias(personaje.getAlias())) {
-			Desktop d = app.getDesktop();
-			d.setWindowPaneEmergente("Ya existe un jugador con ese Alias.");
+			d.setWindowPaneEmergente("Ya existe un jugador con ese alias.");
 			return;
 		}
 
@@ -176,8 +199,8 @@ public class PanelRegistro1 extends Panel {
 				col.remove(errorRow);
 			}
 			errorRow = new Row();
-			Label lblErr = new Label("Por favor confirme su contraseña.");
-			lblErr.set(PROPERTY_FONT, Font.BOLD);
+			Label lblErr = new Label("Por favor confirma tu contraseña.");
+			Estilo.setFont(lblErr, GUIStyles.ITALIC);
 			errorRow.add(lblErr);
 			errorRow.setAlignment(Alignment.ALIGN_CENTER);
 			col.add(errorRow);
@@ -194,7 +217,10 @@ public class PanelRegistro1 extends Panel {
 					col.remove(errorRow);
 				}
 				errorRow = new Row();
-				errorRow.add(new Label("Ya existe una cuenta con ese correo."));
+				Label lblErr = new Label("Ya existe una cuenta con ese correo.");
+				Estilo.setFont(lblErr, GUIStyles.ITALIC);
+				errorRow.add(lblErr);
+				errorRow.setAlignment(Alignment.ALIGN_CENTER);
 				col.add(errorRow);
 				txtCorreo.set(PROPERTY_BACKGROUND, new Color(255, 160, 160));
 				return;
@@ -204,27 +230,17 @@ public class PanelRegistro1 extends Panel {
 		}
 
 		// Si no hay campos vacíos proceder a la siguiente etapa del registro
-
 		if (!(checkEmptyFields())) {
+
 			usuario.setClave(fldPass.getText());
 			PanelRegistro2 pnlregistro2 = new PanelRegistro2(usuario, personaje);
-			desktop = app.getDesktop();
-			desktop.setPanelCentral(pnlregistro2);
+			d.setPanelCentral(pnlregistro2);
+
 		}
 
 	}
 
-	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-	private void btnCancelClicked() {
-
-		Desktop d = app.getDesktop();
-		PanelLogin pnlMain = new PanelLogin();
-		d.setPanelCentral(pnlMain);
-
-	}
-
-	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// --------------------------------------------------------------------------------
 
 	private boolean checkEmptyFields() {
 
@@ -259,7 +275,7 @@ public class PanelRegistro1 extends Panel {
 			}
 			errorRow = new Row();
 			Label lblErr = new Label("Todos los campos son obligatorios.");
-			lblErr.set(PROPERTY_FONT, Font.BOLD);
+			Estilo.setFont(lblErr, GUIStyles.ITALIC);
 			errorRow.add(lblErr);
 			errorRow.setAlignment(Alignment.ALIGN_CENTER);
 			col.add(errorRow);
