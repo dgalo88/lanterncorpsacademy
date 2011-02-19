@@ -10,7 +10,9 @@ import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
+import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
+import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
@@ -24,6 +26,7 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.CrearGrupo;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
+import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.logic.MiGrupo;
 
 @SuppressWarnings("serial")
@@ -37,7 +40,17 @@ public class PanelMiGrupo extends Panel {
 	private List<IPersonajeDO> personajes;
 	private String nombreGrupo;
 
+	private Column col;
+	private Label lblImagen;
+
 	public PanelMiGrupo() {
+
+		col = new Column();
+		col.setInsets(new Insets(10, 0, 10, 10));
+		col.setCellSpacing(new Extent(10));
+
+		lblImagen = new Label(new ResourceImageReference( //
+				ImgLoad.grupo(app.getAtributos().getPersonaje())));
 
 		try {
 			nombreGrupo = CrearGrupo.obtenerNombreGrupo( //
@@ -45,8 +58,13 @@ public class PanelMiGrupo extends Panel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		if (nombreGrupo.equals("")) {
-			add(PanelConstructor.initTopRow("No pertences a ningún grupo"));
+
+			col.add(PanelConstructor.initTopRow("No pertences a ningún grupo"));
+			col.add(lblImagen);
+			add(col);
+
 		} else {
 			add(initPanelMiGrupo());
 		}
@@ -56,10 +74,6 @@ public class PanelMiGrupo extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private Component initPanelMiGrupo() {
-
-		Column col = new Column();
-		col.setInsets(new Insets(10, 10, 10, 10));
-		col.setCellSpacing(new Extent(10));
 
 		Row row = new Row();
 		row.setCellSpacing(new Extent(10));
@@ -83,7 +97,15 @@ public class PanelMiGrupo extends Panel {
 		tableDtaModel = MiGrupo.asignarPersonaje(tableDtaModel, personajes);
 
 		col.add(PanelConstructor.initTopRow(nombreGrupo));
-		col.add(PanelConstructor.initTable(tableDtaModel, initTableColModel(), true));
+
+		row.add(lblImagen);
+		row.add(PanelConstructor.initTable( //
+				tableDtaModel, initTableColModel(), true, 5));
+		col.add(row);
+
+		row = new Row();
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_CENTER);
 
 		Button btnInvitarNuevoMiembro = new Button("Invitar Nuevo Miembro");
 		btnInvitarNuevoMiembro.setStyle(Estilo.getStyleColor(app.getAtributos()));

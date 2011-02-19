@@ -29,7 +29,7 @@ public class MenuInicial extends Panel {
 		Column col = new Column();
 
 		Button btnRanking = new Button("Ver Clasificación");
-		btnRanking.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnRanking.setStyle(GUIStyles.DEFAULT_STYLE_INITIAL);
 		btnRanking.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -39,7 +39,7 @@ public class MenuInicial extends Panel {
 		col.add(btnRanking);
 		
 		Button btnMedia = new Button("Multimedia");
-		btnMedia.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnMedia.setStyle(GUIStyles.DEFAULT_STYLE_INITIAL);
 		btnMedia.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -49,7 +49,7 @@ public class MenuInicial extends Panel {
 		col.add(btnMedia);
 
 		Button btnAboutGame = new Button("Acerca del Juego");
-		btnAboutGame.setStyle(GUIStyles.DEFAULT_STYLE);
+		btnAboutGame.setStyle(GUIStyles.DEFAULT_STYLE_INITIAL);
 		btnAboutGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -59,7 +59,7 @@ public class MenuInicial extends Panel {
 		col.add(btnAboutGame);
 
 //		Button btnPrueba = new Button("Prueba AP");
-//		btnPrueba.setStyle(GUIStyles.DEFAULT_STYLE);
+//		btnPrueba.setStyle(GUIStyles.DEFAULT_STYLE_INITIAL);
 //		btnPrueba.addActionListener(new ActionListener() {
 //			@Override
 //			public void actionPerformed(ActionEvent evt) {

@@ -241,7 +241,7 @@ public class PanelMisDatos extends Panel {
 	private Row initTopRow() {
 
 		Row row = new Row();
-		row.setStyle(GUIStyles.STYLECENTERROW);
+		row.setAlignment(Alignment.ALIGN_CENTER);
 		Label lblTitle = new Label("Inventario de Unidades");
 		Estilo.setFont(lblTitle, GUIStyles.BOLD, 11);
 		row.add(lblTitle);

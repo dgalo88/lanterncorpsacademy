@@ -1,5 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.menus;
 
+import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Panel;
@@ -13,7 +14,6 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
-import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
 public class MenuHead extends Panel {
@@ -26,23 +26,24 @@ public class MenuHead extends Panel {
 	public MenuHead(final boolean loged) {
 
 		Row row = new Row();
+		row.setCellSpacing(new Extent(4));
+
 		Button btnRing = new Button();
 
 		if (loged) {
 
-			row.setStyle(GUIStyles.STYLEMENUI);
+			row.setAlignment(Alignment.ALIGN_LEFT);
 
-			btnRing.setIcon(new ResourceImageReference(ImgLoad.menuHead( //
-					app.getAtributos().getPersonaje()), //
+			btnRing.setIcon(new ResourceImageReference( //
+					ImgLoad.menuHead(app.getAtributos().getPersonaje()), //
 					new Extent(120), new Extent(120)));
 		} else {
 
-			row.setStyle(GUIStyles.STYLECENTERROW);
+			row.setAlignment(Alignment.ALIGN_CENTER);
 
 			btnRing.setIcon(new ResourceImageReference( //
-					"com/ulasoft/lanterncorpsacademy/imagenes/linterna.png", //
+					"com/ulasoft/lanterncorpsacademy/imagenes/ring2.png", //
 					new Extent(120), new Extent(120)));
-
 		}
 
 		btnRing.addActionListener(new ActionListener() {

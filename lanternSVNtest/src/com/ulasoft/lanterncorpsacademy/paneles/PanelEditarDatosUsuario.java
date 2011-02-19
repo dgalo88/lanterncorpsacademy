@@ -52,12 +52,10 @@ public class PanelEditarDatosUsuario extends Panel {
 		row.setCellSpacing(new Extent(10));
 		row.setAlignment(Alignment.ALIGN_CENTER);
 
-		Label lblTitle = new Label("Editar Mis Datos");
-		lblTitle.setForeground(Color.WHITE);
-		Estilo.setFont(lblTitle, GUIStyles.BOLD, 16);
-		col.add(lblTitle);
+		col.add(PanelConstructor.initTopRow("Editar Mis Datos"));
 
 		Label lblNombre = new Label("Nombre");
+		Estilo.setFont(lblNombre, GUIStyles.BOLD);
 		grid.add(lblNombre);
 
 		txtNombre = new TextField();
@@ -66,6 +64,7 @@ public class PanelEditarDatosUsuario extends Panel {
 		grid.add(txtNombre);
 
 		Label lblOldPass = new Label("Contraseña Actual");
+		Estilo.setFont(lblOldPass, GUIStyles.BOLD);
 		grid.add(lblOldPass);
 
 		fldOldPass = new PasswordField();
@@ -73,6 +72,7 @@ public class PanelEditarDatosUsuario extends Panel {
 		grid.add(fldOldPass);
 
 		Label lblNewPass = new Label("Contraseña Nueva");
+		Estilo.setFont(lblNewPass, GUIStyles.BOLD);
 		grid.add(lblNewPass);
 
 		fldNewPass = new PasswordField();
@@ -80,6 +80,7 @@ public class PanelEditarDatosUsuario extends Panel {
 		grid.add(fldNewPass);
 
 		Label lblConfirPass = new Label("Confirmar Contraseña");
+		Estilo.setFont(lblConfirPass, GUIStyles.BOLD);
 		grid.add(lblConfirPass);
 
 		fldConfirPass = new PasswordField();

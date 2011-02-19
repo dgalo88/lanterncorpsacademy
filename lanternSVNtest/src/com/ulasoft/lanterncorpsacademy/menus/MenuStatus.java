@@ -4,10 +4,12 @@ import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
+import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 
 import com.ulasoft.lanterncorpsacademy.ProgressBar;
+import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
@@ -16,39 +18,33 @@ public class MenuStatus extends Panel {
 	private ProgressBar salud;
 	private ProgressBar energia;
 	private ProgressBar experiencia;
-	private Label lblTrainsValue;
-	private Label lblNiveLabelValue;
 	private IPersonajeDO personaje;
 
-	public MenuStatus(){
+	public MenuStatus() {
 
 		Grid grid = new Grid(2);
-		grid.setStyle(GUIStyles.STYLEMENUI);
+		grid.setInsets(new Insets(1, 1, 1, 1));
+		grid.setForeground(Color.WHITE);
+		grid.setHeight(new Extent(50));
+		grid.setWidth(new Extent(265));
 
 		Label lblSalud = new Label("Salud");
+		Estilo.setFont(lblSalud, GUIStyles.NORMAL, 12);
 		salud = new ProgressBar(13, 150, 0, null);
-
-		Label lblEnergia = new Label("Energia del Anillo");
-		energia = new ProgressBar(13, 150, 1, null);
-
-		Label lblExperiencia = new Label("Experiencia");
-		experiencia = new ProgressBar(13, 150, 2, null);
-
-//		Label lblTrains = new Label("Puntos de Entrenamiento:");
-		lblTrainsValue = new Label("XX");
-//		Label lblNivel = new Label("Nivel");
-		lblNiveLabelValue = new Label("XX");
-
 		grid.add(salud);
 		grid.add(lblSalud);
+
+		Label lblEnergia = new Label("Energía del Anillo");
+		Estilo.setFont(lblEnergia, GUIStyles.NORMAL, 12);
+		energia = new ProgressBar(13, 150, 1, null);
 		grid.add(energia);
 		grid.add(lblEnergia);
+
+		Label lblExperiencia = new Label("Experiencia");
+		Estilo.setFont(lblExperiencia, GUIStyles.NORMAL, 12);
+		experiencia = new ProgressBar(13, 150, 2, null);
 		grid.add(experiencia);
 		grid.add(lblExperiencia);
-
-		grid.setForeground(new Color (255, 255, 255));
-		grid.setHeight(new Extent(50));
-		grid.setWidth(new Extent(275));
 
 		add(grid);
 	}
@@ -83,22 +79,6 @@ public class MenuStatus extends Panel {
 
 	public void setExperiencia(ProgressBar experiencia) {
 		this.experiencia = experiencia;
-	}
-
-	public Label getLblTrainsValue() {
-		return lblTrainsValue;
-	}
-
-	public void setLblTrainsValue(Label lblTrainsValue) {
-		this.lblTrainsValue = lblTrainsValue;
-	}
-
-	public Label getLblNiveLabelValue() {
-		return lblNiveLabelValue;
-	}
-
-	public void setLblNiveLabelValue(Label lblNiveLabelValue) {
-		this.lblNiveLabelValue = lblNiveLabelValue;
 	}
 
 }

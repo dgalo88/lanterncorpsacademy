@@ -56,6 +56,21 @@ public class PanelConstructor {
 
 	// --------------------------------------------------------------------------------
 
+	public static Row initTopRow(String texto, Color color, int size) {
+
+		Row row = new Row();
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_CENTER);
+		Label lblTitle = new Label(texto);
+		lblTitle.setForeground(color);
+		Estilo.setFont(lblTitle, GUIStyles.BOLD, size);
+		row.add(lblTitle);
+		return row;
+
+	}
+
+	// --------------------------------------------------------------------------------
+
 	public static Component initTable(TestTableModel tableDtaModel, //
 			TableColModel initTableColModel, boolean isPageable) {
 

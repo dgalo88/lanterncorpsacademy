@@ -6,11 +6,9 @@ import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
-import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
-import nextapp.echo.app.Label;
 import nextapp.echo.app.MutableStyle;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.Style;
@@ -73,10 +71,8 @@ public class GUIStyles {
 
 		style.set(Button.PROPERTY_DISABLED_FOREGROUND, Color.LIGHTGRAY);
 
-		//Aquí hay que cambiar el color para cada clase
+		// Aquí hay que cambiar el color para cada clase
 		style.set(Button.PROPERTY_FOCUSED_ENABLED,true);
-		style.set(Button.PROPERTY_FOCUSED_BACKGROUND, COLORDEFAULT);
-		style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, BORDEDEFAULT, Border.STYLE_SOLID));
 
 		DEFAULT_STYLE = style;
 	}
@@ -100,73 +96,73 @@ public class GUIStyles {
 
 		style.set(Button.PROPERTY_DISABLED_FOREGROUND, Color.LIGHTGRAY);
 
-		//Aquí hay que cambiar el color para cada clase
+		// Aquí hay que cambiar el color para cada clase
 		style.set(Button.PROPERTY_FOCUSED_ENABLED,true);
-		style.set(Button.PROPERTY_FOCUSED_BACKGROUND, COLORDEFAULT);
-		style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, BORDEDEFAULT, Border.STYLE_SOLID));
 
-		//Aquí hay que cambiar el color para cada clase
+		// Aquí hay que cambiar el color para cada clase
 		style.set(Button.PROPERTY_ROLLOVER_ENABLED, true);
-		style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, ROLLOVERDEFAULT);
-		style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.BLACK, Border.STYLE_SOLID));
 
 		STYLE = style;
 	}
 
-	public static final Style STYLE_LABEL_BOLD;
+	public static final Style DEFAULT_STYLE_INITIAL;
 	static {
 		MutableStyle style = new MutableStyle();
 
-		style.set(Label.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
-		style.set(Label.PROPERTY_FONT, new Alignment(Alignment.CENTER, Alignment.CENTER));
-		style.set(Label.PROPERTY_FONT, Font.BOLD);
-
-		STYLE_LABEL_BOLD = style;
-	}
-
-	public static final Style STYLE_LABEL_NORMAL;
-	static {
-		MutableStyle style = new MutableStyle();
-
-		style.set(Label.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
-		style.set(Label.PROPERTY_FONT, new Alignment(Alignment.CENTER, Alignment.CENTER));
-		style.set(Label.PROPERTY_FONT, Font.PLAIN);
-
-		STYLE_LABEL_NORMAL = style;
-	}
-
-	public static final Style STYLECENTERROW;
-	static {
-		MutableStyle style = new MutableStyle();
-
+		style.set(Grid.PROPERTY_WIDTH, new Extent(500));
 		style.set(Row.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
-		style.set(Row.PROPERTY_FONT, new Alignment(Alignment.CENTER, Alignment.CENTER));
-		style.set(Column.PROPERTY_CELL_SPACING, new Extent(1));
-		style.set(Column.PROPERTY_INSETS, new Insets(2,2,2,2));
 
-		STYLECENTERROW = style;
+		style.set(Button.PROPERTY_WIDTH, new Extent(190));
+		style.set(Button.PROPERTY_HEIGHT, new Extent(20));
+		style.set(Button.PROPERTY_INSETS, new Insets(2,2,2,2));
+		style.set(Button.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+
+		style.set(Button.PROPERTY_LINE_WRAP, false);
+		style.set(Button.PROPERTY_BACKGROUND, new Color(245, 245, 235));
+		style.set(Button.PROPERTY_BORDER, new Border(1, new Color(215, 210, 205), Border.STYLE_SOLID));
+		style.set(Button.PROPERTY_FONT, Font.DIALOG);
+
+		style.set(Button.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+		style.set(Button.PROPERTY_TEXT_POSITION, new Alignment(Alignment.CENTER, Alignment.CENTER));
+		style.set(Button.PROPERTY_ICON_TEXT_MARGIN, new Extent(3));
+
+		style.set(Button.PROPERTY_DISABLED_FOREGROUND, Color.LIGHTGRAY);
+
+		style.set(Button.PROPERTY_FOCUSED_ENABLED,true);
+		style.set(Button.PROPERTY_FOCUSED_BACKGROUND, GUIStyles.COLORDEFAULT);
+		style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, GUIStyles.BORDEDEFAULT, Border.STYLE_SOLID));
+
+		DEFAULT_STYLE_INITIAL = style;
 	}
 
-	public static final Style STYLEMENUI;
+	public static final Style STYLE_INITIAL;
 	static {
 		MutableStyle style = new MutableStyle();
 
-		style.set(Row.PROPERTY_ALIGNMENT, new Alignment(Alignment.LEFT, Alignment.DEFAULT));
-		style.set(Column.PROPERTY_CELL_SPACING, new Extent(1));
-		style.set(Column.PROPERTY_INSETS, new Insets(2,2,2,2));
+		style.set(Button.PROPERTY_WIDTH, new Extent(160));
+		style.set(Button.PROPERTY_HEIGHT, new Extent(20));
+		style.set(Button.PROPERTY_INSETS, new Insets(3));
+		style.set(Button.PROPERTY_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
 
-		STYLEMENUI = style;
-	}
+		style.set(Button.PROPERTY_LINE_WRAP, false);
+		style.set(Button.PROPERTY_BACKGROUND, new Color(245, 245, 235));
+		style.set(Button.PROPERTY_BORDER, new Border(1, new Color(215, 210, 205), Border.STYLE_SOLID));
 
-	public static final Style STYLEBUTTON;
-	static {
-		MutableStyle style = new MutableStyle();
+		style.set(Button.PROPERTY_TEXT_ALIGNMENT, new Alignment(Alignment.CENTER, Alignment.CENTER));
+		style.set(Button.PROPERTY_TEXT_POSITION, new Alignment(Alignment.CENTER, Alignment.CENTER));
+		style.set(Button.PROPERTY_ICON_TEXT_MARGIN, new Extent(3));
 
-		style.set(Row.PROPERTY_ALIGNMENT, new Alignment(Alignment.RIGHT, Alignment.DEFAULT));
-		style.set(Column.PROPERTY_CELL_SPACING, new Extent(1));
-		style.set(Column.PROPERTY_INSETS, new Insets(2,2,2,2));
+		style.set(Button.PROPERTY_DISABLED_FOREGROUND, Color.LIGHTGRAY);
 
-		STYLEBUTTON = style;
+		style.set(Button.PROPERTY_FOCUSED_ENABLED,true);
+		style.set(Button.PROPERTY_FOCUSED_BACKGROUND, GUIStyles.COLORDEFAULT);
+		style.set(Button.PROPERTY_FOCUSED_BORDER, new Border(1, GUIStyles.BORDEDEFAULT, Border.STYLE_SOLID));
+
+		style.set(Button.PROPERTY_ROLLOVER_ENABLED, true);
+		style.set(Button.PROPERTY_ROLLOVER_BACKGROUND, GUIStyles.ROLLOVERDEFAULT);
+		style.set(Button.PROPERTY_ROLLOVER_BORDER, new Border(1, Color.BLACK, Border.STYLE_SOLID));
+
+		STYLE_INITIAL = style;
 	}
 
 }
