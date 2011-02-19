@@ -13,5 +13,7 @@ public interface IPlanetaDAO extends InterfaceDAO {
 			throws Exception;
 
 	float getPlanetDistance(int oringenId, int destinoId) throws SQLException;
+	
+	public void loadPersonajeRef(IPlanetaDO planetaDO) throws SQLException;
 
 }

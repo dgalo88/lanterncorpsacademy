@@ -568,6 +568,26 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 
 	    ref.setRefValue(planetaDO);
 	  }
+	  
+	  //------------------------------------------------------------------------------------------------------------
+	  
+	  public void loadPlanetaCasaRef(IPersonajeDO personajeDO) throws SQLException {
+		    checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
+
+		    PlanetaDAO planetaDAO = new PlanetaDAO();
+		    planetaDAO.init(connectionBean);
+
+		    Reference<IPlanetaDO> ref = personajeDO.getEstableceCasa();
+
+		    if (ref.getRefIdent() == 0) {
+		      return;
+		    }
+
+		    PlanetaDO planetaDO = //
+		    (PlanetaDO) planetaDAO.loadById(ref.getRefIdent());
+
+		    ref.setRefValue(planetaDO);
+		  }
 
 	  // --------------------------------------------------------------------------------
 

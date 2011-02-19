@@ -92,5 +92,13 @@ public interface IPersonajeDO extends DataObject {
 	public Reference<IClaseLinternaDO> getClaseLinternaRef();
 	
 	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef);
+	
+	//-----------------------------------------------------------------------------------------------------------
+	
+	public Reference<IPlanetaDO> getEstableceCasa();
+	
+	public void setEstableceCasa(Reference<IPlanetaDO> planetaCasaRef);
+	
+	//---------------------------------------------------------------------------------------------------------
 
 }
