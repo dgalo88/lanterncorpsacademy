@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IHabilidadDAO;
-import lcaInterfaceDAO.IHabilidadDO;
 import lcaInterfaceDAO.IRecursoDAO;
 import lcaInterfaceDAO.IRecursoDO;
 import dao.api.BaseDAO;
