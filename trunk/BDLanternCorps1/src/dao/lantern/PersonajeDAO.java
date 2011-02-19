@@ -91,7 +91,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	    strbuf.append(" INT DEFAULT 0,	");
 	    strbuf.append(PersonajeDO.SALUD); 
 	    strbuf.append(" INT CHECK (" + PersonajeDO.SALUD
-				+ " >= 0 ) DEFAULT 200,	");
+				+ " >= 0 ) DEFAULT 500,	");
 	    strbuf.append(PersonajeDO.ENERGIA_DEL_ANILLO); 
 	    strbuf.append(" INT DEFAULT 100,	");
 	    strbuf.append(PersonajeDO.NIVEL); 
