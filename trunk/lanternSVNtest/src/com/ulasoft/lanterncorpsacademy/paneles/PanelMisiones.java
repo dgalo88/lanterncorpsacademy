@@ -33,8 +33,8 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.Mision;
-import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
+@SuppressWarnings("serial")
 public class PanelMisiones extends Panel {
 
 	private TestTableModel tableDtaModel;
@@ -46,7 +46,7 @@ public class PanelMisiones extends Panel {
 	public PanelMisiones() {
 
 		Row row1 = new Row();
-		row1.setStyle(GUIStyles.STYLECENTERROW);
+//		row1.setStyle(GUIStyles.STYLECENTERROW);
 
 		Column col = new Column();
 		col.setInsets(new Insets(5, 5, 5, 5));

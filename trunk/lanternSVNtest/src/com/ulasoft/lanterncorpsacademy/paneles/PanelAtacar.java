@@ -37,6 +37,7 @@ public class PanelAtacar extends Panel {
 
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
+	private Atributos atrib = app.getAtributos();
 
 	private TestTableModel tableDtaModel;
 	private List<IPersonajeDO> personajes;
@@ -56,25 +57,8 @@ public class PanelAtacar extends Panel {
 		row.setCellSpacing(new Extent(10));
 		row.setAlignment(Alignment.ALIGN_CENTER);
 
-		// ----------------------------------------
-		// Carga a los Contrincantes
-		// ----------------------------------------
-
-		tableDtaModel = new TestTableModel();
-		Atributos atrib = app.getAtributos();
-		try {
-			personajes = Atacar.obtenerContrincantes(atrib.getPersonaje());
-			npcList = Atacar.obtenerContrincantesNPC(atrib.getPersonaje());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		tableDtaModel = Atacar.asignarRankingNpcPersonaje(tableDtaModel, personajes, npcList);
-
-		col.add(PanelConstructor.initTopRow("Atacar Jugadores & NPC`s"));
-		col.add(PanelConstructor.initTable(tableDtaModel, initTableColModel(), true));
-
 		Button btnCancelar = new Button("Cancelar");
-		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnCancelar.setStyle(Estilo.getStyleColor(atrib));
 		btnCancelar.setWidth(new Extent(100));
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
@@ -85,7 +69,7 @@ public class PanelAtacar extends Panel {
 		row.add(btnCancelar);
 
 		Button btnAtacar = new Button("Atacar");
-		btnAtacar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnAtacar.setStyle(Estilo.getStyleColor(atrib));
 		btnAtacar.setWidth(new Extent(100));
 		btnAtacar.addActionListener(new ActionListener() {
 			@Override
@@ -99,80 +83,43 @@ public class PanelAtacar extends Panel {
 		});
 		row.add(btnAtacar);
 
+		if(atrib.getPersonaje().getPlanetaRef().getRefIdent() == //
+			atrib.getPersonaje().getClaseLinternaRef().getRefIdent()) {
+
+			btnAtacar.setEnabled(false);
+			col.setCellSpacing(new Extent(50));
+			col.add(PanelConstructor.initTopRow( //
+					"No puedes atacar porque te encuentras en el Planeta Base"));
+			col.add(row);
+			add(col);
+
+			app.getDesktop().setWindowPaneEmergente( //
+					"No puedes atacar porque te encuentras en el Planeta Base");
+			return;
+
+		}
+
+		// ----------------------------------------
+		// Carga a los Contrincantes
+		// ----------------------------------------
+
+		tableDtaModel = new TestTableModel();
+		try {
+			personajes = Atacar.obtenerContrincantes(atrib.getPersonaje());
+			npcList = Atacar.obtenerContrincantesNPC(atrib.getPersonaje());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tableDtaModel = Atacar.asignarRankingNpcPersonaje( //
+				tableDtaModel, personajes, npcList);
+
+		col.add(PanelConstructor.initTopRow("Atacar Jugadores & NPC`s"));
+		col.add(PanelConstructor.initTable( //
+				tableDtaModel, initTableColModel(), true));
+
 		col.add(row);
 		add(col);
 	}
-
-	// --------------------------------------------------------------------------------
-
-//	private Row initTopRow() {
-//
-//		Row row = new Row();
-//		row.setCellSpacing(new Extent(10));
-//		row.setAlignment(Alignment.ALIGN_CENTER);
-//		Label lblTitle = new Label("Atacar Jugadores & NPC`s");
-//		lblTitle.setForeground(Color.WHITE);
-//		Estilo.setFont(lblTitle, GUIStyles.BOLD, 16);
-//		row.add(lblTitle);
-//		return row;
-//
-//	}
-
-	// --------------------------------------------------------------------------------
-
-//	private Component initTable() {
-//
-//		Column col = new Column();
-//		col.setInsets(new Insets(10, 10, 10, 10));
-//		col.setCellSpacing(new Extent(10));
-//		col.setBackground(Color.WHITE);
-//
-//		// ----------------------------------------
-//		// The table models
-//		// ----------------------------------------
-//
-//		TableColModel tableColModel = initTableColModel();
-//		TableSelModel tableSelModel = new TableSelModel();
-//		tableDtaModel = new TestTableModel();
-//		tableDtaModel.setEditable(true);
-//		tableDtaModel.setPageSize(10);
-//
-//		// ----------------------------------------
-//		// Carga a los Contrincantes
-//		// ----------------------------------------
-//
-//		Atributos atrib = app.getAtributos();
-//		try {
-//			personajes = Atacar.obtenerContrincantes(atrib.getPersonaje());
-//			npcList = Atacar.obtenerContrincantesNPC(atrib.getPersonaje());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		tableDtaModel = Atacar.asignarRankingNpcPersonaje(tableDtaModel, personajes, npcList);
-//
-//		// ----------------------------------------
-//		// The table
-//		// ----------------------------------------
-//
-//		ETable table = new ETable();
-//		table.setTableDtaModel(tableDtaModel);
-//		table.setTableColModel(tableColModel);
-//		table.setTableSelModel(tableSelModel);
-//		table.setEasyview(true);
-//		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_NONE));
-//		table.setInsets(new Insets(5, 2, 5, 2));
-//		Estilo.setFont(table, GUIStyles.NORMAL);
-//		col.add(table);
-//
-//		// ----------------------------------------
-//		// The navigation control
-//		// ----------------------------------------
-//
-//		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
-//		col.add(tableNavigation);
-//
-//		return col;
-//	}
 
 	// --------------------------------------------------------------------------------
 

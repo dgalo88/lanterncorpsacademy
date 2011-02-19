@@ -1,25 +1,24 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.util.List;
+
+import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IPersonajeDO;
 import nextapp.echo.app.Alignment;
-import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
-import nextapp.echo.app.Color;
+import nextapp.echo.app.CheckBox;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
-import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
-import nextapp.echo.app.RadioButton;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
 import com.minotauro.echo.table.base.ETable;
-import com.minotauro.echo.table.base.ETableNavigation;
 import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
-import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
@@ -27,38 +26,58 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
+import com.ulasoft.lanterncorpsacademy.logic.Ranking;
 
 @SuppressWarnings("serial")
 public class PanelMensaje extends Panel {
 
+	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+			LanternCorpsAcademyApp.getActive();
+	private Desktop d = app.getDesktop();
+
 	private TestTableModel tableDtaModel;
+	private List<IPersonajeDO> personajes;
 
 	public PanelMensaje() {
-		Column col = new Column();
-		Row row1 = new Row();
-		row1.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		Label lblTitle = new Label("Bandeja de Entrada:");
-		row1.add(lblTitle);
-		col.add(row1);
 
-		col.add(initTable());
+		Column col = new Column();
+		col.setInsets(new Insets(10, 10, 10, 10));
+		col.setCellSpacing(new Extent(10));
 
 		Row row = new Row();
+		row.setCellSpacing(new Extent(10));
+		row.setAlignment(Alignment.ALIGN_CENTER);
 
-		Button btnAtras = new Button("Atras");
-		btnAtras.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnAtras.addActionListener(new ActionListener() {
+		// ----------------------------------------
+		// TODO: Carga los Mensajes
+		// ----------------------------------------
+
+		tableDtaModel = new TestTableModel();
+		try {
+			personajes = Ranking.obtenerRanking();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tableDtaModel = Ranking.asignarRanking(tableDtaModel, personajes);
+
+		col.add(PanelConstructor.initTopRow("Bandeja de Entrada"));
+		col.add(PanelConstructor.initTable( //
+				tableDtaModel, initTableColModel(), true, 5));
+
+		Button btnCancelar = new Button("Cancelar");
+		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnCancelar.setWidth(new Extent(140));
+		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				btnAtrasClicked();
+				d.btnCancelarClicked();
 			}
 		});
-
-		row.add(btnAtras);
+		row.add(btnCancelar);
 
 		Button btnBorrarSeleccionado = new Button("Borrar Seleccionado");
 		btnBorrarSeleccionado.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnBorrarSeleccionado.setWidth(new Extent(200));
+		btnBorrarSeleccionado.setWidth(new Extent(140));
 		btnBorrarSeleccionado.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -69,129 +88,45 @@ public class PanelMensaje extends Panel {
 
 		Button btnBorrarTodo = new Button("Borrar Todo");
 		btnBorrarTodo.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnBorrarTodo.setWidth(new Extent(140));
 		btnBorrarTodo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				btnBorrarTodoClicked();
 			}
 		});
-
 		row.add(btnBorrarTodo);
 
 		Button btnEnviarMensaje = new Button("Enviar Mensaje");
 		btnEnviarMensaje.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnEnviarMensaje.setWidth(new Extent(140));
 		btnEnviarMensaje.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				btnEnviarMensajeClicked();
 			}
 		});
-
 		row.add(btnEnviarMensaje);
-		row.setAlignment(Alignment.ALIGN_CENTER);
+
 		col.add(row);
 		add(col);
-	}
-
-	LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-			.getActive();
-	Desktop d = app.getDesktop();
-
-	protected void btnAtrasClicked() {
-		PanelMiGrupo pnlMain = new PanelMiGrupo();
-		d.setPanelCentral(pnlMain);
-
-	}
-
-	protected void btnEnviarMensajeClicked() {
-		PanelEnviarMensaje pnlMain = new PanelEnviarMensaje();
-		d.setPanelCentral(pnlMain);
-
-	}
-
-	protected void btnBorrarTodoClicked() {
-		// TODO Auto-generated method stub
-
-	}
-
-	protected void btnBorrarSeleccionadoClicked() {
-		// TODO Auto-generated method stub
-	}
-
-	private Component initTable() {
-		setInsets(new Insets(2, 2, 2, 2));
-
-		Column col = new Column();
-		// col.setCellSpacing(new Extent(1));
-		col.setBackground(Color.WHITE);
-
-		col.add(initTopRow());
-
-		// ----------------------------------------
-		// The table models
-		// ----------------------------------------
-
-		TableColModel tableColModel = initTableColModel();
-		TableSelModel tableSelModel = new TableSelModel();
-
-		tableDtaModel = new TestTableModel();
-		tableDtaModel.setEditable(true);
-		tableDtaModel.setPageSize(3);
-
-		// ----------------------------------------
-		// The table
-		// ----------------------------------------
-
-		ETable table = new ETable();
-		table.setTableDtaModel(tableDtaModel);
-		table.setTableColModel(tableColModel);
-		table.setTableSelModel(tableSelModel);
-
-		table.setEasyview(true);
-
-		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_NONE));
-		table.setInsets(new Insets(5, 2, 5, 2));
-		col.add(table);
-
-		// ----------------------------------------
-		// The navigation control
-		// ----------------------------------------
-
-		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
-		col.add(tableNavigation);
-		return col;
-	}
-
-	private Row initTopRow() {
-		Row row = new Row();
-		row.setCellSpacing(new Extent(5));
-
-		return row;
 	}
 
 	// --------------------------------------------------------------------------------
 
 	private TableColModel initTableColModel() {
+
 		TableColModel tableColModel = new TableColModel();
-
 		TableColumn tableColumn;
-
-		tableColumn = new TableColumn();
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Actions");
-		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		tableColumn.setDataCellRenderer(initNestedCellRenderer());
-		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-//				PersonBean personaBean = (PersonBean) element;
-				return "";//personaBean.getFrstName();
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				return personaje.getAlias();
 			}
 		};
-
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(150));
 		tableColumn.setHeadValue("Nombre");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -200,42 +135,51 @@ public class PanelMensaje extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-//				PersonBean personaBean = (PersonBean) element;
-				return "";//personaBean.getLastName();
+				IPersonajeDO personaje = (IPersonajeDO) element;
+				IClaseLinternaDO claseLinternaDO = (IClaseLinternaDO) //
+						personaje.getClaseLinternaRef().getRefValue();
+				return claseLinternaDO.getNombre_de_cuerpo_linterna();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(150));
 		tableColumn.setHeadValue("Asunto");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
+		tableColumn = new TableColumn();
+		tableColumn.setWidth(new Extent(20));
+		tableColumn.setHeadValue("");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(initNestedCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+
 		return tableColModel;
+
 	}
 
 	private NestedCellRenderer initNestedCellRenderer() {
+
 		NestedCellRenderer nestedCellRenderer = new NestedCellRenderer();
 		nestedCellRenderer.getCellRendererList().add(new BaseCellRenderer() {
 			@Override
-			public Component getCellRenderer(
-					//
-					final ETable table, final Object value, final int col,
-					final int row) {
+			public Component getCellRenderer( //
+					final ETable table, final Object value, //
+					final int col, final int row) {
 
-				boolean editable = ((TestTableModel) table.getTableDtaModel())
-						.getEditable();
+				boolean editable = ((TestTableModel) //
+						table.getTableDtaModel()).getEditable();
 
-				RadioButton ret = new RadioButton();
-				ret.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-				ret.setEnabled(editable);
-				ret.setToolTipText("Seleccion");
+				CheckBox checkBox = new CheckBox();
+				checkBox.setEnabled(editable);
+				checkBox.setToolTipText("Selección");
 
-				ret.addActionListener(new ActionListener() {
+				checkBox.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						btnRadioClicked(row);
 					}
 				});
-				return ret;
+				return checkBox;
 			}
 		});
 
@@ -247,4 +191,20 @@ public class PanelMensaje extends Panel {
 	private void btnRadioClicked(int row) {
 		// TODO Auto-generated method stub
 	}
+
+	protected void btnEnviarMensajeClicked() {
+
+		PanelEnviarMensaje pnlMain = new PanelEnviarMensaje();
+		d.setPanelCentral(pnlMain);
+
+	}
+
+	protected void btnBorrarTodoClicked() {
+		// TODO Auto-generated method stub
+	}
+
+	protected void btnBorrarSeleccionadoClicked() {
+		// TODO Auto-generated method stub
+	}
+
 }

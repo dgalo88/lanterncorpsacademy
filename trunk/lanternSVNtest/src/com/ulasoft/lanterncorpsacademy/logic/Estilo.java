@@ -18,11 +18,13 @@ import com.ulasoft.lanterncorpsacademy.stilos.YellowStyles;
 
 public class Estilo {
 
-	public static Color getColor(Atributos atrr) {
-		if(atrr==null || atrr.getPersonaje()==null){
+	public static Color getColor(Atributos atrib) {
+
+		if(atrib == null || atrib.getPersonaje() == null) {
 			return GUIStyles.COLORDEFAULT;
 		}
-		switch (atrr.getPersonaje().getClaseLinternaRef().getRefIdent()) {
+
+		switch (atrib.getPersonaje().getClaseLinternaRef().getRefIdent()) {
 		case 1:
 			return GUIStyles.COLORVERDE;
 		case 2:
@@ -43,11 +45,13 @@ public class Estilo {
 		return GUIStyles.COLORDEFAULT;
 	}
 
-	public static Color getRolloverColor(Atributos atrr) {
-		if(atrr==null || atrr.getPersonaje()==null){
+	public static Color getRolloverColor(Atributos atrib) {
+
+		if(atrib == null || atrib.getPersonaje() == null) {
 			return GUIStyles.ROLLOVERDEFAULT;
 		}
-		switch (atrr.getPersonaje().getClaseLinternaRef().getRefIdent()) {
+
+		switch (atrib.getPersonaje().getClaseLinternaRef().getRefIdent()) {
 		case 1:
 			return GUIStyles.ROLLOVERVERDE;
 		case 2:
@@ -68,11 +72,13 @@ public class Estilo {
 		return GUIStyles.ROLLOVERDEFAULT;
 	}
 
-	public static Style getDefaultStyleColor (Atributos atrr) {
-		if(atrr==null){
-			return GUIStyles.DEFAULT_STYLE;
+	public static Style getDefaultStyleColor (Atributos atrib) {
+
+		if(atrib == null) {
+			return GUIStyles.DEFAULT_STYLE_INITIAL;
 		}
-		switch (atrr.getPersonaje().getClaseLinternaRef().getRefIdent()) {
+
+		switch (atrib.getPersonaje().getClaseLinternaRef().getRefIdent()) {
 		case 1:
 			return GreenStyles.DEFAULT_STYLE_GREEN;
 		case 2:
@@ -90,14 +96,16 @@ public class Estilo {
 		default:
 			break;
 		}
-		return GUIStyles.DEFAULT_STYLE;
+		return GUIStyles.DEFAULT_STYLE_INITIAL;
 	}
 
-	public static Style getStyleColor (Atributos atrr) {
-		if(atrr==null){
-			return GUIStyles.STYLE;
+	public static Style getStyleColor (Atributos atrib) {
+
+		if(atrib == null) {
+			return GUIStyles.STYLE_INITIAL;
 		}
-		switch (atrr.getPersonaje().getClaseLinternaRef().getRefIdent()) {
+
+		switch (atrib.getPersonaje().getClaseLinternaRef().getRefIdent()) {
 		case 1:
 			return GreenStyles.STYLE_GREEN;
 		case 2:
@@ -115,7 +123,7 @@ public class Estilo {
 		default:
 			break;
 		}
-		return GUIStyles.STYLE;
+		return GUIStyles.STYLE_INITIAL;
 	}
 
 	public static void setFont(Component component, int font) {

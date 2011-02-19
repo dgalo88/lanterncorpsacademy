@@ -173,10 +173,6 @@ public class PanelRecolectarConquistado extends Panel {
 		return nestedCellRenderer;
 	}
 
-	// --------------------------------------------------------------------------------
-	// Setup command bar renderer
-	// --------------------------------------------------------------------------------
-
 	private NestedCellRenderer initNestedCellRenderer() {
 
 		NestedCellRenderer nestedCellRenderer = new NestedCellRenderer();

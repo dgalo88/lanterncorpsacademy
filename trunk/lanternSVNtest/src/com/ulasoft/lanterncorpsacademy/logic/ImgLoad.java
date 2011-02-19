@@ -92,6 +92,28 @@ public class ImgLoad {
 		return "";
 	}
 
+	public static String grupo(IPersonajeDO personaje) {
+		switch (personaje.getClaseLinternaRef().getRefIdent()) {
+		case 1:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/groupGreen.png";
+		case 2:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/groupYellow.png";
+		case 3:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/groupRed.png";
+		case 4:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/groupBlack.png";
+		case 5:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/groupBlue.png";
+		case 6:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/groupIndigo.png";
+		case 7:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/groupViolet.png";
+		default:
+			break;
+		}
+		return "";
+	}
+
 	// TODO: Delete!!!
 	public static String panelConquistar(int ref) {
 		switch (ref) {

@@ -9,6 +9,7 @@ import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
+import nextapp.echo.app.Font;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -26,12 +27,15 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelMensaje;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMisDatos;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelOfertar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarConquistado;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarNeutro;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelSabotear;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
@@ -149,8 +153,13 @@ public class Menu extends Panel {
 
 		// Ver Mapa
 		Button btnVerMapa = new Button("Ver mapa");
+
 		btnVerMapa.setTextAlignment(Alignment.ALIGN_CENTER);
 		btnVerMapa.setForeground(new Color (255, 255, 255));
+		btnVerMapa.setFont(new Font(Font.VERDANA, Font.BOLD, new Extent(14)));
+		btnVerMapa.setFocusedEnabled(true);
+		btnVerMapa.setFocusedForeground(Estilo.getColor(app.getAtributos()));
+
 		btnVerMapa.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -261,7 +270,7 @@ public class Menu extends Panel {
 		btnConstruir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-//				btnConstruirClicked();
+				btnConstruirClicked();
 			}
 		});
 		col.add(grid[2]);
@@ -272,7 +281,7 @@ public class Menu extends Panel {
 		btnReparar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-//				btnRepararClicked();
+				btnRepararClicked();
 			}
 		});
 		col.add(grid[3]);
@@ -319,7 +328,7 @@ public class Menu extends Panel {
 		btnSabotear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-//				btnSabotearClicked();
+				btnSabotearClicked();
 			}
 		});
 		col.add(grid[2]);
@@ -344,7 +353,7 @@ public class Menu extends Panel {
 		btnOfertar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-//				btnOfertarClicked();
+				btnOfertarClicked();
 			}
 		});
 		col.add(grid[0]);
@@ -355,7 +364,7 @@ public class Menu extends Panel {
 		btnIntercambiar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-//				btnIntercambiarClicked();
+				btnIntercambiarClicked();
 			}
 		});
 		col.add(grid[1]);
@@ -413,7 +422,7 @@ public class Menu extends Panel {
 		btnVerMensajes.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-//				btnVerMensajesClicked();
+				btnVerMensajesClicked();
 			}
 		});
 		col.add(grid[3]);
@@ -464,18 +473,11 @@ public class Menu extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	protected void btnRecargarAnilloClicked() {
+	private void btnRecargarAnilloClicked() {
+
 		PanelRecargarAnillo pnlMain = new PanelRecargarAnillo();
 		d.setPanelCentral(pnlMain);
-	}
 
-	// --------------------------------------------------------------------------------
-
-	protected void btnAtacarClicked() {
-
-//		PanelSelectAtacar pnlMain = new PanelSelectAtacar();
-		PanelAtacar pnlMain = new PanelAtacar();
-		d.setPanelCentral(pnlMain);
 	}
 
 	// --------------------------------------------------------------------------------
@@ -500,9 +502,54 @@ public class Menu extends Panel {
 
 	// --------------------------------------------------------------------------------
 
+	private void btnAdquirirTecnologiaClicked() {
+
+		PanelAdquirirTecnologia pnlMain = new PanelAdquirirTecnologia();
+		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnConstruirClicked() {
+
+//		PanelConstruir pnlMain = new PanelConstruir();
+//		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnRepararClicked() {
+
+//		PanelReparar pnlMain = new PanelReparar();
+//		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnAtacarClicked() {
+
+		PanelAtacar pnlMain = new PanelAtacar();
+		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
 	private void btnConquistarClicked() {
 
 		PanelConquistar pnlMain = new PanelConquistar();
+		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnSabotearClicked() {
+
+		PanelSabotear pnlMain = new PanelSabotear();
 		d.setPanelCentral(pnlMain);
 
 	}
@@ -524,6 +571,25 @@ public class Menu extends Panel {
 				new PanelRecolectarConquistado() : new PanelRecolectarNeutro();
 
 		d.setPanelCentral(pnlMain);
+
+	}
+
+
+	// --------------------------------------------------------------------------------
+
+	private void btnOfertarClicked() {
+
+		PanelOfertar pnlMain = new PanelOfertar();
+		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnIntercambiarClicked() {
+
+//		PanelIntercambiar pnlMain = new PanelIntercambiar();
+//		d.setPanelCentral(pnlMain);
 
 	}
 
@@ -556,6 +622,15 @@ public class Menu extends Panel {
 
 	// --------------------------------------------------------------------------------
 
+	private void btnVerMensajesClicked() {
+
+		PanelMensaje pnlMain = new PanelMensaje();
+		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
 	private void btnRankingClicked() {
 
 		PanelRanking pnlMain = new PanelRanking();
@@ -574,18 +649,11 @@ public class Menu extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	protected void btnViajarPlanetaClicked() {
+	private void btnViajarPlanetaClicked() {
 
 		PanelViajarPlaneta pnlMain = new PanelViajarPlaneta();
 		d.setPanelCentral(pnlMain);
 
 	}
-	// --------------------------------------------------------------------------------
 
-	protected void btnAdquirirTecnologiaClicked() {
-
-		PanelAdquirirTecnologia pnlMain = new PanelAdquirirTecnologia();
-		d.setPanelCentral(pnlMain);
-
-	}
 }

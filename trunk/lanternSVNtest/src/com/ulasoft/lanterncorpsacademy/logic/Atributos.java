@@ -14,7 +14,6 @@ import com.ulasoft.lanterncorpsacademy.menus.MenuStatus;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMisDatos;
-import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
@@ -33,7 +32,7 @@ public class Atributos {
 	private IPersonajeDO personaje;
 	private IUsuarioDO usuario;
 
-	public void updateAtts () throws Exception {
+	public void updateAtributos () throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
@@ -46,7 +45,7 @@ public class Atributos {
         		GlobalDAOFactory.getDAO(IUsuarioDAO.class, connectionBean);
 
         usuario = (IUsuarioDO) usDAO.loadById(usuario.getId());
-        personaje= (IPersonajeDO) personajeDAO.loadById(personaje.getId());
+        personaje = (IPersonajeDO) personajeDAO.loadById(personaje.getId());
 
 		System.err.println("PERSONAJE ID en atts:" + personaje.getId());
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
@@ -67,41 +66,11 @@ public class Atributos {
 				personaje.getEnergiaDelAnillo() * 100 / //
 				(100 + 10 * (personaje.getNivel() - 1)));
 
+		menuStatus.getEnergia().setColor(Estilo.getColor(app.getAtributos()));
+
 		menuStatus.getExperiencia().setCurrValue( //
 				personaje.getExperiencia() * 100 / //
 				15 * 2^(personaje.getNivel() - 1));
-
-		menuStatus.getLblTrainsValue().setText( //
-				Integer.toString(personaje.getPuntosDeEntrenamiento()));
-
-		menuStatus.getLblNiveLabelValue().setText( //
-				Integer.toString(personaje.getNivel()));
-
-		switch (personaje.getClaseLinternaRef().getRefIdent()) {
-			case 1:
-				menuStatus.getEnergia().setColor(GUIStyles.COLORVERDE);
-				break;
-			case 2: 
-				menuStatus.getEnergia().setColor(GUIStyles.COLORAMARILLO);
-				break;
-			case 3:
-				menuStatus.getEnergia().setColor(GUIStyles.COLORROJO);
-				break;
-			case 4: 
-				menuStatus.getEnergia().setColor(GUIStyles.COLORNEGRO);
-				break;
-			case 5:
-				menuStatus.getEnergia().setColor(GUIStyles.COLORAZUL);
-				break;
-			case 6:
-				menuStatus.getEnergia().setColor(GUIStyles.COLORINDIGO);
-				break;
-			case 7:
-				menuStatus.getEnergia().setColor(GUIStyles.COLORVIOLETA);
-				break;
-			default:
-				break;
-		}
 
 		System.err.println("PERSONAJE ID en atts menuStatus2: " + personaje.getId());
 	}
