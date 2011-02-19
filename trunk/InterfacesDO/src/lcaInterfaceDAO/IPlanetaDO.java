@@ -3,6 +3,7 @@ package lcaInterfaceDAO;
 import java.util.List;
 
 import dao.api.DataObject;
+import dao.api.Reference;
 
 public interface IPlanetaDO extends DataObject {
 
@@ -32,7 +33,10 @@ public interface IPlanetaDO extends DataObject {
 
 	public abstract List<IRecursoPlanetaDO> getRecursoPlanetaList();
 
-	public abstract void setRecursoPlanetaList(
-			List<IRecursoPlanetaDO> recursoPlanetaList);
+	public abstract void setRecursoPlanetaList(List<IRecursoPlanetaDO> recursoPlanetaList);
+	
+	public abstract Reference<IPersonajeDO> getPlanetaEsCasaRef();
+	
+	public abstract void setPlanetaEsCasaRef(Reference<IPersonajeDO> planetaEsCasaRef);
 
 }

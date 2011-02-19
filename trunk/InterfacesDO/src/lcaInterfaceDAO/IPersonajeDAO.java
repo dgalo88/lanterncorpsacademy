@@ -45,4 +45,5 @@ public interface IPersonajeDAO extends InterfaceDAO {
 
 	public List<IPersonajeDO> listContrincantes(int personajeId, int claseId, int planetaId) throws SQLException;
 	
+	public void loadPlanetaCasaRef(IPersonajeDO personajeDO) throws SQLException;
 }

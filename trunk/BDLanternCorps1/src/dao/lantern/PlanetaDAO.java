@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.IClaseLinternaDO;
+import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.BaseDAO;
@@ -348,6 +349,23 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 
 	}
 
+	public void loadPersonajeRef(IPlanetaDO planetaDO) throws SQLException {
+	    checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
+
+	    PersonajeDAO personajeDAO = new PersonajeDAO();
+	    personajeDAO.init(connectionBean);
+
+	    Reference<IPersonajeDO> ref = planetaDO.getPlanetaEsCasaRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    PersonajeDO personajeDO = //
+	    (PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(personajeDO);
+	  }
 	// --------------------------------------------------------------------------------
 
 	public void loadClaseLinternaRef(IPlanetaDO planetaDO) throws Exception {

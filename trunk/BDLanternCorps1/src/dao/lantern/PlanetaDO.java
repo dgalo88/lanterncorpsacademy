@@ -37,6 +37,11 @@ public class PlanetaDO implements IPlanetaDO {
 
 	private List<IRecursoPlanetaDO> recursoPlanetaList = //
 	new ArrayList<IRecursoPlanetaDO>();
+	
+	private Reference<IPersonajeDO>   planetaEsCasaRef = //
+		new Reference<IPersonajeDO>();
+	
+	
 
 	// --------------------------------------------------------------------------------
 
@@ -134,6 +139,17 @@ public class PlanetaDO implements IPlanetaDO {
 	public void setRecursoPlanetaList(List<IRecursoPlanetaDO> recursoPlanetaList) {
 		this.recursoPlanetaList = recursoPlanetaList;
 
+	}
+	
+	public Reference<IPersonajeDO> getPlanetaEsCasaRef()
+	{
+		
+		return planetaEsCasaRef;
+	}
+	
+	public void setPlanetaEsCasaRef(Reference<IPersonajeDO> planetaEsCasaRef){
+		
+		this.planetaEsCasaRef=planetaEsCasaRef;
 	}
 
 }
