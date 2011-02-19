@@ -57,6 +57,9 @@ public interface IRecursoDO extends DataObject {
 	public abstract void setRecursoPlanetaList(
 			List<IRecursoPlanetaDO> recursoPlanetaList);
 
+	public abstract List<IUnidadBasicaRecursoDO> getUnidadBasicaRecursoList();
+	public abstract void setUnidadBasicaRecursoList(List<IUnidadBasicaRecursoDO> unidadBasicaRecursoList);
+
 	// ------------------------------------------------------------------------------------------------
 
 }

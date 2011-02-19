@@ -11,6 +11,8 @@ import lcaInterfaceDAO.IUnidadEjercitoDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
+import lcaInterfaceDAO.IUnidadBasicaDO;
+import 
 
 public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 
@@ -276,14 +278,14 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		ret.setAtaque/*  */(rs.getInt(UnidadBasicaDO.ATAQUE));
 		ret.setTipo/*    */(rs.getInt(UnidadBasicaDO.TIPO));
 
-		ret.setTecnologiaId(rs.getInt(UnidadBasicaDO.TECNOLOGIA_ID));
-		ret.setUnidadEjercitoArmaId(rs
+		ret.setTecnologiaRef(rs.getInt(UnidadBasicaDO.TECNOLOGIA_ID));
+		ret.setUnidadEjercitoArmaRef(rs
 				.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_ARMA_ID));
-		ret.setUnidadEjercitoBalaId(rs
+		ret.setUnidadBasicaBalaRef(rs
 				.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_BALA_ID));
-		ret.setUnidadEjercitoRobotId(rs
+		ret.setUnidadEjercitoRobotRef(rs
 				.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_ROBOT_ID));
-		ret.setUnidadEjercitoVehiculoId(rs
+		ret.setUnidadEjercitoVehiculoRef(rs
 				.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_VEHICULO_ID));
 
 		return (UnidadBasicaDO) dtaSession.add(ret);
@@ -352,10 +354,10 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		strbuf.append(" = ");
 
 		if (unidadBasicaDO.getTecnologiaRef() == null) {
-			if (unidadBasicaDO.getTecnologiaId() == 0) {
+			if (unidadBasicaDO.getTecnologiaRef() == 0) {
 				strbuf.append("NULL");
 			} else {
-				strbuf.append(unidadBasicaDO.getTecnologiaId());
+				strbuf.append(unidadBasicaDO.getTecnologiaRef());
 			}
 		} else {
 			if (unidadBasicaDO.getTecnologiaRef().getId() == 0) {
@@ -364,7 +366,7 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 			} else {
 				unidadBasicaDO.setTecnologiaId( //
 						unidadBasicaDO.getTecnologiaRef().getId());
-				strbuf.append(unidadBasicaDO.getTecnologiaId());
+				strbuf.append(unidadBasicaDO.getTecnologiaRef());
 			}
 		}
 		strbuf.append(", ");
@@ -373,7 +375,7 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		strbuf.append(" = ");
 
 		if (unidadBasicaDO.getUnidadEjercitoArmaRef() == null) {
-			if (unidadBasicaDO.getUnidadEjercitoArmaId() == 0) {
+			if (unidadBasicaDO.getUnidadEjercitoArmaRef() == 0) {
 				strbuf.append("NULL");
 			} else {
 				strbuf.append(unidadBasicaDO.getUnidadEjercitoArmaRef());
@@ -385,7 +387,7 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 			} else {
 				unidadBasicaDO.setUnidadEjercitoArmaId( //
 						unidadBasicaDO.getUnidadEjercitoArmaRef().getId());
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoArmaId());
+				strbuf.append(unidadBasicaDO.getUnidadEjercitoArmaRef());
 			}
 		}
 		strbuf.append(", ");
@@ -394,7 +396,7 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		strbuf.append(" = ");
 
 		if (unidadBasicaDO.getUnidadEjercitoBalaRef() == null) {
-			if (unidadBasicaDO.getUnidadEjercitoBalaId() == 0) {
+			if (unidadBasicaDO.getUnidadEjercitoBalaRef() == 0) {
 				strbuf.append("NULL");
 			} else {
 				strbuf.append(unidadBasicaDO.getUnidadEjercitoBalaRef());
@@ -406,7 +408,7 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 			} else {
 				unidadBasicaDO.setUnidadEjercitoBalaId( //
 						unidadBasicaDO.getUnidadEjercitoBalaRef().getId());
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoBalaId());
+				strbuf.append(unidadBasicaDO.getUnidadEjercitoBalaRef());
 			}
 		}
 		strbuf.append(", ");
@@ -427,7 +429,7 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 			} else {
 				unidadBasicaDO.setUnidadEjercitoRobotId( //
 						unidadBasicaDO.getUnidadEjercitoRobotRef().getId());
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoRobotId());
+				strbuf.append(unidadBasicaDO.getUnidadEjercitoRobotRef());
 			}
 		}
 		strbuf.append(", ");
@@ -436,7 +438,7 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		strbuf.append(" = ");
 
 		if (unidadBasicaDO.getUnidadEjercitoVehiculoRef() == null) {
-			if (unidadBasicaDO.getUnidadEjercitoVehiculoId() == 0) {
+			if (unidadBasicaDO.getUnidadEjercitoVehiculoRef() == 0) {
 				strbuf.append("NULL");
 			} else {
 				strbuf.append(unidadBasicaDO.getUnidadEjercitoVehiculoRef());
@@ -448,7 +450,7 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 			} else {
 				unidadBasicaDO.setUnidadEjercitoVehiculoId( //
 						unidadBasicaDO.getUnidadEjercitoVehiculoRef().getId());
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoVehiculoId());
+				strbuf.append(unidadBasicaDO.getUnidadEjercitoVehiculoRef());
 			}
 		}
 
