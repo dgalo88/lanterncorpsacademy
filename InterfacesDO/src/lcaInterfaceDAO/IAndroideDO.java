@@ -32,6 +32,7 @@ public interface IAndroideDO extends DataObject {
 	public abstract List<IAndroideRecursoDO> getAndroideRecursoList();
 	
 	public abstract void setAndroideRecursojeList(List<IAndroideRecursoDO> androideRecursoList);
+
 	
 	
 	

@@ -20,11 +20,6 @@ public interface IRecursoDO extends DataObject {
 	public abstract void setRecursoPersonajeList(
 			List<IRecursoPersonajeDO> recursoPersonajeList);
 
-	// -----------------------------------------------------------------------------------------
-	public abstract List<IUnidadBasicaDO> getUnidadBasicaList();
-
-	public abstract void setUnidadBasicaList(
-			List<IUnidadBasicaDO> unidadBasicaList);
 
 	// ------------------------------------------------------------------------------------------
 	public abstract List<IAndroideRecursoDO> getAndroideRecursoList();
