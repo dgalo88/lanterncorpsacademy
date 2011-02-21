@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IUnidadBasicaDO;
 import lcaInterfaceDAO.IUnidadEjercitoDAO;
 import lcaInterfaceDAO.IUnidadEjercitoDO;
@@ -314,47 +313,107 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 	@Override
 	public void loadUnidadBasicaArmaRef(IUnidadEjercitoDO unidadEjercitoDO)
 			throws SQLException {
-		checkCache(unidadEjercitoDO, CHECK_UPDATE);
+		 checkClass(unidadEjercitoDO, UnidadEjercitoDO.class, CHECK_UPDATE);
 
-		UnidadBasicaDAO unidadBasicaDAO = (UnidadBasicaDAO) FactoryDAO.getDAO( //
-				UnidadBasicaDAO.class, connectionBean);
+		    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+		    unidadBasicaDAO.init(connectionBean);
 
-		unidadEjercitoDO.setUnidadBasicaList(unidadBasicaDAO
-				.listByUnidadEjercitoId(UnidadEjercitoDO.getId()));
+		    Reference<IUnidadBasicaDO> ref = unidadEjercitoDO.getUnidadBasicaArmaRef();
+
+		    if (ref.getRefIdent() == 0) {
+		      return;
+		    }
+
+		    UnidadBasicaDO unidadBasicaDO = //
+		    (UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
+
+		    ref.setRefValue(unidadBasicaDO);
 	}
 
 	@Override
 	public void loadUnidadBasicaBalaRef(IUnidadEjercitoDO unidadEjercitoDO)
 			throws SQLException {
-		// TODO Auto-generated method stub
+		checkClass(unidadEjercitoDO, UnidadEjercitoDO.class, CHECK_UPDATE);
+
+	    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+	    unidadBasicaDAO.init(connectionBean);
+
+	    Reference<IUnidadBasicaDO> ref = unidadEjercitoDO.getUnidadBasicaBalaRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    UnidadBasicaDO unidadBasicaDO = //
+	    (UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(unidadBasicaDO);
 
 	}
 
 	@Override
 	public void loadUnidadBasicaRobotRef(IUnidadEjercitoDO unidadEjercitoDO)
 			throws SQLException {
-		// TODO Auto-generated method stub
+		checkClass(unidadEjercitoDO, UnidadEjercitoDO.class, CHECK_UPDATE);
 
+	    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+	    unidadBasicaDAO.init(connectionBean);
+
+	    Reference<IUnidadBasicaDO> ref = unidadEjercitoDO.getUnidadBasicaRobotRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    UnidadBasicaDO unidadBasicaDO = //
+	    (UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(unidadBasicaDO);
 	}
 
 	@Override
 	public void loadUnidadBasicaVehiculoRef(IUnidadEjercitoDO unidadEjercitoDO)
 			throws SQLException {
-		// TODO Auto-generated method stub
+		checkClass(unidadEjercitoDO, UnidadEjercitoDO.class, CHECK_UPDATE);
+
+	    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+	    unidadBasicaDAO.init(connectionBean);
+
+	    Reference<IUnidadBasicaDO> ref = unidadEjercitoDO.getUnidadBasicaVehiculoRef();
+
+	    if (ref.getRefIdent() == 0) {
+	      return;
+	    }
+
+	    UnidadBasicaDO unidadBasicaDO = //
+	    (UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
+
+	    ref.setRefValue(unidadBasicaDO);
 
 	}
 
 	@Override
 	public void loadUnidadEjercitoOfertaList(IUnidadEjercitoDO unidadEjercitoDO)
 			throws Exception {
-		// TODO Auto-generated method stub
+		checkCache(unidadEjercitoDO, CHECK_UPDATE);
+		 
+        UnidadEjercitoOfertaDAO unidadEjercitoOfertaDAO = (UnidadEjercitoOfertaDAO) FactoryDAO.getDAO( //
+        UnidadEjercitoOfertaDAO.class, connectionBean);
+
+        unidadEjercitoDO.setUnidadEjercitoOfertaList(unidadEjercitoOfertaDAO.listByOfertaId(unidadEjercitoDO.getId()));
+	 
 
 	}
 
 	@Override
 	public void loadUnidadEjercitoPersonajeList(
 			IUnidadEjercitoDO unidadEjercitoDO) throws Exception {
-		// TODO Auto-generated method stub
+		checkCache(unidadEjercitoDO, CHECK_UPDATE);
+		 
+        UnidadEjercitoPersonajeDAO unidadEjercitoPersonajeDAO = (UnidadEjercitoPersonajeDAO) FactoryDAO.getDAO( //
+        UnidadEjercitoPersonajeDAO.class, connectionBean);
+
+        unidadEjercitoDO.setUnidadEjercitoPersonajeList(unidadEjercitoPersonajeDAO.listByPersonajeId(unidadEjercitoDO.getId()));
 
 	}
 
