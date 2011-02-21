@@ -51,9 +51,9 @@ public interface IPersonajeDO extends DataObject {
 	
 	//-----------------------------------------------------------------------------------------
 	
-	public abstract List<IEjercitoPersonajeDO> getEjercitoPersonajeList();
+	public abstract List<IUnidadEjercitoPersonajeDO> getUnidadEjercitoPersonajeList();
 	
-	public abstract void setEjercitoPersonajeList(List<IEjercitoPersonajeDO> ejercitoPersonaList);
+	public abstract void setUnidadEjercitoPersonajeList(List<IUnidadEjercitoPersonajeDO> unidadEjercitoPersonaList);
 	// --------------------------------------------------------------------------------
 
 	public Reference<IPlanetaDO> getPlanetaRef();

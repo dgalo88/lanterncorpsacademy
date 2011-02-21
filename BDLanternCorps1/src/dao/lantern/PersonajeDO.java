@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.IClaseLinternaDO;
-import lcaInterfaceDAO.IEjercitoPersonajeDO;
 import lcaInterfaceDAO.IGrupoDO;
 import lcaInterfaceDAO.IHabilidadActivaDO;
 import lcaInterfaceDAO.IMisionPersonajeDO;
@@ -13,6 +12,7 @@ import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IRecursoPersonajeDO;
 import lcaInterfaceDAO.ITecnologiaPersonajeDO;
+import lcaInterfaceDAO.IUnidadEjercitoPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDO;
 import dao.api.Reference;
 
@@ -62,8 +62,8 @@ public class PersonajeDO implements IPersonajeDO {
 	private List<IRecursoPersonajeDO> recursoPersonajeList = //
 		new ArrayList<IRecursoPersonajeDO>();
 	
-	private List<IEjercitoPersonajeDO> ejercitoPersonajeList = //
-		new ArrayList<IEjercitoPersonajeDO>();
+	private List<IUnidadEjercitoPersonajeDO> unidadEjercitoPersonajeList = //
+		new ArrayList<IUnidadEjercitoPersonajeDO>();
 	
 	private List<ITecnologiaPersonajeDO> tecnologiaPersonajeList = //
 		new ArrayList<ITecnologiaPersonajeDO>();
@@ -193,12 +193,12 @@ public class PersonajeDO implements IPersonajeDO {
 
 	//---------------------------------------------------------------------------------------
 	
-	public List<IEjercitoPersonajeDO> getEjercitoPersonajeList(){
-		return ejercitoPersonajeList;
+	public List<IUnidadEjercitoPersonajeDO> getUnidadEjercitoPersonajeList(){
+		return unidadEjercitoPersonajeList;
 	}
 	
-	public void setEjercitoPersonajeList(List<IEjercitoPersonajeDO> ejercitoPersonajeList){
-		this.ejercitoPersonajeList=ejercitoPersonajeList; 
+	public void setUnidadEjercitoPersonajeList(List<IUnidadEjercitoPersonajeDO> unidadEjercitoPersonajeList){
+		this.unidadEjercitoPersonajeList=unidadEjercitoPersonajeList; 
 	}
 	
 	// --------------------------------------------------------------------------------

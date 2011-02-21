@@ -18,12 +18,6 @@ public interface IUnidadEjercitoDO extends DataObject{
 	public abstract void setUnidadEjercitoOfertaList(List<IUnidadEjercitoOfertaDO> unidadEjercitoOfertaList);
 	
 	//---------------------------------------------------------------------------------------------------------------
-	
-	public abstract List<IEjercitoPersonajeDO> getEjercitoPersonajeList();
-	
-	public abstract void setEjercitoPersonajeList(List<IEjercitoPersonajeDO> ejercitoPersonajeList);
-	
-	//---------------------------------------------------------------------------------------------------------------
 	 
 	public abstract Reference<IUnidadBasicaDO> getUnidadBasicaArmaRef();
 	
@@ -46,6 +40,13 @@ public interface IUnidadEjercitoDO extends DataObject{
 	public abstract Reference<IUnidadBasicaDO> getUnidadBasicaBalaRef();
 	
 	public abstract void setUnidadBasicaBalaRef(Reference<IUnidadBasicaDO> unidadBasicaBalaRef);
+	
+	//-----------------------------------------------------------------------------------------------------------------------
+	public abstract List<IUnidadEjercitoPersonajeDO> getUnidadEjercitoPersonajeList();
+	
+	public abstract void setUnidadEjercitoPersonajeList(List<IUnidadEjercitoPersonajeDO> unidadEjercitoPersonajeLis);
+	
+	//---------------------------------------------------------------------------------------------------------------------
 	
 	
 

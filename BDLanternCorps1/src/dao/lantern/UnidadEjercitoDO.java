@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.api.Reference;
-import lcaInterfaceDAO.IEjercitoPersonajeDO;
 import lcaInterfaceDAO.IUnidadBasicaDO;
 import lcaInterfaceDAO.IUnidadEjercitoDO;
 import lcaInterfaceDAO.IUnidadEjercitoOfertaDO;
+import lcaInterfaceDAO.IUnidadEjercitoPersonajeDO;
 
 public class UnidadEjercitoDO implements IUnidadEjercitoDO {
 
@@ -32,8 +32,8 @@ public class UnidadEjercitoDO implements IUnidadEjercitoDO {
 	
 	//---------------------------------------------------------------------------------------------------
 	
-	private List<IEjercitoPersonajeDO> ejercitoPersonajeList=//
-		new ArrayList<IEjercitoPersonajeDO>();
+	private List<IUnidadEjercitoPersonajeDO> unidadEjercitoPersonajeList=//
+		new ArrayList<IUnidadEjercitoPersonajeDO>();
 		
 	private List<IUnidadEjercitoOfertaDO> unidadEjercitoOfertaList=//
 		new ArrayList<IUnidadEjercitoOfertaDO>();
@@ -76,14 +76,14 @@ public class UnidadEjercitoDO implements IUnidadEjercitoDO {
 	}
 	//----------------------------------------------------------------------------------------
 	
-	public List<IEjercitoPersonajeDO> getEjercitoPersonajeList(){
+	public List<IUnidadEjercitoPersonajeDO> getUnidadEjercitoPersonajeList(){
 		
-		return ejercitoPersonajeList;
+		return unidadEjercitoPersonajeList;
 	}
 	
-	public void setEjercitoPersonajeList(List<IEjercitoPersonajeDO> ejercitoPersonajeList){
+	public void setUnidadEjercitoPersonajeList(List<IUnidadEjercitoPersonajeDO> unidadEjercitoPersonajeList){
 		
-		this.ejercitoPersonajeList=ejercitoPersonajeList;
+		this.unidadEjercitoPersonajeList=unidadEjercitoPersonajeList;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
