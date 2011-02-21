@@ -3,6 +3,9 @@ package dao.lantern;
 import java.sql.SQLException;
 import java.util.List;
 
+import lcaInterfaceDAO.IUnidadBasicaRecursoDAO;
+import lcaInterfaceDAO.IUnidadBasicaRecursoDO;
+
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 
@@ -57,7 +60,7 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements
 
 	}
 
-	Object listByRecursoId(int id) {
+	List<IUnidadBasicaRecursoDO> listByRecursoId(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
