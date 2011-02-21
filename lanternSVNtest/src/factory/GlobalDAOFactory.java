@@ -26,7 +26,7 @@ public class GlobalDAOFactory {
 
 	// ----------------------------------------------------------------------
 
-	public static InterfaceDAO getDAO(Class<? extends InterfaceDAO> clazz,
+	public static InterfaceDAO getDAO(Class<? extends InterfaceDAO> clazz, //
 			ConnectionBean connectionBean) throws Exception {
 		// clazz -> IXXXDAO
 
@@ -42,8 +42,8 @@ public class GlobalDAOFactory {
 
 	// ----------------------------------------------------------------------
 
-	private static InterfaceDAO createDAOLCA(
-			Class<? extends InterfaceDAO> clazz, ConnectionBean connectionBean)
+	private static InterfaceDAO createDAOLCA( //
+			Class<? extends InterfaceDAO> clazz, ConnectionBean connectionBean) //
 			throws Exception {
 
 		if (clazz.equals(IUsuarioDAO.class)) {
@@ -121,8 +121,8 @@ public class GlobalDAOFactory {
 
 	// ----------------------------------------------------------------------
 
-	private static InterfaceDAO createDAOLANTERN(
-			Class<? extends InterfaceDAO> clazz, ConnectionBean connectionBean)
+	private static InterfaceDAO createDAOLANTERN( //
+			Class<? extends InterfaceDAO> clazz, ConnectionBean connectionBean) //
 			throws Exception {
 
 		if (clazz.equals(IUsuarioDAO.class)) {
@@ -201,6 +201,32 @@ public class GlobalDAOFactory {
 					connectionBean);
 
 		}
+//		  else if (clazz.equals(IRecursoDAO.class)) {
+//
+//			return FactoryDAO.getDAO(dao.lantern.RecursoDAO.class,
+//					connectionBean);
+//
+//		} else if (clazz.equals(IRecursoOfertaCompraDAO.class)) {
+//
+//			return FactoryDAO.getDAO(dao.lantern.RecursoOfertaCompraDAO.class,
+//					connectionBean);
+//
+//		} else if (clazz.equals(IRecursoOfertaVentaDAO.class)) {
+//
+//			return FactoryDAO.getDAO(dao.lantern.RecursoOfertaVentaDAO.class,
+//					connectionBean);
+//
+//		} else if (clazz.equals(IRecursoPersonajeDAO.class)) {
+//
+//			return FactoryDAO.getDAO(dao.lantern.RecursoPersonajeDAO.class,
+//					connectionBean);
+//
+//		} else if (clazz.equals(IRecursoPlanetaDAO.class)) {
+//
+//			return FactoryDAO.getDAO(dao.lantern.RecursoPlanetaDAO.class,
+//					connectionBean);
+//
+//		}
 
 		throw new IllegalStateException();
 	}

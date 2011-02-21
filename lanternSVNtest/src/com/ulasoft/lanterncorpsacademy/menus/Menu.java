@@ -34,6 +34,7 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarConquistado;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarNeutro;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelReparar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelSabotear;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
@@ -482,21 +483,8 @@ public class Menu extends Panel {
 
 		// XXX: Inventario
 
-//		SelectField selectField = new SelectField();
-//		col.add(selectField);
-//
-//		List<ObjectLca> list = new ArrayList<ObjectLca>();
-//		for (int i = 0; i < 10; i++) {
-//			ObjectLca item = new ObjectLca(false, i);
-//			list.add(item);
-//		}
-//
-//		ObjectSelectModel oModel = new ObjectSelectModel(list);
-//		TestCellRenderer tcr = new TestCellRenderer();
-//		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
-//
 		PanelVerUnidades pnlMain = new PanelVerUnidades();
-		d.setWindowData(pnlMain, "Inventario de Unidades", 600, 200);
+		d.setWindowData(pnlMain, "Inventario de Unidades", 500, 170);
 
 	}
 
@@ -522,8 +510,8 @@ public class Menu extends Panel {
 
 	private void btnRepararClicked() {
 
-//		PanelReparar pnlMain = new PanelReparar();
-//		d.setPanelCentral(pnlMain);
+		PanelReparar pnlMain = new PanelReparar();
+		d.setPanelCentral(pnlMain);
 
 	}
 

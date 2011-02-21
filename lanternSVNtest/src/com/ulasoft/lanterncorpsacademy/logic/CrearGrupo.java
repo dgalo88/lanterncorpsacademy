@@ -28,20 +28,33 @@ public class CrearGrupo {
 				GlobalDAOFactory.getDAO(IGrupoDAO.class, connectionBean);
 		IGrupoDO grupoDO;
 
-		if(personaje.getGrupoRef().getRefIdent() != 0) {
+		if(personaje.getGrupoRef() == null || //
+				personaje.getGrupoRef().getRefIdent() == 0) {
 
-			grupoDO = (IGrupoDO) //
-					grupoDAO.loadById(personaje.getGrupoRef().getRefIdent());
-
-			if (grupoDO == null) {
-				connectionBean.getConnection().close();
-				return "";
-			}
-		}
-		else {
 			connectionBean.getConnection().close();
 			return "";
+
+		} else {
+
+			grupoDO = (IGrupoDO) //
+				grupoDAO.loadById(personaje.getGrupoRef().getRefIdent());
+
 		}
+
+//		if(personaje.getGrupoRef().getRefIdent() != 0) {
+//
+//			grupoDO = (IGrupoDO) //
+//					grupoDAO.loadById(personaje.getGrupoRef().getRefIdent());
+//
+//			if (grupoDO == null) {
+//				connectionBean.getConnection().close();
+//				return "";
+//			}
+//		}
+//		else {
+//			connectionBean.getConnection().close();
+//			return "";
+//		}
 
 		connectionBean.getConnection().close();
 		return grupoDO.getNombre();
@@ -69,7 +82,7 @@ public class CrearGrupo {
 			if((personajes.get(posicion).getId() == personaje.getId())) {
 				continue;
 			}
-			//			(personajes.get(posicion)).setId(posicion + 1);
+//			(personajes.get(posicion)).setId(posicion + 1);
 			tableDtaModel.add(personajes.get(posicion));
 		}
 		return tableDtaModel;
@@ -113,8 +126,30 @@ public class CrearGrupo {
 		connectionBean.getConnection().close();
 	}
 
-	public static void crearGrupo2(List<IPersonajeDO> personajes, //
+	public static void crearGrupo2(IPersonajeDO personaje, //
 			TextField txtGrupo) throws Exception {
+
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+
+		IGrupoDAO grupoDAO = (IGrupoDAO) //
+				GlobalDAOFactory.getDAO(IGrupoDAO.class, connectionBean);
+		IGrupoDO grupoDO = (IGrupoDO) //
+				GlobalDOFactory.getDO(IGrupoDO.class);
+
+		List<IPersonajeDO> personajeList = new ArrayList<IPersonajeDO>();
+		grupoDO.setPersonajeList(personajeList);
+		grupoDO.setClaseLinternaRef(personaje.getClaseLinternaRef());
+		grupoDO.setNombre(txtGrupo.getText());
+		grupoDO.setEstado(false);
+		grupoDAO.insert(grupoDO);
+
+		insertarNuevoMiembro(personaje, grupoDO);
+
+		connectionBean.getConnection().close();
+	}
+
+	public static void insertarNuevoMiembro(IPersonajeDO personaje, //
+			IGrupoDO grupoDO) throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
@@ -122,30 +157,22 @@ public class CrearGrupo {
 				GlobalDAOFactory.getDAO(IGrupoDAO.class, connectionBean);
 		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
 				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
-		IGrupoDO grupoDO = (IGrupoDO) //
-				GlobalDOFactory.getDO(IGrupoDO.class);
 
-		List<IPersonajeDO> listPersonajes = new ArrayList<IPersonajeDO>();
+		grupoDO.getPersonajeList().add(personaje);
 
-		for(int pos = 0; pos < personajes.size(); pos++) {
-			listPersonajes.add(personajes.get(pos));
+		if (grupoDO.getPersonajeList().size() > 1 && !grupoDO.isEstado()) {
+			grupoDO.setEstado(true);
 		}
 
-		grupoDO.setEstado(true);
-		grupoDO.setNombre(txtGrupo.getText());
-		grupoDO.setPersonajeList(listPersonajes);
-		grupoDO.setClaseLinternaRef(listPersonajes.get(0).getClaseLinternaRef());
-		grupoDAO.insert(grupoDO);
+		grupoDAO.update(grupoDO);
+
 		Reference<IGrupoDO> grupoRef = new Reference<IGrupoDO>();
 		grupoRef.setRefIdent(grupoDO.getId());
+		personaje.setGrupoRef(grupoRef);
 
-		for(int pos = 0; pos < listPersonajes.size(); pos++) {
-
-			listPersonajes.get(pos).setGrupoRef(grupoRef);
-			personajeDAO.update(listPersonajes.get(pos));
-			personajeDAO = (IPersonajeDAO) //
-					GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
-		}
+		personajeDAO.update(personaje);
+		personajeDAO = (IPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
 
 		connectionBean.getConnection().close();
 	}

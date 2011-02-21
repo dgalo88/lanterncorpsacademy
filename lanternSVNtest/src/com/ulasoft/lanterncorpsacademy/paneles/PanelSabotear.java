@@ -17,15 +17,12 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
-import com.valkirye.lanterncorpsacademy.extras.VerDatos;
 
 @SuppressWarnings("serial")
 public class PanelSabotear extends Panel {
 
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
-
-//	private INpcDO personajeAtacar;
 
 	public PanelSabotear() {
 
@@ -50,7 +47,7 @@ public class PanelSabotear extends Panel {
 
 		row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.add(VerDatos.getUnidades(false));
+		row.add(PanelVerUnidades.getUnidades(4));
 		grid.add(row);
 
 		col.add(grid);
