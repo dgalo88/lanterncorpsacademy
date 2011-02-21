@@ -8,19 +8,10 @@ import lcaInterfaceDAO.IHabilidadClaseLinternaDAO;
 import lcaInterfaceDAO.IHabilidadClaseLinternaDO;
 import lcaInterfaceDAO.IHabilidadDAO;
 import lcaInterfaceDAO.IHabilidadDO;
-import lcaInterfaceDAO.IMisionClaseLinternaDAO;
-import lcaInterfaceDAO.IMisionClaseLinternaDO;
-import lcaInterfaceDAO.IMisionDAO;
-import lcaInterfaceDAO.IMisionDO;
-import lcaInterfaceDAO.IMisionPersonajeDAO;
 import lcaInterfaceDAO.INivelHabilidadDAO;
 import lcaInterfaceDAO.INivelHabilidadDO;
 import lcaInterfaceDAO.INpcDAO;
 import lcaInterfaceDAO.INpcDO;
-import lcaInterfaceDAO.IObjetivoDAO;
-import lcaInterfaceDAO.IObjetivoDO;
-import lcaInterfaceDAO.IOrdenDAO;
-import lcaInterfaceDAO.IOrdenDO;
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
@@ -66,38 +57,43 @@ public class InicializarBD {
 		// Instanciamos los DAO
 		IUsuarioDAO UsuarioDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(IUsuarioDAO.class, conn);
 		IPersonajeDAO PersonajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, conn);
-		IMisionPersonajeDAO MisionPersonajeDAO = (IMisionPersonajeDAO) GlobalDAOFactory.getDAO(IMisionPersonajeDAO.class, conn);
 		IClaseLinternaDAO ClaseLinternaDAO = (IClaseLinternaDAO) GlobalDAOFactory.getDAO(IClaseLinternaDAO.class, conn);
 		IPlanetaDAO PlanetaDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, conn);
 		IGrupoDAO GrupoDAO = (IGrupoDAO) GlobalDAOFactory.getDAO(IGrupoDAO.class, conn);
-		IMisionDAO MisionDAO = (IMisionDAO) GlobalDAOFactory.getDAO(IMisionDAO.class, conn);
-		IOrdenDAO OrdenDAO = (IOrdenDAO) GlobalDAOFactory.getDAO(IOrdenDAO.class, conn);
-		IObjetivoDAO ObjetivoDAO = (IObjetivoDAO) GlobalDAOFactory.getDAO(IObjetivoDAO.class, conn);
 		INpcDAO NpcDAO = (INpcDAO) GlobalDAOFactory.getDAO(INpcDAO.class, conn);
-		IMisionClaseLinternaDAO MisionClaseLinternaDAO = (IMisionClaseLinternaDAO) GlobalDAOFactory.getDAO(IMisionClaseLinternaDAO.class, conn);
 		IHabilidadDAO HabilidadDAO = (IHabilidadDAO) GlobalDAOFactory.getDAO(IHabilidadDAO.class, conn);
 		IHabilidadClaseLinternaDAO HabilidadClaseLinternaDAO = (IHabilidadClaseLinternaDAO) GlobalDAOFactory.getDAO(IHabilidadClaseLinternaDAO.class, conn);
 		IHabilidadActivaDAO HabilidadActivaDAO = (IHabilidadActivaDAO) GlobalDAOFactory.getDAO(IHabilidadActivaDAO.class, conn);
 		INivelHabilidadDAO NivelHabilidadDAO = (INivelHabilidadDAO) GlobalDAOFactory.getDAO(INivelHabilidadDAO.class, conn);
+
+		// Misiones
+//		IMisionDAO MisionDAO = (IMisionDAO) GlobalDAOFactory.getDAO(IMisionDAO.class, conn);
+//		IMisionPersonajeDAO MisionPersonajeDAO = (IMisionPersonajeDAO) GlobalDAOFactory.getDAO(IMisionPersonajeDAO.class, conn);
+//		IMisionClaseLinternaDAO MisionClaseLinternaDAO = (IMisionClaseLinternaDAO) GlobalDAOFactory.getDAO(IMisionClaseLinternaDAO.class, conn);
+//		IOrdenDAO OrdenDAO = (IOrdenDAO) GlobalDAOFactory.getDAO(IOrdenDAO.class, conn);
+//		IObjetivoDAO ObjetivoDAO = (IObjetivoDAO) GlobalDAOFactory.getDAO(IObjetivoDAO.class, conn);
 		
 		// creamos las tablas
 		
 		PlanetaDAO.createTable();
-		MisionDAO.createTable();
 		ClaseLinternaDAO.createTable();
-		ObjetivoDAO.createTable();
-		OrdenDAO.createTable();
 		GrupoDAO.createTable();
 		PersonajeDAO.createTable();
 		UsuarioDAO.createTable();
-		MisionPersonajeDAO.createTable();
 		NpcDAO.createTable();
-		MisionClaseLinternaDAO.createTable();
 		HabilidadDAO.createTable();
 		NivelHabilidadDAO.createTable();
 		HabilidadActivaDAO.createTable();
 		HabilidadClaseLinternaDAO.createTable();
-		
+
+		// Tablas Misiones
+//		MisionDAO.createTable();
+//		MisionPersonajeDAO.createTable();
+//		MisionClaseLinternaDAO.createTable();
+//		OrdenDAO.createTable();
+//		ObjetivoDAO.createTable();
+
+
 		try {
 			
 			//PLANETAS
@@ -1522,253 +1518,270 @@ public class InicializarBD {
 
 			//MISIONES
 			
-			IMisionDO misionDO[]=new IMisionDO[5]; 
-			misionDO[0] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
-			misionDO[0].setNombre("Combatir con los ManHunter.");
-			misionDO[0].setNivel_necesario(1);
-			misionDO[0].setExperiencia_ganada(10);
-			misionDO[0].setPuntos_de_entrenamiento_ganados(100);
-			misionDO[0].setDescripcion("Los Manhunters son unos androides guerreros creados antiguamente por los guardianes del universo.\nUna falla en su progrmación provocó que se rebelaran y se propusieran aniquilar toda la vida del\nuniverso. Su código, \"Ningún hombre escapa a los Manhunters\".\nEl objetivo es luchar contra estos androides para proteger la vida inteligente del universo.");
-			MisionDAO.insert(misionDO[0]);
-			IMisionClaseLinternaDO misionClaseLinternaDO;
-			Reference<IMisionDO> refmis;
-			refmis = new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[0].getId());
-			for(int i=0;i<7;i++){
-				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
-				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
-				misionClaseLinternaDO.setMisionRef(refmis);
-				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
-			}
-			
+//			IMisionDO misionDO[]=new IMisionDO[5]; 
+//			misionDO[0] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
+//			misionDO[0].setNombre("Combatir con los ManHunter.");
+//			misionDO[0].setNivel_necesario(1);
+//			misionDO[0].setExperiencia_ganada(10);
+//			misionDO[0].setPuntos_de_entrenamiento_ganados(100);
+//			misionDO[0].setDescripcion("Los Manhunters son unos androides guerreros creados antiguamente por los guardianes del universo.\nUna falla en su progrmación provocó que se rebelaran y se propusieran aniquilar toda la vida del\nuniverso. Su código, \"Ningún hombre escapa a los Manhunters\".\nEl objetivo es luchar contra estos androides para proteger la vida inteligente del universo.");
+//			MisionDAO.insert(misionDO[0]);
+//			IMisionClaseLinternaDO misionClaseLinternaDO;
+//			Reference<IMisionDO> refmis;
+//			refmis = new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[0].getId());
+//			for(int i=0;i<7;i++){
+//				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
+//				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+//				misionClaseLinternaDO.setMisionRef(refmis);
+//				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
+//			}
+//			
+//
+//			misionDO[1] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
+//			misionDO[1].setNombre("Asegurar la bateria central.");
+//			misionDO[1].setNivel_necesario(1);
+//			misionDO[1].setExperiencia_ganada(10);
+//			misionDO[1].setPuntos_de_entrenamiento_ganados(100);
+//			misionDO[1].setDescripcion("El rasgo más destacado es la Batería de Poder Central, una versión gigantesca de las baterías de poder\nde los Linternas, que canaliza la energía de los Guardianes y amplifica, alimentando las baterías individuales.\nLa entidad del miedo conocida como Parallax fue encerrada en el centro de la Batería Central.\nEs vital conservar a salvo este artefacto ya que cualquier daño mayor podría impedir recargar los anillos\nde poder y así eliminar el arma principal de los linternas.");
+//			MisionDAO.insert(misionDO[1]);
+//			refmis = new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[1].getId());
+//			for(int i=0;i<7;i++){
+//				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
+//				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+//				misionClaseLinternaDO.setMisionRef(refmis);
+//				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
+//			}
+//			
+//
+//			misionDO[2] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
+//			misionDO[2].setNombre("Rescatar un compañero en black mercy.");
+//			misionDO[2].setNivel_necesario(1);
+//			misionDO[2].setExperiencia_ganada(10);
+//			misionDO[2].setPuntos_de_entrenamiento_ganados(100);
+//			misionDO[2].setDescripcion("Un compañero linterna no ha respondido en dias luego de ser enviado al sector 2261,\n revisa el sector, especificamente el planeta black mercy, sospechamos que se encuentra atrapado alli.");
+//			MisionDAO.insert(misionDO[2]);
+//			refmis = new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[2].getId());
+//			for(int i=0;i<7;i++){
+//				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
+//				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+//				misionClaseLinternaDO.setMisionRef(refmis);
+//				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
+//			}
+//			
+//
+//			misionDO[4] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
+//			misionDO[4].setNombre("Defender la tierra de Mongul.");
+//			misionDO[4].setNivel_necesario(2);
+//			misionDO[4].setExperiencia_ganada(20);
+//			misionDO[4].setPuntos_de_entrenamiento_ganados(200);
+//			misionDO[4].setDescripcion("Mogul como gobernante del planeta belicoso llamado Warworld, Mongul conquistó y esclavizo la población\nde incontables mundos. Ya sea forzados a alimentar las gigantescas unidades de propulsión del planeta\no participando de luchas de gladiadores,  Por esto la tierra debe de ser protegida de este gobernante.");
+//			MisionDAO.insert(misionDO[4]);
+//			refmis = new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[4].getId());
+//			for(int i=0;i<7;i++){
+//				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
+//				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+//				misionClaseLinternaDO.setMisionRef(refmis);
+//				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
+//			}
+//			
+//
+//			misionDO[3] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
+//			misionDO[3].setNombre("Proteger Planetas de los Manhunter.");
+//			misionDO[3].setNivel_necesario(2);
+//			misionDO[3].setExperiencia_ganada(10);
+//			misionDO[3].setPuntos_de_entrenamiento_ganados(200);
+//			misionDO[3].setDescripcion("Para ejecutar su voluntad y evitar amenazas alienígenas de todo tipo, los Guardianes crearon una legión de robots\ncentinelas llamados Manhunters. Sin embargo, con el tiempo el resentimiento creció entre los Manhunters y fueron\nvistos como fracasos debido a su incapacidad para reconocer y/o sentir miedo. Finalmente se rebelaron contra los\nGuardianes, alejándose de ellos y formando su propia sociedad automatizada donde podían perseguir sus propias metas\ny una de ellas es atacar planetas.");
+//			MisionDAO.insert(misionDO[3]);
+//			refmis = new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[3].getId());
+//			for(int i=0;i<7;i++){
+//				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
+//				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
+//				misionClaseLinternaDO.setMisionRef(refmis);
+//				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
+//			}
+//			
+//			
+//			//OBJETIVOS
+//			
+//			IObjetivoDO objetivoDO[] = new IObjetivoDO[6];
+//			objetivoDO[0] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
+//			objetivoDO[0].setDescripcion("Atravezar Bolovax Vik.");
+//			objetivoDO[0].setNumeroDeNpc(2);
+//			refpl = new Reference<IPlanetaDO>();
+//			refpl.setRefIdent(PlanetaDO[30].getId());
+//			objetivoDO[0].setPlanetaRef(refpl);
+//			ObjetivoDAO.insert(objetivoDO[0]);
+//			
+//			IOrdenDO ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+//			refmis =new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[2].getId());
+//			Reference<IObjetivoDO> refobj= new Reference<IObjetivoDO>();
+//			refobj.setRefIdent(objetivoDO[0].getId());
+//			ordenDO.setMisionRef(refmis);
+//			ordenDO.setObjetivoRef(refobj);
+//			ordenDO.setPrioridad(1);
+//			OrdenDAO.insert(ordenDO);
+//			
+//			objetivoDO[1] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
+//			objetivoDO[1].setDescripcion("Rescatar a compañero linterna.");
+//			objetivoDO[1].setNumeroDeNpc(1);
+//			refpl = new Reference<IPlanetaDO>();
+//			refpl.setRefIdent(PlanetaDO[26].getId());
+//			objetivoDO[1].setPlanetaRef(refpl);
+//			ObjetivoDAO.insert(objetivoDO[1]);
+//			
+//			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+//			refobj= new Reference<IObjetivoDO>();
+//			refobj.setRefIdent(objetivoDO[1].getId());
+//			ordenDO.setMisionRef(refmis);
+//			ordenDO.setObjetivoRef(refobj);
+//			ordenDO.setPrioridad(2);
+//			OrdenDAO.insert(ordenDO);
+//			
+//			//
+//			
+//			objetivoDO[3] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
+//			objetivoDO[3].setDescripcion("Luchar contra los Pacredo.");
+//			objetivoDO[3].setNumeroDeNpc(2);
+//			refpl = new Reference<IPlanetaDO>();
+//			refpl.setRefIdent(PlanetaDO[31].getId());
+//			objetivoDO[3].setPlanetaRef(refpl);
+//			ObjetivoDAO.insert(objetivoDO[3]);
+//			
+//			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+//			refmis =new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[0].getId());
+//			refobj= new Reference<IObjetivoDO>();
+//			refobj.setRefIdent(objetivoDO[0].getId());
+//			ordenDO.setMisionRef(refmis);
+//			ordenDO.setObjetivoRef(refobj);
+//			ordenDO.setPrioridad(1);
+//			OrdenDAO.insert(ordenDO);
+//			
+//			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+//			refmis =new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[0].getId());
+//			refobj= new Reference<IObjetivoDO>();
+//			refobj.setRefIdent(objetivoDO[3].getId());
+//			ordenDO.setMisionRef(refmis);
+//			ordenDO.setObjetivoRef(refobj);
+//			ordenDO.setPrioridad(2);
+//			OrdenDAO.insert(ordenDO);
+//			
+//			//
+//			
+//			objetivoDO[4] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
+//			objetivoDO[4].setDescripcion("Defender Hunamos en la Tierra.");
+//			objetivoDO[4].setNumeroDeNpc(2);
+//			refpl = new Reference<IPlanetaDO>();
+//			refpl.setRefIdent(PlanetaDO[16].getId());
+//			objetivoDO[4].setPlanetaRef(refpl);
+//			ObjetivoDAO.insert(objetivoDO[4]);
+//
+//			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+//			refmis =new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[4].getId());
+//			refobj= new Reference<IObjetivoDO>();
+//			refobj.setRefIdent(objetivoDO[3].getId());
+//			ordenDO.setMisionRef(refmis);
+//			ordenDO.setObjetivoRef(refobj);
+//			ordenDO.setPrioridad(1);
+//			OrdenDAO.insert(ordenDO);
+//			
+//			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+//			refmis =new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[4].getId());
+//			refobj= new Reference<IObjetivoDO>();
+//			refobj.setRefIdent(objetivoDO[4].getId());
+//			ordenDO.setMisionRef(refmis);
+//			ordenDO.setObjetivoRef(refobj);
+//			ordenDO.setPrioridad(2);
+//			OrdenDAO.insert(ordenDO);
+//			
+//			objetivoDO[5] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
+//			objetivoDO[5].setDescripcion("Evitar destrucion de Korugar.");
+//			objetivoDO[5].setNumeroDeNpc(2);
+//			refpl = new Reference<IPlanetaDO>();
+//			refpl.setRefIdent(PlanetaDO[22].getId());
+//			objetivoDO[5].setPlanetaRef(refpl);
+//			ObjetivoDAO.insert(objetivoDO[5]);
+//			
+//			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+//			refmis =new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[4].getId());
+//			refobj= new Reference<IObjetivoDO>();
+//			refobj.setRefIdent(objetivoDO[5].getId());
+//			ordenDO.setMisionRef(refmis);
+//			ordenDO.setObjetivoRef(refobj);
+//			ordenDO.setPrioridad(3);
+//			OrdenDAO.insert(ordenDO);
+//			
+//			//
+//			
+//			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+//			refmis =new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[3].getId());
+//			refobj= new Reference<IObjetivoDO>();
+//			refobj.setRefIdent(objetivoDO[3].getId());
+//			ordenDO.setMisionRef(refmis);
+//			ordenDO.setObjetivoRef(refobj);
+//			ordenDO.setPrioridad(1);
+//			OrdenDAO.insert(ordenDO);
+//			
+//			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+//			refmis =new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[3].getId());
+//			refobj= new Reference<IObjetivoDO>();
+//			refobj.setRefIdent(objetivoDO[4].getId());
+//			ordenDO.setMisionRef(refmis);
+//			ordenDO.setObjetivoRef(refobj);
+//			ordenDO.setPrioridad(2);
+//			OrdenDAO.insert(ordenDO);
+//			
+//			//
+//			
+//			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+//			refmis =new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[1].getId());
+//			refobj= new Reference<IObjetivoDO>();
+//			refobj.setRefIdent(objetivoDO[0].getId());
+//			ordenDO.setMisionRef(refmis);
+//			ordenDO.setObjetivoRef(refobj);
+//			ordenDO.setPrioridad(1);
+//			OrdenDAO.insert(ordenDO);
+//			
+//			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
+//			refmis =new Reference<IMisionDO>();
+//			refmis.setRefIdent(misionDO[1].getId());
+//			refobj= new Reference<IObjetivoDO>();
+//			refobj.setRefIdent(objetivoDO[5].getId());
+//			ordenDO.setMisionRef(refmis);
+//			ordenDO.setObjetivoRef(refobj);
+//			ordenDO.setPrioridad(2);
+//			OrdenDAO.insert(ordenDO);
 
-			misionDO[1] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
-			misionDO[1].setNombre("Asegurar la bateria central.");
-			misionDO[1].setNivel_necesario(1);
-			misionDO[1].setExperiencia_ganada(10);
-			misionDO[1].setPuntos_de_entrenamiento_ganados(100);
-			misionDO[1].setDescripcion("El rasgo más destacado es la Batería de Poder Central, una versión gigantesca de las baterías de poder\nde los Linternas, que canaliza la energía de los Guardianes y amplifica, alimentando las baterías individuales.\nLa entidad del miedo conocida como Parallax fue encerrada en el centro de la Batería Central.\nEs vital conservar a salvo este artefacto ya que cualquier daño mayor podría impedir recargar los anillos\nde poder y así eliminar el arma principal de los linternas.");
-			MisionDAO.insert(misionDO[1]);
-			refmis = new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[1].getId());
-			for(int i=0;i<7;i++){
-				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
-				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
-				misionClaseLinternaDO.setMisionRef(refmis);
-				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
-			}
-			
+			// RECURSOS
 
-			misionDO[2] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
-			misionDO[2].setNombre("Rescatar un compañero en black mercy.");
-			misionDO[2].setNivel_necesario(1);
-			misionDO[2].setExperiencia_ganada(10);
-			misionDO[2].setPuntos_de_entrenamiento_ganados(100);
-			misionDO[2].setDescripcion("Un compañero linterna no ha respondido en dias luego de ser enviado al sector 2261,\n revisa el sector, especificamente el planeta black mercy, sospechamos que se encuentra atrapado alli.");
-			MisionDAO.insert(misionDO[2]);
-			refmis = new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[2].getId());
-			for(int i=0;i<7;i++){
-				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
-				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
-				misionClaseLinternaDO.setMisionRef(refmis);
-				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
-			}
-			
+//			IRecursoDO RecursoDO[] = new IRecursoDO[8];
+//			for (int i = 0; i < 8; i++) {
+//				RecursoDO[i] = (IRecursoDO) GlobalDOFactory.getDO(IRecursoDO.class);
+//			}
+//			RecursoDO[0].setNombre("Plomo");
+//			RecursoDO[1].setNombre("Hierro");
+//			RecursoDO[2].setNombre("Acero");
+//			RecursoDO[3].setNombre("Uranio");
+//			RecursoDO[4].setNombre("Titanio");
+//			RecursoDO[5].setNombre("Cristalo");
+//			RecursoDO[6].setNombre("Adamantium");
+//			RecursoDO[7].setNombre("Vibratium");
 
-			misionDO[4] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
-			misionDO[4].setNombre("Defender la tierra de Mongul.");
-			misionDO[4].setNivel_necesario(2);
-			misionDO[4].setExperiencia_ganada(20);
-			misionDO[4].setPuntos_de_entrenamiento_ganados(200);
-			misionDO[4].setDescripcion("Mogul como gobernante del planeta belicoso llamado Warworld, Mongul conquistó y esclavizo la población\nde incontables mundos. Ya sea forzados a alimentar las gigantescas unidades de propulsión del planeta\no participando de luchas de gladiadores,  Por esto la tierra debe de ser protegida de este gobernante.");
-			MisionDAO.insert(misionDO[4]);
-			refmis = new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[4].getId());
-			for(int i=0;i<7;i++){
-				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
-				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
-				misionClaseLinternaDO.setMisionRef(refmis);
-				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
-			}
-			
+			System.out.println("\nBase de Datos Inicializada\n");
 
-			misionDO[3] = (IMisionDO) GlobalDOFactory.getDO(IMisionDO.class);
-			misionDO[3].setNombre("Proteger Planetas de los Manhunter.");
-			misionDO[3].setNivel_necesario(2);
-			misionDO[3].setExperiencia_ganada(10);
-			misionDO[3].setPuntos_de_entrenamiento_ganados(200);
-			misionDO[3].setDescripcion("Para ejecutar su voluntad y evitar amenazas alienígenas de todo tipo, los Guardianes crearon una legión de robots\ncentinelas llamados Manhunters. Sin embargo, con el tiempo el resentimiento creció entre los Manhunters y fueron\nvistos como fracasos debido a su incapacidad para reconocer y/o sentir miedo. Finalmente se rebelaron contra los\nGuardianes, alejándose de ellos y formando su propia sociedad automatizada donde podían perseguir sus propias metas\ny una de ellas es atacar planetas.");
-			MisionDAO.insert(misionDO[3]);
-			refmis = new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[3].getId());
-			for(int i=0;i<7;i++){
-				misionClaseLinternaDO = (IMisionClaseLinternaDO) GlobalDOFactory.getDO(IMisionClaseLinternaDO.class);
-				misionClaseLinternaDO.setClaseLinternaRef(refcl[i]);
-				misionClaseLinternaDO.setMisionRef(refmis);
-				MisionClaseLinternaDAO.insert(misionClaseLinternaDO);
-			}
-			
-			
-			//OBJETIVOS
-			
-			IObjetivoDO objetivoDO[] = new IObjetivoDO[6];
-			objetivoDO[0] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
-			objetivoDO[0].setDescripcion("Atravezar Bolovax Vik.");
-			objetivoDO[0].setNumeroDeNpc(2);
-			refpl = new Reference<IPlanetaDO>();
-			refpl.setRefIdent(PlanetaDO[30].getId());
-			objetivoDO[0].setPlanetaRef(refpl);
-			ObjetivoDAO.insert(objetivoDO[0]);
-			
-			IOrdenDO ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
-			refmis =new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[2].getId());
-			Reference<IObjetivoDO> refobj= new Reference<IObjetivoDO>();
-			refobj.setRefIdent(objetivoDO[0].getId());
-			ordenDO.setMisionRef(refmis);
-			ordenDO.setObjetivoRef(refobj);
-			ordenDO.setPrioridad(1);
-			OrdenDAO.insert(ordenDO);
-			
-			objetivoDO[1] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
-			objetivoDO[1].setDescripcion("Rescatar a compañero linterna.");
-			objetivoDO[1].setNumeroDeNpc(1);
-			refpl = new Reference<IPlanetaDO>();
-			refpl.setRefIdent(PlanetaDO[26].getId());
-			objetivoDO[1].setPlanetaRef(refpl);
-			ObjetivoDAO.insert(objetivoDO[1]);
-			
-			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
-			refobj= new Reference<IObjetivoDO>();
-			refobj.setRefIdent(objetivoDO[1].getId());
-			ordenDO.setMisionRef(refmis);
-			ordenDO.setObjetivoRef(refobj);
-			ordenDO.setPrioridad(2);
-			OrdenDAO.insert(ordenDO);
-			
-			//
-			
-			objetivoDO[3] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
-			objetivoDO[3].setDescripcion("Luchar contra los Pacredo.");
-			objetivoDO[3].setNumeroDeNpc(2);
-			refpl = new Reference<IPlanetaDO>();
-			refpl.setRefIdent(PlanetaDO[31].getId());
-			objetivoDO[3].setPlanetaRef(refpl);
-			ObjetivoDAO.insert(objetivoDO[3]);
-			
-			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
-			refmis =new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[0].getId());
-			refobj= new Reference<IObjetivoDO>();
-			refobj.setRefIdent(objetivoDO[0].getId());
-			ordenDO.setMisionRef(refmis);
-			ordenDO.setObjetivoRef(refobj);
-			ordenDO.setPrioridad(1);
-			OrdenDAO.insert(ordenDO);
-			
-			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
-			refmis =new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[0].getId());
-			refobj= new Reference<IObjetivoDO>();
-			refobj.setRefIdent(objetivoDO[3].getId());
-			ordenDO.setMisionRef(refmis);
-			ordenDO.setObjetivoRef(refobj);
-			ordenDO.setPrioridad(2);
-			OrdenDAO.insert(ordenDO);
-			
-			//
-			
-			objetivoDO[4] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
-			objetivoDO[4].setDescripcion("Defender Hunamos en la Tierra.");
-			objetivoDO[4].setNumeroDeNpc(2);
-			refpl = new Reference<IPlanetaDO>();
-			refpl.setRefIdent(PlanetaDO[16].getId());
-			objetivoDO[4].setPlanetaRef(refpl);
-			ObjetivoDAO.insert(objetivoDO[4]);
-
-			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
-			refmis =new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[4].getId());
-			refobj= new Reference<IObjetivoDO>();
-			refobj.setRefIdent(objetivoDO[3].getId());
-			ordenDO.setMisionRef(refmis);
-			ordenDO.setObjetivoRef(refobj);
-			ordenDO.setPrioridad(1);
-			OrdenDAO.insert(ordenDO);
-			
-			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
-			refmis =new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[4].getId());
-			refobj= new Reference<IObjetivoDO>();
-			refobj.setRefIdent(objetivoDO[4].getId());
-			ordenDO.setMisionRef(refmis);
-			ordenDO.setObjetivoRef(refobj);
-			ordenDO.setPrioridad(2);
-			OrdenDAO.insert(ordenDO);
-			
-			objetivoDO[5] = (IObjetivoDO) GlobalDOFactory.getDO(IObjetivoDO.class);
-			objetivoDO[5].setDescripcion("Evitar destrucion de Korugar.");
-			objetivoDO[5].setNumeroDeNpc(2);
-			refpl = new Reference<IPlanetaDO>();
-			refpl.setRefIdent(PlanetaDO[22].getId());
-			objetivoDO[5].setPlanetaRef(refpl);
-			ObjetivoDAO.insert(objetivoDO[5]);
-			
-			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
-			refmis =new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[4].getId());
-			refobj= new Reference<IObjetivoDO>();
-			refobj.setRefIdent(objetivoDO[5].getId());
-			ordenDO.setMisionRef(refmis);
-			ordenDO.setObjetivoRef(refobj);
-			ordenDO.setPrioridad(3);
-			OrdenDAO.insert(ordenDO);
-			
-			//
-			
-			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
-			refmis =new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[3].getId());
-			refobj= new Reference<IObjetivoDO>();
-			refobj.setRefIdent(objetivoDO[3].getId());
-			ordenDO.setMisionRef(refmis);
-			ordenDO.setObjetivoRef(refobj);
-			ordenDO.setPrioridad(1);
-			OrdenDAO.insert(ordenDO);
-			
-			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
-			refmis =new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[3].getId());
-			refobj= new Reference<IObjetivoDO>();
-			refobj.setRefIdent(objetivoDO[4].getId());
-			ordenDO.setMisionRef(refmis);
-			ordenDO.setObjetivoRef(refobj);
-			ordenDO.setPrioridad(2);
-			OrdenDAO.insert(ordenDO);
-			
-			//
-			
-			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
-			refmis =new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[1].getId());
-			refobj= new Reference<IObjetivoDO>();
-			refobj.setRefIdent(objetivoDO[0].getId());
-			ordenDO.setMisionRef(refmis);
-			ordenDO.setObjetivoRef(refobj);
-			ordenDO.setPrioridad(1);
-			OrdenDAO.insert(ordenDO);
-			
-			ordenDO = (IOrdenDO) GlobalDOFactory.getDO(IOrdenDO.class);
-			refmis =new Reference<IMisionDO>();
-			refmis.setRefIdent(misionDO[1].getId());
-			refobj= new Reference<IObjetivoDO>();
-			refobj.setRefIdent(objetivoDO[5].getId());
-			ordenDO.setMisionRef(refmis);
-			ordenDO.setObjetivoRef(refobj);
-			ordenDO.setPrioridad(2);
-			OrdenDAO.insert(ordenDO);
-			
 		} finally {
 			// Cerramos la Conexion
 			ConnectionFactory.closeConnection(conn.getConnection());

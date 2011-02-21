@@ -10,36 +10,48 @@ import lcaInterfaceDAO.IPersonajeDO;
 
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 
-import dao.api.Reference;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
-import dao.lantern.PersonajeDAO;
 import factory.GlobalDAOFactory;
-import factory.GlobalDOFactory;
 
 public class MiGrupo {
 
-	public static List<IPersonajeDO> obtenerPersonClase(IPersonajeDO personaje)
+	public static List<IPersonajeDO> obtenerPersonClase(IPersonajeDO personaje) //
 			throws Exception {
-		List<IPersonajeDO> h = new ArrayList<IPersonajeDO>();
-		if(personaje.getGrupoRef().getRefIdent()==0){
-			return h;
+
+		List<IPersonajeDO> listPersonajes = new ArrayList<IPersonajeDO>();
+
+		if(personaje.getGrupoRef() == null){
+			return listPersonajes;
 		}
+
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-		IPersonajeDAO person = (IPersonajeDAO) GlobalDAOFactory.getDAO( //
-				IPersonajeDAO.class, connectionBean);
-		h = ((PersonajeDAO) person).listByGrupoId((personaje
-				.getGrupoRef().getRefIdent()));
+
+//		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO( //
+//				IPersonajeDAO.class, connectionBean);
+
+		IGrupoDAO grupoDAO = (IGrupoDAO) //
+				GlobalDAOFactory.getDAO(IGrupoDAO.class, connectionBean);
+		IGrupoDO grupoDO = (IGrupoDO) //
+				grupoDAO.loadById(personaje.getGrupoRef().getRefIdent());
+
+		listPersonajes = grupoDO.getPersonajeList();
+
+//		listPersonajes = ((PersonajeDAO) personajeDAO).listByGrupoId( //
+//				(personaje.getGrupoRef().getRefIdent()));
+
 		connectionBean.getConnection().close();
-		return h;
+		return listPersonajes;
 	}
 
-	public static TestTableModel asignarPersonaje(TestTableModel tableDtaModel,
-			List<IPersonajeDO> personajes) {
+	public static TestTableModel asignarPersonaje( //
+			TestTableModel tableDtaModel, List<IPersonajeDO> personajes) {
+
 		if (personajes.isEmpty()){
 			return tableDtaModel;
 		}
 		for (int posicion = 0; posicion < personajes.size(); posicion++) {
+
 			(personajes.get(posicion)).setId(posicion + 1);
 			tableDtaModel.add(personajes.get(posicion));
 
@@ -48,29 +60,47 @@ public class MiGrupo {
 	}
 
 	public static int abandonarGrupo(IPersonajeDO personaje) throws Exception {
-		List<IPersonajeDO> h;
+
+		List<IPersonajeDO> listPersonajes;
+
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-		IPersonajeDAO person = (IPersonajeDAO) GlobalDAOFactory.getDAO( //
+
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO( //
 				IPersonajeDAO.class, connectionBean);
-		IGrupoDO grupodo;
 		IGrupoDAO grupoDAO = (IGrupoDAO) GlobalDAOFactory.getDAO( //
 				IGrupoDAO.class, connectionBean);
-		grupodo = (IGrupoDO)grupoDAO.loadById(personaje
-				.getGrupoRef().getRefIdent());
-		h = obtenerPersonClase(personaje);
-		Reference<IGrupoDO> grupoRef = new Reference<IGrupoDO>();
-		grupoRef.setRefIdent(0);
-		personaje.setGrupoRef(grupoRef);
-		person.update(personaje);
+//		IGrupoDO grupoDO = (IGrupoDO)grupoDAO.loadById( //
+//				personaje.getGrupoRef().getRefIdent());
+
+		IGrupoDO grupoDO = (IGrupoDO) //
+				grupoDAO.loadById(personaje.getGrupoRef().getRefIdent());
+
+		listPersonajes = obtenerPersonClase(personaje);
+
+		listPersonajes.remove(personaje);
+		grupoDO.setPersonajeList(listPersonajes);
+
+		personaje.setGrupoRef(null);
+
+//		Reference<IGrupoDO> grupoRef = new Reference<IGrupoDO>();
+//		grupoRef.setRefIdent(0);
+//		personaje.setGrupoRef(grupoRef);
+		personajeDAO.update(personaje);
+
 		connectionBean.getConnection().close();
-		if(h.size()==1){
-			grupoDAO.delete(grupodo);
+
+		if(listPersonajes.size() == 0) {
+
+			grupoDAO.delete(grupoDO);
 			return 0;
+
 		}
-		if(h.size()==2){
-			grupodo.setEstado(false);
-			grupoDAO.update(grupodo);
+		if(listPersonajes.size() == 1) {
+
+			grupoDO.setEstado(false);
+			grupoDAO.update(grupoDO);
 			return 1;
+
 		}
 		return 2;
 	}

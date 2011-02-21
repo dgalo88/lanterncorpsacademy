@@ -3,20 +3,17 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IHabilidadDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
-import nextapp.echo.app.CheckBox;
-import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
-import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
+import nextapp.echo.app.RadioButton;
 import nextapp.echo.app.Row;
-import nextapp.echo.app.TextField;
+import nextapp.echo.app.button.ButtonGroup;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
@@ -30,12 +27,11 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
-import com.ulasoft.lanterncorpsacademy.logic.CrearGrupo;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
+import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
 
 @SuppressWarnings("serial")
-public class PanelCrearGrupo extends Panel {
+public class PanelReparar extends Panel{
 
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
@@ -43,12 +39,11 @@ public class PanelCrearGrupo extends Panel {
 	private Atributos atrib = app.getAtributos();
 
 	private TestTableModel tableDtaModel;
-	private List<IPersonajeDO> personajes;
-	private List<IPersonajeDO> listPersonajes;
 	private List<Integer> seleccion = new ArrayList<Integer>();
-	private TextField txtGrupo;
 
-	public PanelCrearGrupo() {
+	private ButtonGroup btnGroupClases = new ButtonGroup();
+
+	public PanelReparar() {
 
 		Column col = new Column();
 		col.setInsets(new Insets(10, 10, 10, 10));
@@ -58,67 +53,44 @@ public class PanelCrearGrupo extends Panel {
 		row.setCellSpacing(new Extent(10));
 		row.setAlignment(Alignment.ALIGN_CENTER);
 
-		Grid gridPane = new Grid(1);
-		gridPane.setInsets(new Insets(10));
-		gridPane.setBackground(Color.WHITE);
-
-		Grid grid = new Grid();
-		grid.setStyle(Estilo.getDefaultStyleColor(atrib));
-		grid.setWidth(new Extent(500));
-
-		col.add(PanelConstructor.initTopRow("Crear Grupo"));
-
-		Label lblCorreo = new Label("Nombre del Grupo:");
-		Estilo.setFont(lblCorreo, GUIStyles.BOLD);
-		grid.add(lblCorreo);
-
-		txtGrupo = new TextField();
-		txtGrupo.setWidth(new Extent(300));
-		try {
-			txtGrupo.setText(CrearGrupo.obtenerNombreGrupo( //
-					atrib.getPersonaje()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		grid.add(txtGrupo);
-		gridPane.add(grid);
-
 		// ----------------------------------------
-		// Carga de los Personajes
+		// Carga Habilidades
 		// ----------------------------------------
 
-		listPersonajes = new ArrayList<IPersonajeDO>();
-//		listPersonajes.add(atrib.getPersonaje());
 		tableDtaModel = new TestTableModel();
 		try {
-			personajes = CrearGrupo.obtenerPersonajesClase(atrib.getPersonaje());
+			tableDtaModel = HabilidadesAnillo.obtenerHabilidades( //
+					atrib.getPersonaje(), tableDtaModel);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		tableDtaModel = CrearGrupo.asignarPersonaje(tableDtaModel, personajes, atrib.getPersonaje());
 
-		gridPane.add(PanelConstructor.initTable(tableDtaModel, initTableColModel(), true));
-		col.add(gridPane);
+		col.add(PanelConstructor.initTopRow( //
+				"Selecciona Unidad para Reparar"));
+		col.add(PanelConstructor.initTable( //
+				tableDtaModel, initTableColModel(), true));
 
 		Button btnCancelar = new Button("Cancelar");
-		btnCancelar.setStyle(Estilo.getStyleColor(atrib));
+		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnCancelar.setWidth(new Extent(100));
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent evt) {
 				d.btnCancelarClicked();
 			}
 		});
 		row.add(btnCancelar);
 
-		Button btnCrearGrupo = new Button("Crear Grupo");
-		btnCrearGrupo.setStyle(Estilo.getStyleColor(atrib));
-		btnCrearGrupo.addActionListener(new ActionListener() {
+		Button btnReparar = new Button("Reparar");
+		btnReparar.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnReparar.setWidth(new Extent(100));
+		btnReparar.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				btnCrearGrupoClicked();
+			public void actionPerformed(ActionEvent evt) {
+				btnRepararClicked();
 			}
 		});
-		row.add(btnCrearGrupo);
+		row.add(btnReparar);
 
 		col.add(row);
 		add(col);
@@ -134,12 +106,12 @@ public class PanelCrearGrupo extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
-				return personaje.getAlias();
+				IHabilidadDO habilidad = (IHabilidadDO) element;
+				return habilidad.getNombre();
 			}
 		};
 		tableColumn.setWidth(new Extent(100));
-		tableColumn.setHeadValue("Alias");
+		tableColumn.setHeadValue("Nombre");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
@@ -147,11 +119,17 @@ public class PanelCrearGrupo extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
-				return personaje.getNivel();
+				IHabilidadDO habilidad = (IHabilidadDO) element;
+				try {
+					return HabilidadesAnillo.obtenerNivel( //
+							atrib.getPersonaje().getId(),habilidad);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return 0;
 			}
 		};
-		tableColumn.setWidth(new Extent(40));
+		tableColumn.setWidth(new Extent(25));
 		tableColumn.setHeadValue("Nivel");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -160,12 +138,31 @@ public class PanelCrearGrupo extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IPersonajeDO personaje = (IPersonajeDO) element;
-				return personaje.getId();
+				IHabilidadDO habilidad = (IHabilidadDO) element;
+				return HabilidadesAnillo.determinarTipo(habilidad.getTipo());
 			}
 		};
 		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Ranking");
+		tableColumn.setHeadValue("Tipo");
+		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+		tableColModel.getTableColumnList().add(tableColumn);
+
+		tableColumn = new TableColumn() {
+			@Override
+			public Object getValue(ETable table, Object element) {
+				IHabilidadDO habilidad = (IHabilidadDO) element;
+				try {
+					return (int)(Math.pow(2, HabilidadesAnillo.obtenerNivel( //
+							atrib.getPersonaje().getId(), habilidad))*100);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return 0;
+			}
+		};
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Costo de Reparar");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
@@ -194,19 +191,20 @@ public class PanelCrearGrupo extends Panel {
 					final ETable table, final Object value, //
 					final int col, final int row) {
 
-				boolean editable = ((TestTableModel) table.getTableDtaModel())//
-						.getEditable();
+				boolean editable = ((TestTableModel) //
+						table.getTableDtaModel()).getEditable();
 
-				CheckBox checkBox = new CheckBox();
-				checkBox.setEnabled(editable);
-				checkBox.setToolTipText("Selección");
+				RadioButton radioButton = new RadioButton();
+				radioButton.setEnabled(editable);
+				radioButton.setToolTipText("Selección");
+				radioButton.setGroup(btnGroupClases);
 
-				checkBox.addActionListener(new ActionListener() {
+				radioButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						btnCheckBoxClicked(row);
+						btnRadioClicked(row);
 					}
 				});
-				return checkBox;
+				return radioButton;
 			}
 		});
 
@@ -215,7 +213,7 @@ public class PanelCrearGrupo extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private void btnCheckBoxClicked(int row) {
+	private void btnRadioClicked(int row) {
 
 		Integer e = new Integer(row);
 		for(int pos = 0; pos < seleccion.size(); pos++) {
@@ -226,51 +224,33 @@ public class PanelCrearGrupo extends Panel {
 		}
 		seleccion.add(e);
 
-		IPersonajeDO personaje = personajes.get(row);
-
-		for (int i = 0; i < listPersonajes.size(); i++) {
-			if (listPersonajes.get(i).equals(personaje)) {
-				listPersonajes.remove(i);
-				return;
-			}
-		}
-		listPersonajes.add(personaje);
-
 	}
 
-	protected void btnCrearGrupoClicked() {
+	protected void btnRepararClicked() {
 
-		if(CrearGrupo.checkNombreGrupoIsEmpty(txtGrupo)) {
+		if(seleccion.isEmpty()) {
 			d.setWindowPaneEmergente( //
-					"El campo nombre de grupo se encuentran vacío, " //
-					+ "No se creará el grupo");
+					"No ha seleccionado ninguna hablidad para entrenar, No se entrenará nada");
 			return;
 		}
-//		if(seleccion.isEmpty()) {
-//			d.setWindowPaneEmergente( //
-//					"No ha seleccionado ningún personaje para que forme parte del grupo, No se creará el grupo");
-//			return;
-//		}
-
+ 
+//		IPersonajeDO personaje = atrib.getPersonaje();
+//
 //		try {
-//			CrearGrupo.crearGrupo( //
-//					atrib.getPersonaje(), personajes, seleccion, txtGrupo);
+//			if(HabilidadesAnillo.entrenarHabilidades(seleccion, personaje)) {
+//				d.setWindowPaneEmergente( //
+//						"No se poseen suficientes puntos de entrenamiento, No se entrenará nada");
+//				return;
+//			}
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
+//
+//		atrib.setPersonaje(personaje);
+//		d.setWindowPaneEmergente("Se han entrenado las habilidades con éxito");
+//		return;
 
-		String result = "";
-
-		try {
-			CrearGrupo.crearGrupo2(atrib.getPersonaje(), txtGrupo);
-			result = "El grupo se ha creado con éxito!";
-		} catch (Exception e) {
-			result = "Ha ocurrido un problema. No se crea el grupo";
-			e.printStackTrace();
-		}
-
-		d.setWindowPaneEmergente(result);
-		PanelMain pnlMain = new PanelMain();
+		PanelRepararUnidad pnlMain = new PanelRepararUnidad();
 		d.setPanelCentral(pnlMain);
 
 	}

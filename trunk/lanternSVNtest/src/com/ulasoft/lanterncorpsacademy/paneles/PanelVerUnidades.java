@@ -34,13 +34,11 @@ public class PanelVerUnidades extends Panel {
 		col.setInsets(new Insets(10, 10, 10, 10));
 		col.setCellSpacing(new Extent(10));
 
-		col.add(PanelConstructor.initTopRow("Atacar Ejército"));
-
 		String [] menuSelect = new String[5];
 		menuSelect[0] = "Seleccionar Tipo de Unidades";
-		menuSelect[1] = "Unidades Recolectoras";
-		menuSelect[2] = "Unidades Básicas";
-		menuSelect[3] = "Unidades de Ejército";
+		menuSelect[1] = "Unidades Básicas";
+		menuSelect[2] = "Unidades de Ejército";
+		menuSelect[3] = "Unidades Recolectoras";
 		menuSelect[4] = "Unidades Saboteadoras";
 
 		selectField = new SelectField(menuSelect);
@@ -54,10 +52,12 @@ public class PanelVerUnidades extends Panel {
 
 		image = new ResourceImageReference(Data.panelMain(1), //
 				new Extent(40), new Extent(40));
+
 		for (int i = 0; i < 10; i++) {
 			ObjectLca item = new ObjectLca(false, i, image);
 			list.add(item);
 		}
+
 		ObjectSelectModel oModel = new ObjectSelectModel(list);
 		TestCellRenderer tcr = new TestCellRenderer();
 		oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
@@ -70,7 +70,10 @@ public class PanelVerUnidades extends Panel {
 
 	private void menuSelected(int index) {
 
-		index = index == 0 ? 1 : index;
+		if (index == 0) {
+			return;
+		}
+//		index = index == 0 ? 1 : index;
 		col.remove(oSelectScrolling);
 
 		image = new ResourceImageReference( //
@@ -90,4 +93,34 @@ public class PanelVerUnidades extends Panel {
 
 	}
 
+	// --------------------------------------------------------------------------------
+
+	/**
+	 * @param tipoUnidad 1 = Unidades Básicas
+	 *					 2 = Unidades de Ejército
+	 *					 3 = Unidades Recolectoras
+	 *					 4 = Unidades Saboteadoras
+	 */
+	public static ObjectSelectScrolling getUnidades(int tipoUnidad) {
+
+		tipoUnidad = tipoUnidad < 1 && tipoUnidad > 4 ? 1 : tipoUnidad;
+
+		List<ObjectLca> list = new ArrayList<ObjectLca>();
+
+		ResourceImageReference image = new ResourceImageReference( //
+				Data.panelMain(tipoUnidad), //
+				new Extent(40), new Extent(40));
+
+		for (int i = 0; i < 10; i++) {
+			ObjectLca item = new ObjectLca(false, i, image);
+			list.add(item);
+		}
+
+		ObjectSelectModel oModel = new ObjectSelectModel(list);
+		TestCellRenderer tcr = new TestCellRenderer();
+		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
+
+		return oSelectScrolling;
+		
+	}
 }

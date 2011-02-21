@@ -17,15 +17,12 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
-import com.valkirye.lanterncorpsacademy.extras.VerDatos;
 
 @SuppressWarnings("serial")
 public class PanelAtacarEjercito extends Panel {
 
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
-
-//	private INpcDO personajeAtacar;
 
 	public PanelAtacarEjercito() {
 
@@ -50,7 +47,7 @@ public class PanelAtacarEjercito extends Panel {
 
 		row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.add(VerDatos.getUnidades(false));
+		row.add(PanelVerUnidades.getUnidades(2));
 		grid.add(row);
 
 		row = new Row();
@@ -63,7 +60,7 @@ public class PanelAtacarEjercito extends Panel {
 
 		row = new Row();
 		row.setAlignment(Alignment.ALIGN_CENTER);
-		row.add(VerDatos.getUnidades(false));
+		row.add(PanelVerUnidades.getUnidades(3));
 		grid.add(row);
 
 		col.add(grid);
