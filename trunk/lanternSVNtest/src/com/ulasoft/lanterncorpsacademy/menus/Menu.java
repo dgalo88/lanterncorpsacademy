@@ -1,8 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.menus;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -25,8 +22,10 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAdquirirTecnologia;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelConstruir;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelIntercambiar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMensaje;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMisDatos;
@@ -38,13 +37,10 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarNeutro;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelSabotear;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelVerUnidades;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 import com.valkirye.lanterncorpsacademy.components.Accordion;
 import com.valkirye.lanterncorpsacademy.components.AccordionSection;
-import com.valkirye.lanterncorpsacademy.extras.ObjectLca;
-import com.valkirye.lanterncorpsacademy.extras.ObjectSelectModel;
-import com.valkirye.lanterncorpsacademy.extras.ObjectSelectScrolling;
-import com.valkirye.lanterncorpsacademy.extras.TestCellRenderer;
 
 @SuppressWarnings("serial")
 public class Menu extends Panel {
@@ -486,17 +482,21 @@ public class Menu extends Panel {
 
 		// XXX: Inventario
 
-		List<ObjectLca> list = new ArrayList<ObjectLca>();
-		for (int i = 0; i < 10; i++) {
-			ObjectLca item = new ObjectLca(false, i);
-			list.add(item);
-		}
-
-		ObjectSelectModel oModel = new ObjectSelectModel(list);
-		TestCellRenderer tcr = new TestCellRenderer();
-		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
-
-		d.setWindowData(oSelectScrolling, "Inventario de Unidades", 600, 200);
+//		SelectField selectField = new SelectField();
+//		col.add(selectField);
+//
+//		List<ObjectLca> list = new ArrayList<ObjectLca>();
+//		for (int i = 0; i < 10; i++) {
+//			ObjectLca item = new ObjectLca(false, i);
+//			list.add(item);
+//		}
+//
+//		ObjectSelectModel oModel = new ObjectSelectModel(list);
+//		TestCellRenderer tcr = new TestCellRenderer();
+//		ObjectSelectScrolling oSelectScrolling = new ObjectSelectScrolling(oModel, tcr);
+//
+		PanelVerUnidades pnlMain = new PanelVerUnidades();
+		d.setWindowData(pnlMain, "Inventario de Unidades", 600, 200);
 
 	}
 
@@ -513,8 +513,8 @@ public class Menu extends Panel {
 
 	private void btnConstruirClicked() {
 
-//		PanelConstruir pnlMain = new PanelConstruir();
-//		d.setPanelCentral(pnlMain);
+		PanelConstruir pnlMain = new PanelConstruir();
+		d.setPanelCentral(pnlMain);
 
 	}
 
@@ -588,8 +588,8 @@ public class Menu extends Panel {
 
 	private void btnIntercambiarClicked() {
 
-//		PanelIntercambiar pnlMain = new PanelIntercambiar();
-//		d.setPanelCentral(pnlMain);
+		PanelIntercambiar pnlMain = new PanelIntercambiar();
+		d.setPanelCentral(pnlMain);
 
 	}
 

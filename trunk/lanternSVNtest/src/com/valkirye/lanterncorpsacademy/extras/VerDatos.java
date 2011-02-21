@@ -12,6 +12,7 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
+import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.Row;
 
 
@@ -93,7 +94,10 @@ public class VerDatos extends Row {
 
 		List<ObjectLca> list = new ArrayList<ObjectLca>();
 		for (int i = 0; i < 10; i++) {
-			ObjectLca item = new ObjectLca(selectable, i);
+			ObjectLca item = new ObjectLca(selectable, i, //
+					new ResourceImageReference( //
+							"com/ulasoft/lanterncorpsacademy/imagenes/anilloverde.jpg", //
+							new Extent(40), new Extent(40)));
 			list.add(item);
 		}
 

@@ -1,5 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
+
 public class Data {
 
 	public static String getClase(int ref) {
@@ -79,5 +80,21 @@ public class Data {
 		}
 		return "";
 	}
-	
+
+	public static String panelMain(int i) {
+		switch (i) {
+		case 1:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/GreenLanternRebirthHC1.jpg";
+		case 2:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/sinestro.png";
+		case 3:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/redlanterns.jpg";
+		case 4:
+			return "com/ulasoft/lanterncorpsacademy/imagenes/black-lantern.jpg";
+		default:
+			break;
+		}
+		return "";
+	}
+
 }

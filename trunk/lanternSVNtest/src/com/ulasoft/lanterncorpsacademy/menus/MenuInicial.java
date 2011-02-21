@@ -13,6 +13,7 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMedia;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelVerUnidades;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
@@ -58,15 +59,15 @@ public class MenuInicial extends Panel {
 		});
 		col.add(btnAboutGame);
 
-//		Button btnPrueba = new Button("Prueba AP");
-//		btnPrueba.setStyle(GUIStyles.DEFAULT_STYLE_INITIAL);
-//		btnPrueba.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent evt) {
-//				btnPruebaClicked();
-//			}
-//		});
-//		col.add(btnPrueba);
+		Button btnPrueba = new Button("Prueba AP");
+		btnPrueba.setStyle(GUIStyles.DEFAULT_STYLE_INITIAL);
+		btnPrueba.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				btnPruebaClicked();
+			}
+		});
+		col.add(btnPrueba);
 
 		row.add(col);
 		add(row);
@@ -103,12 +104,16 @@ public class MenuInicial extends Panel {
 
 	}
 
-//	private void btnPruebaClicked() {
-//
+	private void btnPruebaClicked() {
+
+		Desktop d = app.getDesktop();
+
 //		PanelAsignarPrecio pnlMain = new PanelAsignarPrecio();
-//		Desktop d = app.getDesktop();
 //		d.setWindowData(pnlMain, "Asignar Precio", 250, 370);
-//
-//	}
+
+		PanelVerUnidades pnlMain = new PanelVerUnidades();
+		d.setWindowData(pnlMain, "Inventario de Unidades", 600, 200);
+
+	}
 
 }
