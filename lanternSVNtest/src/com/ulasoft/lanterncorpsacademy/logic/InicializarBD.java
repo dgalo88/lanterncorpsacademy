@@ -15,6 +15,8 @@ import lcaInterfaceDAO.INpcDO;
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
+import lcaInterfaceDAO.IRecursoDAO;
+import lcaInterfaceDAO.IRecursoDO;
 import lcaInterfaceDAO.IUsuarioDAO;
 import dao.api.Reference;
 import dao.connection.ConnectionBean;
@@ -72,6 +74,9 @@ public class InicializarBD {
 //		IMisionClaseLinternaDAO MisionClaseLinternaDAO = (IMisionClaseLinternaDAO) GlobalDAOFactory.getDAO(IMisionClaseLinternaDAO.class, conn);
 //		IOrdenDAO OrdenDAO = (IOrdenDAO) GlobalDAOFactory.getDAO(IOrdenDAO.class, conn);
 //		IObjetivoDAO ObjetivoDAO = (IObjetivoDAO) GlobalDAOFactory.getDAO(IObjetivoDAO.class, conn);
+
+		// Nuevo
+		IRecursoDAO RecursoDAO = (IRecursoDAO) GlobalDAOFactory.getDAO(IRecursoDAO.class, conn);
 		
 		// creamos las tablas
 		
@@ -85,6 +90,9 @@ public class InicializarBD {
 		NivelHabilidadDAO.createTable();
 		HabilidadActivaDAO.createTable();
 		HabilidadClaseLinternaDAO.createTable();
+
+		// Nuevo
+		RecursoDAO.createTable();
 
 		// Tablas Misiones
 //		MisionDAO.createTable();
@@ -1767,18 +1775,18 @@ public class InicializarBD {
 
 			// RECURSOS
 
-//			IRecursoDO RecursoDO[] = new IRecursoDO[8];
-//			for (int i = 0; i < 8; i++) {
-//				RecursoDO[i] = (IRecursoDO) GlobalDOFactory.getDO(IRecursoDO.class);
-//			}
-//			RecursoDO[0].setNombre("Plomo");
-//			RecursoDO[1].setNombre("Hierro");
-//			RecursoDO[2].setNombre("Acero");
-//			RecursoDO[3].setNombre("Uranio");
-//			RecursoDO[4].setNombre("Titanio");
-//			RecursoDO[5].setNombre("Cristalo");
-//			RecursoDO[6].setNombre("Adamantium");
-//			RecursoDO[7].setNombre("Vibratium");
+			IRecursoDO RecursoDO[] = new IRecursoDO[8];
+			for (int i = 0; i < 8; i++) {
+				RecursoDO[i] = (IRecursoDO) GlobalDOFactory.getDO(IRecursoDO.class);
+			}
+			RecursoDO[0].setNombre("Plomo");
+			RecursoDO[1].setNombre("Hierro");
+			RecursoDO[2].setNombre("Acero");
+			RecursoDO[3].setNombre("Uranio");
+			RecursoDO[4].setNombre("Titanio");
+			RecursoDO[5].setNombre("Cristalo");
+			RecursoDO[6].setNombre("Adamantium");
+			RecursoDO[7].setNombre("Vibratium");
 
 			System.out.println("\nBase de Datos Inicializada\n");
 
