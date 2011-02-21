@@ -26,6 +26,9 @@ public class Atributos {
 
 	}
 
+	public static final int SALUD = 500;
+	public static final int ENERGIA = 100;
+
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
 
@@ -60,11 +63,11 @@ public class Atributos {
 
 		menuStatus.getSalud().setCurrValue( //
 				(personaje.getSalud()) * 100 / //
-				(200 + 50 * (personaje.getNivel() - 1)));
+				(SALUD + 50 * (personaje.getNivel() - 1)));
 
 		menuStatus.getEnergia().setCurrValue( //
 				personaje.getEnergiaDelAnillo() * 100 / //
-				(100 + 10 * (personaje.getNivel() - 1)));
+				(ENERGIA + 10 * (personaje.getNivel() - 1)));
 
 		menuStatus.getEnergia().setColor(Estilo.getColor(app.getAtributos()));
 
@@ -184,7 +187,8 @@ public class Atributos {
 		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(
 				IPersonajeDAO.class, connectionBean);
 
-		personaje.setEnergiaDelAnillo(100);
+		personaje.setEnergiaDelAnillo(ENERGIA);
+		personaje.setSalud(SALUD);
 		personajeDAO.update(personaje);
 
 		updateMenuStatus(app.getDesktop().getMenuHead().getMenuStatus());

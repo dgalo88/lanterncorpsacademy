@@ -249,8 +249,8 @@ public class Atacar {
 		if (atacante.getEnergiaDelAnillo() <= (5 - ((atacante.getNivel() - 1) * 0.2))
 				&& contrincante.getEnergiaDelAnillo() <= (5 - ((contrincante
 						.getNivel() - 1) * 0.2))) {
-			atacante.setSalud((200 + (50 * (atacante.getNivel() - 1))));
-			contrincante.setSalud((200 + (50 * (contrincante.getNivel() - 1))));
+			atacante.setSalud((Atributos.SALUD + (50 * (atacante.getNivel() - 1))));
+			contrincante.setSalud((Atributos.SALUD + (50 * (contrincante.getNivel() - 1))));
 			atacante.getPlanetaRef().setRefIdent(
 					atacante.getClaseLinternaRef().getRefIdent());
 			contrincante.getPlanetaRef().setRefIdent(
@@ -261,7 +261,7 @@ public class Atacar {
 		} else {
 			if (atacante.getSalud() > 0) {
 				contrincante
-						.setSalud((200 + (50 * (contrincante.getNivel() - 1))));
+						.setSalud((Atributos.SALUD + (50 * (contrincante.getNivel() - 1))));
 				contrincante.getPlanetaRef().setRefIdent(
 						contrincante.getClaseLinternaRef().getRefIdent());
 				puntosA = (100 + (50 * (contrincante.getNivel() - 1)));
@@ -288,7 +288,7 @@ public class Atacar {
 				result = VICTORIA;
 
 			} else {
-				atacante.setSalud((200 + (50 * (atacante.getNivel() - 1))));
+				atacante.setSalud((Atributos.SALUD + (50 * (atacante.getNivel() - 1))));
 				atacante.getPlanetaRef().setRefIdent(
 						atacante.getClaseLinternaRef().getRefIdent());
 
@@ -459,7 +459,7 @@ public class Atacar {
 			result = VICTORIA;
 
 		} else {
-			atacante.setSalud((200 + (50 * (atacante.getNivel() - 1))));
+			atacante.setSalud((Atributos.SALUD + (50 * (atacante.getNivel() - 1))));
 			atacante.getPlanetaRef().setRefIdent(
 					atacante.getClaseLinternaRef().getRefIdent());
 

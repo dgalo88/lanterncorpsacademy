@@ -15,19 +15,19 @@ public class ObjectLca extends Row {
 	private CheckBox checkBox;
 	private Label lblImage;
 
-	public ObjectLca(boolean selectable, int i) {
-		initItem(selectable, i);
+	public ObjectLca(boolean selectable, int i, ResourceImageReference image) {
+		initItem(selectable, i, image);
 	}
 
-	private void initItem(boolean selectable, int i) {
+	private void initItem(boolean selectable, int i, ResourceImageReference image) {
 
 		setCellSpacing(new Extent(2));
 		setInsets(new Insets(5, 0, 5, 0));
 		Column col = new Column();
 
-		ResourceImageReference image = new ResourceImageReference( //
-				"com/ulasoft/lanterncorpsacademy/imagenes/anilloverde.jpg", //
-				new Extent(40), new Extent(40));
+//		ResourceImageReference image = new ResourceImageReference( //
+//				"com/ulasoft/lanterncorpsacademy/imagenes/anilloverde.jpg", //
+//				new Extent(40), new Extent(40));
 
 		if (selectable) {
 			checkBox = new CheckBox(image);
