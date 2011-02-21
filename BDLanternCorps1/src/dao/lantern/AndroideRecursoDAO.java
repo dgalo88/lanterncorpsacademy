@@ -9,18 +9,16 @@ import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
 import lcaInterfaceDAO.IAndroideDO;
-import lcaInterfaceDAO.IAndroidePersonajeDO;
 import lcaInterfaceDAO.IAndroideRecursoDAO;
 import lcaInterfaceDAO.IAndroideRecursoDO;
-import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IRecursoDO;
 
-public class AndroideRecursoDAO extends BaseDAO implements IAndroideRecursoDAO{
-	
+public class AndroideRecursoDAO extends BaseDAO implements IAndroideRecursoDAO {
+
 	public AndroideRecursoDAO() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public int countAll() throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
@@ -164,7 +162,7 @@ public class AndroideRecursoDAO extends BaseDAO implements IAndroideRecursoDAO{
 		strbuf.append(" = ");
 		strbuf.append(androideRecurso.getCantidad());
 		strbuf.append(", ");
-		
+
 		strbuf.append(AndroideRecursoDO.RECURSO_ID);
 		strbuf.append(" = ");
 		Reference<IRecursoDO> refRec = androideRecurso.getRecursoRef();
@@ -318,7 +316,8 @@ public class AndroideRecursoDAO extends BaseDAO implements IAndroideRecursoDAO{
 		return null;
 	}
 
-	public List<IAndroideRecursoDO> listByRecursoId(int recId) throws SQLException {
+	public List<IAndroideRecursoDO> listByRecursoId(int recId)
+			throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
 		strbuf.append("SELECT * FROM ");
@@ -343,7 +342,8 @@ public class AndroideRecursoDAO extends BaseDAO implements IAndroideRecursoDAO{
 		return ret;
 	}
 
-	public List<IAndroideRecursoDO> listByAndroideId(int AndroideId) throws SQLException {
+	public List<IAndroideRecursoDO> listByAndroideId(int AndroideId)
+			throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
 		strbuf.append("SELECT * FROM ");
@@ -367,10 +367,12 @@ public class AndroideRecursoDAO extends BaseDAO implements IAndroideRecursoDAO{
 
 		return ret;
 	}
-	//----------------------------------------------------------------------------------------------
+
+	// ----------------------------------------------------------------------------------------------
 
 	@Override
-	public void loadAndroideRef(IAndroideRecursoDO androideRecursoDO) throws SQLException {
+	public void loadAndroideRef(IAndroideRecursoDO androideRecursoDO)
+			throws SQLException {
 		checkClass(androideRecursoDO, AndroideRecursoDO.class, CHECK_UPDATE);
 		AndroideDAO androideDAO = new AndroideDAO();
 		androideDAO.init(connectionBean);
@@ -381,13 +383,14 @@ public class AndroideRecursoDAO extends BaseDAO implements IAndroideRecursoDAO{
 		AndroideDO androideDO = //
 		(AndroideDO) androideDAO.loadById(ref.getRefIdent());
 		ref.setRefValue(androideDO);
-		
+
 	}
 
 	@Override
-	public void loadRecursoRef(IAndroideRecursoDO androideRecursoDO) throws SQLException {
+	public void loadRecursoRef(IAndroideRecursoDO androideRecursoDO)
+			throws SQLException {
 		checkClass(androideRecursoDO, AndroideRecursoDO.class, CHECK_UPDATE);
-		RecursoDAO recursoDAO = new recursoDAO();
+		RecursoDAO recursoDAO = new RecursoDAO();
 		recursoDAO.init(connectionBean);
 		Reference<IRecursoDO> ref = androideRecursoDO.getRecursoRef();
 		if (ref.getRefIdent() == 0) {

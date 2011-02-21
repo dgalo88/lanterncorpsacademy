@@ -10,7 +10,7 @@ import lcaInterfaceDAO.IRecursoOfertaVentaDO;
 import lcaInterfaceDAO.IRecursoPersonajeDO;
 import lcaInterfaceDAO.IRecursoPlanetaDO;
 import lcaInterfaceDAO.ITecnologiaRecursoDO;
-import lcaInterfaceDAO.IUnidadBasicaDO;
+import lcaInterfaceDAO.IUnidadBasicaRecursoDO;
 
 public class RecursoDO implements IRecursoDO {
 
@@ -29,8 +29,8 @@ public class RecursoDO implements IRecursoDO {
 	private List<IRecursoPersonajeDO> recursoPersonajeList = //
 	new ArrayList<IRecursoPersonajeDO>();
 
-	private List<IUnidadBasicaDO> unidadBasicaList = //
-	new ArrayList<IUnidadBasicaDO>();
+	private List<IUnidadBasicaRecursoDO> unidadBasicaRecursoList = //
+	new ArrayList<IUnidadBasicaRecursoDO>();
 
 	private List<IAndroideRecursoDO> androideRecursoList = //
 	new ArrayList<IAndroideRecursoDO>();
@@ -96,12 +96,13 @@ public class RecursoDO implements IRecursoDO {
 
 	// --------------------------------------------------------------------------------------
 
-	public List<IUnidadBasicaDO> getUnidadBasicaList() {
-		return unidadBasicaList;
+	public List<IUnidadBasicaRecursoDO> getUnidadBasicaRecursoList() {
+		return unidadBasicaRecursoList;
 	}
 
-	public void setUnidadBasicaList(List<IUnidadBasicaDO> unidadBasicaList) {
-		this.unidadBasicaList = unidadBasicaList;
+	public void setUnidadBasicaRecursoList(
+			List<IUnidadBasicaRecursoDO> unidadBasicaRecursoList) {
+		this.unidadBasicaRecursoList = unidadBasicaRecursoList;
 	}
 
 	// --------------------------------------------------------------------------------------
@@ -159,5 +160,6 @@ public class RecursoDO implements IRecursoDO {
 		this.recursoPlanetaList = recursoPlanetaList;
 
 	}
+
 
 }

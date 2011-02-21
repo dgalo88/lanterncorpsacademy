@@ -17,6 +17,9 @@ import dao.api.Reference;
 
 public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 
+	public static final int SALUD 					= 500;
+	public static final int ENERGIA_DEL_ANILLO 		= 100;
+
 	@Override
 	public int countAll() throws SQLException {
 	    StringBuffer strbuf = new StringBuffer();
@@ -91,9 +94,9 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	    strbuf.append(" INT DEFAULT 0,	");
 	    strbuf.append(PersonajeDO.SALUD); 
 	    strbuf.append(" INT CHECK (" + PersonajeDO.SALUD
-				+ " >= 0 ) DEFAULT 500,	");
+				+ " >= 0 ) DEFAULT " + SALUD + ",	");
 	    strbuf.append(PersonajeDO.ENERGIA_DEL_ANILLO); 
-	    strbuf.append(" INT DEFAULT 100,	");
+	    strbuf.append(" INT DEFAULT " + ENERGIA_DEL_ANILLO + ",	");
 	    strbuf.append(PersonajeDO.NIVEL); 
 	    strbuf.append(" INT DEFAULT 1,	");
 	    strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO); 

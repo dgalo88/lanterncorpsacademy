@@ -341,12 +341,17 @@ public class RecursoDAO extends BaseDAO implements IRecursoDAO {
 	public void loadUnidadBasicaRecursoList(IRecursoDO recursoDO)
 			throws Exception {
 
-		UnidadBasicaRecursoDAO unidadBasicaRecursoDAO = (UnidadBasicaRecursoDAO) FactoryDAO
-				.getDAO( //
-						UnidadBasicaRecursoDAO.class, connectionBean);
+		
+		 UnidadBasicaRecursoDAO unidadBasicaRecursoDAO = (UnidadBasicaRecursoDAO) FactoryDAO.getDAO( //
+			        UnidadBasicaRecursoDAO.class, connectionBean);
 
-		recursoDO.setUnidadBasicaRecursoList(unidadBasicaRecursoDAO
-				.listByRecursoId(recursoDO.getId()));
+			        recursoDO.setUnidadBasicaRecursoList(unidadBasicaRecursoDAO.listByRecursoId((recursoDO.getId())));
+//		UnidadBasicaRecursoDAO unidadBasicaRecursoDAO = (UnidadBasicaRecursoDAO) FactoryDAO
+//				.getDAO( //
+//						UnidadBasicaRecursoDAO.class, connectionBean);
+//
+//		recursoDO.setUnidadBasicaRecursoList(unidadBasicaRecursoDAO
+//				.listByRecursoId(recursoDO.getId()));
 	}
 
 	public void loadRecursoOfertaCompraList(IRecursoDO recursoDO)

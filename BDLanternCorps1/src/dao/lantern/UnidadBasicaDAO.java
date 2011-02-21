@@ -354,7 +354,7 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		strbuf.append(" = ");
 
 		if (unidadBasicaDO.getTecnologiaRef() == null) {
-			if (unidadBasicaDO.getTecnologiaRef() == 0) {
+			if (unidadBasicaDO.getTecnologiaRef(). == 0) {
 				strbuf.append("NULL");
 			} else {
 				strbuf.append(unidadBasicaDO.getTecnologiaRef());
