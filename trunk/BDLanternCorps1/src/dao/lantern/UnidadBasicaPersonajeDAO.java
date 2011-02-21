@@ -5,17 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import lcaInterfaceDAO.IRecursoDO;
-import lcaInterfaceDAO.IUnidadBasicaDO;
-import lcaInterfaceDAO.IUnidadBasicaRecursoDAO;
-import lcaInterfaceDAO.IUnidadBasicaRecursoDO;
-
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
+import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IUnidadBasicaDO;
+import lcaInterfaceDAO.IUnidadBasicaPersonajeDAO;
+import lcaInterfaceDAO.IUnidadBasicaPersonajeDO;
 
-public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecursoDAO {
+public class UnidadBasicaPersonajeDAO extends BaseDAO implements IUnidadBasicaPersonajeDAO {
 
 	@Override
 	public int countAll() throws SQLException {
@@ -67,24 +65,24 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 	    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
 	    unidadBasicaDAO.init(connectionBean);
 	    
-	    RecursoDAO recursoDAO = new RecursoDAO();
-	    recursoDAO.init(connectionBean);
+	    PersonajeDAO personajeDAO = new PersonajeDAO();
+	    personajeDAO.init(connectionBean);
 
 	    strbuf = new StringBuffer();
 
 	    strbuf.append("CREATE TABLE ");
 	    strbuf.append(getTableName());
 	    strbuf.append(" (");
-	    strbuf.append(UnidadBasicaRecursoDO.ID);
+	    strbuf.append(UnidadBasicaPersonajeDO.ID);
 	    strbuf.append(" INT PRIMARY KEY, ");
-	    strbuf.append(UnidadBasicaRecursoDO.CANTIDAD);
+	    strbuf.append(UnidadBasicaPersonajeDO.CANTIDAD);
 	    strbuf.append(" INT DEFAULT 1,    ");
-	    strbuf.append(UnidadBasicaRecursoDO.UNIDAD_BASICA_ID);
+	    strbuf.append(UnidadBasicaPersonajeDO.UNIDAD_BASICA_ID);
 	    strbuf.append(" INT REFERENCES   ");
 	    strbuf.append(unidadBasicaDAO.getTableName()+", ");
-	    strbuf.append(UnidadBasicaRecursoDO.RECURSO_ID);
+	    strbuf.append(UnidadBasicaPersonajeDO.PERSONAJE_ID);
 	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(recursoDAO.getTableName());
+	    strbuf.append(personajeDAO.getTableName());
 	    strbuf.append(")");
 
 	    System.err.println(strbuf.toString());
@@ -108,7 +106,7 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_DELETE);
-	    checkClass(dataObject, UnidadBasicaRecursoDO.class, CHECK_DELETE);
+	    checkClass(dataObject, UnidadBasicaPersonajeDO.class, CHECK_DELETE);
 
 	    UnidadBasicaDO unidadBasicaDO = (UnidadBasicaDO) dataObject;
 
@@ -135,27 +133,27 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 	public void insert(DataObject dataObject) throws SQLException {
 	
 		checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, UnidadBasicaRecursoDO.class, CHECK_INSERT);
+	    checkClass(dataObject, UnidadBasicaPersonajeDO.class, CHECK_INSERT);
 
-	    UnidadBasicaRecursoDO unidadBasicaRecursoDO = (UnidadBasicaRecursoDO) dataObject;
+	    UnidadBasicaPersonajeDO unidadBasicaPersonajeDO = (UnidadBasicaPersonajeDO) dataObject;
 
-	    unidadBasicaRecursoDO.setId(getNextId());
+	    unidadBasicaPersonajeDO.setId(getNextId());
 
 	    StringBuffer strbuf = new StringBuffer();
 
 	    strbuf.append("INSERT INTO ");
 	    strbuf.append(getTableName());
 	    strbuf.append(" VALUES (");
-	    strbuf.append(unidadBasicaRecursoDO.getId());
+	    strbuf.append(unidadBasicaPersonajeDO.getId());
 	    strbuf.append(", ");
-	    strbuf.append(unidadBasicaRecursoDO.getCantidad());
+	    strbuf.append(unidadBasicaPersonajeDO.getCantidad());
 	    strbuf.append(", ");
-	    Reference<IRecursoDO> refRec = unidadBasicaRecursoDO.getRecursoRef();
-	    refRec.checkInsert();
-	    strbuf.append(refRec.getIdAsString());
+	    Reference<IPersonajeDO> refP = unidadBasicaPersonajeDO.getPersonajeRef();
+	    refP.checkInsert();
+	    strbuf.append(refP.getIdAsString());
 	    
 	    strbuf.append(", ");	    
-	    Reference<IUnidadBasicaDO> refUniBas = unidadBasicaRecursoDO.getUnidadBasicaRef();
+	    Reference<IUnidadBasicaDO> refUniBas = unidadBasicaPersonajeDO.getUnidadBasicaRef();
 	    refUniBas.checkInsert();
 	    strbuf.append(refUniBas.getIdAsString());
 
@@ -230,7 +228,7 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 	    strbuf.append(getTableName());
 
 	    strbuf.append(" WHERE ");
-	    strbuf.append(UnidadBasicaRecursoDO.ID);
+	    strbuf.append(UnidadBasicaPersonajeDO.ID);
 	    strbuf.append(" = ");
 	    strbuf.append(id);
 
@@ -248,37 +246,37 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 
 	
 	//------------------------------------------------------------------------------------------------------------------------
-	private IUnidadBasicaRecursoDO resultSetToDO(ResultSet rs) throws SQLException {
-		UnidadBasicaRecursoDO ret = //
-		(UnidadBasicaRecursoDO) dtaSession.getDtaByKey( //
-				UnidadBasicaRecursoDO.class, rs.getInt(UnidadBasicaRecursoDO.ID));
+	private IUnidadBasicaPersonajeDO resultSetToDO(ResultSet rs) throws SQLException {
+		UnidadBasicaPersonajeDO ret = //
+		(UnidadBasicaPersonajeDO) dtaSession.getDtaByKey( //
+				UnidadBasicaPersonajeDO.class, rs.getInt(UnidadBasicaPersonajeDO.ID));
 
 		if (ret != null) {
 			return ret;
 		}
 
-		ret = new UnidadBasicaRecursoDO();
+		ret = new UnidadBasicaPersonajeDO();
 
-		ret.setId/*     					*/(rs.getInt(UnidadBasicaRecursoDO.ID));
-		ret.setCantidad/*	            */(rs.getInt(UnidadBasicaRecursoDO.CANTIDAD));
+		ret.setId/*     					*/(rs.getInt(UnidadBasicaPersonajeDO.ID));
+		ret.setCantidad/*	            */(rs.getInt(UnidadBasicaPersonajeDO.CANTIDAD));
 
-		Reference<IRecursoDO> refRec = new Reference<IRecursoDO>();
-		refRec.setRefIdent(rs.getInt(UnidadBasicaRecursoDO.RECURSO_ID));
-		ret.setRecursoRef(refRec);
+		Reference<IPersonajeDO> refP = new Reference<IPersonajeDO>();
+		refP.setRefIdent(rs.getInt(UnidadBasicaPersonajeDO.PERSONAJE_ID));
+		ret.setPersonajeRef(refP);
 
 		Reference<IUnidadBasicaDO> refUniBas = new Reference<IUnidadBasicaDO>();
-		refUniBas.setRefIdent(rs.getInt(UnidadBasicaRecursoDO.UNIDAD_BASICA_ID));
+		refUniBas.setRefIdent(rs.getInt(UnidadBasicaPersonajeDO.UNIDAD_BASICA_ID));
 		ret.setUnidadBasicaRef(refUniBas);
 
-		return (UnidadBasicaRecursoDO) dtaSession.add(ret);
+		return (UnidadBasicaPersonajeDO) dtaSession.add(ret);
 	}
 	//-------------------------------------------------------------------------------------------------------------------------
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
-	    checkClass(dataObject, UnidadBasicaRecursoDO.class, CHECK_UPDATE);
+	    checkClass(dataObject, UnidadBasicaPersonajeDO.class, CHECK_UPDATE);
 
-	    UnidadBasicaRecursoDO unidadBasicaRecursoDO = (UnidadBasicaRecursoDO) dataObject;
+	    UnidadBasicaPersonajeDO unidadBasicaPersonajeDO = (UnidadBasicaPersonajeDO) dataObject;
 
 	    StringBuffer strbuf = new StringBuffer();
 
@@ -286,30 +284,30 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 	    strbuf.append(getTableName());
 	    strbuf.append(" SET ");
 
-	    strbuf.append(UnidadBasicaRecursoDO.CANTIDAD);
+	    strbuf.append(UnidadBasicaPersonajeDO.CANTIDAD);
 	    strbuf.append(" = ");
-	    strbuf.append(unidadBasicaRecursoDO.getCantidad());
+	    strbuf.append(unidadBasicaPersonajeDO.getCantidad());
 	    
 	    strbuf.append(", ");
 	    	    
-	    strbuf.append(UnidadBasicaRecursoDO.RECURSO_ID);
+	    strbuf.append(UnidadBasicaPersonajeDO.PERSONAJE_ID);
 	    strbuf.append(" = ");
-	    Reference<IRecursoDO> refRec = unidadBasicaRecursoDO.getRecursoRef();
-	    refRec.checkUpdate();
-	    strbuf.append(refRec.getIdAsString());
+	    Reference<IPersonajeDO> refP = unidadBasicaPersonajeDO.getPersonajeRef();
+	    refP.checkUpdate();
+	    strbuf.append(refP.getIdAsString());
 	    
 	    strbuf.append(", ");
 	    
-	    strbuf.append(UnidadBasicaRecursoDO.UNIDAD_BASICA_ID);
+	    strbuf.append(UnidadBasicaPersonajeDO.UNIDAD_BASICA_ID);
 	    strbuf.append(" = ");
-	    Reference<IUnidadBasicaDO> refUnidBas = unidadBasicaRecursoDO.getUnidadBasicaRef();
+	    Reference<IUnidadBasicaDO> refUnidBas = unidadBasicaPersonajeDO.getUnidadBasicaRef();
 	    refUnidBas.checkUpdate();
 	    strbuf.append(refUnidBas.getIdAsString());
 	    
 	    strbuf.append(" WHERE ");
 	    strbuf.append(UnidadBasicaDO.ID);
 	    strbuf.append(" = ");
-	    strbuf.append(unidadBasicaRecursoDO.getId());
+	    strbuf.append(unidadBasicaPersonajeDO.getId());
 
 	    System.err.println(strbuf.toString());
 
@@ -317,7 +315,7 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 
 	}
 	//--------------------------------------------------------------------------------------------------------------------------
-	public List<IUnidadBasicaRecursoDO> listByRecursoId(int recursoId) throws SQLException {
+	public List<IUnidadBasicaPersonajeDO> listByPersonajeId(int personajeId) throws SQLException {
 		
 		StringBuffer strbuf = new StringBuffer();
 
@@ -325,16 +323,16 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 		strbuf.append(getTableName());
 
 		strbuf.append(" WHERE ");
-		strbuf.append(UnidadBasicaRecursoDO.RECURSO_ID);
+		strbuf.append(UnidadBasicaPersonajeDO.PERSONAJE_ID);
 		strbuf.append(" = ");
-		strbuf.append(recursoId);
+		strbuf.append(personajeId);
 
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
 		connection.createStatement().executeQuery(strbuf.toString());
 
-		List<IUnidadBasicaRecursoDO> ret = new ArrayList<IUnidadBasicaRecursoDO>();
+		List<IUnidadBasicaPersonajeDO> ret = new ArrayList<IUnidadBasicaPersonajeDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
@@ -344,14 +342,14 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 	}
 	
 
-	public List<IUnidadBasicaRecursoDO> listByUnidadBasicaId(int unidadBasicaId) throws SQLException {
+	public List<IUnidadBasicaPersonajeDO> listByUnidadBasicaId(int unidadBasicaId) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
 		strbuf.append("SELECT * FROM ");
 		strbuf.append(getTableName());
 
 		strbuf.append(" WHERE ");
-		strbuf.append(UnidadBasicaRecursoDO.UNIDAD_BASICA_ID);
+		strbuf.append(UnidadBasicaPersonajeDO.UNIDAD_BASICA_ID);
 		strbuf.append(" = ");
 		strbuf.append(unidadBasicaId);
 
@@ -360,7 +358,7 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 		ResultSet rs = //
 		connection.createStatement().executeQuery(strbuf.toString());
 
-		List<IUnidadBasicaRecursoDO> ret = new ArrayList<IUnidadBasicaRecursoDO>();
+		List<IUnidadBasicaPersonajeDO> ret = new ArrayList<IUnidadBasicaPersonajeDO>();
 
 		while (rs.next()) {
 			ret.add(resultSetToDO(rs));
@@ -370,35 +368,35 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 	}
 
 	@Override
-	public void loadRecursoRef(IUnidadBasicaRecursoDO unidadBasicaRecursoDO)
+	public void loadPersonajeRef(IUnidadBasicaPersonajeDO unidadBasicaPersonajeDO)
 			throws SQLException {
-		checkClass(unidadBasicaRecursoDO, UnidadBasicaRecursoDO.class, CHECK_UPDATE);
+		checkClass(unidadBasicaPersonajeDO, UnidadBasicaPersonajeDO.class, CHECK_UPDATE);
 
-	    RecursoDAO recursoDAO = new RecursoDAO();
-	    recursoDAO.init(connectionBean);
+	    PersonajeDAO personajeDAO = new PersonajeDAO();
+	    personajeDAO.init(connectionBean);
 
-	    Reference<IRecursoDO> ref = unidadBasicaRecursoDO.getRecursoRef();
+	    Reference<IPersonajeDO> ref = unidadBasicaPersonajeDO.getPersonajeRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;
 	    }
 
-	    RecursoDO recursoDO = //
-	    (RecursoDO) recursoDAO.loadById(ref.getRefIdent());
+	    PersonajeDO personajeDO = //
+	    (PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
 
-	    ref.setRefValue(recursoDO);
+	    ref.setRefValue(personajeDO);
 	}
 
 	@Override
-	public void loadUnidadBasicaRef(IUnidadBasicaRecursoDO unidadBasicaRecursoDO)
+	public void loadUnidadBasicaRef(IUnidadBasicaPersonajeDO unidadBasicaPersonajeDO)
 			throws SQLException {
 		
-		checkClass(unidadBasicaRecursoDO, UnidadBasicaRecursoDO.class, CHECK_UPDATE);
+		checkClass(unidadBasicaPersonajeDO, UnidadBasicaPersonajeDO.class, CHECK_UPDATE);
 
 	    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
 	    unidadBasicaDAO.init(connectionBean);
 
-	    Reference<IUnidadBasicaDO> ref = unidadBasicaRecursoDO.getUnidadBasicaRef();
+	    Reference<IUnidadBasicaDO> ref = unidadBasicaPersonajeDO.getUnidadBasicaRef();
 
 	    if (ref.getRefIdent() == 0) {
 	      return;
@@ -411,5 +409,4 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 		
 		
 	}
-
 }

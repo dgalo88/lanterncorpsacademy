@@ -4,15 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import lcaInterfaceDAO.ITecnologiaDO;
 import lcaInterfaceDAO.IUnidadBasicaDAO;
 import lcaInterfaceDAO.IUnidadEjercitoDO;
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+import dao.api.FactoryDAO;
 import dao.api.Reference;
 import lcaInterfaceDAO.IUnidadBasicaDO;
-import 
+
 
 public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 
@@ -181,26 +181,22 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 
 		strbuf.append(", ");
 
-		Reference<IUnidadEjercitoDO> ref1 = unidadBasicaDO
-				.getUnidadEjercitoArmaRef();
+		Reference<IUnidadEjercitoDO> ref1 = unidadBasicaDO.getUnidadEjercitoArmaRef();
 		ref.checkInsert();
 		strbuf.append(ref1.getIdAsString());
 		strbuf.append(", ");
 
-		Reference<IUnidadEjercitoDO> ref2 = unidadBasicaDO
-				.getUnidadEjercitoBalaRef();
+		Reference<IUnidadEjercitoDO> ref2 = unidadBasicaDO.getUnidadEjercitoBalaRef();
 		ref.checkInsert();
 		strbuf.append(ref2.getIdAsString());
 		strbuf.append(", ");
 
-		Reference<IUnidadEjercitoDO> ref3 = unidadBasicaDO
-				.getUnidadEjercitoRobotRef();
+		Reference<IUnidadEjercitoDO> ref3 = unidadBasicaDO.getUnidadEjercitoRobotRef();
 		ref.checkInsert();
 		strbuf.append(ref3.getIdAsString());
 		strbuf.append(", ");
 
-		Reference<IUnidadEjercitoDO> ref4 = unidadBasicaDO
-				.getUnidadEjercitoVehiculoRef();
+		Reference<IUnidadEjercitoDO> ref4 = unidadBasicaDO.getUnidadEjercitoVehiculoRef();
 		ref.checkInsert();
 		strbuf.append(ref4.getIdAsString());
 
@@ -213,7 +209,200 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		dtaSession.add(dataObject);
 
 	}
+	
+	public List<DataObject> listToBuy(int id) throws  Exception{
+		UnidadBasicaRecursoDAO unidadBasicaRecursoDAO = (UnidadBasicaRecursoDAO) FactoryDAO
+		.getDAO( UnidadBasicaRecursoDAO.class, connectionBean);
+		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO(PersonajeDAO.class, connectionBean);
+		RecursoDAO recursoDAO= (RecursoDAO) FactoryDAO.getDAO(RecursoDAO.class, connectionBean);
+		UnidadBasicaPersonajeDAO unidadBasicaPersonajeDAO=(UnidadBasicaPersonajeDAO) FactoryDAO//
+		.getDAO(UnidadBasicaPersonajeDAO.class, connectionBean);
+		
+		StringBuffer strbuf = new StringBuffer();
 
+		strbuf.append("SELECT " + getTableName() + ".* FROM ");
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append(" JOIN  ");
+		strbuf.append(unidadBasicaPersonajeDAO.getTableName());
+		strbuf.append(" ON ");
+		strbuf.append(unidadBasicaPersonajeDAO.getTableName());
+		strbuf.append("." + UnidadBasicaPersonajeDO.PERSONAJE_ID);
+		strbuf.append(" = ");
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append("." + PersonajeDO.ID);
+		
+
+		strbuf.append(" JOIN  ");
+		strbuf.append(unidadBasicaRecursoDAO.getTableName());
+		strbuf.append(" ON ");
+		strbuf.append(recursoDAO.getTableName());
+		strbuf.append("." + RecursoDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(unidadBasicaRecursoDAO.getTableName());
+		strbuf.append("." + UnidadBasicaRecursoDO.RECURSO_ID);
+
+		strbuf.append(" JOIN  ");
+		strbuf.append(getTableName());
+		strbuf.append(" ON ");
+		strbuf.append(getTableName());
+		strbuf.append("." + UnidadBasicaDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(unidadBasicaRecursoDAO.getTableName());
+		strbuf.append("." + UnidadBasicaRecursoDO.UNIDAD_BASICA_ID);
+
+		strbuf.append(" RIGHT JOIN  ");
+		strbuf.append(unidadBasicaPersonajeDAO.getTableName());
+		strbuf.append(" ON ");
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append("." + PersonajeDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(unidadBasicaPersonajeDAO.getTableName());
+		strbuf.append("." + UnidadBasicaPersonajeDO.PERSONAJE_ID);
+		
+
+		strbuf.append(" WHERE ");
+		strbuf.append(unidadBasicaPersonajeDAO.getTableName());
+		strbuf.append("." + UnidadBasicaPersonajeDO.ID);
+		strbuf.append(" IS NULL AND ");
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append("." + PersonajeDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(id);
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+		System.err.println(strbuf.toString());
+
+		List<DataObject> ret = new ArrayList<DataObject>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+		return ret;
+		
+		
+	}
+
+	 public void loadUnidadBasicaRecursoList(IUnidadBasicaDO unidadBasicaDO) throws Exception {
+	        checkCache(unidadBasicaDO, CHECK_UPDATE);
+
+	        UnidadBasicaRecursoDAO unidadBasicaRecursoDAO = (UnidadBasicaRecursoDAO) FactoryDAO.getDAO( //
+	        UnidadBasicaRecursoDAO.class, connectionBean);
+
+	        unidadBasicaDO.setUnidadBasicaRecursoList(unidadBasicaRecursoDAO.listByUnidadBasicaId(unidadBasicaDO.getId()));
+	      }
+	 
+	 public  void loadUnidadBasicaPersonajeList(IUnidadBasicaDO unidadBasicaDO)
+		throws Exception{
+		 checkCache(unidadBasicaDO, CHECK_UPDATE);
+		 
+	        UnidadBasicaPersonajeDAO unidadBasicaPersonajeDAO = (UnidadBasicaPersonajeDAO) FactoryDAO.getDAO( //
+	        UnidadBasicaPersonajeDAO.class, connectionBean);
+
+	        unidadBasicaDO.setUnidadBasicaPersonajeList(unidadBasicaPersonajeDAO.listByPersonajeId(unidadBasicaDO.getId()));
+		 
+	 }
+	 
+	 public  void loadTecnologiaRef(IUnidadBasicaDO unidadBasicaDO)
+		throws Exception{
+		 
+		 checkClass(unidadBasicaDO, UnidadBasicaDO.class, CHECK_UPDATE);
+
+		    TecnologiaDAO tecnologiaDAO = new TecnologiaDAO();
+		    tecnologiaDAO.init(connectionBean);
+
+		    Reference<ITecnologiaDO> ref = unidadBasicaDO.getTecnologiaRef();
+
+		    if (ref.getRefIdent() == 0) {
+		      return;
+		    }
+
+		    TecnologiaDO tecnologiaDO = //
+		    (TecnologiaDO) tecnologiaDAO.loadById(ref.getRefIdent());
+
+		    ref.setRefValue(tecnologiaDO);
+	 }
+	 
+	 public  void loadUnidadEjercitoArmaRef(IUnidadBasicaDO unidadBasicaDO)
+		throws Exception{
+		 
+		 checkClass(unidadBasicaDO, UnidadBasicaDO.class, CHECK_UPDATE);
+
+		    UnidadEjercitoDAO unidadEjercitoDAO = new UnidadEjercitoDAO();
+		    unidadEjercitoDAO.init(connectionBean);
+
+		    Reference<IUnidadEjercitoDO> ref = unidadBasicaDO.getUnidadEjercitoArmaRef();
+
+		    if (ref.getRefIdent() == 0) {
+		      return;
+		    }
+
+		    UnidadEjercitoDO unidadEjercitoDO = //
+		    (UnidadEjercitoDO) unidadEjercitoDAO.loadById(ref.getRefIdent());
+
+		    ref.setRefValue(unidadEjercitoDO);
+	 }
+	 
+	 public  void loadUnidadEjercitoRobotRef(IUnidadBasicaDO unidadBasicaDO)
+		throws Exception{
+		 
+		 checkClass(unidadBasicaDO, UnidadBasicaDO.class, CHECK_UPDATE);
+
+		    UnidadEjercitoDAO unidadEjercitoDAO = new UnidadEjercitoDAO();
+		    unidadEjercitoDAO.init(connectionBean);
+
+		    Reference<IUnidadEjercitoDO> ref = unidadBasicaDO.getUnidadEjercitoRobotRef();
+
+		    if (ref.getRefIdent() == 0) {
+		      return;
+		    }
+
+		    UnidadEjercitoDO unidadEjercitoDO = //
+		    (UnidadEjercitoDO) unidadEjercitoDAO.loadById(ref.getRefIdent());
+
+		    ref.setRefValue(unidadEjercitoDO);
+	 }
+	 
+	 public  void loadUnidadEjercitoVehiculoRef(IUnidadBasicaDO unidadBasicaDO)
+		throws Exception{
+		 
+		 checkClass(unidadBasicaDO, UnidadBasicaDO.class, CHECK_UPDATE);
+
+		    UnidadEjercitoDAO unidadEjercitoDAO = new UnidadEjercitoDAO();
+		    unidadEjercitoDAO.init(connectionBean);
+
+		    Reference<IUnidadEjercitoDO> ref = unidadBasicaDO.getUnidadEjercitoVehiculoRef();
+
+		    if (ref.getRefIdent() == 0) {
+		      return;
+		    }
+
+		    UnidadEjercitoDO unidadEjercitoDO = //
+		    (UnidadEjercitoDO) unidadEjercitoDAO.loadById(ref.getRefIdent());
+
+		    ref.setRefValue(unidadEjercitoDO);
+	 }
+	
+	 public  void loadUnidadEjercitoBalaRef(IUnidadBasicaDO unidadBasicaDO)
+		throws Exception{
+		 
+		 checkClass(unidadBasicaDO, UnidadBasicaDO.class, CHECK_UPDATE);
+
+		    UnidadEjercitoDAO unidadEjercitoDAO = new UnidadEjercitoDAO();
+		    unidadEjercitoDAO.init(connectionBean);
+
+		    Reference<IUnidadEjercitoDO> ref = unidadBasicaDO.getUnidadEjercitoBalaRef();
+
+		    if (ref.getRefIdent() == 0) {
+		      return;
+		    }
+
+		    UnidadEjercitoDO unidadEjercitoDO = //
+		    (UnidadEjercitoDO) unidadEjercitoDAO.loadById(ref.getRefIdent());
+
+		    ref.setRefValue(unidadEjercitoDO);
+	 }
+	 
 	private int getNextId() throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
@@ -278,15 +467,17 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		ret.setAtaque/*  */(rs.getInt(UnidadBasicaDO.ATAQUE));
 		ret.setTipo/*    */(rs.getInt(UnidadBasicaDO.TIPO));
 
-		ret.setTecnologiaRef(rs.getInt(UnidadBasicaDO.TECNOLOGIA_ID));
-		ret.setUnidadEjercitoArmaRef(rs
-				.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_ARMA_ID));
-		ret.setUnidadBasicaBalaRef(rs
-				.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_BALA_ID));
-		ret.setUnidadEjercitoRobotRef(rs
-				.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_ROBOT_ID));
-		ret.setUnidadEjercitoVehiculoRef(rs
-				.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_VEHICULO_ID));
+		Reference<ITecnologiaDO> refTec = new Reference<ITecnologiaDO>();
+		Reference<IUnidadEjercitoDO> refUnidEjArma = new Reference<IUnidadEjercitoDO>();
+		Reference<IUnidadEjercitoDO> refUnidEjRobot = new Reference<IUnidadEjercitoDO>();
+		Reference<IUnidadEjercitoDO> refUnidEjVehic = new Reference<IUnidadEjercitoDO>();
+		Reference<IUnidadEjercitoDO> refUnidEjBala = new Reference<IUnidadEjercitoDO>();
+		
+		refTec.setRefIdent(rs.getInt(UnidadBasicaDO.TECNOLOGIA_ID));
+		refUnidEjArma.setRefIdent(rs.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_ARMA_ID));
+		refUnidEjRobot.setRefIdent(rs.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_ROBOT_ID));
+		refUnidEjVehic.setRefIdent(rs.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_VEHICULO_ID));
+		refUnidEjBala.setRefIdent(rs.getInt(UnidadBasicaDO.UNIDAD_EJERCITO_BALA_ID));
 
 		return (UnidadBasicaDO) dtaSession.add(ret);
 	}
@@ -352,108 +543,48 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 
 		strbuf.append(UnidadBasicaDO.TECNOLOGIA_ID);
 		strbuf.append(" = ");
-
-		if (unidadBasicaDO.getTecnologiaRef() == null) {
-			if (unidadBasicaDO.getTecnologiaRef(). == 0) {
-				strbuf.append("NULL");
-			} else {
-				strbuf.append(unidadBasicaDO.getTecnologiaRef());
-			}
-		} else {
-			if (unidadBasicaDO.getTecnologiaRef().getId() == 0) {
-				throw new IllegalArgumentException( //
-						"unidadBasicaDO.getTecnologiaRef().getId() == 0");
-			} else {
-				unidadBasicaDO.setTecnologiaId( //
-						unidadBasicaDO.getTecnologiaRef().getId());
-				strbuf.append(unidadBasicaDO.getTecnologiaRef());
-			}
-		}
+		
+		Reference<ITecnologiaDO> refTec = unidadBasicaDO.getTecnologiaRef();
+	    refTec.checkUpdate();
+	    strbuf.append(refTec.getIdAsString());
 		strbuf.append(", ");
 
 		strbuf.append(UnidadBasicaDO.UNIDAD_EJERCITO_ARMA_ID);
 		strbuf.append(" = ");
 
-		if (unidadBasicaDO.getUnidadEjercitoArmaRef() == null) {
-			if (unidadBasicaDO.getUnidadEjercitoArmaRef() == 0) {
-				strbuf.append("NULL");
-			} else {
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoArmaRef());
-			}
-		} else {
-			if (unidadBasicaDO.getUnidadEjercitoArmaRef().getId() == 0) {
-				throw new IllegalArgumentException( //
-						"unidadBasicaDO.getUnidadEjercitoArmaRef().getId() == 0");
-			} else {
-				unidadBasicaDO.setUnidadEjercitoArmaId( //
-						unidadBasicaDO.getUnidadEjercitoArmaRef().getId());
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoArmaRef());
-			}
-		}
-		strbuf.append(", ");
+		Reference<IUnidadEjercitoDO> refUnidadEjrArma = unidadBasicaDO.getUnidadEjercitoArmaRef();
+		refUnidadEjrArma.checkUpdate();
+	    strbuf.append(refUnidadEjrArma.getIdAsString());
+	    strbuf.append(", ");
+		
+
+		strbuf.append(UnidadBasicaDO.UNIDAD_EJERCITO_ROBOT_ID);//UNIDAD_EJERCITO_BALA_ID);
+		strbuf.append(" = ");
+
+		Reference<IUnidadEjercitoDO> refUnidadEjrRobot = unidadBasicaDO.getUnidadEjercitoRobotRef();
+		refUnidadEjrRobot.checkUpdate();
+	    strbuf.append(refUnidadEjrRobot.getIdAsString());
+	    strbuf.append(", ");
+		
+	    
+		strbuf.append(UnidadBasicaDO.UNIDAD_EJERCITO_VEHICULO_ID);
+		strbuf.append(" = ");
+
+		Reference<IUnidadEjercitoDO> refUnidadEjrVehic = unidadBasicaDO.getUnidadEjercitoVehiculoRef();
+		refUnidadEjrVehic.checkUpdate();
+	    strbuf.append(refUnidadEjrVehic.getIdAsString());
+	    strbuf.append(", ");
+		
+		
 
 		strbuf.append(UnidadBasicaDO.UNIDAD_EJERCITO_BALA_ID);
 		strbuf.append(" = ");
 
-		if (unidadBasicaDO.getUnidadEjercitoBalaRef() == null) {
-			if (unidadBasicaDO.getUnidadEjercitoBalaRef() == 0) {
-				strbuf.append("NULL");
-			} else {
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoBalaRef());
-			}
-		} else {
-			if (unidadBasicaDO.getUnidadEjercitoBalaRef().getId() == 0) {
-				throw new IllegalArgumentException( //
-						"unidadBasicaDO.getUnidadEjercitoBalaRef().getId() == 0");
-			} else {
-				unidadBasicaDO.setUnidadEjercitoBalaId( //
-						unidadBasicaDO.getUnidadEjercitoBalaRef().getId());
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoBalaRef());
-			}
-		}
-		strbuf.append(", ");
-
-		strbuf.append(UnidadBasicaDO.UNIDAD_EJERCITO_ROBOT_ID);
-		strbuf.append(" = ");
-
-		if (unidadBasicaDO.getUnidadEjercitoRobotRef() == null) {
-			if (unidadBasicaDO.getUnidadEjercitoRobotId() == 0) {
-				strbuf.append("NULL");
-			} else {
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoRobotRef());
-			}
-		} else {
-			if (unidadBasicaDO.getUnidadEjercitoRobotRef().getId() == 0) {
-				throw new IllegalArgumentException( //
-						"unidadBasicaDO.getUnidadEjercitoRobotRef().getId() == 0");
-			} else {
-				unidadBasicaDO.setUnidadEjercitoRobotId( //
-						unidadBasicaDO.getUnidadEjercitoRobotRef().getId());
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoRobotRef());
-			}
-		}
-		strbuf.append(", ");
-
-		strbuf.append(UnidadBasicaDO.UNIDAD_EJERCITO_VEHICULO_ID);
-		strbuf.append(" = ");
-
-		if (unidadBasicaDO.getUnidadEjercitoVehiculoRef() == null) {
-			if (unidadBasicaDO.getUnidadEjercitoVehiculoRef() == 0) {
-				strbuf.append("NULL");
-			} else {
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoVehiculoRef());
-			}
-		} else {
-			if (unidadBasicaDO.getUnidadEjercitoVehiculoRef().getId() == 0) {
-				throw new IllegalArgumentException( //
-						"unidadBasicaDO.getUnidadEjercitoVehiculoRef().getId() == 0");
-			} else {
-				unidadBasicaDO.setUnidadEjercitoVehiculoId( //
-						unidadBasicaDO.getUnidadEjercitoVehiculoRef().getId());
-				strbuf.append(unidadBasicaDO.getUnidadEjercitoVehiculoRef());
-			}
-		}
-
+		Reference<IUnidadEjercitoDO> refUnidadEjrBala = unidadBasicaDO.getUnidadEjercitoBalaRef();
+		refUnidadEjrBala.checkUpdate();
+	    strbuf.append(refUnidadEjrBala.getIdAsString());
+	    strbuf.append(", ");
+		
 		strbuf.append(" WHERE ");
 		strbuf.append(UnidadBasicaDO.ID);
 		strbuf.append(" = ");
