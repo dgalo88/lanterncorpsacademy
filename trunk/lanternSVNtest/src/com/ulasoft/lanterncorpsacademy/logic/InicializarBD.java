@@ -45,11 +45,10 @@ public class InicializarBD {
 
 	@SuppressWarnings("unchecked")
 	public static void main(String[] nada) throws Exception {
-		
+
 		StringBuffer strbuf;
-	
+
 		// Obtenemos la Conexión
-		
 		ConnectionBean connCreateDB = ConnectionFactory.getConnectionBean("connection_create_db.properties");
 		strbuf = new StringBuffer();
 		strbuf.append("DROP DATABASE IF EXISTS ");
@@ -60,7 +59,7 @@ public class InicializarBD {
 		strbuf.append(BD.nombreBD());
 		connCreateDB.getConnection().createStatement().execute(strbuf.toString());
 		ConnectionFactory.closeConnection(connCreateDB.getConnection());
-		
+
 		ConnectionBean conn = ConnectionFactory.getConnectionBean();
 
 		// Instanciamos los DAO
@@ -75,7 +74,7 @@ public class InicializarBD {
 		IHabilidadActivaDAO HabilidadActivaDAO = (IHabilidadActivaDAO) GlobalDAOFactory.getDAO(IHabilidadActivaDAO.class, conn);
 		INivelHabilidadDAO NivelHabilidadDAO = (INivelHabilidadDAO) GlobalDAOFactory.getDAO(INivelHabilidadDAO.class, conn);
 
-		// Nuevo
+		// DAOs Nuevos
 		IRecursoDAO RecursoDAO = (IRecursoDAO) GlobalDAOFactory.getDAO(IRecursoDAO.class, conn);
 //		IRecursoOfertaCompraDAO RecursoOfertaCompraDAO = (IRecursoOfertaCompraDAO) GlobalDAOFactory.getDAO(IRecursoOfertaCompraDAO.class, conn);
 //		IRecursoOfertaVentaDAO RecursoOfertaVentaDAO = (IRecursoOfertaVentaDAO) GlobalDAOFactory.getDAO(IRecursoOfertaVentaDAO.class, conn);
@@ -83,7 +82,6 @@ public class InicializarBD {
 		IRecursoPlanetaDAO RecursoPlanetaDAO = (IRecursoPlanetaDAO) GlobalDAOFactory.getDAO(IRecursoPlanetaDAO.class, conn);
 
 		// creamos las tablas
-		
 		PlanetaDAO.createTable();
 		ClaseLinternaDAO.createTable();
 		GrupoDAO.createTable();
@@ -95,7 +93,7 @@ public class InicializarBD {
 		HabilidadActivaDAO.createTable();
 		HabilidadClaseLinternaDAO.createTable();
 
-		// Nuevo
+		// Tablas Nuevas
 		RecursoDAO.createTable();
 //		RecursoOfertaCompraDAO.createTable();
 //		RecursoOfertaVentaDAO.createTable();
@@ -104,35 +102,14 @@ public class InicializarBD {
 
 		try {
 
-			// RECURSOS
-
-			IRecursoDO RecursoDO[] = new IRecursoDO[8];
-			for (int i = 0; i < 8; i++) {
-				RecursoDO[i] = (IRecursoDO) GlobalDOFactory.getDO(IRecursoDO.class);
-			}
-			RecursoDO[0].setNombre("Plomo");
-			RecursoDO[1].setNombre("Hierro");
-			RecursoDO[2].setNombre("Acero");
-			RecursoDO[3].setNombre("Uranio");
-			RecursoDO[4].setNombre("Titanio");
-			RecursoDO[5].setNombre("Cristalo");
-			RecursoDO[6].setNombre("Adamantium");
-			RecursoDO[7].setNombre("Vibratium");
-
-			for (int i = 0; i < 8; i++) {
-				RecursoDAO.insert(RecursoDO[i]);
-			}
-
 			// PLANETAS
-
 			IPlanetaDO PlanetaDO[] = new IPlanetaDO[48];
 
-			for (int i = 0; i < 48; i++) {
+			for (int i = 0; i < PlanetaDO.length; i++) {
 				PlanetaDO[i] = (IPlanetaDO) GlobalDOFactory.getDO(IPlanetaDO.class);
 			}
 
-			// ********************************************
-
+			// NOMBRES DE LOS PLANETAS
 			PlanetaDO[VERDE].setNombre("Oa");
 			PlanetaDO[AMARILLO].setNombre("Qward");
 			PlanetaDO[ROJO].setNombre("Ysmault");
@@ -182,8 +159,7 @@ public class InicializarBD {
 			PlanetaDO[46].setNombre("Znang"); //Z'nang
 			PlanetaDO[47].setNombre("Vorn");
 
-			// ********************************************
-
+			// SECTORES
 			PlanetaDO[VERDE].setSector("0");
 			PlanetaDO[AMARILLO].setSector("-1");
 			PlanetaDO[ROJO].setSector("666");
@@ -232,9 +208,8 @@ public class InicializarBD {
 			PlanetaDO[45].setSector("1014");
 			PlanetaDO[46].setSector("1132");
 			PlanetaDO[47].setSector("674");
-			
-			// ********************************************
-			
+
+			// COORDENADA X
 			PlanetaDO[VERDE].setCoordenadaEnX(374);
 			PlanetaDO[AMARILLO].setCoordenadaEnX(12);
 			PlanetaDO[ROJO].setCoordenadaEnX(722);
@@ -283,9 +258,8 @@ public class InicializarBD {
 			PlanetaDO[45].setCoordenadaEnX(587);
 			PlanetaDO[46].setCoordenadaEnX(585);
 			PlanetaDO[47].setCoordenadaEnX(702);
-			
-			// ********************************************
-			
+
+			// COORDENADA Y
 			PlanetaDO[VERDE].setCoordenadaEnY(252);
 			PlanetaDO[AMARILLO].setCoordenadaEnY(124);
 			PlanetaDO[ROJO].setCoordenadaEnY(290);
@@ -336,15 +310,35 @@ public class InicializarBD {
 			PlanetaDO[47].setCoordenadaEnY(380);
 
 			// INSERT PLANETA
-			for (int i = 0; i < 48; i++) {
+			for (int i = 0; i < PlanetaDO.length; i++) {
 				PlanetaDAO.insert(PlanetaDO[i]);
 			}
 
-			// REFERENCIAS PLANETA-RECURSO
-			IRecursoPlanetaDO RecursoPlanetaDO1[] = new IRecursoPlanetaDO[48];
-			IRecursoPlanetaDO RecursoPlanetaDO2[] = new IRecursoPlanetaDO[48];
+			// XXX: RECURSOS
+			IRecursoDO RecursoDO[] = new IRecursoDO[8];
 
-			for (int i = 0; i < 48; i++) {
+			for (int i = 0; i < RecursoDO.length; i++) {
+				RecursoDO[i] = (IRecursoDO) GlobalDOFactory.getDO(IRecursoDO.class);
+			}
+
+			RecursoDO[0].setNombre("Plomo");
+			RecursoDO[1].setNombre("Hierro");
+			RecursoDO[2].setNombre("Acero");
+			RecursoDO[3].setNombre("Uranio");
+			RecursoDO[4].setNombre("Titanio");
+			RecursoDO[5].setNombre("Cristalo");
+			RecursoDO[6].setNombre("Adamantium");
+			RecursoDO[7].setNombre("Vibratium");
+
+			for (int i = 0; i < RecursoDO.length; i++) {
+				RecursoDAO.insert(RecursoDO[i]);
+			}
+
+			// REFERENCIAS PLANETA-RECURSO
+			IRecursoPlanetaDO RecursoPlanetaDO1[] = new IRecursoPlanetaDO[PlanetaDO.length];
+			IRecursoPlanetaDO RecursoPlanetaDO2[] = new IRecursoPlanetaDO[PlanetaDO.length];
+
+			for (int i = 0; i < PlanetaDO.length; i++) {
 
 				RecursoPlanetaDO1[i] = (IRecursoPlanetaDO) //
 						GlobalDOFactory.getDO(IRecursoPlanetaDO.class);
@@ -355,8 +349,57 @@ public class InicializarBD {
 
 			Reference<IRecursoDO> refRecurso1;
 			Reference<IRecursoDO> refRecurso2;
+			Reference<IPlanetaDO> refPlaneta;
 
-			for (int i = 0; i < 48; ) {
+			List<IRecursoPlanetaDO> recursoPlanetaList;
+			Random random = new Random();
+
+			// ASIGNA RECURSOS A LOS PLANETAS BASE
+			// ASEGURANDO QUE EN TODOS EL RECURSO 1 SEA PLOMO
+			// Y EL RECURSO 2 HIERRO, ACERO O URANIO ALEATORIAMENTE
+			refRecurso1 = new Reference<IRecursoDO>();
+			IRecursoDO refValue = (IRecursoDO) RecursoDAO.loadById(1);
+			refRecurso1.setRefValue(refValue);
+
+			for (int i = 0; i < 7; i++) {
+
+				recursoPlanetaList = new ArrayList<IRecursoPlanetaDO>();
+
+				refPlaneta = new Reference<IPlanetaDO>();
+				refPlaneta.setRefIdent(PlanetaDO[i].getId());
+				RecursoPlanetaDO1[i].setPlanetaRef(refPlaneta);
+				RecursoPlanetaDO2[i].setPlanetaRef(refPlaneta);
+
+				refRecurso2 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById((random.nextInt(3) + 1) + 1);
+				refRecurso2.setRefValue(refValue);
+
+				RecursoPlanetaDO1[i].setRecursoRef(refRecurso1);
+				RecursoPlanetaDO2[i].setRecursoRef(refRecurso2);
+
+				RecursoPlanetaDAO.insert(RecursoPlanetaDO1[i]);
+				RecursoPlanetaDAO.insert(RecursoPlanetaDO2[i]);
+
+				recursoPlanetaList.add(RecursoPlanetaDO1[i]);
+				recursoPlanetaList.add(RecursoPlanetaDO2[i]);
+				PlanetaDO[i].setRecursoPlanetaList(recursoPlanetaList);
+				PlanetaDAO.update(PlanetaDO[i]);
+
+				recursoPlanetaList.removeAll(recursoPlanetaList);
+
+			}
+
+			// ASIGNA RECURSOS ALEATORIAMENTE AL RESTO DE PLANETAS
+			for (int i = 7; i < PlanetaDO.length; ) {
+
+				int ref1 = random.nextInt(RecursoDO.length) + 1;
+				int ref2 = random.nextInt(RecursoDO.length) + 1;
+
+				if (ref1 == ref2) {
+					continue;
+				}
+
+				recursoPlanetaList = new ArrayList<IRecursoPlanetaDO>();
 
 				refRecurso1 = new Reference<IRecursoDO>();
 				refRecurso2 = new Reference<IRecursoDO>();
@@ -364,23 +407,11 @@ public class InicializarBD {
 				IRecursoDO refValue1;
 				IRecursoDO refValue2;
 
-				List<IRecursoPlanetaDO> recursoPlanetaList = new ArrayList<IRecursoPlanetaDO>();
-
-				Reference<IPlanetaDO> refPlaneta;
-
 				refPlaneta = new Reference<IPlanetaDO>();
 				refPlaneta.setRefIdent(PlanetaDO[i].getId());
 
-				Random random = new Random();
-				int ref1 = random.nextInt(8) + 1;
-				int ref2 = random.nextInt(8) + 1;
-
 				RecursoPlanetaDO1[i].setPlanetaRef(refPlaneta);
-				RecursoPlanetaDO2[i].setPlanetaRef(refPlaneta);					
-
-				while (ref1 == ref2) {
-					ref2 = random.nextInt(8) + 1;
-				}
+				RecursoPlanetaDO2[i].setPlanetaRef(refPlaneta);
 
 				refValue1 = (IRecursoDO) RecursoDAO.loadById(ref1);
 				refRecurso1.setRefValue(refValue1);
@@ -404,12 +435,14 @@ public class InicializarBD {
 
 			}
 
-			// CREATE CLASELINTERNA
+			// XXX: CREATE CLASELINTERNA
 			IClaseLinternaDO ClaseLinternaDO[] = new IClaseLinternaDO[7];
-			for (int i = 0; i < 7; i++) {
-				ClaseLinternaDO[i] = (IClaseLinternaDO) GlobalDOFactory
-						.getDO(IClaseLinternaDO.class);
+
+			for (int i = 0; i < ClaseLinternaDO.length; i++) {
+				ClaseLinternaDO[i] = (IClaseLinternaDO) //
+					GlobalDOFactory.getDO(IClaseLinternaDO.class);
 			}
+
 			ClaseLinternaDO[VERDE].setColor("Verde");
 			ClaseLinternaDO[AMARILLO].setColor("Amarillo");
 			ClaseLinternaDO[ROJO].setColor("Rojo");
@@ -418,30 +451,30 @@ public class InicializarBD {
 			ClaseLinternaDO[INDIGO].setColor("Indigo");
 			ClaseLinternaDO[VIOLETA].setColor("Violeta");
 
-			ClaseLinternaDO[VERDE]
-					.setNombre_de_cuerpo_linterna("Green Lantern Corps");
-			ClaseLinternaDO[AMARILLO]
-					.setNombre_de_cuerpo_linterna("Sinestro Corps");
-			ClaseLinternaDO[ROJO]
-					.setNombre_de_cuerpo_linterna("Red Lantern Corps");
-			ClaseLinternaDO[AZUL]
-					.setNombre_de_cuerpo_linterna("Blue Lantern Corps");
-			ClaseLinternaDO[NEGRO]
-					.setNombre_de_cuerpo_linterna("Black Lantern Corps");
-			ClaseLinternaDO[INDIGO]
-					.setNombre_de_cuerpo_linterna("Tribu Indigo");
-			ClaseLinternaDO[VIOLETA]
-					.setNombre_de_cuerpo_linterna("Star Sapphires");
+			ClaseLinternaDO[VERDE].setNombre_de_cuerpo_linterna( //
+					"Green Lantern Corps");
+			ClaseLinternaDO[AMARILLO].setNombre_de_cuerpo_linterna( //
+					"Sinestro Corps");
+			ClaseLinternaDO[ROJO].setNombre_de_cuerpo_linterna( //
+					"Red Lantern Corps");
+			ClaseLinternaDO[AZUL].setNombre_de_cuerpo_linterna( //
+					"Blue Lantern Corps");
+			ClaseLinternaDO[NEGRO].setNombre_de_cuerpo_linterna( //
+					"Black Lantern Corps");
+			ClaseLinternaDO[INDIGO].setNombre_de_cuerpo_linterna( //
+					"Tribu Indigo");
+			ClaseLinternaDO[VIOLETA].setNombre_de_cuerpo_linterna( //
+					"Star Sapphires");
 
 			// CREATE REFERENCE TO PLANETA AND INSERT CLASELINTERNA
 			Reference<IPlanetaDO> refpl;
-			Reference<IClaseLinternaDO> refcl[] = new Reference[7];
+			Reference<IClaseLinternaDO> refcl[] = new Reference[ClaseLinternaDO.length];
 
-			for (int i = 0; i < 7; i++) {
+			for (int i = 0; i < ClaseLinternaDO.length; i++) {
 
 				refpl = new Reference<IPlanetaDO>();
-				refcl[i] = new Reference<IClaseLinternaDO>();
 				refpl.setRefIdent(PlanetaDO[i].getId());
+				refcl[i] = new Reference<IClaseLinternaDO>();
 				refcl[i].setRefIdent(ClaseLinternaDO[i].getId());
 				ClaseLinternaDO[i].setPlanetaRef(refpl);
 				ClaseLinternaDAO.insert(ClaseLinternaDO[i]);
@@ -449,6 +482,13 @@ public class InicializarBD {
 			}
 
 			// CREATE AND INSERT HABILIDADES
+			for (int i = 0; i < ClaseLinternaDO.length; i++) {
+
+				refcl[i] = new Reference<IClaseLinternaDO>();
+				refcl[i].setRefIdent(ClaseLinternaDO[i].getId());
+
+			}
+
 			IHabilidadDO HabilidadDO;
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
@@ -467,26 +507,14 @@ public class InicializarBD {
 				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
 				NivelHabilidadDO[i].setHabilidadRef(refhab);
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
-			}
-			//Reference<IClaseLinternaDO> refcl[] = new Reference[7];
-
-			for (int i = 0; i < 7; i++) {
-				//refpl = new Reference<IPlanetaDO>();
-				refcl[i] = new Reference<IClaseLinternaDO>();
-				//refpl.setRefIdent(PlanetaDO[i].getId());
-				refcl[i].setRefIdent(ClaseLinternaDO[i].getId());
-				//ClaseLinternaDO[i].setPlanetaRef(refpl);
-				//ClaseLinternaDAO.insert(ClaseLinternaDO[i]);
-			}
-			
+			}			
 			IHabilidadClaseLinternaDO habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
 					.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
-			
-			
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Daga de Cristal");
@@ -509,8 +537,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Electrocución");
@@ -533,8 +561,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-			
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Hacha de Energía Amarilla");
@@ -557,8 +585,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-			
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Rayo antimateria");
@@ -581,8 +609,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-			
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Espada de Energía Verde");
@@ -605,8 +633,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-			
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Llama Roja");
@@ -629,8 +657,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Campo de Cristal");
@@ -653,8 +681,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Aura de Esperanza");
@@ -677,8 +705,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar de Protección");
@@ -701,8 +729,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Piel de Hueso");
@@ -725,8 +753,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Esfera Indigo");
@@ -749,8 +777,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar del Predator");
@@ -773,8 +801,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar del Antimonitor");
@@ -797,8 +825,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar de Abin Sur");
@@ -821,8 +849,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar de Parallax");
@@ -845,8 +873,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar de ION");
@@ -869,8 +897,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Corrupción de Energía");
@@ -893,8 +921,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Plasma");
@@ -917,8 +945,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Petrificar");
@@ -941,8 +969,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Consumir Corazón");
@@ -965,8 +993,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Predicción de Ataque");
@@ -989,8 +1017,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Infligir Terror");
@@ -1013,8 +1041,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Rayo de esperanza");
@@ -1037,8 +1065,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Cetro Cargado");
@@ -1061,8 +1089,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Golpe de Mazo");
@@ -1085,8 +1113,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Constricción");
@@ -1109,8 +1137,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Robo de Salud");
@@ -1133,8 +1161,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Puño Luminoso");
@@ -1157,8 +1185,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Curación");
@@ -1181,8 +1209,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-		
-			
+
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Evasión de Combate");
@@ -1206,8 +1234,7 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
-		
-			
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Confusión");
@@ -1231,8 +1258,7 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
-		
-			
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Vuelo");
@@ -1258,8 +1284,7 @@ public class InicializarBD {
 				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 			}
 
-		
-			
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Rayo Directo");
@@ -1285,8 +1310,7 @@ public class InicializarBD {
 				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 			}
 
-		
-			
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Aura Protectora");
@@ -1312,8 +1336,7 @@ public class InicializarBD {
 				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 			}
 
-		
-			
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Escudo");
@@ -1339,6 +1362,7 @@ public class InicializarBD {
 				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 			}
 
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Empatia");
@@ -1361,10 +1385,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-			
 
-		
-			
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Cañon de Energia");
@@ -1387,10 +1409,8 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-			
 
-		
-			
+
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
 					.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Explosion de Energia");
@@ -1413,206 +1433,207 @@ public class InicializarBD {
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
-			
-			//NPC
-			
+
+
+			// XXX: NPC
+
 			INpcDO npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Abin Sur");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Verde");
 			NpcDAO.insert(npcDO);
-			
+
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Barreer WoT");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Verde");
 			NpcDAO.insert(npcDO);
-			
+
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Fentara Rrab");
 			npcDO.setNivel(2);
-			npcDO.setSalud(200);
-			npcDO.setDano(20);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
 			npcDO.setColor("Verde");
 			NpcDAO.insert(npcDO);
-			
+
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Bizarro Green Lantern");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Amarillo");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Maash");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Amarillo");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Tekik");
 			npcDO.setNivel(2);
-			npcDO.setSalud(200);
-			npcDO.setDano(20);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
 			npcDO.setColor("Amarillo");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Bleez");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Rojo");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Mera");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Rojo");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Dex-Starr");
 			npcDO.setNivel(2);
-			npcDO.setSalud(200);
-			npcDO.setDano(20);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
 			npcDO.setColor("Rojo");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Diamalon");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Negro");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Katma Tui");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Negro");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Terrence Long");
 			npcDO.setNivel(2);
-			npcDO.setSalud(200);
-			npcDO.setDano(20);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
 			npcDO.setColor("Negro");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Hymn");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Azul");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Sercy");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Azul");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Barry Allen");
 			npcDO.setNivel(2);
-			npcDO.setSalud(200);
-			npcDO.setDano(20);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
 			npcDO.setColor("Azul");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Indigo-1");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Indigo");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Munk");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Indigo");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Ray Palmer");
 			npcDO.setNivel(2);
-			npcDO.setSalud(200);
-			npcDO.setDano(20);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
 			npcDO.setColor("Indigo");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Cowgirl");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Violeta");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Dela Pharon");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Violeta");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Jillian Pearlman");
 			npcDO.setNivel(2);
-			npcDO.setSalud(200);
-			npcDO.setDano(20);
+			npcDO.setSalud(150);
+			npcDO.setDano(15);
 			npcDO.setColor("Violeta");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Paul Kirk");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Neutral");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("clon de Paul Kirk");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Neutral");
 			NpcDAO.insert(npcDO);
 
 			npcDO=(INpcDO) GlobalDOFactory.getDO(INpcDO.class);
 			npcDO.setNombre("Kate Spencer");
 			npcDO.setNivel(1);
-			npcDO.setSalud(150);
-			npcDO.setDano(15);
+			npcDO.setSalud(100);
+			npcDO.setDano(10);
 			npcDO.setColor("Neutral");
 			NpcDAO.insert(npcDO);
 
+			System.out.println("\nBase de Datos Inicializada\n");
 
 		} finally {
 			// Cerramos la Conexion
 			ConnectionFactory.closeConnection(conn.getConnection());
-			System.out.println("\nBase de Datos Inicializada\n");
 		}
 
 	}

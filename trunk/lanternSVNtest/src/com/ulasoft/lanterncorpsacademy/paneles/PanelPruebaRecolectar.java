@@ -3,8 +3,7 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IHabilidadDO;
-import lcaInterfaceDAO.IPersonajeDO;
+import lcaInterfaceDAO.IRecursoDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.CheckBox;
@@ -28,10 +27,10 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
+import com.ulasoft.lanterncorpsacademy.logic.Recolectar;
 
 @SuppressWarnings("serial")
-public class PanelVerHabilidadesAnillo extends Panel{
+public class PanelPruebaRecolectar extends Panel{
 
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
@@ -41,7 +40,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 	private TestTableModel tableDtaModel;
 	private List<Integer> seleccion = new ArrayList<Integer>();
 
-	public PanelVerHabilidadesAnillo() {
+	public PanelPruebaRecolectar() {
 
 		Column col = new Column();
 		col.setInsets(new Insets(10, 10, 10, 10));
@@ -57,13 +56,13 @@ public class PanelVerHabilidadesAnillo extends Panel{
 
 		tableDtaModel = new TestTableModel();
 		try {
-			tableDtaModel = HabilidadesAnillo.obtenerHabilidades( //
+			tableDtaModel = Recolectar.getRecursosPlaneta( //
 					atrib.getPersonaje(), tableDtaModel);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		col.add(PanelConstructor.initTopRow("Habilidades del Anillo"));
+		col.add(PanelConstructor.initTopRow("Recolectar"));
 		col.add(PanelConstructor.initTable(tableDtaModel, initTableColModel(), true));
 
 		Button btnAdquirirHabilidad = new Button("Adquirir Nueva Habilidad");
@@ -102,8 +101,8 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				return habilidad.getNombre();
+				IRecursoDO recurso = (IRecursoDO) element;
+				return recurso.getNombre();
 			}
 		};
 		tableColumn.setWidth(new Extent(100));
@@ -115,18 +114,12 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				try {
-					return HabilidadesAnillo.obtenerNivel( //
-							atrib.getPersonaje().getId(),habilidad);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return 0;
+				IRecursoDO recurso = (IRecursoDO) element;
+				return recurso.getArticulo();
 			}
 		};
-		tableColumn.setWidth(new Extent(25));
-		tableColumn.setHeadValue("Nivel");
+		tableColumn.setWidth(new Extent(50));
+		tableColumn.setHeadValue("Articulo");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
@@ -134,34 +127,34 @@ public class PanelVerHabilidadesAnillo extends Panel{
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				return HabilidadesAnillo.determinarTipo(habilidad.getTipo());
+				IRecursoDO recurso = (IRecursoDO) element;
+				return recurso.getId();
 			}
 		};
 		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Tipo");
+		tableColumn.setHeadValue("ID");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
-		tableColumn = new TableColumn() {
-			@Override
-			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				try {
-					return (int)(Math.pow(2, HabilidadesAnillo.obtenerNivel( //
-							atrib.getPersonaje().getId(), habilidad))*100);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return 0;
-			}
-		};
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Costo de Entrenar");
-		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		tableColModel.getTableColumnList().add(tableColumn);
+//		tableColumn = new TableColumn() {
+//			@Override
+//			public Object getValue(ETable table, Object element) {
+//				IHabilidadDO habilidad = (IHabilidadDO) element;
+//				try {
+//					return (int)(Math.pow(2, HabilidadesAnillo.obtenerNivel( //
+//							atrib.getPersonaje().getId(), habilidad))*100);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				return 0;
+//			}
+//		};
+//		tableColumn.setWidth(new Extent(50));
+//		tableColumn.setHeadValue("Costo de Entrenar");
+//		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+//		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+//		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn();
 		tableColumn.setWidth(new Extent(20));
@@ -229,25 +222,25 @@ public class PanelVerHabilidadesAnillo extends Panel{
 
 	protected void btnEntrenarHabilidadClicked() {
 
-		if(seleccion.isEmpty()) {
-			d.setWindowPaneEmergente( //
-					"No ha seleccionado ninguna habilidad para entrenar, No se entrenará nada");
-			return;
-		}
- 
-		IPersonajeDO personaje = atrib.getPersonaje();
-
-		try {
-			if(HabilidadesAnillo.entrenarHabilidades(seleccion, personaje)) {
-				d.setWindowPaneEmergente( //
-						"No se poseen suficientes puntos de entrenamiento, No se entrenará nada");
-				return;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		atrib.setPersonaje(personaje);
+//		if(seleccion.isEmpty()) {
+//			d.setWindowPaneEmergente( //
+//					"No ha seleccionado ninguna habilidad para entrenar, No se entrenará nada");
+//			return;
+//		}
+// 
+//		IPersonajeDO personaje = atrib.getPersonaje();
+//
+//		try {
+//			if(HabilidadesAnillo.entrenarHabilidades(seleccion, personaje)) {
+//				d.setWindowPaneEmergente( //
+//						"No se poseen suficientes puntos de entrenamiento, No se entrenará nada");
+//				return;
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		atrib.setPersonaje(personaje);
 		d.setWindowPaneEmergente("Se han entrenado las habilidades con éxito");
 		return;
 
