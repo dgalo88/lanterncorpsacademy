@@ -30,6 +30,7 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelMensaje;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMisDatos;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelOfertar;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelPruebaRecolectar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarConquistado;
@@ -576,7 +577,8 @@ public class Menu extends Panel {
 
 	private void btnIntercambiarClicked() {
 
-		PanelIntercambiar pnlMain = new PanelIntercambiar();
+//		PanelIntercambiar pnlMain = new PanelIntercambiar();
+		PanelPruebaRecolectar pnlMain = new PanelPruebaRecolectar();
 		d.setPanelCentral(pnlMain);
 
 	}

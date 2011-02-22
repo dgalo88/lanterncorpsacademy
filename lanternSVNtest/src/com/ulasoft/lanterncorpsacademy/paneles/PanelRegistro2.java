@@ -8,7 +8,6 @@ import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
-import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.RadioButton;
 import nextapp.echo.app.ResourceImageReference;
@@ -61,8 +60,8 @@ public class PanelRegistro2 extends Panel {
 		col.setCellSpacing(new Extent(10));
 		col.setBackground(Color.WHITE);
 
-		col.add(initTopRow("Registro de Usuario", 16));
-		col.add(initTopRow("Elegir Clase:", 14));
+		col.add(PanelConstructor.initTopRow("Registro de Usuario", Color.BLACK, 16));
+		col.add(PanelConstructor.initTopRow("Elegir Clase:", Color.BLACK, 14));
 
 		col.add(clases());
 
@@ -99,21 +98,6 @@ public class PanelRegistro2 extends Panel {
 		col.add(rowBotones);
 		row.add(col);
 		add(row);
-	}
-
-	// --------------------------------------------------------------------------------
-
-	private Row initTopRow(String texto, int size) {
-
-		Row row = new Row();
-		row.setCellSpacing(new Extent(10));
-		row.setAlignment(Alignment.ALIGN_CENTER);
-		Label lblTitle = new Label(texto);
-		lblTitle.setForeground(Color.BLACK);
-		Estilo.setFont(lblTitle, GUIStyles.BOLD, size);
-		row.add(lblTitle);
-		return row;
-
 	}
 
 	// ------------------------------------------------------------------------------
