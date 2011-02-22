@@ -325,4 +325,16 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 
 		return rs.getFloat("d");
 	}
+
+	@Override
+	public void loadPersonajeRef(IPlanetaDO planetaDO) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadRecursoPlanetaList(IPlanetaDO planetaDO) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }

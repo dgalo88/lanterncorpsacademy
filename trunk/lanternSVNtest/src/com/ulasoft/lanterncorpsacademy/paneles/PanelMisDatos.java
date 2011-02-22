@@ -33,6 +33,9 @@ import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 @SuppressWarnings("serial")
 public class PanelMisDatos extends Panel {
 
+	private static final int SIZE2 = 10;
+	private static final int SIZE = 12;
+
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
 
@@ -40,8 +43,6 @@ public class PanelMisDatos extends Panel {
 	private ETable table;
 	private List<Recursos> recursos = new ArrayList<Recursos>();
 	private Recursos recurso;
-
-	private final int SIZE = 12;
 
 	private IPlanetaDO planeta;
 	private Label lblNombre;
@@ -102,8 +103,8 @@ public class PanelMisDatos extends Panel {
 		for (int i = 0; i < colInf.length; i++) {
 			colInf[i] = new Column();
 			colInf[i].setBorder(new Border( //
-					new Extent(1), Color.BLACK, Border.STYLE_SOLID));
-			colInf[i].setInsets(new Insets(3, 3, 3, 3));
+					new Extent(0), Color.BLACK, Border.STYLE_SOLID));
+			colInf[i].setInsets(new Insets(5, 5, 5, 5));
 		}
 
 		Estilo.setFont(lblNombre, GUIStyles.NORMAL, SIZE);
@@ -130,8 +131,8 @@ public class PanelMisDatos extends Panel {
 		for (int i = 0; i < colInf.length; i++) {
 			colInf[i] = new Column();
 			colInf[i].setBorder(new Border( //
-					new Extent(1), Color.BLACK, Border.STYLE_SOLID));
-			colInf[i].setInsets(new Insets(3, 3, 3, 3));
+					new Extent(0), Color.BLACK, Border.STYLE_SOLID));
+			colInf[i].setInsets(new Insets(5, 5, 5, 5));
 		}
 
 		Estilo.setFont(lblClase, GUIStyles.NORMAL, SIZE);
@@ -156,35 +157,35 @@ public class PanelMisDatos extends Panel {
 		col.setInsets(new Insets(10, 0, 5, 0));
 		col.setBorder(new Border(new Extent(1), Color.BLACK, Border.STYLE_SOLID));
 
-//		Label lblInventario = new Label("Inventario de Recursos");
-//		Estilo.setFont(lblInventario, GUIStyles.ITALIC, SIZE);
-//		col.add(lblInventario);
-//
-//		Estilo.setFont(lblPlomo, GUIStyles.NORMAL, SIZE2);
-//		col.add(lblPlomo);
-//
-//		Estilo.setFont(lblHierro, GUIStyles.NORMAL, SIZE2);
-//		col.add(lblHierro);
-//
-//		Estilo.setFont(lblAcero, GUIStyles.NORMAL, SIZE2);
-//		col.add(lblAcero);
-//
-//		Estilo.setFont(lblUranio, GUIStyles.NORMAL, SIZE2);
-//		col.add(lblUranio);
-//
-//		Estilo.setFont(lblTitanio, GUIStyles.NORMAL, SIZE2);
-//		col.add(lblTitanio);
-//
-//		Estilo.setFont(lblCristalo, GUIStyles.NORMAL, SIZE2);
-//		col.add(lblCristalo);
-//
-//		Estilo.setFont(lblAdamantium, GUIStyles.NORMAL, SIZE2);
-//		col.add(lblAdamantium);
-//
-//		Estilo.setFont(lblVibratium, GUIStyles.NORMAL, SIZE2);
-//		col.add(lblVibratium);
+		Label lblInventario = new Label("Inventario de Recursos");
+		Estilo.setFont(lblInventario, GUIStyles.ITALIC, SIZE);
+		col.add(lblInventario);
 
-		col.add(getTableRecursos());
+		Estilo.setFont(lblPlomo, GUIStyles.NORMAL, SIZE2);
+		col.add(lblPlomo);
+
+		Estilo.setFont(lblHierro, GUIStyles.NORMAL, SIZE2);
+		col.add(lblHierro);
+
+		Estilo.setFont(lblAcero, GUIStyles.NORMAL, SIZE2);
+		col.add(lblAcero);
+
+		Estilo.setFont(lblUranio, GUIStyles.NORMAL, SIZE2);
+		col.add(lblUranio);
+
+		Estilo.setFont(lblTitanio, GUIStyles.NORMAL, SIZE2);
+		col.add(lblTitanio);
+
+		Estilo.setFont(lblCristalo, GUIStyles.NORMAL, SIZE2);
+		col.add(lblCristalo);
+
+		Estilo.setFont(lblAdamantium, GUIStyles.NORMAL, SIZE2);
+		col.add(lblAdamantium);
+
+		Estilo.setFont(lblVibratium, GUIStyles.NORMAL, SIZE2);
+		col.add(lblVibratium);
+
+//		col.add(getTableRecursos());
 
 		row.add(col);
 		add(row);

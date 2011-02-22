@@ -3,9 +3,12 @@ package dao.lca;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.api.Reference;
+
 import lcaInterfaceDAO.IObjetivoDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
+import lcaInterfaceDAO.IRecursoPlanetaDO;
 
 
 public class PlanetaDO implements IPlanetaDO {
@@ -103,6 +106,30 @@ public class PlanetaDO implements IPlanetaDO {
 
 	public void setObjetivoList(List<IObjetivoDO> objetivoList) {
 		this.objetivoList = objetivoList;
+	}
+
+	@Override
+	public Reference<IPersonajeDO> getPlanetaEsCasaRef() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<IRecursoPlanetaDO> getRecursoPlanetaList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setPlanetaEsCasaRef(Reference<IPersonajeDO> planetaEsCasaRef) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRecursoPlanetaList(List<IRecursoPlanetaDO> recursoPlanetaList) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

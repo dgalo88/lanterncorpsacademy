@@ -6,6 +6,8 @@ import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
+import lcaInterfaceDAO.IRecursoDAO;
+import lcaInterfaceDAO.IRecursoDO;
 import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
 
@@ -134,6 +136,17 @@ public class Atributos {
 				GlobalDAOFactory.getDAO(IClaseLinternaDAO.class, connectionBean);
 		IClaseLinternaDO claseLinterna = (IClaseLinternaDO) //
 				claseLinternaDAO.loadById(personaje.getClaseLinternaRef().getRefIdent());
+		IRecursoDAO recursoDAO = (IRecursoDAO) //
+				GlobalDAOFactory.getDAO(IRecursoDAO.class, connectionBean);
+
+		IRecursoDO recursoDO1 = (IRecursoDO) recursoDAO.loadById(1);
+		IRecursoDO recursoDO2 = (IRecursoDO) recursoDAO.loadById(2);
+		IRecursoDO recursoDO3 = (IRecursoDO) recursoDAO.loadById(3);
+		IRecursoDO recursoDO4 = (IRecursoDO) recursoDAO.loadById(4);
+		IRecursoDO recursoDO5 = (IRecursoDO) recursoDAO.loadById(5);
+		IRecursoDO recursoDO6 = (IRecursoDO) recursoDAO.loadById(6);
+		IRecursoDO recursoDO7 = (IRecursoDO) recursoDAO.loadById(7);
+		IRecursoDO recursoDO8 = (IRecursoDO) recursoDAO.loadById(8);
 
 		// TODO: Arreglar Referencia
 		IPlanetaDO planetaCasa = (IPlanetaDO) //
@@ -155,14 +168,14 @@ public class Atributos {
 				+ Integer.toString(personaje.getPuntosDeEntrenamiento()));
 		misDatos.getLblOfertas().setText("Ofertas: 00");
 
-		misDatos.getLblPlomo().setText("Plomo: 00");
-		misDatos.getLblHierro().setText("Hierro: 00");
-		misDatos.getLblAcero().setText("Acero: 00");
-		misDatos.getLblUranio().setText("Uranio: 00");
-		misDatos.getLblTitanio().setText("Titanio: 00");
-		misDatos.getLblCristalo().setText("Crstalo: 00");
-		misDatos.getLblAdamantium().setText("Adamantium: 00");
-		misDatos.getLblVibratium().setText("Vibratium: 00");
+		misDatos.getLblPlomo().setText(recursoDO1.getNombre() + ": 00");
+		misDatos.getLblHierro().setText(recursoDO2.getNombre() + ": 00");
+		misDatos.getLblAcero().setText(recursoDO3.getNombre() + ": 00");
+		misDatos.getLblUranio().setText(recursoDO4.getNombre() + ": 00");
+		misDatos.getLblTitanio().setText(recursoDO5.getNombre() + ": 00");
+		misDatos.getLblCristalo().setText(recursoDO6.getNombre() + ": 00");
+		misDatos.getLblAdamantium().setText(recursoDO7.getNombre() + ": 00");
+		misDatos.getLblVibratium().setText(recursoDO8.getNombre() + ": 00");
 
 	}
 
