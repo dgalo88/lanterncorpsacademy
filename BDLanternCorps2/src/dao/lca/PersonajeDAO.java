@@ -601,4 +601,11 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		return ret;
 	}
 
+	@Override
+	public void loadPlanetaCasaRef(IPersonajeDO personajeDO)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

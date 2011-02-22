@@ -1,8 +1,8 @@
 package dao.lantern;
 
+import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IRecursoDO;
 import lcaInterfaceDAO.IRecursoPlanetaDO;
-import lcaInterfaceDAO.IPlanetaDO;
 import dao.api.Reference;
 
 public class RecursoPlanetaDO implements IRecursoPlanetaDO {

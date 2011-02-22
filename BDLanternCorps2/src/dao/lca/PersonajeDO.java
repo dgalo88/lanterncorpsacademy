@@ -10,6 +10,9 @@ import lcaInterfaceDAO.IHabilidadActivaDO;
 import lcaInterfaceDAO.IMisionPersonajeDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
+import lcaInterfaceDAO.IRecursoPersonajeDO;
+import lcaInterfaceDAO.ITecnologiaPersonajeDO;
+import lcaInterfaceDAO.IUnidadEjercitoPersonajeDO;
 import dao.api.Reference;
 
 public class PersonajeDO implements IPersonajeDO {
@@ -177,6 +180,57 @@ public class PersonajeDO implements IPersonajeDO {
 
 	public void setClaseLinternaRef(Reference<IClaseLinternaDO> claseLinternaRef) {
 		this.claseLinternaRef = claseLinternaRef;
+	}
+
+	@Override
+	public Reference<IPlanetaDO> getEstableceCasa() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<IRecursoPersonajeDO> getRecursoPersonajeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ITecnologiaPersonajeDO> getTecnologiaPersonajeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<IUnidadEjercitoPersonajeDO> getUnidadEjercitoPersonajeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setEstableceCasa(Reference<IPlanetaDO> planetaCasaRef) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRecursoPersonajeList(
+			List<IRecursoPersonajeDO> recursoPersonajeList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setTecnologiaPersonajeList(
+			List<ITecnologiaPersonajeDO> tecnologiaPersonajeList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setUnidadEjercitoPersonajeList(
+			List<IUnidadEjercitoPersonajeDO> unidadEjercitoPersonaList) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

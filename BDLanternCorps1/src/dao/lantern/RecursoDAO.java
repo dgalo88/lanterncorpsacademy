@@ -89,9 +89,9 @@ public class RecursoDAO extends BaseDAO implements IRecursoDAO {
 		strbuf.append(RecursoDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(RecursoDO.ARTICULO);
-		strbuf.append(" INT    ");
+		strbuf.append(" INT,   ");
 		strbuf.append(RecursoDO.NOMBRE);
-		strbuf.append(" VARCHAR(100),    ");
+		strbuf.append(" VARCHAR(100)    ");
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
