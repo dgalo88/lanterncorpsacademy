@@ -8,19 +8,21 @@ public class BD {
 
 	// ----------------------------------------------------------------------
 
-	public static final Grupo GRUPO = Grupo.LCA;
+	public static final Grupo GRUPO = Grupo.LANTERN;
 
 	// ----------------------------------------------------------------------
 
 	public static String nombreBD() throws Exception {
 
-		switch (GRUPO) {
-		case LCA:
-			return "lca";
-		case LANTERN:
-			return "lantern";
-		}
-		throw new IllegalStateException();
+		return "lantern";
+
+//		switch (GRUPO) {
+//		case LCA:
+//			return "lca";
+//		case LANTERN:
+//			return "lantern";
+//		}
+//		throw new IllegalStateException();
 	}
 
 }

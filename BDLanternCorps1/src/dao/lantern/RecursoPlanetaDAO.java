@@ -5,11 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IRecursoDO;
 import lcaInterfaceDAO.IRecursoPlanetaDAO;
 import lcaInterfaceDAO.IRecursoPlanetaDO;
-import lcaInterfaceDAO.IPlanetaDO;
-
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
@@ -83,6 +82,10 @@ public class RecursoPlanetaDAO extends BaseDAO implements IRecursoPlanetaDAO {
 		strbuf.append(RecursoPlanetaDO.PLANETA_ID);
 		strbuf.append(" INT NOT NULL REFERENCES   ");
 		strbuf.append(planetaDAO.getTableName());
+		strbuf.append(", ");
+		strbuf.append(RecursoPlanetaDO.CANTIDAD_MAXIMA_RECURSO);
+		strbuf.append(" INT    ");
+
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
@@ -152,12 +155,15 @@ public class RecursoPlanetaDAO extends BaseDAO implements IRecursoPlanetaDAO {
 		Reference<IRecursoDO> refr = recursoPlanetaDO.getRecursoRef();
 		refr.checkInsert();
 		strbuf.append(refr.getIdAsString());
-
 		strbuf.append(", ");
 
 		Reference<IPlanetaDO> refpl = recursoPlanetaDO.getPlanetaRef();
 		refpl.checkInsert();
 		strbuf.append(refpl.getIdAsString());
+
+		strbuf.append(", ");
+		strbuf.append(recursoPlanetaDO.getCantidad_maxima_recurso());
+
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
@@ -241,6 +247,8 @@ public class RecursoPlanetaDAO extends BaseDAO implements IRecursoPlanetaDAO {
 		Reference<IPlanetaDO> refPl = new Reference<IPlanetaDO>();
 		refPl.setRefIdent(rs.getInt(RecursoPlanetaDO.PLANETA_ID));
 		ret.setPlanetaRef(refPl);
+
+		ret.setCantidad_maxima_recurso/*  	*/(rs.getInt(RecursoPlanetaDO.CANTIDAD_MAXIMA_RECURSO));
 
 		return (RecursoPlanetaDO) dtaSession.add(ret);
 	}
@@ -403,6 +411,11 @@ public class RecursoPlanetaDAO extends BaseDAO implements IRecursoPlanetaDAO {
 		Reference<IPlanetaDO> refPl = recursoPlanetaDO.getPlanetaRef();
 		refPl.checkUpdate();
 		strbuf.append(refPl.getIdAsString());
+
+		strbuf.append(RecursoPlanetaDO.CANTIDAD_MAXIMA_RECURSO);
+		strbuf.append(" = ");
+		strbuf.append(recursoPlanetaDO.getCantidad_maxima_recurso());
+		strbuf.append(", ");
 
 		strbuf.append(" WHERE ");
 		strbuf.append(RecursoPlanetaDO.ID);

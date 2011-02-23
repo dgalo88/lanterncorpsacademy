@@ -27,6 +27,7 @@ public class PlanetaDO implements IPlanetaDO {
 	private float coordenada_en_y;
 
 	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
+
 	// --------------------------------------------------------------------------------
 
 	private List<IPersonajeDO> personajeList = //
@@ -41,8 +42,6 @@ public class PlanetaDO implements IPlanetaDO {
 	private Reference<IPersonajeDO>   planetaEsCasaRef = //
 		new Reference<IPersonajeDO>();
 	
-	
-
 	// --------------------------------------------------------------------------------
 
 	public PlanetaDO() {

@@ -6,9 +6,6 @@
         <dependent-module archiveName="BDLanternCorps1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BDLanternCorps1/BDLanternCorps1">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="BDLanternCorps2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BDLanternCorps2/BDLanternCorps2">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="DaoPattern.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/DaoPattern/DaoPattern">
             <dependency-type>uses</dependency-type>
         </dependent-module>
