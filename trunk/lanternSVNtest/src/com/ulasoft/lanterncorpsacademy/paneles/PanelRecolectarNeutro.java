@@ -3,7 +3,8 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.IRecursoDO;
+import lcaInterfaceDAO.IRecursoPlanetaDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
@@ -27,7 +28,7 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
+import com.ulasoft.lanterncorpsacademy.logic.Recolectar;
 
 @SuppressWarnings("serial")
 public class PanelRecolectarNeutro extends Panel {
@@ -55,7 +56,7 @@ public class PanelRecolectarNeutro extends Panel {
 		// ----------------------------------------
 		tableDtaModel = new TestTableModel();
 		try {
-			tableDtaModel = HabilidadesAnillo.obtenerHabilidadesCompra( //
+			tableDtaModel = Recolectar.getRecursosPlaneta( //
 					app.getAtributos().getPersonaje(), tableDtaModel);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,9 +100,9 @@ public class PanelRecolectarNeutro extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				return habilidad.getNombre();
-				
+				IRecursoPlanetaDO recursoPlaneta = (IRecursoPlanetaDO) element;
+				IRecursoDO recurso = (IRecursoDO) recursoPlaneta.getRecursoRef().getRefValue();
+				return recurso.getNombre();
 			}
 		};
 		tableColumn.setWidth(new Extent(150));
@@ -113,8 +114,8 @@ public class PanelRecolectarNeutro extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				return habilidad.getCosto_de_aprendizaje();
+				IRecursoPlanetaDO recursoPlanetaDO = (IRecursoPlanetaDO) element;
+				return recursoPlanetaDO.getCantidad_maxima_recurso();
 			}
 		};
 		tableColumn.setWidth(new Extent(25));

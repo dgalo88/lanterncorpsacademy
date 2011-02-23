@@ -9,10 +9,12 @@ public class RecursoPlanetaDO implements IRecursoPlanetaDO {
 
 	public static final String RECURSO_ID = "recursoId";
 	public static final String PLANETA_ID = "planetaId";
+	public static final String CANTIDAD_MAXIMA_RECURSO = "cantidad_maxima_recurso";
 
 	// --------------------------------------------------------------------------------
 
 	private int id;
+	private int cantidad_maxima_recurso;
 
 	// --------------------------------------------------------------------------------
 
@@ -59,6 +61,14 @@ public class RecursoPlanetaDO implements IRecursoPlanetaDO {
 	public void setId(int id) {
 		this.id = id;
 
+	}
+
+	public void setCantidad_maxima_recurso(int cantidad_maxima_recurso) {
+		this.cantidad_maxima_recurso = cantidad_maxima_recurso;
+	}
+
+	public int getCantidad_maxima_recurso() {
+		return cantidad_maxima_recurso;
 	}
 
 }

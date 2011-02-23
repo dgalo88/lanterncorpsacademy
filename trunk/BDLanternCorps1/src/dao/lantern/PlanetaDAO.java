@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
@@ -108,10 +107,6 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 		strbuf.append(planetaDO.getCoordenadaEnX());
 		strbuf.append(", ");
 		strbuf.append(planetaDO.getCoordenadaEnY());
-		// strbuf.append(", ");
-		// Reference<ClaseLinternaDO> refU = planetaDO.getClaseLinternaRef();
-		// refU.checkInsert();
-		// strbuf.append(refU.getIdAsString());
 
 		strbuf.append(")");
 
@@ -140,23 +135,23 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 		strbuf.append(PlanetaDO.SECTOR);
 		strbuf.append(" = ");
 		strbuf.append(singleQuotes(planetaDO.getSector()));
-
 		strbuf.append(", ");
 
 		strbuf.append(PlanetaDO.COORDENADA_EN_X);
 		strbuf.append(" = ");
 		strbuf.append(planetaDO.getCoordenadaEnX());
-
 		strbuf.append(", ");
 
 		strbuf.append(PlanetaDO.COORDENADA_EN_Y);
 		strbuf.append(" = ");
 		strbuf.append(planetaDO.getCoordenadaEnY());
-		strbuf.append(", ");
+//		strbuf.append(", ");
 
-		Reference<IClaseLinternaDO> refH = planetaDO.getClaseLinternaRef();
-		refH.checkUpdate();
-		strbuf.append(refH.getIdAsString());
+//		Reference<IClaseLinternaDO> refH = planetaDO.getClaseLinternaRef();
+//		refH.checkUpdate();
+//		strbuf.append(refH.getIdAsString());
+
+		System.err.println(strbuf.toString());
 
 		strbuf.append(" WHERE ");
 		strbuf.append(PlanetaDO.ID);
@@ -369,26 +364,7 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 	// --------------------------------------------------------------------------------
 
 	public void loadClaseLinternaRef(IPlanetaDO planetaDO) throws Exception {
-		// // XXX: Check this method's semantic
-		// checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
-		//
-		// // ClaseLinternaDAO claseLinternaDAO = new ClaseLinternaDAO();
-		// // claseLinternaDAO.init(connectionBean); //TODO USE FACTORY
-		//    
-		// ClaseLinternaDAO claseLinternaDAO = (ClaseLinternaDAO)
-		// FactoryDAO.getDAO( //
-		// ClaseLinternaDAO.class, connectionBean);
-		//
-		// Reference<IClaseLinternaDO> ref = planetaDO.getClaseLinternaRef();
-		//
-		// if (ref.getRefIdent() == 0) {
-		// return;
-		// }
-		//
-		// ClaseLinternaDO claseLinternaDO = //
-		// (ClaseLinternaDO) claseLinternaDAO.loadById(ref.getRefIdent());
-		//
-		// ref.setRefValue(claseLinternaDO);
+		// XXX: Empty Method
 	}
 
 	// --------------------------------------------------------------------------------
@@ -426,13 +402,13 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 
 	@Override
 	public void loadRecursoPlanetaList(IPlanetaDO planetaDO) throws Exception {
+		checkCache(planetaDO, CHECK_UPDATE);
 
-		RecursoPlanetaDAO recursoPlanetaDAO = (RecursoPlanetaDAO) FactoryDAO
-				.getDAO( //
-						RecursoPlanetaDAO.class, connectionBean);
+		RecursoPlanetaDAO recursoPlanetaDAO = (RecursoPlanetaDAO) //
+				FactoryDAO.getDAO(RecursoPlanetaDAO.class, connectionBean);
 
-		planetaDO.setRecursoPlanetaList(recursoPlanetaDAO
-				.listByRecursoId(planetaDO.getId()));
+		planetaDO.setRecursoPlanetaList( //
+				recursoPlanetaDAO.listByRecursoId(planetaDO.getId()));
 	}
 
 	// coordenada_en_x";

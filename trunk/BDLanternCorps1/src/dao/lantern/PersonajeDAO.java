@@ -17,7 +17,7 @@ import dao.api.Reference;
 
 public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 
-	public static final int SALUD 					= 500;
+	public static final int SALUD 					= 200;
 	public static final int ENERGIA_DEL_ANILLO 		= 100;
 
 	@Override

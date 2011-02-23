@@ -363,6 +363,9 @@ public class InicializarBD {
 
 			for (int i = 0; i < 7; i++) {
 
+				RecursoPlanetaDO1[i].setCantidad_maxima_recurso(random.nextInt(200) + 100);
+				RecursoPlanetaDO2[i].setCantidad_maxima_recurso(random.nextInt(200) + 100);
+
 				recursoPlanetaList = new ArrayList<IRecursoPlanetaDO>();
 
 				refPlaneta = new Reference<IPlanetaDO>();
@@ -398,6 +401,9 @@ public class InicializarBD {
 				if (ref1 == ref2) {
 					continue;
 				}
+
+				RecursoPlanetaDO1[i].setCantidad_maxima_recurso(random.nextInt(200) + 100);
+				RecursoPlanetaDO2[i].setCantidad_maxima_recurso(random.nextInt(200) + 100);
 
 				recursoPlanetaList = new ArrayList<IRecursoPlanetaDO>();
 
