@@ -43,16 +43,16 @@ public class PanelOfertar extends Panel {
 		Grid gridTitulo = new Grid();
 		gridTitulo.setWidth(new Extent(400));
 		gridTitulo.setHeight(new Extent(40));
+		gridTitulo.setColumnWidth(0, new Extent(50, Extent.PERCENT));
 		gridTitulo.setColumnWidth(1, new Extent(50, Extent.PERCENT));
-		gridTitulo.setColumnWidth(2, new Extent(50, Extent.PERCENT));
 		gridTitulo.setBorder(new Border(1, Color.BLACK, Border.STYLE_SOLID));
 		gridTitulo.setBackground(Estilo.getRolloverColor(app.getAtributos()));
 
 		gridBotones = new Grid();
 		gridBotones.setWidth(new Extent(400));
 		gridBotones.setHeight(new Extent(50));
+		gridBotones.setColumnWidth(0, new Extent(50, Extent.PERCENT));
 		gridBotones.setColumnWidth(1, new Extent(50, Extent.PERCENT));
-		gridBotones.setColumnWidth(2, new Extent(50, Extent.PERCENT));
 		gridBotones.setBorder(new Border(1, Color.BLACK, Border.STYLE_INSET));
 		gridBotones.setBackground(Color.WHITE);
 

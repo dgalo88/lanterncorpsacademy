@@ -56,8 +56,8 @@ public class PanelPruebaRecolectar extends Panel{
 
 		tableDtaModel = new TestTableModel();
 		try {
-			tableDtaModel = Recolectar.getRecursosPlaneta( //
-					atrib.getPersonaje(), tableDtaModel);
+//			tableDtaModel = Recolectar.getRecursosPlaneta( //
+//					atrib.getPersonaje(), tableDtaModel);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

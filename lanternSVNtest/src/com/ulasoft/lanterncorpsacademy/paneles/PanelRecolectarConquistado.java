@@ -3,7 +3,7 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.IRecursoPlanetaDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.CheckBox;
@@ -26,7 +26,7 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
+import com.ulasoft.lanterncorpsacademy.logic.Recolectar;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
@@ -37,6 +37,7 @@ public class PanelRecolectarConquistado extends Panel {
 	private Desktop d = app.getDesktop();
 
 	private TestTableModel tableDtaModel;
+	private List<IRecursoPlanetaDO> recursoPlanetaList;
 	private List<Integer> seleccion = new ArrayList<Integer>();
 
 	public PanelRecolectarConquistado() {
@@ -50,15 +51,16 @@ public class PanelRecolectarConquistado extends Panel {
 		row.setAlignment(Alignment.ALIGN_CENTER);
 
 		// ----------------------------------------
-		// TODO: Carga los Recursos Disponibles
+		// Carga los Recursos Disponibles
 		// ----------------------------------------
 		tableDtaModel = new TestTableModel();
 		try {
-			tableDtaModel = HabilidadesAnillo.obtenerHabilidadesCompra( //
-					app.getAtributos().getPersonaje(), tableDtaModel);
+			recursoPlanetaList = Recolectar.getRecursosPlaneta( //
+					app.getAtributos().getPersonaje());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		tableDtaModel = Recolectar.asignarRecursos(tableDtaModel, recursoPlanetaList);
 
 		col.add(PanelConstructor.initTopRow("Lista de Recursos Disponibles"));
 		col.add(PanelConstructor.initTable( //
@@ -98,12 +100,16 @@ public class PanelRecolectarConquistado extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				return habilidad.getNombre();
-				
+				IRecursoPlanetaDO recursoPlanetaDO = (IRecursoPlanetaDO) element;
+				try {
+					return Recolectar.getRecurso(recursoPlanetaDO).getNombre();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
 			}
 		};
-		tableColumn.setWidth(new Extent(150));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Nombre");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -112,11 +118,11 @@ public class PanelRecolectarConquistado extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				return habilidad.getCosto_de_aprendizaje();
+				IRecursoPlanetaDO recursoPlanetaDO = (IRecursoPlanetaDO) element;
+				return recursoPlanetaDO.getCantidad_maxima_recurso();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Cantidad Máxima Disponible");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -130,7 +136,7 @@ public class PanelRecolectarConquistado extends Panel {
 		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn();
-		tableColumn.setWidth(new Extent(25));
+		tableColumn.setWidth(new Extent(20));
 		tableColumn.setHeadValue("");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(initNestedCellRenderer());
@@ -211,8 +217,7 @@ public class PanelRecolectarConquistado extends Panel {
 			return;
 
 		}
-		PanelUnitSelect pnlMain = new PanelUnitSelect();
-		d.setWindowData(pnlMain, pnlMain.getTitulo(), 600, 400);
+		d.setWindowUnitSelect(600, 400);
 
 	}
 

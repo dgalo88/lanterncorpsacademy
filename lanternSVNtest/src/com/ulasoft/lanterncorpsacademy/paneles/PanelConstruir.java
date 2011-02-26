@@ -46,16 +46,16 @@ public class PanelConstruir extends Panel {
 		gridUnits.setHeight(new Extent(80));
 		gridUnits.setBackground(Estilo.getRolloverColor(app.getAtributos()));
 		gridUnits.setBorder(new Border(1, Color.BLACK, Border.STYLE_SOLID));
+		gridUnits.setColumnWidth(0, new Extent(25, Extent.PERCENT));
 		gridUnits.setColumnWidth(1, new Extent(25, Extent.PERCENT));
 		gridUnits.setColumnWidth(2, new Extent(25, Extent.PERCENT));
 		gridUnits.setColumnWidth(3, new Extent(25, Extent.PERCENT));
-		gridUnits.setColumnWidth(4, new Extent(25, Extent.PERCENT));
 
 		gridData = new Grid(2);
 		gridData.setWidth(new Extent(500));
 //		gridData.setHeight(new Extent(40));
+		gridData.setColumnWidth(0, new Extent(50, Extent.PERCENT));
 		gridData.setColumnWidth(1, new Extent(50, Extent.PERCENT));
-		gridData.setColumnWidth(2, new Extent(50, Extent.PERCENT));
 
 		colInfo = new Column();
 		colInfo.setCellSpacing(new Extent(10));

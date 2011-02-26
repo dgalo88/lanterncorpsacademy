@@ -1,9 +1,9 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-import lcaInterfaceDAO.IRecursoDO;
 import lcaInterfaceDAO.IRecursoPlanetaDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
@@ -38,6 +38,8 @@ public class PanelRecolectarNeutro extends Panel {
 	private Desktop d = app.getDesktop();
 
 	private TestTableModel tableDtaModel;
+	private List<IRecursoPlanetaDO> recursoPlanetaList;
+	private IRecursoPlanetaDO recursoPlanetaDO;
 	private List<Integer> seleccion = new ArrayList<Integer>();
 	private ButtonGroup btnGroupRecursos = new ButtonGroup();
 
@@ -52,15 +54,16 @@ public class PanelRecolectarNeutro extends Panel {
 		row.setAlignment(Alignment.ALIGN_CENTER);
 
 		// ----------------------------------------
-		// TODO: Carga los Recursos Disponibles
+		// Carga los Recursos Disponibles
 		// ----------------------------------------
 		tableDtaModel = new TestTableModel();
 		try {
-			tableDtaModel = Recolectar.getRecursosPlaneta( //
-					app.getAtributos().getPersonaje(), tableDtaModel);
+			recursoPlanetaList = Recolectar.getRecursosPlaneta( //
+					app.getAtributos().getPersonaje());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		tableDtaModel = Recolectar.asignarRecursos(tableDtaModel, recursoPlanetaList);
 
 		col.add(PanelConstructor.initTopRow("Lista de Recursos Disponibles"));
 		col.add(PanelConstructor.initTable( //
@@ -100,12 +103,16 @@ public class PanelRecolectarNeutro extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IRecursoPlanetaDO recursoPlaneta = (IRecursoPlanetaDO) element;
-				IRecursoDO recurso = (IRecursoDO) recursoPlaneta.getRecursoRef().getRefValue();
-				return recurso.getNombre();
+				IRecursoPlanetaDO recursoPlanetaDO = (IRecursoPlanetaDO) element;
+				try {
+					return Recolectar.getRecurso(recursoPlanetaDO).getNombre();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
 			}
 		};
-		tableColumn.setWidth(new Extent(150));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Nombre");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -118,14 +125,14 @@ public class PanelRecolectarNeutro extends Panel {
 				return recursoPlanetaDO.getCantidad_maxima_recurso();
 			}
 		};
-		tableColumn.setWidth(new Extent(25));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Cantidad Máxima Disponible");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn();
-		tableColumn.setWidth(new Extent(25));
+		tableColumn.setWidth(new Extent(20));
 		tableColumn.setHeadValue("");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(initNestedCellRenderer());
@@ -169,25 +176,18 @@ public class PanelRecolectarNeutro extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnRadioClicked(int row) {
-
-		Integer e = new Integer(row);
-		for(int pos = 0; pos < seleccion.size(); pos++) {
-			if(seleccion.get(pos).equals(e)){
-				seleccion.remove(pos);
-				return;
-			}
-		}
-		seleccion.add(e);
+		recursoPlanetaDO = recursoPlanetaList.get(row);
 	}
 
 	private void btnRecolectarClicked() {
 
-		if(seleccion.isEmpty()){
-			d.setWindowPaneEmergente( //
-					"No hay selección");
+		if(recursoPlanetaDO.equals(null)){
+			d.setWindowPaneEmergente("Seleccione un recurso");
 			return;
 		}
-//
+
+		Calendar dateInit = Calendar.getInstance();
+
 //		Atributos atrib = app.getAtributos();
 //		IPersonajeDO person = atrib.getPersonaje();
 //		try {

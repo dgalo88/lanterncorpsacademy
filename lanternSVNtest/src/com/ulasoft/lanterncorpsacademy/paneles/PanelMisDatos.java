@@ -11,6 +11,7 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Font;
+import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -93,7 +94,12 @@ public class PanelMisDatos extends Panel {
 			e1.printStackTrace();
 		}
 
-		Row row = new Row();
+		Grid grid = new Grid(3);
+//		grid.setWidth(new Extent(530));
+//		grid.setColumnWidth(0, new Extent(180));
+//		grid.setColumnWidth(1, new Extent(180));
+//		grid.setColumnWidth(2, new Extent(150));
+
 		Column col;
 		Column colInf [] = new Column [4];
 
@@ -123,7 +129,7 @@ public class PanelMisDatos extends Panel {
 		colInf[3].add(lblPlanetaValue);
 		col.add(colInf[3]);
 
-		row.add(col);
+		grid.add(col);
 
 		col = new Column();
 		col.setInsets(new Insets(5, 0, 10, 0));
@@ -151,7 +157,7 @@ public class PanelMisDatos extends Panel {
 		colInf[3].add(lblOfertas);
 		col.add(colInf[3]);
 
-		row.add(col);
+		grid.add(col);
 
 		col = new Column();
 		col.setInsets(new Insets(10, 0, 5, 0));
@@ -187,8 +193,8 @@ public class PanelMisDatos extends Panel {
 
 //		col.add(getTableRecursos());
 
-		row.add(col);
-		add(row);
+		grid.add(col);
+		add(grid);
 
 	}
 
