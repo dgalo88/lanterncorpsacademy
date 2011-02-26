@@ -25,10 +25,8 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelConstruir;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelIntercambiar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMensaje;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelMisDatos;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelOfertar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelPruebaRecolectar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
@@ -39,7 +37,6 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelReparar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelSabotear;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelVerUnidades;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
 import com.valkirye.lanterncorpsacademy.components.Accordion;
 import com.valkirye.lanterncorpsacademy.components.AccordionSection;
@@ -445,10 +442,7 @@ public class Menu extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnVerDatosClicked() {
-
-		PanelMisDatos pnlMain = new PanelMisDatos();
-		d.setWindowData(pnlMain, "Mis Datos", 650, 280);
-
+		d.setWindowData(550, 200);
 	}
 
 	// --------------------------------------------------------------------------------
@@ -483,9 +477,7 @@ public class Menu extends Panel {
 	private void btnVerUnidadesClicked() {
 
 		// XXX: Inventario
-
-		PanelVerUnidades pnlMain = new PanelVerUnidades();
-		d.setWindowData(pnlMain, "Inventario de Unidades", 500, 170);
+		d.setWindowInventary(500, 180);
 
 	}
 

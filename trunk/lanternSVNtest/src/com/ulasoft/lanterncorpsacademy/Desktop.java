@@ -1,14 +1,20 @@
 package com.ulasoft.lanterncorpsacademy;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
+import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.ResourceImageReference;
 import nextapp.echo.app.WindowPane;
+import nextapp.echo.app.event.WindowPaneEvent;
+import nextapp.echo.app.event.WindowPaneListener;
 
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.menus.Menu;
@@ -17,7 +23,10 @@ import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
 import com.ulasoft.lanterncorpsacademy.menus.MenuInicial;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
-import com.valkirye.lanterncorpsacademy.extras.WindowLca;
+import com.valkirye.lanterncorpsacademy.windows.WindowData;
+import com.valkirye.lanterncorpsacademy.windows.WindowInventary;
+import com.valkirye.lanterncorpsacademy.windows.WindowLca;
+import com.valkirye.lanterncorpsacademy.windows.WindowUnitSelect;
 
 import echopoint.HtmlLayout;
 import echopoint.layout.HtmlLayoutData;
@@ -27,6 +36,9 @@ public class Desktop extends ContentPane {
 
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
+
+	private Map< Class<? extends WindowPane>, WindowPane> windowsByType = //
+		new HashMap<Class<? extends WindowPane>, WindowPane>();
 
 	private HtmlLayout htmlLayout;
 	private HtmlLayoutData hld;
@@ -157,9 +169,46 @@ public class Desktop extends ContentPane {
 		add(windowPane);
 	}
 
-	public void setWindowData(Component component, String titulo, int width, int height) {
-		windowPane = new WindowLca(component, titulo, width, height);
-		add(windowPane);
+	public void setWindowData(int width, int height) {
+
+		WindowData windowData = new WindowData();
+		windowData.setWidth(new Extent(width));
+		windowData.setHeight(new Extent(height));
+
+		try {
+			genericOpenWindow(windowData.getClass());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void setWindowInventary(int width, int height) {
+
+		WindowInventary windowInventary = new WindowInventary();
+		windowInventary.setWidth(new Extent(width));
+		windowInventary.setHeight(new Extent(height));
+
+		try {
+			genericOpenWindow(windowInventary.getClass());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void setWindowUnitSelect(int width, int height) {
+
+		WindowUnitSelect windowUnitSelect = new WindowUnitSelect();
+		windowUnitSelect.setWidth(new Extent(width));
+		windowUnitSelect.setHeight(new Extent(height));
+
+		try {
+			genericOpenWindow(windowUnitSelect.getClass());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	// --------------------------------------------------------------------------------
@@ -171,5 +220,48 @@ public class Desktop extends ContentPane {
 	public WindowPane getWindowPane() {
 		return windowPane;
 	}
+
+	// --------------------------------------------------------------------------------
+
+	private void genericOpenWindow(Class<? extends WindowPane> windowType) //
+		throws Exception {
+
+		WindowPane wp = windowsByType.get(windowType);
+
+		if (wp == null) {
+			// Esto crea un nuevo tipo según el Class pasado.
+			wp = windowType.newInstance();
+			add(wp);
+			windowsByType.put(windowType, wp);
+
+			wp.addWindowPaneListener(new WindowPaneListener() {
+				@Override
+				public void windowPaneClosing(WindowPaneEvent evt) {
+					WindowPane source = (WindowPane) evt.getSource();
+					windowsByType.remove(source.getClass());
+				}
+			});
+		} /*else {
+			raise(wp);
+		}*/
+	}
+
+//	private void raise(WindowPane window) {
+//
+//		int maxZindex = 0;
+//		List<WindowPane> listWindowPanes = new ArrayList<WindowPane>();
+//		listWindowPanes.addAll(windowsByType.values());
+//
+//		for (int i = 0; i < listWindowPanes.size(); i++) {
+//
+//			WindowPane windowPane = listWindowPanes.get(i);
+//
+//			if (windowPane.getZIndex() > window.getZIndex()) {
+//				maxZindex = windowPane.getZIndex();
+//			}
+//		}
+//
+//		window.setZIndex(maxZindex + 1);
+//	}
 
 }

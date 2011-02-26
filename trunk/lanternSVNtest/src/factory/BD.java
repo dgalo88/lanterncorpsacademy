@@ -16,13 +16,6 @@ public class BD {
 
 		return "lantern";
 
-//		switch (GRUPO) {
-//		case LCA:
-//			return "lca";
-//		case LANTERN:
-//			return "lantern";
-//		}
-//		throw new IllegalStateException();
 	}
 
 }

@@ -16,11 +16,15 @@ import lcaInterfaceDAO.INivelHabilidadDAO;
 import lcaInterfaceDAO.INivelHabilidadDO;
 import lcaInterfaceDAO.INpcDAO;
 import lcaInterfaceDAO.INpcDO;
+import lcaInterfaceDAO.IOfertaDAO;
+import lcaInterfaceDAO.IOfertaPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IRecursoDAO;
 import lcaInterfaceDAO.IRecursoDO;
+import lcaInterfaceDAO.IRecursoOfertaCompraDAO;
+import lcaInterfaceDAO.IRecursoOfertaVentaDAO;
 import lcaInterfaceDAO.IRecursoPersonajeDAO;
 import lcaInterfaceDAO.IRecursoPlanetaDAO;
 import lcaInterfaceDAO.IRecursoPlanetaDO;
@@ -63,23 +67,67 @@ public class InicializarBD {
 		ConnectionBean conn = ConnectionFactory.getConnectionBean();
 
 		// Instanciamos los DAO
-		IUsuarioDAO UsuarioDAO = (IUsuarioDAO) GlobalDAOFactory.getDAO(IUsuarioDAO.class, conn);
-		IPersonajeDAO PersonajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(IPersonajeDAO.class, conn);
-		IClaseLinternaDAO ClaseLinternaDAO = (IClaseLinternaDAO) GlobalDAOFactory.getDAO(IClaseLinternaDAO.class, conn);
-		IPlanetaDAO PlanetaDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, conn);
-		IGrupoDAO GrupoDAO = (IGrupoDAO) GlobalDAOFactory.getDAO(IGrupoDAO.class, conn);
-		INpcDAO NpcDAO = (INpcDAO) GlobalDAOFactory.getDAO(INpcDAO.class, conn);
-		IHabilidadDAO HabilidadDAO = (IHabilidadDAO) GlobalDAOFactory.getDAO(IHabilidadDAO.class, conn);
-		IHabilidadClaseLinternaDAO HabilidadClaseLinternaDAO = (IHabilidadClaseLinternaDAO) GlobalDAOFactory.getDAO(IHabilidadClaseLinternaDAO.class, conn);
-		IHabilidadActivaDAO HabilidadActivaDAO = (IHabilidadActivaDAO) GlobalDAOFactory.getDAO(IHabilidadActivaDAO.class, conn);
-		INivelHabilidadDAO NivelHabilidadDAO = (INivelHabilidadDAO) GlobalDAOFactory.getDAO(INivelHabilidadDAO.class, conn);
+		IUsuarioDAO UsuarioDAO = (IUsuarioDAO) //
+			GlobalDAOFactory.getDAO(IUsuarioDAO.class, conn);
+		IPersonajeDAO PersonajeDAO = (IPersonajeDAO) //
+			GlobalDAOFactory.getDAO(IPersonajeDAO.class, conn);
+		IClaseLinternaDAO ClaseLinternaDAO = (IClaseLinternaDAO) //
+			GlobalDAOFactory.getDAO(IClaseLinternaDAO.class, conn);
+		IPlanetaDAO PlanetaDAO = (IPlanetaDAO) //
+			GlobalDAOFactory.getDAO(IPlanetaDAO.class, conn);
+		IGrupoDAO GrupoDAO = (IGrupoDAO) //
+			GlobalDAOFactory.getDAO(IGrupoDAO.class, conn);
+		INpcDAO NpcDAO = (INpcDAO) //
+			GlobalDAOFactory.getDAO(INpcDAO.class, conn);
+		IHabilidadDAO HabilidadDAO = (IHabilidadDAO) //
+			GlobalDAOFactory.getDAO(IHabilidadDAO.class, conn);
+		IHabilidadClaseLinternaDAO HabilidadClaseLinternaDAO = (IHabilidadClaseLinternaDAO) //
+			GlobalDAOFactory.getDAO(IHabilidadClaseLinternaDAO.class, conn);
+		IHabilidadActivaDAO HabilidadActivaDAO = (IHabilidadActivaDAO) //
+			GlobalDAOFactory.getDAO(IHabilidadActivaDAO.class, conn);
+		INivelHabilidadDAO NivelHabilidadDAO = (INivelHabilidadDAO) //
+			GlobalDAOFactory.getDAO(INivelHabilidadDAO.class, conn);
 
 		// DAOs Nuevos
-		IRecursoDAO RecursoDAO = (IRecursoDAO) GlobalDAOFactory.getDAO(IRecursoDAO.class, conn);
-//		IRecursoOfertaCompraDAO RecursoOfertaCompraDAO = (IRecursoOfertaCompraDAO) GlobalDAOFactory.getDAO(IRecursoOfertaCompraDAO.class, conn);
-//		IRecursoOfertaVentaDAO RecursoOfertaVentaDAO = (IRecursoOfertaVentaDAO) GlobalDAOFactory.getDAO(IRecursoOfertaVentaDAO.class, conn);
-		IRecursoPersonajeDAO RecursoPersonajeDAO = (IRecursoPersonajeDAO) GlobalDAOFactory.getDAO(IRecursoPersonajeDAO.class, conn);
-		IRecursoPlanetaDAO RecursoPlanetaDAO = (IRecursoPlanetaDAO) GlobalDAOFactory.getDAO(IRecursoPlanetaDAO.class, conn);
+//		IAndroideDAO AndroideDAO = (IAndroideDAO) //
+//			GlobalDAOFactory.getDAO(IAndroideDAO.class, conn);
+//		IAndroidePersonajeDAO AndroidePersonajeDAO = (IAndroidePersonajeDAO) //
+//			GlobalDAOFactory.getDAO(IAndroidePersonajeDAO.class, conn);
+//		IAndroideRecursoDAO AndroideRecursoDAO = (IAndroideRecursoDAO) //
+//			GlobalDAOFactory.getDAO(IAndroideRecursoDAO.class, conn);
+		IOfertaDAO OfertaDAO = (IOfertaDAO) //
+			GlobalDAOFactory.getDAO(IOfertaDAO.class, conn);
+		IOfertaPersonajeDAO OfertaPersonajeDAO = (IOfertaPersonajeDAO) //
+			GlobalDAOFactory.getDAO(IOfertaPersonajeDAO.class, conn);
+		IRecursoDAO RecursoDAO = (IRecursoDAO) //
+			GlobalDAOFactory.getDAO(IRecursoDAO.class, conn);
+		IRecursoOfertaCompraDAO RecursoOfertaCompraDAO = (IRecursoOfertaCompraDAO) //
+			GlobalDAOFactory.getDAO(IRecursoOfertaCompraDAO.class, conn);
+		IRecursoOfertaVentaDAO RecursoOfertaVentaDAO = (IRecursoOfertaVentaDAO) //
+			GlobalDAOFactory.getDAO(IRecursoOfertaVentaDAO.class, conn);
+		IRecursoPersonajeDAO RecursoPersonajeDAO = (IRecursoPersonajeDAO) //
+			GlobalDAOFactory.getDAO(IRecursoPersonajeDAO.class, conn);
+		IRecursoPlanetaDAO RecursoPlanetaDAO = (IRecursoPlanetaDAO) //
+			GlobalDAOFactory.getDAO(IRecursoPlanetaDAO.class, conn);
+//		ITecnologiaDAO TecnologiaDAO = (ITecnologiaDAO) //
+//			GlobalDAOFactory.getDAO(ITecnologiaDAO.class, conn);
+//		ITecnologiaPersonajeDAO TecnologiaPersonajeDAO = (ITecnologiaPersonajeDAO) //
+//			GlobalDAOFactory.getDAO(ITecnologiaPersonajeDAO.class, conn);
+//		ITecnologiaRecursoDAO TecnologiaRecursoDAO = (ITecnologiaRecursoDAO) //
+//			GlobalDAOFactory.getDAO(ITecnologiaRecursoDAO.class, conn);
+//		IUnidadBasicaDAO UnidadBasicaDAO = (IUnidadBasicaDAO) //
+//			GlobalDAOFactory.getDAO(IUnidadBasicaDAO.class, conn);
+//		IUnidadBasicaPersonajeDAO UnidadBasicaPersonajeDAO = (IUnidadBasicaPersonajeDAO) //
+//			GlobalDAOFactory.getDAO(IUnidadBasicaPersonajeDAO.class, conn);
+//		IUnidadBasicaRecursoDAO UnidadBasicaRecursoDAO = (IUnidadBasicaRecursoDAO) //
+//			GlobalDAOFactory.getDAO(IUnidadBasicaRecursoDAO.class, conn);
+//		IUnidadEjercitoDAO UnidadEjercito = (IUnidadEjercitoDAO) //
+//			GlobalDAOFactory.getDAO(IUnidadEjercitoDAO.class, conn); 
+//		IUnidadEjercitoOfertaDAO UnidadEjercitoOfertaDAO = (IUnidadEjercitoOfertaDAO) //
+//			GlobalDAOFactory.getDAO(IUnidadEjercitoOfertaDAO.class, conn);
+//		IUnidadEjercitoPersonajeDAO UnidadEjercitoPersonajeDAO = (IUnidadEjercitoPersonajeDAO) //
+//			GlobalDAOFactory.getDAO(IUnidadEjercitoPersonajeDAO.class, conn);
+		
 
 		// creamos las tablas
 		PlanetaDAO.createTable();
@@ -94,11 +142,25 @@ public class InicializarBD {
 		HabilidadClaseLinternaDAO.createTable();
 
 		// Tablas Nuevas
+//		AndroideDAO.createTable();
+//		AndroidePersonajeDAO.createTable();
+//		AndroideRecursoDAO.createTable();
+		OfertaDAO.createTable();
+		OfertaPersonajeDAO.createTable();
 		RecursoDAO.createTable();
-//		RecursoOfertaCompraDAO.createTable();
-//		RecursoOfertaVentaDAO.createTable();
+		RecursoOfertaCompraDAO.createTable();
+		RecursoOfertaVentaDAO.createTable();
 		RecursoPersonajeDAO.createTable();
 		RecursoPlanetaDAO.createTable();
+//		TecnologiaDAO.createTable();
+//		TecnologiaPersonajeDAO.createTable();
+//		TecnologiaRecursoDAO.createTable();
+//		UnidadBasicaDAO.createTable();
+//		UnidadBasicaPersonajeDAO.createTable();
+//		UnidadBasicaRecursoDAO.createTable();
+//		UnidadEjercito.createTable(); 
+//		UnidadEjercitoOfertaDAO.createTable();
+//		UnidadEjercitoPersonajeDAO.createTable();
 
 		try {
 
@@ -507,14 +569,16 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			INivelHabilidadDO NivelHabilidadDO[] = new INivelHabilidadDO[10];
 			for (int i = 0; i < 10; i++) {
-				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory.getDO(INivelHabilidadDO.class);
+				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
+						.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
 				NivelHabilidadDO[i].setHabilidadRef(refhab);
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}			
-			IHabilidadClaseLinternaDO habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
+			IHabilidadClaseLinternaDO habilidadClaseLinternaDO = 
+				(IHabilidadClaseLinternaDO) GlobalDOFactory
 					.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
