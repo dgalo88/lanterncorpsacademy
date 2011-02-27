@@ -1,8 +1,8 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IRecursoDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -33,9 +33,7 @@ public class PanelAsignarPrecio extends Panel {
 			LanternCorpsAcademyApp.getActive();
 
 	private TestTableModel tableDtaModel;
-//	private List<IRecursoDO> recursos;
-	private List<Recursos> recursos = new ArrayList<Recursos>();
-	private Recursos recurso;
+	private List<IRecursoDO> recursos;
 
 	public PanelAsignarPrecio() {
 
@@ -48,17 +46,14 @@ public class PanelAsignarPrecio extends Panel {
 
 		tableDtaModel = new TestTableModel();
 		try {
-			for (int i = 0; i < 8; i++) {
-				recurso = new Recursos(i);
-				recursos.add(recurso);
-			}
+			recursos = Recursos.getRecursos();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		tableDtaModel = Recursos.asignarRecursos(tableDtaModel, recursos);
-		tableDtaModel = Recursos.asignarRec(tableDtaModel, recursos);
+		tableDtaModel = Recursos.asignarRecursos(tableDtaModel, recursos);
 
-		col.add(PanelConstructor.initTable(tableDtaModel, initTableColModel(), false));
+		col.add(PanelConstructor.initTable( //
+				tableDtaModel, initTableColModel(), false));
 
 		// ----------------------------------------
 		// Buttons
@@ -67,7 +62,6 @@ public class PanelAsignarPrecio extends Panel {
 		Button btnAcept = new Button("Aceptar");
 		btnAcept.setStyle(Estilo.getStyleColor(app.getAtributos()));
 		btnAcept.setWidth(new Extent(90));
-		btnAcept.setHeight(new Extent(20));
 		btnAcept.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -90,11 +84,11 @@ public class PanelAsignarPrecio extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				Recursos recurso = (Recursos) element;
+				IRecursoDO recurso = (IRecursoDO) element;
 				return recurso.getNombre();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Nombre");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());

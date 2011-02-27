@@ -7,7 +7,6 @@ import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
-import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -23,6 +22,7 @@ import com.ulasoft.lanterncorpsacademy.menus.MenuHead;
 import com.ulasoft.lanterncorpsacademy.menus.MenuInicial;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelLogin;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
+import com.valkirye.lanterncorpsacademy.windows.WindowAsignarPrecio;
 import com.valkirye.lanterncorpsacademy.windows.WindowData;
 import com.valkirye.lanterncorpsacademy.windows.WindowInventary;
 import com.valkirye.lanterncorpsacademy.windows.WindowLca;
@@ -169,12 +169,9 @@ public class Desktop extends ContentPane {
 		add(windowPane);
 	}
 
-	public void setWindowData(int width, int height) {
+	public void setWindowData() {
 
 		WindowData windowData = new WindowData();
-		windowData.setWidth(new Extent(width));
-		windowData.setHeight(new Extent(height));
-
 		try {
 			genericOpenWindow(windowData.getClass());
 		} catch (Exception e) {
@@ -183,12 +180,9 @@ public class Desktop extends ContentPane {
 
 	}
 
-	public void setWindowInventary(int width, int height) {
+	public void setWindowInventary() {
 
 		WindowInventary windowInventary = new WindowInventary();
-		windowInventary.setWidth(new Extent(width));
-		windowInventary.setHeight(new Extent(height));
-
 		try {
 			genericOpenWindow(windowInventary.getClass());
 		} catch (Exception e) {
@@ -197,14 +191,22 @@ public class Desktop extends ContentPane {
 
 	}
 
-	public void setWindowUnitSelect(int width, int height) {
+	public void setWindowUnitSelect() {
 
 		WindowUnitSelect windowUnitSelect = new WindowUnitSelect();
-		windowUnitSelect.setWidth(new Extent(width));
-		windowUnitSelect.setHeight(new Extent(height));
-
 		try {
 			genericOpenWindow(windowUnitSelect.getClass());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void setWindowAsignarPrecio() {
+
+		WindowAsignarPrecio windowAsignarPrecio = new WindowAsignarPrecio();
+		try {
+			genericOpenWindow(windowAsignarPrecio.getClass());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -29,46 +29,61 @@ public class Atacar {
 	private static final int VICTORIA = 1;
 	private static final int DERROTA = 2;
 
-	public static List<IPersonajeDO> obtenerContrincantes(IPersonajeDO person)
-			throws Exception {
+	private static LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
+		LanternCorpsAcademyApp.getActive();
+	private static Desktop d = app.getDesktop();
+	private static Atributos atrib = app.getAtributos();
+	private static IPersonajeDO atacante = atrib.getPersonaje();
+
+	public static List<IPersonajeDO> obtenerContrincantes(IPersonajeDO person) //
+		throws Exception {
+
 		List<IPersonajeDO> personajes;
+
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-		IPersonajeDAO personaje = (IPersonajeDAO) GlobalDAOFactory.getDAO(
-				IPersonajeDAO.class, connectionBean);
-		;
-		personajes = personaje.listContrincantes(person.getId(), (person
-				.getClaseLinternaRef()).getRefIdent(), (person.getPlanetaRef())
-				.getRefIdent());
+
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
+
+		personajes = personajeDAO.listContrincantes(person.getId(), //
+				person.getClaseLinternaRef().getRefIdent(), //
+				person.getPlanetaRef().getRefIdent());
+
 		connectionBean.getConnection().close();
+
 		return personajes;
+
 	}
-	public static List<INpcDO> obtenerContrincantesNPC(IPersonajeDO person)
-	throws Exception {
+
+	public static List<INpcDO> obtenerContrincantesNPC(IPersonajeDO person) //
+		throws Exception {
+
 		List<INpcDO> personajes;
+
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-		INpcDAO personaje = (INpcDAO) GlobalDAOFactory.getDAO(
-		INpcDAO.class, connectionBean);
-		personajes = personaje.listNpc(person.getClaseLinternaRef().getRefIdent());
+
+		INpcDAO personaje = (INpcDAO) //
+				GlobalDAOFactory.getDAO(INpcDAO.class, connectionBean);
+
+		personajes = personaje.listNpc( //
+				person.getClaseLinternaRef().getRefIdent());
+
 		connectionBean.getConnection().close();
+
 		return personajes;
+
 	}
 
 	public static int combate(IPersonajeDO contrincante) throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-				.getActive();
-		Desktop desktop;
 
-		IHabilidadDAO habilidadDAO = (IHabilidadDAO) GlobalDAOFactory.getDAO(
-				IHabilidadDAO.class, connectionBean);
-		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(
-				IPersonajeDAO.class, connectionBean);
-		INivelHabilidadDAO nivHabilidadDAO = (INivelHabilidadDAO) GlobalDAOFactory
-				.getDAO(INivelHabilidadDAO.class, connectionBean);
-
-		Atributos atts = app.getAtributos();
-		IPersonajeDO atacante = atts.getPersonaje();
+		IHabilidadDAO habilidadDAO = (IHabilidadDAO) //
+				GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
+		INivelHabilidadDAO nivHabilidadDAO = (INivelHabilidadDAO) //
+				GlobalDAOFactory.getDAO(INivelHabilidadDAO.class, connectionBean);
 
 		personajeDAO.loadHabilidadActivaList(atacante);
 		personajeDAO.loadHabilidadActivaList(contrincante);
@@ -80,33 +95,32 @@ public class Atacar {
 		List<DataObject> habilidadesContrincantes = new ArrayList<DataObject>();
 
 		for (int i = 0; i < (atacante.getHabilidadActivaList().size()); i++) {
-			habilidadesAtacante.add(habilidadDAO.loadById(atacante
-					.getHabilidadActivaList().get(i).getHabilidadRef()
-					.getRefIdent()));
+			habilidadesAtacante.add(habilidadDAO.loadById( //
+					atacante.getHabilidadActivaList().get(i)//
+					.getHabilidadRef().getRefIdent()));
 		}
 
 		for (int i = 0; i < (contrincante.getHabilidadActivaList().size()); i++) {
-			habilidadesContrincantes.add(habilidadDAO.loadById(contrincante
-					.getHabilidadActivaList().get(i).getHabilidadRef()
-					.getRefIdent()));
+			habilidadesContrincantes.add(habilidadDAO.loadById( //
+					contrincante.getHabilidadActivaList().get(i) //
+					.getHabilidadRef().getRefIdent()));
 		}
 
 		List<DataObject> NivelHabilidadAtacantes = new ArrayList<DataObject>();
 		List<DataObject> NivelHabilidadContrincantes = new ArrayList<DataObject>();
 
 		for (int i = 0; i < (atacante.getHabilidadActivaList().size()); i++) {
-			NivelHabilidadAtacantes.add(nivHabilidadDAO.loadNivelHabStats(
-					atacante.getHabilidadActivaList().get(i).getHabilidadRef()
-							.getRefIdent(), atacante.getHabilidadActivaList()
-							.get(i).getNivel_habilidad()));
+			NivelHabilidadAtacantes.add(nivHabilidadDAO.loadNivelHabStats( //
+					atacante.getHabilidadActivaList().get(i) //
+					.getHabilidadRef().getRefIdent(), //
+					atacante.getHabilidadActivaList().get(i).getNivel_habilidad()));
 		}
 
 		for (int i = 0; i < (contrincante.getHabilidadActivaList().size()); i++) {
-			NivelHabilidadContrincantes.add(nivHabilidadDAO.loadNivelHabStats(
-					contrincante.getHabilidadActivaList().get(i)
-							.getHabilidadRef().getRefIdent(), contrincante
-							.getHabilidadActivaList().get(i)
-							.getNivel_habilidad()));
+			NivelHabilidadContrincantes.add(nivHabilidadDAO.loadNivelHabStats( //
+					contrincante.getHabilidadActivaList().get(i) //
+					.getHabilidadRef().getRefIdent(), //
+					contrincante.getHabilidadActivaList().get(i).getNivel_habilidad()));
 		}
 
 		IHabilidadDO habilidadAtacante;
@@ -122,19 +136,20 @@ public class Atacar {
 		} while (habilidadAtacante.getTipo() != 1);
 
 		tipoA = habilidadAtacante.getTipo();
-		NivelHabilidadAtacante = nivHabilidadDAO.loadNivelHabStats(
-				habilidadAtacante.getId(), atacante.getHabilidadActivaList()
-						.get(x).getNivel_habilidad());
+		NivelHabilidadAtacante = nivHabilidadDAO.loadNivelHabStats( //
+				habilidadAtacante.getId(), atacante //
+				.getHabilidadActivaList().get(x).getNivel_habilidad());
 		efectividadAtacante = NivelHabilidadAtacante.getEfectividad();
 
-		if (atacante.getEnergiaDelAnillo() >= NivelHabilidadAtacante
-				.getCosto_de_energia()) {
-			contrincante
-					.setSalud((int) (contrincante.getSalud() - efectividadAtacante));
+		if (atacante.getEnergiaDelAnillo() >= //
+			NivelHabilidadAtacante.getCosto_de_energia()) {
 
-			atacante
-					.setEnergiaDelAnillo((int) (atacante.getEnergiaDelAnillo() - NivelHabilidadAtacante
-							.getCosto_de_energia()));
+			contrincante.setSalud((int) //
+					(contrincante.getSalud() - efectividadAtacante));
+
+			atacante.setEnergiaDelAnillo((int) //
+					(atacante.getEnergiaDelAnillo() - //
+							NivelHabilidadAtacante.getCosto_de_energia()));
 
 			System.err.println("Atacante " + habilidadAtacante.getNombre());
 		} else {
@@ -146,42 +161,43 @@ public class Atacar {
 			if (tipoA == 2) {
 				do {
 					y = (int) (Math.random() * habilidadesContrincantes.size());
-					habilidadContricante = (IHabilidadDO) habilidadesContrincantes
-							.get(y);
-				} while (habilidadContricante.getTipo() == 2
-						|| habilidadContricante.getTipo() == 4);
+					habilidadContricante = (IHabilidadDO) //
+							habilidadesContrincantes.get(y);
+
+				} while (habilidadContricante.getTipo() == 2 || //
+						habilidadContricante.getTipo() == 4);
+
 			} else {
 				do {
 					y = (int) (Math.random() * habilidadesContrincantes.size());
-					habilidadContricante = (IHabilidadDO) habilidadesContrincantes
-							.get(y);
+					habilidadContricante = (IHabilidadDO) //
+							habilidadesContrincantes.get(y);
+
 				} while (habilidadContricante.getTipo() == 4);
 			}
 
 			tipoB = habilidadContricante.getTipo();
-			NivelHabilidadContricante = nivHabilidadDAO.loadNivelHabStats(
-					habilidadContricante.getId(), contrincante
-							.getHabilidadActivaList().get(y)
-							.getNivel_habilidad());
-			efectividadContrincante = NivelHabilidadContricante
-					.getEfectividad();
+			NivelHabilidadContricante = nivHabilidadDAO.loadNivelHabStats( //
+					habilidadContricante.getId(), //
+					contrincante.getHabilidadActivaList().get(y).getNivel_habilidad());
+			efectividadContrincante = NivelHabilidadContricante.getEfectividad();
 
-			if (contrincante.getEnergiaDelAnillo() >= NivelHabilidadContricante
-					.getCosto_de_energia()) {
-				System.err.println("Contrincante "
-						+ habilidadContricante.getNombre());
+			if (contrincante.getEnergiaDelAnillo() >= //
+				NivelHabilidadContricante.getCosto_de_energia()) {
+
+				System.err.println("Contrincante " + habilidadContricante.getNombre());
+
 				if (tipoB == 2) {
-					contrincante
-							.setSalud((int) (contrincante.getSalud() + (efectividadAtacante
-									* efectividadContrincante / 100)));
+					contrincante.setSalud((int) (contrincante.getSalud() + //
+							(efectividadAtacante * efectividadContrincante / 100)));
 				} else {
-					atacante
-							.setSalud((int) (atacante.getSalud() - efectividadContrincante));
+					atacante.setSalud((int) //
+							(atacante.getSalud() - efectividadContrincante));
 				}
 
-				contrincante.setEnergiaDelAnillo((int) (contrincante
-						.getEnergiaDelAnillo() - NivelHabilidadContricante
-						.getCosto_de_energia()));
+				contrincante.setEnergiaDelAnillo((int) //
+						(contrincante.getEnergiaDelAnillo() - //
+								NivelHabilidadContricante.getCosto_de_energia()));
 
 			} else {
 				tipoB = 2;
@@ -191,41 +207,39 @@ public class Atacar {
 				if (tipoB == 2) {
 					do {
 						x = (int) (Math.random() * habilidadesAtacante.size());
-						habilidadAtacante = (IHabilidadDO) habilidadesAtacante
-								.get(x);
-					} while (habilidadAtacante.getTipo() == 2
-							|| habilidadAtacante.getTipo() == 4);
+						habilidadAtacante = (IHabilidadDO) habilidadesAtacante.get(x);
+					} while (habilidadAtacante.getTipo() == 2 || //
+							habilidadAtacante.getTipo() == 4);
 				} else {
 					do {
 						x = (int) (Math.random() * habilidadesAtacante.size());
-						habilidadAtacante = (IHabilidadDO) habilidadesAtacante
-								.get(x);
+						habilidadAtacante = (IHabilidadDO) habilidadesAtacante.get(x);
 					} while (habilidadAtacante.getTipo() == 4);
 				}
 
 				tipoA = habilidadAtacante.getTipo();
-				NivelHabilidadAtacante = nivHabilidadDAO.loadNivelHabStats(
-						habilidadAtacante.getId(), atacante
-								.getHabilidadActivaList().get(x)
-								.getNivel_habilidad());
+				NivelHabilidadAtacante = nivHabilidadDAO.loadNivelHabStats( //
+						habilidadAtacante.getId(), //
+						atacante.getHabilidadActivaList().get(x).getNivel_habilidad());
 				efectividadAtacante = NivelHabilidadAtacante.getEfectividad();
-				if (atacante.getEnergiaDelAnillo() >= NivelHabilidadAtacante
-						.getCosto_de_energia()) {
-					System.err.println("Atacante "
-							+ habilidadAtacante.getNombre());
+
+				if (atacante.getEnergiaDelAnillo() >= //
+					NivelHabilidadAtacante.getCosto_de_energia()) {
+
+					System.err.println("Atacante " + habilidadAtacante.getNombre());
+
 					if (tipoA == 2) {
-						atacante
-								.setSalud((int) (atacante.getSalud() + (efectividadAtacante
-										* efectividadContrincante / 100)));
+						atacante.setSalud((int) (atacante.getSalud() + //
+								(efectividadAtacante * efectividadContrincante / 100)));
 					} else {
-						contrincante
-								.setSalud((int) (contrincante.getSalud() - efectividadAtacante));
+						contrincante.setSalud((int) //
+								(contrincante.getSalud() - efectividadAtacante));
 					}
-					if (NivelHabilidadAtacante.getCosto_de_energia() <= atacante
-							.getEnergiaDelAnillo()) {
-						atacante.setEnergiaDelAnillo((int) (atacante
-								.getEnergiaDelAnillo() - NivelHabilidadAtacante
-								.getCosto_de_energia()));
+					if (NivelHabilidadAtacante.getCosto_de_energia() <= //
+						atacante.getEnergiaDelAnillo()) {
+						atacante.setEnergiaDelAnillo((int) //
+								(atacante.getEnergiaDelAnillo() - //
+										NivelHabilidadAtacante.getCosto_de_energia()));
 					} else {
 						atacante.setEnergiaDelAnillo(0);
 					}
@@ -234,53 +248,64 @@ public class Atacar {
 				}
 			}
 
-			if (atacante.getEnergiaDelAnillo() <= (5 - ((atacante.getNivel() - 1) * 0.2))
-					&& contrincante.getEnergiaDelAnillo() <= (5 - ((contrincante
-							.getNivel() - 1) * 0.2))) {
+			if (atacante.getEnergiaDelAnillo() <= //
+				(5 - ((atacante.getNivel() - 1) * 0.2)) && //
+					contrincante.getEnergiaDelAnillo() <= //
+						(5 - ((contrincante.getNivel() - 1) * 0.2))) {
 				atacante.setSalud(0);
 				contrincante.setSalud(0);
 			}
 
 		}
+
 		double expA = 10, expB = 10;
 		double puntosB;
 		double puntosA;
-		desktop = app.getDesktop();
-		if (atacante.getEnergiaDelAnillo() <= (5 - ((atacante.getNivel() - 1) * 0.2))
-				&& contrincante.getEnergiaDelAnillo() <= (5 - ((contrincante
-						.getNivel() - 1) * 0.2))) {
-			atacante.setSalud((Atributos.SALUD + (50 * (atacante.getNivel() - 1))));
-			contrincante.setSalud((Atributos.SALUD + (50 * (contrincante.getNivel() - 1))));
-			atacante.getPlanetaRef().setRefIdent(
+
+		if (atacante.getEnergiaDelAnillo() <= //
+			(5 - ((atacante.getNivel() - 1) * 0.2)) && //
+				contrincante.getEnergiaDelAnillo() <= //
+					(5 - ((contrincante.getNivel() - 1) * 0.2))) {
+
+			atacante.setSalud((Atributos.SALUD + //
+					(50 * (atacante.getNivel() - 1))));
+			contrincante.setSalud((Atributos.SALUD + //
+					(50 * (contrincante.getNivel() - 1))));
+
+			atacante.getPlanetaRef().setRefIdent( //
 					atacante.getClaseLinternaRef().getRefIdent());
-			contrincante.getPlanetaRef().setRefIdent(
+			contrincante.getPlanetaRef().setRefIdent( //
 					contrincante.getClaseLinternaRef().getRefIdent());
 
 			result = EMPATE;
 
 		} else {
 			if (atacante.getSalud() > 0) {
-				contrincante
-						.setSalud((Atributos.SALUD + (50 * (contrincante.getNivel() - 1))));
-				contrincante.getPlanetaRef().setRefIdent(
+
+				contrincante.setSalud((Atributos.SALUD + //
+						(50 * (contrincante.getNivel() - 1))));
+				contrincante.getPlanetaRef().setRefIdent( //
 						contrincante.getClaseLinternaRef().getRefIdent());
+
 				puntosA = (100 + (50 * (contrincante.getNivel() - 1)));
-				atacante.setPuntosDeEntrenamiento((int) (atacante
-						.getPuntosDeEntrenamiento() + puntosA));
+
+				atacante.setPuntosDeEntrenamiento((int) //
+						(atacante.getPuntosDeEntrenamiento() + puntosA));
 
 				for (int i = 1; i < atacante.getNivel(); i++) {
 					expA = expA + (expA * 0.5);
 				}
-				atacante
-						.setExperiencia((int) (atacante.getExperiencia() + expA));
+				atacante.setExperiencia((int) //
+						(atacante.getExperiencia() + expA));
+
 				if (contrincante.getPuntosDeEntrenamiento() != 0) {
+
 					puntosB = puntosA / 2;
 					if (contrincante.getPuntosDeEntrenamiento() < puntosB) {
 						contrincante.setPuntosDeEntrenamiento(0);
 					} else {
-						contrincante
-								.setPuntosDeEntrenamiento((int) (contrincante
-										.getPuntosDeEntrenamiento() - puntosB));
+						contrincante.setPuntosDeEntrenamiento((int) //
+								(contrincante.getPuntosDeEntrenamiento() - puntosB));
 					}
 
 				}
@@ -288,26 +313,31 @@ public class Atacar {
 				result = VICTORIA;
 
 			} else {
-				atacante.setSalud((Atributos.SALUD + (50 * (atacante.getNivel() - 1))));
-				atacante.getPlanetaRef().setRefIdent(
+
+				atacante.setSalud((Atributos.SALUD + //
+						(50 * (atacante.getNivel() - 1))));
+				atacante.getPlanetaRef().setRefIdent( //
 						atacante.getClaseLinternaRef().getRefIdent());
 
 				puntosB = (100 + (50 * (contrincante.getNivel() - 1)));
-				contrincante.setPuntosDeEntrenamiento((int) (contrincante
-						.getPuntosDeEntrenamiento() + puntosB));
+
+				contrincante.setPuntosDeEntrenamiento((int) //
+						(contrincante.getPuntosDeEntrenamiento() + puntosB));
 
 				for (int i = 1; i < contrincante.getNivel(); i++) {
 					expB = expB + (expB * 0.5);
 				}
-				contrincante.setExperiencia((int) (contrincante
-						.getExperiencia() + expB));
+				contrincante.setExperiencia((int) //
+						(contrincante.getExperiencia() + expB));
+
 				if (atacante.getPuntosDeEntrenamiento() != 0) {
+
 					puntosA = puntosB / 2;
 					if (atacante.getPuntosDeEntrenamiento() < puntosA) {
 						atacante.setPuntosDeEntrenamiento(0);
 					} else {
-						atacante.setPuntosDeEntrenamiento((int) (atacante
-								.getPuntosDeEntrenamiento() - puntosA));
+						atacante.setPuntosDeEntrenamiento((int) //
+								(atacante.getPuntosDeEntrenamiento() - puntosA));
 					}
 
 				}
@@ -317,17 +347,18 @@ public class Atacar {
 			}
 		}
 		
-		if(atacante.getExperiencia() >= (150*2^(atacante.getNivel()-1))){
+		if(atacante.getExperiencia() >= (150*2^(atacante.getNivel()-1))) {
 			atacante.setNivel((atacante.getNivel()+1));
 			atacante.setExperiencia(0);
 		}
-		if(contrincante.getExperiencia() >= (150*2^(contrincante.getNivel()-1))){
+		if(contrincante.getExperiencia() >= (150*2^(contrincante.getNivel()-1))) {
 			contrincante.setNivel((contrincante.getNivel()+1));
 			contrincante.setExperiencia(0);
 		}
-		atts.setPersonaje(atacante);
-		atts.guardarAtts();
-		atts.updateMenuStatus(desktop.getMenuHead().getMenuStatus());
+
+		atrib.setPersonaje(atacante);
+		atrib.guardarAtts();
+		atrib.updateMenuStatus(d.getMenuHead().getMenuStatus());
 		personajeDAO.update(contrincante);
 
 		return result;
@@ -336,19 +367,13 @@ public class Atacar {
 	public static int atacarNPC(INpcDO npc) throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
-		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp
-				.getActive();
-		Desktop desktop;
 
-		IHabilidadDAO habilidadDAO = (IHabilidadDAO) GlobalDAOFactory.getDAO(
-				IHabilidadDAO.class, connectionBean);
-		IPersonajeDAO personajeDAO = (IPersonajeDAO) GlobalDAOFactory.getDAO(
-				IPersonajeDAO.class, connectionBean);
-		INivelHabilidadDAO nivHabilidadDAO = (INivelHabilidadDAO) GlobalDAOFactory
-				.getDAO(INivelHabilidadDAO.class, connectionBean);
-
-		Atributos atts = app.getAtributos();
-		IPersonajeDO atacante = atts.getPersonaje();
+		IHabilidadDAO habilidadDAO = (IHabilidadDAO) //
+				GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
+		INivelHabilidadDAO nivHabilidadDAO = (INivelHabilidadDAO) //
+				GlobalDAOFactory.getDAO(INivelHabilidadDAO.class, connectionBean);
 
 		personajeDAO.loadHabilidadActivaList(atacante);
 
@@ -357,18 +382,18 @@ public class Atacar {
 		List<DataObject> habilidadesAtacante = new ArrayList<DataObject>();
 
 		for (int i = 0; i < (atacante.getHabilidadActivaList().size()); i++) {
-			habilidadesAtacante.add(habilidadDAO.loadById(atacante
-					.getHabilidadActivaList().get(i).getHabilidadRef()
-					.getRefIdent()));
+			habilidadesAtacante.add(habilidadDAO.loadById( //
+					atacante.getHabilidadActivaList().get(i) //
+					.getHabilidadRef().getRefIdent()));
 		}
 
 		List<DataObject> NivelHabilidadAtacantes = new ArrayList<DataObject>();
 
 		for (int i = 0; i < (atacante.getHabilidadActivaList().size()); i++) {
-			NivelHabilidadAtacantes.add(nivHabilidadDAO.loadNivelHabStats(
-					atacante.getHabilidadActivaList().get(i).getHabilidadRef()
-							.getRefIdent(), atacante.getHabilidadActivaList()
-							.get(i).getNivel_habilidad()));
+			NivelHabilidadAtacantes.add(nivHabilidadDAO.loadNivelHabStats( //
+					atacante.getHabilidadActivaList().get(i) //
+					.getHabilidadRef().getRefIdent(), //
+					atacante.getHabilidadActivaList().get(i).getNivel_habilidad()));
 		}
 
 		IHabilidadDO habilidadAtacante;
@@ -382,22 +407,25 @@ public class Atacar {
 		} while (habilidadAtacante.getTipo() != 1);
 
 		tipoA = habilidadAtacante.getTipo();
-		NivelHabilidadAtacante = nivHabilidadDAO.loadNivelHabStats(
-				habilidadAtacante.getId(), atacante.getHabilidadActivaList()
-						.get(x).getNivel_habilidad());
+		NivelHabilidadAtacante = nivHabilidadDAO.loadNivelHabStats( //
+				habilidadAtacante.getId(), //
+				atacante.getHabilidadActivaList().get(x).getNivel_habilidad());
 		efectividadAtacante = NivelHabilidadAtacante.getEfectividad();
 
-		if (atacante.getEnergiaDelAnillo() >= NivelHabilidadAtacante
-				.getCosto_de_energia()) {
+		if (atacante.getEnergiaDelAnillo() >= //
+				NivelHabilidadAtacante.getCosto_de_energia()) {
+
 			npc.setSalud((int) (npc.getSalud() - efectividadAtacante));
 
-			atacante
-					.setEnergiaDelAnillo((int) (atacante.getEnergiaDelAnillo() - NivelHabilidadAtacante
-							.getCosto_de_energia()));
+			atacante.setEnergiaDelAnillo((int) //
+					(atacante.getEnergiaDelAnillo() - //
+							NivelHabilidadAtacante.getCosto_de_energia()));
 
 			System.err.println("Atacante " + habilidadAtacante.getNombre());
 		}
+
 		double alea;
+
 		while (atacante.getSalud() > 0 && npc.getSalud() > 0) {
 
 			alea = Math.random();
@@ -409,32 +437,29 @@ public class Atacar {
 
 				do {
 					x = (int) (Math.random() * habilidadesAtacante.size());
-					habilidadAtacante = (IHabilidadDO) habilidadesAtacante
-							.get(x);
+					habilidadAtacante = (IHabilidadDO) //
+							habilidadesAtacante.get(x);
 				} while (habilidadAtacante.getTipo() == 4);
 
 				tipoA = habilidadAtacante.getTipo();
-				NivelHabilidadAtacante = nivHabilidadDAO.loadNivelHabStats(
-						habilidadAtacante.getId(), atacante
-								.getHabilidadActivaList().get(x)
-								.getNivel_habilidad());
+				NivelHabilidadAtacante = nivHabilidadDAO.loadNivelHabStats( //
+						habilidadAtacante.getId(), //
+						atacante.getHabilidadActivaList().get(x).getNivel_habilidad());
 				efectividadAtacante = NivelHabilidadAtacante.getEfectividad();
 
-				if (atacante.getEnergiaDelAnillo() >= NivelHabilidadAtacante
-						.getCosto_de_energia()) {
+				if (atacante.getEnergiaDelAnillo() >= //
+					NivelHabilidadAtacante.getCosto_de_energia()) {
 
 					if (tipoA == 2) {
-						atacante
-								.setSalud((int) (atacante.getSalud() + (efectividadAtacante
-										* npc.getDano() / 100)));
+						atacante.setSalud((int) (atacante.getSalud() + //
+								(efectividadAtacante * npc.getDano() / 100)));
 					} else {
-						npc
-								.setSalud((int) (npc.getSalud() - efectividadAtacante));
+						npc.setSalud((int) (npc.getSalud() - efectividadAtacante));
 					}
 
-					atacante.setEnergiaDelAnillo((int) (atacante
-							.getEnergiaDelAnillo() - NivelHabilidadAtacante
-							.getCosto_de_energia()));
+					atacante.setEnergiaDelAnillo((int) //
+							(atacante.getEnergiaDelAnillo() - //
+									NivelHabilidadAtacante.getCosto_de_energia()));
 
 				} 
 			}
@@ -443,13 +468,12 @@ public class Atacar {
 		double expA = 10;
 
 		double puntosA;
-		desktop = app.getDesktop();
 
 		if (atacante.getSalud() > 0) {
 
 			puntosA = (100 + (50 * (npc.getNivel() - 1)));
-			atacante.setPuntosDeEntrenamiento((int) (atacante
-					.getPuntosDeEntrenamiento() + puntosA));
+			atacante.setPuntosDeEntrenamiento((int) //
+					(atacante.getPuntosDeEntrenamiento() + puntosA));
 
 			for (int i = 1; i < atacante.getNivel(); i++) {
 				expA = expA + (expA * 0.5);
@@ -460,10 +484,11 @@ public class Atacar {
 
 		} else {
 			atacante.setSalud((Atributos.SALUD + (50 * (atacante.getNivel() - 1))));
-			atacante.getPlanetaRef().setRefIdent(
+			atacante.getPlanetaRef().setRefIdent( //
 					atacante.getClaseLinternaRef().getRefIdent());
 
 			if (atacante.getPuntosDeEntrenamiento() != 0) {
+
 				puntosA = (100 + (50 * (npc.getNivel() - 1))) / 2;
 				if (atacante.getPuntosDeEntrenamiento() > puntosA) {
 					atacante.setPuntosDeEntrenamiento(0);
@@ -483,14 +508,14 @@ public class Atacar {
 			atacante.setExperiencia(0);
 		}
 
-		atts.setPersonaje(atacante);
-		atts.guardarAtts();
-		atts.updateMenuStatus(desktop.getMenuHead().getMenuStatus());
+		atrib.setPersonaje(atacante);
+		atrib.guardarAtts();
+		atrib.updateMenuStatus(d.getMenuHead().getMenuStatus());
 
 		return result;
 	}
 
-	public static TestTableModel asignarRanking(TestTableModel tableDtaModel,
+	public static TestTableModel asignarRanking(TestTableModel tableDtaModel, //
 			List<IPersonajeDO> personajes) {
 
 		for (int posicion = 0; posicion < personajes.size(); posicion++) {
@@ -499,7 +524,7 @@ public class Atacar {
 		return tableDtaModel;
 	}
 	
-	public static TestTableModel asignarRankingNPC(TestTableModel tableDtaModel,
+	public static TestTableModel asignarRankingNPC(TestTableModel tableDtaModel, //
 			List<INpcDO> personajes) {
 
 		for (int posicion = 0; posicion < personajes.size(); posicion++) {
@@ -508,7 +533,7 @@ public class Atacar {
 		return tableDtaModel;
 	}
 
-	public static TestTableModel asignarRankingNpcPersonaje(TestTableModel tableDtaModel,
+	public static TestTableModel asignarRankingNpcPersonaje(TestTableModel tableDtaModel, //
 			List<IPersonajeDO> personajes, List<INpcDO> npcList) {
 
 		for (int i = 0; i < personajes.size(); i++) {

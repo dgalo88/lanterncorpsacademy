@@ -111,7 +111,7 @@ public class RecursoPersonajeDAO extends BaseDAO implements
 		checkCache(dataObject, CHECK_DELETE);
 		checkClass(dataObject, RecursoPersonajeDO.class, CHECK_DELETE);
 
-		PersonajeDO personajeDO = (PersonajeDO) dataObject;
+		RecursoPersonajeDO recursoPersonajeDO = (RecursoPersonajeDO) dataObject;
 
 		StringBuffer strbuf = new StringBuffer();
 
@@ -119,9 +119,9 @@ public class RecursoPersonajeDAO extends BaseDAO implements
 		strbuf.append(getTableName());
 
 		strbuf.append(" WHERE ");
-		strbuf.append(PersonajeDO.ID);
+		strbuf.append(RecursoPersonajeDO.ID);
 		strbuf.append(" = ");
-		strbuf.append(personajeDO.getId());
+		strbuf.append(recursoPersonajeDO.getId());
 
 		System.err.println(strbuf.toString());
 

@@ -25,6 +25,11 @@ public interface IPersonajeDAO extends InterfaceDAO {
 	// --------------------------------------------------------------------------------
 
 	public void loadHabilidadActivaList(IPersonajeDO personajeDO) throws Exception;
+
+	// --------------------------------------------------------------------------------
+
+	public void loadRecursoPersonajeList(IPersonajeDO personajeDO) throws Exception;
+
 	// --------------------------------------------------------------------------------
 
 	public List<IPersonajeDO> listByClaseLinternaId(int claseLinternaId) throws SQLException;

@@ -21,25 +21,25 @@ import factory.GlobalDOFactory;
 
 public class HabilidadesAnillo {
 
-	public static TestTableModel obtenerHabilidades(IPersonajeDO person, //
+	public static TestTableModel obtenerHabilidades(IPersonajeDO personaje, //
 			TestTableModel tableDtaModel) throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
-		List<IHabilidadActivaDO> hab;
-		IHabilidadDO h;
-		IHabilidadDAO habilidad = (IHabilidadDAO) //
-			GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
-		IPersonajeDAO personaje = (IPersonajeDAO) //
-			GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);;
+		IHabilidadDO habilidad;
 
-		personaje.loadHabilidadActivaList(person);
-		hab = person.getHabilidadActivaList();
+		IHabilidadDAO habilidadDAO = (IHabilidadDAO) //
+				GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
 
-		for(int pos = 0; pos < hab.size(); pos++) {
-			h = (IHabilidadDO) habilidad.loadById( //
-					(hab.get(pos).getHabilidadRef()).getRefIdent());
-			tableDtaModel.add(h);
+		personajeDAO.loadHabilidadActivaList(personaje);
+		List<IHabilidadActivaDO> listaHabilidades = personaje.getHabilidadActivaList();
+
+		for(int pos = 0; pos < listaHabilidades.size(); pos++) {
+			habilidad = (IHabilidadDO) habilidadDAO.loadById( //
+					(listaHabilidades.get(pos).getHabilidadRef()).getRefIdent());
+			tableDtaModel.add(habilidad);
 		}
 
 		connectionBean.getConnection().close();
@@ -47,23 +47,20 @@ public class HabilidadesAnillo {
 	}
 
 	public static int obtenerNivel(int personajeId, IHabilidadDO habilidad) //
-		throws Exception {
+	throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
-		IHabilidadActivaDO habAct;
-		IHabilidadActivaDAO hActDAO = (IHabilidadActivaDAO) //
+		IHabilidadActivaDO habilidadActiva;
+
+		IHabilidadActivaDAO habilidadActivaDAO = (IHabilidadActivaDAO) //
 				GlobalDAOFactory.getDAO(IHabilidadActivaDAO.class, connectionBean);
-		habAct = (IHabilidadActivaDO) hActDAO.loadByHabilidadId( //
-				habilidad.getId(), personajeId);
+		habilidadActiva = (IHabilidadActivaDO) //
+				habilidadActivaDAO.loadByHabilidadId(habilidad.getId(), personajeId);
 
 		connectionBean.getConnection().close();
 
-		if(habAct.getNivel_habilidad() == 0) {
-			return 0;
-		}
-
-		return habAct.getNivel_habilidad();
+		return habilidadActiva.getNivel_habilidad();
 	}
 
 	public static TestTableModel obtenerHabilidadesCompra( //
@@ -71,13 +68,21 @@ public class HabilidadesAnillo {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
-		List<DataObject> hab;
-		IHabilidadDAO habilidad = (IHabilidadDAO) //
-				GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
-		hab = habilidad.listToBuy(personaje.getId());
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
 
-		for(int pos = 0; pos < hab.size(); pos++) {
-			tableDtaModel.add((IHabilidadDO) hab.get(pos));
+		personajeDAO.loadHabilidadActivaList(personaje);
+		List<IHabilidadActivaDO> listaHabilidades = personaje.getHabilidadActivaList();
+
+		List<DataObject> listhabilidadToBuy;
+		IHabilidadDAO habilidadDAO = (IHabilidadDAO) //
+				GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
+		listhabilidadToBuy = habilidadDAO.listToBuy(personaje.getId());
+
+		for(int pos = 0; pos < listhabilidadToBuy.size(); pos++) {
+			if (listaHabilidades.get(pos) != listhabilidadToBuy.get(pos)) {
+				tableDtaModel.add((IHabilidadDO) listhabilidadToBuy.get(pos));
+			}
 		}
 
 		return tableDtaModel;
@@ -89,16 +94,18 @@ public class HabilidadesAnillo {
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
 		int costo = 0;
-		List<IHabilidadActivaDO> hab;
-		IHabilidadDAO habilidad = (IHabilidadDAO) //
+		List<IHabilidadActivaDO> listHabilidad;
+
+		IHabilidadDAO habilidadDAO = (IHabilidadDAO) //
 				GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
-		IPersonajeDAO personaje1 = (IPersonajeDAO) //
-				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);;
-		personaje1.loadHabilidadActivaList(personaje);
-		hab = personaje.getHabilidadActivaList();
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
+
+		personajeDAO.loadHabilidadActivaList(personaje);
+		listHabilidad = personaje.getHabilidadActivaList();
 
 		for(int pos = 0; pos < seleccion.size(); pos++) {
-			costo += (Math.pow(2, hab.get(seleccion.get(pos)).getNivel_habilidad())*100);
+			costo += (Math.pow(2, listHabilidad.get(seleccion.get(pos)).getNivel_habilidad())*100);
 		}
 
 		if(costo > personaje.getPuntosDeEntrenamiento()) {
@@ -106,12 +113,12 @@ public class HabilidadesAnillo {
 		}
 
 		personaje.setPuntosDeEntrenamiento(personaje.getPuntosDeEntrenamiento()-costo);
-		personaje1.update(personaje);
+		personajeDAO.update(personaje);
 
 		for(int pos = 0; pos < seleccion.size(); pos++) {
-			hab.get(seleccion.get(pos)).setNivel_habilidad( //
-					hab.get(seleccion.get(pos)).getNivel_habilidad()+1);
-			habilidad.update(hab.get(seleccion.get(pos)));
+			listHabilidad.get(seleccion.get(pos)).setNivel_habilidad( //
+					listHabilidad.get(seleccion.get(pos)).getNivel_habilidad()+1);
+			habilidadDAO.update(listHabilidad.get(seleccion.get(pos)));
 		}
 
 		connectionBean.getConnection().close();
@@ -123,22 +130,24 @@ public class HabilidadesAnillo {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
-		int costo=0;
-		List<DataObject> hab;
-		List<IHabilidadDO> hab1 = new ArrayList<IHabilidadDO>();
-		IHabilidadActivaDO habact = (IHabilidadActivaDO) //
-				GlobalDOFactory.getDO(IHabilidadActivaDO.class);
-		IHabilidadDAO habilidad = (IHabilidadDAO) //
-				GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
-		IHabilidadActivaDAO habilidadActiva = (IHabilidadActivaDAO) //
-				GlobalDAOFactory.getDAO(IHabilidadActivaDAO.class, connectionBean);
-		hab = habilidad.listToBuy(personaje.getId());
+		int costo = 0;
+		List<DataObject> habilidad;
+		List<IHabilidadDO> listHabilidad = new ArrayList<IHabilidadDO>();
 
-		for(int pos = 0; pos < hab.size(); pos++) {
-			hab1.add((IHabilidadDO) hab.get(pos));
+		IHabilidadActivaDO habilidadActiva = (IHabilidadActivaDO) //
+				GlobalDOFactory.getDO(IHabilidadActivaDO.class);
+		IHabilidadDAO habilidadDAO = (IHabilidadDAO) //
+				GlobalDAOFactory.getDAO(IHabilidadDAO.class, connectionBean);
+		IHabilidadActivaDAO habilidadActivaDAO = (IHabilidadActivaDAO) //
+				GlobalDAOFactory.getDAO(IHabilidadActivaDAO.class, connectionBean);
+
+		habilidad = habilidadDAO.listToBuy(personaje.getId());
+
+		for(int pos = 0; pos < habilidad.size(); pos++) {
+			listHabilidad.add((IHabilidadDO) habilidad.get(pos));
 		}
 		for(int pos = 0; pos < seleccion.size(); pos++) {
-			costo += hab1.get(seleccion.get(pos)).getCosto_de_aprendizaje();
+			costo += listHabilidad.get(seleccion.get(pos)).getCosto_de_aprendizaje();
 		}
 		if(costo > personaje.getPuntosDeEntrenamiento()) {
 			return true;
@@ -149,13 +158,16 @@ public class HabilidadesAnillo {
 		Reference<IHabilidadDO> habilidadRef = new Reference<IHabilidadDO>();
 
 		for(int pos = 0; pos < seleccion.size(); pos++) {
-			habilidadRef.setRefIdent(hab1.get(seleccion.get(pos)).getId());
-			habact.setNivel_habilidad(1);
-			habact.setPersonajeRef(personRef);
-			habact.setHabilidadRef(habilidadRef);
-			habilidadActiva.insert(habact);
+
+			habilidadRef.setRefIdent(listHabilidad.get(seleccion.get(pos)).getId());
+			habilidadActiva.setNivel_habilidad(1);
+			habilidadActiva.setPersonajeRef(personRef);
+			habilidadActiva.setHabilidadRef(habilidadRef);
+			habilidadActivaDAO.insert(habilidadActiva);
+
 		}
 		return false;
+
 	}
 
 	public static String determinarTipo(int clase) {

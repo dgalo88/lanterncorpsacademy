@@ -442,7 +442,7 @@ public class Menu extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnVerDatosClicked() {
-		d.setWindowData(550, 200);
+		d.setWindowData();
 	}
 
 	// --------------------------------------------------------------------------------
@@ -475,10 +475,8 @@ public class Menu extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnVerUnidadesClicked() {
-
 		// XXX: Inventario
-		d.setWindowInventary(500, 180);
-
+		d.setWindowInventary();
 	}
 
 	// --------------------------------------------------------------------------------

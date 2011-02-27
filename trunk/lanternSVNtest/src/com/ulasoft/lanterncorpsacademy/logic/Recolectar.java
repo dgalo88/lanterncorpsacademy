@@ -1,9 +1,8 @@
 package com.ulasoft.lanterncorpsacademy.logic;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
+import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
@@ -11,14 +10,15 @@ import lcaInterfaceDAO.IRecursoDAO;
 import lcaInterfaceDAO.IRecursoDO;
 import lcaInterfaceDAO.IRecursoPersonajeDAO;
 import lcaInterfaceDAO.IRecursoPersonajeDO;
-import lcaInterfaceDAO.IRecursoPlanetaDAO;
 import lcaInterfaceDAO.IRecursoPlanetaDO;
 
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 
+import dao.api.Reference;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
 import factory.GlobalDAOFactory;
+import factory.GlobalDOFactory;
 
 public class Recolectar {
 
@@ -32,23 +32,11 @@ public class Recolectar {
 		IPlanetaDO planeta = (IPlanetaDO) //
 				planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
 
-//		System.err.println("list: " + planeta.getRecursoPlanetaList());
-//		System.err.println("list 1: " + planeta.getRecursoPlanetaList().get(0).getId());
-//		System.err.println("list 2: " + planeta.getRecursoPlanetaList().get(1).getId());
-
-		IRecursoPlanetaDAO recursoPlanetaDAO = (IRecursoPlanetaDAO) //
-				GlobalDAOFactory.getDAO(IRecursoPlanetaDAO.class, connectionBean);
-		IRecursoPlanetaDO recursoPlanetaDO1 = (IRecursoPlanetaDO) //
-				recursoPlanetaDAO.loadById((planeta.getId() * 2) - 1);
-		IRecursoPlanetaDO recursoPlanetaDO2 = (IRecursoPlanetaDO) //
-				recursoPlanetaDAO.loadById(planeta.getId() * 2);
-
-		List<IRecursoPlanetaDO> recursoPlanetaList = new ArrayList<IRecursoPlanetaDO>();
-		recursoPlanetaList.add(recursoPlanetaDO1);
-		recursoPlanetaList.add(recursoPlanetaDO2);
+		planetaDAO.loadRecursoPlanetaList(planeta);
 
 		connectionBean.getConnection().close();
-		return recursoPlanetaList;
+
+		return planeta.getRecursoPlanetaList();
 
 	}
 
@@ -76,36 +64,64 @@ public class Recolectar {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void recolectar(IPersonajeDO personaje, //
-			IRecursoPlanetaDO recursoPlanetaDO, Calendar dateInit) throws Exception {
+			IRecursoPlanetaDO recursoPlanetaDO) throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
-		Calendar dateActual = Calendar.getInstance();
-		dateActual.getTime().getMinutes();
-
-		IPlanetaDAO planetaDAO = (IPlanetaDAO) //
-				GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
-		IPlanetaDO planeta = (IPlanetaDO) //
-				planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
-
-		IRecursoDAO recursoDAO = (IRecursoDAO) //
-				GlobalDAOFactory.getDAO(IRecursoDAO.class, connectionBean);
-		IRecursoDO recurso = (IRecursoDO) //
-				recursoDAO.loadById(recursoPlanetaDO.getRecursoRef().getRefIdent());
-
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
 		IRecursoPersonajeDAO recursoPersonajeDAO = (IRecursoPersonajeDAO) //
 				GlobalDAOFactory.getDAO(IRecursoPersonajeDAO.class, connectionBean);
+		IRecursoPersonajeDO recursoPersonaje = (IRecursoPersonajeDO) //
+				GlobalDOFactory.getDO(IRecursoPersonajeDO.class);
 
-		if (dateActual.getTime().getHours() - dateInit.getTime().getHours() < 1) {
+		personajeDAO.loadRecursoPersonajeList(personaje);
+		List<IRecursoPersonajeDO> recursoPersonajeList = personaje.getRecursoPersonajeList();
 
-			
+		int cantidadRecurso = recursoPlanetaDO.getCantidad_maxima_recurso() / 24;
 
+		for (int i = 0; i < recursoPersonajeList.size(); i++) {
+
+			if(recursoPlanetaDO.getRecursoRef().getRefIdent() == //
+				recursoPersonajeList.get(i).getRecursoRef().getRefIdent()) {
+
+				recursoPersonaje = recursoPersonajeList.get(i);
+				cantidadRecurso += recursoPersonajeList.get(i).getCantidad();
+			}
 		}
 
+		Reference<IPersonajeDO> refPersonaje = new Reference<IPersonajeDO>();
+		refPersonaje.setRefIdent(personaje.getId());
+		recursoPersonaje.setPersonajeRef(refPersonaje);
+
+		Reference<IRecursoDO> refRecurso = new Reference<IRecursoDO>();
+		refRecurso.setRefIdent(recursoPlanetaDO.getRecursoRef().getRefIdent());
+		recursoPersonaje.setRecursoRef(refRecurso);
+
+		recursoPersonaje.setCantidad(cantidadRecurso);
+
+		if (recursoPersonajeDAO.loadById(recursoPersonaje.getId()) != null) {
+			recursoPersonajeDAO.update(recursoPersonaje);
+		} else {
+			recursoPersonajeDAO.insert(recursoPersonaje);
+		}
+
+		recursoPersonajeList.add(recursoPersonaje);
+		personaje.setRecursoPersonajeList(recursoPersonajeList);
+
+		personajeDAO.update(personaje);
 
 		connectionBean.getConnection().close();
+
+	}
+
+	public static void recolectarRecursoList(IPersonajeDO personaje, //
+			List<IRecursoPlanetaDO> recursoPlanetaList) throws Exception {
+
+		for (int i = 0; i < recursoPlanetaList.size(); i++) {
+			recolectar(personaje, recursoPlanetaList.get(i));
+		}
 
 	}
 

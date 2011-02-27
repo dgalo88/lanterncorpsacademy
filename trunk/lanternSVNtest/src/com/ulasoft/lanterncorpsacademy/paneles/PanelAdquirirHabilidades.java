@@ -95,72 +95,6 @@ public class PanelAdquirirHabilidades extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-//	private Row initTopRow() {
-//
-//		Row row = new Row();
-//		Label lblTitle = new Label("Habilidades Disponibles");
-//		lblTitle.setForeground(Color.WHITE);
-//		Estilo.setFont(lblTitle, GUIStyles.BOLD, 16);
-//		row.add(lblTitle);
-//		row.setAlignment(Alignment.ALIGN_CENTER);
-//		return row;
-//
-//	}
-//
-//	// --------------------------------------------------------------------------------
-//
-//	private Component initTable() {
-//
-//		setInsets(new Insets(2, 2, 2, 2));
-//
-//		Column col = new Column();
-//		col.setCellSpacing(new Extent(10));
-//		col.setBackground(Color.WHITE);
-//
-//		// ----------------------------------------
-//		// The table models
-//		// ----------------------------------------
-//
-//		TableColModel tableColModel = initTableColModel();
-//		TableSelModel tableSelModel = new TableSelModel();
-//		tableDtaModel = new TestTableModel();
-//		tableDtaModel.setEditable(true);
-//		tableDtaModel.setPageSize(10);
-//
-//		try {
-//			tableDtaModel = HabilidadesAnillo.obtenerHabilidadesCompra( //
-//					atrib.getPersonaje(), tableDtaModel);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		// ----------------------------------------
-//		// The table
-//		// ----------------------------------------
-//
-//		ETable table = new ETable();
-//		table.setTableDtaModel(tableDtaModel);
-//		table.setTableColModel(tableColModel);
-//		table.setTableSelModel(tableSelModel);
-//		table.setEasyview(true);
-//		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_NONE));
-//		table.setInsets(new Insets(5, 2, 5, 2));
-//		Estilo.setFont(table, GUIStyles.NORMAL);
-//		col.add(table);
-//
-//		// ----------------------------------------
-//		// The navigation control
-//		// ----------------------------------------
-//
-//		ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
-//		col.add(tableNavigation);
-//
-//		return col;
-//
-//	}
-
-	// --------------------------------------------------------------------------------
-
 	private TableColModel initTableColModel() {
 
 		TableColModel tableColModel = new TableColModel();
@@ -173,7 +107,7 @@ public class PanelAdquirirHabilidades extends Panel {
 				return habilidad.getNombre();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Nombre");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -206,7 +140,7 @@ public class PanelAdquirirHabilidades extends Panel {
 				return HabilidadesAnillo.determinarTipo(habilidad.getTipo());
 			}
 		};
-		tableColumn.setWidth(new Extent(25));
+		tableColumn.setWidth(new Extent(80));
 		tableColumn.setHeadValue("Tipo");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -219,14 +153,14 @@ public class PanelAdquirirHabilidades extends Panel {
 				return habilidad.getCosto_de_aprendizaje();
 			}
 		};
-		tableColumn.setWidth(new Extent(25));
+		tableColumn.setWidth(new Extent(80));
 		tableColumn.setHeadValue("Costo de Adquisición");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn();
-		tableColumn.setWidth(new Extent(25));
+		tableColumn.setWidth(new Extent(20));
 		tableColumn.setHeadValue("");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(initNestedCellRenderer());
@@ -299,7 +233,7 @@ public class PanelAdquirirHabilidades extends Panel {
 		IPersonajeDO personaje = atrib.getPersonaje();
 
 		try {
-			if(HabilidadesAnillo.adquirirHabilidades(seleccion,personaje)) {
+			if(HabilidadesAnillo.adquirirHabilidades(seleccion, personaje)) {
 				d.setWindowPaneEmergente( //
 						"No se poseen suficientes puntos de entrenamiento, No se adquiere nada");
 				return;

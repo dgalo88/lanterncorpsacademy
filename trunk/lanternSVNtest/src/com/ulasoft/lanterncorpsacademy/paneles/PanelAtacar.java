@@ -29,7 +29,6 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atacar;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
-import com.ulasoft.lanterncorpsacademy.logic.Data;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 
 @SuppressWarnings("serial")
@@ -150,7 +149,7 @@ public class PanelAtacar extends Panel {
 				return lblNombre.getText();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Nombre");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -178,7 +177,7 @@ public class PanelAtacar extends Panel {
 				return lblNivel.getText();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(25));
 		tableColumn.setHeadValue("Nivel");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -192,7 +191,8 @@ public class PanelAtacar extends Panel {
 
 				try {
 					IPersonajeDO personaje = (IPersonajeDO) element;
-					lblClase.setText(Data.getClase(personaje.getClaseLinternaRef().getRefIdent()));
+					lblClase.setText(personaje.getClaseLinternaRef() //
+							.getRefValue().getNombre_de_cuerpo_linterna());
 				} catch (Exception e) {
 //					e.printStackTrace();
 				}
@@ -206,7 +206,7 @@ public class PanelAtacar extends Panel {
 				return lblClase.getText();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(150));
 		tableColumn.setHeadValue("Clase");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -219,14 +219,16 @@ public class PanelAtacar extends Panel {
 				Label lblTipo = new Label();
 
 				try {
+					@SuppressWarnings("unused")
 					IPersonajeDO personaje = (IPersonajeDO) element;
-					lblTipo.setText(Data.getTipo(personaje.getClass()));
+					lblTipo.setText("Jugador");
 				} catch (Exception e) {
 //					e.printStackTrace();
 				}
 				try {
+					@SuppressWarnings("unused")
 					INpcDO personaje = (INpcDO) element;
-					lblTipo.setText(Data.getTipo(personaje.getClass()));
+					lblTipo.setText("NPC");
 				} catch (Exception e) {
 //					e.printStackTrace();
 				}
@@ -234,7 +236,7 @@ public class PanelAtacar extends Panel {
 				return lblTipo.getText();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Tipo");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -291,15 +293,14 @@ public class PanelAtacar extends Panel {
 			personajeAtacar = personajes.get(row);
 			npcAtacar = null;
 		} catch (Exception e) {
-			// TODO: handle exception
+//			e.printStackTrace();
 		}
 		try {
 			npcAtacar = npcList.get(row);
 			personajeAtacar = null;
-		} catch (Exception e) {
-			// TODO: handle exception
+		}  catch (Exception e) {
+//			e.printStackTrace();			
 		}
-
 	}
 
 	// --------------------------------------------------------------------------------

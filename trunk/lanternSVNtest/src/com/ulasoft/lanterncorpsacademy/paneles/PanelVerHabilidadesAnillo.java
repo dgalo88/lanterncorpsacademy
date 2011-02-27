@@ -138,7 +138,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 				return HabilidadesAnillo.determinarTipo(habilidad.getTipo());
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(80));
 		tableColumn.setHeadValue("Tipo");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -157,7 +157,7 @@ public class PanelVerHabilidadesAnillo extends Panel{
 				return 0;
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(80));
 		tableColumn.setHeadValue("Costo de Entrenar");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
