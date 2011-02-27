@@ -10,76 +10,77 @@ import lcaInterfaceDAO.INpcDO;
 
 import dao.api.BaseDAO;
 import dao.api.DataObject;
+import dao.api.FactoryDAO;
 
 public class NpcDAO extends BaseDAO implements INpcDAO {
-	
+
 	public NpcDAO() {
 		// Empty
 	}
 
 	@Override
 	public void createTable() throws SQLException {
-	    StringBuffer strbuf;
+		StringBuffer strbuf;
 
-	    strbuf = new StringBuffer();
+		strbuf = new StringBuffer();
 
-	    strbuf.append("DROP TABLE IF EXISTS ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" CASCADE");
+		strbuf.append("DROP TABLE IF EXISTS ");
+		strbuf.append(getTableName());
+		strbuf.append(" CASCADE");
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
+		strbuf = new StringBuffer();
 
-	    strbuf.append("DROP SEQUENCE IF EXISTS ");
-	    strbuf.append("seq_");
-	    strbuf.append(getTableName());
+		strbuf.append("DROP SEQUENCE IF EXISTS ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
+		strbuf = new StringBuffer();
 
-	    strbuf.append("CREATE TABLE ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" (");
-	    strbuf.append(NpcDO.ID);
-	    strbuf.append(" INT PRIMARY KEY, ");
-	    strbuf.append(NpcDO.NOMBRE); 
-	    strbuf.append(" VARCHAR(100),    ");
-	    strbuf.append(NpcDO.NIVEL);
-	    strbuf.append(" INT,    ");
-	    strbuf.append(NpcDO.SALUD);
-	    strbuf.append(" INT,    ");
-	    strbuf.append(NpcDO.DANO);
-	    strbuf.append(" INT,    ");
-	    strbuf.append(NpcDO.COLOR);
-	    strbuf.append(" VARCHAR(15)    ");
-	    
-	    strbuf.append(")");
+		strbuf.append("CREATE TABLE ");
+		strbuf.append(getTableName());
+		strbuf.append(" (");
+		strbuf.append(NpcDO.ID);
+		strbuf.append(" INT PRIMARY KEY, ");
+		strbuf.append(NpcDO.NOMBRE); 
+		strbuf.append(" VARCHAR(100),    ");
+		strbuf.append(NpcDO.NIVEL);
+		strbuf.append(" INT,    ");
+		strbuf.append(NpcDO.SALUD);
+		strbuf.append(" INT CHECK (" + NpcDO.SALUD + " >= 0 ),    ");
+		strbuf.append(NpcDO.DANO);
+		strbuf.append(" INT,    ");
+		strbuf.append(NpcDO.COLOR);
+		strbuf.append(" VARCHAR(15)    ");
 
-	    System.err.println(strbuf.toString());
+		strbuf.append(")");
 
-	    connection.createStatement().execute(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    // ----------------------------------------
+		connection.createStatement().execute(strbuf.toString());
 
-	    strbuf = new StringBuffer();
+		// ----------------------------------------
 
-	    strbuf.append("CREATE SEQUENCE ");
-	    strbuf.append("seq_");
-	    strbuf.append(getTableName());
+		strbuf = new StringBuffer();
 
-	    System.err.println(strbuf.toString());
+		strbuf.append("CREATE SEQUENCE ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
 
-	    connection.createStatement().execute(strbuf.toString());
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
 
 
 	}
@@ -87,226 +88,221 @@ public class NpcDAO extends BaseDAO implements INpcDAO {
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, NpcDO.class, CHECK_INSERT);
+		checkClass(dataObject, NpcDO.class, CHECK_INSERT);
 
-	    NpcDO npcDO = (NpcDO) dataObject;
+		NpcDO npcDO = (NpcDO) dataObject;
 
-	    npcDO.setId(getNextId());
+		npcDO.setId(getNextId());
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("INSERT INTO ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" VALUES (");
-	    strbuf.append(npcDO.getId());
-	    strbuf.append(", ");
-	    strbuf.append(singleQuotes(npcDO.getNombre()));
-	    strbuf.append(", ");
-	    strbuf.append(npcDO.getNivel());
-	    strbuf.append(", ");
-	    strbuf.append(npcDO.getSalud());
-	    strbuf.append(", ");
-	    strbuf.append(npcDO.getDano());
-	    strbuf.append(", ");
-	    strbuf.append(singleQuotes(npcDO.getColor()));
-	    
-	    strbuf.append(")");
+		strbuf.append("INSERT INTO ");
+		strbuf.append(getTableName());
+		strbuf.append(" VALUES (");
+		strbuf.append(npcDO.getId());
+		strbuf.append(", ");
+		strbuf.append(singleQuotes(npcDO.getNombre()));
+		strbuf.append(", ");
+		strbuf.append(npcDO.getNivel());
+		strbuf.append(", ");
+		strbuf.append(npcDO.getSalud());
+		strbuf.append(", ");
+		strbuf.append(npcDO.getDano());
+		strbuf.append(", ");
+		strbuf.append(singleQuotes(npcDO.getColor()));
 
-	    System.err.println(strbuf.toString());
+		strbuf.append(")");
 
-	    connection.createStatement().execute(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    dtaSession.add(dataObject);
+		connection.createStatement().execute(strbuf.toString());
+
+		dtaSession.add(dataObject);
 
 	}
-	
+
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
-	    checkClass(dataObject, NpcDO.class, CHECK_UPDATE);
+		checkClass(dataObject, NpcDO.class, CHECK_UPDATE);
 
-	    NpcDO npcDO = (NpcDO) dataObject;
+		NpcDO npcDO = (NpcDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("UPDATE ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" SET ");
+		strbuf.append("UPDATE ");
+		strbuf.append(getTableName());
+		strbuf.append(" SET ");
 
-	    strbuf.append(NpcDO.NOMBRE);
-	    strbuf.append(" = ");
-	    strbuf.append(singleQuotes(npcDO.getNombre()));
+		strbuf.append(NpcDO.NOMBRE);
+		strbuf.append(" = ");
+		strbuf.append(singleQuotes(npcDO.getNombre()));
+		strbuf.append(", ");
 
-	    strbuf.append(", ");
+		strbuf.append(NpcDO.NIVEL);
+		strbuf.append(" = ");
+		strbuf.append(npcDO.getNivel());
+		strbuf.append(", ");
 
-	    strbuf.append(NpcDO.NIVEL);
-	    strbuf.append(" = ");
-	    strbuf.append(npcDO.getNivel());
-	    
-	    strbuf.append(", ");
-	    
-	    strbuf.append(NpcDO.SALUD);
-	    strbuf.append(" = ");
-	    strbuf.append(npcDO.getSalud());
-	    
-	    strbuf.append(", ");
-	    
-	    strbuf.append(NpcDO.DANO);
-	    strbuf.append(" = ");
-	    strbuf.append(npcDO.getDano());
-	    
-	    strbuf.append(", ");
-	    
-	    strbuf.append(NpcDO.COLOR);
-	    strbuf.append(" = ");
-	    strbuf.append(singleQuotes(npcDO.getColor()));
-	    
-	    strbuf.append(", ");
-	    
-	    strbuf.append(" WHERE ");
-	    strbuf.append(NpcDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(npcDO.getId());
+		strbuf.append(NpcDO.SALUD);
+		strbuf.append(" = ");
+		strbuf.append(npcDO.getSalud());
+		strbuf.append(", ");
 
-	    System.err.println(strbuf.toString());
+		strbuf.append(NpcDO.DANO);
+		strbuf.append(" = ");
+		strbuf.append(npcDO.getDano());
+		strbuf.append(", ");
 
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf.append(NpcDO.COLOR);
+		strbuf.append(" = ");
+		strbuf.append(singleQuotes(npcDO.getColor()));
+		strbuf.append(", ");
+
+		strbuf.append(" WHERE ");
+		strbuf.append(NpcDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(npcDO.getId());
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
 
 	}
-	
+
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_DELETE);
-	    checkClass(dataObject, NpcDO.class, CHECK_DELETE);
+		checkCache(dataObject, CHECK_DELETE);
+		checkClass(dataObject, NpcDO.class, CHECK_DELETE);
 
-	    NpcDO npcDO = (NpcDO) dataObject;
+		NpcDO npcDO = (NpcDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("DELETE FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("DELETE FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(NpcDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(npcDO.getId());
+		strbuf.append(" WHERE ");
+		strbuf.append(NpcDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(npcDO.getId());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    dtaSession.del(dataObject);
+		dtaSession.del(dataObject);
 
 	}
-	
+
 	@Override
 	public DataObject loadById(int id) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(NpcDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(id);
+		strbuf.append(" WHERE ");
+		strbuf.append(NpcDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(id);
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (rs.next()) {
-	      return resultSetToDO(rs);
-	    }
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
 
-	    return null;
-		
+		return null;
+
 	}
-	
+
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
-		   StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	       strbuf.append("SELECT * FROM ");
-	       strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	      if (lim >= 0 && off >= 0) {
-	         strbuf.append(" LIMIT  ");
-	         strbuf.append(lim);
-	         strbuf.append(" OFFSET ");
-	         strbuf.append(off);
-	        }
+		if (lim >= 0 && off >= 0) {
+			strbuf.append(" LIMIT  ");
+			strbuf.append(lim);
+			strbuf.append(" OFFSET ");
+			strbuf.append(off);
+		}
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<DataObject> ret = new ArrayList<DataObject>();
+		List<DataObject> ret = new ArrayList<DataObject>();
 
-	    while (rs.next()) {
-	        ret.add(resultSetToDO(rs));
-	      }
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
 
-	      return ret;
+		return ret;
 	}
 
 	@Override
 	public int countAll() throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT COUNT(*) FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT COUNT(*) FROM ");
+		strbuf.append(getTableName());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    rs.next();
+		rs.next();
 
-	    return rs.getInt("count");
+		return rs.getInt("count");
 	}
-	
+
 	private int getNextId() throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT nextval(");
-	    strbuf.append(singleQuotes("seq_" + getTableName()));
-	    strbuf.append(")");
+		strbuf.append("SELECT nextval(");
+		strbuf.append(singleQuotes("seq_" + getTableName()));
+		strbuf.append(")");
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (!rs.next()) {
-		    throw new IllegalStateException("!rs.next()");
-		   }
+		if (!rs.next()) {
+			throw new IllegalStateException("!rs.next()");
+		}
 
 		return rs.getInt("nextval");
 	}
 
 	private NpcDO resultSetToDO(ResultSet rs) throws SQLException {
-	  	  NpcDO ret = //
-	  	      (NpcDO) dtaSession.getDtaByKey( //
-	  	      		NpcDO.class, rs.getInt(NpcDO.ID));
+		NpcDO ret = //
+			(NpcDO) dtaSession.getDtaByKey( //
+					NpcDO.class, rs.getInt(NpcDO.ID));
 
-	  	      if (ret != null) {
-	  	        return ret;
-	  	      }
+		if (ret != null) {
+			return ret;
+		}
 
-	  	      ret = new NpcDO();
+		ret = new NpcDO();
 
-	  	      ret.setId/*     */(rs.getInt(HabilidadDO.ID));
-	  	      ret.setNombre/*   */(rs.getString(HabilidadDO.NOMBRE));
-	  	      ret.setNivel((rs.getInt(NpcDO.NIVEL)));
-	  	      ret.setSalud((rs.getInt(NpcDO.SALUD)));
-	  	      ret.setDano((rs.getInt(NpcDO.DANO)));
-	  	      ret.setColor((rs.getString(NpcDO.COLOR)));
-	  	      
-	  	      return (NpcDO) dtaSession.add(ret);	
+		ret.setId/*      */(rs.getInt(NpcDO.ID));
+		ret.setNombre/*  */(rs.getString(NpcDO.NOMBRE));
+		ret.setNivel/*   */(rs.getInt(NpcDO.NIVEL));
+		ret.setSalud/*   */(rs.getInt(NpcDO.SALUD));
+		ret.setDano/*    */(rs.getInt(NpcDO.DANO));
+		ret.setColor/*   */(rs.getString(NpcDO.COLOR));
+
+		return (NpcDO) dtaSession.add(ret);	
 	}
 
 	@Override
@@ -315,10 +311,47 @@ public class NpcDAO extends BaseDAO implements INpcDAO {
 		return null;
 	}
 
-	
+
 	// TODO:
 	@Override
 	public List<INpcDO> listNpc(int id) throws ClassNotFoundException, Exception {
-	  throw new UnsupportedOperationException();
+
+		ClaseLinternaDAO claseLinternaDAO= (ClaseLinternaDAO) //
+		FactoryDAO.getDAO(ClaseLinternaDAO.class, connectionBean);
+		StringBuffer strbuf = new StringBuffer();
+
+		strbuf.append("SELECT ");
+		strbuf.append(getTableName());
+		strbuf.append(".* ");
+
+		strbuf.append("FROM ");
+		strbuf.append(getTableName());
+		strbuf.append(", ");   
+		strbuf.append(claseLinternaDAO.getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(claseLinternaDAO.getTableName());
+		strbuf.append("." + ClaseLinternaDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(id);
+
+		strbuf.append(" AND ");
+		strbuf.append(getTableName() + "." + NpcDO.COLOR);
+		strbuf.append(" <> ");
+		strbuf.append(claseLinternaDAO.getTableName());
+		strbuf.append("." + ClaseLinternaDO.COLOR);
+
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = connection.createStatement().executeQuery(strbuf.toString());
+
+		List<INpcDO> ret = new ArrayList<INpcDO>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+
+		return ret;
 	}
 }

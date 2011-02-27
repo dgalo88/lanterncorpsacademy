@@ -13,7 +13,6 @@ import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
-import com.ulasoft.lanterncorpsacademy.logic.Data;
 import com.ulasoft.lanterncorpsacademy.logic.Ranking;
 
 @SuppressWarnings("serial")
@@ -96,7 +95,8 @@ public class PanelRanking extends Panel {
 			@Override
 			public Object getValue(ETable table, Object element) {
 				IPersonajeDO personaje = (IPersonajeDO) element;
-				return Data.getClase((personaje.getClaseLinternaRef()).getRefIdent());
+				return personaje.getClaseLinternaRef() //
+					.getRefValue().getNombre_de_cuerpo_linterna();
 			}
 		};
 		tableColumn.setWidth(new Extent(50));

@@ -27,7 +27,6 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atacar;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
-import com.ulasoft.lanterncorpsacademy.logic.Data;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 
 @SuppressWarnings("serial")
@@ -100,7 +99,7 @@ public class PanelAtacarPersonaje extends Panel {
 				return personaje.getAlias();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Nombre");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -123,18 +122,19 @@ public class PanelAtacarPersonaje extends Panel {
 			@Override
 			public Object getValue(ETable table, Object element) {
 				IPersonajeDO personaje = (IPersonajeDO) element;
-				return Data.getClase((personaje.getClaseLinternaRef()).getRefIdent());
+				return personaje.getClaseLinternaRef() //
+					.getRefValue().getNombre_de_cuerpo_linterna();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Clase");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn();
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Actions");
+		tableColumn.setWidth(new Extent(20));
+		tableColumn.setHeadValue("");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(initNestedCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);

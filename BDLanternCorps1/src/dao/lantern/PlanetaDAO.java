@@ -90,7 +90,6 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 		checkClass(dataObject, PlanetaDO.class, CHECK_INSERT);
 
 		PlanetaDO planetaDO = (PlanetaDO) dataObject;
-
 		planetaDO.setId(getNextId());
 
 		StringBuffer strbuf = new StringBuffer();
@@ -146,12 +145,12 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 		strbuf.append(" = ");
 		strbuf.append(planetaDO.getCoordenadaEnY());
 //		strbuf.append(", ");
-
+//
 //		Reference<IClaseLinternaDO> refH = planetaDO.getClaseLinternaRef();
 //		refH.checkUpdate();
 //		strbuf.append(refH.getIdAsString());
 
-		System.err.println(strbuf.toString());
+//		System.err.println(strbuf.toString());
 
 		strbuf.append(" WHERE ");
 		strbuf.append(PlanetaDO.ID);
@@ -324,8 +323,7 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 		ObjetivoDAO objetivoDAO = (ObjetivoDAO) FactoryDAO.getDAO( //
 				ObjetivoDAO.class, connectionBean);
 
-		planetaDO
-				.setObjetivoList(objetivoDAO.listByPlanetId(planetaDO.getId()));
+		planetaDO.setObjetivoList(objetivoDAO.listByPlanetId(planetaDO.getId()));
 
 	}
 
@@ -408,10 +406,7 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 				FactoryDAO.getDAO(RecursoPlanetaDAO.class, connectionBean);
 
 		planetaDO.setRecursoPlanetaList( //
-				recursoPlanetaDAO.listByRecursoId(planetaDO.getId()));
+				recursoPlanetaDAO.listByPlanetaId(planetaDO.getId()));
 	}
-
-	// coordenada_en_x";
-	// public static final String COORDENADA_EN_Y = "coordenada_en_y";
 
 }

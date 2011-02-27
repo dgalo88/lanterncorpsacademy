@@ -1,7 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import lcaInterfaceDAO.IRecursoPlanetaDO;
@@ -40,7 +38,6 @@ public class PanelRecolectarNeutro extends Panel {
 	private TestTableModel tableDtaModel;
 	private List<IRecursoPlanetaDO> recursoPlanetaList;
 	private IRecursoPlanetaDO recursoPlanetaDO;
-	private List<Integer> seleccion = new ArrayList<Integer>();
 	private ButtonGroup btnGroupRecursos = new ButtonGroup();
 
 	public PanelRecolectarNeutro() {
@@ -186,21 +183,15 @@ public class PanelRecolectarNeutro extends Panel {
 			return;
 		}
 
-		Calendar dateInit = Calendar.getInstance();
+		try {
+			Recolectar.recolectar( //
+					app.getAtributos().getPersonaje(), //
+					recursoPlanetaDO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-//		Atributos atrib = app.getAtributos();
-//		IPersonajeDO person = atrib.getPersonaje();
-//		try {
-//			if(HabilidadesAnillo.adquirirHabilidades(seleccion,person)) {
-//				d.setWindowPaneEmergente( //
-//						"No se Poseen Suficientes Puntos de Entrenamiento, No se Adquiere Nada");
-//				return;
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		atrib.setPersonaje(person);
-		d.setWindowPaneEmergente("En construcción");
+		d.setWindowPaneEmergente("Ha recolectado el recurso con éxito");
 		return;
 
 	}

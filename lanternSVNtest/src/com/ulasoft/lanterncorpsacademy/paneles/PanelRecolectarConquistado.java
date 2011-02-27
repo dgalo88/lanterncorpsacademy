@@ -217,7 +217,7 @@ public class PanelRecolectarConquistado extends Panel {
 			return;
 
 		}
-		d.setWindowUnitSelect(600, 400);
+		d.setWindowUnitSelect();
 
 	}
 
@@ -240,20 +240,25 @@ public class PanelRecolectarConquistado extends Panel {
 					"No hay selección");
 			return;
 		}
-//
-//		Atributos atrib = app.getAtributos();
-//		IPersonajeDO person = atrib.getPersonaje();
-//		try {
-//			if(HabilidadesAnillo.adquirirHabilidades(seleccion,person)) {
-//				d.setWindowPaneEmergente( //
-//						"No se Poseen Suficientes Puntos de Entrenamiento, No se Adquiere Nada");
-//				return;
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		atrib.setPersonaje(person);
-		d.setWindowPaneEmergente("En construcción");
+
+		List<IRecursoPlanetaDO> recursosList = new ArrayList<IRecursoPlanetaDO>();
+		for (int i = 0; i < seleccion.size(); i++) {
+			recursosList.add(recursoPlanetaList.get(i));
+		}
+
+		try {
+			Recolectar.recolectarRecursoList( //
+					app.getAtributos().getPersonaje(), //
+					recursosList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (seleccion.size() == 1) {
+			d.setWindowPaneEmergente("Ha recolectado el recurso con éxito");
+		} else {
+			d.setWindowPaneEmergente("Ha recolectado los recursos con éxito");
+		}
 		return;
 
 	}

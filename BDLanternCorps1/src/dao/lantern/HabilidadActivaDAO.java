@@ -26,7 +26,7 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		rs.next();
 
@@ -36,183 +36,197 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 
 	@Override
 	public void createTable() throws SQLException {
-	    StringBuffer strbuf;
+		StringBuffer strbuf;
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
+		strbuf = new StringBuffer();
 
-	    strbuf.append("DROP TABLE IF EXISTS ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" CASCADE");
+		strbuf.append("DROP TABLE IF EXISTS ");
+		strbuf.append(getTableName());
+		strbuf.append(" CASCADE");
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
+		strbuf = new StringBuffer();
 
-	    strbuf.append("DROP SEQUENCE IF EXISTS ");
-	    strbuf.append("seq_");
-	    strbuf.append(getTableName());
+		strbuf.append("DROP SEQUENCE IF EXISTS ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    HabilidadDAO habilidadDAO = new HabilidadDAO();
-	    habilidadDAO.init(connectionBean);
-	    
-	    PersonajeDAO personajeDAO = new PersonajeDAO();
-	    personajeDAO.init(connectionBean);
+		HabilidadDAO habilidadDAO = new HabilidadDAO();
+		habilidadDAO.init(connectionBean);
 
-	    strbuf = new StringBuffer();
+		PersonajeDAO personajeDAO = new PersonajeDAO();
+		personajeDAO.init(connectionBean);
 
-	    strbuf.append("CREATE TABLE ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" (");
-	    strbuf.append(HabilidadActivaDO.ID);
-	    strbuf.append(" INT PRIMARY KEY, ");
-	    strbuf.append(HabilidadActivaDO.NIVEL_HABILIDAD);
-	    strbuf.append(" INT DEFAULT 1,    ");
-	    strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(personajeDAO.getTableName()+", ");
-	    strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(habilidadDAO.getTableName());
-	    strbuf.append(")");
+		strbuf = new StringBuffer();
 
-	    System.err.println(strbuf.toString());
+		strbuf.append("CREATE TABLE ");
+		strbuf.append(getTableName());
+		strbuf.append(" (");
+		strbuf.append(HabilidadActivaDO.ID);
+		strbuf.append(" INT PRIMARY KEY, ");
+		strbuf.append(HabilidadActivaDO.NIVEL_HABILIDAD);
+		strbuf.append(" INT CHECK(" + //
+				HabilidadActivaDO.NIVEL_HABILIDAD + //
+				" >= 1) DEFAULT 1,	");
 
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
+		strbuf.append(" INT NOT NULL REFERENCES	");
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append(", ");
 
-	    // ----------------------------------------
+		strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
+		strbuf.append(" INT NOT NULL REFERENCES	");
+		strbuf.append(habilidadDAO.getTableName());
+		strbuf.append(")");
 
-	    strbuf = new StringBuffer();
+		//	    strbuf.append(" INT DEFAULT 1,    ");
+		//	    strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
+		//	    strbuf.append(" INT REFERENCES   ");
+		//	    strbuf.append(personajeDAO.getTableName() + ", ");
+		//	    strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
+		//	    strbuf.append(" INT REFERENCES   ");
+		//	    strbuf.append(habilidadDAO.getTableName());
+		//	    strbuf.append(")");
 
-	    strbuf.append("CREATE SEQUENCE ");
-	    strbuf.append("seq_");
-	    strbuf.append(getTableName());
+		System.err.println(strbuf.toString());
 
-	    System.err.println(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		// ----------------------------------------
+
+		strbuf = new StringBuffer();
+
+		strbuf.append("CREATE SEQUENCE ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
 
 	}
 
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_DELETE);
-	    checkClass(dataObject, HabilidadActivaDO.class, CHECK_DELETE);
+		checkCache(dataObject, CHECK_DELETE);
+		checkClass(dataObject, HabilidadActivaDO.class, CHECK_DELETE);
 
-	    HabilidadDO habilidadDO = (HabilidadDO) dataObject;
+		HabilidadDO habilidadDO = (HabilidadDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("DELETE FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("DELETE FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(habilidadDO.getId());
+		strbuf.append(" WHERE ");
+		strbuf.append(HabilidadDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(habilidadDO.getId());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    dtaSession.del(dataObject);
+		dtaSession.del(dataObject);
 
 	}
 
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, HabilidadActivaDO.class, CHECK_INSERT);
+		checkCache(dataObject, CHECK_INSERT);
+		checkClass(dataObject, HabilidadActivaDO.class, CHECK_INSERT);
 
-	    HabilidadActivaDO habilidadActivaDO = (HabilidadActivaDO) dataObject;
+		HabilidadActivaDO habilidadActivaDO = (HabilidadActivaDO) dataObject;
 
-	    habilidadActivaDO.setId(getNextId());
+		habilidadActivaDO.setId(getNextId());
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("INSERT INTO ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" VALUES (");
-	    strbuf.append(habilidadActivaDO.getId());
-	    strbuf.append(", ");
-	    strbuf.append(habilidadActivaDO.getNivel_habilidad());
-	    strbuf.append(", ");
-	    Reference<IPersonajeDO> refP = habilidadActivaDO.getPersonajeRef();
-	    refP.checkInsert();
-	    strbuf.append(refP.getIdAsString());
-	    
-	    strbuf.append(", ");	    
-	    Reference<IHabilidadDO> refH = habilidadActivaDO.getHabilidadRef();
-	    refH.checkInsert();
-	    strbuf.append(refH.getIdAsString());
+		strbuf.append("INSERT INTO ");
+		strbuf.append(getTableName());
+		strbuf.append(" VALUES (");
+		strbuf.append(habilidadActivaDO.getId());
+		strbuf.append(", ");
+		strbuf.append(habilidadActivaDO.getNivel_habilidad());
+		strbuf.append(", ");
 
-	    
-	    strbuf.append(")");
+		Reference<IPersonajeDO> refP = habilidadActivaDO.getPersonajeRef();
+		refP.checkInsert();
+		strbuf.append(refP.getIdAsString());
+		strbuf.append(", ");	    
 
-	    System.err.println(strbuf.toString());
+		Reference<IHabilidadDO> refH = habilidadActivaDO.getHabilidadRef();
+		refH.checkInsert();
+		strbuf.append(refH.getIdAsString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf.append(")");
 
-	    dtaSession.add(dataObject);
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
+		dtaSession.add(dataObject);
 
 	}
 
 	private int getNextId() throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT nextval(");
-	    strbuf.append(singleQuotes("seq_" + getTableName()));
-	    strbuf.append(")");
+		strbuf.append("SELECT nextval(");
+		strbuf.append(singleQuotes("seq_" + getTableName()));
+		strbuf.append(")");
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (!rs.next()) {
-		    throw new IllegalStateException("!rs.next()");
-		   }
+		if (!rs.next()) {
+			throw new IllegalStateException("!rs.next()");
+		}
 
 		return rs.getInt("nextval");
 	}
 
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
-		   StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	       strbuf.append("SELECT * FROM ");
-	       strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	      if (lim >= 0 && off >= 0) {
-	         strbuf.append(" LIMIT  ");
-	         strbuf.append(lim);
-	         strbuf.append(" OFFSET ");
-	         strbuf.append(off);
-	        }
+		if (lim >= 0 && off >= 0) {
+			strbuf.append(" LIMIT  ");
+			strbuf.append(lim);
+			strbuf.append(" OFFSET ");
+			strbuf.append(off);
+		}
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<DataObject> ret = new ArrayList<DataObject>();
+		List<DataObject> ret = new ArrayList<DataObject>();
 
-	    while (rs.next()) {
-	        ret.add(resultSetToDO(rs));
-	      }
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
 
-	      return ret;
+		return ret;
 	}
 
 	@Override
@@ -223,107 +237,107 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadActivaDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(id);
+		strbuf.append(" WHERE ");
+		strbuf.append(HabilidadActivaDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(id);
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (rs.next()) {
-	      return resultSetToDO(rs);
-	    }
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
 
-	    return null;
+		return null;
 	}
 
-	 // --------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------
 
-	
+
 	@Override
-	public DataObject loadByHabilidadId(int habid, int personajeId) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+	public DataObject loadByHabilidadId(int habilidadId, int personajeId) throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
-	    strbuf.append(" = ");
-	    strbuf.append(habid);
-	    strbuf.append(" AND ");
-	    strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
-	    strbuf.append(" = ");
-	    strbuf.append(personajeId);
+		strbuf.append(" WHERE ");
+		strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
+		strbuf.append(" = ");
+		strbuf.append(habilidadId);
+		strbuf.append(" AND ");
+		strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
+		strbuf.append(" = ");
+		strbuf.append(personajeId);
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (rs.next()) {
-	      return resultSetToDO(rs);
-	    }
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
 
-	    return null;
+		return null;
 	}
 
-	 // --------------------------------------------------------------------------------
-	
-	  public void loadPersonajeRef(IHabilidadActivaDO habilidadActivaDO) throws SQLException {
+	// --------------------------------------------------------------------------------
 
-	    checkClass(habilidadActivaDO, HabilidadActivaDO.class, CHECK_UPDATE);
+	public void loadPersonajeRef(IHabilidadActivaDO habilidadActivaDO) throws SQLException {
 
-	    PersonajeDAO personajeDAO = new PersonajeDAO();
-	    personajeDAO.init(connectionBean);
+		checkClass(habilidadActivaDO, HabilidadActivaDO.class, CHECK_UPDATE);
 
-	    Reference<IPersonajeDO> ref = habilidadActivaDO.getPersonajeRef();
+		PersonajeDAO personajeDAO = new PersonajeDAO();
+		personajeDAO.init(connectionBean);
 
-	    if (ref.getRefIdent() == 0) {
-	      return;
-	    }
+		Reference<IPersonajeDO> ref = habilidadActivaDO.getPersonajeRef();
 
-	    PersonajeDO personajeDO = //
-	    (PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
 
-	    ref.setRefValue(personajeDO);
-	  }
+		PersonajeDO personajeDO = //
+		(PersonajeDO) personajeDAO.loadById(ref.getRefIdent());
 
-		 // --------------------------------------------------------------------------------
+		ref.setRefValue(personajeDO);
+	}
 
-	  public void loadHabilidadRef(IHabilidadActivaDO habilidadActivaDO) throws SQLException {
+	// --------------------------------------------------------------------------------
 
-	    checkClass(habilidadActivaDO, HabilidadActivaDO.class, CHECK_UPDATE);
+	public void loadHabilidadRef(IHabilidadActivaDO habilidadActivaDO) throws SQLException {
 
-	    HabilidadDAO habilidadDAO = new HabilidadDAO();
-	    habilidadDAO.init(connectionBean);
+		checkClass(habilidadActivaDO, HabilidadActivaDO.class, CHECK_UPDATE);
 
-	    Reference<IHabilidadDO> ref = habilidadActivaDO.getHabilidadRef();
+		HabilidadDAO habilidadDAO = new HabilidadDAO();
+		habilidadDAO.init(connectionBean);
 
-	    if (ref.getRefIdent() == 0) {
-	      return;
-	    }
+		Reference<IHabilidadDO> ref = habilidadActivaDO.getHabilidadRef();
 
-	    HabilidadDO habilidadDO = //
-	    (HabilidadDO) habilidadDAO.loadById(ref.getRefIdent());
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
 
-	    ref.setRefValue(habilidadDO);
-	  }
-	  
-	  // --------------------------------------------------------------------------------
-	  
+		HabilidadDO habilidadDO = //
+		(HabilidadDO) habilidadDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(habilidadDO);
+	}
+
+	// --------------------------------------------------------------------------------
+
 	private IHabilidadActivaDO resultSetToDO(ResultSet rs) throws SQLException {
 		HabilidadActivaDO ret = //
-		(HabilidadActivaDO) dtaSession.getDtaByKey( //
-				HabilidadActivaDO.class, rs.getInt(HabilidadActivaDO.ID));
+			(HabilidadActivaDO) dtaSession.getDtaByKey( //
+					HabilidadActivaDO.class, rs.getInt(HabilidadActivaDO.ID));
 
 		if (ret != null) {
 			return ret;
@@ -331,8 +345,8 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 
 		ret = new HabilidadActivaDO();
 
-		ret.setId/*     					*/(rs.getInt(HabilidadActivaDO.ID));
-		ret.setNivel_habilidad/*	            */(rs.getInt(HabilidadActivaDO.NIVEL_HABILIDAD));
+		ret.setId/*					*/(rs.getInt(HabilidadActivaDO.ID));
+		ret.setNivel_habilidad/*	*/(rs.getInt(HabilidadActivaDO.NIVEL_HABILIDAD));
 
 		Reference<IPersonajeDO> refP = new Reference<IPersonajeDO>();
 		refP.setRefIdent(rs.getInt(HabilidadActivaDO.PERSONAJE_ID));
@@ -348,44 +362,42 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
-	    checkClass(dataObject, HabilidadActivaDO.class, CHECK_UPDATE);
+		checkClass(dataObject, HabilidadActivaDO.class, CHECK_UPDATE);
 
-	    HabilidadActivaDO habilidadActivaDO = (HabilidadActivaDO) dataObject;
+		HabilidadActivaDO habilidadActivaDO = (HabilidadActivaDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("UPDATE ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" SET ");
+		strbuf.append("UPDATE ");
+		strbuf.append(getTableName());
+		strbuf.append(" SET ");
 
-	    strbuf.append(HabilidadActivaDO.NIVEL_HABILIDAD);
-	    strbuf.append(" = ");
-	    strbuf.append(habilidadActivaDO.getNivel_habilidad());
-	    
-	    strbuf.append(", ");
-	    	    
-	    strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
-	    strbuf.append(" = ");
-	    Reference<IPersonajeDO> refP = habilidadActivaDO.getPersonajeRef();
-	    refP.checkUpdate();
-	    strbuf.append(refP.getIdAsString());
-	    
-	    strbuf.append(", ");
-	    
-	    strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
-	    strbuf.append(" = ");
-	    Reference<IHabilidadDO> refH = habilidadActivaDO.getHabilidadRef();
-	    refH.checkUpdate();
-	    strbuf.append(refH.getIdAsString());
-	    
-	    strbuf.append(" WHERE ");
-	    strbuf.append(HabilidadDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(habilidadActivaDO.getId());
+		strbuf.append(HabilidadActivaDO.NIVEL_HABILIDAD);
+		strbuf.append(" = ");
+		strbuf.append(habilidadActivaDO.getNivel_habilidad());
+		strbuf.append(", ");
 
-	    System.err.println(strbuf.toString());
+		strbuf.append(HabilidadActivaDO.PERSONAJE_ID);
+		strbuf.append(" = ");
+		Reference<IPersonajeDO> refP = habilidadActivaDO.getPersonajeRef();
+		refP.checkUpdate();
+		strbuf.append(refP.getIdAsString());
+		strbuf.append(", ");
 
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf.append(HabilidadActivaDO.HABILIDAD_ID);
+		strbuf.append(" = ");
+		Reference<IHabilidadDO> refH = habilidadActivaDO.getHabilidadRef();
+		refH.checkUpdate();
+		strbuf.append(refH.getIdAsString());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(HabilidadDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(habilidadActivaDO.getId());
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
 
 	}
 
@@ -403,7 +415,7 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		List<IHabilidadActivaDO> ret = new ArrayList<IHabilidadActivaDO>();
 
@@ -413,7 +425,7 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 
 		return ret;
 	}
-	
+
 	public List<IHabilidadActivaDO> listByPersonajeId(int personajeId) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
@@ -428,7 +440,7 @@ public class HabilidadActivaDAO extends BaseDAO implements IHabilidadActivaDAO {
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		List<IHabilidadActivaDO> ret = new ArrayList<IHabilidadActivaDO>();
 

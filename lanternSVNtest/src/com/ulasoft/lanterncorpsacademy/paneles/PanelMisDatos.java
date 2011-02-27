@@ -1,8 +1,5 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lcaInterfaceDAO.IPlanetaDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
@@ -10,7 +7,6 @@ import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Font;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
@@ -20,7 +16,6 @@ import nextapp.echo.app.Row;
 import com.minotauro.echo.table.base.ETable;
 import com.minotauro.echo.table.base.TableColModel;
 import com.minotauro.echo.table.base.TableColumn;
-import com.minotauro.echo.table.base.TableSelModel;
 import com.minotauro.echo.table.renderer.BaseCellRenderer;
 import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.minotauro.echo.table.renderer.NestedCellRenderer;
@@ -28,7 +23,6 @@ import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.logic.Recursos;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
@@ -42,8 +36,8 @@ public class PanelMisDatos extends Panel {
 
 	private TestTableModel tableDtaModel;
 	private ETable table;
-	private List<Recursos> recursos = new ArrayList<Recursos>();
-	private Recursos recurso;
+//	private List<Recursos> recursos = new ArrayList<Recursos>();
+//	private Recursos recurso;
 
 	private IPlanetaDO planeta;
 	private Label lblNombre;
@@ -200,50 +194,6 @@ public class PanelMisDatos extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private Column getTableRecursos() {
-
-		Column col = new Column();
-		col.setBackground(Color.WHITE);
-		col.add(initTopRow());
-
-		try {
-			for (int i = 0; i < 8; i++) {
-				recurso = new Recursos(i);
-				recursos.add(recurso);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// ----------------------------------------
-		// The table models
-		// ----------------------------------------
-
-		TableColModel tableColModel = initTableColModel();
-		TableSelModel tableSelModel = new TableSelModel();
-		tableDtaModel = new TestTableModel();
-		tableDtaModel.setEditable(true);
-
-//		tableDtaModel = Recursos.asignarRecursos(tableDtaModel, recursos);
-		tableDtaModel = Recursos.asignarRec(tableDtaModel, recursos);
-
-		// ----------------------------------------
-		// The table
-		// ----------------------------------------
-
-		table = new ETable();
-		table.setTableDtaModel(tableDtaModel);
-		table.setTableColModel(tableColModel);
-		table.setTableSelModel(tableSelModel);
-		table.setEasyview(true);
-		table.setFont(new Font(Font.VERDANA, Font.PLAIN, new Extent(10)));
-		col.add(table);
-
-		return col;
-
-	}
-
-	// --------------------------------------------------------------------------------
 
 	private Row initTopRow() {
 
@@ -267,8 +217,9 @@ public class PanelMisDatos extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				Recursos recurso = (Recursos) element;
-				return recurso.getNombre();
+//				Recursos recurso = (Recursos) element;
+//				return recurso.getNombre();
+				return null;
 			}
 		};
 		tableColumn.setWidth(new Extent(50));
