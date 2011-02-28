@@ -8,6 +8,8 @@ import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IRecursoDAO;
 import lcaInterfaceDAO.IRecursoDO;
+import lcaInterfaceDAO.IRecursoPersonajeDAO;
+import lcaInterfaceDAO.IRecursoPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
 
@@ -17,6 +19,7 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMain;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMisDatos;
 
+import dao.api.Reference;
 import dao.connection.ConnectionBean;
 import dao.connection.ConnectionFactory;
 import factory.GlobalDAOFactory;
@@ -138,10 +141,46 @@ public class Atributos {
 				claseLinternaDAO.loadById(personaje.getClaseLinternaRef().getRefIdent());
 		IRecursoDAO recursoDAO = (IRecursoDAO) //
 				GlobalDAOFactory.getDAO(IRecursoDAO.class, connectionBean);
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
+		IRecursoPersonajeDAO recursoPersonajeDAO = (IRecursoPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IRecursoPersonajeDAO.class, connectionBean);
 
-		IRecursoDO recursoDO[] = new IRecursoDO[9];
+		IRecursoDO recursoDO[] = new IRecursoDO[8];
 		for (int i = 0; i < 8; i++) {
 			recursoDO[i] = (IRecursoDO) recursoDAO.loadById(i+1);
+		}
+
+		personajeDAO.loadRecursoPersonajeList(personaje);
+
+
+		IRecursoPersonajeDO recursoPersonaje = (IRecursoPersonajeDO) //
+				GlobalDOFactory.getDO(IRecursoPersonajeDO.class);
+		Reference<IRecursoDO> refRecurso = new Reference<IRecursoDO>();
+		Reference<IPersonajeDO> refPersonaje = new Reference<IPersonajeDO>();
+
+		IRecursoPersonajeDO recursoPersonajeDO[] = new IRecursoPersonajeDO[8];
+		for (int i = 0; i < personaje.getRecursoPersonajeList().size(); i++) {
+
+			if (personaje.getRecursoPersonajeList().get(i).getRecursoRef().getRefIdent() == //
+				recursoDO[i].getId()) {
+				recursoPersonajeDO[i] = personaje.getRecursoPersonajeList().get(i);
+			}
+
+			IRecursoDO refValue1 = (IRecursoDO) recursoDAO.loadById(i);
+			refValue1 = (IRecursoDO) recursoDAO.loadById(i);
+			refRecurso.setRefValue(refValue1);
+
+			IPersonajeDO refValue2 = (IPersonajeDO) personajeDAO.loadById(i);
+			refValue2 = (IPersonajeDO) personajeDAO.loadById(i);
+			refPersonaje.setRefValue(refValue2);
+
+			recursoPersonaje.setCantidad(0);
+			recursoPersonaje.setRecursoRef(refRecurso);
+			recursoPersonaje.setPersonajeRef(refPersonaje);
+
+			recursoPersonajeDO[i] = recursoPersonaje;
+
 		}
 
 		// TODO: Arreglar Referencia
@@ -164,14 +203,23 @@ public class Atributos {
 				+ Integer.toString(personaje.getPuntosDeEntrenamiento()));
 		misDatos.getLblOfertas().setText("Ofertas: 00");
 
-		misDatos.getLblPlomo().setText(recursoDO[0].getNombre() + ": 00");
-		misDatos.getLblHierro().setText(recursoDO[1].getNombre() + ": 00");
-		misDatos.getLblAcero().setText(recursoDO[2].getNombre() + ": 00");
-		misDatos.getLblUranio().setText(recursoDO[3].getNombre() + ": 00");
-		misDatos.getLblTitanio().setText(recursoDO[4].getNombre() + ": 00");
-		misDatos.getLblCristalo().setText(recursoDO[5].getNombre() + ": 00");
-		misDatos.getLblAdamantium().setText(recursoDO[6].getNombre() + ": 00");
-		misDatos.getLblVibratium().setText(recursoDO[7].getNombre() + ": 00");
+		misDatos.getLblPlomo().setText(recursoDO[0].getNombre() + " " + recursoPersonajeDO[0].getCantidad());
+		misDatos.getLblHierro().setText(recursoDO[1].getNombre() + " "  + recursoPersonajeDO[1].getCantidad());
+		misDatos.getLblAcero().setText(recursoDO[2].getNombre() + " "  + recursoPersonajeDO[2].getCantidad());
+		misDatos.getLblUranio().setText(recursoDO[3].getNombre() + " "  + recursoPersonajeDO[3].getCantidad());
+		misDatos.getLblTitanio().setText(recursoDO[4].getNombre() + " "  + recursoPersonajeDO[4].getCantidad());
+		misDatos.getLblCristalo().setText(recursoDO[5].getNombre() + " "  + recursoPersonajeDO[5].getCantidad());
+		misDatos.getLblAdamantium().setText(recursoDO[6].getNombre() + " "  + recursoPersonajeDO[6].getCantidad());
+		misDatos.getLblVibratium().setText(recursoDO[7].getNombre() + " "  + recursoPersonajeDO[7].getCantidad());
+
+//		misDatos.getLblPlomo().setText(recursoDO[0].getNombre() + ": 00");
+//		misDatos.getLblHierro().setText(recursoDO[1].getNombre() + ": 00");
+//		misDatos.getLblAcero().setText(recursoDO[2].getNombre() + ": 00");
+//		misDatos.getLblUranio().setText(recursoDO[3].getNombre() + ": 00");
+//		misDatos.getLblTitanio().setText(recursoDO[4].getNombre() + ": 00");
+//		misDatos.getLblCristalo().setText(recursoDO[5].getNombre() + ": 00");
+//		misDatos.getLblAdamantium().setText(recursoDO[6].getNombre() + ": 00");
+//		misDatos.getLblVibratium().setText(recursoDO[7].getNombre() + ": 00");
 
 	}
 

@@ -2,6 +2,7 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import lcaInterfaceDAO.ITecnologiaDO;
 import nextapp.echo.app.Alignment;
@@ -125,6 +126,8 @@ public class PanelAdquirirTecnologia extends Panel {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				Random random = new Random();
+				lblCosto.setText("" + random.nextInt(50));
 				return lblCosto.getText();
 			}
 		};
