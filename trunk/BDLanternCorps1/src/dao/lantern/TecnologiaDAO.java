@@ -220,73 +220,68 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 
 	public List<DataObject> listToBuy(int id) throws Exception {
 
-		TecnologiaPersonajeDAO tecnologiaPersonajeDAO = (TecnologiaPersonajeDAO) FactoryDAO
-				.getDAO(TecnologiaPersonajeDAO.class, connectionBean);
-		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO(PersonajeDAO.class, connectionBean);
-		TecnologiaRecursoDAO tecnologiaRecursoDAO = (TecnologiaRecursoDAO) FactoryDAO//
-		.getDAO(TecnologiaRecursoDAO.class, connectionBean);
-		RecursoDAO recursoDAO = (RecursoDAO) FactoryDAO.getDAO(
-				RecursoDAO.class, connectionBean);
+		UnidadBasicaDAO unidadBasicaDAO = (UnidadBasicaDAO) //
+		FactoryDAO.getDAO(UnidadBasicaDAO.class, connectionBean);
+	TecnologiaPersonajeDAO tecnologiaPersonajeDAO = (TecnologiaPersonajeDAO) //
+		FactoryDAO.getDAO(TecnologiaPersonajeDAO.class, connectionBean);
+	PersonajeDAO personajeDAO = (PersonajeDAO) //
+		FactoryDAO.getDAO(PersonajeDAO.class, connectionBean);
 
-		StringBuffer strbuf = new StringBuffer();
+	StringBuffer strbuf = new StringBuffer();
 
-		strbuf.append("SELECT " + getTableName() + ".* FROM ");
-		strbuf.append(personajeDAO.getTableName());
-		strbuf.append(" JOIN  ");
-		strbuf.append(tecnologiaPersonajeDAO.getTableName());
-		strbuf.append(" ON ");
-		strbuf.append(personajeDAO.getTableName());
-		strbuf.append("." + PersonajeDO.TECNOLOGIA_ID);
-		strbuf.append(" = ");
-		strbuf.append(tecnologiaPersonajeDAO.getTableName());
-		strbuf.append("." + TecnologiaDO.ID);
+	strbuf.append("SELECT distinct " + getTableName() + ".* FROM ");
+	strbuf.append(personajeDAO.getTableName());
+	strbuf.append(", ");
+	strbuf.append(unidadBasicaDAO.getTableName());
+	strbuf.append(", ");
+	strbuf.append(getTableName());		
+	strbuf.append(", ");
+	strbuf.append(tecnologiaPersonajeDAO.getTableName());
 
-		//strbuf.append(" JOIN  ");
-		//strbuf.append(tecnologiaPersonajeDAO.getTableName());
-		//strbuf.append(" ON ");
-		//strbuf.append(personajeDAO.getTableName());
-		//strbuf.append("." + personaje.ID);
-		//strbuf.append(" = ");
-		//strbuf.append(tecnologiaPersonajeDAO.getTableName());
-		//strbuf.append("." + TecnologiaPersonajeDO.PERSONAJE_ID);
+	strbuf.append(" WHERE ");
+//	strbuf.append(personajeDAO.getTableName());
+//	strbuf.append("." + PersonajeDO.CLASE_LINTERNA_ID);
+//	strbuf.append(" = ");
+//	strbuf.append(habilidadClaseLinternaDAO.getTableName());
+//	strbuf.append("." + HabilidadClaseLinternaDO.CLASE_LINTERNA_ID);
+//
+//	strbuf.append(" AND ");
+	strbuf.append(getTableName());
+	strbuf.append("." + TecnologiaDO.ID);
+	strbuf.append(" = ");
+	strbuf.append(unidadBasicaDAO.getTableName());
+	strbuf.append("." + UnidadBasicaDO.TECNOLOGIA_ID);
 
-		//strbuf.append(" JOIN  ");
-		//strbuf.append(getTableName());
-		//strbuf.append(" ON ");
-		//strbuf.append(getTableName());
-		//strbuf.append("." + TecnologiaDO.ID);
-		//strbuf.append(" = ");
-		//strbuf.append(tecnologiaPersonajeDAO.getTableName());
-		//strbuf.append("." + TecnologiaPersonajeDO.TECNOLOGIA_ID);
+	strbuf.append(" AND ");
+	strbuf.append(personajeDAO.getTableName());
+	strbuf.append("." + PersonajeDO.ID);
+	strbuf.append(" = ");
+	strbuf.append(id);
 
-		strbuf.append(" RIGHT JOIN  ");
-		strbuf.append(tecnologiaRecursoDAO .getTableName());
-		strbuf.append(" ON ");
-		strbuf.append(recursoDAO.getTableName());
-		strbuf.append("." + RecursoDO.ID);
-		strbuf.append(" = ");
-		strbuf.append(tecnologiaRecursoDAO .getTableName());
-		strbuf.append("." + TecnologiaRecursoDO .RECURSO_ID);
+	strbuf.append(" AND ");
+	strbuf.append(personajeDAO.getTableName());
+	strbuf.append("." + PersonajeDO.ID);
+	strbuf.append(" = ");
+	strbuf.append(tecnologiaPersonajeDAO.getTableName());
+	strbuf.append("." + TecnologiaPersonajeDO.PERSONAJE_ID);
 
-		strbuf.append(" WHERE ");
-		strbuf.append(tecnologiaRecursoDAO.getTableName());
-		strbuf.append("." + TecnologiaRecursoDO.ID);
-		strbuf.append(" IS NULL AND ");
-		strbuf.append(recursoDAO.getTableName());
-		strbuf.append("." + RecursoDO.ID);
-		strbuf.append(" = ");
-		strbuf.append(id);
+	strbuf.append(" AND ");
+	strbuf.append(getTableName());
+	strbuf.append("." + TecnologiaDO.ID);
+	strbuf.append(" <> ");
+	strbuf.append(tecnologiaPersonajeDAO.getTableName());
+	strbuf.append("." + TecnologiaPersonajeDO.TECNOLOGIA_ID);
 
-		ResultSet rs = //
+	ResultSet rs = //
 		connection.createStatement().executeQuery(strbuf.toString());
-		System.err.println(strbuf.toString());
+	System.err.println(strbuf.toString());
 
-		List<DataObject> ret = new ArrayList<DataObject>();
+	List<DataObject> ret = new ArrayList<DataObject>();
 
-		while (rs.next()) {
-			ret.add(resultSetToDO(rs));
-		}
-		return ret;
+	while (rs.next()) {
+		ret.add(resultSetToDO(rs));
+	}
+	return ret;
 
 	}
 

@@ -777,4 +777,19 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 
 	}
 
+	@Override
+	public void loadTecnologiaPersonajeList(IPersonajeDO personajeDO)
+			throws Exception {
+
+//		checkCache(personajeDO, CHECK_UPDATE);
+
+		TecnologiaPersonajeDAO tecnologiaPersonajeDAO = (TecnologiaPersonajeDAO) //
+				FactoryDAO.getDAO(TecnologiaPersonajeDAO.class, connectionBean);
+
+
+		personajeDO.setTecnologiaPersonajeList( //
+				tecnologiaPersonajeDAO.listByPersonajeId(personajeDO.getId()));
+
+	}
+
 }

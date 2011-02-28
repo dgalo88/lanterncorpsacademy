@@ -32,6 +32,10 @@ public interface IPersonajeDAO extends InterfaceDAO {
 
 	// --------------------------------------------------------------------------------
 
+	public void loadTecnologiaPersonajeList(IPersonajeDO personajeDO) throws Exception;
+
+	// --------------------------------------------------------------------------------
+
 	public List<IPersonajeDO> listByClaseLinternaId(int claseLinternaId) throws SQLException;
 	
 	// --------------------------------------------------------------------------------

@@ -60,6 +60,8 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		strbuf.append(" (");
 		strbuf.append(AndroideDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
+		strbuf.append(AndroideDO.NOMBRE);
+		strbuf.append(" VARCHAR(100),    ");
 		strbuf.append(AndroideDO.TIPO);
 		strbuf.append(" INT,    ");
 		strbuf.append(AndroideDO.CANTIDAD);
@@ -104,6 +106,8 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		strbuf.append(" VALUES (");
 		strbuf.append(androideDO.getId());
 		strbuf.append(", ");
+		strbuf.append(androideDO.getNombre());
+		strbuf.append(", ");
 		strbuf.append(androideDO.getTipo());
 		strbuf.append(", ");
 		strbuf.append(androideDO.getCantidad());
@@ -137,16 +141,19 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		strbuf.append(getTableName());
 		strbuf.append(" SET ");
 
+		strbuf.append(AndroideDO.NOMBRE);
+		strbuf.append(" = ");
+		strbuf.append(androideDO.getTipo());
+		strbuf.append(", ");
+
 		strbuf.append(AndroideDO.TIPO);
 		strbuf.append(" = ");
 		strbuf.append(androideDO.getTipo());
-
 		strbuf.append(", ");
 
 		strbuf.append(AndroideDO.CANTIDAD);
 		strbuf.append(" = ");
 		strbuf.append(androideDO.getCantidad());
-
 		strbuf.append(", ");
 
 		strbuf.append(AndroideDO.TECNOLOGIA_ID);
@@ -208,7 +215,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		if (rs.next()) {
 			return resultSetToDO(rs);
@@ -233,7 +240,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		if (rs.next()) {
 			return resultSetToDO(rs);
@@ -258,7 +265,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		if (rs.next()) {
 			return resultSetToDO(rs);
@@ -286,7 +293,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		List<DataObject> ret = new ArrayList<DataObject>();
 
@@ -316,7 +323,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		rs.next();
 
@@ -337,7 +344,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		if (!rs.next()) {
 			throw new IllegalStateException("!rs.next()");
@@ -350,8 +357,8 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 
 	private AndroideDO resultSetToDO(ResultSet rs) throws SQLException {
 		AndroideDO ret = //
-		(AndroideDO) dtaSession.getDtaByKey( //
-				AndroideDO.class, rs.getInt(AndroideDO.ID));
+			(AndroideDO) dtaSession.getDtaByKey( //
+					AndroideDO.class, rs.getInt(AndroideDO.ID));
 
 		if (ret != null) {
 			return ret;
@@ -360,6 +367,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		ret = new AndroideDO();
 
 		ret.setId/*     			*/(rs.getInt(AndroideDO.ID));
+		ret.setTipo/*				*/(rs.getInt(AndroideDO.NOMBRE));
 		ret.setTipo/*				*/(rs.getInt(AndroideDO.TIPO));
 		ret.setCantidad/*			*/(rs.getInt(AndroideDO.CANTIDAD));
 
@@ -385,8 +393,8 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 			return;
 		}
 
-		TecnologiaDO tecnologiaDO = //
-		(TecnologiaDO) tecnologiaDAO.loadById(ref.getRefIdent());
+		TecnologiaDO tecnologiaDO = (TecnologiaDO) //
+			tecnologiaDAO.loadById(ref.getRefIdent());
 
 		ref.setRefValue(tecnologiaDO);
 	}
@@ -394,29 +402,27 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 	// --------------------------------------------------------------------------------
 
 	public void loadAndroidePersonajeList(IAndroideDO androideDO)
-			throws Exception {
+	throws Exception {
 		checkCache(androideDO, CHECK_UPDATE);
 
-		AndroidePersonajeDAO androidePersonajeDAO = (AndroidePersonajeDAO) FactoryDAO
-				.getDAO( //
-						AndroidePersonajeDAO.class, connectionBean);
+		AndroidePersonajeDAO androidePersonajeDAO = (AndroidePersonajeDAO) //
+			FactoryDAO.getDAO(AndroidePersonajeDAO.class, connectionBean);
 
-		androideDO.setAndroidePersonajeList(androidePersonajeDAO
-				.listByAndroideId(androideDO.getId()));
+		androideDO.setAndroidePersonajeList( //
+				androidePersonajeDAO.listByAndroideId(androideDO.getId()));
 	}
 
 	// --------------------------------------------------------------------------------
 
 	public void loadAndroideRecursoList(IAndroideDO androideDO)
-			throws Exception {
+	throws Exception {
 		checkCache(androideDO, CHECK_UPDATE);
 
-		AndroideRecursoDAO androideRecursoDAO = (AndroideRecursoDAO) FactoryDAO
-				.getDAO( //
-						AndroideRecursoDAO.class, connectionBean);
+		AndroideRecursoDAO androideRecursoDAO = (AndroideRecursoDAO) //
+			FactoryDAO.getDAO(AndroideRecursoDAO.class, connectionBean);
 
-		androideDO.setAndroideRecursojeList(androideRecursoDAO
-				.listByAndroideId(androideDO.getId()));
+		androideDO.setAndroideRecursojeList( //
+				androideRecursoDAO.listByAndroideId(androideDO.getId()));
 	}
 
 	// --------------------------------------------------------------------------------

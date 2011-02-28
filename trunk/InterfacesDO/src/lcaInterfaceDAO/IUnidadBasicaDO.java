@@ -51,27 +51,6 @@ public interface IUnidadBasicaDO extends DataObject{
 	
 	//-------------------------------------------------------------------------------------------------------
 	
-	public abstract Reference<IUnidadEjercitoDO> getUnidadEjercitoArmaRef();
-	
-	public abstract void setUnidadEjercitoArma(Reference<IUnidadEjercitoDO> unidadEjercitoArmaRef);
-	
-	//----------------------------------------------------------------------------------------------------
-	
-	public abstract Reference<IUnidadEjercitoDO> getUnidadEjercitoRobotRef();
-	
-	public abstract void setUnidadEjercitoRobotRef(Reference<IUnidadEjercitoDO> unidadEjercitoRobotRef);
-	
-	//--------------------------------------------------------------------------------------------------------
-	
-	public abstract Reference<IUnidadEjercitoDO> getUnidadEjercitoVehiculoRef();
-	
-	public abstract void setUnidadEjercitoVehiculoRef(Reference<IUnidadEjercitoDO> unidadEjercitoVehiculoRef);
-	
-	//------------------------------------------------------------------------------------------------------------
-	
-	public abstract Reference<IUnidadEjercitoDO> getUnidadEjercitoBalaRef();
-	
-	public abstract void setUnidadEjercitoBalaRef(Reference<IUnidadEjercitoDO> unidadEjercitoBalaRef);
-	
+		
 	
 }

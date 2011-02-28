@@ -1,7 +1,9 @@
 package lcaInterfaceDAO;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import dao.api.DataObject;
 import dao.api.InterfaceDAO;
 
 public interface ITecnologiaDAO extends InterfaceDAO {
@@ -17,6 +19,8 @@ public interface ITecnologiaDAO extends InterfaceDAO {
 	public abstract void loadTecnologiaPersonajeList(ITecnologiaDO tecnologiaDO) throws Exception;
 
 	public abstract void loadTecnologiaRecursoList(ITecnologiaDO tecnologiaDO) throws Exception;
+
+	public List<DataObject> listToBuy(int id) throws Exception;
 
 	public abstract ITecnologiaDO loadByNombre(String nombre) throws SQLException;
 

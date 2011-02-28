@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.IHabilidadDO;
+import lcaInterfaceDAO.ITecnologiaPersonajeDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.CheckBox;
@@ -26,7 +27,7 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.logic.HabilidadesAnillo;
+import com.ulasoft.lanterncorpsacademy.logic.Tecnologia;
 
 @SuppressWarnings("serial")
 public class PanelAdquirirTecnologia extends Panel {
@@ -36,6 +37,7 @@ public class PanelAdquirirTecnologia extends Panel {
 	private Desktop d = app.getDesktop();
 
 	private TestTableModel tableDtaModel;
+	private List<ITecnologiaPersonajeDO> tecnologiaPersonajeList;
 	private List<Integer> seleccion = new ArrayList<Integer>();
 
 	public PanelAdquirirTecnologia() {
@@ -54,14 +56,18 @@ public class PanelAdquirirTecnologia extends Panel {
 
 		tableDtaModel = new TestTableModel();
 		try {
-			tableDtaModel = HabilidadesAnillo.obtenerHabilidadesCompra( //
-					app.getAtributos().getPersonaje(), tableDtaModel);
+			tecnologiaPersonajeList = Tecnologia.getTecnologiaPersonaje( //
+					app.getAtributos().getPersonaje());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		tableDtaModel = Tecnologia.asignarTecnologia( //
+				tableDtaModel, tecnologiaPersonajeList);
 
-		col.add(PanelConstructor.initTopRow("Lista de Tecnologías Disponibles"));
-		col.add(PanelConstructor.initTable(tableDtaModel, initTableColModel(), true));
+		col.add(PanelConstructor.initTopRow( //
+				"Lista de Tecnologías Disponibles"));
+		col.add(PanelConstructor.initTable( //
+				tableDtaModel, initTableColModel(), true));
 
 		Button btnCancelar = new Button("Cancelar");
 		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
@@ -103,7 +109,7 @@ public class PanelAdquirirTecnologia extends Panel {
 				return habilidad.getNombre();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Nombre");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -116,14 +122,14 @@ public class PanelAdquirirTecnologia extends Panel {
 				return habilidad.getCosto_de_aprendizaje();
 			}
 		};
-		tableColumn.setWidth(new Extent(25));
+		tableColumn.setWidth(new Extent(50));
 		tableColumn.setHeadValue("Costo");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn();
-		tableColumn.setWidth(new Extent(25));
+		tableColumn.setWidth(new Extent(20));
 		tableColumn.setHeadValue("");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(initNestedCellRenderer());
