@@ -65,9 +65,6 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 	//	TecnologiaRecursoDAO tecnologiaRecursoDAO = new TecnologiaRecursoDAO(); 
 		tecnologiaPersonajeDAO.init(connectionBean);
 
-		
-		tecnologiaPersonajeDAO.init(connectionBean);
-
 		AndroideDAO androideDAO = new AndroideDAO();
 		androideDAO.init(connectionBean);
 
@@ -82,10 +79,10 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		strbuf.append(TecnologiaDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(TecnologiaDO.NOMBRE);
-		strbuf.append(" VARCHAR(100),    ");
-		strbuf.append(TecnologiaDO.TECNOLOGIA_PERSONAJE_ID);
-		strbuf.append(", ");
-		strbuf.append(TecnologiaDO.UNIDAD_BASICA_ID);
+		strbuf.append(" VARCHAR(100)    ");
+//		strbuf.append(TecnologiaDO.UNIDAD_BASICA_ID);
+//		strbuf.append(" INT REFERENCES    ");
+//		strbuf.append(unidadBasicaDAO.getTableName());
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());

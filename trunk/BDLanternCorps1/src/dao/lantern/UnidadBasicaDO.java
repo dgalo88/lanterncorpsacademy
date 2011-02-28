@@ -19,13 +19,13 @@ public class UnidadBasicaDO implements IUnidadBasicaDO {
 	public static final String ATAQUE="ataque";
 	public static final String TIPO="tipo";
 	
-	public static final String UNIDAD_EJERCITO_ARMA_ID ="unidadEjercitoArma";
-	
-	public static final String UNIDAD_EJERCITO_ROBOT_ID ="unidadEjercitoRobot";
-	
-	public static final String UNIDAD_EJERCITO_VEHICULO_ID ="unidadEjercitoVehiculo";
-	
-	public static final String UNIDAD_EJERCITO_BALA_ID ="unidadEjercitoBala";
+//	public static final String UNIDAD_EJERCITO_ARMA_ID ="unidadEjercitoArma";
+//	
+//	public static final String UNIDAD_EJERCITO_ROBOT_ID ="unidadEjercitoRobot";
+//	
+//	public static final String UNIDAD_EJERCITO_VEHICULO_ID ="unidadEjercitoVehiculo";
+//	
+//	public static final String UNIDAD_EJERCITO_BALA_ID ="unidadEjercitoBala";
 	
 	public static final String TECNOLOGIA_ID ="tecnologiaId";
 	

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import lcaInterfaceDAO.IAndroideDAO;
+import lcaInterfaceDAO.IAndroidePersonajeDAO;
+import lcaInterfaceDAO.IAndroideRecursoDAO;
 import lcaInterfaceDAO.IClaseLinternaDAO;
 import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IGrupoDAO;
@@ -28,6 +31,15 @@ import lcaInterfaceDAO.IRecursoOfertaVentaDAO;
 import lcaInterfaceDAO.IRecursoPersonajeDAO;
 import lcaInterfaceDAO.IRecursoPlanetaDAO;
 import lcaInterfaceDAO.IRecursoPlanetaDO;
+import lcaInterfaceDAO.ITecnologiaDAO;
+import lcaInterfaceDAO.ITecnologiaPersonajeDAO;
+import lcaInterfaceDAO.ITecnologiaRecursoDAO;
+import lcaInterfaceDAO.IUnidadBasicaDAO;
+import lcaInterfaceDAO.IUnidadBasicaPersonajeDAO;
+import lcaInterfaceDAO.IUnidadBasicaRecursoDAO;
+import lcaInterfaceDAO.IUnidadEjercitoDAO;
+import lcaInterfaceDAO.IUnidadEjercitoOfertaDAO;
+import lcaInterfaceDAO.IUnidadEjercitoPersonajeDAO;
 import lcaInterfaceDAO.IUsuarioDAO;
 import dao.api.Reference;
 import dao.connection.ConnectionBean;
@@ -89,12 +101,12 @@ public class InicializarBD {
 			GlobalDAOFactory.getDAO(INivelHabilidadDAO.class, conn);
 
 		// DAOs Nuevos
-//		IAndroideDAO AndroideDAO = (IAndroideDAO) //
-//			GlobalDAOFactory.getDAO(IAndroideDAO.class, conn);
-//		IAndroidePersonajeDAO AndroidePersonajeDAO = (IAndroidePersonajeDAO) //
-//			GlobalDAOFactory.getDAO(IAndroidePersonajeDAO.class, conn);
-//		IAndroideRecursoDAO AndroideRecursoDAO = (IAndroideRecursoDAO) //
-//			GlobalDAOFactory.getDAO(IAndroideRecursoDAO.class, conn);
+		IAndroideDAO AndroideDAO = (IAndroideDAO) //
+			GlobalDAOFactory.getDAO(IAndroideDAO.class, conn);
+		IAndroidePersonajeDAO AndroidePersonajeDAO = (IAndroidePersonajeDAO) //
+			GlobalDAOFactory.getDAO(IAndroidePersonajeDAO.class, conn);
+		IAndroideRecursoDAO AndroideRecursoDAO = (IAndroideRecursoDAO) //
+			GlobalDAOFactory.getDAO(IAndroideRecursoDAO.class, conn);
 		IOfertaDAO OfertaDAO = (IOfertaDAO) //
 			GlobalDAOFactory.getDAO(IOfertaDAO.class, conn);
 		IOfertaPersonajeDAO OfertaPersonajeDAO = (IOfertaPersonajeDAO) //
@@ -109,24 +121,24 @@ public class InicializarBD {
 			GlobalDAOFactory.getDAO(IRecursoPersonajeDAO.class, conn);
 		IRecursoPlanetaDAO RecursoPlanetaDAO = (IRecursoPlanetaDAO) //
 			GlobalDAOFactory.getDAO(IRecursoPlanetaDAO.class, conn);
-//		ITecnologiaDAO TecnologiaDAO = (ITecnologiaDAO) //
-//			GlobalDAOFactory.getDAO(ITecnologiaDAO.class, conn);
-//		ITecnologiaPersonajeDAO TecnologiaPersonajeDAO = (ITecnologiaPersonajeDAO) //
-//			GlobalDAOFactory.getDAO(ITecnologiaPersonajeDAO.class, conn);
-//		ITecnologiaRecursoDAO TecnologiaRecursoDAO = (ITecnologiaRecursoDAO) //
-//			GlobalDAOFactory.getDAO(ITecnologiaRecursoDAO.class, conn);
-//		IUnidadBasicaDAO UnidadBasicaDAO = (IUnidadBasicaDAO) //
-//			GlobalDAOFactory.getDAO(IUnidadBasicaDAO.class, conn);
-//		IUnidadBasicaPersonajeDAO UnidadBasicaPersonajeDAO = (IUnidadBasicaPersonajeDAO) //
-//			GlobalDAOFactory.getDAO(IUnidadBasicaPersonajeDAO.class, conn);
-//		IUnidadBasicaRecursoDAO UnidadBasicaRecursoDAO = (IUnidadBasicaRecursoDAO) //
-//			GlobalDAOFactory.getDAO(IUnidadBasicaRecursoDAO.class, conn);
-//		IUnidadEjercitoDAO UnidadEjercito = (IUnidadEjercitoDAO) //
-//			GlobalDAOFactory.getDAO(IUnidadEjercitoDAO.class, conn); 
-//		IUnidadEjercitoOfertaDAO UnidadEjercitoOfertaDAO = (IUnidadEjercitoOfertaDAO) //
-//			GlobalDAOFactory.getDAO(IUnidadEjercitoOfertaDAO.class, conn);
-//		IUnidadEjercitoPersonajeDAO UnidadEjercitoPersonajeDAO = (IUnidadEjercitoPersonajeDAO) //
-//			GlobalDAOFactory.getDAO(IUnidadEjercitoPersonajeDAO.class, conn);
+		ITecnologiaDAO TecnologiaDAO = (ITecnologiaDAO) //
+			GlobalDAOFactory.getDAO(ITecnologiaDAO.class, conn);
+		ITecnologiaPersonajeDAO TecnologiaPersonajeDAO = (ITecnologiaPersonajeDAO) //
+			GlobalDAOFactory.getDAO(ITecnologiaPersonajeDAO.class, conn);
+		ITecnologiaRecursoDAO TecnologiaRecursoDAO = (ITecnologiaRecursoDAO) //
+			GlobalDAOFactory.getDAO(ITecnologiaRecursoDAO.class, conn);
+		IUnidadBasicaDAO UnidadBasicaDAO = (IUnidadBasicaDAO) //
+			GlobalDAOFactory.getDAO(IUnidadBasicaDAO.class, conn);
+		IUnidadBasicaPersonajeDAO UnidadBasicaPersonajeDAO = (IUnidadBasicaPersonajeDAO) //
+			GlobalDAOFactory.getDAO(IUnidadBasicaPersonajeDAO.class, conn);
+		IUnidadBasicaRecursoDAO UnidadBasicaRecursoDAO = (IUnidadBasicaRecursoDAO) //
+			GlobalDAOFactory.getDAO(IUnidadBasicaRecursoDAO.class, conn);
+		IUnidadEjercitoDAO UnidadEjercito = (IUnidadEjercitoDAO) //
+			GlobalDAOFactory.getDAO(IUnidadEjercitoDAO.class, conn); 
+		IUnidadEjercitoOfertaDAO UnidadEjercitoOfertaDAO = (IUnidadEjercitoOfertaDAO) //
+			GlobalDAOFactory.getDAO(IUnidadEjercitoOfertaDAO.class, conn);
+		IUnidadEjercitoPersonajeDAO UnidadEjercitoPersonajeDAO = (IUnidadEjercitoPersonajeDAO) //
+			GlobalDAOFactory.getDAO(IUnidadEjercitoPersonajeDAO.class, conn);
 		
 
 		// creamos las tablas
@@ -142,25 +154,25 @@ public class InicializarBD {
 		HabilidadClaseLinternaDAO.createTable();
 
 		// Tablas Nuevas
-//		AndroideDAO.createTable();
-//		AndroidePersonajeDAO.createTable();
-//		AndroideRecursoDAO.createTable();
-		OfertaDAO.createTable();
-		OfertaPersonajeDAO.createTable();
 		RecursoDAO.createTable();
-		RecursoOfertaCompraDAO.createTable();
-		RecursoOfertaVentaDAO.createTable();
 		RecursoPersonajeDAO.createTable();
 		RecursoPlanetaDAO.createTable();
-//		TecnologiaDAO.createTable();
-//		TecnologiaPersonajeDAO.createTable();
-//		TecnologiaRecursoDAO.createTable();
-//		UnidadBasicaDAO.createTable();
-//		UnidadBasicaPersonajeDAO.createTable();
-//		UnidadBasicaRecursoDAO.createTable();
-//		UnidadEjercito.createTable(); 
-//		UnidadEjercitoOfertaDAO.createTable();
-//		UnidadEjercitoPersonajeDAO.createTable();
+		TecnologiaDAO.createTable();
+		UnidadBasicaDAO.createTable();
+		TecnologiaPersonajeDAO.createTable();
+		TecnologiaRecursoDAO.createTable();
+		AndroideDAO.createTable();
+		AndroidePersonajeDAO.createTable();
+		AndroideRecursoDAO.createTable();
+		OfertaDAO.createTable();
+		OfertaPersonajeDAO.createTable();
+		RecursoOfertaCompraDAO.createTable();
+		RecursoOfertaVentaDAO.createTable();
+		UnidadBasicaPersonajeDAO.createTable();
+		UnidadBasicaRecursoDAO.createTable();
+		UnidadEjercito.createTable(); 
+		UnidadEjercitoOfertaDAO.createTable();
+		UnidadEjercitoPersonajeDAO.createTable();
 
 		try {
 
