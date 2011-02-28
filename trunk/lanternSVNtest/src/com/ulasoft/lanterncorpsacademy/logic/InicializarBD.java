@@ -8,6 +8,7 @@ import lcaInterfaceDAO.IAndroideDAO;
 import lcaInterfaceDAO.IAndroideDO;
 import lcaInterfaceDAO.IAndroidePersonajeDAO;
 import lcaInterfaceDAO.IAndroideRecursoDAO;
+import lcaInterfaceDAO.IAndroideRecursoDO;
 import lcaInterfaceDAO.IClaseLinternaDAO;
 import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IGrupoDAO;
@@ -40,6 +41,7 @@ import lcaInterfaceDAO.IUnidadBasicaDAO;
 import lcaInterfaceDAO.IUnidadBasicaDO;
 import lcaInterfaceDAO.IUnidadBasicaPersonajeDAO;
 import lcaInterfaceDAO.IUnidadBasicaRecursoDAO;
+import lcaInterfaceDAO.IUnidadBasicaRecursoDO;
 import lcaInterfaceDAO.IUnidadEjercitoDAO;
 import lcaInterfaceDAO.IUnidadEjercitoOfertaDAO;
 import lcaInterfaceDAO.IUnidadEjercitoPersonajeDAO;
@@ -669,6 +671,835 @@ public class InicializarBD {
 
 			}
 
+			// ASIGNAR PRECIOS A LAS UNIDADES BASICAS
+
+			IUnidadBasicaRecursoDO UnidadBasicaRecursoDO[] = new IUnidadBasicaRecursoDO[8];
+
+			for (int i = 0; i < UnidadBasicaRecursoDO.length; i++) {
+
+				UnidadBasicaRecursoDO[i] = (IUnidadBasicaRecursoDO) //
+						GlobalDOFactory.getDO(IUnidadBasicaRecursoDO.class);
+
+			}
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 1
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[1].setCantidad(10);
+			UnidadBasicaRecursoDO[2].setCantidad(15);
+
+			List<IUnidadBasicaRecursoDO> unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[1].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 2
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[1].setCantidad(10);
+			UnidadBasicaRecursoDO[2].setCantidad(20);
+			UnidadBasicaRecursoDO[3].setCantidad(10);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[2].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 3
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[2].setCantidad(40);
+			UnidadBasicaRecursoDO[3].setCantidad(30);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[3].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 4
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[3].setCantidad(40);
+			UnidadBasicaRecursoDO[4].setCantidad(50);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[4].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 5
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[2].setCantidad(100);
+			UnidadBasicaRecursoDO[3].setCantidad(10);
+			UnidadBasicaRecursoDO[4].setCantidad(40);
+			UnidadBasicaRecursoDO[5].setCantidad(60);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[5].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 6
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[1].setCantidad(10);
+			UnidadBasicaRecursoDO[2].setCantidad(30);
+			UnidadBasicaRecursoDO[3].setCantidad(40);
+			UnidadBasicaRecursoDO[4].setCantidad(40);
+			UnidadBasicaRecursoDO[5].setCantidad(80);
+			UnidadBasicaRecursoDO[6].setCantidad(100);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[6].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 7
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[1].setCantidad(200);
+			UnidadBasicaRecursoDO[2].setCantidad(200);
+			UnidadBasicaRecursoDO[4].setCantidad(60);
+			UnidadBasicaRecursoDO[5].setCantidad(80);
+			UnidadBasicaRecursoDO[6].setCantidad(90);
+			UnidadBasicaRecursoDO[7].setCantidad(200);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[7].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 8
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[1].setCantidad(100);
+			UnidadBasicaRecursoDO[2].setCantidad(100);
+			UnidadBasicaRecursoDO[3].setCantidad(100);
+			UnidadBasicaRecursoDO[4].setCantidad(100);
+			UnidadBasicaRecursoDO[5].setCantidad(100);
+			UnidadBasicaRecursoDO[6].setCantidad(100);
+			UnidadBasicaRecursoDO[7].setCantidad(100);
+			UnidadBasicaRecursoDO[8].setCantidad(200);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[8].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 1
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[1].setCantidad(30);
+			UnidadBasicaRecursoDO[2].setCantidad(5);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[1].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 2
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[1].setCantidad(10);
+			UnidadBasicaRecursoDO[2].setCantidad(30);
+			UnidadBasicaRecursoDO[3].setCantidad(20);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[2].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 3
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[2].setCantidad(20);
+			UnidadBasicaRecursoDO[3].setCantidad(50);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[3].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 4
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[3].setCantidad(50);
+			UnidadBasicaRecursoDO[4].setCantidad(60);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[4].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 5
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[2].setCantidad(100);
+			UnidadBasicaRecursoDO[3].setCantidad(20);
+			UnidadBasicaRecursoDO[4].setCantidad(80);
+			UnidadBasicaRecursoDO[5].setCantidad(80);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[5].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 6
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[5].setCantidad(100);
+			UnidadBasicaRecursoDO[6].setCantidad(100);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[6].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 7
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[7].setCantidad(200);
+			UnidadBasicaRecursoDO[8].setCantidad(400);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[7].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 8
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[6].setCantidad(300);
+			UnidadBasicaRecursoDO[7].setCantidad(300);
+			UnidadBasicaRecursoDO[8].setCantidad(500);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[8].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 1
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[1].setCantidad(30);
+			UnidadBasicaRecursoDO[2].setCantidad(5);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[1].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 2
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[1].setCantidad(10);
+			UnidadBasicaRecursoDO[2].setCantidad(30);
+			UnidadBasicaRecursoDO[3].setCantidad(20);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[2].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 3
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[2].setCantidad(20);
+			UnidadBasicaRecursoDO[3].setCantidad(50);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[3].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 4
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[3].setCantidad(50);
+			UnidadBasicaRecursoDO[4].setCantidad(60);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[4].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 5
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[2].setCantidad(100);
+			UnidadBasicaRecursoDO[3].setCantidad(20);
+			UnidadBasicaRecursoDO[4].setCantidad(80);
+			UnidadBasicaRecursoDO[5].setCantidad(80);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[5].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 6
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[5].setCantidad(100);
+			UnidadBasicaRecursoDO[6].setCantidad(100);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[6].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 7
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[6].setCantidad(200);
+			UnidadBasicaRecursoDO[7].setCantidad(400);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[7].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 8
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[6].setCantidad(300);
+			UnidadBasicaRecursoDO[7].setCantidad(300);
+			UnidadBasicaRecursoDO[8].setCantidad(500);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[8].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD BALA 1
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[1].setCantidad(10);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[1].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD BALA 2
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[2].setCantidad(20);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[2].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD BALA 3
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[3].setCantidad(30);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[3].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD BALA 4
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[4].setCantidad(40);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[4].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD BALA 5
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[5].setCantidad(50);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[5].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD BALA 6
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[6].setCantidad(70);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[6].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD BALA 7
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[7].setCantidad(80);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[7].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD BALA 8
+			for (int i = 0; i < 8; i++) {
+
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+				refRecurso1.setRefValue(refValue);
+				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
+				UnidadBasicaRecursoDO[i].setCantidad(0);
+
+			}
+
+			UnidadBasicaRecursoDO[8].setCantidad(100);
+
+			unidadBasicaRecursoList = //
+				new ArrayList<IUnidadBasicaRecursoDO>();
+
+			for (int i = 0; i < 8; i++) {
+
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
+
+			}
+			UnidadBasicaDO[8].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+
 			// INSERT UNIDADES BASICAS
 			for (int i = 0; i < UnidadBasicaDO.length; i++) {
 				UnidadBasicaDAO.insert(UnidadBasicaDO[i]);
@@ -701,6 +1532,8 @@ public class InicializarBD {
 			AndroideDO[14].setNombre("Saboteador de Adamantium");
 			AndroideDO[15].setNombre("Saboteador de Vibratium");
 
+			IAndroideRecursoDO AndroideRecursoDO[] = new IAndroideRecursoDO[8];
+
 			for (int i = 0; i < AndroideDO.length; i++) {
 
 				Reference<ITecnologiaDO> tecnologiaRef = new Reference<ITecnologiaDO>();
@@ -709,6 +1542,29 @@ public class InicializarBD {
 
 				AndroideDO[i].setTipo(i+1);
 				AndroideDO[i].setTecnologiaRef(tecnologiaRef);
+
+				List<IAndroideRecursoDO> androideRecursoList = //
+					new ArrayList<IAndroideRecursoDO>();
+
+				for (int j = 1; j <= AndroideDO.length; j++) {
+
+					refRecurso1 = new Reference<IRecursoDO>();
+					refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
+					refRecurso1.setRefValue(refValue);
+					AndroideRecursoDO[i+1].setRecursoRef(refRecurso1);
+
+					if (i+1 == j) {
+						AndroideRecursoDO[i+1].setCantidad(100);
+					}
+					AndroideRecursoDO[i+1].setCantidad(0);
+
+					androideRecursoList.add(AndroideRecursoDO[i]);
+					AndroideRecursoDAO.insert(AndroideRecursoDO[i]);
+
+				}
+
+				AndroideDO[i].setAndroideRecursojeList(androideRecursoList);
+
 			}
 
 			// INSERT ANDROIDES

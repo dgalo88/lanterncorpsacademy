@@ -409,4 +409,10 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 				recursoPlanetaDAO.listByPlanetaId(planetaDO.getId()));
 	}
 
+	@Override
+	public void loadUnidadEjercitoList(IPlanetaDO planetaDO) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

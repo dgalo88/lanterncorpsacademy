@@ -48,6 +48,10 @@ public interface IUnidadEjercitoDO extends DataObject{
 	
 	//---------------------------------------------------------------------------------------------------------------------
 	
+	public abstract Reference<IPlanetaDO> getPlanetaRef();
 	
+	public abstract void setPlanetaRef(Reference<IPlanetaDO> planetaRef);
+	
+	//---------------------------------------------------------------------------------------------------------------
 
 }

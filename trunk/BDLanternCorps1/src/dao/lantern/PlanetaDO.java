@@ -8,6 +8,7 @@ import lcaInterfaceDAO.IObjetivoDO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IRecursoPlanetaDO;
+import lcaInterfaceDAO.IUnidadEjercitoDO;
 import dao.api.Reference;
 
 public class PlanetaDO implements IPlanetaDO {
@@ -35,6 +36,9 @@ public class PlanetaDO implements IPlanetaDO {
 
 	private List<IObjetivoDO> objetivoList = //
 	new ArrayList<IObjetivoDO>();
+	
+	private List<IUnidadEjercitoDO> unidadEjercitoList = //
+		new ArrayList<IUnidadEjercitoDO>();
 
 	private List<IRecursoPlanetaDO> recursoPlanetaList = //
 	new ArrayList<IRecursoPlanetaDO>();
@@ -151,6 +155,17 @@ public class PlanetaDO implements IPlanetaDO {
 	public void setPlanetaEsCasaRef(Reference<IPersonajeDO> planetaEsCasaRef){
 		
 		this.planetaEsCasaRef=planetaEsCasaRef;
+	}
+
+	@Override
+	public List<IUnidadEjercitoDO> getUnidadEjercitoList() {
+		return unidadEjercitoList;
+	}
+
+	@Override
+	public void setUnidadEjercitoList(List<IUnidadEjercitoDO> unidadEjercitoList) {
+		this.unidadEjercitoList = unidadEjercitoList;
+		
 	}
 
 }
