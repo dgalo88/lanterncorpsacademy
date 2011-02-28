@@ -5,12 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import lcaInterfaceDAO.IRecursoDO;
 import lcaInterfaceDAO.IUnidadBasicaDO;
 import lcaInterfaceDAO.IUnidadBasicaRecursoDAO;
 import lcaInterfaceDAO.IUnidadBasicaRecursoDO;
-
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.Reference;
@@ -135,7 +133,7 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 	public void insert(DataObject dataObject) throws SQLException {
 	
 		checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, UnidadBasicaRecursoDO.class, CHECK_INSERT);
+		checkClass(dataObject, UnidadBasicaRecursoDO.class, CHECK_INSERT);
 
 	    UnidadBasicaRecursoDO unidadBasicaRecursoDO = (UnidadBasicaRecursoDO) dataObject;
 

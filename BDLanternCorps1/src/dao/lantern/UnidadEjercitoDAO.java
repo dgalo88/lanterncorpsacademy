@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IUnidadBasicaDO;
 import lcaInterfaceDAO.IUnidadEjercitoDAO;
 import lcaInterfaceDAO.IUnidadEjercitoDO;
-
 import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
@@ -63,12 +63,9 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 
 		// ----------------------------------------
 
-		
-		
 		UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
 		unidadBasicaDAO.init(connectionBean);
 
-		
 		strbuf = new StringBuffer();
 
 		strbuf.append("CREATE TABLE ");
@@ -78,7 +75,7 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(UnidadEjercitoDO.NOMBRE);
 		strbuf.append(" VARCHAR (100)    ");
-		
+
 		strbuf.append(", ");
 		strbuf.append(UnidadEjercitoDO.UNIDAD_BASICA_ARMA_ID);
 		strbuf.append(" INT REFERENCES   ");
@@ -95,7 +92,7 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 		strbuf.append(UnidadEjercitoDO.UNIDAD_BASICA_VEHICULO_ID);
 		strbuf.append(" INT REFERENCES   ");
 		strbuf.append(unidadBasicaDAO.getTableName());
-		
+
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());
@@ -157,6 +154,30 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 		strbuf.append(unidadEjercitoDO.getId()); // INSTANCIA
 		strbuf.append(", ");
 		strbuf.append(unidadEjercitoDO.getNombre());
+		strbuf.append(", ");
+
+		Reference<IUnidadBasicaDO> ref1 = unidadEjercitoDO
+				.getUnidadBasicaArmaRef();
+		ref1.checkInsert();
+		strbuf.append(ref1.getIdAsString());
+		strbuf.append(", ");
+
+		Reference<IUnidadBasicaDO> ref2 = unidadEjercitoDO
+				.getUnidadBasicaBalaRef();
+		ref2.checkInsert();
+		strbuf.append(ref2.getIdAsString());
+		strbuf.append(", ");
+
+		Reference<IUnidadBasicaDO> ref3 = unidadEjercitoDO
+				.getUnidadBasicaRobotRef();
+		ref3.checkInsert();
+		strbuf.append(ref3.getIdAsString());
+		strbuf.append(", ");
+
+		Reference<IUnidadBasicaDO> ref4 = unidadEjercitoDO
+				.getUnidadBasicaVehiculoRef();
+		ref4.checkInsert();
+		strbuf.append(ref4.getIdAsString());
 
 		strbuf.append(")");
 
@@ -199,8 +220,7 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 
 	@Override
 	public List<DataObject> listAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return listAll(-1, -1);
 	}
 
 	@Override
@@ -331,21 +351,22 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 	@Override
 	public void loadUnidadBasicaArmaRef(IUnidadEjercitoDO unidadEjercitoDO)
 			throws SQLException {
-		 checkClass(unidadEjercitoDO, UnidadEjercitoDO.class, CHECK_UPDATE);
+		checkClass(unidadEjercitoDO, UnidadEjercitoDO.class, CHECK_UPDATE);
 
-		    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
-		    unidadBasicaDAO.init(connectionBean);
+		UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+		unidadBasicaDAO.init(connectionBean);
 
-		    Reference<IUnidadBasicaDO> ref = unidadEjercitoDO.getUnidadBasicaArmaRef();
+		Reference<IUnidadBasicaDO> ref = unidadEjercitoDO
+				.getUnidadBasicaArmaRef();
 
-		    if (ref.getRefIdent() == 0) {
-		      return;
-		    }
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
 
-		    UnidadBasicaDO unidadBasicaDO = //
-		    (UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
+		UnidadBasicaDO unidadBasicaDO = //
+		(UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
 
-		    ref.setRefValue(unidadBasicaDO);
+		ref.setRefValue(unidadBasicaDO);
 	}
 
 	@Override
@@ -353,19 +374,20 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 			throws SQLException {
 		checkClass(unidadEjercitoDO, UnidadEjercitoDO.class, CHECK_UPDATE);
 
-	    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
-	    unidadBasicaDAO.init(connectionBean);
+		UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+		unidadBasicaDAO.init(connectionBean);
 
-	    Reference<IUnidadBasicaDO> ref = unidadEjercitoDO.getUnidadBasicaBalaRef();
+		Reference<IUnidadBasicaDO> ref = unidadEjercitoDO
+				.getUnidadBasicaBalaRef();
 
-	    if (ref.getRefIdent() == 0) {
-	      return;
-	    }
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
 
-	    UnidadBasicaDO unidadBasicaDO = //
-	    (UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
+		UnidadBasicaDO unidadBasicaDO = //
+		(UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
 
-	    ref.setRefValue(unidadBasicaDO);
+		ref.setRefValue(unidadBasicaDO);
 
 	}
 
@@ -374,19 +396,20 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 			throws SQLException {
 		checkClass(unidadEjercitoDO, UnidadEjercitoDO.class, CHECK_UPDATE);
 
-	    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
-	    unidadBasicaDAO.init(connectionBean);
+		UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+		unidadBasicaDAO.init(connectionBean);
 
-	    Reference<IUnidadBasicaDO> ref = unidadEjercitoDO.getUnidadBasicaRobotRef();
+		Reference<IUnidadBasicaDO> ref = unidadEjercitoDO
+				.getUnidadBasicaRobotRef();
 
-	    if (ref.getRefIdent() == 0) {
-	      return;
-	    }
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
 
-	    UnidadBasicaDO unidadBasicaDO = //
-	    (UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
+		UnidadBasicaDO unidadBasicaDO = //
+		(UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
 
-	    ref.setRefValue(unidadBasicaDO);
+		ref.setRefValue(unidadBasicaDO);
 	}
 
 	@Override
@@ -394,19 +417,20 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 			throws SQLException {
 		checkClass(unidadEjercitoDO, UnidadEjercitoDO.class, CHECK_UPDATE);
 
-	    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
-	    unidadBasicaDAO.init(connectionBean);
+		UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+		unidadBasicaDAO.init(connectionBean);
 
-	    Reference<IUnidadBasicaDO> ref = unidadEjercitoDO.getUnidadBasicaVehiculoRef();
+		Reference<IUnidadBasicaDO> ref = unidadEjercitoDO
+				.getUnidadBasicaVehiculoRef();
 
-	    if (ref.getRefIdent() == 0) {
-	      return;
-	    }
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
 
-	    UnidadBasicaDO unidadBasicaDO = //
-	    (UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
+		UnidadBasicaDO unidadBasicaDO = //
+		(UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
 
-	    ref.setRefValue(unidadBasicaDO);
+		ref.setRefValue(unidadBasicaDO);
 
 	}
 
@@ -414,12 +438,13 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 	public void loadUnidadEjercitoOfertaList(IUnidadEjercitoDO unidadEjercitoDO)
 			throws Exception {
 		checkCache(unidadEjercitoDO, CHECK_UPDATE);
-		 
-        UnidadEjercitoOfertaDAO unidadEjercitoOfertaDAO = (UnidadEjercitoOfertaDAO) FactoryDAO.getDAO( //
-        UnidadEjercitoOfertaDAO.class, connectionBean);
 
-        unidadEjercitoDO.setUnidadEjercitoOfertaList(unidadEjercitoOfertaDAO.listByOfertaId(unidadEjercitoDO.getId()));
-	 
+		UnidadEjercitoOfertaDAO unidadEjercitoOfertaDAO = (UnidadEjercitoOfertaDAO) FactoryDAO
+				.getDAO( //
+						UnidadEjercitoOfertaDAO.class, connectionBean);
+
+		unidadEjercitoDO.setUnidadEjercitoOfertaList(unidadEjercitoOfertaDAO
+				.listByOfertaId(unidadEjercitoDO.getId()));
 
 	}
 
@@ -427,12 +452,42 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 	public void loadUnidadEjercitoPersonajeList(
 			IUnidadEjercitoDO unidadEjercitoDO) throws Exception {
 		checkCache(unidadEjercitoDO, CHECK_UPDATE);
-		 
-        UnidadEjercitoPersonajeDAO unidadEjercitoPersonajeDAO = (UnidadEjercitoPersonajeDAO) FactoryDAO.getDAO( //
-        UnidadEjercitoPersonajeDAO.class, connectionBean);
 
-        unidadEjercitoDO.setUnidadEjercitoPersonajeList(unidadEjercitoPersonajeDAO.listByPersonajeId(unidadEjercitoDO.getId()));
+		UnidadEjercitoPersonajeDAO unidadEjercitoPersonajeDAO = (UnidadEjercitoPersonajeDAO) FactoryDAO
+				.getDAO( //
+						UnidadEjercitoPersonajeDAO.class, connectionBean);
+
+		unidadEjercitoDO
+				.setUnidadEjercitoPersonajeList(unidadEjercitoPersonajeDAO
+						.listByPersonajeId(unidadEjercitoDO.getId()));
 
 	}
+
+	@Override
+	public void loadPlanetaRef(IUnidadEjercitoDO unidadEjercitoDO)
+			throws SQLException {
+		checkClass(unidadEjercitoDO, UnidadEjercitoDO.class, CHECK_UPDATE);
+
+		PlanetaDAO planetaDAO = new PlanetaDAO();
+		planetaDAO.init(connectionBean);
+
+		Reference<IPlanetaDO> ref = unidadEjercitoDO.getPlanetaRef();
+
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
+
+		PlanetaDO planetaDO = //
+		(PlanetaDO) planetaDAO.loadById(ref.getRefIdent());
+
+		ref.setRefValue(planetaDO);
+
+	}
+
+	public List<IUnidadEjercitoDO> listByPlanetaId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

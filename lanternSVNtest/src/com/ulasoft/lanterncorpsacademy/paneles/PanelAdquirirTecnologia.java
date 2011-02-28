@@ -3,8 +3,7 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IHabilidadDO;
-import lcaInterfaceDAO.ITecnologiaPersonajeDO;
+import lcaInterfaceDAO.ITecnologiaDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.CheckBox;
@@ -12,6 +11,7 @@ import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
+import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.Row;
 import nextapp.echo.app.event.ActionEvent;
@@ -37,7 +37,7 @@ public class PanelAdquirirTecnologia extends Panel {
 	private Desktop d = app.getDesktop();
 
 	private TestTableModel tableDtaModel;
-	private List<ITecnologiaPersonajeDO> tecnologiaPersonajeList;
+	private List<ITecnologiaDO> tecnologiaList;
 	private List<Integer> seleccion = new ArrayList<Integer>();
 
 	public PanelAdquirirTecnologia() {
@@ -56,13 +56,13 @@ public class PanelAdquirirTecnologia extends Panel {
 
 		tableDtaModel = new TestTableModel();
 		try {
-			tecnologiaPersonajeList = Tecnologia.getTecnologiaPersonaje( //
+			tecnologiaList = Tecnologia.getTecnologiaPersonaje( //
 					app.getAtributos().getPersonaje());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		tableDtaModel = Tecnologia.asignarTecnologia( //
-				tableDtaModel, tecnologiaPersonajeList);
+				tableDtaModel, tecnologiaList);
 
 		col.add(PanelConstructor.initTopRow( //
 				"Lista de Tecnologías Disponibles"));
@@ -105,8 +105,8 @@ public class PanelAdquirirTecnologia extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				return habilidad.getNombre();
+				ITecnologiaDO tecnologia = (ITecnologiaDO) element;
+				return tecnologia.getNombre();
 			}
 		};
 		tableColumn.setWidth(new Extent(100));
@@ -118,8 +118,14 @@ public class PanelAdquirirTecnologia extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IHabilidadDO habilidad = (IHabilidadDO) element;
-				return habilidad.getCosto_de_aprendizaje();
+				Label lblCosto = new Label();
+				ITecnologiaDO tecnologia = (ITecnologiaDO) element;
+				try {
+					 lblCosto.setText(Tecnologia.getPrecio(tecnologia));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return lblCosto.getText();
 			}
 		};
 		tableColumn.setWidth(new Extent(50));

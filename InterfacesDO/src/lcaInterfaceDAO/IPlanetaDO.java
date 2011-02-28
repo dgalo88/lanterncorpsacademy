@@ -26,6 +26,10 @@ public interface IPlanetaDO extends DataObject {
 	public abstract List<IPersonajeDO> getPersonajeList();
 
 	public abstract void setPersonajeList(List<IPersonajeDO> personajeList);
+	
+	public abstract List<IUnidadEjercitoDO> getUnidadEjercitoList();
+	
+	public abstract void setUnidadEjercitoList(List<IUnidadEjercitoDO> unidadEjercitoList);
 
 	public abstract List<IObjetivoDO> getObjetivoList();
 

@@ -8,6 +8,9 @@ public interface IPlanetaDAO extends InterfaceDAO {
 
 	public abstract void loadPersonajeList(IPlanetaDO planetaDO)
 			throws Exception;
+	
+	public abstract void loadUnidadEjercitoList(IPlanetaDO planetaDO)
+	throws Exception;
 
 	public abstract void loadRecursoPlanetaList(IPlanetaDO planetaDO)
 			throws Exception;
