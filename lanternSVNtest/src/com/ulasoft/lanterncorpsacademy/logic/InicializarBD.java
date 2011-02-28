@@ -33,6 +33,7 @@ import lcaInterfaceDAO.IRecursoPersonajeDAO;
 import lcaInterfaceDAO.IRecursoPlanetaDAO;
 import lcaInterfaceDAO.IRecursoPlanetaDO;
 import lcaInterfaceDAO.ITecnologiaDAO;
+import lcaInterfaceDAO.ITecnologiaDO;
 import lcaInterfaceDAO.ITecnologiaPersonajeDAO;
 import lcaInterfaceDAO.ITecnologiaRecursoDAO;
 import lcaInterfaceDAO.IUnidadBasicaDAO;
@@ -517,6 +518,68 @@ public class InicializarBD {
 
 			}
 
+			// TECNOLOGIAS
+			ITecnologiaDO TecnologiaDO[] = new ITecnologiaDO[48];
+
+			for (int i = 0; i < TecnologiaDO.length; i++) {
+				TecnologiaDO[i] = (ITecnologiaDO) //
+					GlobalDOFactory.getDO(ITecnologiaDO.class);
+			}
+			TecnologiaDO[0].setNombre("Tecnologia para Robot Plomo");
+			TecnologiaDO[1].setNombre("Tecnologia para Robot Hierro");
+			TecnologiaDO[2].setNombre("Tecnologia para Robot Acero");
+			TecnologiaDO[3].setNombre("Tecnologia para Robot Uranio");
+			TecnologiaDO[4].setNombre("Tecnologia para Robot Titanio");
+			TecnologiaDO[5].setNombre("Tecnologia para Robot Cristalo");
+			TecnologiaDO[6].setNombre("Tecnologia para Robot Adamantium");
+			TecnologiaDO[7].setNombre("Tecnologia para Robot Vibratium");
+			TecnologiaDO[8].setNombre("Tecnologia para Arma Plomo");
+			TecnologiaDO[9].setNombre("Tecnologia para Arma Hierro");
+			TecnologiaDO[10].setNombre("Tecnologia para Arma Acero");
+			TecnologiaDO[11].setNombre("Tecnologia para Arma Uranio");
+			TecnologiaDO[12].setNombre("Tecnologia para Arma Titanio");
+			TecnologiaDO[13].setNombre("Tecnologia para Arma Cristalo");
+			TecnologiaDO[14].setNombre("Tecnologia para Arma Adamantium");
+			TecnologiaDO[15].setNombre("Tecnologia para Arma Vibratium");
+			TecnologiaDO[16].setNombre("Tecnologia para Vehiculo Plomo");
+			TecnologiaDO[17].setNombre("Tecnologia para Vehiculo Hierro");
+			TecnologiaDO[18].setNombre("Tecnologia para Vehiculo Acero");
+			TecnologiaDO[19].setNombre("Tecnologia para Vehiculo Uranio");
+			TecnologiaDO[20].setNombre("Tecnologia para Vehiculo Titanio");
+			TecnologiaDO[21].setNombre("Tecnologia para Vehiculo Cristalo");
+			TecnologiaDO[22].setNombre("Tecnologia para Vehiculo Adamantium");
+			TecnologiaDO[23].setNombre("Tecnologia para Vehiculo Vibratium");
+			TecnologiaDO[24].setNombre("Tecnologia para Bala Plomo");
+			TecnologiaDO[25].setNombre("Tecnologia para Bala Hierro");
+			TecnologiaDO[26].setNombre("Tecnologia para Bala Acero");
+			TecnologiaDO[27].setNombre("Tecnologia para Bala Uranio");
+			TecnologiaDO[28].setNombre("Tecnologia para Bala Titanio");
+			TecnologiaDO[29].setNombre("Tecnologia para Bala Cristalo");
+			TecnologiaDO[30].setNombre("Tecnologia para Bala Adamantium");
+			TecnologiaDO[31].setNombre("Tecnologia para Bala Vibratium");
+
+			TecnologiaDO[32].setNombre("Tecnologia para Recolector de Plomo");
+			TecnologiaDO[33].setNombre("Tecnologia para Recolector de Hierro");
+			TecnologiaDO[34].setNombre("Tecnologia para Recolector de Acero");
+			TecnologiaDO[35].setNombre("Tecnologia para Recolector de Uranio");
+			TecnologiaDO[36].setNombre("Tecnologia para Recolector de Titanio");
+			TecnologiaDO[37].setNombre("Tecnologia para Recolector de Cristalo");
+			TecnologiaDO[38].setNombre("Tecnologia para Recolector de Adamantium");
+			TecnologiaDO[39].setNombre("Tecnologia para Recolector de Vibratium");
+			TecnologiaDO[40].setNombre("Tecnologia para Saboteador de Plomo");
+			TecnologiaDO[41].setNombre("Tecnologia para Saboteador de Hierro");
+			TecnologiaDO[42].setNombre("Tecnologia para Saboteador de Acero");
+			TecnologiaDO[43].setNombre("Tecnologia para Saboteador de Uranio");
+			TecnologiaDO[44].setNombre("Tecnologia para Saboteador de Titanio");
+			TecnologiaDO[45].setNombre("Tecnologia para Saboteador de Cristalo");
+			TecnologiaDO[46].setNombre("Tecnologia para Saboteador de Adamantium");
+			TecnologiaDO[47].setNombre("Tecnologia para Saboteador de Vibratium");
+
+			// INSERT TECNOLOGIAS
+			for (int i = 0; i < TecnologiaDO.length; i++) {
+				TecnologiaDAO.insert(TecnologiaDO[i]);
+			}
+
 			// VALORES DE ATAQUE Y DEFENSA PARA UNIDADES BASICAS
 			int valor[] = new int[8];
 			valor[0] = 1;
@@ -577,6 +640,12 @@ public class InicializarBD {
 
 			for (int i = 0, j = 0; i < 32; i++, j++) {
 
+				Reference<ITecnologiaDO> tecnologiaRef = new Reference<ITecnologiaDO>();
+				ITecnologiaDO tecnologiaRefValue = (ITecnologiaDO) TecnologiaDAO.loadById(i+1);
+				tecnologiaRef.setRefValue(tecnologiaRefValue);
+
+				UnidadBasicaDO[i].setTecnologiaRef(tecnologiaRef);
+
 				if (i >= 0 && i < 8) {
 					UnidadBasicaDO[i].setAtaque(0);
 					UnidadBasicaDO[i].setDefensa(valor[j]);
@@ -600,36 +669,51 @@ public class InicializarBD {
 
 			}
 
-			// UNIDADES BASICAS
-			IAndroideDO AndroideDO[] = new IAndroideDO[32];
-
+			// INSERT UNIDADES BASICAS
 			for (int i = 0; i < UnidadBasicaDO.length; i++) {
+				UnidadBasicaDAO.insert(UnidadBasicaDO[i]);
+			}
+
+			// ANDROIDES
+			IAndroideDO AndroideDO[] = new IAndroideDO[16];
+
+			for (int i = 0; i < AndroideDO.length; i++) {
 				AndroideDO[i] = (IAndroideDO) //
 					GlobalDOFactory.getDO(IAndroideDO.class);
 			}
 			// Unidades Recolectoras
-			AndroideDO[0].setNombre("Recolector Plomo");
-			AndroideDO[1].setNombre("Recolector Hierro");
-			AndroideDO[2].setNombre("Recolector Acero");
-			AndroideDO[3].setNombre("Recolector Uranio");
-			AndroideDO[4].setNombre("Recolector Titanio");
-			AndroideDO[5].setNombre("Recolector Cristalo");
-			AndroideDO[6].setNombre("Recolector Adamantium");
-			AndroideDO[7].setNombre("Recolector Vibratium");
+			AndroideDO[0].setNombre("Recolector de Plomo");
+			AndroideDO[1].setNombre("Recolector de Hierro");
+			AndroideDO[2].setNombre("Recolector de Acero");
+			AndroideDO[3].setNombre("Recolector de Uranio");
+			AndroideDO[4].setNombre("Recolector de Titanio");
+			AndroideDO[5].setNombre("Recolector de Cristalo");
+			AndroideDO[6].setNombre("Recolector de Adamantium");
+			AndroideDO[7].setNombre("Recolector de Vibratium");
 
 			// Unidades Saboteadoras
-			AndroideDO[8].setNombre("Saboteador Plomo");
-			AndroideDO[9].setNombre("Saboteador Hierro");
-			AndroideDO[10].setNombre("Saboteador Acero");
-			AndroideDO[11].setNombre("Saboteador Uranio");
-			AndroideDO[12].setNombre("Saboteador Titanio");
-			AndroideDO[13].setNombre("Saboteador Cristalo");
-			AndroideDO[14].setNombre("Saboteador Adamantium");
-			AndroideDO[15].setNombre("Saboteador Vibratium");
+			AndroideDO[8].setNombre("Saboteador de Plomo");
+			AndroideDO[9].setNombre("Saboteador de Hierro");
+			AndroideDO[10].setNombre("Saboteador de Acero");
+			AndroideDO[11].setNombre("Saboteador de Uranio");
+			AndroideDO[12].setNombre("Saboteador de Titanio");
+			AndroideDO[13].setNombre("Saboteador de Cristalo");
+			AndroideDO[14].setNombre("Saboteador de Adamantium");
+			AndroideDO[15].setNombre("Saboteador de Vibratium");
 
-			// INSERT UNIDADES BASICAS
-			for (int i = 0; i < UnidadBasicaDO.length; i++) {
-				UnidadBasicaDAO.insert(UnidadBasicaDO[i]);
+			for (int i = 0; i < AndroideDO.length; i++) {
+
+				Reference<ITecnologiaDO> tecnologiaRef = new Reference<ITecnologiaDO>();
+				ITecnologiaDO tecnologiaRefValue = (ITecnologiaDO) TecnologiaDAO.loadById(i+33);
+				tecnologiaRef.setRefValue(tecnologiaRefValue);
+
+				AndroideDO[i].setTipo(i+1);
+				AndroideDO[i].setTecnologiaRef(tecnologiaRef);
+			}
+
+			// INSERT ANDROIDES
+			for (int i = 0; i < AndroideDO.length; i++) {
+				AndroideDAO.insert(AndroideDO[i]);
 			}
 
 			// XXX: CREATE CLASELINTERNA
