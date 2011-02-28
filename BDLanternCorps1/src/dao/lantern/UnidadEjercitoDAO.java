@@ -63,12 +63,12 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 
 		// ----------------------------------------
 
-		UnidadEjercitoPersonajeDAO unidadEjercitoPersonajeDAO = new UnidadEjercitoPersonajeDAO();
-		unidadEjercitoPersonajeDAO.init(connectionBean);
+		
+		
+		UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+		unidadBasicaDAO.init(connectionBean);
 
-		UnidadEjercitoOfertaDAO unidadEjercitoOfertaDAO = new UnidadEjercitoOfertaDAO();
-		unidadEjercitoOfertaDAO.init(connectionBean);
-
+		
 		strbuf = new StringBuffer();
 
 		strbuf.append("CREATE TABLE ");
@@ -77,7 +77,25 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 		strbuf.append(UnidadEjercitoDO.ID);
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(UnidadEjercitoDO.NOMBRE);
-		strbuf.append(" VARCHAR (100);    ");
+		strbuf.append(" VARCHAR (100)    ");
+		
+		strbuf.append(", ");
+		strbuf.append(UnidadEjercitoDO.UNIDAD_BASICA_ARMA_ID);
+		strbuf.append(" INT REFERENCES   ");
+		strbuf.append(unidadBasicaDAO.getTableName());
+		strbuf.append(", ");
+		strbuf.append(UnidadEjercitoDO.UNIDAD_BASICA_BALA_ID);
+		strbuf.append(" INT REFERENCES   ");
+		strbuf.append(unidadBasicaDAO.getTableName());
+		strbuf.append(", ");
+		strbuf.append(UnidadEjercitoDO.UNIDAD_BASICA_ROBOT_ID);
+		strbuf.append(" INT REFERENCES   ");
+		strbuf.append(unidadBasicaDAO.getTableName());
+		strbuf.append(", ");
+		strbuf.append(UnidadEjercitoDO.UNIDAD_BASICA_VEHICULO_ID);
+		strbuf.append(" INT REFERENCES   ");
+		strbuf.append(unidadBasicaDAO.getTableName());
+		
 		strbuf.append(")");
 
 		System.err.println(strbuf.toString());

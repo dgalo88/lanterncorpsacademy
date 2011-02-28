@@ -42,6 +42,8 @@ public class PlanetaDO implements IPlanetaDO {
 	private Reference<IPersonajeDO>   planetaEsCasaRef = //
 		new Reference<IPersonajeDO>();
 	
+	
+	
 	// --------------------------------------------------------------------------------
 
 	public PlanetaDO() {

@@ -19,9 +19,7 @@ public class AndroideDO implements IAndroideDO{
 	
 	public static final String TECNOLOGIA_ID = "tecnologiaId";
 	
-	public static final String ANDROIDE_PERSONAJE_ID="androidePersonajeId";
-	
-	public static final String ANDROIDE_RECURSO_ID="andorideRecursoId";
+
 	
 	//------------------------------------------------------------------------------------------
 	private int id;

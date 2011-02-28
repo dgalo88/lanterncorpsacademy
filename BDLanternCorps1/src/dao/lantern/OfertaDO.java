@@ -17,7 +17,7 @@ public class OfertaDO implements IOfertaDO {
 
 	public static final String RECURSO_OFERTA_COMPRA_ID = "recursoOfertaCompra";
 	public static final String RECURSO_OFERTA_VENTA_ID = "recursoOfertaVenta";
-	public static final String PERSONAJE_ID = "personje";
+	public static final String PERSONAJE_ID = "personaje";
 
 	// ----------------------------------------------------------------
 

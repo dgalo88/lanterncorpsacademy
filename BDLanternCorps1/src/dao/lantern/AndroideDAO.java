@@ -44,6 +44,37 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 
 		// ----------------------------------------
 
+		PersonajeDAO personajeDAO = new PersonajeDAO();
+		personajeDAO.init(connectionBean);
+
+		TecnologiaDAO tecnologiaDAO = new TecnologiaDAO();
+		tecnologiaDAO.init(connectionBean);
+
+		RecursoDAO recursoDAO = new RecursoDAO();
+		recursoDAO.init(connectionBean);
+
+		strbuf = new StringBuffer();
+
+		strbuf.append("CREATE TABLE ");
+		strbuf.append(getTableName());
+		strbuf.append(" (");
+		strbuf.append(AndroideDO.ID);
+		strbuf.append(" INT PRIMARY KEY, ");
+		strbuf.append(AndroideDO.TIPO);
+		strbuf.append(" INT,    ");
+		strbuf.append(AndroideDO.CANTIDAD);
+		strbuf.append(" INT,    ");
+		strbuf.append(AndroideDO.TECNOLOGIA_ID);
+		strbuf.append(" INT REFERENCES    ");
+		strbuf.append(tecnologiaDAO.getTableName());
+		strbuf.append(")");
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
+		// ----------------------------------------
+
 		strbuf = new StringBuffer();
 
 		strbuf.append("CREATE SEQUENCE ");
@@ -292,33 +323,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		return rs.getInt("count");
 	}
 
-	// --------------------------------------------------------------------------------
 
-	public List<AndroideDO> listByAndroidePersonajeId(int androidePersonajeId)
-			throws SQLException {
-		StringBuffer strbuf = new StringBuffer();
-
-		strbuf.append("SELECT * FROM ");
-		strbuf.append(getTableName());
-
-		strbuf.append(" WHERE ");
-		strbuf.append(AndroideDO.ANDROIDE_PERSONAJE_ID);
-		strbuf.append(" = ");
-		strbuf.append(androidePersonajeId);
-
-		System.err.println(strbuf.toString());
-
-		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
-
-		List<AndroideDO> ret = new ArrayList<AndroideDO>();
-
-		while (rs.next()) {
-			ret.add(resultSetToDO(rs));
-		}
-
-		return ret;
-	}
 
 	// --------------------------------------------------------------------------------
 
@@ -354,13 +359,13 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 
 		ret = new AndroideDO();
 
-		ret.setId/*     					*/(rs.getInt(AndroideDO.ID));
-		ret.setTipo/*						*/(rs.getInt(AndroideDO.TIPO));
-		ret.setCantidad/*	*/(rs.getInt(AndroideDO.CANTIDAD));
+		ret.setId/*     			*/(rs.getInt(AndroideDO.ID));
+		ret.setTipo/*				*/(rs.getInt(AndroideDO.TIPO));
+		ret.setCantidad/*			*/(rs.getInt(AndroideDO.CANTIDAD));
 
-		Reference<ITecnologiaDO> refTec = new Reference<ITecnologiaDO>();
-		refTec.setRefIdent(rs.getInt(AndroideDO.TECNOLOGIA_ID));
-		ret.setTecnologiaRef(refTec);
+//		Reference<ITecnologiaDO> refTec = new Reference<ITecnologiaDO>();
+//		refTec.setRefIdent(rs.getInt(AndroideDO.TECNOLOGIA_ID));
+//		ret.setTecnologiaRef(refTec);
 
 		return (AndroideDO) dtaSession.add(ret);
 	}

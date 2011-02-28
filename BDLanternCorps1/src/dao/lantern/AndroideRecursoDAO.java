@@ -82,8 +82,6 @@ public class AndroideRecursoDAO extends BaseDAO implements IAndroideRecursoDAO {
 		strbuf.append(" INT PRIMARY KEY, ");
 		strbuf.append(AndroideRecursoDO.CANTIDAD);
 		strbuf.append(" INT,    ");
-		strbuf.append(AndroideRecursoDO.ANDROIDE_ID);
-		strbuf.append(" INT,    ");
 		strbuf.append(AndroideRecursoDO.RECURSO_ID);
 		strbuf.append(" INT REFERENCES    ");
 		strbuf.append(recursoDAO.getTableName());

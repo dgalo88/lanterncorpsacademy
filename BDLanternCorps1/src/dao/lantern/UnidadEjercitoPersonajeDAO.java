@@ -19,7 +19,77 @@ public class UnidadEjercitoPersonajeDAO extends BaseDAO implements
 
 	@Override
 	public void createTable() throws SQLException {
-		// TODO Auto-generated method stub
+		StringBuffer strbuf;
+
+		// ----------------------------------------
+
+		strbuf = new StringBuffer();
+
+		strbuf.append("DROP TABLE IF EXISTS ");
+		strbuf.append(getTableName());
+		strbuf.append(" CASCADE");
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
+		// ----------------------------------------
+
+		strbuf = new StringBuffer();
+
+		strbuf.append("DROP SEQUENCE IF EXISTS ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
+		// ----------------------------------------
+
+		UnidadEjercitoDAO unidadEjercitoDAO = new UnidadEjercitoDAO();
+		unidadEjercitoDAO.init(connectionBean);
+		
+		PersonajeDAO personajeDAO = new PersonajeDAO();
+		personajeDAO.init(connectionBean);
+
+
+		strbuf = new StringBuffer();
+
+		strbuf.append("CREATE TABLE ");
+		strbuf.append(getTableName());
+		strbuf.append(" (");
+		strbuf.append(UnidadEjercitoPersonajeDO.ID);
+		strbuf.append(" INT PRIMARY KEY, ");
+		strbuf.append(UnidadEjercitoPersonajeDO.VIDA_MAXIMA);
+		strbuf.append(" INT,    ");
+		strbuf.append(UnidadEjercitoPersonajeDO.VIDA_MINIMA);
+		strbuf.append(" INT,    ");
+		strbuf.append(UnidadEjercitoPersonajeDO.UNIDAD_EJERCITO_ID);
+		strbuf.append(" INT REFERENCES   ");
+		strbuf.append(unidadEjercitoDAO.getTableName());
+		strbuf.append(", ");
+		strbuf.append(UnidadEjercitoPersonajeDO.PERSONAJE_ID);
+		strbuf.append(" INT REFERENCES   ");
+		strbuf.append(personajeDAO.getTableName());
+		strbuf.append(")");
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
+		// ----------------------------------------
+
+		strbuf = new StringBuffer();
+
+		strbuf.append("CREATE SEQUENCE ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
 
 	}
 
