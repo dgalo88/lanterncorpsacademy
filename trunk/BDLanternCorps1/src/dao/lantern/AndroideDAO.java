@@ -106,7 +106,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		strbuf.append(" VALUES (");
 		strbuf.append(androideDO.getId());
 		strbuf.append(", ");
-		strbuf.append(androideDO.getNombre());
+		strbuf.append(singleQuotes(androideDO.getNombre()));
 		strbuf.append(", ");
 		strbuf.append(androideDO.getTipo());
 		strbuf.append(", ");
