@@ -28,7 +28,7 @@ import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 @SuppressWarnings("serial")
 public class PanelMisDatos extends Panel {
 
-	private static final int SIZE2 = 10;
+	private static final int SIZE2 = 11;
 	private static final int SIZE = 12;
 
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
@@ -73,14 +73,14 @@ public class PanelMisDatos extends Panel {
 		lblOfertas = new Label("00");
 
 		// Recursos
-		lblPlomo = new Label("00");
-		lblHierro = new Label("00");
-		lblAcero = new Label("00");
-		lblUranio = new Label("00");
-		lblTitanio = new Label("00");
-		lblCristalo = new Label("00");
-		lblAdamantium = new Label("00");
-		lblVibratium = new Label("00");
+		lblPlomo = new Label("Plomo: 0");
+		lblHierro = new Label("Hierro: 0");
+		lblAcero = new Label("Acero: 0");
+		lblUranio = new Label("Uranio: 0");
+		lblTitanio = new Label("Titanio: 0");
+		lblCristalo = new Label("Cristalo: 0");
+		lblAdamantium = new Label("Adamantium: 0");
+		lblVibratium = new Label("Vibratium: 0");
 
 		try {
 			atrib.updatePanelMisDatos(this);
