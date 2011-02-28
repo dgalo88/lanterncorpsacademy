@@ -16,17 +16,6 @@ public interface IUnidadBasicaDAO extends InterfaceDAO {
 	public abstract void loadTecnologiaRef(IUnidadBasicaDO unidadBasicaDO)
 	throws Exception;
 
-	public abstract void loadUnidadEjercitoArmaRef(IUnidadBasicaDO unidadBasicaDO)
-	throws Exception;
-
-	public abstract void loadUnidadEjercitoRobotRef(IUnidadBasicaDO unidadBasicaDO)
-	throws Exception;
-
-	public abstract void loadUnidadEjercitoVehiculoRef(IUnidadBasicaDO unidadBasicaDO)
-	throws Exception;
-
-	public abstract void loadUnidadEjercitoBalaRef(IUnidadBasicaDO unidadBasicaDO)
-	throws Exception;
 
 	public List<DataObject> listToBuy(int id) throws  Exception;
 	

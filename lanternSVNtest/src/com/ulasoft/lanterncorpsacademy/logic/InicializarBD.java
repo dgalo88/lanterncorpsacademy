@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import lcaInterfaceDAO.IAndroideDAO;
+import lcaInterfaceDAO.IAndroideDO;
 import lcaInterfaceDAO.IAndroidePersonajeDAO;
 import lcaInterfaceDAO.IAndroideRecursoDAO;
 import lcaInterfaceDAO.IClaseLinternaDAO;
@@ -35,6 +36,7 @@ import lcaInterfaceDAO.ITecnologiaDAO;
 import lcaInterfaceDAO.ITecnologiaPersonajeDAO;
 import lcaInterfaceDAO.ITecnologiaRecursoDAO;
 import lcaInterfaceDAO.IUnidadBasicaDAO;
+import lcaInterfaceDAO.IUnidadBasicaDO;
 import lcaInterfaceDAO.IUnidadBasicaPersonajeDAO;
 import lcaInterfaceDAO.IUnidadBasicaRecursoDAO;
 import lcaInterfaceDAO.IUnidadEjercitoDAO;
@@ -513,6 +515,121 @@ public class InicializarBD {
 
 				i++;
 
+			}
+
+			// VALORES DE ATAQUE Y DEFENSA PARA UNIDADES BASICAS
+			int valor[] = new int[8];
+			valor[0] = 1;
+			valor[1] = 2;
+			valor[2] = 3;
+			valor[3] = 4;
+			valor[4] = 5;
+			valor[5] = 6;
+			valor[6] = 8;
+			valor[7] = 10;
+
+			// UNIDADES BASICAS
+			IUnidadBasicaDO UnidadBasicaDO[] = new IUnidadBasicaDO[32];
+
+			for (int i = 0; i < UnidadBasicaDO.length; i++) {
+				UnidadBasicaDO[i] = (IUnidadBasicaDO) //
+					GlobalDOFactory.getDO(IUnidadBasicaDO.class);
+			}
+			// Unidades Basicas - Robots
+			UnidadBasicaDO[0].setNombre("Robot Plomo");
+			UnidadBasicaDO[1].setNombre("Robot Hierro");
+			UnidadBasicaDO[2].setNombre("Robot Acero");
+			UnidadBasicaDO[3].setNombre("Robot Uranio");
+			UnidadBasicaDO[4].setNombre("Robot Titanio");
+			UnidadBasicaDO[5].setNombre("Robot Cristalo");
+			UnidadBasicaDO[6].setNombre("Robot Adamantium");
+			UnidadBasicaDO[7].setNombre("Robot Vibratium");
+
+			// Unidades Basicas - Armas
+			UnidadBasicaDO[8].setNombre("Arma Plomo");
+			UnidadBasicaDO[9].setNombre("Arma Hierro");
+			UnidadBasicaDO[10].setNombre("Arma Acero");
+			UnidadBasicaDO[11].setNombre("Arma Uranio");
+			UnidadBasicaDO[12].setNombre("Arma Titanio");
+			UnidadBasicaDO[13].setNombre("Arma Cristalo");
+			UnidadBasicaDO[14].setNombre("Arma Adamantium");
+			UnidadBasicaDO[15].setNombre("Arma Vibratium");
+
+			// Unidades Basicas - Vehiculos
+			UnidadBasicaDO[16].setNombre("Vehiculo Plomo");
+			UnidadBasicaDO[17].setNombre("Vehiculo Hierro");
+			UnidadBasicaDO[18].setNombre("Vehiculo Acero");
+			UnidadBasicaDO[19].setNombre("Vehiculo Uranio");
+			UnidadBasicaDO[20].setNombre("Vehiculo Titanio");
+			UnidadBasicaDO[21].setNombre("Vehiculo Cristalo");
+			UnidadBasicaDO[22].setNombre("Vehiculo Adamantium");
+			UnidadBasicaDO[23].setNombre("Vehiculo Vibratium");
+
+			// Unidades Basicas - Balas
+			UnidadBasicaDO[24].setNombre("Bala Plomo");
+			UnidadBasicaDO[25].setNombre("Bala Hierro");
+			UnidadBasicaDO[26].setNombre("Bala Acero");
+			UnidadBasicaDO[27].setNombre("Bala Uranio");
+			UnidadBasicaDO[28].setNombre("Bala Titanio");
+			UnidadBasicaDO[29].setNombre("Bala Cristalo");
+			UnidadBasicaDO[30].setNombre("Bala Adamantium");
+			UnidadBasicaDO[31].setNombre("Bala Vibratium");
+
+			for (int i = 0, j = 0; i < 32; i++, j++) {
+
+				if (i >= 0 && i < 8) {
+					UnidadBasicaDO[i].setAtaque(0);
+					UnidadBasicaDO[i].setDefensa(valor[j]);
+					UnidadBasicaDO[i].setTipo(i+1);
+				}
+				if (i >= 8 && i < 16) {
+					UnidadBasicaDO[i].setAtaque(valor[j-8]);
+					UnidadBasicaDO[i].setDefensa(0);
+					UnidadBasicaDO[i].setTipo(i+1);
+				}
+				if (i >= 16 && i < 24) {
+					UnidadBasicaDO[i].setAtaque(0);
+					UnidadBasicaDO[i].setDefensa(valor[j-16]);
+					UnidadBasicaDO[i].setTipo(i+1);
+				}
+				if (i >= 24 && i < 32) {
+					UnidadBasicaDO[i].setAtaque(valor[j-24]);
+					UnidadBasicaDO[i].setDefensa(0);
+					UnidadBasicaDO[i].setTipo(i+1);
+				}
+
+			}
+
+			// UNIDADES BASICAS
+			IAndroideDO AndroideDO[] = new IAndroideDO[32];
+
+			for (int i = 0; i < UnidadBasicaDO.length; i++) {
+				AndroideDO[i] = (IAndroideDO) //
+					GlobalDOFactory.getDO(IAndroideDO.class);
+			}
+			// Unidades Recolectoras
+			AndroideDO[0].setNombre("Recolector Plomo");
+			AndroideDO[1].setNombre("Recolector Hierro");
+			AndroideDO[2].setNombre("Recolector Acero");
+			AndroideDO[3].setNombre("Recolector Uranio");
+			AndroideDO[4].setNombre("Recolector Titanio");
+			AndroideDO[5].setNombre("Recolector Cristalo");
+			AndroideDO[6].setNombre("Recolector Adamantium");
+			AndroideDO[7].setNombre("Recolector Vibratium");
+
+			// Unidades Saboteadoras
+			AndroideDO[8].setNombre("Saboteador Plomo");
+			AndroideDO[9].setNombre("Saboteador Hierro");
+			AndroideDO[10].setNombre("Saboteador Acero");
+			AndroideDO[11].setNombre("Saboteador Uranio");
+			AndroideDO[12].setNombre("Saboteador Titanio");
+			AndroideDO[13].setNombre("Saboteador Cristalo");
+			AndroideDO[14].setNombre("Saboteador Adamantium");
+			AndroideDO[15].setNombre("Saboteador Vibratium");
+
+			// INSERT UNIDADES BASICAS
+			for (int i = 0; i < UnidadBasicaDO.length; i++) {
+				UnidadBasicaDAO.insert(UnidadBasicaDO[i]);
 			}
 
 			// XXX: CREATE CLASELINTERNA
