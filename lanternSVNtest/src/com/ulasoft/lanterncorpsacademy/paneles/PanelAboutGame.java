@@ -92,7 +92,7 @@ public class PanelAboutGame extends Panel {
 		int paginaInt = Integer.parseInt(pagina);
 		paginaInt++;
 
-		if (paginaInt > 6) {
+		if (paginaInt > 7) {
 			d.setWindowPaneEmergente("Esta es la última página de las reglas");
 			return;
 		}

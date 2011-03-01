@@ -144,7 +144,7 @@ public class InicializarBD {
 			GlobalDAOFactory.getDAO(IUnidadEjercitoOfertaDAO.class, conn);
 		IUnidadEjercitoPersonajeDAO UnidadEjercitoPersonajeDAO = (IUnidadEjercitoPersonajeDAO) //
 			GlobalDAOFactory.getDAO(IUnidadEjercitoPersonajeDAO.class, conn);
-		
+
 
 		// creamos las tablas
 		PlanetaDAO.createTable();
@@ -410,6 +410,7 @@ public class InicializarBD {
 			RecursoDO[7].setNombre("Vibratium");
 
 			for (int i = 0; i < RecursoDO.length; i++) {
+				RecursoDO[i].setArticulo(i+1);
 				RecursoDAO.insert(RecursoDO[i]);
 			}
 
@@ -420,9 +421,9 @@ public class InicializarBD {
 			for (int i = 0; i < PlanetaDO.length; i++) {
 
 				RecursoPlanetaDO1[i] = (IRecursoPlanetaDO) //
-						GlobalDOFactory.getDO(IRecursoPlanetaDO.class);
+					GlobalDOFactory.getDO(IRecursoPlanetaDO.class);
 				RecursoPlanetaDO2[i] = (IRecursoPlanetaDO) //
-						GlobalDOFactory.getDO(IRecursoPlanetaDO.class);
+					GlobalDOFactory.getDO(IRecursoPlanetaDO.class);
 
 			}
 
@@ -677,832 +678,726 @@ public class InicializarBD {
 			}
 
 			// ASIGNAR PRECIOS A LAS UNIDADES BASICAS
-			IUnidadBasicaRecursoDO UnidadBasicaRecursoDO[] = new IUnidadBasicaRecursoDO[260];
+			IUnidadBasicaRecursoDO UnidadBasicaRecursoDO[] = new IUnidadBasicaRecursoDO[81];
 
 			for (int i = 0; i < UnidadBasicaRecursoDO.length; i++) {
-
 				UnidadBasicaRecursoDO[i] = (IUnidadBasicaRecursoDO) //
 						GlobalDOFactory.getDO(IUnidadBasicaRecursoDO.class);
+			}
+
+			Reference<IUnidadBasicaDO> refUnidadBasica;
+
+			IUnidadBasicaDO refUnidadBasicaValue[] = new IUnidadBasicaDO[32];
+			for (int i = 0; i < refUnidadBasicaValue.length; i++) {
+
+				refUnidadBasica = new Reference<IUnidadBasicaDO>();
+				refUnidadBasicaValue[i] = (IUnidadBasicaDO) UnidadBasicaDAO.loadById(i+1);
+				refUnidadBasica.setRefValue(refUnidadBasicaValue[i]);
 
 			}
+
+			List<IUnidadBasicaRecursoDO> unidadBasicaRecursoList;
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 1
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i].setCantidad(0);
+			// Plomo 10
+			UnidadBasicaRecursoDO[0].setCantidad(10);
+			refValue = (IRecursoDO) RecursoDAO.loadById(1);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[0].setRecursoRef(refRecurso1);
 
-			}
+			// Hierro 15
+			UnidadBasicaRecursoDO[1].setCantidad(15);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[1].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[1].setCantidad(10);
-			UnidadBasicaRecursoDO[2].setCantidad(15);
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[0]);
+			UnidadBasicaRecursoDO[0].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[1].setUnidadBasicaRef(refUnidadBasica);
 
-			List<IUnidadBasicaRecursoDO> unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
-
-			}
-			UnidadBasicaDO[1].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[0]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[1]);
+			UnidadBasicaDO[0].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 2
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+8].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+8].setCantidad(0);
+			// Plomo 10
+			UnidadBasicaRecursoDO[2].setCantidad(10);
+			refValue = (IRecursoDO) RecursoDAO.loadById(1);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[2].setRecursoRef(refRecurso1);
 
-			}
+			// Hierro 15
+			UnidadBasicaRecursoDO[3].setCantidad(20);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[3].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[9].setCantidad(10);
-			UnidadBasicaRecursoDO[10].setCantidad(20);
-			UnidadBasicaRecursoDO[11].setCantidad(10);
+			// Acero 10
+			UnidadBasicaRecursoDO[4].setCantidad(10);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[4].setRecursoRef(refRecurso1);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[1]);
+			UnidadBasicaRecursoDO[2].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[3].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[4].setUnidadBasicaRef(refUnidadBasica);
 
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+8]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+8]);
-
-			}
-			UnidadBasicaDO[2].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[2]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[3]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[4]);
+			UnidadBasicaDO[1].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 3
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+16].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+16].setCantidad(0);
+			// Hierro 40
+			UnidadBasicaRecursoDO[5].setCantidad(40);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[5].setRecursoRef(refRecurso1);
 
-			}
+			// Acero 30
+			UnidadBasicaRecursoDO[6].setCantidad(30);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[6].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[18].setCantidad(40);
-			UnidadBasicaRecursoDO[19].setCantidad(30);
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[2]);
+			UnidadBasicaRecursoDO[5].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[6].setUnidadBasicaRef(refUnidadBasica);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+16]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+16]);
-
-			}
-			UnidadBasicaDO[3].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[5]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[6]);
+			UnidadBasicaDO[2].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 4
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+24].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+24].setCantidad(0);
+			// acero 40
+			UnidadBasicaRecursoDO[7].setCantidad(40);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[7].setRecursoRef(refRecurso1);
 
-			}
+			// Uranio 50
+			UnidadBasicaRecursoDO[8].setCantidad(50);
+			refValue = (IRecursoDO) RecursoDAO.loadById(4);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[8].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[27].setCantidad(40);
-			UnidadBasicaRecursoDO[28].setCantidad(50);
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[3]);
+			UnidadBasicaRecursoDO[7].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[8].setUnidadBasicaRef(refUnidadBasica);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+24]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+24]);
-
-			}
-			UnidadBasicaDO[4].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[7]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[8]);
+			UnidadBasicaDO[3].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 5
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+32].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+32].setCantidad(0);
+			// Hierro 100
+			UnidadBasicaRecursoDO[9].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[9].setRecursoRef(refRecurso1);
 
-			}
+			// Acero 10
+			UnidadBasicaRecursoDO[10].setCantidad(10);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[10].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[34].setCantidad(100);
-			UnidadBasicaRecursoDO[35].setCantidad(10);
-			UnidadBasicaRecursoDO[36].setCantidad(40);
-			UnidadBasicaRecursoDO[37].setCantidad(60);
+			// Uranio 40
+			UnidadBasicaRecursoDO[11].setCantidad(40);
+			refValue = (IRecursoDO) RecursoDAO.loadById(4);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[11].setRecursoRef(refRecurso1);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
+			// Titanio 60
+			UnidadBasicaRecursoDO[12].setCantidad(60);
+			refValue = (IRecursoDO) RecursoDAO.loadById(5);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[12].setRecursoRef(refRecurso1);
 
-			for (int i = 0; i < 8; i++) {
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[4]);
+			UnidadBasicaRecursoDO[9].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[10].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[11].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[4].setUnidadBasicaRef(refUnidadBasica);
 
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+32]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+32]);
-
-			}
-			UnidadBasicaDO[5].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[9]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[10]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[11]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[12]);
+			UnidadBasicaDO[4].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 6
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+40].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+40].setCantidad(0);
+			// Plomo 10
+			UnidadBasicaRecursoDO[13].setCantidad(10);
+			refValue = (IRecursoDO) RecursoDAO.loadById(1);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[13].setRecursoRef(refRecurso1);
 
-			}
+			// Hierro 30
+			UnidadBasicaRecursoDO[14].setCantidad(30);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[14].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[41].setCantidad(10);
-			UnidadBasicaRecursoDO[42].setCantidad(30);
-			UnidadBasicaRecursoDO[43].setCantidad(40);
-			UnidadBasicaRecursoDO[44].setCantidad(40);
-			UnidadBasicaRecursoDO[45].setCantidad(80);
-			UnidadBasicaRecursoDO[46].setCantidad(100);
+			// Acero 40
+			UnidadBasicaRecursoDO[15].setCantidad(40);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[15].setRecursoRef(refRecurso1);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
+			// Uranio 40
+			UnidadBasicaRecursoDO[16].setCantidad(40);
+			refValue = (IRecursoDO) RecursoDAO.loadById(4);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[16].setRecursoRef(refRecurso1);
 
-			for (int i = 0; i < 8; i++) {
+			// Titanio 80
+			UnidadBasicaRecursoDO[17].setCantidad(80);
+			refValue = (IRecursoDO) RecursoDAO.loadById(5);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[17].setRecursoRef(refRecurso1);
 
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+40]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+40]);
+			// Cristalo
+			UnidadBasicaRecursoDO[18].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(6);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[18].setRecursoRef(refRecurso1);
 
-			}
-			UnidadBasicaDO[6].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[13]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[14]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[15]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[16]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[17]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[18]);
+			UnidadBasicaDO[5].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 7
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+48].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+48].setCantidad(0);
+			// Plomo 200
+			UnidadBasicaRecursoDO[19].setCantidad(200);
+			refValue = (IRecursoDO) RecursoDAO.loadById(1);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[19].setRecursoRef(refRecurso1);
 
-			}
+			// Hierro 200
+			UnidadBasicaRecursoDO[20].setCantidad(200);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[20].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[49].setCantidad(200);
-			UnidadBasicaRecursoDO[50].setCantidad(200);
-			UnidadBasicaRecursoDO[52].setCantidad(60);
-			UnidadBasicaRecursoDO[53].setCantidad(80);
-			UnidadBasicaRecursoDO[54].setCantidad(90);
-			UnidadBasicaRecursoDO[55].setCantidad(200);
+			// Uranio 60
+			UnidadBasicaRecursoDO[21].setCantidad(60);
+			refValue = (IRecursoDO) RecursoDAO.loadById(4);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[21].setRecursoRef(refRecurso1);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
+			// Titanio 80
+			UnidadBasicaRecursoDO[22].setCantidad(80);
+			refValue = (IRecursoDO) RecursoDAO.loadById(5);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[22].setRecursoRef(refRecurso1);
 
-			for (int i = 0; i < 8; i++) {
+			// Cristalo 90
+			UnidadBasicaRecursoDO[23].setCantidad(90);
+			refValue = (IRecursoDO) RecursoDAO.loadById(6);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[23].setRecursoRef(refRecurso1);
 
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+48]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+48]);
+			// Adamantium 200
+			UnidadBasicaRecursoDO[24].setCantidad(200);
+			refValue = (IRecursoDO) RecursoDAO.loadById(7);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[24].setRecursoRef(refRecurso1);
 
-			}
-			UnidadBasicaDO[7].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[19]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[20]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[21]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[22]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[23]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[24]);
+			UnidadBasicaDO[6].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 8
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+56].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+56].setCantidad(0);
+			// Plomo 100
+			UnidadBasicaRecursoDO[25].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(1);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[25].setRecursoRef(refRecurso1);
 
-			}
+			// Hierro 100
+			UnidadBasicaRecursoDO[26].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[26].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[57].setCantidad(100);
-			UnidadBasicaRecursoDO[58].setCantidad(100);
-			UnidadBasicaRecursoDO[59].setCantidad(100);
-			UnidadBasicaRecursoDO[60].setCantidad(100);
-			UnidadBasicaRecursoDO[61].setCantidad(100);
-			UnidadBasicaRecursoDO[62].setCantidad(100);
-			UnidadBasicaRecursoDO[63].setCantidad(100);
-			UnidadBasicaRecursoDO[64].setCantidad(200);
+			// Acero 100
+			UnidadBasicaRecursoDO[27].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[27].setRecursoRef(refRecurso1);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
+			// Uranio 100
+			UnidadBasicaRecursoDO[28].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(4);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[28].setRecursoRef(refRecurso1);
 
-			for (int i = 0; i < 8; i++) {
+			// Titanio 100
+			UnidadBasicaRecursoDO[29].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(5);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[29].setRecursoRef(refRecurso1);
 
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+56]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+56]);
+			// Cristalo 100
+			UnidadBasicaRecursoDO[30].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(6);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[30].setRecursoRef(refRecurso1);
 
-			}
-			UnidadBasicaDO[8].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			// Adamantium 100
+			UnidadBasicaRecursoDO[31].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(7);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[31].setRecursoRef(refRecurso1);
+
+			// Vibratrium 200
+			UnidadBasicaRecursoDO[32].setCantidad(200);
+			refValue = (IRecursoDO) RecursoDAO.loadById(8);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[32].setRecursoRef(refRecurso1);
+
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[25]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[26]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[27]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[28]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[29]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[30]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[31]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[32]);
+			UnidadBasicaDO[7].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 1
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+64].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+64].setCantidad(0);
+			// Plomo 30
+			UnidadBasicaRecursoDO[33].setCantidad(30);
+			refValue = (IRecursoDO) RecursoDAO.loadById(1);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[33].setRecursoRef(refRecurso1);
 
-			}
+			// Hierro 5
+			UnidadBasicaRecursoDO[34].setCantidad(5);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[34].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[65].setCantidad(30);
-			UnidadBasicaRecursoDO[66].setCantidad(5);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+64]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+64]);
-
-			}
-			UnidadBasicaDO[1].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[33]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[34]);
+			UnidadBasicaDO[8].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 2
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+72].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+72].setCantidad(0);
+			// Plomo 10
+			UnidadBasicaRecursoDO[35].setCantidad(10);
+			refValue = (IRecursoDO) RecursoDAO.loadById(1);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[35].setRecursoRef(refRecurso1);
 
-			}
+			// Hierro 30
+			UnidadBasicaRecursoDO[36].setCantidad(30);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[36].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[73].setCantidad(10);
-			UnidadBasicaRecursoDO[74].setCantidad(30);
-			UnidadBasicaRecursoDO[75].setCantidad(20);
+			// Acero 20
+			UnidadBasicaRecursoDO[37].setCantidad(20);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[37].setRecursoRef(refRecurso1);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+72]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+72]);
-
-			}
-			UnidadBasicaDO[2].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[35]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[36]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[37]);
+			UnidadBasicaDO[9].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 3
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+80].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+80].setCantidad(0);
+			// Hierro 20
+			UnidadBasicaRecursoDO[38].setCantidad(20);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[38].setRecursoRef(refRecurso1);
 
-			}
+			// Acero 50
+			UnidadBasicaRecursoDO[39].setCantidad(50);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[39].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[82].setCantidad(20);
-			UnidadBasicaRecursoDO[83].setCantidad(50);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+80]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+80]);
-
-			}
-			UnidadBasicaDO[3].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[38]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[39]);
+			UnidadBasicaDO[10].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 4
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+88].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+88].setCantidad(0);
+			// acero 50
+			UnidadBasicaRecursoDO[40].setCantidad(50);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[40].setRecursoRef(refRecurso1);
 
-			}
+			// Uranio 60
+			UnidadBasicaRecursoDO[41].setCantidad(60);
+			refValue = (IRecursoDO) RecursoDAO.loadById(4);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[41].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[91].setCantidad(50);
-			UnidadBasicaRecursoDO[92].setCantidad(60);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+88]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+88]);
-
-			}
-			UnidadBasicaDO[4].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[40]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[41]);
+			UnidadBasicaDO[11].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 5
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+96].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+96].setCantidad(0);
+			// Hierro 100
+			UnidadBasicaRecursoDO[42].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[42].setRecursoRef(refRecurso1);
 
-			}
+			// Acero 20
+			UnidadBasicaRecursoDO[43].setCantidad(20);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[43].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[98].setCantidad(100);
-			UnidadBasicaRecursoDO[99].setCantidad(20);
-			UnidadBasicaRecursoDO[100].setCantidad(80);
-			UnidadBasicaRecursoDO[101].setCantidad(80);
+			// Uranio 80
+			UnidadBasicaRecursoDO[44].setCantidad(80);
+			refValue = (IRecursoDO) RecursoDAO.loadById(4);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[44].setRecursoRef(refRecurso1);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
+			// Titanio 80
+			UnidadBasicaRecursoDO[45].setCantidad(80);
+			refValue = (IRecursoDO) RecursoDAO.loadById(5);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[45].setRecursoRef(refRecurso1);
 
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+96]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+96]);
-
-			}
-			UnidadBasicaDO[5].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[42]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[43]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[44]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[45]);
+			UnidadBasicaDO[12].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 6
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+104].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i].setCantidad(0);
+			// Titanio 100
+			UnidadBasicaRecursoDO[46].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(5);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[46].setRecursoRef(refRecurso1);
 
-			}
+			// Cristalo 100
+			UnidadBasicaRecursoDO[47].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(6);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[47].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[109].setCantidad(100);
-			UnidadBasicaRecursoDO[110].setCantidad(100);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+104]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+104]);
-
-			}
-			UnidadBasicaDO[6].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[46]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[47]);
+			UnidadBasicaDO[13].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 7
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+112].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+112].setCantidad(0);
+			// Cristalo 200
+			UnidadBasicaRecursoDO[48].setCantidad(200);
+			refValue = (IRecursoDO) RecursoDAO.loadById(6);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[48].setRecursoRef(refRecurso1);
 
-			}
+			// Adamantium 400
+			UnidadBasicaRecursoDO[49].setCantidad(400);
+			refValue = (IRecursoDO) RecursoDAO.loadById(7);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[49].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[119].setCantidad(200);
-			UnidadBasicaRecursoDO[120].setCantidad(400);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+112]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+112]);
-
-			}
-			UnidadBasicaDO[7].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[48]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[49]);
+			UnidadBasicaDO[14].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 8
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+120].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+120].setCantidad(0);
+			// Cristalo 300
+			UnidadBasicaRecursoDO[50].setCantidad(300);
+			refValue = (IRecursoDO) RecursoDAO.loadById(6);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[50].setRecursoRef(refRecurso1);
 
-			}
+			// Adamantium 300
+			UnidadBasicaRecursoDO[51].setCantidad(300);
+			refValue = (IRecursoDO) RecursoDAO.loadById(7);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[51].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[126].setCantidad(300);
-			UnidadBasicaRecursoDO[127].setCantidad(300);
-			UnidadBasicaRecursoDO[128].setCantidad(500);
+			// Vibratrium 500
+			UnidadBasicaRecursoDO[52].setCantidad(500);
+			refValue = (IRecursoDO) RecursoDAO.loadById(8);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[52].setRecursoRef(refRecurso1);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+120]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+120]);
-
-			}
-			UnidadBasicaDO[8].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[50]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[51]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[52]);
+			UnidadBasicaDO[15].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 1
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+128].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+128].setCantidad(0);
+			// Plomo 30
+			UnidadBasicaRecursoDO[53].setCantidad(30);
+			refValue = (IRecursoDO) RecursoDAO.loadById(1);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[53].setRecursoRef(refRecurso1);
 
-			}
+			// Hierro 5
+			UnidadBasicaRecursoDO[54].setCantidad(5);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[54].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[129].setCantidad(30);
-			UnidadBasicaRecursoDO[130].setCantidad(5);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+128]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+128]);
-
-			}
-			UnidadBasicaDO[1].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[53]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[54]);
+			UnidadBasicaDO[16].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 2
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+136].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+136].setCantidad(0);
+			// Plomo 10
+			UnidadBasicaRecursoDO[55].setCantidad(10);
+			refValue = (IRecursoDO) RecursoDAO.loadById(1);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[55].setRecursoRef(refRecurso1);
 
-			}
+			// Hierro 30
+			UnidadBasicaRecursoDO[56].setCantidad(30);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[56].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[137].setCantidad(10);
-			UnidadBasicaRecursoDO[138].setCantidad(30);
-			UnidadBasicaRecursoDO[139].setCantidad(20);
+			// Acero 20
+			UnidadBasicaRecursoDO[57].setCantidad(20);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[57].setRecursoRef(refRecurso1);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+136]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+136]);
-
-			}
-			UnidadBasicaDO[2].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[55]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[56]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[57]);
+			UnidadBasicaDO[17].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 3
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+144].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+144].setCantidad(0);
+			// Hierro 20
+			UnidadBasicaRecursoDO[58].setCantidad(20);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[58].setRecursoRef(refRecurso1);
 
-			}
+			// Acero 50
+			UnidadBasicaRecursoDO[59].setCantidad(50);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[59].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[146].setCantidad(20);
-			UnidadBasicaRecursoDO[147].setCantidad(50);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+144]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+144]);
-
-			}
-			UnidadBasicaDO[3].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[58]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[59]);
+			UnidadBasicaDO[18].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 4
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+152].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+152].setCantidad(0);
+			// acero 50
+			UnidadBasicaRecursoDO[60].setCantidad(50);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[60].setRecursoRef(refRecurso1);
 
-			}
+			// Uranio 60
+			UnidadBasicaRecursoDO[61].setCantidad(60);
+			refValue = (IRecursoDO) RecursoDAO.loadById(4);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[61].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[155].setCantidad(50);
-			UnidadBasicaRecursoDO[156].setCantidad(60);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+152]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+152]);
-
-			}
-			UnidadBasicaDO[4].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[60]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[61]);
+			UnidadBasicaDO[19].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 5
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+160].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+160].setCantidad(0);
+			// Hierro 100
+			UnidadBasicaRecursoDO[62].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(2);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[62].setRecursoRef(refRecurso1);
 
-			}
+			// Acero 20
+			UnidadBasicaRecursoDO[63].setCantidad(20);
+			refValue = (IRecursoDO) RecursoDAO.loadById(3);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[63].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[162].setCantidad(100);
-			UnidadBasicaRecursoDO[163].setCantidad(20);
-			UnidadBasicaRecursoDO[164].setCantidad(80);
-			UnidadBasicaRecursoDO[165].setCantidad(80);
+			// Uranio 80
+			UnidadBasicaRecursoDO[64].setCantidad(80);
+			refValue = (IRecursoDO) RecursoDAO.loadById(4);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[64].setRecursoRef(refRecurso1);
 
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
+			// Titanio 80
+			UnidadBasicaRecursoDO[65].setCantidad(80);
+			refValue = (IRecursoDO) RecursoDAO.loadById(5);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[65].setRecursoRef(refRecurso1);
 
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+160]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+160]);
-
-			}
-			UnidadBasicaDO[5].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[62]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[63]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[64]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[65]);
+			UnidadBasicaDO[20].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 6
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+168].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+168].setCantidad(0);
+			// Titanio 100
+			UnidadBasicaRecursoDO[66].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(5);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[66].setRecursoRef(refRecurso1);
 
-			}
+			// Cristalo 100
+			UnidadBasicaRecursoDO[67].setCantidad(100);
+			refValue = (IRecursoDO) RecursoDAO.loadById(6);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[67].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[173].setCantidad(100);
-			UnidadBasicaRecursoDO[174].setCantidad(100);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+168]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+168]);
-
-			}
-			UnidadBasicaDO[6].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[66]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[67]);
+			UnidadBasicaDO[21].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 7
-			for (int i = 0; i < 8; i++) {
+			refRecurso1 = new Reference<IRecursoDO>();
 
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+176].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+176].setCantidad(0);
+			// Cristalo 200
+			UnidadBasicaRecursoDO[68].setCantidad(200);
+			refValue = (IRecursoDO) RecursoDAO.loadById(6);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[68].setRecursoRef(refRecurso1);
 
-			}
+			// Adamantium 400
+			UnidadBasicaRecursoDO[69].setCantidad(400);
+			refValue = (IRecursoDO) RecursoDAO.loadById(7);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[69].setRecursoRef(refRecurso1);
 
-			UnidadBasicaRecursoDO[182].setCantidad(200);
-			UnidadBasicaRecursoDO[183].setCantidad(400);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+176]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+176]);
-
-			}
-			UnidadBasicaDO[7].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[68]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[69]);
+			UnidadBasicaDO[22].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 8
+			refRecurso1 = new Reference<IRecursoDO>();
+
+			// Cristalo 300
+			UnidadBasicaRecursoDO[70].setCantidad(300);
+			refValue = (IRecursoDO) RecursoDAO.loadById(6);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[70].setRecursoRef(refRecurso1);
+
+			// Adamantium 300
+			UnidadBasicaRecursoDO[71].setCantidad(300);
+			refValue = (IRecursoDO) RecursoDAO.loadById(7);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[71].setRecursoRef(refRecurso1);
+
+			// Vibratrium 500
+			UnidadBasicaRecursoDO[72].setCantidad(500);
+			refValue = (IRecursoDO) RecursoDAO.loadById(8);
+			refRecurso1.setRefValue(refValue);
+			UnidadBasicaRecursoDO[72].setRecursoRef(refRecurso1);
+
+			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[70]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[71]);
+			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[72]);
+			UnidadBasicaDO[23].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
+			// ASIGNAR PRECIOS A LAS UNIDAD BALA 1-8
 			for (int i = 0; i < 8; i++) {
 
 				refRecurso1 = new Reference<IRecursoDO>();
+
+				UnidadBasicaRecursoDO[i+73].setCantidad(valor[i] * 10);
 				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
 				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+184].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+184].setCantidad(0);
+				UnidadBasicaRecursoDO[i+73].setRecursoRef(refRecurso1);
 
+				unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
+				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+73]);
+
+				UnidadBasicaDO[i+24].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 			}
 
-			UnidadBasicaRecursoDO[190].setCantidad(300);
-			UnidadBasicaRecursoDO[191].setCantidad(300);
-			UnidadBasicaRecursoDO[192].setCantidad(500);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+184]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+184]);
-
+			// INSERT UNIDADES BASICAS-RECURSO
+			for (int i = 0; i < UnidadBasicaRecursoDO.length; i++) {
+				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
 			}
-			UnidadBasicaDO[8].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
-
-			// ASIGNAR PRECIOS A LAS UNIDAD BALA 1
-			for (int i = 0; i < 8; i++) {
-
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+194].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+194].setCantidad(0);
-
-			}
-
-			UnidadBasicaRecursoDO[195].setCantidad(10);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+194]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+194]);
-
-			}
-			UnidadBasicaDO[1].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
-
-			// ASIGNAR PRECIOS A LAS UNIDAD BALA 2
-			for (int i = 0; i < 8; i++) {
-
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+202].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+202].setCantidad(0);
-
-			}
-
-			UnidadBasicaRecursoDO[204].setCantidad(20);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+202]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+202]);
-
-			}
-			UnidadBasicaDO[2].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
-
-			// ASIGNAR PRECIOS A LAS UNIDAD BALA 3
-			for (int i = 0; i < 8; i++) {
-
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+210].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+210].setCantidad(0);
-
-			}
-
-			UnidadBasicaRecursoDO[213].setCantidad(30);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+210]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+210]);
-
-			}
-			UnidadBasicaDO[3].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
-
-			// ASIGNAR PRECIOS A LAS UNIDAD BALA 4
-			for (int i = 0; i < 8; i++) {
-
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+218].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+218].setCantidad(0);
-
-			}
-
-			UnidadBasicaRecursoDO[222].setCantidad(40);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+218]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+218]);
-
-			}
-			UnidadBasicaDO[4].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
-
-			// ASIGNAR PRECIOS A LAS UNIDAD BALA 5
-			for (int i = 0; i < 8; i++) {
-
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+226].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+226].setCantidad(0);
-
-			}
-
-			UnidadBasicaRecursoDO[231].setCantidad(50);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+226]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+226]);
-
-			}
-			UnidadBasicaDO[5].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
-
-			// ASIGNAR PRECIOS A LAS UNIDAD BALA 6
-			for (int i = 0; i < 8; i++) {
-
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+234].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+234].setCantidad(0);
-
-			}
-
-			UnidadBasicaRecursoDO[240].setCantidad(70);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+234]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+234]);
-
-			}
-			UnidadBasicaDO[6].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
-
-			// ASIGNAR PRECIOS A LAS UNIDAD BALA 7
-			for (int i = 0; i < 8; i++) {
-
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+242].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+242].setCantidad(0);
-
-			}
-
-			UnidadBasicaRecursoDO[249].setCantidad(80);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+242]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+242]);
-
-			}
-			UnidadBasicaDO[7].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
-
-			// ASIGNAR PRECIOS A LAS UNIDAD BALA 8
-			for (int i = 0; i < 8; i++) {
-
-				refRecurso1 = new Reference<IRecursoDO>();
-				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-				refRecurso1.setRefValue(refValue);
-				UnidadBasicaRecursoDO[i+250].setRecursoRef(refRecurso1);
-				UnidadBasicaRecursoDO[i+250].setCantidad(0);
-
-			}
-
-			UnidadBasicaRecursoDO[258].setCantidad(100);
-
-			unidadBasicaRecursoList = //
-				new ArrayList<IUnidadBasicaRecursoDO>();
-
-			for (int i = 0; i < 8; i++) {
-
-				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+250]);
-				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i+250]);
-
-			}
-			UnidadBasicaDO[8].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
-
 
 			// UPDATE UNIDADES BASICAS
 			for (int i = 0; i < UnidadBasicaDO.length; i++) {
@@ -1514,7 +1409,7 @@ public class InicializarBD {
 
 			for (int i = 0; i < AndroideDO.length; i++) {
 				AndroideDO[i] = (IAndroideDO) //
-					GlobalDOFactory.getDO(IAndroideDO.class);
+				GlobalDOFactory.getDO(IAndroideDO.class);
 			}
 			// Unidades Recolectoras
 			AndroideDO[0].setNombre("Recolector de Plomo");
@@ -1536,7 +1431,7 @@ public class InicializarBD {
 			AndroideDO[14].setNombre("Saboteador de Adamantium");
 			AndroideDO[15].setNombre("Saboteador de Vibratium");
 
-//			IAndroideRecursoDO AndroideRecursoDO[] = new IAndroideRecursoDO[8];
+			//			IAndroideRecursoDO AndroideRecursoDO[] = new IAndroideRecursoDO[8];
 
 			for (int i = 0; i < AndroideDO.length; i++) {
 
@@ -1593,19 +1488,19 @@ public class InicializarBD {
 			ClaseLinternaDO[VIOLETA].setColor("Violeta");
 
 			ClaseLinternaDO[VERDE].setNombre_de_cuerpo_linterna( //
-					"Green Lantern Corps");
+			"Green Lantern Corps");
 			ClaseLinternaDO[AMARILLO].setNombre_de_cuerpo_linterna( //
-					"Sinestro Corps");
+			"Sinestro Corps");
 			ClaseLinternaDO[ROJO].setNombre_de_cuerpo_linterna( //
-					"Red Lantern Corps");
+			"Red Lantern Corps");
 			ClaseLinternaDO[AZUL].setNombre_de_cuerpo_linterna( //
-					"Blue Lantern Corps");
+			"Blue Lantern Corps");
 			ClaseLinternaDO[NEGRO].setNombre_de_cuerpo_linterna( //
-					"Black Lantern Corps");
+			"Black Lantern Corps");
 			ClaseLinternaDO[INDIGO].setNombre_de_cuerpo_linterna( //
-					"Tribu Indigo");
+			"Tribu Indigo");
 			ClaseLinternaDO[VIOLETA].setNombre_de_cuerpo_linterna( //
-					"Star Sapphires");
+			"Star Sapphires");
 
 			// CREATE REFERENCE TO PLANETA AND INSERT CLASELINTERNA
 			Reference<IPlanetaDO> refpl;
@@ -1632,7 +1527,7 @@ public class InicializarBD {
 
 			IHabilidadDO HabilidadDO;
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Taclear");
 			HabilidadDO.setCosto_de_aprendizaje(1500);
 			HabilidadDO.setTipo(1);
@@ -1643,7 +1538,7 @@ public class InicializarBD {
 			INivelHabilidadDO NivelHabilidadDO[] = new INivelHabilidadDO[10];
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
@@ -1652,14 +1547,14 @@ public class InicializarBD {
 			}			
 			IHabilidadClaseLinternaDO habilidadClaseLinternaDO = 
 				(IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+				.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Daga de Cristal");
 			HabilidadDO.setCosto_de_aprendizaje(1500);
 			HabilidadDO.setTipo(1);
@@ -1668,7 +1563,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
@@ -1676,14 +1571,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Electrocución");
 			HabilidadDO.setCosto_de_aprendizaje(4500);
 			HabilidadDO.setTipo(1);
@@ -1692,7 +1587,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
@@ -1700,14 +1595,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Hacha de Energía Amarilla");
 			HabilidadDO.setCosto_de_aprendizaje(1500);
 			HabilidadDO.setTipo(1);
@@ -1716,7 +1611,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
@@ -1724,14 +1619,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Rayo antimateria");
 			HabilidadDO.setCosto_de_aprendizaje(1500);
 			HabilidadDO.setTipo(1);
@@ -1740,7 +1635,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
@@ -1748,14 +1643,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Espada de Energía Verde");
 			HabilidadDO.setCosto_de_aprendizaje(1500);
 			HabilidadDO.setTipo(1);
@@ -1764,7 +1659,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
@@ -1772,14 +1667,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Llama Roja");
 			HabilidadDO.setCosto_de_aprendizaje(13500);
 			HabilidadDO.setTipo(2);
@@ -1788,7 +1683,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
@@ -1796,14 +1691,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Campo de Cristal");
 			HabilidadDO.setCosto_de_aprendizaje(4500);
 			HabilidadDO.setTipo(2);
@@ -1812,7 +1707,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
@@ -1820,14 +1715,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Aura de Esperanza");
 			HabilidadDO.setCosto_de_aprendizaje(13500);
 			HabilidadDO.setTipo(2);
@@ -1836,7 +1731,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
@@ -1844,14 +1739,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar de Protección");
 			HabilidadDO.setCosto_de_aprendizaje(13500);
 			HabilidadDO.setTipo(2);
@@ -1860,7 +1755,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
@@ -1868,14 +1763,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Piel de Hueso");
 			HabilidadDO.setCosto_de_aprendizaje(4500);
 			HabilidadDO.setTipo(2);
@@ -1884,7 +1779,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
@@ -1892,14 +1787,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Esfera Indigo");
 			HabilidadDO.setCosto_de_aprendizaje(4500);
 			HabilidadDO.setTipo(2);
@@ -1908,7 +1803,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(40 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(0.5 - i*0.05);
@@ -1916,14 +1811,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar del Predator");
 			HabilidadDO.setCosto_de_aprendizaje(13500);
 			HabilidadDO.setTipo(1);
@@ -1932,7 +1827,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(85 + i * 10);
 				NivelHabilidadDO[i].setCosto_de_energia(25 - i);
@@ -1940,14 +1835,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar del Antimonitor");
 			HabilidadDO.setCosto_de_aprendizaje(13500);
 			HabilidadDO.setTipo(1);
@@ -1956,7 +1851,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(85 + i * 10);
 				NivelHabilidadDO[i].setCosto_de_energia(25 - i);
@@ -1964,14 +1859,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar de Abin Sur");
 			HabilidadDO.setCosto_de_aprendizaje(13500);
 			HabilidadDO.setTipo(1);
@@ -1980,7 +1875,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(85 + i * 10);
 				NivelHabilidadDO[i].setCosto_de_energia(25 - i);
@@ -1988,14 +1883,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar de Parallax");
 			HabilidadDO.setCosto_de_aprendizaje(37500);
 			HabilidadDO.setTipo(1);
@@ -2004,7 +1899,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(100 + i * 20);
 				NivelHabilidadDO[i].setCosto_de_energia(30 - i);
@@ -2012,14 +1907,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Avatar de ION");
 			HabilidadDO.setCosto_de_aprendizaje(37500);
 			HabilidadDO.setTipo(1);
@@ -2028,7 +1923,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(100 + i * 20);
 				NivelHabilidadDO[i].setCosto_de_energia(30 - i);
@@ -2036,14 +1931,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Corrupción de Energía");
 			HabilidadDO.setCosto_de_aprendizaje(4500);
 			HabilidadDO.setTipo(1);
@@ -2052,7 +1947,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(20 + i);
 				NivelHabilidadDO[i].setCosto_de_energia(15 - i);
@@ -2060,14 +1955,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Plasma");
 			HabilidadDO.setCosto_de_aprendizaje(37500);
 			HabilidadDO.setTipo(1);
@@ -2076,7 +1971,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(100 + i * 20);
 				NivelHabilidadDO[i].setCosto_de_energia(30 - i);
@@ -2084,14 +1979,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Petrificar");
 			HabilidadDO.setCosto_de_aprendizaje(37500);
 			HabilidadDO.setTipo(1);
@@ -2100,7 +1995,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(10 + i );
 				NivelHabilidadDO[i].setCosto_de_energia(40 - i);
@@ -2108,14 +2003,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Consumir Corazón");
 			HabilidadDO.setCosto_de_aprendizaje(37500);
 			HabilidadDO.setTipo(1);
@@ -2124,7 +2019,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(10 + i );
 				NivelHabilidadDO[i].setCosto_de_energia(40 - i);
@@ -2132,14 +2027,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Predicción de Ataque");
 			HabilidadDO.setCosto_de_aprendizaje(1500);
 			HabilidadDO.setTipo(2);
@@ -2148,7 +2043,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(25 + i * 5 );
 				NivelHabilidadDO[i].setCosto_de_energia(1 - i*0.05);
@@ -2156,14 +2051,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Infligir Terror");
 			HabilidadDO.setCosto_de_aprendizaje(4500);
 			HabilidadDO.setTipo(2);
@@ -2172,7 +2067,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(25 + i * 5 );
 				NivelHabilidadDO[i].setCosto_de_energia(1 - i*0.05);
@@ -2180,14 +2075,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Rayo de esperanza");
 			HabilidadDO.setCosto_de_aprendizaje(37500);
 			HabilidadDO.setTipo(1);
@@ -2196,7 +2091,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(110 + i * 20 );
 				NivelHabilidadDO[i].setCosto_de_energia(30 - i);
@@ -2204,14 +2099,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Cetro Cargado");
 			HabilidadDO.setCosto_de_aprendizaje(37500);
 			HabilidadDO.setTipo(1);
@@ -2220,7 +2115,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(110 + i * 20 );
 				NivelHabilidadDO[i].setCosto_de_energia(30 - i);
@@ -2228,14 +2123,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Golpe de Mazo");
 			HabilidadDO.setCosto_de_aprendizaje(125);
 			HabilidadDO.setTipo(1);
@@ -2244,7 +2139,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(30 + i * 10 );
 				NivelHabilidadDO[i].setCosto_de_energia(10 - i * 0.5);
@@ -2252,14 +2147,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Constricción");
 			HabilidadDO.setCosto_de_aprendizaje(125);
 			HabilidadDO.setTipo(1);
@@ -2268,7 +2163,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(35 + i * 5 );
 				NivelHabilidadDO[i].setCosto_de_energia(10 - i * 0.5);
@@ -2276,14 +2171,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AMARILLO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Robo de Salud");
 			HabilidadDO.setCosto_de_aprendizaje(125);
 			HabilidadDO.setTipo(3);
@@ -2292,7 +2187,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(45 + i * 5 );
 				NivelHabilidadDO[i].setCosto_de_energia((45 + i * 5 )*(0.3 - i * 0.02));
@@ -2300,14 +2195,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[NEGRO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Puño Luminoso");
 			HabilidadDO.setCosto_de_aprendizaje(125);
 			HabilidadDO.setTipo(1);
@@ -2316,7 +2211,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(35 + i * 5 );
 				NivelHabilidadDO[i].setCosto_de_energia(10 - i * 0.5);
@@ -2324,14 +2219,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[ROJO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Curación");
 			HabilidadDO.setCosto_de_aprendizaje(125);
 			HabilidadDO.setTipo(3);
@@ -2340,7 +2235,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(45 + i * 5 );
 				NivelHabilidadDO[i].setCosto_de_energia((45 + i * 5 )*(0.3 - i * 0.02));
@@ -2348,14 +2243,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[AZUL]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Evasión de Combate");
 			HabilidadDO.setCosto_de_aprendizaje(125);
 			HabilidadDO.setTipo(2);
@@ -2364,7 +2259,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(10 + i * 3 );
 				NivelHabilidadDO[i].setCosto_de_energia(20 - i );
@@ -2372,14 +2267,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Confusión");
 			HabilidadDO.setCosto_de_aprendizaje(125);
 			HabilidadDO.setTipo(2);
@@ -2388,7 +2283,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(15 + i * 2 );
 				NivelHabilidadDO[i].setCosto_de_energia((15 + i * 2 )*(0.5 - i * 0.02) );
@@ -2396,14 +2291,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VIOLETA]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Vuelo");
 			HabilidadDO.setCosto_de_aprendizaje(50);
 			HabilidadDO.setTipo(4);
@@ -2412,7 +2307,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(0);
 				NivelHabilidadDO[i].setCosto_de_energia(1 - i * 0.1 );
@@ -2421,7 +2316,7 @@ public class InicializarBD {
 			}
 			for (int i = 0; i < 7; i++) {
 				habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-						.getDO(IHabilidadClaseLinternaDO.class);
+				.getDO(IHabilidadClaseLinternaDO.class);
 				habilidadClaseLinternaDO.setHabilidadRef(refhab);
 				habilidadClaseLinternaDO.setClaseLinternaRef(refcl[i]);
 				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
@@ -2429,7 +2324,7 @@ public class InicializarBD {
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Rayo Directo");
 			HabilidadDO.setCosto_de_aprendizaje(75);
 			HabilidadDO.setTipo(1);
@@ -2438,7 +2333,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(20 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(5 - i * 0.2 );
@@ -2447,7 +2342,7 @@ public class InicializarBD {
 			}
 			for (int i = 0; i < 7; i++) {
 				habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-						.getDO(IHabilidadClaseLinternaDO.class);
+				.getDO(IHabilidadClaseLinternaDO.class);
 				habilidadClaseLinternaDO.setHabilidadRef(refhab);
 				habilidadClaseLinternaDO.setClaseLinternaRef(refcl[i]);
 				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
@@ -2455,7 +2350,7 @@ public class InicializarBD {
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Aura Protectora");
 			HabilidadDO.setCosto_de_aprendizaje(100);
 			HabilidadDO.setTipo(2);
@@ -2464,7 +2359,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(30 + i * 2);
 				NivelHabilidadDO[i].setCosto_de_energia(0.3 - i * 0.02 );
@@ -2473,7 +2368,7 @@ public class InicializarBD {
 			}
 			for (int i = 0; i < 7; i++) {
 				habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-						.getDO(IHabilidadClaseLinternaDO.class);
+				.getDO(IHabilidadClaseLinternaDO.class);
 				habilidadClaseLinternaDO.setHabilidadRef(refhab);
 				habilidadClaseLinternaDO.setClaseLinternaRef(refcl[i]);
 				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
@@ -2481,7 +2376,7 @@ public class InicializarBD {
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Escudo");
 			HabilidadDO.setCosto_de_aprendizaje(100);////////NO DEFINIDO
 			HabilidadDO.setTipo(2);
@@ -2490,7 +2385,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(20 + i * 3);
 				NivelHabilidadDO[i].setCosto_de_energia(0.4 - i * 0.03);
@@ -2499,7 +2394,7 @@ public class InicializarBD {
 			}
 			for (int i = 0; i < 7; i++) {
 				habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-						.getDO(IHabilidadClaseLinternaDO.class);
+				.getDO(IHabilidadClaseLinternaDO.class);
 				habilidadClaseLinternaDO.setHabilidadRef(refhab);
 				habilidadClaseLinternaDO.setClaseLinternaRef(refcl[i]);
 				HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
@@ -2507,7 +2402,7 @@ public class InicializarBD {
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Empatia");
 			HabilidadDO.setCosto_de_aprendizaje(1500);
 			HabilidadDO.setTipo(2);
@@ -2516,7 +2411,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(15 + i * 2 );
 				NivelHabilidadDO[i].setCosto_de_energia((15 + i * 2 )*(0.5 - i * 0.02) );
@@ -2524,14 +2419,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[INDIGO]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Cañon de Energia");
 			HabilidadDO.setCosto_de_aprendizaje(4500);
 			HabilidadDO.setTipo(1);
@@ -2540,7 +2435,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(50 + i * 5);
 				NivelHabilidadDO[i].setCosto_de_energia(20 - i);
@@ -2548,14 +2443,14 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);
 
 
 			HabilidadDO = (IHabilidadDO) GlobalDOFactory
-					.getDO(IHabilidadDO.class);
+			.getDO(IHabilidadDO.class);
 			HabilidadDO.setNombre("Explosion de Energia");
 			HabilidadDO.setCosto_de_aprendizaje(13500);
 			HabilidadDO.setTipo(1);
@@ -2564,7 +2459,7 @@ public class InicializarBD {
 			refhab.setRefIdent(HabilidadDO.getId());
 			for (int i = 0; i < 10; i++) {
 				NivelHabilidadDO[i] = (INivelHabilidadDO) GlobalDOFactory
-						.getDO(INivelHabilidadDO.class);
+				.getDO(INivelHabilidadDO.class);
 				NivelHabilidadDO[i].setNivel_de_habilidad(i + 1);
 				NivelHabilidadDO[i].setEfectividad(85 + i * 10 );
 				NivelHabilidadDO[i].setCosto_de_energia(25 - i);
@@ -2572,7 +2467,7 @@ public class InicializarBD {
 				NivelHabilidadDAO.insert(NivelHabilidadDO[i]);
 			}
 			habilidadClaseLinternaDO = (IHabilidadClaseLinternaDO) GlobalDOFactory
-					.getDO(IHabilidadClaseLinternaDO.class);
+			.getDO(IHabilidadClaseLinternaDO.class);
 			habilidadClaseLinternaDO.setHabilidadRef(refhab);
 			habilidadClaseLinternaDO.setClaseLinternaRef(refcl[VERDE]);
 			HabilidadClaseLinternaDAO.insert(habilidadClaseLinternaDO);

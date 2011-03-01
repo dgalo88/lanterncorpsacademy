@@ -127,7 +127,7 @@ public class PanelAdquirirTecnologia extends Panel {
 					e.printStackTrace();
 				}
 				Random random = new Random();
-				lblCosto.setText("" + random.nextInt(50));
+//				lblCosto.setText("" + random.nextInt(50));
 				return lblCosto.getText();
 			}
 		};
