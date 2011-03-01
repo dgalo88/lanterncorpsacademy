@@ -484,10 +484,30 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 
 	}
 
-	public List<IUnidadEjercitoDO> listByPlanetaId(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<IUnidadEjercitoDO> listByPlanetaId(int planetaId)
+			throws SQLException {
+		StringBuffer strbuf = new StringBuffer();
 
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(UnidadEjercitoDO.PLANETA_ID);
+		strbuf.append(" = ");
+		strbuf.append(planetaId);
+
+		System.err.println(strbuf.toString());
+
+		ResultSet rs = //
+		connection.createStatement().executeQuery(strbuf.toString());
+
+		List<IUnidadEjercitoDO> ret = new ArrayList<IUnidadEjercitoDO>();
+
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
+
+		return ret;
+	}
 
 }

@@ -481,7 +481,7 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 						TecnologiaRecursoDAO.class, connectionBean);
 
 		tecnologiaDO.setTecnologiaRecursoList(tecnologiaRecursoDAO
-				.listByRecursoId(tecnologiaDO.getId()));
+				.listByTecnologiaId(tecnologiaDO.getId()));
 	}
 
 }

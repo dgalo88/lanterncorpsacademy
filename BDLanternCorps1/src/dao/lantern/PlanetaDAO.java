@@ -316,7 +316,7 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 	// --------------------------------------------------------------------------------
 
 	public void loadObjetivoList(IPlanetaDO planetaDO) throws Exception {
-		// XXX: Check this method's semantic
+	
 		checkCache(planetaDO, CHECK_UPDATE);
 		checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
 
@@ -330,7 +330,6 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 	// --------------------------------------------------------------------------------
 
 	public void loadPersonajeList(IPlanetaDO planetaDO) throws Exception {
-		// XXX: Check this method's semantic
 		checkCache(planetaDO, CHECK_UPDATE);
 		checkClass(planetaDO, PlanetaDO.class, CHECK_UPDATE);
 
@@ -411,8 +410,14 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 
 	@Override
 	public void loadUnidadEjercitoList(IPlanetaDO planetaDO) throws Exception {
-		// TODO Auto-generated method stub
-		
+		checkCache(planetaDO, CHECK_UPDATE);
+		UnidadEjercitoDAO unidadEjercitoDAO = (UnidadEjercitoDAO) FactoryDAO
+		.getDAO( //
+				UnidadEjercitoDAO.class, connectionBean);
+
+		planetaDO.setUnidadEjercitoList(unidadEjercitoDAO
+		.listByPlanetaId(planetaDO.getId()));
+
 	}
 
 }
