@@ -1578,7 +1578,7 @@ public class InicializarBD {
 
 			for (int i = 0; i < AndroideDO.length; i++) {
 				AndroideDO[i] = (IAndroideDO) //
-				GlobalDOFactory.getDO(IAndroideDO.class);
+					GlobalDOFactory.getDO(IAndroideDO.class);
 			}
 			// Unidades Recolectoras
 			AndroideDO[0].setNombre("Recolector de Plomo");
@@ -1611,16 +1611,22 @@ public class InicializarBD {
 				tecnologiaRef.setRefValue(tecnologiaRefValue);
 				AndroideDO[i].setTecnologiaRef(tecnologiaRef);
 
+				AndroideDAO.insert(AndroideDO[i]);
+
+				AndroideRecursoDO[i] = (IAndroideRecursoDO) //
+					GlobalDOFactory.getDO(IAndroideRecursoDO.class);
+
 				if (7 < j) {
 					j = 0;
 				}
 				refRecurso1 = new Reference<IRecursoDO>();
 				refValue = (IRecursoDO) RecursoDAO.loadById(j+1);
+				System.err.println("refValue: " + refValue.getNombre());
 				refRecurso1.setRefValue(refValue);
 				AndroideRecursoDO[i].setRecursoRef(refRecurso1);
 
 				Reference<IAndroideDO> androideRef = new Reference<IAndroideDO>();
-				IAndroideDO refValueAndroide = (IAndroideDO) AndroideDO[i];
+				IAndroideDO refValueAndroide = (IAndroideDO) AndroideDAO.loadById(i+1);
 				androideRef.setRefValue(refValueAndroide);
 				AndroideRecursoDO[i].setAndroideRef(androideRef);
 
@@ -1633,13 +1639,14 @@ public class InicializarBD {
 				AndroideRecursoDAO.insert(AndroideRecursoDO[i]);
 
 				AndroideDO[i].setAndroideRecursojeList(androideRecursoList);
+				AndroideDAO.update(AndroideDO[i]);
 
 			}
 
 			// INSERT ANDROIDES
-			for (int i = 0; i < AndroideDO.length; i++) {
-				AndroideDAO.insert(AndroideDO[i]);
-			}
+//			for (int i = 0; i < AndroideDO.length; i++) {
+//				AndroideDAO.insert(AndroideDO[i]);
+//			}
 
 			// XXX: CREATE CLASELINTERNA
 			IClaseLinternaDO ClaseLinternaDO[] = new IClaseLinternaDO[7];

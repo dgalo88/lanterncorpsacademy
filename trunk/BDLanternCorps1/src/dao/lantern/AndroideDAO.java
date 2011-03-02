@@ -131,7 +131,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
-		checkClass(dataObject, ClaseLinternaDO.class, CHECK_UPDATE);
+		checkClass(dataObject, AndroideDO.class, CHECK_UPDATE);
 
 		AndroideDO androideDO = (AndroideDO) dataObject;
 
@@ -143,7 +143,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 
 		strbuf.append(AndroideDO.NOMBRE);
 		strbuf.append(" = ");
-		strbuf.append(androideDO.getTipo());
+		strbuf.append(singleQuotes(androideDO.getNombre()));
 		strbuf.append(", ");
 
 		strbuf.append(AndroideDO.TIPO);
