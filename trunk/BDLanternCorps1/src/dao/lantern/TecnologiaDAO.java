@@ -475,7 +475,7 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 
 	public void loadTecnologiaRecursoList(ITecnologiaDO tecnologiaDO)
 			throws Exception {
-		checkCache(tecnologiaDO, CHECK_UPDATE);
+//		checkCache(tecnologiaDO, CHECK_UPDATE);
 
 		TecnologiaRecursoDAO tecnologiaRecursoDAO = (TecnologiaRecursoDAO) FactoryDAO
 				.getDAO( //
