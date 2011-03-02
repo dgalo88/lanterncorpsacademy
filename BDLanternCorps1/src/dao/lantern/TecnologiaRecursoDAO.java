@@ -151,6 +151,7 @@ public class TecnologiaRecursoDAO extends BaseDAO implements ITecnologiaRecursoD
 		Reference<ITecnologiaDO> refTec = tecnologiaRecursoDO.getTecnologiaRef();
 		refTec.checkInsert();
 		strbuf.append(refTec.getIdAsString());
+		strbuf.append(", ");
 
 		strbuf.append(tecnologiaRecursoDO.getCantidad());
 		strbuf.append(", ");
