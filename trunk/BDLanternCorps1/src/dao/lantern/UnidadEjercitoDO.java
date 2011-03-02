@@ -25,12 +25,16 @@ public class UnidadEjercitoDO implements IUnidadEjercitoDO {
 	public static final String UNIDAD_BASICA_BALA_ID = "unidadBasicaBala";
 
 	public static final String PLANETA_ID = "planetaId";
+	
+	public static final String IMAGEN_UNIDAD_EJERCITO = "imagenUnidadEjercito";
 
 	// -------------------------------------------------------------------------------------------------
 
 	private int id;
 
 	private String nombre;
+	
+	private String imagenUnidadEjercito;
 
 	// ---------------------------------------------------------------------------------------------------
 
@@ -54,6 +58,7 @@ public class UnidadEjercitoDO implements IUnidadEjercitoDO {
 
 	private Reference<IPlanetaDO> planetaRef = //
 	new Reference<IPlanetaDO>();
+	
 
 	// ---------------------------------------------------------------------------------------------
 
@@ -81,7 +86,19 @@ public class UnidadEjercitoDO implements IUnidadEjercitoDO {
 		this.nombre = nombre;
 	}
 
+
 	// ----------------------------------------------------------------------------------------
+	
+	public String getImagenUnidadEjercito(){
+		
+		return imagenUnidadEjercito;
+	}
+	
+	public void setImagenUnidadEjercito(String imagenUnidadEjercito){
+		
+		this.imagenUnidadEjercito= imagenUnidadEjercito;
+	}
+	//------------------------------------------------------------------------------------------------------------
 
 	public List<IUnidadEjercitoPersonajeDO> getUnidadEjercitoPersonajeList() {
 
@@ -165,5 +182,7 @@ public class UnidadEjercitoDO implements IUnidadEjercitoDO {
 		this.planetaRef = planetaRef;
 		
 	}
+	
+	
 
 }

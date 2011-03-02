@@ -31,6 +31,11 @@ public class PersonajeDO implements IPersonajeDO {
 	public static final String GRUPO_ID = "grupoId";
 	public static final String CLASE_LINTERNA_ID = "claseLinternaId";
 	public static final String TECNOLOGIA_ID = "tecnologiaId";
+	
+	public static final String COMBATES_GANADOS= "combatesGanados";
+	public static final String COMBATES_EMPATADOS= "combatesEmpatados";
+	public static final String COMBATES_PERDIDOS= "combatesPerdidos";
+	public static final String CANTIDAD_RECOLECCION = "cantidadRecoleccion";
 
 	
 	// --------------------------------------------------------------------------------
@@ -44,7 +49,11 @@ public class PersonajeDO implements IPersonajeDO {
 	private int energia_del_anillo;
 	private int nivel;
 	private Date ultima_fecha_ingreso;
-
+	private int cantidadRecoleccion;
+	private int combatesGanados;
+	private int combatesEmpatados;
+	private int combatesPerdidos;
+	
 	private Reference<IUsuarioDO> usuarioRef = new Reference<IUsuarioDO>();
 
 	private Reference<IPlanetaDO> planetaRef = new Reference<IPlanetaDO>();
@@ -97,9 +106,16 @@ public class PersonajeDO implements IPersonajeDO {
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
+	//---------------------------------------------------------------------------------------------
+	
+	public int getCantidadRecoleccion() {
+		return cantidadRecoleccion;
+	}
 
-	// --------------------------------------------------------------------------------
-
+	public void setCantidadRecoleccion(int cantidadRecoleccion) {
+		this.cantidadRecoleccion = cantidadRecoleccion;
+	}	
+	//----------------------------------------------------------------------------------------------------------
 	public int getExperiencia() {
 		return experiencia;
 	}
@@ -159,6 +175,33 @@ public class PersonajeDO implements IPersonajeDO {
 	}
 
 	// --------------------------------------------------------------------------------
+	
+	public int getCombatesGanados() {
+		return combatesGanados;
+	}
+
+	public void setCombatesGanados(int combatesGanados) {
+		this.combatesGanados = combatesGanados;
+	}
+	
+	// --------------------------------------------------------------------------------
+	public int getCombatesEmpatados() {
+		return combatesEmpatados;
+	}
+
+	public void setCombatesEmpatados(int combatesEmpatados) {
+		this.combatesEmpatados = combatesEmpatados;
+	}
+	//---------------------------------------------------------------------------------------------------------
+	
+	public int getCombatesPerdidos() {
+		return combatesPerdidos;
+	}
+
+	public void setCombatesPerdidos(int combatesPerdidos) {
+		this.combatesPerdidos = combatesPerdidos;
+	}
+	//------------------------------------------------------------------------------------------------------------
 	public List<IRecursoPersonajeDO> getRecursoPersonajeList(){
 		
 		return recursoPersonajeList;

@@ -15,6 +15,8 @@ public class UnidadBasicaDO implements IUnidadBasicaDO {
 	public static final String DEFENSA="defensa";
 	public static final String ATAQUE="ataque";
 	public static final String TIPO="tipo";
+	public static final String IMAGEN_UNIDAD_BASICA="imagenUnidadBasica";
+	
 	
 	public static final String TECNOLOGIA_ID ="tecnologiaId";
 	
@@ -25,6 +27,7 @@ public class UnidadBasicaDO implements IUnidadBasicaDO {
 	private int defensa;
 	private int ataque;
 	private int tipo;
+	private String imagenUnidadBasica;
 	
 	
 	private List<IUnidadBasicaPersonajeDO> unidadBasicaPersonajeList=//
@@ -99,7 +102,19 @@ public class UnidadBasicaDO implements IUnidadBasicaDO {
 		this.tipo=tipo;
 		
 	}
-	//-----------------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------------------------------------------
+
+	public String getImagenUnidadBasica(){
+		
+		return imagenUnidadBasica;
+	}
+	
+	public void setImagenUnidadBasica(String imagenUnidadBasica){
+		
+		this.imagenUnidadBasica= imagenUnidadBasica;
+	}
+	//----
+	//------------------------------------------------------------------------------------------------------------------------
 	
 	public List<IUnidadBasicaPersonajeDO> getUnidadBasicaPersonajeList(){
 		
