@@ -37,6 +37,7 @@ import lcaInterfaceDAO.ITecnologiaDAO;
 import lcaInterfaceDAO.ITecnologiaDO;
 import lcaInterfaceDAO.ITecnologiaPersonajeDAO;
 import lcaInterfaceDAO.ITecnologiaRecursoDAO;
+import lcaInterfaceDAO.ITecnologiaRecursoDO;
 import lcaInterfaceDAO.IUnidadBasicaDAO;
 import lcaInterfaceDAO.IUnidadBasicaDO;
 import lcaInterfaceDAO.IUnidadBasicaPersonajeDAO;
@@ -1563,8 +1564,23 @@ public class InicializarBD {
 
 			}
 
-			// INSERT UNIDADES BASICAS-RECURSO
+			// ASIGNO LOS COSTOS DE LAS TECNOLOGIAS
+			ITecnologiaRecursoDO TecnologiaRecursoDO[] = new ITecnologiaRecursoDO[97];
+			for (int i = 0; i < TecnologiaRecursoDO.length; i++) {
+				TecnologiaRecursoDO[i] = (ITecnologiaRecursoDO) //
+					GlobalDOFactory.getDO(ITecnologiaRecursoDO.class);
+			}
+
+			// INSERT UNIDADES BASICAS-RECURSO & TECNOLOGIA-RECURSO(1-81)
 			for (int i = 0; i < UnidadBasicaRecursoDO.length; i++) {
+
+				TecnologiaRecursoDO[i].setCantidad(UnidadBasicaRecursoDO[i].getCantidad() * 5);
+				TecnologiaRecursoDO[i].setRecursoRef(UnidadBasicaRecursoDO[i].getRecursoRef());
+				TecnologiaRecursoDO[i].setTecnologiaRef( //
+						UnidadBasicaRecursoDO[i].getUnidadBasicaRef() //
+						.getRefValue().getTecnologiaRef());
+
+				TecnologiaRecursoDAO.insert(TecnologiaRecursoDO[i]);
 				UnidadBasicaRecursoDAO.insert(UnidadBasicaRecursoDO[i]);
 			}
 
@@ -1621,7 +1637,6 @@ public class InicializarBD {
 				}
 				refRecurso1 = new Reference<IRecursoDO>();
 				refValue = (IRecursoDO) RecursoDAO.loadById(j+1);
-				System.err.println("refValue: " + refValue.getNombre());
 				refRecurso1.setRefValue(refValue);
 				AndroideRecursoDO[i].setRecursoRef(refRecurso1);
 
@@ -1631,6 +1646,12 @@ public class InicializarBD {
 				AndroideRecursoDO[i].setAndroideRef(androideRef);
 
 				AndroideRecursoDO[i].setCantidad(100);
+
+				TecnologiaRecursoDO[i+81].setCantidad(AndroideRecursoDO[i].getCantidad() * 5);
+				TecnologiaRecursoDO[i+81].setRecursoRef(AndroideRecursoDO[i].getRecursoRef());
+				TecnologiaRecursoDO[i+81].setTecnologiaRef(tecnologiaRef);
+
+				TecnologiaRecursoDAO.insert(TecnologiaRecursoDO[i+81]);
 
 				List<IAndroideRecursoDO> androideRecursoList = //
 					new ArrayList<IAndroideRecursoDO>();
@@ -1642,11 +1663,6 @@ public class InicializarBD {
 				AndroideDAO.update(AndroideDO[i]);
 
 			}
-
-			// INSERT ANDROIDES
-//			for (int i = 0; i < AndroideDO.length; i++) {
-//				AndroideDAO.insert(AndroideDO[i]);
-//			}
 
 			// XXX: CREATE CLASELINTERNA
 			IClaseLinternaDO ClaseLinternaDO[] = new IClaseLinternaDO[7];

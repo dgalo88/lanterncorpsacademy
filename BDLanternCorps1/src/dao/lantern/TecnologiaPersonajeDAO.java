@@ -129,7 +129,7 @@ public class TecnologiaPersonajeDAO extends BaseDAO implements ITecnologiaPerson
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
 	    checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, TecnologiaRecursoDO.class, CHECK_INSERT);
+	    checkClass(dataObject, TecnologiaPersonajeDO.class, CHECK_INSERT);
 
 	    TecnologiaPersonajeDO tecnologiaPersonajeDO = (TecnologiaPersonajeDO) dataObject;
 
