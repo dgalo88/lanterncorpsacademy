@@ -437,7 +437,6 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		//checkCache(dataObject, CHECK_UPDATE);
-		//XXX:PersonajeDAO para q funcionara...
 		checkClass(dataObject, PersonajeDO.class, CHECK_UPDATE);
 
 		PersonajeDO personajeDO = (PersonajeDO) dataObject;
@@ -589,7 +588,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	// --------------------------------------------------------------------------------
 
 	public void loadGrupoRef(IPersonajeDO personajeDO) throws SQLException {
-		// XXX: Check this method's semantic
+		
 		checkClass(personajeDO, PersonajeDO.class, CHECK_UPDATE);
 
 		GrupoDAO grupoDAO = new GrupoDAO();
@@ -767,7 +766,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	public void loadRecursoPersonajeList(IPersonajeDO personajeDO) //
 			throws Exception {
 
-//		checkCache(personajeDO, CHECK_UPDATE);
+		checkCache(personajeDO, CHECK_UPDATE);
 
 		RecursoPersonajeDAO recursoPersonajeDAO = (RecursoPersonajeDAO) //
 				FactoryDAO.getDAO(RecursoPersonajeDAO.class, connectionBean);
@@ -781,7 +780,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	public void loadTecnologiaPersonajeList(IPersonajeDO personajeDO)
 			throws Exception {
 
-//		checkCache(personajeDO, CHECK_UPDATE);
+		checkCache(personajeDO, CHECK_UPDATE);
 
 		TecnologiaPersonajeDAO tecnologiaPersonajeDAO = (TecnologiaPersonajeDAO) //
 				FactoryDAO.getDAO(TecnologiaPersonajeDAO.class, connectionBean);
