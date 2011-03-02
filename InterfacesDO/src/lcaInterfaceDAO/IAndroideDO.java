@@ -23,7 +23,7 @@ public interface IAndroideDO extends DataObject {
 
 	public abstract void setNombre(String nombre);
 
-	//--------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------
 
 	public abstract Reference<ITecnologiaDO> getTecnologiaRef();
 
