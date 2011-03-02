@@ -266,22 +266,22 @@ public class RecursoPersonajeDAO extends BaseDAO implements
 
 		strbuf.append(", ");
 
-		strbuf.append(RecursoPersonajeDO.PERSONAJE_ID);
-		strbuf.append(" = ");
-		Reference<IPersonajeDO> refP = recursoPersonajeDO.getPersonajeRef();
-		refP.checkUpdate();
-		strbuf.append(refP.getIdAsString());
-
-		strbuf.append(", ");
-
 		strbuf.append(RecursoPersonajeDO.RECURSO_ID);
 		strbuf.append(" = ");
 		Reference<IRecursoDO> refR = recursoPersonajeDO.getRecursoRef();
 		refR.checkUpdate();
 		strbuf.append(refR.getIdAsString());
 
+		strbuf.append(", ");
+
+		strbuf.append(RecursoPersonajeDO.PERSONAJE_ID);
+		strbuf.append(" = ");
+		Reference<IPersonajeDO> refP = recursoPersonajeDO.getPersonajeRef();
+		refP.checkUpdate();
+		strbuf.append(refP.getIdAsString());
+
 		strbuf.append(" WHERE ");
-		strbuf.append(OfertaDO.ID);
+		strbuf.append(RecursoPersonajeDO.ID);
 		strbuf.append(" = ");
 		strbuf.append(recursoPersonajeDO.getId());
 
