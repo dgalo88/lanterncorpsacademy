@@ -101,6 +101,14 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		strbuf.append(" INT DEFAULT 1,	");
 		strbuf.append(PersonajeDO.ULTIMA_FECHA_INGRESO); 
 		strbuf.append(" DATE DEFAULT current_date ,	");
+		strbuf.append(PersonajeDO.CANTIDAD_RECOLECCION); 
+		strbuf.append(" INT DEFAULT 0,	");
+		strbuf.append(PersonajeDO.COMBATES_GANADOS);
+		strbuf.append(" INT DEFAULT 0,   ");
+		strbuf.append(PersonajeDO.COMBATES_EMPATADOS);
+		strbuf.append(" INT DEFAULT 0,   ");
+		strbuf.append(PersonajeDO.COMBATES_PERDIDOS);
+		strbuf.append(" INT DEFAULT 0,   ");
 		strbuf.append(PersonajeDO.PLANETA_ID);
 		strbuf.append(" INT REFERENCES   ");
 		strbuf.append(planetaDAO.getTableName());
@@ -276,7 +284,10 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		ret.setEnergiaDelAnillo/*			*/(rs.getInt(PersonajeDO.ENERGIA_DEL_ANILLO));
 		ret.setNivel/*						*/(rs.getInt(PersonajeDO.NIVEL));
 		ret.setUltimaFechaIngreso/*     	*/(rs.getDate(PersonajeDO.ULTIMA_FECHA_INGRESO));
-
+		ret.setCantidadRecoleccion/*	    */(rs.getInt(PersonajeDO.CANTIDAD_RECOLECCION));
+		ret.setCombatesGanados/*     		*/(rs.getInt(PersonajeDO.COMBATES_GANADOS));
+		ret.setCombatesEmpatados/*  	   	*/(rs.getInt(PersonajeDO.COMBATES_EMPATADOS));
+		ret.setCombatesPerdidos/*	     	*/(rs.getInt(PersonajeDO.COMBATES_PERDIDOS));
 //		Reference<UsuarioDO> refU = new Reference<UsuarioDO>();
 //		refU.setRefIdent(rs.getInt(PersonajeDO.USUARIO_ID));
 //		ret.setUsuarioRef(refU);
@@ -481,8 +492,32 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 		strbuf.append(" = current_date");
 		//strbuf.append(personajeDO.getUltimaFechaIngreso());
 
+		
+		
 		strbuf.append(", ");
 
+		strbuf.append(PersonajeDO.CANTIDAD_RECOLECCION);
+		strbuf.append(" = ");
+		strbuf.append(personajeDO.getCantidadRecoleccion());
+		strbuf.append(",");
+		
+		strbuf.append(PersonajeDO.COMBATES_GANADOS);
+		strbuf.append(" = ");
+		strbuf.append(personajeDO.getCombatesGanados());
+		
+		strbuf.append(",");
+		
+		strbuf.append(PersonajeDO.COMBATES_EMPATADOS);
+		strbuf.append(" = ");
+		strbuf.append(personajeDO.getCombatesEmpatados());
+		
+		strbuf.append(",");
+		
+		strbuf.append(PersonajeDO.COMBATES_PERDIDOS);
+		strbuf.append(" = ");
+		strbuf.append(personajeDO.getCombatesPerdidos());
+		
+		strbuf.append(",");
 //		strbuf.append(PersonajeDO.USUARIO_ID);
 //		strbuf.append(" = ");
 //		Reference<IUsuarioDO> refU = personajeDO.getUsuarioRef();
