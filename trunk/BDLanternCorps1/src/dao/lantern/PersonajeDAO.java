@@ -766,7 +766,7 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 	public void loadRecursoPersonajeList(IPersonajeDO personajeDO) //
 			throws Exception {
 
-		checkCache(personajeDO, CHECK_UPDATE);
+//		checkCache(personajeDO, CHECK_UPDATE);
 
 		RecursoPersonajeDAO recursoPersonajeDAO = (RecursoPersonajeDAO) //
 				FactoryDAO.getDAO(RecursoPersonajeDAO.class, connectionBean);

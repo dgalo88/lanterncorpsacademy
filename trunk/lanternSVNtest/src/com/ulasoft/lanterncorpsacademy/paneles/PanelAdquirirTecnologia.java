@@ -2,7 +2,6 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import lcaInterfaceDAO.ITecnologiaDO;
 import nextapp.echo.app.Alignment;
@@ -68,7 +67,7 @@ public class PanelAdquirirTecnologia extends Panel {
 		col.add(PanelConstructor.initTopRow( //
 				"Lista de Tecnologías Disponibles"));
 		col.add(PanelConstructor.initTable( //
-				tableDtaModel, initTableColModel(), true));
+				tableDtaModel, initTableColModel(), true, 8));
 
 		Button btnCancelar = new Button("Cancelar");
 		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
@@ -122,12 +121,10 @@ public class PanelAdquirirTecnologia extends Panel {
 				Label lblCosto = new Label();
 				ITecnologiaDO tecnologia = (ITecnologiaDO) element;
 				try {
-					 lblCosto.setText(Tecnologia.getPrecio(tecnologia));
+					 lblCosto.setText(Tecnologia.getCostoString(tecnologia));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				Random random = new Random();
-//				lblCosto.setText("" + random.nextInt(50));
 				return lblCosto.getText();
 			}
 		};
@@ -199,7 +196,17 @@ public class PanelAdquirirTecnologia extends Panel {
 			return;
 		}
 
-		d.setWindowPaneEmergente("En construcción");
+		String result = "";
+
+		try {
+			result = Tecnologia.adquirirListaTecnologia( //
+					app.getAtributos().getPersonaje(), //
+					tecnologiaList, seleccion);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		d.setWindowPaneEmergente(result);
 		return;
 
 	}

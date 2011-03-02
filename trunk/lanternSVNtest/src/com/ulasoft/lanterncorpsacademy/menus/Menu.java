@@ -140,11 +140,11 @@ public class Menu extends Panel {
 		acc.addSection(aboutGame);
 
 		// Mini Mapa
-		Label lblMiniMapa = new Label();
-		lblMiniMapa.setIcon(new ResourceImageReference(
-				"com/ulasoft/lanterncorpsacademy/imagenes/miniMapa.png",
-				new Extent(185), new Extent(184)));
-		acc.add(lblMiniMapa);
+//		Label lblMiniMapa = new Label();
+//		lblMiniMapa.setIcon(new ResourceImageReference(
+//				"com/ulasoft/lanterncorpsacademy/imagenes/miniMapa.png",
+//				new Extent(185), new Extent(184)));
+//		acc.add(lblMiniMapa);
 
 		// Ver Mapa
 		Button btnVerMapa = new Button("Ver mapa");
