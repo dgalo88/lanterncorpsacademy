@@ -51,6 +51,13 @@ public interface IUnidadBasicaDO extends DataObject{
 	
 	//-------------------------------------------------------------------------------------------------------
 	
+
+	public abstract String getImagenUnidadBasica();
+	
+	public  abstract void setImagenUnidadBasica(String imagenUnidadBasica);
+	
+	//--------------------------------------------------------------------------------------------------------------
+	
 		
 	
 }

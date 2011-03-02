@@ -53,5 +53,11 @@ public interface IUnidadEjercitoDO extends DataObject{
 	public abstract void setPlanetaRef(Reference<IPlanetaDO> planetaRef);
 	
 	//---------------------------------------------------------------------------------------------------------------
+	
+
+	public abstract String getImagenUnidadEjercito();
+	
+	public  abstract void setImagenUnidadEjercito(String imagenUnidadEjercito);
+		
 
 }

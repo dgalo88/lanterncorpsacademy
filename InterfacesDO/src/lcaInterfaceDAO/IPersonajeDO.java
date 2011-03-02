@@ -100,5 +100,24 @@ public interface IPersonajeDO extends DataObject {
 	public void setEstableceCasa(Reference<IPlanetaDO> planetaCasaRef);
 	
 	//---------------------------------------------------------------------------------------------------------
+	
+	public int getCantidadRecoleccion();
+
+	public void setCantidadRecoleccion(int cantidadRecoleccion);
+	//-------------------------------------------------------------------------------------------------------------
+	public int getCombatesGanados();
+
+	public void setCombatesGanados(int combatesGanados);
+	//----------------------------------------------------------------------------------------------------------------------------
+	
+	public int getCombatesEmpatados();
+
+	public void setCombatesEmpatados(int combatesEmpatados);
+	//----------------------------------------------------------------------------------------------------------------------------
+
+	public int getCombatesPerdidos();
+
+	public void setCombatesPerdidos(int combatesPerdidos);
+	//----------------------------------------------------------------------------------------------------------------------------
 
 }
