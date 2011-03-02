@@ -8,6 +8,7 @@ import lcaInterfaceDAO.IAndroideDAO;
 import lcaInterfaceDAO.IAndroideDO;
 import lcaInterfaceDAO.IAndroidePersonajeDAO;
 import lcaInterfaceDAO.IAndroideRecursoDAO;
+import lcaInterfaceDAO.IAndroideRecursoDO;
 import lcaInterfaceDAO.IClaseLinternaDAO;
 import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IGrupoDAO;
@@ -676,7 +677,7 @@ public class InicializarBD {
 				UnidadBasicaDAO.insert(UnidadBasicaDO[i]);
 			}
 
-			// ASIGNAR PRECIOS A LAS UNIDADES BASICAS
+			// TODO: ASIGNAR PRECIOS A LAS UNIDADES BASICAS
 			IUnidadBasicaRecursoDO UnidadBasicaRecursoDO[] = new IUnidadBasicaRecursoDO[81];
 
 			for (int i = 0; i < UnidadBasicaRecursoDO.length; i++) {
@@ -685,34 +686,30 @@ public class InicializarBD {
 			}
 
 			Reference<IUnidadBasicaDO> refUnidadBasica;
-
 			IUnidadBasicaDO refUnidadBasicaValue[] = new IUnidadBasicaDO[32];
 			for (int i = 0; i < refUnidadBasicaValue.length; i++) {
-
-				refUnidadBasica = new Reference<IUnidadBasicaDO>();
 				refUnidadBasicaValue[i] = (IUnidadBasicaDO) UnidadBasicaDAO.loadById(i+1);
-				refUnidadBasica.setRefValue(refUnidadBasicaValue[i]);
-
 			}
 
 			List<IUnidadBasicaRecursoDO> unidadBasicaRecursoList;
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 1
-			refRecurso1 = new Reference<IRecursoDO>();
-			refUnidadBasica = new Reference<IUnidadBasicaDO>();
 
 			// Plomo 10
 			UnidadBasicaRecursoDO[0].setCantidad(10);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(1);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[0].setRecursoRef(refRecurso1);
 
 			// Hierro 15
 			UnidadBasicaRecursoDO[1].setCantidad(15);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[1].setRecursoRef(refRecurso1);
 
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
 			refUnidadBasica.setRefValue(refUnidadBasicaValue[0]);
 			UnidadBasicaRecursoDO[0].setUnidadBasicaRef(refUnidadBasica);
 			UnidadBasicaRecursoDO[1].setUnidadBasicaRef(refUnidadBasica);
@@ -723,26 +720,29 @@ public class InicializarBD {
 			UnidadBasicaDO[0].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 2
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Plomo 10
 			UnidadBasicaRecursoDO[2].setCantidad(10);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(1);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[2].setRecursoRef(refRecurso1);
 
 			// Hierro 15
 			UnidadBasicaRecursoDO[3].setCantidad(20);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[3].setRecursoRef(refRecurso1);
 
 			// Acero 10
 			UnidadBasicaRecursoDO[4].setCantidad(10);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[4].setRecursoRef(refRecurso1);
 
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
 			refUnidadBasica.setRefValue(refUnidadBasicaValue[1]);
 			UnidadBasicaRecursoDO[2].setUnidadBasicaRef(refUnidadBasica);
 			UnidadBasicaRecursoDO[3].setUnidadBasicaRef(refUnidadBasica);
@@ -755,20 +755,22 @@ public class InicializarBD {
 			UnidadBasicaDO[1].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 3
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Hierro 40
 			UnidadBasicaRecursoDO[5].setCantidad(40);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[5].setRecursoRef(refRecurso1);
 
 			// Acero 30
 			UnidadBasicaRecursoDO[6].setCantidad(30);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[6].setRecursoRef(refRecurso1);
 
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
 			refUnidadBasica.setRefValue(refUnidadBasicaValue[2]);
 			UnidadBasicaRecursoDO[5].setUnidadBasicaRef(refUnidadBasica);
 			UnidadBasicaRecursoDO[6].setUnidadBasicaRef(refUnidadBasica);
@@ -779,20 +781,22 @@ public class InicializarBD {
 			UnidadBasicaDO[2].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 4
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// acero 40
 			UnidadBasicaRecursoDO[7].setCantidad(40);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[7].setRecursoRef(refRecurso1);
 
 			// Uranio 50
 			UnidadBasicaRecursoDO[8].setCantidad(50);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(4);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[8].setRecursoRef(refRecurso1);
 
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
 			refUnidadBasica.setRefValue(refUnidadBasicaValue[3]);
 			UnidadBasicaRecursoDO[7].setUnidadBasicaRef(refUnidadBasica);
 			UnidadBasicaRecursoDO[8].setUnidadBasicaRef(refUnidadBasica);
@@ -803,37 +807,41 @@ public class InicializarBD {
 			UnidadBasicaDO[3].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 5
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Hierro 100
 			UnidadBasicaRecursoDO[9].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[9].setRecursoRef(refRecurso1);
 
 			// Acero 10
 			UnidadBasicaRecursoDO[10].setCantidad(10);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[10].setRecursoRef(refRecurso1);
 
 			// Uranio 40
 			UnidadBasicaRecursoDO[11].setCantidad(40);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(4);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[11].setRecursoRef(refRecurso1);
 
 			// Titanio 60
 			UnidadBasicaRecursoDO[12].setCantidad(60);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(5);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[12].setRecursoRef(refRecurso1);
 
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
 			refUnidadBasica.setRefValue(refUnidadBasicaValue[4]);
 			UnidadBasicaRecursoDO[9].setUnidadBasicaRef(refUnidadBasica);
 			UnidadBasicaRecursoDO[10].setUnidadBasicaRef(refUnidadBasica);
 			UnidadBasicaRecursoDO[11].setUnidadBasicaRef(refUnidadBasica);
-			UnidadBasicaRecursoDO[4].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[12].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[9]);
@@ -843,43 +851,57 @@ public class InicializarBD {
 			UnidadBasicaDO[4].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 6
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Plomo 10
 			UnidadBasicaRecursoDO[13].setCantidad(10);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(1);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[13].setRecursoRef(refRecurso1);
 
 			// Hierro 30
 			UnidadBasicaRecursoDO[14].setCantidad(30);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[14].setRecursoRef(refRecurso1);
 
 			// Acero 40
 			UnidadBasicaRecursoDO[15].setCantidad(40);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[15].setRecursoRef(refRecurso1);
 
 			// Uranio 40
 			UnidadBasicaRecursoDO[16].setCantidad(40);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(4);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[16].setRecursoRef(refRecurso1);
 
 			// Titanio 80
 			UnidadBasicaRecursoDO[17].setCantidad(80);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(5);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[17].setRecursoRef(refRecurso1);
 
 			// Cristalo
 			UnidadBasicaRecursoDO[18].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(6);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[18].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[5]);
+			UnidadBasicaRecursoDO[13].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[14].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[15].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[16].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[17].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[18].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[13]);
@@ -891,43 +913,57 @@ public class InicializarBD {
 			UnidadBasicaDO[5].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 7
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Plomo 200
 			UnidadBasicaRecursoDO[19].setCantidad(200);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(1);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[19].setRecursoRef(refRecurso1);
 
 			// Hierro 200
 			UnidadBasicaRecursoDO[20].setCantidad(200);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[20].setRecursoRef(refRecurso1);
 
 			// Uranio 60
 			UnidadBasicaRecursoDO[21].setCantidad(60);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(4);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[21].setRecursoRef(refRecurso1);
 
 			// Titanio 80
 			UnidadBasicaRecursoDO[22].setCantidad(80);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(5);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[22].setRecursoRef(refRecurso1);
 
 			// Cristalo 90
 			UnidadBasicaRecursoDO[23].setCantidad(90);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(6);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[23].setRecursoRef(refRecurso1);
 
 			// Adamantium 200
 			UnidadBasicaRecursoDO[24].setCantidad(200);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(7);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[24].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[6]);
+			UnidadBasicaRecursoDO[19].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[20].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[21].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[22].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[23].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[24].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[19]);
@@ -939,55 +975,73 @@ public class InicializarBD {
 			UnidadBasicaDO[6].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ROBOT 8
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Plomo 100
 			UnidadBasicaRecursoDO[25].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(1);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[25].setRecursoRef(refRecurso1);
 
 			// Hierro 100
 			UnidadBasicaRecursoDO[26].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[26].setRecursoRef(refRecurso1);
 
 			// Acero 100
 			UnidadBasicaRecursoDO[27].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[27].setRecursoRef(refRecurso1);
 
 			// Uranio 100
 			UnidadBasicaRecursoDO[28].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(4);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[28].setRecursoRef(refRecurso1);
 
 			// Titanio 100
 			UnidadBasicaRecursoDO[29].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(5);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[29].setRecursoRef(refRecurso1);
 
 			// Cristalo 100
 			UnidadBasicaRecursoDO[30].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(6);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[30].setRecursoRef(refRecurso1);
 
 			// Adamantium 100
 			UnidadBasicaRecursoDO[31].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(7);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[31].setRecursoRef(refRecurso1);
 
 			// Vibratrium 200
 			UnidadBasicaRecursoDO[32].setCantidad(200);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(8);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[32].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[7]);
+			UnidadBasicaRecursoDO[25].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[26].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[27].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[28].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[29].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[30].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[31].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[32].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[25]);
@@ -1000,21 +1054,26 @@ public class InicializarBD {
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[32]);
 			UnidadBasicaDO[7].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
-
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 1
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Plomo 30
 			UnidadBasicaRecursoDO[33].setCantidad(30);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(1);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[33].setRecursoRef(refRecurso1);
 
 			// Hierro 5
 			UnidadBasicaRecursoDO[34].setCantidad(5);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[34].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[8]);
+			UnidadBasicaRecursoDO[33].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[34].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[33]);
@@ -1022,25 +1081,33 @@ public class InicializarBD {
 			UnidadBasicaDO[8].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 2
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Plomo 10
 			UnidadBasicaRecursoDO[35].setCantidad(10);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(1);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[35].setRecursoRef(refRecurso1);
 
 			// Hierro 30
 			UnidadBasicaRecursoDO[36].setCantidad(30);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[36].setRecursoRef(refRecurso1);
 
 			// Acero 20
 			UnidadBasicaRecursoDO[37].setCantidad(20);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[37].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[9]);
+			UnidadBasicaRecursoDO[35].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[36].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[37].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[35]);
@@ -1049,19 +1116,25 @@ public class InicializarBD {
 			UnidadBasicaDO[9].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 3
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Hierro 20
 			UnidadBasicaRecursoDO[38].setCantidad(20);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[38].setRecursoRef(refRecurso1);
 
 			// Acero 50
 			UnidadBasicaRecursoDO[39].setCantidad(50);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[39].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[10]);
+			UnidadBasicaRecursoDO[38].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[39].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[38]);
@@ -1069,19 +1142,25 @@ public class InicializarBD {
 			UnidadBasicaDO[10].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 4
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// acero 50
 			UnidadBasicaRecursoDO[40].setCantidad(50);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[40].setRecursoRef(refRecurso1);
 
 			// Uranio 60
 			UnidadBasicaRecursoDO[41].setCantidad(60);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(4);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[41].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[11]);
+			UnidadBasicaRecursoDO[40].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[41].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[40]);
@@ -1089,31 +1168,41 @@ public class InicializarBD {
 			UnidadBasicaDO[11].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 5
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Hierro 100
 			UnidadBasicaRecursoDO[42].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[42].setRecursoRef(refRecurso1);
 
 			// Acero 20
 			UnidadBasicaRecursoDO[43].setCantidad(20);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[43].setRecursoRef(refRecurso1);
 
 			// Uranio 80
 			UnidadBasicaRecursoDO[44].setCantidad(80);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(4);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[44].setRecursoRef(refRecurso1);
 
 			// Titanio 80
 			UnidadBasicaRecursoDO[45].setCantidad(80);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(5);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[45].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[12]);
+			UnidadBasicaRecursoDO[42].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[43].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[44].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[45].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[42]);
@@ -1123,19 +1212,25 @@ public class InicializarBD {
 			UnidadBasicaDO[12].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 6
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Titanio 100
 			UnidadBasicaRecursoDO[46].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(5);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[46].setRecursoRef(refRecurso1);
 
 			// Cristalo 100
 			UnidadBasicaRecursoDO[47].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(6);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[47].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[13]);
+			UnidadBasicaRecursoDO[46].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[47].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[46]);
@@ -1143,19 +1238,25 @@ public class InicializarBD {
 			UnidadBasicaDO[13].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 7
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Cristalo 200
 			UnidadBasicaRecursoDO[48].setCantidad(200);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(6);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[48].setRecursoRef(refRecurso1);
 
 			// Adamantium 400
 			UnidadBasicaRecursoDO[49].setCantidad(400);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(7);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[49].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[14]);
+			UnidadBasicaRecursoDO[48].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[49].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[48]);
@@ -1163,25 +1264,33 @@ public class InicializarBD {
 			UnidadBasicaDO[14].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD ARMA 8
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Cristalo 300
 			UnidadBasicaRecursoDO[50].setCantidad(300);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(6);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[50].setRecursoRef(refRecurso1);
 
 			// Adamantium 300
 			UnidadBasicaRecursoDO[51].setCantidad(300);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(7);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[51].setRecursoRef(refRecurso1);
 
 			// Vibratrium 500
 			UnidadBasicaRecursoDO[52].setCantidad(500);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(8);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[52].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[15]);
+			UnidadBasicaRecursoDO[50].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[51].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[52].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[50]);
@@ -1190,19 +1299,25 @@ public class InicializarBD {
 			UnidadBasicaDO[15].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 1
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Plomo 30
 			UnidadBasicaRecursoDO[53].setCantidad(30);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(1);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[53].setRecursoRef(refRecurso1);
 
 			// Hierro 5
 			UnidadBasicaRecursoDO[54].setCantidad(5);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[54].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[16]);
+			UnidadBasicaRecursoDO[53].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[54].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[53]);
@@ -1210,25 +1325,33 @@ public class InicializarBD {
 			UnidadBasicaDO[16].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 2
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Plomo 10
 			UnidadBasicaRecursoDO[55].setCantidad(10);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(1);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[55].setRecursoRef(refRecurso1);
 
 			// Hierro 30
 			UnidadBasicaRecursoDO[56].setCantidad(30);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[56].setRecursoRef(refRecurso1);
 
 			// Acero 20
 			UnidadBasicaRecursoDO[57].setCantidad(20);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[57].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[17]);
+			UnidadBasicaRecursoDO[55].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[56].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[57].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[55]);
@@ -1237,19 +1360,25 @@ public class InicializarBD {
 			UnidadBasicaDO[17].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 3
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Hierro 20
 			UnidadBasicaRecursoDO[58].setCantidad(20);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[58].setRecursoRef(refRecurso1);
 
 			// Acero 50
 			UnidadBasicaRecursoDO[59].setCantidad(50);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[59].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[18]);
+			UnidadBasicaRecursoDO[58].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[59].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[58]);
@@ -1257,19 +1386,25 @@ public class InicializarBD {
 			UnidadBasicaDO[18].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 4
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// acero 50
 			UnidadBasicaRecursoDO[60].setCantidad(50);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[60].setRecursoRef(refRecurso1);
 
 			// Uranio 60
 			UnidadBasicaRecursoDO[61].setCantidad(60);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(4);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[61].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[19]);
+			UnidadBasicaRecursoDO[60].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[61].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[60]);
@@ -1277,31 +1412,41 @@ public class InicializarBD {
 			UnidadBasicaDO[19].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 5
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Hierro 100
 			UnidadBasicaRecursoDO[62].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(2);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[62].setRecursoRef(refRecurso1);
 
 			// Acero 20
 			UnidadBasicaRecursoDO[63].setCantidad(20);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(3);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[63].setRecursoRef(refRecurso1);
 
 			// Uranio 80
 			UnidadBasicaRecursoDO[64].setCantidad(80);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(4);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[64].setRecursoRef(refRecurso1);
 
 			// Titanio 80
 			UnidadBasicaRecursoDO[65].setCantidad(80);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(5);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[65].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[20]);
+			UnidadBasicaRecursoDO[62].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[63].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[64].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[65].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[62]);
@@ -1311,19 +1456,25 @@ public class InicializarBD {
 			UnidadBasicaDO[20].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 6
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Titanio 100
 			UnidadBasicaRecursoDO[66].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(5);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[66].setRecursoRef(refRecurso1);
 
 			// Cristalo 100
 			UnidadBasicaRecursoDO[67].setCantidad(100);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(6);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[67].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[21]);
+			UnidadBasicaRecursoDO[66].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[67].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[66]);
@@ -1331,19 +1482,25 @@ public class InicializarBD {
 			UnidadBasicaDO[21].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 7
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Cristalo 200
 			UnidadBasicaRecursoDO[68].setCantidad(200);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(6);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[68].setRecursoRef(refRecurso1);
 
 			// Adamantium 400
 			UnidadBasicaRecursoDO[69].setCantidad(400);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(7);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[69].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[22]);
+			UnidadBasicaRecursoDO[68].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[69].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[68]);
@@ -1351,25 +1508,33 @@ public class InicializarBD {
 			UnidadBasicaDO[22].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
 			// ASIGNAR PRECIOS A LAS UNIDAD VEHICULO 8
-			refRecurso1 = new Reference<IRecursoDO>();
 
 			// Cristalo 300
 			UnidadBasicaRecursoDO[70].setCantidad(300);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(6);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[70].setRecursoRef(refRecurso1);
 
 			// Adamantium 300
 			UnidadBasicaRecursoDO[71].setCantidad(300);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(7);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[71].setRecursoRef(refRecurso1);
 
 			// Vibratrium 500
 			UnidadBasicaRecursoDO[72].setCantidad(500);
+			refRecurso1 = new Reference<IRecursoDO>();
 			refValue = (IRecursoDO) RecursoDAO.loadById(8);
 			refRecurso1.setRefValue(refValue);
 			UnidadBasicaRecursoDO[72].setRecursoRef(refRecurso1);
+
+			refUnidadBasica = new Reference<IUnidadBasicaDO>();
+			refUnidadBasica.setRefValue(refUnidadBasicaValue[23]);
+			UnidadBasicaRecursoDO[70].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[71].setUnidadBasicaRef(refUnidadBasica);
+			UnidadBasicaRecursoDO[72].setUnidadBasicaRef(refUnidadBasica);
 
 			unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[70]);
@@ -1377,20 +1542,25 @@ public class InicializarBD {
 			unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[72]);
 			UnidadBasicaDO[23].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
 
-			// ASIGNAR PRECIOS A LAS UNIDAD BALA 1-8
+			// TODO: ASIGNAR PRECIOS A LAS UNIDAD BALA 1-8
 			for (int i = 0; i < 8; i++) {
 
-				refRecurso1 = new Reference<IRecursoDO>();
-
 				UnidadBasicaRecursoDO[i+73].setCantidad(valor[i] * 10);
+
+				refRecurso1 = new Reference<IRecursoDO>();
 				refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
 				refRecurso1.setRefValue(refValue);
 				UnidadBasicaRecursoDO[i+73].setRecursoRef(refRecurso1);
+
+				refUnidadBasica = new Reference<IUnidadBasicaDO>();
+				refUnidadBasica.setRefValue(refUnidadBasicaValue[i+24]);
+				UnidadBasicaRecursoDO[i+73].setUnidadBasicaRef(refUnidadBasica);
 
 				unidadBasicaRecursoList = new ArrayList<IUnidadBasicaRecursoDO>();
 				unidadBasicaRecursoList.add(UnidadBasicaRecursoDO[i+73]);
 
 				UnidadBasicaDO[i+24].setUnidadBasicaRecursoList(unidadBasicaRecursoList);
+
 			}
 
 			// INSERT UNIDADES BASICAS-RECURSO
@@ -1430,38 +1600,39 @@ public class InicializarBD {
 			AndroideDO[14].setNombre("Saboteador de Adamantium");
 			AndroideDO[15].setNombre("Saboteador de Vibratium");
 
-			//			IAndroideRecursoDO AndroideRecursoDO[] = new IAndroideRecursoDO[8];
+			IAndroideRecursoDO AndroideRecursoDO[] = new IAndroideRecursoDO[16];
 
-			for (int i = 0; i < AndroideDO.length; i++) {
+			for (int i = 0, j = 0; i < AndroideDO.length; i++, j++) {
+
+				AndroideDO[i].setTipo(i+1);
 
 				Reference<ITecnologiaDO> tecnologiaRef = new Reference<ITecnologiaDO>();
 				ITecnologiaDO tecnologiaRefValue = (ITecnologiaDO) TecnologiaDAO.loadById(i+33);
 				tecnologiaRef.setRefValue(tecnologiaRefValue);
-
-				AndroideDO[i].setTipo(i+1);
 				AndroideDO[i].setTecnologiaRef(tecnologiaRef);
 
-//				List<IAndroideRecursoDO> androideRecursoList = //
-//					new ArrayList<IAndroideRecursoDO>();
-//
-//				for (int j = 1; j <= AndroideDO.length; j++) {
-//
-//					refRecurso1 = new Reference<IRecursoDO>();
-//					refValue = (IRecursoDO) RecursoDAO.loadById(i+1);
-//					refRecurso1.setRefValue(refValue);
-//					AndroideRecursoDO[i+1].setRecursoRef(refRecurso1);
-//
-//					if (i+1 == j) {
-//						AndroideRecursoDO[i+1].setCantidad(100);
-//					}
-//					AndroideRecursoDO[i+1].setCantidad(0);
-//
-//					androideRecursoList.add(AndroideRecursoDO[i]);
-//					AndroideRecursoDAO.insert(AndroideRecursoDO[i]);
-//
-//				}
+				if (7 < j) {
+					j = 0;
+				}
+				refRecurso1 = new Reference<IRecursoDO>();
+				refValue = (IRecursoDO) RecursoDAO.loadById(j+1);
+				refRecurso1.setRefValue(refValue);
+				AndroideRecursoDO[i].setRecursoRef(refRecurso1);
 
-//				AndroideDO[i].setAndroideRecursojeList(androideRecursoList);
+				Reference<IAndroideDO> androideRef = new Reference<IAndroideDO>();
+				IAndroideDO refValueAndroide = (IAndroideDO) AndroideDO[i];
+				androideRef.setRefValue(refValueAndroide);
+				AndroideRecursoDO[i].setAndroideRef(androideRef);
+
+				AndroideRecursoDO[i].setCantidad(100);
+
+				List<IAndroideRecursoDO> androideRecursoList = //
+					new ArrayList<IAndroideRecursoDO>();
+				androideRecursoList.add(AndroideRecursoDO[i]);
+
+				AndroideRecursoDAO.insert(AndroideRecursoDO[i]);
+
+				AndroideDO[i].setAndroideRecursojeList(androideRecursoList);
 
 			}
 
