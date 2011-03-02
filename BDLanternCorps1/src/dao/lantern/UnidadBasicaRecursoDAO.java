@@ -25,7 +25,7 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		rs.next();
 
@@ -36,152 +36,150 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 	public void createTable() throws SQLException {
 		StringBuffer strbuf;
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
+		strbuf = new StringBuffer();
 
-	    strbuf.append("DROP TABLE IF EXISTS ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" CASCADE");
+		strbuf.append("DROP TABLE IF EXISTS ");
+		strbuf.append(getTableName());
+		strbuf.append(" CASCADE");
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
+		strbuf = new StringBuffer();
 
-	    strbuf.append("DROP SEQUENCE IF EXISTS ");
-	    strbuf.append("seq_");
-	    strbuf.append(getTableName());
+		strbuf.append("DROP SEQUENCE IF EXISTS ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
-	    unidadBasicaDAO.init(connectionBean);
-	    
-	    RecursoDAO recursoDAO = new RecursoDAO();
-	    recursoDAO.init(connectionBean);
+		UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+		unidadBasicaDAO.init(connectionBean);
 
-	    strbuf = new StringBuffer();
+		RecursoDAO recursoDAO = new RecursoDAO();
+		recursoDAO.init(connectionBean);
 
-	    strbuf.append("CREATE TABLE ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" (");
-	    strbuf.append(UnidadBasicaRecursoDO.ID);
-	    strbuf.append(" INT PRIMARY KEY, ");
-	    strbuf.append(UnidadBasicaRecursoDO.CANTIDAD);
-	    strbuf.append(" INT DEFAULT 1,    ");
-	    strbuf.append(UnidadBasicaRecursoDO.UNIDAD_BASICA_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(unidadBasicaDAO.getTableName()+", ");
-	    strbuf.append(UnidadBasicaRecursoDO.RECURSO_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(recursoDAO.getTableName());
-	    strbuf.append(")");
+		strbuf = new StringBuffer();
 
-	    System.err.println(strbuf.toString());
+		strbuf.append("CREATE TABLE ");
+		strbuf.append(getTableName());
+		strbuf.append(" (");
+		strbuf.append(UnidadBasicaRecursoDO.ID);
+		strbuf.append(" INT PRIMARY KEY, ");
+		strbuf.append(UnidadBasicaRecursoDO.CANTIDAD);
+		strbuf.append(" INT DEFAULT 1,    ");
+		strbuf.append(UnidadBasicaRecursoDO.RECURSO_ID);
+		strbuf.append(" INT REFERENCES   ");
+		strbuf.append(recursoDAO.getTableName());
+		strbuf.append(", ");
+		strbuf.append(UnidadBasicaRecursoDO.UNIDAD_BASICA_ID);
+		strbuf.append(" INT REFERENCES   ");
+		strbuf.append(unidadBasicaDAO.getTableName());
+		strbuf.append(")");
 
-	    connection.createStatement().execute(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    // ----------------------------------------
+		connection.createStatement().execute(strbuf.toString());
 
-	    strbuf = new StringBuffer();
+		// ----------------------------------------
 
-	    strbuf.append("CREATE SEQUENCE ");
-	    strbuf.append("seq_");
-	    strbuf.append(getTableName());
+		strbuf = new StringBuffer();
 
-	    System.err.println(strbuf.toString());
+		strbuf.append("CREATE SEQUENCE ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
 
-	    connection.createStatement().execute(strbuf.toString());
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
 
 	}
 
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_DELETE);
-	    checkClass(dataObject, UnidadBasicaRecursoDO.class, CHECK_DELETE);
+		checkClass(dataObject, UnidadBasicaRecursoDO.class, CHECK_DELETE);
 
-	    UnidadBasicaDO unidadBasicaDO = (UnidadBasicaDO) dataObject;
+		UnidadBasicaDO unidadBasicaDO = (UnidadBasicaDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("DELETE FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("DELETE FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(UnidadBasicaDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(unidadBasicaDO.getId());
+		strbuf.append(" WHERE ");
+		strbuf.append(UnidadBasicaDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(unidadBasicaDO.getId());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    dtaSession.del(dataObject);
-
+		dtaSession.del(dataObject);
 
 	}
 
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
-	
+
 		checkCache(dataObject, CHECK_INSERT);
 		checkClass(dataObject, UnidadBasicaRecursoDO.class, CHECK_INSERT);
 
-	    UnidadBasicaRecursoDO unidadBasicaRecursoDO = (UnidadBasicaRecursoDO) dataObject;
+		UnidadBasicaRecursoDO unidadBasicaRecursoDO = (UnidadBasicaRecursoDO) dataObject;
 
-	    unidadBasicaRecursoDO.setId(getNextId());
+		unidadBasicaRecursoDO.setId(getNextId());
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("INSERT INTO ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" VALUES (");
-	    strbuf.append(unidadBasicaRecursoDO.getId());
-	    strbuf.append(", ");
-	    strbuf.append(unidadBasicaRecursoDO.getCantidad());
-	    strbuf.append(", ");
-	    Reference<IRecursoDO> refRec = unidadBasicaRecursoDO.getRecursoRef();
-	    refRec.checkInsert();
-	    strbuf.append(refRec.getIdAsString());
-	    
-	    strbuf.append(", ");	    
-	    Reference<IUnidadBasicaDO> refUniBas = unidadBasicaRecursoDO.getUnidadBasicaRef();
-	    refUniBas.checkInsert();
-	    strbuf.append(refUniBas.getIdAsString());
+		strbuf.append("INSERT INTO ");
+		strbuf.append(getTableName());
+		strbuf.append(" VALUES (");
+		strbuf.append(unidadBasicaRecursoDO.getId());
+		strbuf.append(", ");
+		strbuf.append(unidadBasicaRecursoDO.getCantidad());
+		strbuf.append(", ");
+		Reference<IRecursoDO> refRec = unidadBasicaRecursoDO.getRecursoRef();
+		refRec.checkInsert();
+		strbuf.append(refRec.getIdAsString());
+		strbuf.append(", ");	    
+		Reference<IUnidadBasicaDO> refUniBas = unidadBasicaRecursoDO.getUnidadBasicaRef();
+		refUniBas.checkInsert();
+		strbuf.append(refUniBas.getIdAsString());
 
-	    
-	    strbuf.append(")");
+		strbuf.append(")");
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    dtaSession.add(dataObject);
+		dtaSession.add(dataObject);
 	}
-	
+
 	private int getNextId() throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT nextval(");
-	    strbuf.append(singleQuotes("seq_" + getTableName()));
-	    strbuf.append(")");
+		strbuf.append("SELECT nextval(");
+		strbuf.append(singleQuotes("seq_" + getTableName()));
+		strbuf.append(")");
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (!rs.next()) {
-		    throw new IllegalStateException("!rs.next()");
-		   }
+		if (!rs.next()) {
+			throw new IllegalStateException("!rs.next()");
+		}
 
 		return rs.getInt("nextval");
 	}
@@ -190,66 +188,66 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
-	       strbuf.append("SELECT * FROM ");
-	       strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	      if (lim >= 0 && off >= 0) {
-	         strbuf.append(" LIMIT  ");
-	         strbuf.append(lim);
-	         strbuf.append(" OFFSET ");
-	         strbuf.append(off);
-	        }
+		if (lim >= 0 && off >= 0) {
+			strbuf.append(" LIMIT  ");
+			strbuf.append(lim);
+			strbuf.append(" OFFSET ");
+			strbuf.append(off);
+		}
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<DataObject> ret = new ArrayList<DataObject>();
+		List<DataObject> ret = new ArrayList<DataObject>();
 
-	    while (rs.next()) {
-	        ret.add(resultSetToDO(rs));
-	      }
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
 
-	      return ret;
+		return ret;
 	}
 
 	@Override
 	public List<DataObject> listAll() throws SQLException {
-		
-	      return null;
+
+		return null;
 	}
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(UnidadBasicaRecursoDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(id);
+		strbuf.append(" WHERE ");
+		strbuf.append(UnidadBasicaRecursoDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(id);
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (rs.next()) {
-	      return resultSetToDO(rs);
-	    }
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
 
-	    return null;
+		return null;
 	}
 
-	
+
 	//------------------------------------------------------------------------------------------------------------------------
 	private IUnidadBasicaRecursoDO resultSetToDO(ResultSet rs) throws SQLException {
 		UnidadBasicaRecursoDO ret = //
-		(UnidadBasicaRecursoDO) dtaSession.getDtaByKey( //
-				UnidadBasicaRecursoDO.class, rs.getInt(UnidadBasicaRecursoDO.ID));
+			(UnidadBasicaRecursoDO) dtaSession.getDtaByKey( //
+					UnidadBasicaRecursoDO.class, rs.getInt(UnidadBasicaRecursoDO.ID));
 
 		if (ret != null) {
 			return ret;
@@ -257,8 +255,8 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 
 		ret = new UnidadBasicaRecursoDO();
 
-		ret.setId/*     					*/(rs.getInt(UnidadBasicaRecursoDO.ID));
-		ret.setCantidad/*	            */(rs.getInt(UnidadBasicaRecursoDO.CANTIDAD));
+		ret.setId/*				*/(rs.getInt(UnidadBasicaRecursoDO.ID));
+		ret.setCantidad/*		*/(rs.getInt(UnidadBasicaRecursoDO.CANTIDAD));
 
 		Reference<IRecursoDO> refRec = new Reference<IRecursoDO>();
 		refRec.setRefIdent(rs.getInt(UnidadBasicaRecursoDO.RECURSO_ID));
@@ -270,53 +268,53 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 
 		return (UnidadBasicaRecursoDO) dtaSession.add(ret);
 	}
+
 	//-------------------------------------------------------------------------------------------------------------------------
+
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
-	    checkClass(dataObject, UnidadBasicaRecursoDO.class, CHECK_UPDATE);
+		checkClass(dataObject, UnidadBasicaRecursoDO.class, CHECK_UPDATE);
 
-	    UnidadBasicaRecursoDO unidadBasicaRecursoDO = (UnidadBasicaRecursoDO) dataObject;
+		UnidadBasicaRecursoDO unidadBasicaRecursoDO = (UnidadBasicaRecursoDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("UPDATE ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" SET ");
+		strbuf.append("UPDATE ");
+		strbuf.append(getTableName());
+		strbuf.append(" SET ");
 
-	    strbuf.append(UnidadBasicaRecursoDO.CANTIDAD);
-	    strbuf.append(" = ");
-	    strbuf.append(unidadBasicaRecursoDO.getCantidad());
-	    
-	    strbuf.append(", ");
-	    	    
-	    strbuf.append(UnidadBasicaRecursoDO.RECURSO_ID);
-	    strbuf.append(" = ");
-	    Reference<IRecursoDO> refRec = unidadBasicaRecursoDO.getRecursoRef();
-	    refRec.checkUpdate();
-	    strbuf.append(refRec.getIdAsString());
-	    
-	    strbuf.append(", ");
-	    
-	    strbuf.append(UnidadBasicaRecursoDO.UNIDAD_BASICA_ID);
-	    strbuf.append(" = ");
-	    Reference<IUnidadBasicaDO> refUnidBas = unidadBasicaRecursoDO.getUnidadBasicaRef();
-	    refUnidBas.checkUpdate();
-	    strbuf.append(refUnidBas.getIdAsString());
-	    
-	    strbuf.append(" WHERE ");
-	    strbuf.append(UnidadBasicaDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(unidadBasicaRecursoDO.getId());
+		strbuf.append(UnidadBasicaRecursoDO.CANTIDAD);
+		strbuf.append(" = ");
+		strbuf.append(unidadBasicaRecursoDO.getCantidad());
+		strbuf.append(", ");
 
-	    System.err.println(strbuf.toString());
+		strbuf.append(UnidadBasicaRecursoDO.RECURSO_ID);
+		strbuf.append(" = ");
+		Reference<IRecursoDO> refRec = unidadBasicaRecursoDO.getRecursoRef();
+		refRec.checkUpdate();
+		strbuf.append(refRec.getIdAsString());
+		strbuf.append(", ");
 
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf.append(UnidadBasicaRecursoDO.UNIDAD_BASICA_ID);
+		strbuf.append(" = ");
+		Reference<IUnidadBasicaDO> refUnidBas = unidadBasicaRecursoDO.getUnidadBasicaRef();
+		refUnidBas.checkUpdate();
+		strbuf.append(refUnidBas.getIdAsString());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(UnidadBasicaDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(unidadBasicaRecursoDO.getId());
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
 
 	}
 	//--------------------------------------------------------------------------------------------------------------------------
 	public List<IUnidadBasicaRecursoDO> listByRecursoId(int recursoId) throws SQLException {
-		
+
 		StringBuffer strbuf = new StringBuffer();
 
 		strbuf.append("SELECT * FROM ");
@@ -330,7 +328,7 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		List<IUnidadBasicaRecursoDO> ret = new ArrayList<IUnidadBasicaRecursoDO>();
 
@@ -340,7 +338,7 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 
 		return ret;
 	}
-	
+
 
 	public List<IUnidadBasicaRecursoDO> listByUnidadBasicaId(int unidadBasicaId) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
@@ -356,7 +354,7 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		List<IUnidadBasicaRecursoDO> ret = new ArrayList<IUnidadBasicaRecursoDO>();
 
@@ -369,45 +367,45 @@ public class UnidadBasicaRecursoDAO extends BaseDAO implements IUnidadBasicaRecu
 
 	@Override
 	public void loadRecursoRef(IUnidadBasicaRecursoDO unidadBasicaRecursoDO)
-			throws SQLException {
+	throws SQLException {
 		checkClass(unidadBasicaRecursoDO, UnidadBasicaRecursoDO.class, CHECK_UPDATE);
 
-	    RecursoDAO recursoDAO = new RecursoDAO();
-	    recursoDAO.init(connectionBean);
+		RecursoDAO recursoDAO = new RecursoDAO();
+		recursoDAO.init(connectionBean);
 
-	    Reference<IRecursoDO> ref = unidadBasicaRecursoDO.getRecursoRef();
+		Reference<IRecursoDO> ref = unidadBasicaRecursoDO.getRecursoRef();
 
-	    if (ref.getRefIdent() == 0) {
-	      return;
-	    }
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
 
-	    RecursoDO recursoDO = //
-	    (RecursoDO) recursoDAO.loadById(ref.getRefIdent());
+		RecursoDO recursoDO = (RecursoDO) //
+			recursoDAO.loadById(ref.getRefIdent());
 
-	    ref.setRefValue(recursoDO);
+		ref.setRefValue(recursoDO);
 	}
 
 	@Override
 	public void loadUnidadBasicaRef(IUnidadBasicaRecursoDO unidadBasicaRecursoDO)
-			throws SQLException {
-		
+	throws SQLException {
+
 		checkClass(unidadBasicaRecursoDO, UnidadBasicaRecursoDO.class, CHECK_UPDATE);
 
-	    UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
-	    unidadBasicaDAO.init(connectionBean);
+		UnidadBasicaDAO unidadBasicaDAO = new UnidadBasicaDAO();
+		unidadBasicaDAO.init(connectionBean);
 
-	    Reference<IUnidadBasicaDO> ref = unidadBasicaRecursoDO.getUnidadBasicaRef();
+		Reference<IUnidadBasicaDO> ref = unidadBasicaRecursoDO.getUnidadBasicaRef();
 
-	    if (ref.getRefIdent() == 0) {
-	      return;
-	    }
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
 
-	    UnidadBasicaDO unidadBasicaDO = //
-	    (UnidadBasicaDO) unidadBasicaDAO.loadById(ref.getRefIdent());
+		UnidadBasicaDO unidadBasicaDO = (UnidadBasicaDO) //
+				unidadBasicaDAO.loadById(ref.getRefIdent());
 
-	    ref.setRefValue(unidadBasicaDO);
-		
-		
+		ref.setRefValue(unidadBasicaDO);
+
+
 	}
 
 }

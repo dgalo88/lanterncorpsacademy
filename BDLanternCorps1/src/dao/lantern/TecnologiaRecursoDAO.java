@@ -14,8 +14,8 @@ import lcaInterfaceDAO.ITecnologiaRecursoDAO;
 import lcaInterfaceDAO.ITecnologiaRecursoDO;
 
 public class TecnologiaRecursoDAO extends BaseDAO implements ITecnologiaRecursoDAO {
-	
-	
+
+
 	@Override
 	public int countAll() throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
@@ -26,7 +26,7 @@ public class TecnologiaRecursoDAO extends BaseDAO implements ITecnologiaRecursoD
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		rs.next();
 
@@ -36,181 +36,184 @@ public class TecnologiaRecursoDAO extends BaseDAO implements ITecnologiaRecursoD
 
 	@Override
 	public void createTable() throws SQLException {
-	    StringBuffer strbuf;
+		StringBuffer strbuf;
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
+		strbuf = new StringBuffer();
 
-	    strbuf.append("DROP TABLE IF EXISTS ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" CASCADE");
+		strbuf.append("DROP TABLE IF EXISTS ");
+		strbuf.append(getTableName());
+		strbuf.append(" CASCADE");
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    strbuf = new StringBuffer();
+		strbuf = new StringBuffer();
 
-	    strbuf.append("DROP SEQUENCE IF EXISTS ");
-	    strbuf.append("seq_");
-	    strbuf.append(getTableName());
+		strbuf.append("DROP SEQUENCE IF EXISTS ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    // ----------------------------------------
+		// ----------------------------------------
 
-	    RecursoDAO recursoDAO = new RecursoDAO();
-	    recursoDAO.init(connectionBean);
-	    
-	    TecnologiaDAO tecnologiaDAO = new TecnologiaDAO();
-	    tecnologiaDAO.init(connectionBean);
+		RecursoDAO recursoDAO = new RecursoDAO();
+		recursoDAO.init(connectionBean);
 
-	    strbuf = new StringBuffer();
+		TecnologiaDAO tecnologiaDAO = new TecnologiaDAO();
+		tecnologiaDAO.init(connectionBean);
 
-	    strbuf.append("CREATE TABLE ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" (");
-	    strbuf.append(TecnologiaRecursoDO.ID);
-	    strbuf.append(" INT PRIMARY KEY, ");
-	    strbuf.append(TecnologiaRecursoDO.TECNOLOGIA_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(tecnologiaDAO.getTableName()+", ");
-	    strbuf.append(TecnologiaRecursoDO.RECURSO_ID);
-	    strbuf.append(" INT REFERENCES   ");
-	    strbuf.append(recursoDAO.getTableName());
-	    strbuf.append(")");
+		strbuf = new StringBuffer();
 
-	    System.err.println(strbuf.toString());
+		strbuf.append("CREATE TABLE ");
+		strbuf.append(getTableName());
+		strbuf.append(" (");
+		strbuf.append(TecnologiaRecursoDO.ID);
+		strbuf.append(" INT PRIMARY KEY, ");
+		strbuf.append(TecnologiaRecursoDO.TECNOLOGIA_ID);
+		strbuf.append(" INT REFERENCES   ");
+		strbuf.append(tecnologiaDAO.getTableName());
+		strbuf.append(", ");
+		strbuf.append(TecnologiaRecursoDO.CANTIDAD);
+		strbuf.append(" INT DEFAULT 1,    ");
+		strbuf.append(TecnologiaRecursoDO.RECURSO_ID);
+		strbuf.append(" INT REFERENCES   ");
+		strbuf.append(recursoDAO.getTableName());
+		strbuf.append(")");
 
-	    connection.createStatement().execute(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    // ----------------------------------------
+		connection.createStatement().execute(strbuf.toString());
 
-	    strbuf = new StringBuffer();
+		// ----------------------------------------
 
-	    strbuf.append("CREATE SEQUENCE ");
-	    strbuf.append("seq_");
-	    strbuf.append(getTableName());
+		strbuf = new StringBuffer();
 
-	    System.err.println(strbuf.toString());
+		strbuf.append("CREATE SEQUENCE ");
+		strbuf.append("seq_");
+		strbuf.append(getTableName());
 
-	    connection.createStatement().execute(strbuf.toString());
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
 
 	}
 
 	@Override
 	public void delete(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_DELETE);
-	    checkClass(dataObject, TecnologiaRecursoDO.class, CHECK_DELETE);
+		checkCache(dataObject, CHECK_DELETE);
+		checkClass(dataObject, TecnologiaRecursoDO.class, CHECK_DELETE);
 
-	    RecursoDO recursoDO = (RecursoDO) dataObject;
+		RecursoDO recursoDO = (RecursoDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("DELETE FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("DELETE FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(RecursoDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(recursoDO.getId());
+		strbuf.append(" WHERE ");
+		strbuf.append(RecursoDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(recursoDO.getId());
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    connection.createStatement().execute(strbuf.toString());
+		connection.createStatement().execute(strbuf.toString());
 
-	    dtaSession.del(dataObject);
+		dtaSession.del(dataObject);
 
 	}
 
 	@Override
 	public void insert(DataObject dataObject) throws SQLException {
-	    checkCache(dataObject, CHECK_INSERT);
-	    checkClass(dataObject, TecnologiaRecursoDO.class, CHECK_INSERT);
+		checkCache(dataObject, CHECK_INSERT);
+		checkClass(dataObject, TecnologiaRecursoDO.class, CHECK_INSERT);
 
-	    TecnologiaRecursoDO tecnologiaRecursoDO = (TecnologiaRecursoDO) dataObject;
+		TecnologiaRecursoDO tecnologiaRecursoDO = (TecnologiaRecursoDO) dataObject;
 
-	    tecnologiaRecursoDO.setId(getNextId());
+		tecnologiaRecursoDO.setId(getNextId());
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("INSERT INTO ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" VALUES (");
-	    strbuf.append(tecnologiaRecursoDO.getId());
-	    strbuf.append(", ");
-	    strbuf.append(tecnologiaRecursoDO.getCantidad());
-	    strbuf.append(", ");
-	    Reference<IRecursoDO> refRec = tecnologiaRecursoDO.getRecursoRef();
-	    refRec.checkInsert();
-	    strbuf.append(refRec.getIdAsString());
-	    
-	    strbuf.append(", ");	    
-	    Reference<ITecnologiaDO> refTec = tecnologiaRecursoDO.getTecnologiaRef();
-	    refTec.checkInsert();
-	    strbuf.append(refTec.getIdAsString());
+		strbuf.append("INSERT INTO ");
+		strbuf.append(getTableName());
+		strbuf.append(" VALUES (");
+		strbuf.append(tecnologiaRecursoDO.getId());
+		strbuf.append(", ");
 
-	    
-	    strbuf.append(")");
+		Reference<ITecnologiaDO> refTec = tecnologiaRecursoDO.getTecnologiaRef();
+		refTec.checkInsert();
+		strbuf.append(refTec.getIdAsString());
 
-	    System.err.println(strbuf.toString());
+		strbuf.append(tecnologiaRecursoDO.getCantidad());
+		strbuf.append(", ");
 
-	    connection.createStatement().execute(strbuf.toString());
+		Reference<IRecursoDO> refRec = tecnologiaRecursoDO.getRecursoRef();
+		refRec.checkInsert();
+		strbuf.append(refRec.getIdAsString());
 
-	    dtaSession.add(dataObject);
+		strbuf.append(")");
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
+
+		dtaSession.add(dataObject);
 
 	}
 
 	private int getNextId() throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT nextval(");
-	    strbuf.append(singleQuotes("seq_" + getTableName()));
-	    strbuf.append(")");
+		strbuf.append("SELECT nextval(");
+		strbuf.append(singleQuotes("seq_" + getTableName()));
+		strbuf.append(")");
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (!rs.next()) {
-		    throw new IllegalStateException("!rs.next()");
-		   }
+		if (!rs.next()) {
+			throw new IllegalStateException("!rs.next()");
+		}
 
 		return rs.getInt("nextval");
 	}
 
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
-		   StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	       strbuf.append("SELECT * FROM ");
-	       strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	      if (lim >= 0 && off >= 0) {
-	         strbuf.append(" LIMIT  ");
-	         strbuf.append(lim);
-	         strbuf.append(" OFFSET ");
-	         strbuf.append(off);
-	        }
+		if (lim >= 0 && off >= 0) {
+			strbuf.append(" LIMIT  ");
+			strbuf.append(lim);
+			strbuf.append(" OFFSET ");
+			strbuf.append(off);
+		}
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    List<DataObject> ret = new ArrayList<DataObject>();
+		List<DataObject> ret = new ArrayList<DataObject>();
 
-	    while (rs.next()) {
-	        ret.add(resultSetToDO(rs));
-	      }
+		while (rs.next()) {
+			ret.add(resultSetToDO(rs));
+		}
 
-	      return ret;
+		return ret;
 	}
 
 	@Override
@@ -221,107 +224,107 @@ public class TecnologiaRecursoDAO extends BaseDAO implements ITecnologiaRecursoD
 
 	@Override
 	public DataObject loadById(int id) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(TecnologiaRecursoDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(id);
+		strbuf.append(" WHERE ");
+		strbuf.append(TecnologiaRecursoDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(id);
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (rs.next()) {
-	      return resultSetToDO(rs);
-	    }
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
 
-	    return null;
+		return null;
 	}
 
-	 // --------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------
 
-	
+
 	@Override
 	public DataObject loadByTecnologiaId(int tecid, int recursoId) throws SQLException {
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("SELECT * FROM ");
-	    strbuf.append(getTableName());
+		strbuf.append("SELECT * FROM ");
+		strbuf.append(getTableName());
 
-	    strbuf.append(" WHERE ");
-	    strbuf.append(TecnologiaRecursoDO.TECNOLOGIA_ID);
-	    strbuf.append(" = ");
-	    strbuf.append(tecid);
-	    strbuf.append(" AND ");
-	    strbuf.append(TecnologiaRecursoDO.RECURSO_ID);
-	    strbuf.append(" = ");
-	    strbuf.append(recursoId);
+		strbuf.append(" WHERE ");
+		strbuf.append(TecnologiaRecursoDO.TECNOLOGIA_ID);
+		strbuf.append(" = ");
+		strbuf.append(tecid);
+		strbuf.append(" AND ");
+		strbuf.append(TecnologiaRecursoDO.RECURSO_ID);
+		strbuf.append(" = ");
+		strbuf.append(recursoId);
 
-	    System.err.println(strbuf.toString());
+		System.err.println(strbuf.toString());
 
-	    ResultSet rs = //
-	    connection.createStatement().executeQuery(strbuf.toString());
+		ResultSet rs = //
+			connection.createStatement().executeQuery(strbuf.toString());
 
-	    if (rs.next()) {
-	      return resultSetToDO(rs);
-	    }
+		if (rs.next()) {
+			return resultSetToDO(rs);
+		}
 
-	    return null;
+		return null;
 	}
 
-	 // --------------------------------------------------------------------------------
-	
-	  public void loadTecnologiaRef(ITecnologiaRecursoDO tecnologiaRecursoDO) throws SQLException {
+	// --------------------------------------------------------------------------------
 
-	    checkClass(tecnologiaRecursoDO, TecnologiaRecursoDO.class, CHECK_UPDATE);
+	public void loadTecnologiaRef(ITecnologiaRecursoDO tecnologiaRecursoDO) throws SQLException {
 
-	    TecnologiaDAO tecnologiaDAO = new TecnologiaDAO();
-	    tecnologiaDAO.init(connectionBean);
+		checkClass(tecnologiaRecursoDO, TecnologiaRecursoDO.class, CHECK_UPDATE);
 
-	    Reference<ITecnologiaDO> ref = tecnologiaRecursoDO.getTecnologiaRef();
+		TecnologiaDAO tecnologiaDAO = new TecnologiaDAO();
+		tecnologiaDAO.init(connectionBean);
 
-	    if (ref.getRefIdent() == 0) {
-	      return;
-	    }
+		Reference<ITecnologiaDO> ref = tecnologiaRecursoDO.getTecnologiaRef();
 
-	    TecnologiaDO tecnologiaDO = //
-	    (TecnologiaDO) tecnologiaDAO.loadById(ref.getRefIdent());
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
 
-	    ref.setRefValue(tecnologiaDO);
-	  }
+		TecnologiaDO tecnologiaDO = (TecnologiaDO) //
+			tecnologiaDAO.loadById(ref.getRefIdent());
 
-		 // --------------------------------------------------------------------------------
+		ref.setRefValue(tecnologiaDO);
+	}
 
-	  public void loadRecursoRef(ITecnologiaRecursoDO tecnologiaRecursoDO) throws SQLException {
+	// --------------------------------------------------------------------------------
 
-	    checkClass(tecnologiaRecursoDO, TecnologiaRecursoDO.class, CHECK_UPDATE);
+	public void loadRecursoRef(ITecnologiaRecursoDO tecnologiaRecursoDO) throws SQLException {
 
-	    RecursoDAO recursoDAO = new RecursoDAO();
-	    recursoDAO.init(connectionBean);
+		checkClass(tecnologiaRecursoDO, TecnologiaRecursoDO.class, CHECK_UPDATE);
 
-	    Reference<IRecursoDO> ref = tecnologiaRecursoDO.getRecursoRef();
+		RecursoDAO recursoDAO = new RecursoDAO();
+		recursoDAO.init(connectionBean);
 
-	    if (ref.getRefIdent() == 0) {
-	      return;
-	    }
+		Reference<IRecursoDO> ref = tecnologiaRecursoDO.getRecursoRef();
 
-	    RecursoDO recursoDO = //
-	    (RecursoDO) recursoDAO. loadById(ref.getRefIdent());
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
 
-	    ref.setRefValue(recursoDO);
-	  }
-	  
-	  // --------------------------------------------------------------------------------
-	  
+		RecursoDO recursoDO = (RecursoDO) //
+			recursoDAO. loadById(ref.getRefIdent());
+
+		ref.setRefValue(recursoDO);
+	}
+
+	// --------------------------------------------------------------------------------
+
 	private ITecnologiaRecursoDO resultSetToDO(ResultSet rs) throws SQLException {
 		TecnologiaRecursoDO ret = //
-		(TecnologiaRecursoDO) dtaSession.getDtaByKey( //
-				TecnologiaRecursoDO.class, rs.getInt(TecnologiaRecursoDO.ID));
+			(TecnologiaRecursoDO) dtaSession.getDtaByKey( //
+					TecnologiaRecursoDO.class, rs.getInt(TecnologiaRecursoDO.ID));
 
 		if (ret != null) {
 			return ret;
@@ -329,8 +332,8 @@ public class TecnologiaRecursoDAO extends BaseDAO implements ITecnologiaRecursoD
 
 		ret = new TecnologiaRecursoDO();
 
-		ret.setId/*     					*/(rs.getInt(TecnologiaRecursoDO.ID));
-		ret.setCantidad/*	            */(rs.getInt(TecnologiaRecursoDO.CANTIDAD));
+		ret.setId/*				*/(rs.getInt(TecnologiaRecursoDO.ID));
+		ret.setCantidad/*		*/(rs.getInt(TecnologiaRecursoDO.CANTIDAD));
 
 		Reference<ITecnologiaDO> refTec = new Reference<ITecnologiaDO>();
 		refTec.setRefIdent(rs.getInt(TecnologiaRecursoDO.TECNOLOGIA_ID));
@@ -346,44 +349,41 @@ public class TecnologiaRecursoDAO extends BaseDAO implements ITecnologiaRecursoD
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
-	    checkClass(dataObject, TecnologiaRecursoDO.class, CHECK_UPDATE);
+		checkClass(dataObject, TecnologiaRecursoDO.class, CHECK_UPDATE);
 
-	    TecnologiaRecursoDO tecnologiaRecursoDO = (TecnologiaRecursoDO) dataObject;
+		TecnologiaRecursoDO tecnologiaRecursoDO = (TecnologiaRecursoDO) dataObject;
 
-	    StringBuffer strbuf = new StringBuffer();
+		StringBuffer strbuf = new StringBuffer();
 
-	    strbuf.append("UPDATE ");
-	    strbuf.append(getTableName());
-	    strbuf.append(" SET ");
+		strbuf.append("UPDATE ");
+		strbuf.append(getTableName());
+		strbuf.append(" SET ");
 
-	    strbuf.append(TecnologiaRecursoDO.CANTIDAD);
-	    strbuf.append(" = ");
-	    strbuf.append(tecnologiaRecursoDO.getCantidad());
-	    
-	    strbuf.append(", ");
-	    	    
-	    strbuf.append(TecnologiaRecursoDO.RECURSO_ID);
-	    strbuf.append(" = ");
-	    Reference<IRecursoDO> refRec = tecnologiaRecursoDO.getRecursoRef();
-	    refRec.checkUpdate();
-	    strbuf.append(refRec.getIdAsString());
-	    
-	    strbuf.append(", ");
-	    
-	    strbuf.append(TecnologiaRecursoDO.TECNOLOGIA_ID);
-	    strbuf.append(" = ");
-	    Reference<ITecnologiaDO> refTec = tecnologiaRecursoDO.getTecnologiaRef();
-	    refTec.checkUpdate();
-	    strbuf.append(refTec.getIdAsString());
-	    
-	    strbuf.append(" WHERE ");
-	    strbuf.append(TecnologiaDO.ID);
-	    strbuf.append(" = ");
-	    strbuf.append(tecnologiaRecursoDO.getId());
+		strbuf.append(TecnologiaRecursoDO.TECNOLOGIA_ID);
+		strbuf.append(" = ");
+		Reference<ITecnologiaDO> refTec = tecnologiaRecursoDO.getTecnologiaRef();
+		refTec.checkUpdate();
+		strbuf.append(refTec.getIdAsString());
 
-	    System.err.println(strbuf.toString());
+		strbuf.append(TecnologiaRecursoDO.CANTIDAD);
+		strbuf.append(" = ");
+		strbuf.append(tecnologiaRecursoDO.getCantidad());
+		strbuf.append(", ");
 
-	    connection.createStatement().execute(strbuf.toString());
+		strbuf.append(TecnologiaRecursoDO.RECURSO_ID);
+		strbuf.append(" = ");
+		Reference<IRecursoDO> refRec = tecnologiaRecursoDO.getRecursoRef();
+		refRec.checkUpdate();
+		strbuf.append(refRec.getIdAsString());
+
+		strbuf.append(" WHERE ");
+		strbuf.append(TecnologiaDO.ID);
+		strbuf.append(" = ");
+		strbuf.append(tecnologiaRecursoDO.getId());
+
+		System.err.println(strbuf.toString());
+
+		connection.createStatement().execute(strbuf.toString());
 
 	}
 
@@ -401,7 +401,7 @@ public class TecnologiaRecursoDAO extends BaseDAO implements ITecnologiaRecursoD
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		List<ITecnologiaRecursoDO> ret = new ArrayList<ITecnologiaRecursoDO>();
 
@@ -411,7 +411,7 @@ public class TecnologiaRecursoDAO extends BaseDAO implements ITecnologiaRecursoD
 
 		return ret;
 	}
-	
+
 	public List<ITecnologiaRecursoDO> listByRecursoId(int RecursoId) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
 
@@ -426,7 +426,7 @@ public class TecnologiaRecursoDAO extends BaseDAO implements ITecnologiaRecursoD
 		System.err.println(strbuf.toString());
 
 		ResultSet rs = //
-		connection.createStatement().executeQuery(strbuf.toString());
+			connection.createStatement().executeQuery(strbuf.toString());
 
 		List<ITecnologiaRecursoDO> ret = new ArrayList<ITecnologiaRecursoDO>();
 
@@ -436,18 +436,5 @@ public class TecnologiaRecursoDAO extends BaseDAO implements ITecnologiaRecursoD
 
 		return ret;
 	}
-
-//	@Override
-//	public int getId() {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//	@Override
-//	public void setId(int id) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-	
 
 }
