@@ -2,13 +2,14 @@ package com.ulasoft.lanterncorpsacademy.paneles;
 
 import java.util.List;
 
-import lcaInterfaceDAO.IRecursoPlanetaDO;
+import lcaInterfaceDAO.ITecnologiaDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
+import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 import nextapp.echo.app.RadioButton;
 import nextapp.echo.app.Row;
@@ -26,21 +27,21 @@ import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
 import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.logic.Recolectar;
+import com.ulasoft.lanterncorpsacademy.logic.Unidades;
 
 @SuppressWarnings("serial")
-public class PanelRecolectarNeutro extends Panel {
+public class PanelAdquirirUnidades extends Panel {
 
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
 	private Desktop d = app.getDesktop();
 
 	private TestTableModel tableDtaModel;
-	private List<IRecursoPlanetaDO> recursoPlanetaList;
-	private IRecursoPlanetaDO recursoPlanetaDO;
-	private ButtonGroup btnGroupRecursos = new ButtonGroup();
+	private List<ITecnologiaDO> tecnologiaList;
+	private ITecnologiaDO tecnologia;
+	private ButtonGroup btnGroupClases = new ButtonGroup();
 
-	public PanelRecolectarNeutro() {
+	public PanelAdquirirUnidades() {
 
 		Column col = new Column();
 		col.setInsets(new Insets(10, 10, 10, 10));
@@ -51,40 +52,62 @@ public class PanelRecolectarNeutro extends Panel {
 		row.setAlignment(Alignment.ALIGN_CENTER);
 
 		// ----------------------------------------
-		// Carga los Recursos Disponibles
+		// TODO: Carga Unidades Disponible
 		// ----------------------------------------
+
 		tableDtaModel = new TestTableModel();
 		try {
-			recursoPlanetaList = Recolectar.getRecursoPlanetaList( //
+			tecnologiaList = Unidades.getUnidades( //
 					app.getAtributos().getPersonaje());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		tableDtaModel = Recolectar.asignarRecursos(tableDtaModel, recursoPlanetaList);
 
-		col.add(PanelConstructor.initTopRow("Lista de Recursos Disponibles"));
+		Button btnAtras = new Button("Atrás");
+		btnAtras.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnAtras.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				btnAtrasClicked();
+			}
+		});
+
+		Button btnAdquirir = new Button("Adquirir Unidades");
+		btnAdquirir.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnAdquirir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				btnAdquirirClicked();
+			}
+		});
+
+		if (tecnologiaList == null) {
+
+			app.getDesktop().setWindowPaneEmergente( //
+					"Para adquirir unidades básicas necesitas " + //
+					"poseer la tecnología correspondiente");
+
+			col.add(PanelConstructor.initTopRow("No posees tecnología", 16));
+
+			row.add(btnAtras);
+			btnAdquirir.setEnabled(false);
+			row.add(btnAdquirir);
+			col.add(row);
+			add(col);
+
+			return;
+		}
+
+		tableDtaModel = Unidades.asignarUnidades( //
+				tableDtaModel, tecnologiaList);
+
+		col.add(PanelConstructor.initTopRow( //
+				"Lista de Unidades Disponibles"));
 		col.add(PanelConstructor.initTable( //
-				tableDtaModel, initTableColModel(), false, 2));
+				tableDtaModel, initTableColModel(), true, 8));
 
-		Button btnCancelar = new Button("Cancelar");
-		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnCancelar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				d.btnCancelarClicked();
-			}
-		});
-		row.add(btnCancelar);
-
-		Button btnRecolectar = new Button("Recolectar");
-		btnRecolectar.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnRecolectar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				btnRecolectarClicked();
-			}
-		});
-		row.add(btnRecolectar);
+		row.add(btnAtras);
+		row.add(btnAdquirir);
 
 		col.add(row);
 		add(col);
@@ -100,13 +123,13 @@ public class PanelRecolectarNeutro extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IRecursoPlanetaDO recursoPlanetaDO = (IRecursoPlanetaDO) element;
+				ITecnologiaDO tecnologia = (ITecnologiaDO) element;
 				try {
-					return Recolectar.getRecurso(recursoPlanetaDO).getNombre();
+					return Unidades.getNombre(tecnologia);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				return null;
+				return "*";
 			}
 		};
 		tableColumn.setWidth(new Extent(100));
@@ -118,12 +141,28 @@ public class PanelRecolectarNeutro extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IRecursoPlanetaDO recursoPlanetaDO = (IRecursoPlanetaDO) element;
-				return recursoPlanetaDO.getCantidad_maxima_recurso();
+
+				ITecnologiaDO tecnologia = (ITecnologiaDO) element;
+				Label lblCosto = new Label();
+				try {
+					lblCosto.setText(Unidades.getCostoUnidadBasicaString( //
+							tecnologia));
+					return lblCosto.getText();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				try {
+					lblCosto.setText(Unidades.getCostoAndroideString( //
+							tecnologia));
+					return lblCosto.getText();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				return "";
 			}
 		};
 		tableColumn.setWidth(new Extent(100));
-		tableColumn.setHeadValue("Cantidad Máxima Disponible");
+		tableColumn.setHeadValue("Costo");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
@@ -156,7 +195,7 @@ public class PanelRecolectarNeutro extends Panel {
 				RadioButton radioButton = new RadioButton();
 				radioButton.setEnabled(editable);
 				radioButton.setToolTipText("Selección");
-				radioButton.setGroup(btnGroupRecursos);
+				radioButton.setGroup(btnGroupClases);
 
 				radioButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -172,31 +211,40 @@ public class PanelRecolectarNeutro extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private void btnRadioClicked(int row) {
-		recursoPlanetaDO = recursoPlanetaList.get(row);
+	private void btnAtrasClicked() {
+
+		PanelAdquirirTecnologia pnlMain = new PanelAdquirirTecnologia();
+		d.setPanelCentral(pnlMain);
+
 	}
 
-	private void btnRecolectarClicked() {
+	private void btnRadioClicked(int row) {
+		tecnologia = tecnologiaList.get(row);
+	}
 
-		if(recursoPlanetaDO.equals(null)){
-			d.setWindowPaneEmergente("Seleccione un recurso");
+	private void btnAdquirirClicked() {
+
+		String result = "";
+
+		if (tecnologia != null) {
+			try {
+				result = Unidades.adquirirUnidades( //
+						app.getAtributos().getPersonaje(), tecnologia);
+			} catch (Exception e) {
+//				e.printStackTrace();
+			}
+			try {
+				result = Unidades.adquirirAndroides( //
+						app.getAtributos().getPersonaje(), tecnologia);
+			} catch (Exception e) {
+//				e.printStackTrace();
+			}
+			d.setWindowPaneEmergente(result);
 			return;
 		}
 
-		String result = "";
-		try {
-			result = Recolectar.recolectar( //
-					app.getAtributos().getPersonaje(), //
-					recursoPlanetaDO);
 
-			app.getAtributos().updateMenuStatus( //
-					d.getMenuHead().getMenuStatus());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		d.setWindowPaneEmergente(result);
+		d.setWindowPaneEmergente("ERROR: No se han adquirido las unidades");
 		return;
 
 	}

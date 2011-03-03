@@ -2,11 +2,9 @@ package com.ulasoft.lanterncorpsacademy.menus;
 
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
-import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
-import nextapp.echo.app.Font;
 import nextapp.echo.app.Grid;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -25,10 +23,10 @@ import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelConstruir;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelIntercambiar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMensaje;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelOfertar;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelPruebaRecolectar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarConquistado;
@@ -581,8 +579,7 @@ public class Menu extends Panel {
 
 	private void btnIntercambiarClicked() {
 
-//		PanelIntercambiar pnlMain = new PanelIntercambiar();
-		PanelPruebaRecolectar pnlMain = new PanelPruebaRecolectar();
+		PanelIntercambiar pnlMain = new PanelIntercambiar();
 		d.setPanelCentral(pnlMain);
 
 	}

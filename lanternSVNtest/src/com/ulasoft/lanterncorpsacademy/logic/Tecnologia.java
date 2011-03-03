@@ -7,6 +7,7 @@ import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IRecursoDAO;
 import lcaInterfaceDAO.IRecursoDO;
+import lcaInterfaceDAO.IRecursoPersonajeDAO;
 import lcaInterfaceDAO.IRecursoPersonajeDO;
 import lcaInterfaceDAO.ITecnologiaDAO;
 import lcaInterfaceDAO.ITecnologiaDO;
@@ -36,33 +37,35 @@ public class Tecnologia {
 
 		List<ITecnologiaDO> tecnologiaList = new ArrayList<ITecnologiaDO>();
 
+		System.err.println("tecnologiaDAO countAll: " //
+				+ tecnologiaDAO.countAll());
+
+		for (int i = 0; i < tecnologiaDAO.countAll(); i++) {
+			tecnologiaList.add((ITecnologiaDO) //
+					tecnologiaDAO.loadById(i + 1));
+		}
+
 		personajeDAO.loadTecnologiaPersonajeList(personaje);
 
 		System.err.println("List en tecnologia size: " //
 				+ personaje.getTecnologiaPersonajeList().size());
 
 		if (personaje.getTecnologiaPersonajeList().size() == 0) {
-
-			for (int i = 0; i < 48; i++) {
-				tecnologiaList.add((ITecnologiaDO) //
-						tecnologiaDAO.loadById(i + 1));
-			}
 			return tecnologiaList;
 		}
+		List<ITecnologiaPersonajeDO> tecnologiaPersonajeList = //
+			personaje.getTecnologiaPersonajeList();
 
-		System.err.println("listToBuy en tecnologia size: " //
-				+ tecnologiaDAO.listToBuy(personaje.getId()).size());
+		for (int i = 0; i < tecnologiaList.size(); i++) {
 
-		for (int i = 0; i < tecnologiaDAO.listToBuy(personaje.getId()).size(); i++) {
+			for (int j = 0; j < tecnologiaPersonajeList.size(); j++) {
 
-			ITecnologiaPersonajeDO tecnologiaPersonaje = (ITecnologiaPersonajeDO) //
-					tecnologiaDAO.listToBuy(personaje.getId()).get(i);
+				if (tecnologiaList.get(i).getId() == //
+					tecnologiaPersonajeList.get(j).getTecnologiaRef().getRefIdent()) {
 
-			ITecnologiaDO tecnologiaDO = (ITecnologiaDO) //
-					tecnologiaPersonaje.getTecnologiaRef().getRefValue();
-
-			tecnologiaList.add(tecnologiaDO);
-
+					tecnologiaList.remove(i);
+				}
+			}
 		}
 
 		System.err.println("PERSONAJE ID en tecnologia:" + personaje.getId());
@@ -130,8 +133,6 @@ public class Tecnologia {
 	public static String adquirirTecnologia(IPersonajeDO personaje, //
 			ITecnologiaDO tecnologia) throws Exception {
 
-		String result = "Has Adquirido ";
-
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
 		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
@@ -142,11 +143,19 @@ public class Tecnologia {
 				GlobalDAOFactory.getDAO(ITecnologiaPersonajeDAO.class, connectionBean);
 		IRecursoDAO recursoDAO = (IRecursoDAO) //
 				GlobalDAOFactory.getDAO(IRecursoDAO.class, connectionBean);
+		IRecursoPersonajeDAO recursoPersonajeDAO = (IRecursoPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IRecursoPersonajeDAO.class, connectionBean);
 
 		ITecnologiaPersonajeDO tecnologiaPersonajeNueva = (ITecnologiaPersonajeDO) //
 				GlobalDOFactory.getDO(ITecnologiaPersonajeDO.class);
 
-		ITecnologiaDO tecnologiaNueva;
+		Reference<IPersonajeDO> personajeRef = new Reference<IPersonajeDO>();
+		IPersonajeDO personajeRefValue = (IPersonajeDO) //
+				personajeDAO.loadById(personaje.getId());
+		Reference<ITecnologiaDO> tecnologiaRef = new Reference<ITecnologiaDO>();
+		ITecnologiaDO tecnologiaRefValue = (ITecnologiaDO) //
+				tecnologiaDAO.loadById(tecnologia.getId());
+
 		IRecursoDO recursoTec;
 		IRecursoDO recursoPer;
 
@@ -162,14 +171,15 @@ public class Tecnologia {
 		List<ITecnologiaPersonajeDO> tecnologiaPersonajeList = //
 			personaje.getTecnologiaPersonajeList();
 
+		if (recursoPersonajeList.size() == 0) {
+			connectionBean.getConnection().close();
+			return "No tienes suficientes recursos para adquirir la tecnología";
+		}
+
 		for (int i = 0; i < tecnologiaRecursoList.size(); i++) {
 
 			recursoTec = (IRecursoDO) recursoDAO.loadById( //
 					tecnologiaRecursoList.get(i).getRecursoRef().getRefIdent());
-
-			tecnologiaNueva = (ITecnologiaDO) tecnologiaDAO.loadById( //
-					tecnologiaRecursoList.get(i) //
-					.getTecnologiaRef().getRefIdent());
 
 			for (int j = 0; j < recursoPersonajeList.size(); j++) {
 
@@ -179,50 +189,48 @@ public class Tecnologia {
 				if (recursoTec.getArticulo() != recursoPer.getArticulo()) {
 					
 					if (j == recursoPersonajeList.size() - 1) {
+						connectionBean.getConnection().close();
 						return "No tienes suficiente " + recursoTec.getNombre() + //
-								"para adquirir " + tecnologiaNueva.getNombre();
+								" para adquirir " + tecnologia.getNombre();
 					}
 					continue;
 				}
+
+				if (tecnologiaRecursoList.get(i).getCantidad() > //
+					recursoPersonajeList.get(j).getCantidad()) {
+
+					return "No tienes suficiente " + recursoTec.getNombre() + //
+							" para adquirir " + tecnologia.getNombre();
+				}
+
+				recursoPersonajeList.get(j).setCantidad( //
+						recursoPersonajeList.get(j).getCantidad() - //
+						tecnologiaRecursoList.get(i).getCantidad());
+
 				break;
 			}
 
-			if (tecnologiaRecursoList.get(i).getCantidad() > //
-				recursoPersonajeList.get(i).getCantidad()) {
-
-				return "No tienes suficiente " + recursoTec.getNombre() + //
-						"para adquirir " + tecnologiaNueva.getNombre();
-			}
-
-			Reference<IPersonajeDO> personajeRef = new Reference<IPersonajeDO>();
-			IPersonajeDO refPersonajeValue = (IPersonajeDO) //
-					personajeDAO.loadById(personaje.getId());
-			personajeRef.setRefValue(refPersonajeValue);
-			tecnologiaPersonajeNueva.setPersonajeRef(personajeRef);
-
-			Reference<ITecnologiaDO> tecnologiaRef = new Reference<ITecnologiaDO>();
-			ITecnologiaDO refTecnologiaValue = (ITecnologiaDO) //
-					tecnologiaDAO.loadById(tecnologiaNueva.getId());
-			tecnologiaRef.setRefValue(refTecnologiaValue);
-			tecnologiaPersonajeNueva.setTecnologiaRef(tecnologiaRef);
-
-			tecnologiaPersonajeDAO.insert(tecnologiaPersonajeNueva);
-
-			tecnologiaPersonajeList.add(tecnologiaPersonajeNueva);
-
-			recursoPersonajeList.get(i).setCantidad( //
-					recursoPersonajeList.get(i).getCantidad() - //
-					tecnologiaRecursoList.get(i).getCantidad());
-
-			result += tecnologiaNueva.getNombre() + " con éxito";
 		}
 
+		personajeRef.setRefValue(personajeRefValue);
+		tecnologiaPersonajeNueva.setPersonajeRef(personajeRef);
+
+		tecnologiaRef.setRefValue(tecnologiaRefValue);
+		tecnologiaPersonajeNueva.setTecnologiaRef(tecnologiaRef);
+
+		tecnologiaPersonajeList.add(tecnologiaPersonajeNueva);
 		personaje.setTecnologiaPersonajeList(tecnologiaPersonajeList);
+
+		for (int i = 0; i < recursoPersonajeList.size(); i++) {
+			recursoPersonajeDAO.update(recursoPersonajeList.get(i));
+		}
+
+		tecnologiaPersonajeDAO.insert(tecnologiaPersonajeNueva);
 		personajeDAO.update(personaje);
 
 		connectionBean.getConnection().close();
 
-		return result;
+		return "Has Adquirido " + tecnologia.getNombre() + " con éxito";
 
 	}
 
