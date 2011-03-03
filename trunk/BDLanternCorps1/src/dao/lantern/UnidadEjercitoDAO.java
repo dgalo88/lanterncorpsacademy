@@ -92,6 +92,9 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 		strbuf.append(UnidadEjercitoDO.UNIDAD_BASICA_VEHICULO_ID);
 		strbuf.append(" INT REFERENCES   ");
 		strbuf.append(unidadBasicaDAO.getTableName());
+		strbuf.append(", ");
+		strbuf.append(UnidadEjercitoDO.IMAGEN_UNIDAD_EJERCITO);
+		strbuf.append(" VARCHAR (100)    ");
 
 		strbuf.append(")");
 
@@ -178,6 +181,10 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 				.getUnidadBasicaVehiculoRef();
 		ref4.checkInsert();
 		strbuf.append(ref4.getIdAsString());
+		
+		strbuf.append(", ");
+		strbuf.append(unidadEjercitoDO.getImagenUnidadEjercito());
+		
 
 		strbuf.append(")");
 
@@ -300,6 +307,12 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 				.getUnidadBasicaArmaRef();
 		refUbb.checkUpdate();
 		strbuf.append(refUbb.getIdAsString());
+		
+		strbuf.append(", ");
+		strbuf.append(UnidadEjercitoDO.IMAGEN_UNIDAD_EJERCITO);
+		strbuf.append(" = ");
+		strbuf.append(singleQuotes(unidadEjercitoDO.getImagenUnidadEjercito()));
+		
 
 		strbuf.append(" WHERE ");
 		strbuf.append(UnidadEjercitoDO.ID);
@@ -342,9 +355,9 @@ public class UnidadEjercitoDAO extends BaseDAO implements IUnidadEjercitoDAO {
 
 		ret = new UnidadEjercitoDO();
 
-		ret.setId/*     */(rs.getInt(UnidadEjercitoDO.ID));
-		ret.setNombre(rs.getString(UnidadEjercitoDO.NOMBRE));
-
+		ret.setId/*             */(rs.getInt(UnidadEjercitoDO.ID));
+		ret.setNombre/*         */(rs.getString(UnidadEjercitoDO.NOMBRE));
+		ret.setNombre/*         */(rs.getString(UnidadEjercitoDO.IMAGEN_UNIDAD_EJERCITO));
 		return (UnidadEjercitoDO) dtaSession.add(ret);
 	}
 
