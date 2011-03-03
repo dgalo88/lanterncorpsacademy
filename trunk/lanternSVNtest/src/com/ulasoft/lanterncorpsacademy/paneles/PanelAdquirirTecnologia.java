@@ -1,19 +1,19 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lcaInterfaceDAO.ITecnologiaDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
-import nextapp.echo.app.CheckBox;
 import nextapp.echo.app.Column;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
+import nextapp.echo.app.RadioButton;
 import nextapp.echo.app.Row;
+import nextapp.echo.app.button.ButtonGroup;
 import nextapp.echo.app.event.ActionEvent;
 import nextapp.echo.app.event.ActionListener;
 
@@ -38,7 +38,8 @@ public class PanelAdquirirTecnologia extends Panel {
 
 	private TestTableModel tableDtaModel;
 	private List<ITecnologiaDO> tecnologiaList;
-	private List<Integer> seleccion = new ArrayList<Integer>();
+	private ITecnologiaDO tecnologia;
+	private ButtonGroup btnGroupClases = new ButtonGroup();
 
 	public PanelAdquirirTecnologia() {
 
@@ -51,7 +52,7 @@ public class PanelAdquirirTecnologia extends Panel {
 		row.setAlignment(Alignment.ALIGN_CENTER);
 
 		// ----------------------------------------
-		// TODO: Carga Tecnología Disponible
+		// Carga Tecnología Disponible
 		// ----------------------------------------
 
 		tableDtaModel = new TestTableModel();
@@ -71,7 +72,7 @@ public class PanelAdquirirTecnologia extends Panel {
 
 		Button btnCancelar = new Button("Cancelar");
 		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnCancelar.setWidth(new Extent(100));
+		btnCancelar.setWidth(new Extent(200));
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -80,16 +81,27 @@ public class PanelAdquirirTecnologia extends Panel {
 		});
 		row.add(btnCancelar);
 
-		Button btnAdquirirHabilidad = new Button("Comprar");
-		btnAdquirirHabilidad.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnAdquirirHabilidad.setWidth(new Extent(100));
-		btnAdquirirHabilidad.addActionListener(new ActionListener() {
+		Button btnAdquirirTecnologia = new Button("Adquirir Tecnología");
+		btnAdquirirTecnologia.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnAdquirirTecnologia.setWidth(new Extent(200));
+		btnAdquirirTecnologia.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				btnAdquirirHabilidadClicked();
+				btnAdquirirTecnologiaClicked();
 			}
 		});
-		row.add(btnAdquirirHabilidad);
+		row.add(btnAdquirirTecnologia);
+
+		Button btnAdquirirUnidades = new Button("Adquirir Unidades Básicas");
+		btnAdquirirUnidades.setStyle(Estilo.getStyleColor(app.getAtributos()));
+		btnAdquirirUnidades.setWidth(new Extent(200));
+		btnAdquirirUnidades.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				btnAdquirirUnidadesClicked();
+			}
+		});
+		row.add(btnAdquirirUnidades);
 
 		col.add(row);
 		add(col);
@@ -128,7 +140,7 @@ public class PanelAdquirirTecnologia extends Panel {
 				return lblCosto.getText();
 			}
 		};
-		tableColumn.setWidth(new Extent(50));
+		tableColumn.setWidth(new Extent(100));
 		tableColumn.setHeadValue("Costo");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
@@ -159,16 +171,17 @@ public class PanelAdquirirTecnologia extends Panel {
 
 				boolean editable = ((TestTableModel) table.getTableDtaModel()).getEditable();
 
-				CheckBox checkBox = new CheckBox();
-				checkBox.setEnabled(editable);
-				checkBox.setToolTipText("Selección");
+				RadioButton radioButton = new RadioButton();
+				radioButton.setEnabled(editable);
+				radioButton.setToolTipText("Selección");
+				radioButton.setGroup(btnGroupClases);
 
-				checkBox.addActionListener(new ActionListener() {
+				radioButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						btnRadioClicked(row);
 					}
 				});
-				return checkBox;
+				return radioButton;
 			}
 		});
 
@@ -178,36 +191,35 @@ public class PanelAdquirirTecnologia extends Panel {
 	// --------------------------------------------------------------------------------
 
 	private void btnRadioClicked(int row) {
-
-		Integer e = new Integer(row);
-		for(int pos = 0; pos < seleccion.size(); pos++) {
-			if(seleccion.get(pos).equals(e)){
-				seleccion.remove(pos);
-				return;
-			}
-		}
-		seleccion.add(e);
+		tecnologia = tecnologiaList.get(row);
 	}
 
-	private void btnAdquirirHabilidadClicked() {
-
-		if(seleccion.isEmpty()) {
-			d.setWindowPaneEmergente("No hay selección");
-			return;
-		}
+	private void btnAdquirirTecnologiaClicked() {
 
 		String result = "";
 
-		try {
-			result = Tecnologia.adquirirListaTecnologia( //
-					app.getAtributos().getPersonaje(), //
-					tecnologiaList, seleccion);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (tecnologia != null) {
+
+			try {
+				result = Tecnologia.adquirirTecnologia( //
+						app.getAtributos().getPersonaje(), //
+						tecnologia);
+				d.setWindowPaneEmergente(result);
+				return;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
-		d.setWindowPaneEmergente(result);
-		return;
+		d.setWindowPaneEmergente("No hay selección");
+
+	}
+
+	private void btnAdquirirUnidadesClicked() {
+
+		PanelAdquirirUnidades pnlMain = new PanelAdquirirUnidades();
+		d.setPanelCentral(pnlMain);
 
 	}
 

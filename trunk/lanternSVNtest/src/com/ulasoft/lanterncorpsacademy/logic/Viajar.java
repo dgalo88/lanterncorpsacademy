@@ -36,15 +36,15 @@ public class Viajar {
 	protected static final int INDIGO = 6;
 	protected static final int VIOLETA = 7;
 
+	private static LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
+	private static Atributos atrib = app.getAtributos();
+
 	public static List<MapSection> cargarPlanetas(PanelViajarPlaneta panel) throws Exception {
 		
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 		IPlanetaDAO planetDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
 
-		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
-		Atributos atts = app.getAtributos();
-
-		IPlanetaDO origen = (IPlanetaDO) planetDAO.loadById(atts
+		IPlanetaDO origen = (IPlanetaDO) planetDAO.loadById(atrib
 				.getPersonaje().getPlanetaRef().getRefIdent());
 		
 		panel.getLblActual().setText("Estás en: "+origen.getNombre()+", Sector: "+origen.getSector());
@@ -72,7 +72,7 @@ public class Viajar {
 				
 				switch (planeta.getId()) {
 				case VERDE:
-					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+					if ((atrib.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
 						continue;
 					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
@@ -81,7 +81,7 @@ public class Viajar {
 					break;
 				
 				case AMARILLO:
-					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+					if ((atrib.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
 						continue;
 					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
@@ -89,7 +89,7 @@ public class Viajar {
 							+ "Base de los Sinestro Corps");
 					break;
 				case ROJO:
-					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+					if ((atrib.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
 						continue;
 					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
@@ -98,7 +98,7 @@ public class Viajar {
 					break;
 				
 				case NEGRO:
-					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+					if ((atrib.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
 						continue;
 					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
@@ -107,7 +107,7 @@ public class Viajar {
 					break;
 				
 				case AZUL:
-					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+					if ((atrib.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
 						continue;
 					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
@@ -116,7 +116,7 @@ public class Viajar {
 					break;
 				
 				case INDIGO:
-					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+					if ((atrib.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
 						continue;
 					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
@@ -125,7 +125,7 @@ public class Viajar {
 					break;
 				
 				case VIOLETA:
-					if ((atts.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
+					if ((atrib.getPersonaje().getClaseLinternaRef().getRefIdent() != planeta.getId())) {
 						continue;
 					}
 					pl.setAltText(planeta.getNombre() + " - Sector: "
@@ -141,7 +141,7 @@ public class Viajar {
 			+ planeta.getSector() + "."); 
 			}
 			
-			if ((atts.getPersonaje().getPlanetaRef().getRefIdent() != planeta.getId())) {
+			if ((atrib.getPersonaje().getPlanetaRef().getRefIdent() != planeta.getId())) {
 				System.err.println("PLANETA ID:"+planeta.getId());
 				planetas.add(pl);				
 				}
@@ -156,10 +156,7 @@ public class Viajar {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 		
-		LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) LanternCorpsAcademyApp.getActive();
-		Atributos atts = app.getAtributos();
-		
-		IPersonajeDO personaje = atts.getPersonaje();
+		IPersonajeDO personaje = atrib.getPersonaje();
 		
 		IPlanetaDAO planetDAO = (IPlanetaDAO) GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
 
@@ -205,12 +202,12 @@ public class Viajar {
 			personaje.setEnergiaDelAnillo((int) energiaNueva);
 			
 			Desktop d =app.getDesktop();
-			atts.setPersonaje(personaje);
-			atts.updateMenuStatus(d.getMenuHead().getMenuStatus());
+			atrib.setPersonaje(personaje);
+			atrib.updateMenuStatus(d.getMenuHead().getMenuStatus());
 						
 			personajeDAO.update(personaje);
 			
-			System.err.println("PLANETA ID travel:"+atts.getPersonaje().getPlanetaRef().getRefIdent());
+			System.err.println("PLANETA ID travel:"+atrib.getPersonaje().getPlanetaRef().getRefIdent());
 			
 			ConnectionFactory.closeConnection(connectionBean.getConnection());
 			

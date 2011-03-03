@@ -252,6 +252,10 @@ public class PanelRecolectarConquistado extends Panel {
 				result = Recolectar.recolectarRecursoList( //
 						app.getAtributos().getPersonaje(), recursoPlanetaList);
 			}
+
+			app.getAtributos().updateMenuStatus( //
+					d.getMenuHead().getMenuStatus());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

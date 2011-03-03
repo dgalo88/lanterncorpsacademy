@@ -61,6 +61,9 @@ public class InvitarNuevosUsuarios {
 		message.setSubject("Hola " + nombre + " Únete y Juega!!!");
 		message.setText(miMensaje + comentarios);
 
+		System.out.println("Datos de Invitación" + //
+				"\nNombre " + nombre + "\nCorreo: " + correo + "\n");
+
 		// Lo enviamos.
 		Transport transport = session.getTransport("smtp");
 		transport.connect(miCorreo, miPass);

@@ -1664,6 +1664,32 @@ public class InicializarBD {
 
 			}
 
+			// REFERENCIAS EN TENOLOGIA A UNIDAD BASICA
+			for (int i = 0; i < UnidadBasicaDO.length; i++) {
+
+				Reference<IUnidadBasicaDO> unidadBasicaRef = //
+					new Reference<IUnidadBasicaDO>();
+				IUnidadBasicaDO unidadBasicaRefValue = (IUnidadBasicaDO) //
+					UnidadBasicaDAO.loadById(i+1);
+				unidadBasicaRef.setRefValue(unidadBasicaRefValue);
+				TecnologiaDO[i].setUnidadBasicaRef(unidadBasicaRef);
+
+				TecnologiaDAO.update(TecnologiaDO[i]);
+			}
+
+			// REFERENCIAS EN TENOLOGIA A ANDROIDE
+			for (int i = 0; i < AndroideDO.length; i++) {
+
+				Reference<IAndroideDO> androideRef = //
+					new Reference<IAndroideDO>();
+				IAndroideDO androideRefValue = (IAndroideDO) //
+					AndroideDAO.loadById(i+1);
+				androideRef.setRefValue(androideRefValue);
+				TecnologiaDO[i+32].setAndroideRef(androideRef);
+
+				TecnologiaDAO.update(TecnologiaDO[i+32]);
+			}
+
 			// XXX: CREATE CLASELINTERNA
 			IClaseLinternaDO ClaseLinternaDO[] = new IClaseLinternaDO[7];
 
@@ -1681,19 +1707,19 @@ public class InicializarBD {
 			ClaseLinternaDO[VIOLETA].setColor("Violeta");
 
 			ClaseLinternaDO[VERDE].setNombre_de_cuerpo_linterna( //
-			"Green Lantern Corps");
+					"Green Lantern Corps");
 			ClaseLinternaDO[AMARILLO].setNombre_de_cuerpo_linterna( //
-			"Sinestro Corps");
+					"Sinestro Corps");
 			ClaseLinternaDO[ROJO].setNombre_de_cuerpo_linterna( //
-			"Red Lantern Corps");
+					"Red Lantern Corps");
 			ClaseLinternaDO[AZUL].setNombre_de_cuerpo_linterna( //
-			"Blue Lantern Corps");
+					"Blue Lantern Corps");
 			ClaseLinternaDO[NEGRO].setNombre_de_cuerpo_linterna( //
-			"Black Lantern Corps");
+					"Black Lantern Corps");
 			ClaseLinternaDO[INDIGO].setNombre_de_cuerpo_linterna( //
-			"Tribu Indigo");
+					"Tribu Indigo");
 			ClaseLinternaDO[VIOLETA].setNombre_de_cuerpo_linterna( //
-			"Star Sapphires");
+					"Star Sapphires");
 
 			// CREATE REFERENCE TO PLANETA AND INSERT CLASELINTERNA
 			Reference<IPlanetaDO> refpl;
