@@ -134,7 +134,8 @@ public class PanelAtacarNPCGuardianes extends Panel {
 
 		Desktop d = app.getDesktop();
 
-		switch (Conquistar.atacarNPCGuardianes(tableDtaModel, personajes)) {
+		switch (Conquistar.atacarNPCGuardianes(app.getAtributos().getPersonaje(), //
+				tableDtaModel, personajes)) {
 		case 1:
 			d.setWindowPaneEmergente("Ganaste el Combate. Has conquistado el planeta");
 			break;

@@ -1,10 +1,6 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lcaInterfaceDAO.IPlanetaDO;
-import lcaInterfaceDAO.IRecursoPersonajeDO;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Column;
@@ -14,15 +10,9 @@ import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
 
-import com.minotauro.echo.table.base.ETable;
-import com.minotauro.echo.table.base.TableColModel;
-import com.minotauro.echo.table.base.TableColumn;
-import com.minotauro.echo.table.renderer.LabelCellRenderer;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
-import com.ulasoft.lanterncorpsacademy.TestTableModel;
 import com.ulasoft.lanterncorpsacademy.logic.Atributos;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
-import com.ulasoft.lanterncorpsacademy.logic.Recursos;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
 
 @SuppressWarnings("serial")
@@ -34,9 +24,9 @@ public class PanelMisDatos extends Panel {
 	private LanternCorpsAcademyApp app = (LanternCorpsAcademyApp) //
 			LanternCorpsAcademyApp.getActive();
 
-	private TestTableModel tableDtaModel;
-	private List<IRecursoPersonajeDO> recursoPersonajeList = //
-		new ArrayList<IRecursoPersonajeDO>();
+//	private TestTableModel tableDtaModel;
+//	private List<IRecursoPersonajeDO> recursoPersonajeList = //
+//		new ArrayList<IRecursoPersonajeDO>();
 
 	private IPlanetaDO planeta;
 	private Label lblNombre;
@@ -47,6 +37,15 @@ public class PanelMisDatos extends Panel {
 	private Label lblNivel;
 	private Label lblPuntosEntrenamiento;
 	private Label lblOfertas;
+
+	private Label lblPlomo;
+	private Label lblHierro;
+	private Label lblAcero;
+	private Label lblUranio;
+	private Label lblTitanio;
+	private Label lblCristalo;
+	private Label lblAdamantium;
+	private Label lblVibratium;
 
 	public PanelMisDatos() {
 
@@ -61,15 +60,34 @@ public class PanelMisDatos extends Panel {
 		lblPuntosEntrenamiento = new Label("Puntos de Entrenamiento");
 		lblOfertas = new Label("Ofertas");
 
+		lblPlomo = new Label("Plomo: 0");
+		lblHierro = new Label("Hierro: 0");
+		lblAcero = new Label("Acero: 0");
+		lblUranio = new Label("Uranio: 0");
+		lblTitanio = new Label("Titanio: 0");
+		lblCristalo = new Label("Cristalo: 0");
+		lblAdamantium = new Label("Adamantium: 0");
+		lblVibratium = new Label("Vibratium: 0");
+
 		try {
-			recursoPersonajeList = Recursos.getRecursos( //
-					app.getAtributos().getPersonaje());
 			atrib.updatePanelMisDatos(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		tableDtaModel = Recursos.asignarRecursos( //
-				tableDtaModel, recursoPersonajeList);
+//		try {
+//			recursoPersonajeList = Recursos.getRecursos( //
+//					app.getAtributos().getPersonaje());
+//			atrib.updatePanelMisDatos(this);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		tableDtaModel = new TestTableModel();
+//		try {
+//			tableDtaModel = Recursos.asignarRecursos( //
+//					atrib.getPersonaje(), tableDtaModel);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
 		Grid grid = new Grid(3);
 		grid.setWidth(new Extent(530));
@@ -130,9 +148,9 @@ public class PanelMisDatos extends Panel {
 		colInf[2].add(lblPuntosEntrenamiento);
 		col.add(colInf[2]);
 
-		Estilo.setFont(lblOfertas, GUIStyles.NORMAL, SIZE);
-		colInf[3].add(lblOfertas);
-		col.add(colInf[3]);
+//		Estilo.setFont(lblOfertas, GUIStyles.NORMAL, SIZE);
+//		colInf[3].add(lblOfertas);
+//		col.add(colInf[3]);
 
 		grid.add(col);
 
@@ -144,8 +162,33 @@ public class PanelMisDatos extends Panel {
 		Estilo.setFont(lblInventario, GUIStyles.ITALIC, SIZE);
 		col.add(lblInventario);
 
-		grid.add(PanelConstructor.initTable( //
-				tableDtaModel, initTableColModel(), false, 8, SIZE2));
+		Estilo.setFont(lblPlomo, GUIStyles.NORMAL, SIZE2);
+		col.add(lblPlomo);
+
+		Estilo.setFont(lblHierro, GUIStyles.NORMAL, SIZE2);
+		col.add(lblHierro);
+
+		Estilo.setFont(lblAcero, GUIStyles.NORMAL, SIZE2);
+		col.add(lblAcero);
+
+		Estilo.setFont(lblUranio, GUIStyles.NORMAL, SIZE2);
+		col.add(lblUranio);
+
+		Estilo.setFont(lblTitanio, GUIStyles.NORMAL, SIZE2);
+		col.add(lblTitanio);
+
+		Estilo.setFont(lblCristalo, GUIStyles.NORMAL, SIZE2);
+		col.add(lblCristalo);
+
+		Estilo.setFont(lblAdamantium, GUIStyles.NORMAL, SIZE2);
+		col.add(lblAdamantium);
+
+		Estilo.setFont(lblVibratium, GUIStyles.NORMAL, SIZE2);
+		col.add(lblVibratium);
+
+		grid.add(col);
+//		grid.add(PanelConstructor.initTable( //
+//				tableDtaModel, initTableColModel(), false, 8, SIZE2));
 
 		add(grid);
 
@@ -153,47 +196,49 @@ public class PanelMisDatos extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private TableColModel initTableColModel() {
-
-		TableColModel tableColModel = new TableColModel();
-		TableColumn tableColumn;
-
-		tableColumn = new TableColumn() {
-			@Override
-			public Object getValue(ETable table, Object element) {
-				IRecursoPersonajeDO recurso = //
-					(IRecursoPersonajeDO) element;
-				try {
-					return Recursos.getNombreRecurso(recurso);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return "";
-			}
-		};
-		tableColumn.setWidth(new Extent(100));
-		tableColumn.setHeadValue("Nombre");
-		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		tableColModel.getTableColumnList().add(tableColumn);
-
-		tableColumn = new TableColumn() {
-			@Override
-			public Object getValue(ETable table, Object element) {
-				IRecursoPersonajeDO recurso = //
-					(IRecursoPersonajeDO) element;
-				return recurso.getCantidad();
-			}
-		};
-		tableColumn = new TableColumn();
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Cantidad");
-		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
-		tableColumn.setDataCellRenderer(new LabelCellRenderer());
-		tableColModel.getTableColumnList().add(tableColumn);
-
-		return tableColModel;
-	}
+//	private TableColModel initTableColModel() {
+//
+//		TableColModel tableColModel = new TableColModel();
+//		TableColumn tableColumn;
+//
+//		tableColumn = new TableColumn() {
+//			@Override
+//			public Object getValue(ETable table, Object element) {
+//
+//				Label lblNombre = new Label();
+//				IRecursoPersonajeDO recurso = //
+//					(IRecursoPersonajeDO) element;
+//				try {
+//					lblNombre.setText(Recursos.getNombreRecurso(recurso));
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				return lblNombre.getText();
+//			}
+//		};
+//		tableColumn.setWidth(new Extent(100));
+//		tableColumn.setHeadValue("Nombre");
+//		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+//		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+//		tableColModel.getTableColumnList().add(tableColumn);
+//
+//		tableColumn = new TableColumn() {
+//			@Override
+//			public Object getValue(ETable table, Object element) {
+//				IRecursoPersonajeDO recurso = //
+//					(IRecursoPersonajeDO) element;
+//				return recurso.getCantidad();
+//			}
+//		};
+//		tableColumn = new TableColumn();
+//		tableColumn.setWidth(new Extent(50));
+//		tableColumn.setHeadValue("Cantidad");
+//		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
+//		tableColumn.setDataCellRenderer(new LabelCellRenderer());
+//		tableColModel.getTableColumnList().add(tableColumn);
+//
+//		return tableColModel;
+//	}
 
 
 	// --------------------------------------------------------------------------------
@@ -268,6 +313,70 @@ public class PanelMisDatos extends Panel {
 
 	public Label getLblOfertas() {
 		return lblOfertas;
+	}
+
+	public void setLblPlomo(Label lblPlomo) {
+		this.lblPlomo = lblPlomo;
+	}
+
+	public Label getLblPlomo() {
+		return lblPlomo;
+	}
+
+	public void setLblHierro(Label lblHierro) {
+		this.lblHierro = lblHierro;
+	}
+
+	public Label getLblHierro() {
+		return lblHierro;
+	}
+
+	public void setLblAcero(Label lblAcero) {
+		this.lblAcero = lblAcero;
+	}
+
+	public Label getLblAcero() {
+		return lblAcero;
+	}
+
+	public void setLblUranio(Label lblUranio) {
+		this.lblUranio = lblUranio;
+	}
+
+	public Label getLblUranio() {
+		return lblUranio;
+	}
+
+	public void setLblTitanio(Label lblTitanio) {
+		this.lblTitanio = lblTitanio;
+	}
+
+	public Label getLblTitanio() {
+		return lblTitanio;
+	}
+
+	public void setLblCristalo(Label lblCristalo) {
+		this.lblCristalo = lblCristalo;
+	}
+
+	public Label getLblCristalo() {
+		return lblCristalo;
+	}
+
+	public void setLblAdamantium(Label lblAdamantium) {
+		this.lblAdamantium = lblAdamantium;
+	}
+
+	public Label getLblAdamantium() {
+		return lblAdamantium;
+	}
+
+	public void setLblVibratium(Label lblVibratium) {
+		this.lblVibratium = lblVibratium;
+	}
+
+	public Label getLblVibratium() {
+		return lblVibratium;
 	}
 
 }

@@ -17,6 +17,7 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Conquistar;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.logic.ImgLoad;
 import com.ulasoft.lanterncorpsacademy.stilos.GUIStyles;
@@ -183,19 +184,7 @@ public class PanelConquistar extends Panel {
 
 		Desktop d = app.getDesktop();
 
-		if (getPlaneta().getId() < 8) {
-			d.setWindowPaneEmergente( //
-					"No puedes conquistar porque te encuentras en el Planeta Base");
-			return;
-		}
-		if (getPlaneta().getPlanetaEsCasaRef().getRefIdent() == //
-			app.getAtributos().getPersonaje().getId()) {
-			d.setWindowPaneEmergente( //
-					"No puedes conquistar porque te encuentras en el Planeta Casa");
-			return;
-		}
-
-		if (!getPlaneta().isConquistado()) {
+		if (!Conquistar.isConquistado(app.getAtributos().getPersonaje())) {
 			PanelAtacarNPCGuardianes pnlMain = new PanelAtacarNPCGuardianes();
 			d.setPanelCentral(pnlMain);
 		} else {
