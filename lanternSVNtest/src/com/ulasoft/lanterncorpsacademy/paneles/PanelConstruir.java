@@ -1,5 +1,7 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import lcaInterfaceDAO.IUnidadBasicaDO;
+import lcaInterfaceDAO.IUnidadEjercitoDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Border;
 import nextapp.echo.app.Button;
@@ -30,6 +32,16 @@ public class PanelConstruir extends Panel {
 	private Grid gridData;
 	private Column colInfo;
 	private Row rowInfo;
+
+	private Label lblAtaque;
+	private Label lblDefensa;
+	private TextField nombre;
+
+	private IUnidadBasicaDO robot;
+	private IUnidadBasicaDO arma;
+	private IUnidadBasicaDO vehiculo;
+	private IUnidadBasicaDO bala;
+	private IUnidadEjercitoDO unidadEjercito;
 
 	public PanelConstruir() {
 
@@ -65,10 +77,10 @@ public class PanelConstruir extends Panel {
 
 		col.add(PanelConstructor.initTopRow("Construir Ejército"));
 
-		Label lblUnidadesAtacante = new Label( //
+		Label lblUnidades = new Label( //
 				"Unidades Básicas Seleccionadas");
-		Estilo.setFont(lblUnidadesAtacante, GUIStyles.ITALIC);
-		row.add(lblUnidadesAtacante);
+		Estilo.setFont(lblUnidades, GUIStyles.ITALIC);
+		row.add(lblUnidades);
 		gridPane.add(row);
 
 		Button btnRobot = new Button("Robot");
@@ -77,7 +89,7 @@ public class PanelConstruir extends Panel {
 		btnRobot.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-//				btnAtacarClicked();
+				btnRobotClicked();
 			}
 		});
 		gridUnits.add(btnRobot);
@@ -88,7 +100,7 @@ public class PanelConstruir extends Panel {
 		btnVehiculo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-//				btnAtacarClicked();
+				btnVehiculoClicked();
 			}
 		});
 		gridUnits.add(btnVehiculo);
@@ -99,21 +111,21 @@ public class PanelConstruir extends Panel {
 		btnArma.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-//				btnAtacarClicked();
+				btnArmaClicked();
 			}
 		});
 		gridUnits.add(btnArma);
 
-		Button btnMunicion = new Button("Munición");
-		btnMunicion.setTextAlignment(Alignment.ALIGN_CENTER);
-		Estilo.setFont(btnMunicion, GUIStyles.ITALIC, 12);
-		btnMunicion.addActionListener(new ActionListener() {
+		Button btnBala = new Button("Bala");
+		btnBala.setTextAlignment(Alignment.ALIGN_CENTER);
+		Estilo.setFont(btnBala, GUIStyles.ITALIC, 12);
+		btnBala.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-//				btnAtacarClicked();
+				btnBalaClicked();
 			}
 		});
-		gridUnits.add(btnMunicion);
+		gridUnits.add(btnBala);
 
 		gridPane.add(gridUnits);
 
@@ -143,16 +155,16 @@ public class PanelConstruir extends Panel {
 		rowInfo = new Row();
 		rowInfo.setAlignment(Alignment.ALIGN_CENTER);
 
-		TextField textField = new TextField();
-		textField.setText("");
-		textField.setWidth(new Extent(80));
-		rowInfo.add(textField);
+		nombre = new TextField();
+		nombre.setText("");
+		nombre.setWidth(new Extent(120));
+		rowInfo.add(nombre);
 		colInfo.add(rowInfo);
 
 		rowInfo = new Row();
 		rowInfo.setAlignment(Alignment.ALIGN_CENTER);
 
-		Label lblAtaque = new Label("Ataque: XX");
+		lblAtaque = new Label("Ataque: XX");
 		Estilo.setFont(lblAtaque, GUIStyles.NORMAL, 12);
 		rowInfo.add(lblAtaque);
 		colInfo.add(rowInfo);
@@ -160,7 +172,7 @@ public class PanelConstruir extends Panel {
 		rowInfo = new Row();
 		rowInfo.setAlignment(Alignment.ALIGN_CENTER);
 
-		Label lblDefensa = new Label("Defensa: XX");
+		lblDefensa = new Label("Defensa: XX");
 		Estilo.setFont(lblDefensa, GUIStyles.NORMAL, 12);
 		rowInfo.add(lblDefensa);
 		colInfo.add(rowInfo);
@@ -203,11 +215,88 @@ public class PanelConstruir extends Panel {
 
 	// --------------------------------------------------------------------------------
 
+	public void setLblAtaque(Label lblAtaque) {
+		this.lblAtaque = lblAtaque;
+	}
+
+	public Label getLblAtaque() {
+		return lblAtaque;
+	}
+
+	public void setLblDefensa(Label lblDefensa) {
+		this.lblDefensa = lblDefensa;
+	}
+
+	public Label getLblDefensa() {
+		return lblDefensa;
+	}
+
+	public void setRobot(IUnidadBasicaDO robot) {
+		this.robot = robot;
+	}
+
+	public IUnidadBasicaDO getRobot() {
+		return robot;
+	}
+
+	public void setArma(IUnidadBasicaDO arma) {
+		this.arma = arma;
+	}
+
+	public IUnidadBasicaDO getArma() {
+		return arma;
+	}
+
+	public void setVehiculo(IUnidadBasicaDO vehiculo) {
+		this.vehiculo = vehiculo;
+	}
+
+	public IUnidadBasicaDO getVehiculo() {
+		return vehiculo;
+	}
+
+	public void setBala(IUnidadBasicaDO bala) {
+		this.bala = bala;
+	}
+
+	public IUnidadBasicaDO getBala() {
+		return bala;
+	}
+
+	public void setUnidadEjercito(IUnidadEjercitoDO unidadEjercito) {
+		this.unidadEjercito = unidadEjercito;
+	}
+
+	public IUnidadEjercitoDO getUnidadEjercito() {
+		return unidadEjercito;
+	}
+
+	// --------------------------------------------------------------------------------
+
 	private void btnConstruirClicked() {
 
 		PanelAtacarDuenoPlaneta pnlMain = new PanelAtacarDuenoPlaneta();
 		Desktop d = app.getDesktop();
 		d.setPanelCentral(pnlMain);
+
+	}
+
+	// --------------------------------------------------------------------------------
+
+	private void btnRobotClicked() {
+
+		
+	}
+
+	private void btnVehiculoClicked() {
+
+	}
+
+	private void btnArmaClicked() {
+
+	}
+
+	private void btnBalaClicked() {
 
 	}
 

@@ -23,6 +23,10 @@ public interface IPlanetaDO extends DataObject {
 
 	public abstract void setCoordenadaEnY(float coordenadaEnY);
 
+	public abstract void setConquistado(boolean conquistado);
+
+	public abstract boolean isConquistado();
+
 	public abstract List<IPersonajeDO> getPersonajeList();
 
 	public abstract void setPersonajeList(List<IPersonajeDO> personajeList);

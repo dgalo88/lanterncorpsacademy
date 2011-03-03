@@ -61,7 +61,9 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 		strbuf.append(PlanetaDO.COORDENADA_EN_X);
 		strbuf.append(" FLOAT,    ");
 		strbuf.append(PlanetaDO.COORDENADA_EN_Y);
-		strbuf.append(" FLOAT    ");
+		strbuf.append(" FLOAT,    ");
+		strbuf.append(PlanetaDO.CONQUISTADO);
+		strbuf.append(" BOOL ");
 
 		strbuf.append(" )");
 
@@ -106,6 +108,8 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 		strbuf.append(planetaDO.getCoordenadaEnX());
 		strbuf.append(", ");
 		strbuf.append(planetaDO.getCoordenadaEnY());
+		strbuf.append(", ");
+		strbuf.append(planetaDO.isConquistado());
 
 		strbuf.append(")");
 
@@ -144,7 +148,11 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 		strbuf.append(PlanetaDO.COORDENADA_EN_Y);
 		strbuf.append(" = ");
 		strbuf.append(planetaDO.getCoordenadaEnY());
-//		strbuf.append(", ");
+		strbuf.append(", ");
+
+		strbuf.append(PlanetaDO.CONQUISTADO);
+		strbuf.append(" = ");
+		strbuf.append(planetaDO.isConquistado());
 //
 //		Reference<IClaseLinternaDO> refH = planetaDO.getClaseLinternaRef();
 //		refH.checkUpdate();
@@ -309,6 +317,7 @@ public class PlanetaDAO extends BaseDAO implements IPlanetaDAO {
 		ret.setSector/*				*/(rs.getString(PlanetaDO.SECTOR));
 		ret.setCoordenadaEnX/*  	*/(rs.getFloat(PlanetaDO.COORDENADA_EN_X));
 		ret.setCoordenadaEnY/*  	*/(rs.getFloat(PlanetaDO.COORDENADA_EN_Y));
+		ret.setConquistado/*  		*/(rs.getBoolean(PlanetaDO.CONQUISTADO));
 
 		return (PlanetaDO) dtaSession.add(ret);
 	}
