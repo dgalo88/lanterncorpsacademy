@@ -826,4 +826,34 @@ public class PersonajeDAO extends BaseDAO implements IPersonajeDAO {
 
 	}
 
+	@Override
+	public void loadUnidadBasicaPersonajeList(IPersonajeDO personajeDO)
+			throws Exception {
+
+//		checkCache(personajeDO, CHECK_UPDATE);
+
+		UnidadBasicaPersonajeDAO unidadBasicaPersonajeDAO = (UnidadBasicaPersonajeDAO) //
+				FactoryDAO.getDAO(UnidadBasicaPersonajeDAO.class, connectionBean);
+
+
+		personajeDO.setUnidadBasicaPersonajeList( //
+				unidadBasicaPersonajeDAO.listByPersonajeId(personajeDO.getId()));
+
+	}
+
+	@Override
+	public void loadAndroidePersonajeList(IPersonajeDO personajeDO)
+			throws Exception {
+
+//		checkCache(personajeDO, CHECK_UPDATE);
+
+		AndroidePersonajeDAO androidePersonajeDAO = (AndroidePersonajeDAO) //
+				FactoryDAO.getDAO(AndroidePersonajeDAO.class, connectionBean);
+
+
+		personajeDO.setAndroidePersonajeList( //
+				androidePersonajeDAO.listByPersonajeId(personajeDO.getId()));
+
+	}
+
 }

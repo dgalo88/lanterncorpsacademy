@@ -33,8 +33,8 @@ public class TecnologiaDO implements ITecnologiaDO{
 	private Reference<IUnidadBasicaDO> unidadBasicaRef=//
 		new Reference<IUnidadBasicaDO>();
 	
-	private List<IAndroideDO> androideList=//
-		new ArrayList<IAndroideDO>();
+	private Reference<IAndroideDO> androideRef=//
+		new Reference<IAndroideDO>();
 	
 	private List<ITecnologiaRecursoDO> tecnologiaRecursoList=//
 		new ArrayList<ITecnologiaRecursoDO>();
@@ -83,14 +83,12 @@ public class TecnologiaDO implements ITecnologiaDO{
 	
 	//---------------------------------------------------------------------------------------------
 	
-	public List<IAndroideDO> getAndroideList(){
-		
-		return androideList;
+	public Reference<IAndroideDO> getAndroideRef(){
+		return androideRef;
 	}
 	
-	public  void setAndroideList(List<IAndroideDO> androideList){
-		
-		this.androideList=androideList;
+	public  void setAndroideRef(Reference<IAndroideDO> androideRef){
+		this.androideRef = androideRef;
 	}
 	
 	//---------------------------------------------------------------------------------------------------
