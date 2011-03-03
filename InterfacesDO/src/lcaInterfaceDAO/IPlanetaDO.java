@@ -46,5 +46,7 @@ public interface IPlanetaDO extends DataObject {
 	public abstract Reference<IPersonajeDO> getPlanetaEsCasaRef();
 	
 	public abstract void setPlanetaEsCasaRef(Reference<IPersonajeDO> planetaEsCasaRef);
+	
+	
 
 }
