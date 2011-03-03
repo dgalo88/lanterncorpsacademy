@@ -15,24 +15,21 @@ import nextapp.echo.app.event.ActionListener;
 
 import com.ulasoft.lanterncorpsacademy.Desktop;
 import com.ulasoft.lanterncorpsacademy.LanternCorpsAcademyApp;
+import com.ulasoft.lanterncorpsacademy.logic.Conquistar;
 import com.ulasoft.lanterncorpsacademy.logic.Estilo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAboutGame;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAdquirirTecnologia;
+import com.ulasoft.lanterncorpsacademy.paneles.PanelAdquirirUnidades;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelAtacar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelConquistar;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelConstruir;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelCrearGrupo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelEditarDatosUsuario;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelIntercambiar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMensaje;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelMiGrupo;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelOfertar;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRanking;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecargarAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarConquistado;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelRecolectarNeutro;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelReparar;
-import com.ulasoft.lanterncorpsacademy.paneles.PanelSabotear;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerHabilidadesAnillo;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelVerInvitaciones;
 import com.ulasoft.lanterncorpsacademy.paneles.PanelViajarPlaneta;
@@ -86,7 +83,11 @@ public class Menu extends Panel {
 		btnRecolectar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				btnRecolectarClicked();
+				try {
+					btnRecolectarClicked();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		AccordionSection recolectar = new AccordionSection(btnRecolectar);
@@ -94,13 +95,13 @@ public class Menu extends Panel {
 		acc.addSection(recolectar);
 
 		// Comerciar
-		AccordionSection comerciar = new AccordionSection("Comerciar");
-		comerciar.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
-
-		Component menuComerciar = menuComerciar();
-		comerciar.addItem(menuComerciar);
-
-		acc.addSection(comerciar);
+//		AccordionSection comerciar = new AccordionSection("Comerciar");
+//		comerciar.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
+//
+//		Component menuComerciar = menuComerciar();
+//		comerciar.addItem(menuComerciar);
+//
+//		acc.addSection(comerciar);
 
 		// Grupos
 		AccordionSection grupos = new AccordionSection("Grupos");
@@ -283,16 +284,16 @@ public class Menu extends Panel {
 		col.add(grid[2]);
 		grid[2].add(btnConstruir);
 		
-		Button btnReparar = new Button("Reparar");
-		btnReparar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnReparar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnRepararClicked();
-			}
-		});
-		col.add(grid[3]);
-		grid[3].add(btnReparar);
+//		Button btnReparar = new Button("Reparar");
+//		btnReparar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+//		btnReparar.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent evt) {
+//				btnRepararClicked();
+//			}
+//		});
+//		col.add(grid[3]);
+//		grid[3].add(btnReparar);
 
 		return col;
 	}
@@ -324,22 +325,26 @@ public class Menu extends Panel {
 		btnConquistar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				btnConquistarClicked();
+				try {
+					btnConquistarClicked();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		col.add(grid[1]);
 		grid[1].add(btnConquistar);
 
-		Button btnSabotear = new Button("Sabotear");
-		btnSabotear.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnSabotear.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnSabotearClicked();
-			}
-		});
-		col.add(grid[2]);
-		grid[2].add(btnSabotear);
+//		Button btnSabotear = new Button("Sabotear");
+//		btnSabotear.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+//		btnSabotear.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent evt) {
+//				btnSabotearClicked();
+//			}
+//		});
+//		col.add(grid[2]);
+//		grid[2].add(btnSabotear);
 
 		return col;
 	}
@@ -348,37 +353,37 @@ public class Menu extends Panel {
 	// --------------------------------------------------------------------------------
 
 
-	private Component menuComerciar() {
-
-		Column col = new Column();
-		Label [] lblImagen = new Label [2];
-		Grid [] grid = new Grid [2];
-		setArray(grid, lblImagen, "com/ulasoft/lanterncorpsacademy/imagenes/btnCom.gif");
-
-		Button btnOfertar = new Button("Ofertar");
-		btnOfertar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnOfertar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnOfertarClicked();
-			}
-		});
-		col.add(grid[0]);
-		grid[0].add(btnOfertar);
-
-		Button btnIntercambiar = new Button("Intercambiar");
-		btnIntercambiar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
-		btnIntercambiar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				btnIntercambiarClicked();
-			}
-		});
-		col.add(grid[1]);
-		grid[1].add(btnIntercambiar);
-
-		return col;
-	}
+//	private Component menuComerciar() {
+//
+//		Column col = new Column();
+//		Label [] lblImagen = new Label [2];
+//		Grid [] grid = new Grid [2];
+//		setArray(grid, lblImagen, "com/ulasoft/lanterncorpsacademy/imagenes/btnCom.gif");
+//
+//		Button btnOfertar = new Button("Ofertar");
+//		btnOfertar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+//		btnOfertar.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent evt) {
+//				btnOfertarClicked();
+//			}
+//		});
+//		col.add(grid[0]);
+//		grid[0].add(btnOfertar);
+//
+//		Button btnIntercambiar = new Button("Intercambiar");
+//		btnIntercambiar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+//		btnIntercambiar.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent evt) {
+//				btnIntercambiarClicked();
+//			}
+//		});
+//		col.add(grid[1]);
+//		grid[1].add(btnIntercambiar);
+//
+//		return col;
+//	}
 
 
 	// --------------------------------------------------------------------------------
@@ -504,19 +509,20 @@ public class Menu extends Panel {
 
 	private void btnConstruirClicked() {
 
-		PanelConstruir pnlMain = new PanelConstruir();
+		PanelAdquirirUnidades pnlMain = new PanelAdquirirUnidades();
+//		PanelConstruir pnlMain = new PanelConstruir();
 		d.setPanelCentral(pnlMain);
 
 	}
 
 	// --------------------------------------------------------------------------------
 
-	private void btnRepararClicked() {
-
-		PanelReparar pnlMain = new PanelReparar();
-		d.setPanelCentral(pnlMain);
-
-	}
+//	private void btnRepararClicked() {
+//
+//		PanelReparar pnlMain = new PanelReparar();
+//		d.setPanelCentral(pnlMain);
+//
+//	}
 
 	// --------------------------------------------------------------------------------
 
@@ -529,7 +535,18 @@ public class Menu extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private void btnConquistarClicked() {
+	private void btnConquistarClicked() throws Exception {
+
+		if (Conquistar.isPlanetaBase(app.getAtributos().getPersonaje())) {
+			d.setWindowPaneEmergente( //
+					"No puedes conquistar porque te encuentras en el Planeta Base");
+			return;
+		}
+		if (Conquistar.isPlanetaCasa(app.getAtributos().getPersonaje())) {
+			d.setWindowPaneEmergente( //
+					"No puedes conquistar porque te encuentras en el Planeta Casa");
+			return;
+		}
 
 		PanelConquistar pnlMain = new PanelConquistar();
 		d.setPanelCentral(pnlMain);
@@ -538,27 +555,28 @@ public class Menu extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private void btnSabotearClicked() {
-
-		PanelSabotear pnlMain = new PanelSabotear();
-		d.setPanelCentral(pnlMain);
-
-	}
+//	private void btnSabotearClicked() {
+//
+//		PanelSabotear pnlMain = new PanelSabotear();
+//		d.setPanelCentral(pnlMain);
+//
+//	}
 
 	// --------------------------------------------------------------------------------
 
-	private void btnRecolectarClicked() {
+	private void btnRecolectarClicked() throws Exception {
 
 		// TODO: Arreglar Recolectar
 
 		Panel pnlMain;
 
-		int planetaActual = app.getAtributos().getPersonaje() //
-				.getPlanetaRef().getRefIdent();
-		int planetaCasa = app.getAtributos().getPersonaje() //
-				.getClaseLinternaRef().getRefIdent();
+//		int planetaActual = app.getAtributos().getPersonaje() //
+//				.getPlanetaRef().getRefIdent();
+//		int planetaCasa = app.getAtributos().getPersonaje() //
+//				.getClaseLinternaRef().getRefIdent();
 
-		pnlMain = (planetaActual == planetaCasa) ? //
+		pnlMain = (Conquistar.isPlanetaBase(app.getAtributos().getPersonaje()) || //
+				Conquistar.isPlanetaCasa(app.getAtributos().getPersonaje())) ? //
 				new PanelRecolectarConquistado() : new PanelRecolectarNeutro();
 
 		d.setPanelCentral(pnlMain);
@@ -568,21 +586,21 @@ public class Menu extends Panel {
 
 	// --------------------------------------------------------------------------------
 
-	private void btnOfertarClicked() {
-
-		PanelOfertar pnlMain = new PanelOfertar();
-		d.setPanelCentral(pnlMain);
-
-	}
+//	private void btnOfertarClicked() {
+//
+//		PanelOfertar pnlMain = new PanelOfertar();
+//		d.setPanelCentral(pnlMain);
+//
+//	}
 
 	// --------------------------------------------------------------------------------
 
-	private void btnIntercambiarClicked() {
-
-		PanelIntercambiar pnlMain = new PanelIntercambiar();
-		d.setPanelCentral(pnlMain);
-
-	}
+//	private void btnIntercambiarClicked() {
+//
+//		PanelIntercambiar pnlMain = new PanelIntercambiar();
+//		d.setPanelCentral(pnlMain);
+//
+//	}
 
 	// --------------------------------------------------------------------------------
 

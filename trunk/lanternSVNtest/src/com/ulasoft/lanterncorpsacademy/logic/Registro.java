@@ -46,6 +46,7 @@ public class Registro {
 
 		personaje.setClaseLinternaRef(refc);
 		personaje.setPlanetaRef(clase.getPlanetaRef());
+		personaje.setEstableceCasa(clase.getPlanetaRef());
 
 		perDAO.insert(personaje);
 

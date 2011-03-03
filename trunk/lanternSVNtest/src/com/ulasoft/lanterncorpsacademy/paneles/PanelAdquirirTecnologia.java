@@ -72,7 +72,7 @@ public class PanelAdquirirTecnologia extends Panel {
 
 		Button btnCancelar = new Button("Cancelar");
 		btnCancelar.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnCancelar.setWidth(new Extent(200));
+//		btnCancelar.setWidth(new Extent(200));
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -83,7 +83,7 @@ public class PanelAdquirirTecnologia extends Panel {
 
 		Button btnAdquirirTecnologia = new Button("Adquirir Tecnología");
 		btnAdquirirTecnologia.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnAdquirirTecnologia.setWidth(new Extent(200));
+//		btnAdquirirTecnologia.setWidth(new Extent(200));
 		btnAdquirirTecnologia.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -92,16 +92,16 @@ public class PanelAdquirirTecnologia extends Panel {
 		});
 		row.add(btnAdquirirTecnologia);
 
-		Button btnAdquirirUnidades = new Button("Adquirir Unidades Básicas");
-		btnAdquirirUnidades.setStyle(Estilo.getStyleColor(app.getAtributos()));
-		btnAdquirirUnidades.setWidth(new Extent(200));
-		btnAdquirirUnidades.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				btnAdquirirUnidadesClicked();
-			}
-		});
-		row.add(btnAdquirirUnidades);
+//		Button btnAdquirirUnidades = new Button("Adquirir Unidades Básicas");
+//		btnAdquirirUnidades.setStyle(Estilo.getStyleColor(app.getAtributos()));
+//		btnAdquirirUnidades.setWidth(new Extent(200));
+//		btnAdquirirUnidades.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				btnAdquirirUnidadesClicked();
+//			}
+//		});
+//		row.add(btnAdquirirUnidades);
 
 		col.add(row);
 		add(col);
@@ -216,11 +216,11 @@ public class PanelAdquirirTecnologia extends Panel {
 
 	}
 
-	private void btnAdquirirUnidadesClicked() {
-
-		PanelAdquirirUnidades pnlMain = new PanelAdquirirUnidades();
-		d.setPanelCentral(pnlMain);
-
-	}
+//	private void btnAdquirirUnidadesClicked() {
+//
+//		PanelAdquirirUnidades pnlMain = new PanelAdquirirUnidades();
+//		d.setPanelCentral(pnlMain);
+//
+//	}
 
 }

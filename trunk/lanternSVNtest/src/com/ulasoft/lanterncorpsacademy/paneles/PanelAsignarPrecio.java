@@ -53,8 +53,12 @@ public class PanelAsignarPrecio extends Panel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		tableDtaModel = Recursos.asignarRecursos( //
-				tableDtaModel, recursoPersonajeList);
+		try {
+			tableDtaModel = Recursos.asignarRecursos(app.getAtributos().getPersonaje(), //
+					tableDtaModel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		col.add(PanelConstructor.initTable( //
 				tableDtaModel, initTableColModel(), false, 8, 10));

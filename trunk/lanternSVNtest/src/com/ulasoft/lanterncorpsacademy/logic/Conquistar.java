@@ -30,6 +30,40 @@ public class Conquistar {
 		return planeta.isConquistado();
 	}
 
+	public static boolean isPlanetaCasa(IPersonajeDO personaje) throws Exception {
+
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+
+		IPlanetaDAO planetaDAO = (IPlanetaDAO) //
+				GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
+		IPlanetaDO planeta = (IPlanetaDO) //
+				planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
+
+		if (planeta.getPlanetaEsCasaRef().getRefIdent() == personaje.getId()) {
+			return true;
+		}
+
+		connectionBean.getConnection().close();
+		return false;
+	}
+
+	public static boolean isPlanetaBase(IPersonajeDO personaje) throws Exception {
+
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+
+		IPlanetaDAO planetaDAO = (IPlanetaDAO) //
+				GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
+		IPlanetaDO planeta = (IPlanetaDO) //
+				planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
+
+		if (planeta.getId() < 8) {
+			return true;
+		}
+
+		connectionBean.getConnection().close();
+		return false;
+	}
+
 	public static List<INpcDO> obtenerNPCGuardianes(IPersonajeDO person) //
 	throws Exception {
 
@@ -46,13 +80,13 @@ public class Conquistar {
 		personajes = personaje.listNpc( //
 				person.getClaseLinternaRef().getRefIdent());
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 4; i++) {
 			npcGuardianes.add(personajes.get(random.nextInt(personajes.size())));
 		}
 
 		connectionBean.getConnection().close();
 
-		return personajes;
+		return npcGuardianes;
 
 	}
 
@@ -65,8 +99,15 @@ public class Conquistar {
 		return tableDtaModel;
 	}
 
-	public static int atacarNPCGuardianes(TestTableModel tableDtaModel, //
-			List<INpcDO> personajes) {
+	public static int atacarNPCGuardianes(IPersonajeDO personaje, TestTableModel tableDtaModel, //
+			List<INpcDO> personajes) throws Exception {
+
+		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
+
+		IPlanetaDAO planetaDAO = (IPlanetaDAO) //
+				GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
+		IPlanetaDO planeta = (IPlanetaDO) //
+				planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
 
 		int result = 0;
 
@@ -77,6 +118,13 @@ public class Conquistar {
 				e.printStackTrace();
 			}
 		}
+
+		if (result == 1) {
+			planeta.setConquistado(true);
+//			planeta.set
+		}
+
+		connectionBean.getConnection().close();
 		return result;
 
 	}

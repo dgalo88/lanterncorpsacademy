@@ -6,6 +6,8 @@ import lcaInterfaceDAO.IPersonajeDAO;
 import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDAO;
 import lcaInterfaceDAO.IPlanetaDO;
+import lcaInterfaceDAO.IRecursoDAO;
+import lcaInterfaceDAO.IRecursoDO;
 import lcaInterfaceDAO.IUsuarioDAO;
 import lcaInterfaceDAO.IUsuarioDO;
 
@@ -130,33 +132,63 @@ public class Atributos {
 
 		IPlanetaDAO planetaDAO = (IPlanetaDAO) //
 				GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
-		IPlanetaDO planeta = (IPlanetaDO) //
-				planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
 		IClaseLinternaDAO claseLinternaDAO = (IClaseLinternaDAO) //
 				GlobalDAOFactory.getDAO(IClaseLinternaDAO.class, connectionBean);
+		IRecursoDAO recursoDAO = (IRecursoDAO) //
+				GlobalDAOFactory.getDAO(IRecursoDAO.class, connectionBean);
+		IPersonajeDAO personajeDAO = (IPersonajeDAO) //
+				GlobalDAOFactory.getDAO(IPersonajeDAO.class, connectionBean);
+
+		IPlanetaDO planetaActual = (IPlanetaDO) //
+				planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
+//		IPlanetaDO planetaCasa = (IPlanetaDO) //
+//				planetaDAO.loadById(personaje.getEstableceCasa().getRefIdent());
 		IClaseLinternaDO claseLinterna = (IClaseLinternaDO) //
 				claseLinternaDAO.loadById(personaje.getClaseLinternaRef().getRefIdent());
-
-		// TODO: Arreglar Referencia
-		IPlanetaDO planetaCasa = (IPlanetaDO) //
-				planetaDAO.loadById(personaje.getClaseLinternaRef().getRefIdent());
-
-		ConnectionFactory.closeConnection(connectionBean.getConnection());
-		System.err.println("PLANETA ID en atts main: " + planeta.getId());
 
 		misDatos.getLblNombre().setText("Nombre: " + usuario.getNombre());
 		misDatos.getLblCorreo().setText("Correo: " + usuario.getCorreo());
 		misDatos.getLblAlias().setText("Alias: " + personaje.getAlias());
-//		misDatos.getLblPlanetaValue().setText("Planeta Casa: " //
-//				+ Data.getPlanetaBase(personaje.getClaseLinternaRef().getRefIdent()));
-		misDatos.getLblPlanetaValue().setText("Planeta Casa: " + planetaCasa.getNombre());
+		misDatos.getLblPlanetaValue().setText("Planeta Casa: " + planetaActual.getNombre());
 		misDatos.getLblClase().setText("Clase: " + claseLinterna.getNombre_de_cuerpo_linterna());
-		misDatos.getLblNivel().setText("Nivel: " + //
-				personaje.getNivel());
+		misDatos.getLblNivel().setText("Nivel: " + personaje.getNivel());
 		misDatos.getLblPuntosEntrenamiento().setText("Puntos de Entrenamiento: " //
 				+ personaje.getPuntosDeEntrenamiento());
-		misDatos.getLblOfertas().setText("Ofertas: 00");
+//		misDatos.getLblOfertas().setText("Ofertas: 00");
 
+		IRecursoDO[] recursoDO = new IRecursoDO[8];
+		for (int i = 0; i < recursoDO.length; i++) {
+			recursoDO[i] = (IRecursoDO) recursoDAO.loadById(i+1);
+		}
+
+		int cantRec[] = new int[8];
+		personajeDAO.loadRecursoPersonajeList(personaje);
+
+		for (int i = 0; i < 8; i++) {
+
+			if (personaje.getRecursoPersonajeList().size() == 0) {
+				cantRec[i] = 0;
+			} else {
+
+				if (i == recursoDO[i].getId()-1) {
+					cantRec[i] = personaje.getRecursoPersonajeList().get(i).getCantidad();
+				} else {
+					cantRec[i] = 0;
+				}
+			}
+		}
+
+		misDatos.getLblPlomo().setText("Plomo: " + cantRec[0]);
+		misDatos.getLblPlomo().setText("Hierro: " + cantRec[1]);
+		misDatos.getLblPlomo().setText("Acero: " + cantRec[2]);
+		misDatos.getLblPlomo().setText("Uranio: " + cantRec[3]);
+		misDatos.getLblPlomo().setText("Titanio: " + cantRec[4]);
+		misDatos.getLblPlomo().setText("Cristalo: " + cantRec[5]);
+		misDatos.getLblPlomo().setText("Adamantium: " + cantRec[6]);
+		misDatos.getLblPlomo().setText("Vibratium: " + cantRec[7]);
+
+		connectionBean.getConnection().close();
+		System.err.println("PLANETA ID en atts main: " + planetaActual.getId());
 	}
 
 	public void guardarAtts() throws Exception {
