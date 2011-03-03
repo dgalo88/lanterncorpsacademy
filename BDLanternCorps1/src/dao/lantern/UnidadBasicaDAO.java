@@ -85,7 +85,8 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		strbuf.append(" INT,   ");
 		strbuf.append(UnidadBasicaDO.TIPO);
 		strbuf.append(" INT,   ");
-
+		strbuf.append(UnidadBasicaDO.IMAGEN_UNIDAD_BASICA);
+		strbuf.append(" VARCHAR(400),   ");
 		strbuf.append(UnidadBasicaDO.TECNOLOGIA_ID);
 		strbuf.append(" INT REFERENCES   ");
 		strbuf.append(tecnologiaDAO.getTableName());
@@ -155,6 +156,8 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		strbuf.append(unidadBasicaDO.getAtaque());
 		strbuf.append(", ");
 		strbuf.append(unidadBasicaDO.getTipo());
+		strbuf.append(", ");
+		strbuf.append(unidadBasicaDO.getImagenUnidadBasica());
 		strbuf.append(", ");
 
 		Reference<ITecnologiaDO> ref = unidadBasicaDO.getTecnologiaRef();
@@ -335,6 +338,7 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		ret.setDefensa/* */(rs.getInt(UnidadBasicaDO.DEFENSA));
 		ret.setAtaque/*  */(rs.getInt(UnidadBasicaDO.ATAQUE));
 		ret.setTipo/*    */(rs.getInt(UnidadBasicaDO.TIPO));
+		ret.setImagenUnidadBasica/*    */(rs.getString(UnidadBasicaDO.IMAGEN_UNIDAD_BASICA));
 
 		Reference<ITecnologiaDO> refTec = new Reference<ITecnologiaDO>();
 
@@ -401,6 +405,11 @@ public class UnidadBasicaDAO extends BaseDAO implements IUnidadBasicaDAO {
 		strbuf.append(UnidadBasicaDO.TIPO);
 		strbuf.append(" = ");
 		strbuf.append(unidadBasicaDO.getTipo());
+		strbuf.append(", ");
+		
+		strbuf.append(UnidadBasicaDO.IMAGEN_UNIDAD_BASICA);
+		strbuf.append(" = ");
+		strbuf.append(unidadBasicaDO.getImagenUnidadBasica());
 		strbuf.append(", ");
 
 		strbuf.append(UnidadBasicaDO.TECNOLOGIA_ID);
