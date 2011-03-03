@@ -7,6 +7,7 @@ import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Color;
 import nextapp.echo.app.Component;
 import nextapp.echo.app.ContentPane;
+import nextapp.echo.app.Extent;
 import nextapp.echo.app.Insets;
 import nextapp.echo.app.Label;
 import nextapp.echo.app.Panel;
@@ -89,6 +90,13 @@ public class Desktop extends ContentPane {
 		login.setId("main");
 		login.setLayoutData(hld);
 		htmlLayout.add(login);
+
+		hld = new HtmlLayoutData("footer");
+		Component lblFooter = new Label(new ResourceImageReference( //
+				"/com/ulasoft/lanterncorpsacademy/imagenes/all_rings.jpg", //
+				new Extent(660), new Extent(262)));
+		lblFooter.setLayoutData(hld);
+		htmlLayout.add(lblFooter);
 
 		htmlLayout.setAlignment(Alignment.ALIGN_CENTER);
 
@@ -243,27 +251,7 @@ public class Desktop extends ContentPane {
 					windowsByType.remove(source.getClass());
 				}
 			});
-		} /*else {
-			raise(wp);
-		}*/
+		}
 	}
-
-//	private void raise(WindowPane window) {
-//
-//		int maxZindex = 0;
-//		List<WindowPane> listWindowPanes = new ArrayList<WindowPane>();
-//		listWindowPanes.addAll(windowsByType.values());
-//
-//		for (int i = 0; i < listWindowPanes.size(); i++) {
-//
-//			WindowPane windowPane = listWindowPanes.get(i);
-//
-//			if (windowPane.getZIndex() > window.getZIndex()) {
-//				maxZindex = windowPane.getZIndex();
-//			}
-//		}
-//
-//		window.setZIndex(maxZindex + 1);
-//	}
 
 }

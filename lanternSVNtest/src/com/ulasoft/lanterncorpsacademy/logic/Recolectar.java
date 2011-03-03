@@ -22,7 +22,7 @@ import factory.GlobalDOFactory;
 
 public class Recolectar {
 
-	public static List<IRecursoPlanetaDO> getRecursosPlaneta( //
+	public static List<IRecursoPlanetaDO> getRecursoPlanetaList( //
 			IPersonajeDO personaje) throws Exception {
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
@@ -64,8 +64,15 @@ public class Recolectar {
 
 	}
 
-	public static void recolectar(IPersonajeDO personaje, //
+	public static String recolectar(IPersonajeDO personaje, //
 			IRecursoPlanetaDO recursoPlanetaDO) throws Exception {
+
+		int cantidadRecurso = recursoPlanetaDO.getCantidad_maxima_recurso() / 24;
+		int energia = personaje.getEnergiaDelAnillo();
+
+		if (energia < cantidadRecurso) {
+			return "No tienes suficiente energía para recolectar";
+		}
 
 		ConnectionBean connectionBean = ConnectionFactory.getConnectionBean();
 
@@ -75,54 +82,91 @@ public class Recolectar {
 				GlobalDAOFactory.getDAO(IRecursoPersonajeDAO.class, connectionBean);
 		IRecursoPersonajeDO recursoPersonaje = (IRecursoPersonajeDO) //
 				GlobalDOFactory.getDO(IRecursoPersonajeDO.class);
+		IRecursoDAO recursoDAO = (IRecursoDAO) //
+				GlobalDAOFactory.getDAO(IRecursoDAO.class, connectionBean);
+		IRecursoDO recursoNuevo = (IRecursoDO) //
+				recursoDAO.loadById(recursoPlanetaDO.getRecursoRef().getRefIdent());
 
 		personajeDAO.loadRecursoPersonajeList(personaje);
-		List<IRecursoPersonajeDO> recursoPersonajeList = personaje.getRecursoPersonajeList();
+		List<IRecursoPersonajeDO> recursoPersonajeList = //
+			personaje.getRecursoPersonajeList();
 
-		int cantidadRecurso = recursoPlanetaDO.getCantidad_maxima_recurso() / 24;
+		Reference<IPersonajeDO> refPersonaje = new Reference<IPersonajeDO>();
+		refPersonaje.setRefValue(personaje);
+
+		Reference<IRecursoDO> refRecurso = new Reference<IRecursoDO>();
+		refRecurso.setRefValue(recursoNuevo);
 
 		for (int i = 0; i < recursoPersonajeList.size(); i++) {
 
-			if(recursoPlanetaDO.getRecursoRef().getRefIdent() == //
+			if (recursoPlanetaDO.getRecursoRef().getRefIdent() == //
 				recursoPersonajeList.get(i).getRecursoRef().getRefIdent()) {
 
-				recursoPersonaje = recursoPersonajeList.get(i);
-				cantidadRecurso += recursoPersonajeList.get(i).getCantidad();
+				recursoPersonajeList.get(i).setCantidad(cantidadRecurso + //
+						recursoPersonajeList.get(i).getCantidad());
+				recursoPersonajeDAO.update(recursoPersonajeList.get(i));
+
+				energia -= cantidadRecurso;
+				break;
+
+			} else {
+
+				if (i == recursoPersonajeList.size() - 1) {
+
+					recursoPersonaje.setPersonajeRef(refPersonaje);
+					recursoPersonaje.setRecursoRef(refRecurso);
+					recursoPersonaje.setCantidad(cantidadRecurso);
+
+					recursoPersonajeList.add(recursoPersonaje);
+					recursoPersonajeDAO.insert(recursoPersonaje);
+
+					energia -= cantidadRecurso;
+					break;
+				}
+
 			}
+
 		}
 
-		Reference<IPersonajeDO> refPersonaje = new Reference<IPersonajeDO>();
-		refPersonaje.setRefIdent(personaje.getId());
-		recursoPersonaje.setPersonajeRef(refPersonaje);
+		if (recursoPersonajeList.size() == 0) {
 
-		Reference<IRecursoDO> refRecurso = new Reference<IRecursoDO>();
-		refRecurso.setRefIdent(recursoPlanetaDO.getRecursoRef().getRefIdent());
-		recursoPersonaje.setRecursoRef(refRecurso);
+			recursoPersonaje.setPersonajeRef(refPersonaje);
+			recursoPersonaje.setRecursoRef(refRecurso);
+			recursoPersonaje.setCantidad(cantidadRecurso);
 
-		recursoPersonaje.setCantidad(cantidadRecurso);
-
-		if (recursoPersonajeDAO.loadById(recursoPersonaje.getId()) != null) {
-			recursoPersonajeDAO.update(recursoPersonaje);
-		} else {
+			recursoPersonajeList.add(recursoPersonaje);
 			recursoPersonajeDAO.insert(recursoPersonaje);
+
+			energia -= cantidadRecurso;
 		}
 
-		recursoPersonajeList.add(recursoPersonaje);
+		personaje.setEnergiaDelAnillo(energia);
 		personaje.setRecursoPersonajeList(recursoPersonajeList);
-
 		personajeDAO.update(personaje);
 
+		System.err.println("\nPERSONAJE ID en recolectar: " + personaje.getId());
 		connectionBean.getConnection().close();
+
+		return "Has recolectado " + cantidadRecurso + //
+				" unidades de " + recursoNuevo.getNombre();
 
 	}
 
-	public static void recolectarRecursoList(IPersonajeDO personaje, //
+	public static String recolectarRecursoList(IPersonajeDO personaje, //
 			List<IRecursoPlanetaDO> recursoPlanetaList) throws Exception {
 
+		String result[] = new String[2];
 		for (int i = 0; i < recursoPlanetaList.size(); i++) {
-			recolectar(personaje, recursoPlanetaList.get(i));
+
+			result[i] = recolectar(personaje, recursoPlanetaList.get(i));
+
+			if (result[i].equals("No tienes suficiente energía para recolectar")) {
+				return result[i];
+			}
+
 		}
 
+		return result[0] + " & " + result[1];
 	}
 
 }
