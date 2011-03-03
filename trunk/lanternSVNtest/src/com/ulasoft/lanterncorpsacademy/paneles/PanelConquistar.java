@@ -181,11 +181,27 @@ public class PanelConquistar extends Panel {
 
 	private void btnConquistarClicked() throws Exception {
 
-//		Random i = new Random();
-		Panel pnlMain = new PanelAtacarEjercito();
-//		pnlMain = i.nextInt() % 2 == 0 ? new PanelAtacarEjercito() : new PanelAtacarNPC();
 		Desktop d = app.getDesktop();
-		d.setPanelCentral(pnlMain);
+
+		if (getPlaneta().getId() < 8) {
+			d.setWindowPaneEmergente( //
+					"No puedes conquistar porque te encuentras en el Planeta Base");
+			return;
+		}
+		if (getPlaneta().getPlanetaEsCasaRef().getRefIdent() == //
+			app.getAtributos().getPersonaje().getId()) {
+			d.setWindowPaneEmergente( //
+					"No puedes conquistar porque te encuentras en el Planeta Casa");
+			return;
+		}
+
+		if (!getPlaneta().isConquistado()) {
+			PanelAtacarNPCGuardianes pnlMain = new PanelAtacarNPCGuardianes();
+			d.setPanelCentral(pnlMain);
+		} else {
+			PanelAtacarDuenoPlaneta pnlMain = new PanelAtacarDuenoPlaneta();
+			d.setPanelCentral(pnlMain);
+		}
 
 	}
 

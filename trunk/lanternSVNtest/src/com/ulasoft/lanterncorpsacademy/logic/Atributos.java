@@ -106,16 +106,18 @@ public class Atributos {
 
 		IPlanetaDAO planetaDAO = (IPlanetaDAO) //
 				GlobalDAOFactory.getDAO(IPlanetaDAO.class, connectionBean);
-		IPlanetaDO planeta = (IPlanetaDO) //
-				planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
 		IClaseLinternaDAO claseLinternaDAO = (IClaseLinternaDAO) //
 				GlobalDAOFactory.getDAO(IClaseLinternaDAO.class, connectionBean);
+
+		IPlanetaDO planeta = (IPlanetaDO) //
+				planetaDAO.loadById(personaje.getPlanetaRef().getRefIdent());
 		IClaseLinternaDO claseLinterna = (IClaseLinternaDO) //
 				claseLinternaDAO.loadById(personaje.getClaseLinternaRef().getRefIdent());
 
 		ConnectionFactory.closeConnection(connectionBean.getConnection());
 		System.err.println("PLANETA ID en atts main: " + planeta.getId());
 
+		conquistar.setPlaneta(planeta);
 		conquistar.getLblAlias().setText(personaje.getAlias());
 		conquistar.getLblClase().setText(claseLinterna.getNombre_de_cuerpo_linterna());
 		conquistar.getLblNivel().setText(Integer.toString(personaje.getNivel()));

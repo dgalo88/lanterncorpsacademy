@@ -389,6 +389,18 @@ public class InicializarBD {
 			PlanetaDO[46].setCoordenadaEnY(448);
 			PlanetaDO[47].setCoordenadaEnY(380);
 
+			// CONQUISTADO
+			for (int i = 0; i < PlanetaDO.length; i++) {
+				PlanetaDO[i].setConquistado(false);
+			}
+			PlanetaDO[VERDE].setConquistado(true);
+			PlanetaDO[AMARILLO].setConquistado(true);
+			PlanetaDO[ROJO].setConquistado(true);
+			PlanetaDO[NEGRO].setConquistado(true);
+			PlanetaDO[AZUL].setConquistado(true);
+			PlanetaDO[INDIGO].setConquistado(true);
+			PlanetaDO[VIOLETA].setConquistado(true);
+
 			// INSERT PLANETA
 			for (int i = 0; i < PlanetaDO.length; i++) {
 				PlanetaDAO.insert(PlanetaDO[i]);

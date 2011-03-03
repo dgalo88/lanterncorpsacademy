@@ -17,6 +17,7 @@ public class PlanetaDO implements IPlanetaDO {
 	public static final String SECTOR = "sector";
 	public static final String COORDENADA_EN_X = "coordenada_en_x";
 	public static final String COORDENADA_EN_Y = "coordenada_en_y";
+	public static final String CONQUISTADO = "conquistado";
 
 	// --------------------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ public class PlanetaDO implements IPlanetaDO {
 	private String sector;
 	private float coordenada_en_x;
 	private float coordenada_en_y;
+	private boolean conquistado;
 
 	private Reference<IClaseLinternaDO> claseLinternaRef = new Reference<IClaseLinternaDO>();
 
@@ -166,6 +168,14 @@ public class PlanetaDO implements IPlanetaDO {
 	public void setUnidadEjercitoList(List<IUnidadEjercitoDO> unidadEjercitoList) {
 		this.unidadEjercitoList = unidadEjercitoList;
 		
+	}
+
+	public void setConquistado(boolean conquistado) {
+		this.conquistado = conquistado;
+	}
+
+	public boolean isConquistado() {
+		return conquistado;
 	}
 
 }
