@@ -39,6 +39,7 @@ public class PanelRecolectarConquistado extends Panel {
 	private TestTableModel tableDtaModel;
 	private List<IRecursoPlanetaDO> recursoPlanetaList;
 	private List<Integer> seleccion = new ArrayList<Integer>();
+	private IRecursoPlanetaDO recursoPlanetaDO;
 
 	public PanelRecolectarConquistado() {
 
@@ -55,7 +56,7 @@ public class PanelRecolectarConquistado extends Panel {
 		// ----------------------------------------
 		tableDtaModel = new TestTableModel();
 		try {
-			recursoPlanetaList = Recolectar.getRecursosPlaneta( //
+			recursoPlanetaList = Recolectar.getRecursoPlanetaList( //
 					app.getAtributos().getPersonaje());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,15 +123,15 @@ public class PanelRecolectarConquistado extends Panel {
 				return recursoPlanetaDO.getCantidad_maxima_recurso();
 			}
 		};
-		tableColumn.setWidth(new Extent(100));
+		tableColumn.setWidth(new Extent(70));
 		tableColumn.setHeadValue("Cantidad Máxima Disponible");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(new LabelCellRenderer());
 		tableColModel.getTableColumnList().add(tableColumn);
 
 		tableColumn = new TableColumn();
-		tableColumn.setWidth(new Extent(50));
-		tableColumn.setHeadValue("Unidades Recolectoras");
+		tableColumn.setWidth(new Extent(90));
+		tableColumn.setHeadValue("Asignar Unidades Recolectoras");
 		tableColumn.setHeadCellRenderer(new LabelCellRenderer());
 		tableColumn.setDataCellRenderer(initNestedCellRendererButton());
 		tableColModel.getTableColumnList().add(tableColumn);
@@ -223,9 +224,10 @@ public class PanelRecolectarConquistado extends Panel {
 
 	private void btnCheckClicked(int row) {
 
+		recursoPlanetaDO = recursoPlanetaList.get(row);
 		Integer e = new Integer(row);
 		for(int pos = 0; pos < seleccion.size(); pos++) {
-			if(seleccion.get(pos).equals(e)){
+			if(seleccion.get(pos).equals(e)) {
 				seleccion.remove(pos);
 				return;
 			}
@@ -236,29 +238,25 @@ public class PanelRecolectarConquistado extends Panel {
 	private void btnRecolectarClicked() {
 
 		if(seleccion.isEmpty()){
-			d.setWindowPaneEmergente( //
-					"No hay selección");
+			d.setWindowPaneEmergente("No hay selección");
 			return;
 		}
 
-		List<IRecursoPlanetaDO> recursosList = new ArrayList<IRecursoPlanetaDO>();
-		for (int i = 0; i < seleccion.size(); i++) {
-			recursosList.add(recursoPlanetaList.get(i));
-		}
+		String result = "";
 
 		try {
-			Recolectar.recolectarRecursoList( //
-					app.getAtributos().getPersonaje(), //
-					recursosList);
+			if (seleccion.size() == 1) {
+				result = Recolectar.recolectar(	//
+						app.getAtributos().getPersonaje(), recursoPlanetaDO);
+			} else {
+				result = Recolectar.recolectarRecursoList( //
+						app.getAtributos().getPersonaje(), recursoPlanetaList);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		if (seleccion.size() == 1) {
-			d.setWindowPaneEmergente("Ha recolectado el recurso con éxito");
-		} else {
-			d.setWindowPaneEmergente("Ha recolectado los recursos con éxito");
-		}
+		d.setWindowPaneEmergente(result);
 		return;
 
 	}

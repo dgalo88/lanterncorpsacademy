@@ -55,7 +55,7 @@ public class PanelRecolectarNeutro extends Panel {
 		// ----------------------------------------
 		tableDtaModel = new TestTableModel();
 		try {
-			recursoPlanetaList = Recolectar.getRecursosPlaneta( //
+			recursoPlanetaList = Recolectar.getRecursoPlanetaList( //
 					app.getAtributos().getPersonaje());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -183,15 +183,16 @@ public class PanelRecolectarNeutro extends Panel {
 			return;
 		}
 
+		String result = "";
 		try {
-			Recolectar.recolectar( //
+			result = Recolectar.recolectar( //
 					app.getAtributos().getPersonaje(), //
 					recursoPlanetaDO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		d.setWindowPaneEmergente("Ha recolectado el recurso con éxito");
+		d.setWindowPaneEmergente(result);
 		return;
 
 	}

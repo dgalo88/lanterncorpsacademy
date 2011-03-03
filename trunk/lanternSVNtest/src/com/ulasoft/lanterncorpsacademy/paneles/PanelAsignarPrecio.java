@@ -1,8 +1,9 @@
 package com.ulasoft.lanterncorpsacademy.paneles;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import lcaInterfaceDAO.IRecursoDO;
+import lcaInterfaceDAO.IRecursoPersonajeDO;
 import nextapp.echo.app.Alignment;
 import nextapp.echo.app.Button;
 import nextapp.echo.app.Color;
@@ -33,7 +34,8 @@ public class PanelAsignarPrecio extends Panel {
 			LanternCorpsAcademyApp.getActive();
 
 	private TestTableModel tableDtaModel;
-	private List<IRecursoDO> recursos;
+	private List<IRecursoPersonajeDO> recursoPersonajeList = //
+		new ArrayList<IRecursoPersonajeDO>();
 
 	public PanelAsignarPrecio() {
 
@@ -46,14 +48,16 @@ public class PanelAsignarPrecio extends Panel {
 
 		tableDtaModel = new TestTableModel();
 		try {
-			recursos = Recursos.getRecursos();
+			recursoPersonajeList = Recursos.getRecursos( //
+					app.getAtributos().getPersonaje());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		tableDtaModel = Recursos.asignarRecursos(tableDtaModel, recursos);
+		tableDtaModel = Recursos.asignarRecursos( //
+				tableDtaModel, recursoPersonajeList);
 
 		col.add(PanelConstructor.initTable( //
-				tableDtaModel, initTableColModel(), false));
+				tableDtaModel, initTableColModel(), false, 8, 10));
 
 		// ----------------------------------------
 		// Buttons
@@ -84,8 +88,14 @@ public class PanelAsignarPrecio extends Panel {
 		tableColumn = new TableColumn() {
 			@Override
 			public Object getValue(ETable table, Object element) {
-				IRecursoDO recurso = (IRecursoDO) element;
-				return recurso.getNombre();
+				IRecursoPersonajeDO recurso = //
+					(IRecursoPersonajeDO) element;
+				try {
+					return Recursos.getNombreRecurso(recurso);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return "";
 			}
 		};
 		tableColumn.setWidth(new Extent(100));

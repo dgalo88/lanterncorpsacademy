@@ -173,4 +173,57 @@ public class PanelConstructor {
 		return col;
 	}
 
+	// --------------------------------------------------------------------------------
+
+	public static Component initTable(TestTableModel tableDtaModel, //
+			TableColModel initTableColModel, boolean isPageable, //
+			int pageSize, int fontSize) {
+
+		Column col = new Column();
+		col.setInsets(new Insets(10, 10, 10, 10));
+		col.setCellSpacing(new Extent(10));
+		col.setBackground(Color.WHITE);
+
+		// ----------------------------------------
+		// The table models
+		// ----------------------------------------
+
+		TableColModel tableColModel = initTableColModel;
+		TableSelModel tableSelModel = new TableSelModel();
+		tableDtaModel.setEditable(true);
+		tableDtaModel.setPageSize(pageSize);
+
+		// ----------------------------------------
+		// The table
+		// ----------------------------------------
+
+		ETable table = new ETable();
+		table.setTableDtaModel(tableDtaModel);
+		table.setTableColModel(tableColModel);
+		table.setTableSelModel(tableSelModel);
+		table.setEasyview(true);
+		table.setBorder(new Border(1, Color.BLACK, Border.STYLE_NONE));
+		table.setInsets(new Insets(5, 2, 5, 2));
+		Estilo.setFont(table, GUIStyles.NORMAL, fontSize);
+		col.add(table);
+
+		// ----------------------------------------
+		// The navigation control
+		// ----------------------------------------
+
+		if (isPageable) {
+
+			Row row = new Row();
+			row.setAlignment(Alignment.ALIGN_CENTER);
+
+			ETableNavigation tableNavigation = new ETableNavigation(tableDtaModel);
+			row.add(tableNavigation);
+
+			col.add(row);
+
+		}
+
+		return col;
+	}
+
 }

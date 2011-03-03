@@ -147,22 +147,36 @@ public class Menu extends Panel {
 //		acc.add(lblMiniMapa);
 
 		// Ver Mapa
-		Button btnVerMapa = new Button("Ver mapa");
 
-		btnVerMapa.setTextAlignment(Alignment.ALIGN_CENTER);
-		btnVerMapa.setForeground(new Color (255, 255, 255));
-		btnVerMapa.setFont(new Font(Font.VERDANA, Font.BOLD, new Extent(14)));
-		btnVerMapa.setFocusedEnabled(true);
-		btnVerMapa.setFocusedForeground(Estilo.getColor(app.getAtributos()));
-
-		btnVerMapa.addActionListener(new ActionListener() {
+		// Acerca del Juego
+		Button btnViajar = new Button("Viajar");
+		btnViajar.setStyle(Estilo.getDefaultStyleColor(app.getAtributos()));
+		btnViajar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				btnViajarPlanetaClicked();
 			}
 		});
-		AccordionSection verMapa = new AccordionSection(btnVerMapa);
-		acc.addSection(verMapa);
+		AccordionSection viajar = new AccordionSection(btnViajar);
+		viajar.setStyleButton(Estilo.getDefaultStyleColor(app.getAtributos()));
+		acc.addSection(viajar);
+
+//		Button btnVerMapa = new Button("Ver mapa");
+//
+//		btnVerMapa.setTextAlignment(Alignment.ALIGN_CENTER);
+//		btnVerMapa.setForeground(new Color (255, 255, 255));
+//		btnVerMapa.setFont(new Font(Font.VERDANA, Font.BOLD, new Extent(14)));
+//		btnVerMapa.setFocusedEnabled(true);
+//		btnVerMapa.setFocusedForeground(Estilo.getColor(app.getAtributos()));
+//
+//		btnVerMapa.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent evt) {
+//				btnViajarPlanetaClicked();
+//			}
+//		});
+//		AccordionSection verMapa = new AccordionSection(btnVerMapa);
+//		acc.addSection(verMapa);
 
 		row.add(acc);
 		add(row);
