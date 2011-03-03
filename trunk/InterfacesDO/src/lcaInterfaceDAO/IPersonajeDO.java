@@ -129,5 +129,8 @@ public interface IPersonajeDO extends DataObject {
 
 	public void setCombatesPerdidos(int combatesPerdidos);
 	//----------------------------------------------------------------------------------------------------------------------------
+	public abstract List<IPlanetaDO> getConquistaPlanetaList();
 
+	public abstract void  setConquistaPlanetaList(List<IPlanetaDO> conquistaPlanetaList);
+	//-----------------------------------------------------------------------------------------------------------------------------
 }
