@@ -21,9 +21,9 @@ public interface ITecnologiaDO extends DataObject {
 	
 	//---------------------------------------------------------------------------------------------
 	
-	public abstract List<IAndroideDO> getAndroideList();
+	public abstract Reference<IAndroideDO> getAndroideRef();
 	
-	public abstract void setAndroideList(List<IAndroideDO> andoideList);
+	public abstract void setAndroideRef(Reference<IAndroideDO> andoideRef);
 	
 	//---------------------------------------------------------------------------------------------------
 	

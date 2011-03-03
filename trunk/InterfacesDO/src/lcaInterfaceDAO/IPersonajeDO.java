@@ -71,6 +71,16 @@ public interface IPersonajeDO extends DataObject {
 	public abstract void setTecnologiaPersonajeList(List<ITecnologiaPersonajeDO> tecnologiaPersonajeList);
 	//-----------------------------------------------------------------------------------------
 
+	public abstract List<IUnidadBasicaPersonajeDO> getUnidadBasicaPersonajeList();
+	
+	public abstract void setUnidadBasicaPersonajeList(List<IUnidadBasicaPersonajeDO> unidadBasicaPersonajeList);
+	//-----------------------------------------------------------------------------------------
+
+	public abstract List<IAndroidePersonajeDO> getAndroidePersonajeList();
+	
+	public abstract void setAndroidePersonajeList(List<IAndroidePersonajeDO> androidePersonajeList);
+	//-----------------------------------------------------------------------------------------
+
 	public List<IHabilidadActivaDO> getHabilidadActivaList();
 
 	public void setHabilidadActivaList(List<IHabilidadActivaDO> habilidadActivaList);
