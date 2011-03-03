@@ -48,6 +48,9 @@ public class PlanetaDO implements IPlanetaDO {
 	private Reference<IPersonajeDO>   planetaEsCasaRef = //
 		new Reference<IPersonajeDO>();
 	
+	private Reference<IPersonajeDO>   planetaEsConquistadoRef = //
+		new Reference<IPersonajeDO>();
+	
 	
 	
 	// --------------------------------------------------------------------------------
@@ -158,7 +161,18 @@ public class PlanetaDO implements IPlanetaDO {
 		
 		this.planetaEsCasaRef=planetaEsCasaRef;
 	}
-
+	//-------------------------------------------------------------------------------------------------------
+	public Reference<IPersonajeDO> getPlanetaEsConquistadoRef()
+	{
+		
+		return planetaEsConquistadoRef;
+	}
+	
+	public void setPlanetaEsConquistadoRef(Reference<IPersonajeDO> planetaEsConquistadoRef){
+		
+		this.planetaEsConquistadoRef=planetaEsConquistadoRef;
+	}
+	//----------------------------------------------------------------------------------------------------------
 	@Override
 	public List<IUnidadEjercitoDO> getUnidadEjercitoList() {
 		return unidadEjercitoList;
