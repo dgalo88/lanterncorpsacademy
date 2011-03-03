@@ -9,6 +9,7 @@ import dao.api.BaseDAO;
 import dao.api.DataObject;
 import dao.api.FactoryDAO;
 import dao.api.Reference;
+import lcaInterfaceDAO.IAndroideDO;
 import lcaInterfaceDAO.ITecnologiaDAO;
 import lcaInterfaceDAO.ITecnologiaDO;
 import lcaInterfaceDAO.IUnidadBasicaDO;
@@ -185,6 +186,27 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 
 	// --------------------------------------------------------------------------------------------------------------
 
+	public void loadAndroideRef(ITecnologiaDO tecnologiaDO)
+			throws SQLException {
+
+		checkClass(tecnologiaDO, TecnologiaDO.class, CHECK_UPDATE);
+
+		AndroideDAO androideDAO = new AndroideDAO();
+		androideDAO.init(connectionBean);
+
+		Reference<IAndroideDO> ref = tecnologiaDO.getAndroideRef();
+
+		if (ref.getRefIdent() == 0) {
+			return;
+		}
+
+		AndroideDO androideDO = (AndroideDO) //
+				androideDAO.loadById(ref.getRefIdent());
+		ref.setRefValue(androideDO);
+	}
+
+	// --------------------------------------------------------------------------------------------------------------
+
 	@Override
 	public List<DataObject> listAll(int lim, int off) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
@@ -308,10 +330,6 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		strbuf.append(TecnologiaPersonajeDO.PERSONAJE_ID);
 		strbuf.append(" = ");
 		strbuf.append(claseid);
-		// strbuf.append(" AND ");
-		// strbuf.append(getTableName());
-		// strbuf.append("." + HabilidadDO.ID);
-		// strbuf.append(">25 ");
 
 		ResultSet rs = //
 		connection.createStatement().executeQuery(strbuf.toString());
@@ -324,12 +342,9 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		}
 
 		return ret;
-		// return null;
+
 	}
 
-	// SELECT habilidad.* FROM habilidad RIGHT JOIN habilidadclaselinterna ON
-	// habilidad.id=habilidadclaselinterna.habilidadid
-	// WHERE habilidadclaselinterna.claselinternaid= dado AND habilidad.id>25;
 	@Override
 	public DataObject loadById(int id) throws SQLException {
 		StringBuffer strbuf = new StringBuffer();
@@ -388,9 +403,9 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 	@Override
 	public void update(DataObject dataObject) throws SQLException {
 		checkCache(dataObject, CHECK_UPDATE);
-		checkClass(dataObject, HabilidadDO.class, CHECK_UPDATE);
+		checkClass(dataObject, TecnologiaDO.class, CHECK_UPDATE);
 
-		HabilidadDO habilidadDO = (HabilidadDO) dataObject;
+		TecnologiaDO tecnologiaDO = (TecnologiaDO) dataObject;
 
 		StringBuffer strbuf = new StringBuffer();
 
@@ -398,26 +413,14 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 		strbuf.append(getTableName());
 		strbuf.append(" SET ");
 
-		strbuf.append(HabilidadDO.NOMBRE);
+		strbuf.append(TecnologiaDO.NOMBRE);
 		strbuf.append(" = ");
-		strbuf.append(singleQuotes(habilidadDO.getNombre()));
-
-		strbuf.append(", ");
-
-		strbuf.append(HabilidadDO.COSTO_DE_APRENDIZAJE);
-		strbuf.append(" = ");
-		strbuf.append(habilidadDO.getCosto_de_aprendizaje());
-
-		strbuf.append(", ");
-
-		strbuf.append(HabilidadDO.TIPO);
-		strbuf.append(" = ");
-		strbuf.append(habilidadDO.getTipo());
+		strbuf.append(singleQuotes(tecnologiaDO.getNombre()));
 
 		strbuf.append(" WHERE ");
-		strbuf.append(HabilidadDO.ID);
+		strbuf.append(TecnologiaDO.ID);
 		strbuf.append(" = ");
-		strbuf.append(habilidadDO.getId());
+		strbuf.append(tecnologiaDO.getId());
 
 		System.err.println(strbuf.toString());
 
@@ -447,7 +450,7 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 	private TecnologiaDO resultSetToDO(ResultSet rs) throws SQLException {
 		TecnologiaDO ret = //
 		(TecnologiaDO) dtaSession.getDtaByKey( //
-				TecnologiaDO.class, rs.getInt(HabilidadDO.ID));
+				TecnologiaDO.class, rs.getInt(TecnologiaDO.ID));
 
 		if (ret != null) {
 			return ret;
@@ -455,8 +458,8 @@ public class TecnologiaDAO extends BaseDAO implements ITecnologiaDAO {
 
 		ret = new TecnologiaDO();
 
-		ret.setId/*     */(rs.getInt(TecnologiaDO.ID));
-		ret.setNombre/*   */(rs.getString(TecnologiaDO.NOMBRE));
+		ret.setId/*			*/(rs.getInt(TecnologiaDO.ID));
+		ret.setNombre/*		*/(rs.getString(TecnologiaDO.NOMBRE));
 
 		return (TecnologiaDO) dtaSession.add(ret);
 	}

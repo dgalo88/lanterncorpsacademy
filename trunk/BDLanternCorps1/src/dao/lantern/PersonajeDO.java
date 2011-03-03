@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import lcaInterfaceDAO.IAndroidePersonajeDO;
 import lcaInterfaceDAO.IClaseLinternaDO;
 import lcaInterfaceDAO.IGrupoDO;
 import lcaInterfaceDAO.IHabilidadActivaDO;
@@ -12,6 +13,7 @@ import lcaInterfaceDAO.IPersonajeDO;
 import lcaInterfaceDAO.IPlanetaDO;
 import lcaInterfaceDAO.IRecursoPersonajeDO;
 import lcaInterfaceDAO.ITecnologiaPersonajeDO;
+import lcaInterfaceDAO.IUnidadBasicaPersonajeDO;
 import lcaInterfaceDAO.IUnidadEjercitoPersonajeDO;
 import lcaInterfaceDAO.IUsuarioDO;
 import dao.api.Reference;
@@ -76,6 +78,12 @@ public class PersonajeDO implements IPersonajeDO {
 	
 	private List<ITecnologiaPersonajeDO> tecnologiaPersonajeList = //
 		new ArrayList<ITecnologiaPersonajeDO>();
+
+	private List<IUnidadBasicaPersonajeDO> unidadBasicaPersonajeList = //
+		new ArrayList<IUnidadBasicaPersonajeDO>();
+
+	private List<IAndroidePersonajeDO> androidePersonajeList = //
+		new ArrayList<IAndroidePersonajeDO>();
 	
 	private Reference<IPlanetaDO> planetaCasaRef= //
 		new Reference<IPlanetaDO>();
@@ -223,7 +231,29 @@ public class PersonajeDO implements IPersonajeDO {
 		this. tecnologiaPersonajeList=tecnologiaPersonajeList;
 		
 	}
-	
+
+	//----------------------------------------------------------------------------------------
+
+	public List<IUnidadBasicaPersonajeDO> getUnidadBasicaPersonajeList() {
+		return unidadBasicaPersonajeList;
+	}
+
+	public void setUnidadBasicaPersonajeList( //
+			List<IUnidadBasicaPersonajeDO> unidadBasicaPersonajeList) {
+		this.unidadBasicaPersonajeList = unidadBasicaPersonajeList;
+	}
+
+	//----------------------------------------------------------------------------------------
+
+	public List<IAndroidePersonajeDO> getAndroidePersonajeList() {
+		return androidePersonajeList;
+	}
+
+	public void setAndroidePersonajeList(
+			List<IAndroidePersonajeDO> androidePersonajeList) {
+		this.androidePersonajeList = androidePersonajeList;
+	}
+
 	//----------------------------------------------------------------------------------------
 
 	public Reference<IPlanetaDO> getPlanetaRef() {
@@ -303,5 +333,5 @@ public class PersonajeDO implements IPersonajeDO {
 	{
 		this.planetaCasaRef=planetaCasaRef;
 	}
-	
+
 }

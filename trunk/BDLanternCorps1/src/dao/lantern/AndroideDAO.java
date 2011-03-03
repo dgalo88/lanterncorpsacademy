@@ -367,7 +367,7 @@ public class AndroideDAO extends BaseDAO implements IAndroideDAO {
 		ret = new AndroideDO();
 
 		ret.setId/*     			*/(rs.getInt(AndroideDO.ID));
-		ret.setTipo/*				*/(rs.getInt(AndroideDO.NOMBRE));
+		ret.setNombre/*				*/(rs.getString(AndroideDO.NOMBRE));
 		ret.setTipo/*				*/(rs.getInt(AndroideDO.TIPO));
 		ret.setCantidad/*			*/(rs.getInt(AndroideDO.CANTIDAD));
 
