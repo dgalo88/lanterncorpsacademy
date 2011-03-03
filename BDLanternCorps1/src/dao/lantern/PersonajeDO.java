@@ -88,6 +88,9 @@ public class PersonajeDO implements IPersonajeDO {
 	private Reference<IPlanetaDO> planetaCasaRef= //
 		new Reference<IPlanetaDO>();
 	
+	private List<IPlanetaDO> conquistaPlanetaList = //
+		new ArrayList<IPlanetaDO>();
+	
 		// --------------------------------------------------------------------------------
 
 	public PersonajeDO() {
@@ -219,6 +222,18 @@ public class PersonajeDO implements IPersonajeDO {
 		
 		this.recursoPersonajeList=recursoPersonajeList;
 	}
+	
+	//-----------------------------------------------------------------------------------------
+	public List<IPlanetaDO> getConquistaPlanetaList(){
+		
+		return conquistaPlanetaList;
+	}
+
+	public void setConquistaPlanetaList(List<IPlanetaDO> conquistaPlanetaList){
+		
+		this.conquistaPlanetaList=conquistaPlanetaList;
+	}
+
 
 	//-----------------------------------------------------------------------------------
 	public  List<ITecnologiaPersonajeDO> getTecnologiaPersonajeList()
