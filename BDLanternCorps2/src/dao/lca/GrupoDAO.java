@@ -323,8 +323,8 @@ public class GrupoDAO extends BaseDAO implements IGrupoDAO{
 	}
 
 	public void loadPersonajeList(IGrupoDO grupoDO) throws Exception {
-		checkCache(grupoDO, CHECK_UPDATE);
-		checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
+//		checkCache(grupoDO, CHECK_UPDATE);
+//		checkClass(grupoDO, GrupoDO.class, CHECK_UPDATE);
 
 		PersonajeDAO personajeDAO = (PersonajeDAO) FactoryDAO.getDAO( //
 				PersonajeDAO.class, connectionBean);
