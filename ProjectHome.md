@@ -1,0 +1,1 @@
+Aqui se realizara de desarrollo del juego de Lantern Corps Academy
